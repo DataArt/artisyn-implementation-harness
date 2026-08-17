@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 310">
+  <!-- Background -->
+  <rect width="800" height="310" fill="white"/>
+
+  <!-- ── BARS ── -->
+
+  <!-- Methodology AI (top) -->
+  <rect x="70" y="30" width="530" height="78" fill="#27AE60" rx="4"/>
+  <line x1="420" y1="36" x2="420" y2="102" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+
+  <!-- Workflow AI (middle) -->
+  <rect x="70" y="116" width="530" height="78" fill="#4A90E2" rx="4"/>
+  <line x1="420" y1="122" x2="420" y2="188" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+
+  <!-- Code AI (bottom) -->
+  <rect x="70" y="202" width="530" height="78" fill="#2C3E50" rx="4"/>
+  <line x1="420" y1="208" x2="420" y2="274" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+
+  <!-- ── STAIRCASE BLOCKS ── -->
+
+  <!-- Block 1: Code AI height only -->
+  <rect x="612" y="202" width="44" height="78" fill="#1A252F" rx="2"/>
+  <rect x="612" y="196" width="44" height="8" fill="#3D566E" rx="1"/>
+
+  <!-- Block 2: Workflow AI + Code AI -->
+  <rect x="659" y="116" width="44" height="164" fill="#2860A0" rx="2"/>
+  <rect x="659" y="110" width="44" height="8" fill="#5A9ADA" rx="1"/>
+
+  <!-- Block 3: full height -->
+  <rect x="706" y="30" width="44" height="250" fill="#1E8449" rx="2"/>
+  <rect x="706" y="24" width="44" height="8" fill="#40D47A" rx="1"/>
+
+  <!-- Upward arrow -->
+  <line x1="728" y1="20" x2="728" y2="7" stroke="#27AE60" stroke-width="3" stroke-linecap="round"/>
+  <polygon points="720,20 728,4 736,20" fill="#27AE60"/>
+
+  <!-- ── CIRCLES ── -->
+
+  <!-- Tier 03 -->
+  <circle cx="36" cy="69" r="26" fill="#1E8449"/>
+  <text x="36" y="64" text-anchor="middle" fill="white" font-size="8" font-family="system-ui,sans-serif" font-weight="600">TIER</text>
+  <text x="36" y="79" text-anchor="middle" fill="white" font-size="16" font-family="system-ui,sans-serif" font-weight="700">03</text>
+
+  <!-- Tier 02 -->
+  <circle cx="36" cy="155" r="26" fill="#2E6DB4"/>
+  <text x="36" y="150" text-anchor="middle" fill="white" font-size="8" font-family="system-ui,sans-serif" font-weight="600">TIER</text>
+  <text x="36" y="165" text-anchor="middle" fill="white" font-size="16" font-family="system-ui,sans-serif" font-weight="700">02</text>
+
+  <!-- Tier 01 -->
+  <circle cx="36" cy="241" r="26" fill="#1A252F"/>
+  <text x="36" y="236" text-anchor="middle" fill="white" font-size="8" font-family="system-ui,sans-serif" font-weight="600">TIER</text>
+  <text x="36" y="251" text-anchor="middle" fill="white" font-size="16" font-family="system-ui,sans-serif" font-weight="700">01</text>
+
+  <!-- ── BAR TEXT ── -->
+
+  <!-- Methodology AI (center y=69) -->
+  <text x="88" y="54" fill="white" font-size="14" font-family="system-ui,sans-serif" font-weight="700">AI Assisted ★</text>
+  <text x="88" y="71" fill="#A9DFBF" font-size="11" font-family="system-ui,sans-serif" font-style="italic">"Encode how this team thinks. Improve over time. Survive turnover."</text>
+  <text x="88" y="87" fill="#7DCEA0" font-size="10" font-family="system-ui,sans-serif">★ what the harness provides</text>
+  <text x="590" y="62" fill="white" font-size="20" font-family="system-ui,sans-serif" font-weight="700" text-anchor="end">~5%</text>
+  <text x="590" y="80" fill="#A9DFBF" font-size="10" font-family="system-ui,sans-serif" text-anchor="end">of teams</text>
+
+  <!-- Workflow AI (center y=155) -->
+  <text x="88" y="140" fill="white" font-size="14" font-family="system-ui,sans-serif" font-weight="700">Workflow AI</text>
+  <text x="88" y="157" fill="#D6EAF8" font-size="11" font-family="system-ui,sans-serif" font-style="italic">"Run this workflow end to end."</text>
+  <text x="88" y="173" fill="#AED6F1" font-size="10" font-family="system-ui,sans-serif">Devin · Glean · BMAD · SpecKit · Superpowers</text>
+  <text x="590" y="148" fill="white" font-size="20" font-family="system-ui,sans-serif" font-weight="700" text-anchor="end">~30%</text>
+  <text x="590" y="166" fill="#D6EAF8" font-size="10" font-family="system-ui,sans-serif" text-anchor="end">of teams</text>
+
+  <!-- Code AI (center y=241) -->
+  <text x="88" y="226" fill="white" font-size="14" font-family="system-ui,sans-serif" font-weight="700">Code AI</text>
+  <text x="88" y="243" fill="#BDC3C7" font-size="11" font-family="system-ui,sans-serif" font-style="italic">"Write me a function."</text>
+  <text x="88" y="259" fill="#95A5A6" font-size="10" font-family="system-ui,sans-serif">Cursor · Copilot · generic Claude</text>
+  <text x="590" y="234" fill="white" font-size="20" font-family="system-ui,sans-serif" font-weight="700" text-anchor="end">~65%</text>
+  <text x="590" y="252" fill="#BDC3C7" font-size="10" font-family="system-ui,sans-serif" text-anchor="end">of teams</text>
+</svg>

@@ -1,0 +1,143 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "site",
+  "projectType": "application",
+  "root": "apps/docs-web",
+  "sourceRoot": "apps/docs-web",
+  "implicitDependencies": ["docs"],
+  "namedInputs": {
+    "default": ["{projectRoot}/**", "sharedGlobals"]
+  },
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p tsconfig.json",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint .vitepress",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "dev",
+      "options": {
+        "command": "vitepress dev",
+        "cwd": "{projectRoot}"
+      },
+      "configurations": {
+        "dev": { "envFile": "apps/docs-web/.env.dev" },
+        "ci": {},
+        "prod": { "envFile": "apps/docs-web/.env.prod" }
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "dev",
+      "inputs": ["default", "^default"],
+      "outputs": ["{projectRoot}/.vitepress/dist"],
+      "options": {
+        "command": "bash scripts/ci/site-build.sh"
+      },
+      "configurations": {
+        "dev": { "envFile": "apps/docs-web/.env.dev" },
+        "ci": {},
+        "prod": { "envFile": "apps/docs-web/.env.prod" }
+      }
+    },
+    "preview": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "vitepress preview",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "dependsOn": ["build"],
+      "options": {
+        "command": "bash scripts/ci/site-deploy.sh"
+      },
+      "configurations": {
+        "dev": { "envFile": "apps/docs-web/.env.dev" },
+        "ci": {},
+        "prod": { "envFile": "apps/docs-web/.env.prod" }
+      }
+    },
+    "env-push": {
+      "configurations": {
+        "dev": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/dev/docs/site/env",
+
+            "ENV_SOURCE_FILE": "apps/docs-web/.env.dev"
+          }
+        },
+        "prod": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/prod/docs/site/env",
+
+            "ENV_SOURCE_FILE": "apps/docs-web/.env.prod"
+          }
+        }
+      }
+    },
+    "env-pull": {
+      "configurations": {
+        "dev": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/dev/docs/site/env",
+
+            "ENV_TARGET_FILE": "apps/docs-web/.env.dev",
+            "ENV_BASE_ENV": "apps/docs-web/.env.example"
+          }
+        },
+        "prod": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/prod/docs/site/env",
+
+            "ENV_TARGET_FILE": "apps/docs-web/.env.prod",
+            "ENV_BASE_ENV": "apps/docs-web/.env.example"
+          }
+        }
+      }
+    },
+    "sm-push": {
+      "configurations": {
+        "dev": {
+          "envFile": "apps/docs-web/.env.dev",
+          "env": { "SM_SOURCE_FILE": "apps/docs-web/.secrets.dev" }
+        },
+        "prod": {
+          "envFile": "apps/docs-web/.env.prod",
+          "env": { "SM_SOURCE_FILE": "apps/docs-web/.secrets.prod" }
+        }
+      }
+    },
+    "sm-pull": {
+      "configurations": {
+        "dev": {
+          "envFile": "apps/docs-web/.env.dev",
+          "env": {
+            "SM_TARGET_FILE": "apps/docs-web/.secrets.dev",
+            "SM_BASE_ENV": "apps/docs-web/.secrets.example"
+          }
+        },
+        "prod": {
+          "envFile": "apps/docs-web/.env.prod",
+          "env": {
+            "SM_TARGET_FILE": "apps/docs-web/.secrets.prod",
+            "SM_BASE_ENV": "apps/docs-web/.secrets.example"
+          }
+        }
+      }
+    }
+  }
+}

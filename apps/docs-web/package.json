@@ -1,0 +1,12 @@
+{
+  "name": "@artisyn-harness/docs-web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "mermaid": "^11.0.0",
+    "vitepress": "^1.6.0",
+    "vitepress-plugin-mermaid": "^2.0.17"
+  }
+}
