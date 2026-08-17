@@ -1,0 +1,131 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "lambda-auth",
+  "projectType": "application",
+  "root": "apps/lambda-auth",
+  "sourceRoot": "apps/lambda-auth/src",
+  "namedInputs": {
+    "default": ["{projectRoot}/**", "sharedGlobals"]
+  },
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p tsconfig.json",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint src",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "dev",
+      "inputs": ["default"],
+      "outputs": ["{projectRoot}/dist"],
+      "options": {
+        "command": "bash scripts/ci/lambda-auth-build.sh"
+      },
+      "configurations": {
+        "dev": { "envFile": "apps/lambda-auth/.env.dev" },
+        "ci": {},
+        "prod": { "envFile": "apps/lambda-auth/.env.prod" }
+      }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "dependsOn": ["build"],
+      "options": {
+        "command": "bash scripts/ci/lambda-edge-deploy.sh"
+      },
+      "configurations": {
+        "dev": { "envFile": "apps/lambda-auth/.env.dev" },
+        "ci": {},
+        "prod": { "envFile": "apps/lambda-auth/.env.prod" }
+      }
+    },
+    "logs": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "aws logs tail $CW_LOG_GROUP --follow --format short"
+      },
+      "configurations": {
+        "dev": { "envFile": "apps/lambda-auth/.env.dev" },
+        "prod": { "envFile": "apps/lambda-auth/.env.prod" }
+      }
+    },
+    "env-push": {
+      "configurations": {
+        "dev": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/dev/docs/lambda-auth/env",
+
+            "ENV_SOURCE_FILE": "apps/lambda-auth/.env.dev"
+          }
+        },
+        "prod": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/prod/docs/lambda-auth/env",
+
+            "ENV_SOURCE_FILE": "apps/lambda-auth/.env.prod"
+          }
+        }
+      }
+    },
+    "env-pull": {
+      "configurations": {
+        "dev": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/dev/docs/lambda-auth/env",
+
+            "ENV_TARGET_FILE": "apps/lambda-auth/.env.dev",
+            "ENV_BASE_ENV": "apps/lambda-auth/.env.example"
+          }
+        },
+        "prod": {
+          "env": {
+            "ENV_PARAM_NAME": "/artisyn-harness/prod/docs/lambda-auth/env",
+
+            "ENV_TARGET_FILE": "apps/lambda-auth/.env.prod",
+            "ENV_BASE_ENV": "apps/lambda-auth/.env.example"
+          }
+        }
+      }
+    },
+    "sm-push": {
+      "configurations": {
+        "dev": {
+          "envFile": "apps/lambda-auth/.env.dev",
+          "env": { "SM_SOURCE_FILE": "apps/lambda-auth/.secrets.dev" }
+        },
+        "prod": {
+          "envFile": "apps/lambda-auth/.env.prod",
+          "env": { "SM_SOURCE_FILE": "apps/lambda-auth/.secrets.prod" }
+        }
+      }
+    },
+    "sm-pull": {
+      "configurations": {
+        "dev": {
+          "envFile": "apps/lambda-auth/.env.dev",
+          "env": {
+            "SM_TARGET_FILE": "apps/lambda-auth/.secrets.dev",
+            "SM_BASE_ENV": "apps/lambda-auth/.secrets.example"
+          }
+        },
+        "prod": {
+          "envFile": "apps/lambda-auth/.env.prod",
+          "env": {
+            "SM_TARGET_FILE": "apps/lambda-auth/.secrets.prod",
+            "SM_BASE_ENV": "apps/lambda-auth/.secrets.example"
+          }
+        }
+      }
+    }
+  }
+}
