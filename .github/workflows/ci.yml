@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      SITE_SSM_ENV_PARAM: ${{ vars.SITE_SSM_ENV_PARAM }}
+      LAMBDA_AUTH_SSM_ENV_PARAM: ${{ vars.LAMBDA_AUTH_SSM_ENV_PARAM }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - uses: ./.github/actions/aws-auth
+        with:
+          role-arn: ${{ vars.IAM_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Audit
+        run: yarn npm audit --all --severity moderate
+
+      - name: Lint (affected)
+        run: yarn nx affected --target=lint --base=origin/${{ github.base_ref }} --head=HEAD
+
+      - name: Typecheck (affected)
+        run: yarn nx affected --target=typecheck --base=origin/${{ github.base_ref }} --head=HEAD
+
+      - name: Build (affected)
+        run: yarn nx affected --target=build --configuration=ci --base=origin/${{ github.base_ref }} --head=HEAD

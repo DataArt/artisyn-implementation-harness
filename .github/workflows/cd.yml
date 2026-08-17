@@ -1,0 +1,32 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      SITE_SSM_ENV_PARAM: ${{ vars.SITE_SSM_ENV_PARAM }}
+      LAMBDA_AUTH_SSM_ENV_PARAM: ${{ vars.LAMBDA_AUTH_SSM_ENV_PARAM }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - uses: ./.github/actions/aws-auth
+        with:
+          role-arn: ${{ vars.IAM_ROLE_ARN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Deploy affected
+        run: yarn nx affected --target=deploy --configuration=ci --base=HEAD~1 --head=HEAD
