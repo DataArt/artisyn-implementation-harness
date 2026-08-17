@@ -1,0 +1,11 @@
+node_modules
+dist
+**/.vitepress/dist
+**/.vitepress/cache
+.nx
+*.tf
+*.tfvars
+*.tfstate
+.secrets.*
+.yarn
+CLAUDE.md

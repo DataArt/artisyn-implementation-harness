@@ -1,0 +1,40 @@
+{
+  "name": "@artisyn-harness/root",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "type": "module",
+  "packageManager": "yarn@4.9.2",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "postinstall": "husky",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "bootstrap:client": "tsx scripts/bootstrap/bootstrap-client.mts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "nx": "^23.0.0",
+    "prettier": "^3.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yaml,yml}": [
+      "prettier --write"
+    ]
+  }
+}

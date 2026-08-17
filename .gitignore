@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+**/.vitepress/dist/
+**/.vitepress/cache/
+
+# Environment
+.env
+.env.*
+!.env.example
+.secrets.*
+!.secrets.example
+
+# Temp files
+*.bak
+
+# CDK
+cdk.out/
+
+# Word lock files
+~$*
+
+# macOS
+.DS_Store
+
+# Editor
+.idea/
+*.iml
+
+# Claude Code — personal/local overrides, never shared
+.claude/settings.local.json
+
+# NX
+.nx/
+
+# Yarn Berry
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
