@@ -1,10 +1,10 @@
 # Engineering Guide
 
-Cross-cutting conventions, operational procedures, and lifecycle playbooks that govern how work is planned, implemented, reviewed, and published inside the ADLC harness.
+Cross-cutting conventions and operational procedures for how work is planned, implemented, reviewed, and published in this repo.
 
 ## How This Guide Works
 
-The top-level articles cover conventions and setup — read [02 Doc Structure](./02%20Doc%20Structure.md) first for the full three-tier documentation model this repo follows. [Lifecycles](./Lifecycles/00%20Overview.md) documents the four lifecycles (Dev, Design, Skill, Architecture) that structure all work end to end. [Infrastructure](./Infrastructure/00%20Configuration%20%26%20Secrets.md) covers deploy-related operational runbooks. This guide is stable reference material — it changes when a convention changes, not as the project progresses.
+The top-level articles cover conventions and setup — read [02 Doc Structure](./02%20Doc%20Structure.md) first for the full three-tier documentation model this repo follows. [Lifecycles](./Lifecycles/00%20Overview.md) documents the four lifecycles (Dev, Design, Skill, Architecture) that structure all work end to end — also mirrored under [Harness › Lifecycles](/Harness/03%20Lifecycles/00%20Overview.md) as part of the harness's own nav. [Infrastructure](./Infrastructure/00%20Configuration%20%26%20Secrets.md) covers deploy-related operational runbooks. This guide is stable reference material — it changes when a convention changes, not as the project progresses.
 
 | Page                                                                            | Holds                                                                              |
 | ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
