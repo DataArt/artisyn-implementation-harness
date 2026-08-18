@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>The Artisyn Harness — Internal Handbook</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    --paper: #ffffff;
+    --ink: #16182b;
+    --body: #3c3f52;
+    --muted: #6f7285;
+    --accent: #3d4fb0;
+    --accent-tint: #e8eafb;
+    --rule: #e4e4ea;
+    --card-bg: #fbfbfd;
+    --card-border: #e6e6ec;
+    --green-bg: #e4f4ec;
+    --green-ink: #1c7a58;
+    --tan-bg: #fdf2df;
+    --tan-ink: #9c6316;
+    --blue-bg: #eaeefb;
+    --blue-ink: #35408f;
+    --serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+    --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #d9dae2;
+    font-family: var(--sans);
+    color: var(--body);
+  }
+
+  .sheet-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    padding: 40px 0 80px;
+  }
+
+  .page {
+    width: 794px;
+    min-height: 1123px;
+    background: var(--paper);
+    box-shadow: 0 2px 18px rgba(20, 22, 40, 0.14);
+    padding: 56px 62px 64px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .page-header {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.02em;
+    color: var(--muted);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 30px;
+  }
+
+  .page-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    border-top: 1px solid var(--rule);
+  }
+
+  /* Cover */
+  .badge-row { display: flex; gap: 10px; align-items: center; margin-bottom: 26px; }
+  .badge-solid {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    background: var(--ink);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+  .badge-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+
+  h1.cover-title {
+    font-family: var(--serif);
+    font-size: 44px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 18px;
+    text-wrap: balance;
+    line-height: 1.12;
+  }
+
+  .cover-lede {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--body);
+    max-width: 62ch;
+    margin: 0 0 26px;
+  }
+
+  .pill-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 30px; }
+  .pill {
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: 12.5px;
+    color: var(--body);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .pill .dot { color: var(--green-ink); }
+  .pill .label { color: var(--muted); margin-right: 2px; }
+  .pill code {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    background: var(--card-bg);
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+
+  .rule { border: none; border-top: 1px solid var(--rule); margin: 0 0 30px; }
+
+  /* Part label */
+  .part-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+
+  /* Section heading */
+  .section-head { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border-radius: 5px;
+    padding: 4px 9px;
+    min-width: 20px;
+    text-align: center;
+  }
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: 25px;
+    color: var(--ink);
+    margin: 0;
+    font-weight: 700;
+  }
+  h3.sub-title {
+    font-family: var(--serif);
+    font-size: 19px;
+    color: var(--ink);
+    margin: 26px 0 12px;
+    font-weight: 700;
+  }
+
+  .lede {
+    font-size: 15px;
+    color: var(--accent);
+    font-style: italic;
+    margin: 0 0 16px;
+    line-height: 1.55;
+  }
+
+  p { font-size: 13.5px; line-height: 1.68; margin: 0 0 14px; color: var(--body); }
+  p b, p strong { color: var(--ink); }
+  code, .code { font-family: var(--mono); font-size: 12px; background: var(--card-bg); border: 1px solid var(--card-border); padding: 1px 5px; border-radius: 3px; color: var(--ink); }
+
+  /* Card grid */
+  .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 4px 0 24px; }
+  .card-grid.two { grid-template-columns: repeat(2, 1fr); }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 16px 17px;
+  }
+  .card h4 { font-size: 13.5px; margin: 0 0 6px; color: var(--ink); font-weight: 700; }
+  .card p { font-size: 12.5px; line-height: 1.55; margin: 0; color: var(--muted); }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; margin: 4px 0 24px; }
+  thead th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    padding: 0 10px 8px 0;
+    border-bottom: 1px solid var(--rule);
+    text-transform: uppercase;
+  }
+  tbody td {
+    font-size: 12.8px;
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    color: var(--body);
+  }
+  tbody td.k { color: var(--ink); font-weight: 600; white-space: nowrap; }
+
+  /* Callouts */
+  .callout { border-radius: 8px; padding: 16px 18px; margin: 4px 0 22px; }
+  .callout .label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.07em; font-weight: 700; margin-bottom: 8px; display: block; }
+  .callout p { margin: 0; font-size: 13px; line-height: 1.6; }
+  .callout.green { background: var(--green-bg); }
+  .callout.green .label { color: var(--green-ink); }
+  .callout.tan { background: var(--tan-bg); }
+  .callout.tan .label { color: var(--tan-ink); }
+  .callout.blue { background: var(--blue-bg); }
+  .callout.blue .label { color: var(--blue-ink); }
+
+  .caption { font-size: 12px; color: var(--muted); line-height: 1.55; margin: 0 0 22px; }
+  .caption b { color: var(--ink); }
+
+  .flow-row { display: flex; align-items: stretch; gap: 0; margin: 10px 0 20px; }
+  .flow-step { flex: 1; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px 15px; }
+  .flow-step h4 { font-size: 12.5px; margin: 0 0 5px; color: var(--ink); }
+  .flow-step p { font-size: 11px; color: var(--muted); margin: 0; line-height: 1.45; }
+  .flow-arrow { display: flex; align-items: center; justify-content: center; width: 26px; color: var(--muted); font-size: 15px; }
+
+  /* Figures — ready-made diagrams from docs/public/images */
+  .figure { border: 1px solid var(--card-border); border-radius: 8px; overflow: hidden; margin: 4px 0 10px; background: #fff; }
+  .figure img { display: block; width: 100%; height: auto; }
+  .figure.wide { margin-left: -12px; margin-right: -12px; width: calc(100% + 24px); }
+
+  @page { size: A4; margin: 0; }
+
+  @media print {
+    html, body { background: #fff; }
+    .sheet-stack { padding: 0; gap: 0; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; width: auto; min-height: 100vh; }
+    .page:last-child { page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet-stack">
+
+<!-- PAGE 1 — COVER + PART ONE -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="badge-row">
+    <span class="badge-solid">INTERNAL HANDBOOK</span>
+    <span class="badge-tag">ARTISYN · HARNESS</span>
+  </div>
+
+  <h1 class="cover-title">The Artisyn Harness</h1>
+  <p class="cover-lede">What it is, why teams find it useful, and how it actually runs a project end to end.</p>
+
+  <div class="pill-row">
+    <span class="pill"><span class="dot">●</span> Actively used in delivery</span>
+    <span class="pill"><span class="label">Root context</span> <code>AGENTS.md</code> — cross-tool</span>
+    <span class="pill"><span class="label">Package</span> <code>v0.3.0</code></span>
+  </div>
+
+  <hr class="rule" />
+
+  <div class="part-label">PART ONE — WHAT IT IS</div>
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <h2 class="section-title">What it is, and what it's for</h2>
+  </div>
+
+  <p>The Artisyn Harness is a structured workflow system layered on an AI coding assistant. Instead of prompting the assistant ad-hoc, work runs through <b>specialised, lifecycle-aware agents</b> governed by encoded conventions (skills) and feedback loops (reflections → skill library).</p>
+
+  <p>Its purpose is three things: <b>repeatability</b> — the same lifecycle steps run every ticket, quality doesn't depend on remembering the right prompts; <b>convergence</b> — conventions discovered on one ticket become skills inherited by the next; and <b>architecture coherence</b> — planning is audited against target architecture before any code is written.</p>
+
+  <p>The harness is portable by design: <code>docs/Harness/package/</code> is a self-contained package that instantiates it in any project — copy the folder, run the bootstrap recipe. It also proves itself on real work, not just in theory: its own canonical source is built entirely through it, every commit produced by <code>/design</code>, <code>/dev</code>, or <code>/skill-*</code>.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>Runs on</h4>
+      <p><code>AGENTS.md</code> as the canonical root context file — skills and agents map onto Claude Code, Codex CLI, Cursor, Kiro, and Windsurf alike.</p>
+    </div>
+    <div class="card">
+      <h4>Bootstrapped by</h4>
+      <p>Copy <code>docs/Harness/package/</code> into a new repo, then point an AI assistant at its <code>01 Bootstrap.md</code>.</p>
+    </div>
+    <div class="card">
+      <h4>Core principle</h4>
+      <p>"Reduce scaffolding over time" — every ticket faster, as discovered conventions become skills inherited by the next.</p>
+    </div>
+  </div>
+
+  <div class="page-footer"><span>Internal handbook · page 1 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 2 — PART TWO: where it proves out -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="part-label">PART TWO — WHY IT MAKES SENSE</div>
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Where it proves out</h2>
+  </div>
+
+  <p>The same harness carries a project from before it's even sold to active delivery — not three separate toolchains stitched together.</p>
+
+  <div class="flow-row">
+    <div class="flow-step"><h4>🧑‍💼 Pre-Sales</h4><p>Estimation, initial HLD sketch, and client alignment before a contract exists.</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>🔍 Discovery</h4><p>Bootstrap the harness onto the project, draft the HLD, shape context from what's actually there.</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>⚙️ Development</h4><p><code>/design</code> and <code>/dev</code> cycles on real tickets — the harness is now the delivery mechanism.</p></div>
+  </div>
+
+  <p>Full detail per phase — including what continues after delivery starts (Operate, Improve) — lives at <code>docs/Harness/04 Adoption/</code>.</p>
+
+  <div class="callout blue">
+    <span class="label">MANAGES PROJECT CONTEXT — OR PRODUCT CONTEXT ACROSS PROJECTS</span>
+    <p>Most deployments run Project-scoped: one repo, one target architecture, reviewed by <code>@architect</code>. The package also ships a <code>product-architect</code> agent template for the other shape — a shared governance layer that several downstream project repos are accountable to, reasoning about whether a design honors product-level principles without assuming any one repo's internals. Same harness, either scope.</p>
+  </div>
+
+  <div class="page-footer"><span>Internal handbook · page 2 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 3 — PART TWO continued: why teams find it useful (tiers + derivation, extended) -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Why teams find it useful</h2>
+  </div>
+
+  <p>Most AI coding tools operate at one of two lower tiers — useful, but they forget everything the moment the session ends. The harness is built for the tier above: it <b>encodes how a team thinks</b>, so that knowledge improves over time and survives turnover instead of living only in whoever's currently on the project.</p>
+
+  <div class="figure">
+    <img src="docs/public/images/context/three-tiers-maturity.svg" alt="Three tiers of AI adoption: Code AI, Workflow AI, and AI-Assisted (what the harness provides)" />
+  </div>
+  <p class="caption">Indicative distribution of where teams sit today, not measured data — the point is the ordering, not the precision.</p>
+
+  <div class="callout green">
+    <span class="label">WHAT "ENCODES HOW THE TEAM THINKS" ACTUALLY MEANS</span>
+    <p>Not a slogan — specific, machine-followable rules a team already lives by, written down once instead of re-explained every session: <b>which doc a decision belongs in</b> (the HLD/LLD placement matrix in <code>dev-document/SKILL.md</code>), <b>who's allowed to touch what</b> (agent tool-scoping — <code>@web</code> can't edit <code>apps/infra/</code>), and <b>which operations need a human</b> (guarded commands — <code>cdk deploy</code>, <code>git push</code>). Encoded once, applied identically on ticket 1 and ticket 400.</p>
+  </div>
+
+  <div class="callout tan">
+    <span class="label">CODE BECOMES A DERIVATION, NOT THE SOURCE — A WORKED EXAMPLE</span>
+    <p><i>"Code is a derivative. Documents are the product."</i> A decision doesn't start as code and get documented after; it starts as a settled decision and code follows from it. Frame states the problem → Elaborate produces a falsifiable recommendation → Solution writes <code>Architecture.md</code> (still no code) → Publish updates the HLD with that settled decision → <code>/dev</code> implements against the HLD → <code>/dev-document</code> checks what got built against it and records any deviation explicitly, rather than letting the code silently become the only record of what was decided.</p>
+  </div>
+
+  <div class="page-footer"><span>Internal handbook · page 3 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 4 — PART THREE opener -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="part-label">PART THREE — HOW IT WORKS</div>
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <h2 class="section-title">How it works</h2>
+  </div>
+
+  <p class="lede">"Code is a derivative. Documents are the product."</p>
+
+  <p>The same five checkpoints on every ticket, each one confirmed by a human before the next starts: a proposal, an approved architecture, an implementation, a record of what was built, and a report on whether the two still agree.</p>
+
+  <div class="figure">
+    <img src="docs/public/images/context/the-fix.png" alt="Five-step flow: /design produces design notes, HLD is approved, /dev produces dev artifacts, LLD documents what was built, /where-we-are compares HLD vs LLD and produces a gap report" />
+  </div>
+  <p class="caption">The five checkpoints in miniature. The five subsections that follow are the mechanics behind each one — plus Skill, the loop that improves all of them over time.</p>
+
+  <div class="page-footer"><span>Internal handbook · page 4 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 5 — Design -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Design — from problem to approved change</h2>
+  </div>
+
+  <p class="lede">Front-loads the hard thinking, and requires a human out of band before any code is written.</p>
+
+  <div class="flow-row">
+    <div class="flow-step"><h4>Frame</h4><p>Problem, known + proposed requirements, boundaries</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Research</h4><p><code>@architect</code> returns 3–5 options, no recommendation</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Elaborate</h4><p>Requirements × Options matrix, falsifiable recommendation</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Solution</h4><p>Architecture · Design · Stack · Efforts — settled only</p></div>
+  </div>
+  <div class="flow-row">
+    <div class="flow-step"><h4>Review</h4><p>Draft MR opened, WAF gate recorded</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Address Feedback</h4><p>Only if concerns raised — reiterates, re-approves</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Publish</h4><p><code>docs/Target&nbsp;Architecture&nbsp;(HLD)/</code> updated, tickets created</p></div>
+    <div class="flow-arrow"></div>
+    <div class="flow-step" style="visibility:hidden"></div>
+  </div>
+
+  <p>The subfolder is resolved once, in Frame, and every later phase reads it from <code>Report.md</code>'s <code>## Context</code> section rather than re-deriving it. A closing WAF assessment runs on the recommended option before Solution begins.</p>
+
+  <div class="page-footer"><span>Internal handbook · page 5 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 6 — Dev -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="section-head">
+    <span class="section-num">06</span>
+    <h2 class="section-title">Dev — from approved change to merged code</h2>
+  </div>
+
+  <p class="lede">The default path for well-understood work — no option analysis needed, just disciplined execution.</p>
+
+  <div class="flow-row">
+    <div class="flow-step"><h4>Plan</h4><p><code>/dev-plan</code> proposes an implementation plan for developer verification</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Implement</h4><p><code>/dev-implement</code> executes it one step at a time</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Test</h4><p><code>/dev-test</code> runs a layer-delegated PR review</p></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><h4>Document</h4><p><code>/dev-document</code> updates READMEs, LLD, Engineering Guide</p></div>
+  </div>
+
+  <p>Every step stops and waits for developer confirmation before the next one starts — the plan is a proposal to verify, not a script to trust blindly. The story folder archives once Document completes.</p>
+
+  <div class="page-footer"><span>Internal handbook · page 6 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 7 — Skill: improve -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="section-head">
+    <span class="section-num">07</span>
+    <h2 class="section-title">Skill — where the harness improves itself</h2>
+  </div>
+
+  <p class="lede">The mechanism that makes every future ticket faster than the last.</p>
+
+  <table>
+    <thead><tr><th>Phase</th><th>What happens</th></tr></thead>
+    <tbody>
+      <tr><td class="k">Reflect</td><td>Brain-dump what surprised you after a ticket — into <code>.claude/reflections/</code></td></tr>
+      <tr><td class="k">Triage</td><td>Cluster pending reflections into patterns worth capturing</td></tr>
+      <tr><td class="k">New</td><td>Draft a skill or rule from a cluster — saved to <code>.claude/skills/drafts/</code></td></tr>
+      <tr><td class="k">Promote</td><td>Graduate a draft to active status, register it in <code>CLAUDE.md</code></td></tr>
+      <tr><td class="k">Harvest</td><td>Sync the promoted skill back into <code>docs/Harness/package/</code>, stripped to generic <code>{{PLACEHOLDER}}</code> form</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout green">
+    <span class="label">THE CONVERGENCE LOOP</span>
+    <p>A project's live <code>.claude/</code> files are always the source of truth; <code>docs/Harness/package/</code> holds the generic, parametrized form. Harvest is the one-way door between them — nothing reaches the portable package without first proving itself on a real ticket in a real project.</p>
+  </div>
+
+  <div class="page-footer"><span>Internal handbook · page 7 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 8 — Self-document -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="section-head">
+    <span class="section-num">08</span>
+    <h2 class="section-title">Self-document — where work graduates</h2>
+  </div>
+
+  <p>Documentation is not a separate chore — it's a required phase output. <code>/dev-document</code> and <code>/design-publish</code> are where a ticket or design graduates into permanent docs, and neither lifecycle can close without running it.</p>
+
+  <table>
+    <thead><tr><th>Produces</th><th>Lives in</th></tr></thead>
+    <tbody>
+      <tr><td class="k">LLD updates</td><td><code>System Architecture (LLD)/</code></td></tr>
+      <tr><td class="k">Engineering Guide entries</td><td><code>Engineering Guide/</code></td></tr>
+      <tr><td class="k">App README updates</td><td><code>apps/*/README.md</code></td></tr>
+      <tr><td class="k">HLD updates (Design track)</td><td><code>Target Architecture (HLD)/&lt;active&gt;/</code></td></tr>
+    </tbody>
+  </table>
+
+  <p>Only settled outcomes graduate — rationale, comparisons, and open questions stay in the ticket's own <code>Stories/&lt;TICKET&gt;/</code> working folder and are never copied into permanent docs.</p>
+
+  <div class="callout tan">
+    <span class="label">THE PACKAGE, IN PASSING</span>
+    <p><code>docs/Harness/package/</code> — the copyable, self-contained form of everything in this handbook — is excluded from this site's own build (its <code>{{PLACEHOLDER}}</code> template syntax collides with Vue's <code>{{ }}</code> interpolation). Fully readable on GitHub or in a checkout.</p>
+  </div>
+
+  <div class="page-footer"><span>Internal handbook · page 8 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+<!-- PAGE 9 — Architect: skill set -->
+<section class="page">
+  <div class="page-header">Artisyn Harness — Internal Handbook</div>
+
+  <div class="section-head">
+    <span class="section-num">09</span>
+    <h2 class="section-title">Architect — the skill set behind it</h2>
+  </div>
+
+  <p>The harness is not one general-purpose assistant — it's a roster of agents, each with a narrow remit and a specific tool grant, invoked by the lifecycle skill that needs them.</p>
+
+  <table>
+    <thead><tr><th>Agent</th><th>Remit</th><th>Tools</th></tr></thead>
+    <tbody>
+      <tr><td class="k">@architect</td><td>Review + author architecture docs; Design's Research/Review/Publish reviewer</td><td>Read, Glob, Grep, Bash, Write, Edit</td></tr>
+      <tr><td class="k">@docs-writer</td><td>Permanent doc writer — diagram-first, certainty principle, destination rules</td><td>Read, Write, Edit, Glob, Grep</td></tr>
+      <tr><td class="k">@&lt;layer&gt;</td><td>Generic layer template, instantiated once per bounded application layer at bootstrap — this repo's instance is <code>@web</code> / <code>@auth</code> / <code>@infra</code>, one per app</td><td>Read, Edit, Write, Glob, Grep</td></tr>
+      <tr><td class="k">@onboarding</td><td>Conversational, read-only guide for anyone new to the repo</td><td>Read, Glob, Grep</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout blue">
+    <span class="label">SCOPE IS THE SAFETY MECHANISM</span>
+    <p>An agent restricted to <code>apps/lambda-auth/</code> cannot accidentally edit infrastructure. Combined with guarded commands — <code>cdk deploy</code>, <code>git push</code> are always presented as instructions for the developer to run, never executed by an agent directly — the tool grant is what keeps a lifecycle-driven session from acting outside its stated job.</p>
+  </div>
+
+  <div class="page-footer"><span>Internal handbook · page 9 / 9</span><span>Artisyn Harness</span></div>
+</section>
+
+</div>
+</body>
+</html>
