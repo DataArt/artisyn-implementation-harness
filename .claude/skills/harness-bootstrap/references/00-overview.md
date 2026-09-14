@@ -1,0 +1,38 @@
+# Package overview
+
+[README](../README.md) explains the process with diagrams. [SKILL](../SKILL.md) routes
+commands. The launch contract is a router plus four stage-scoped references, loaded
+as each stage starts.
+
+| Reference                                  | Responsibility                                                                           |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------- |
+| [Launch](01-launch.md)                     | Stage sequence, task tracking contract, and routing to the stage references              |
+| [Launch plan](01a-launch-plan.md)          | Ignore setup, recovery, context inspection, permanent Q&A, JSON plan and materialization |
+| [Launch install](01b-launch-install.md)    | Blocks A–C and D.1: skills, agents, root context/MCP, Engineering Guide                  |
+| [Launch docs](01c-launch-docs.md)          | D.2–D.5 and E: documentation workflows, worker contract, review, Mermaid gate            |
+| [Launch verify](01d-launch-verify.md)      | Cleanup, final audit, and close                                                          |
+| [Patch router](03-patch.md)                | Choose harvest, prepare, or apply                                                        |
+| [Harvest](04-patch-harvest.md)             | Promote permanent improvements into canonical sources                                    |
+| [Prepare](07-patch-prepare.md)             | Package direct canonical edits into a portable bundle                                    |
+| [Apply](05-patch-apply.md)                 | Personalize canonical updates into permanent outputs                                     |
+| [Patch state](06-patch-state.md)           | Diff manifests, baselines, conflicts, and durable history                                |
+| [Launch questions](02-launch-questions.md) | Editable question checklist loaded and resolved by launch task 3                         |
+
+The toolkit's deployable payload lives entirely under `canonical/` — its `skills/`
+and `agents/` subfolders hold canonical templates and INTENT rules, its `docs/`
+subfolder holds Engineering Guide intent contracts. `canonical/` is the only folder
+`patch harvest`/`prepare`/`apply` treat as portable content (with a narrow,
+documented set of package-internal exceptions — see `06-patch-state.md`). Everything
+else at the package root — `references/`, `scripts/`, `patch/`, `patterns/`,
+`workflows/`, `reports/` — is the bootstrap's own process and tooling, not payload.
+Launch ignores this toolkit folder in Git; it does not untrack existing files.
+Installed project outputs remain separate from the toolkit.
+
+Project-owned records live under .harness/: launch answers, plans, receipts and reports;
+deployment mappings; synchronization state; and new patch bundles. Preserve the existing
+project records when refreshing the toolkit. Package-local records are legacy migration
+inputs, not the destination for new writes.
+
+Updates carry unified diffs; additions carry full canonical files. Applying updates
+requires the expected canonical base or an explicit reconciliation. Never transfer
+project answers, secrets, or personalized baselines as canonical payloads.

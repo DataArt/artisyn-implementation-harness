@@ -1,0 +1,27 @@
+---
+name: Context Resolution
+description: Resolves which track (Product / Project) a design session belongs to. Applied exactly once, in Frame Step 4. Every other phase reads the result from design/Report.md's Context section instead of re-resolving it — no branching logic elsewhere in the lifecycle.
+type: pattern
+---
+
+> ⚠️ **Two-track deployments only.** Do not deploy this file for Project-scoped or Product-context-scoped deployments — see the design-lifecycle-scope conditional in `INTENT.md`.
+
+Ask the developer once, in Frame Step 4:
+
+> "Is this a **Product** design (cross-project product architecture — lands in `docs/{{PRODUCT_CONTEXT_DIR}}/`) or a **Project** design (this repo's own target architecture — lands in `docs/Target Architecture (HLD)/`)?"
+
+**Stop and wait.**
+
+Look up the answer in the table below — this is the only place these values are decided. No later phase re-derives them.
+
+| Field                                  | Product                                                                                                                                                                              | Project                                                                                           |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
+| Source docs                            | `docs/{{PRODUCT_CONTEXT_DIR}}/`                                                                                                                                                      | `docs/Target Architecture (HLD)/`                                                                 |
+| Dest docs                              | `docs/{{PRODUCT_CONTEXT_DIR}}/{subfolder}`                                                                                                                                           | `docs/Target Architecture (HLD)/{subfolder}`                                                      |
+| Architect agent (research/review)      | `@product-architect`                                                                                                                                                                 | `@architect`                                                                                      |
+| Writer agent                           | `@docs-writer`                                                                                                                                                                       | `@docs-writer`                                                                                    |
+| Implementation note (Publish hand-off) | Most Product designs are implemented in the owning downstream platform repo(s) — offer `/dev` in this repo only if the implementation tickets genuinely target this repo's own code. | Project designs cover this repo's own containers — `/dev` in this repo is the expected next step. |
+
+**Subfolder is not enumerated here** — it can be any subfolder/section under the resolved Source/Dest docs path, at any depth (some product-context layers keep subfolders one level down; some target-architecture trees nest them under a version folder, e.g. `docs/Target Architecture (HLD)/v1/Containers/`). Glob recursively under the resolved Source docs path for existing subdirectories, list what exists, and ask the developer which one this design belongs to (or a new name if none fit).
+
+Write the resolved Track, Source docs, Dest docs, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md`. Every subsequent phase and satellite skill reads them from there — as `{resolved architect agent}`, `{source docs}` / `{dest docs}`.

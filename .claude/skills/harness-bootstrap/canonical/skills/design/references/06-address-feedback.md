@@ -1,0 +1,52 @@
+# Address Feedback stage
+
+Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
+`--stage address-feedback`. Follow its initialization/recovery, entry, wait, check, and exit
+commands. When this reference is used only as a correction recipe within another
+active stage, retain that stage's metrics ownership.
+
+Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`. This
+stage only runs when Review Gate reported concerns. It loops until the MR is
+re-approved.
+
+> ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
+
+> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
+
+## Step 1 — Find the design folder and read the gate
+
+Glob for `docs/Stories/*{TICKET}*/**`. Read `design/Report.md` — confirm the Gate section shows `Approved: pending` and the phase tracker shows `💬 Address Feedback 🔄`. If Address Feedback is not the active phase, tell the developer and stop.
+
+---
+
+## Step 2 — Identify the concern and suggest a reiterate path
+
+Ask the developer to describe the concern. Identify which phase/step it traces to and suggest a named reiterate path:
+
+| Concern type                 | Reiterate suggestion                                                          |
+| ---------------------------- | ----------------------------------------------------------------------------- |
+| Architectural approach wrong | Reiterate from Solution, Step 2 — rewrite Architecture                        |
+| Recommendation wrong         | Reiterate from Evaluate, Step 4 — revisit recommendation                      |
+| Missing option               | Reiterate from Research, Step 3 — re-delegate to `{{DESIGN_ARCHITECT_AGENT}}` |
+| Scope wrong                  | Reiterate from Frame, Step 5 — re-draft Boundaries                            |
+
+Keep Address Feedback as the metrics owner while using an earlier reference as a correction recipe. Its first attempt records rework; on further rounds, use `stage retry --stage address-feedback --reason review_feedback`.
+
+Confirm the reiterate path with the developer, then follow it — apply the fix in the traced-to stage's reference.
+
+---
+
+## Step 3 — Confirm re-approval
+
+Once the reiteration is applied and committed, ask:
+
+> "Has this been re-approved on the MR now? (**yes** / **still concerns**)"
+
+Before yielding, record an approval wait and run `report`.
+
+**Stop and wait.**
+
+- If **still concerns** → resume and record a failed `Design approval` check with a new round ID; return to Step 2 for the new or ongoing concern. Loop until resolved.
+- If **yes** → resume and record a passed `Design approval` check with attributed evidence and a new round ID; update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 💬 Address Feedback ✅ · 📤 Publish ⏳`. Tell the developer: "Re-approved — run `/design publish {TICKET}` to continue."
+
+🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.

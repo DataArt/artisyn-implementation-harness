@@ -1,0 +1,138 @@
+---
+skill: design
+output: .claude/skills/design/SKILL.md
+companion_templates:
+  - scripts/constants.mjs
+  - scripts/utils.mjs
+  - scripts/design-metrics.mjs
+  - scripts/design-metrics.test.mjs
+  - templates/stat.json
+  - templates/stat.schema.json
+  - patterns/metrics.md
+  - templates/frame.md
+  - templates/research.md
+  - templates/evaluate.md
+  - templates/report.md
+  - interfaces/INTENT.md
+  - interfaces/architecture.md
+  - interfaces/design.md
+  - interfaces/stack.md
+  - interfaces/efforts.md
+  - patterns/announce-progress.md
+  - patterns/compact-between-phases.md
+  - patterns/do-report-commit.md
+  - patterns/write-confirm.md
+  - patterns/session-continuity.md
+  - patterns/satellite-review.md
+  - patterns/design-architect-review.md
+  - patterns/design-oq-triage.md
+  - patterns/multi-decision-split.md
+  - patterns/context-resolution.md
+  - patterns/docs-writer-authoring.md
+  - patterns/waf-review.md
+  - patterns/design-quality-gate.md
+  - patterns/task-tracking.md
+  - references/00-router.md
+  - references/01-frame.md
+  - references/02-research.md
+  - references/03-evaluate.md
+  - references/04-solution.md
+  - references/05-review-gate.md
+  - references/06-address-feedback.md
+  - references/07-publish.md
+---
+
+## Purpose
+
+The full design lifecycle in one skill: Frame → Research → Evaluate → Solution →
+Review Gate → Address Feedback → Publish. Routes to each stage reference in order
+(or directly to one stage, on request), stopping at every phase boundary for
+developer confirmation. Replaces the former separate `design-frame`,
+`design-research`, `design-evaluate`, `design-solution`, `design-review-gate`,
+`design-review`, `design-address-feedback`, `design-publish` skills — those stages
+now live under this one skill's `references/`.
+
+`design-review` is retired as a standalone skill; its parameterized WAF assessment
+now lives as `patterns/waf-review.md`, extended with a `solution` target (fixing a
+pre-existing bug where Solution's design review gate called `/design-review
+{TICKET} solution`, a target the old skill never actually defined). There is no
+separate Ceremony stage — the tracker transition and branch checkout happen inside
+Frame's Step 3, positioned after the tracker fetch/title resolution because the
+branch slug isn't known any earlier.
+
+## Substitutions
+
+| Placeholder                       | Source                                        | Notes                                                                                                                                                                                                                     |
+| --------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `{{PROJECT_KEY}}`                 | Q5 — ticket prefix                            | Replaces the tracker project key in ticket references                                                                                                                                                                     |
+| `{{DESIGN_ARCHITECT_AGENT}}`      | Q — design lifecycle scope (see Conditionals) | The read-only architecture agent Research/Evaluate/Solution/Publish delegate to. Same value used across every stage reference.                                                                                            |
+| `{{DESIGN_DOCS_ROOT}}`            | Q — design lifecycle scope (see Conditionals) | Where settled decisions land. Resolves to a fixed path (single-track modes) or the runtime token `{dest docs}` (Two-track)                                                                                                |
+| `{{DESIGN_CONTEXT_STEP}}`         | Q — design lifecycle scope (see Conditionals) | The full body of Frame Step 4 — how the design's destination is determined. Structurally different per mode, not just a value swap                                                                                        |
+| `{{DESIGN_CONTEXT_SOURCES}}`      | Q — design lifecycle scope (see Conditionals) | Research Step 2's context-reading instruction — same resolution as `{{DESIGN_CONTEXT_STEP}}`, phrased for a read rather than a folder decision                                                                            |
+| `{{PRODUCT_CONTEXT_DIR}}`         | Q — design lifecycle scope (see Conditionals) | Folder name under `docs/` for the shared product-context layer, only asked when Product-context-scoped or Two-track. Default suggestion: `Product Context`                                                                |
+| `{{DESIGN_LIFECYCLE_SCOPE_NOTE}}` | Q — design lifecycle scope (see Conditionals) | One callout line in the router stating what `/design` targets and where output lands                                                                                                                                      |
+| `{{DESIGN_HANDOFF_NOTE}}`         | Developer describes the repo topology         | One line explaining where implementation tickets are actually built — e.g. "Most designs are implemented in the owning downstream repo, not here" for a multi-repo product, or omitted entirely for a single-repo project |
+| `{{DOC_PRINCIPLES_ARTICLE}}`      | Q — Doc Principles article path               | Passed to `@docs-writer` in Publish Step 3; same value as `docs-writer/INTENT.md`'s substitution                                                                                                                          |
+| `{{WAF_PILLARS_TABLE}}`           | Q11 — WAF framework                           | Pillar definitions table (pillar name + key questions), used by both Evaluate's inline assessment and `patterns/waf-review.md`                                                                                            |
+| `{{WAF_PILLAR_SHORTNAMES}}`       | Q11 — WAF framework                           | Comma-separated abbreviated pillar names for `patterns/waf-review.md`'s `--pillars=` valid values                                                                                                                         |
+| `{{WAF_PILLAR_COLUMNS}}`          | Q11 — WAF framework                           | Pillar names as Evaluate's tradeoffs-table column headers                                                                                                                                                                 |
+| `{{WAF_PILLAR_ROWS}}`             | Q11 — WAF framework                           | Markdown table rows for `templates/evaluate.md`'s Tradeoffs table                                                                                                                                                         |
+| `{{WAF_PILLAR_SUMMARY_ROWS}}`     | Q11 — WAF framework                           | Markdown table rows for the Report.md WAF summary (pillar · rating · headline)                                                                                                                                            |
+| `{{WAF_FRAMEWORK}}`               | Q11 — WAF framework                           | Framework name used in Evaluate's closing-assessment heading, e.g. "Azure Well-Architected Framework"                                                                                                                     |
+
+Transition IDs are never substituted here — design only asks `@scrum-master` to
+transition a ticket by state name ("In Progress", "Done", …); the tracker agent
+resolves the ID from its own definition. Keeping that mapping in one place
+(`@scrum-master`) avoids the two skills drifting out of sync — same rule as
+`dev/INTENT.md`.
+
+## Conditionals
+
+- **Design lifecycle scope** — ask at bootstrap time (Q10 in the [launch questions](../../references/02-launch-questions.md)) which of three modes `/design` runs in. This is **one decision, used consistently** across every stage reference and pattern in this skill — not a per-stage choice. `/dev` is unaffected in every mode.
+
+  - **Project-scoped** (default — most single-repo projects): `/design` always targets this project's own architecture.
+    - `{{DESIGN_DOCS_ROOT}}` = `docs/Target Architecture (HLD)/`
+    - `{{DESIGN_ARCHITECT_AGENT}}` = `@architect` — do not deploy `product-architect`
+    - `{{DESIGN_CONTEXT_STEP}}` = a step reading `docs/Target Architecture (HLD)/README.md` to find the active version and selecting the relevant container(s); ends with "Context sources for Step 5 and all subsequent phases: read the relevant container doc(s) and NFR docs for the areas this ticket touches."
+    - Do not deploy `patterns/context-resolution.md`. `{{PRODUCT_CONTEXT_DIR}}` is not asked.
+
+  - **Product-context-scoped** (a repo whose entire purpose is a shared cross-project docs layer with no target architecture of its own): `/design` always targets the shared product-context layer.
+    - `{{DESIGN_DOCS_ROOT}}` = `docs/{{PRODUCT_CONTEXT_DIR}}/`
+    - `{{DESIGN_ARCHITECT_AGENT}}` = `@product-architect` — deploy `canonical/agents/product-architect/TEMPLATE.md`
+    - `{{DESIGN_CONTEXT_STEP}}` = a bullet list of the product-context subfolders, followed by "Context sources for Step 5 and all subsequent phases: read relevant docs under each of those subfolders."
+    - Do not deploy `patterns/context-resolution.md`.
+
+  - **Two-track** (a repo that needs both: its own target architecture _and_ a shared cross-project product-context layer, chosen per design session):
+    - `{{DESIGN_DOCS_ROOT}}` and `{{DESIGN_ARCHITECT_AGENT}}` resolve, everywhere they appear in every stage reference and pattern, to the **literal runtime tokens** `{dest docs}` / `{source docs}` and `{resolved architect agent}` — not bootstrap-time substitutions, but strings the deployed skill writes and resolves per design session from `design/Report.md`'s `## Context` section. Do not resolve them to a fixed value at generation time.
+    - `{{DESIGN_CONTEXT_STEP}}` = "Apply `.claude/skills/design/patterns/context-resolution.md` — ask the developer which track this is (Product or Project), then which subfolder within it, and write the resolved Track, Source docs, Dest docs, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md` (created in Step 3). Context sources for Step 5 and all subsequent phases: read relevant docs under the resolved Source docs path for anything already established on this topic."
+    - Deploy `patterns/context-resolution.md` — resolve its lookup table's Product row using `{{PRODUCT_CONTEXT_DIR}}`; its Project row is fixed.
+    - Deploy `canonical/agents/product-architect/TEMPLATE.md` alongside `@architect` — both agents exist side by side.
+    - `{{DESIGN_HANDOFF_NOTE}}` resolves to the runtime instruction: "Read the Implementation note from `design/Report.md`'s `## Context` section before publishing implementation tickets." — not a fixed string, since the note varies by which track the session resolved to.
+    - `{{DESIGN_LIFECYCLE_SCOPE_NOTE}}` resolves to: `> 🗂 **Two-track design** — Product (`docs/{{PRODUCT_CONTEXT_DIR}}/`) or Project (`docs/Target Architecture (HLD)/`). Resolved once in Frame Step 4 (`patterns/context-resolution.md`) and recorded in `design/Report.md`'s `## Context` section; every later phase reads it from there.`
+
+- If Q5 is "none" (no issue tracker): remove every tracker reference across `TEMPLATE.md` and `references/01-frame.md` — the tracker-fetch step, the tracker-transition half of Step 3's ceremony, and the Completion — tracker sync section; use free-text ticket titles instead.
+- If Q11 is "None" (no WAF framework): omit `patterns/waf-review.md` entirely, remove Solution's Step 7b, and remove Evaluate's Step 5 (closing WAF assessment) — keep only Integration Complexity and Vendor Lock-in columns in Evaluate's tradeoffs table.
+- If Q11 is AWS WAF: 6 pillars (Security, Reliability, Cost Optimisation, Operational Excellence, Performance Efficiency, Sustainability). If Q11 is Azure WAF: 5 pillars (Reliability, Security, Cost Optimization, Operational Excellence, Performance Efficiency). Adjust `{{WAF_PILLAR_SHORTNAMES}}` to match.
+
+## Verify checklist
+
+- [ ] TEMPLATE.md starts with `---` frontmatter containing `name:` (skill name) and `description:` (trigger conditions for this skill)
+- [ ] Route section covers all eight entry forms: `frame`, `research`, `evaluate`, `solution`, `review-gate`, `address-feedback`, `publish`, and bare-ticket full chain, plus the ambiguous-stage-word ask
+- [ ] Resume Detection uses `*{TICKET}*/**` wildcard, never `[{TICKET}]*`
+- [ ] No literal tracker-specific wording (e.g. "Jira") in `TEMPLATE.md` or any `references/*.md` — tracker activity is named generically and delegated to `@scrum-master`, never described with tracker-specific vocabulary or transition IDs
+- [ ] `references/01-frame.md` Step 3 (ceremony) runs after Steps 1–2 (folder + tracker fetch), not before — the branch slug depends on the resolved title/summary
+- [ ] `patterns/waf-review.md`'s target table includes `solution` → `solution/Architecture.md` + `solution/Design*.md`, and `references/04-solution.md` Step 7b applies it directly rather than invoking a retired `/design-review` command
+- [ ] `references/03-evaluate.md` Step 5 keeps its own inline WAF assessment — it does not call `patterns/waf-review.md` (deliberate: minimal consolidation, not full unification)
+- [ ] Each phase section in TEMPLATE.md has an explicit phase-boundary stop with the exact quoted question format; any additional human gates are owned by the stage reference and do not replace the phase boundary
+- [ ] TEMPLATE.md only delegates — no implementation logic, no step details (those live in `references/`)
+- [ ] Publish's Step 9 asks for effort spent, then delegates the worklog + Done transition to `@scrum-master` by state name only — no `{{JIRA_TRANSITION_DONE}}` substitution anywhere
+- [ ] `patterns/task-tracking.md` covers stage-level tracking only (seven stages) — no per-step section, since design has no analog to `dev`'s Implement steps
+- [ ] Every Phase-row string across `TEMPLATE.md`, `references/*.md`, and `templates/report.md` lists all seven stages in order (`📋 Frame · 🔍 Research · 🏗 Evaluate · 📦 Solution · 🔎 Review · 💬 Address Feedback · 📤 Publish`) with consistent status icons — no leftover separate Ceremony segment
+- [ ] Every `patterns/*.md` and `templates/*.md` reference across `TEMPLATE.md` and `references/*.md` uses the subfolder path, never the old flat `pattern-X.md` / `X-template.md` form
+- [ ] Two-track mode only: `{{DESIGN_DOCS_ROOT}}` / `{{DESIGN_ARCHITECT_AGENT}}` were resolved to the literal runtime tokens (`{dest docs}`, `{source docs}`, `{resolved architect agent}`) everywhere they appear — not to a fixed path/agent name
+- [ ] Story folder globs use `*{TICKET}*/**` wildcard, never `[{TICKET}]*`, everywhere they appear
+
+- [ ] Design metrics companions are installed verbatim; stage IDs, review waits, feedback skips/retries, and Publish completion are wired through `patterns/metrics.md`
+- [ ] Design metrics live in `design/stat.json` and update only `design/Report.md`'s generated block; implementation metrics remain separate in `impl/stat.json`
+
+- [ ] The design metrics CLI and its own `scripts/constants.mjs` / `scripts/utils.mjs` work when installed alone; its standalone-install test passes
