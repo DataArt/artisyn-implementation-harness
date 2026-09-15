@@ -4,8 +4,7 @@
     "deny": [
       "Bash(git push:*)",
       "Bash(yarn nx run infra:apply:*)",
-      "Bash(yarn nx run infra:destroy:*)",
-      "Bash(yarn nx run frontline-report:deploy:*)"
+      "Bash(yarn nx run infra:destroy:*)"
     ]
   },
   "env": {
