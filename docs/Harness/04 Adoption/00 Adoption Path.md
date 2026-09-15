@@ -8,7 +8,7 @@ flowchart LR
     D["🔍 Discovery\nBootstrap · HLD draft\nContext shaping"]:::phase
     DEV["⚙️ Development\n/design · /dev\nLive delivery"]:::phase
     OPS["📊 Operate\n/where-we-are · /war\nVisibility & audit"]:::phase
-    IMPROVE["♻️ Improve\n/skill-reflect → /skill-harvest\nPatterns compound"]:::phase
+    IMPROVE["♻️ Improve\n/evolve reflect → /evolve adopt\nPatterns compound"]:::phase
 
     SA --> D --> DEV --> OPS --> IMPROVE
     IMPROVE -->|"next project\nstarts here"| SA
@@ -20,13 +20,13 @@ flowchart LR
 
 ## The Phases
 
-| Phase                                          | When                           | What happens                                                             | Key output                                               |
-| ---------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------ | -------------------------------------------------------- |
-| **[Pre-Sales](01%20Pre-Sales.md)**             | Before contract · RFP response | Estimation · initial HLD sketch · client alignment                       | Scoped estimate · initial architecture · discovery ready |
-| **[Discovery](02%20Discovery%20Phase.md)**     | Project kick-off               | Bootstrap + HLD draft + context shaping                                  | Repo with architecture, constraints, and backlog seeded  |
-| **[Development](03%20Development%20Phase.md)** | Active delivery                | `/design` and `/dev` cycles on real tickets                              | Code + LLD + story archive per ticket                    |
-| **Operate**                                    | Ongoing                        | `/where-we-are` · `/war` audits · CloudWatch via MCP                     | Gap reports · WAF findings · delivery debt visible       |
-| **Improve**                                    | After any friction point       | `/skill-reflect` → `/skill-triage` → `/skill-promote` → `/skill-harvest` | Patterns promoted to bootstrap · next project benefits   |
+| Phase                                          | When                           | What happens                                                                | Key output                                                                                                |
+| ---------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| **[Pre-Sales](01%20Pre-Sales.md)**             | Before contract · RFP response | Estimation · initial HLD sketch · client alignment                          | Scoped estimate · initial architecture · discovery ready                                                  |
+| **[Discovery](02%20Discovery%20Phase.md)**     | Project kick-off               | Bootstrap + HLD draft + context shaping                                     | Repo with architecture, constraints, and backlog seeded                                                   |
+| **[Development](03%20Development%20Phase.md)** | Active delivery                | `/design` and `/dev` cycles on real tickets                                 | Code + LLD + story archive per ticket                                                                     |
+| **Operate**                                    | Ongoing                        | `/where-we-are` · `/war` audits · CloudWatch via MCP                        | Gap reports · WAF findings · delivery debt visible                                                        |
+| **Improve**                                    | After any friction point       | `/evolve reflect` → `/evolve triage` → `/evolve validate` → `/evolve adopt` | Patterns adopted into the project's harness · shareable across projects via `patch harvest`/`patch apply` |
 
 ---
 

@@ -79,6 +79,12 @@ _Auth decision path (401 challenge vs pass-through) is shown in `Containers/Auth
 | Origin        | S3 (static) |
 | Edge auth     | Lambda@Edge |
 
+## Boundary contracts
+
+- Input: CDK stack/construct definitions in `apps/infra/`, deployed manually via the guarded `infra:provision` command; app deploy pipelines (`site:deploy`, `lambda-auth:deploy`) consume its outputs but never modify infrastructure (NFR-4)
+- Output: CloudFormation stack outputs consumed by other containers and CI — CloudFront domain/distribution ID, S3 bucket name, Secrets Manager ARN/name, and the Lambda@Edge function name; `CiStack` outputs the IAM deploy role ARN consumed by GitHub Actions OIDC auth
+- Guarantee: every resource is provisioned exclusively through CDK constructs — no manual console changes (NFR-4); stateful resources (S3 bucket, Secrets Manager secret) carry `RemovalPolicy.RETAIN`; the Secrets Manager secret is provisioned as an empty placeholder, its value populated only post-deploy by `lambda-auth:sm-push`, never by CDK
+
 ## Key paths
 
 | Path          | Purpose                   |

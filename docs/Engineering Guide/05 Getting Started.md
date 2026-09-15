@@ -93,19 +93,13 @@ yarn nx run lambda-auth:typecheck   # TypeScript check — auth handler
 
 ## Claude Code (AI assistant)
 
-This project uses Claude Code with MCP servers for AWS, GitHub, and Atlassian access. On first use — and at the start of each session — load your credentials and launch:
+This project uses Claude Code with MCP servers for AWS, GitHub, and Atlassian access. Credentials live in `.claude/settings.local.json`'s `env` block (gitignored, per-developer) — fill them in once, then just launch:
 
 ```bash
-source .env && claude
+claude
 ```
 
-If you haven't set up `.env` yet, copy the example file and fill in your credentials:
-
-```bash
-cp .env.example .env
-# edit .env, then:
-source .env && claude
-```
+Claude Code loads `.claude/settings.local.json` on session start and resolves `.mcp.json`'s `${VAR}` references from it — no `.env` file or shell `source` step needed.
 
 See `06 MCP Setup.md` for the full credentials guide.
 

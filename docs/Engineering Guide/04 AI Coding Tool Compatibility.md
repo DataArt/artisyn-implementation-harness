@@ -88,6 +88,6 @@ The following work regardless of tool — they are file-system conventions, not 
 
 - The `docs/` four-tier structure (HLD / LLD / Engineering Guide / Stories)
 - The certainty principle
-- The `07 Documentation Principles.md` doc-type cheat sheet
+- The `Documentation/01 Principles.md` doc-type cheat sheet
 - A single canonical root context file (`CLAUDE.md` in this project — would be `AGENTS.md` if this repo used Codex CLI instead)
 - Skill files in `docs/Harness/package/skills/` (SKILL.md format is now cross-tool standard)

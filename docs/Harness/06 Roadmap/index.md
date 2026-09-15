@@ -86,11 +86,11 @@ _The feedback loop that makes the harness get better with every project._
 ```
 Adopt         → Validate          → Improve
 ────────────────────────────────────────────
-New project     Run /war            /skill-reflect
-uses bootstrap  Run /where-we-are   /skill-triage
-                PR reviews          /skill-promote
-                Retrospectives      /skill-harvest
-                                    Bootstrap PR
+New project     Run /war            /evolve reflect
+uses bootstrap  Run /where-we-are   /evolve triage
+                PR reviews          /evolve validate
+                Retrospectives      /evolve adopt
+                                    patch harvest → other projects
 ```
 
 **Adopt**
@@ -101,16 +101,16 @@ uses bootstrap  Run /where-we-are   /skill-triage
 
 **Validate**
 
-- `/war-implementation` — AWS Well-Architected audit of the codebase
-- `/war-design` — WAF audit of the HLD
+- `/war implementation` — AWS Well-Architected audit of the codebase
+- `/war design` — WAF audit of the HLD
 - `/where-we-are` — gap report surfaces documentation debt
 - PR reviews flag harness deviations
 
 **Improve**
 
-- Friction → `/skill-reflect` → `/skill-triage` → draft skill
-- Draft validated on 1–2 real tickets → `/skill-promote`
-- Promoted skill synced back → `/skill-harvest` → bootstrap PR
-- Next project gets the improvement automatically via semver bump
+- Friction → `/evolve reflect` → `/evolve triage` → draft candidate
+- Candidate validated → `/evolve validate` → `/evolve adopt` into this project's harness
+- Cross-project sharing (a bootstrap-level concern, not part of Evolve) goes through `patch harvest` / `patch apply`
+- Next project gets the improvement via a bootstrap PR and semver bump
 
 > Open questions: who owns the bootstrap registry? What is the PR / review process for skill graduation?

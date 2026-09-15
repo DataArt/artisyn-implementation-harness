@@ -10,7 +10,7 @@ This project is Claude-Code-only. CLAUDE.md is the single authoritative root con
 
 **If this harness is ever extended to another AI tool**, that tool's root file should point to CLAUDE.md rather than duplicating its content — don't maintain the same rules in two places.
 
-Structure of CLAUDE.md: WHY (2–3 sentences) → WHAT (rules + pointers) → HOW (commands / agents). Length: 60–130 lines. → See `07 Documentation Principles.md` for length budgets per doc type.
+Structure of CLAUDE.md: WHY (2–3 sentences) → WHAT (rules + pointers) → HOW (commands / agents). Length: 60–130 lines. → See `Documentation/01 Principles.md` for length budgets per doc type.
 
 Do not auto-generate the root context file from scratch — generate a scaffold and edit by hand. Auto-generated root context is generic; hand-edited root context is precise.
 

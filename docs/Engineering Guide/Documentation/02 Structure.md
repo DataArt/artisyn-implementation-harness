@@ -23,7 +23,8 @@ docs/
 | **Stories**                   | Transient — delivery process | What did we decide, why, and what was built?                        | No limit — archived after completion |
 
 → For how docs are produced and graduate to their permanent tier, see `Lifecycles/05 Documents Flow.md`.
-→ For the certainty principle (HLD/LLD contain only settled outcomes), see `07 Documentation Principles.md`.
+→ For the certainty principle (HLD/LLD contain only settled outcomes), see `01 Principles.md`.
+→ For the required semantic coverage of each doc type, see `03 HLD Intent.md`, `04 LLD Intent.md` and `05 NFR Intent.md`.
 → For the harness itself — package, skills, agents — see `docs/Harness/`.
 
 ---
@@ -79,7 +80,7 @@ docs/System Architecture (LLD)/
 
 **Engineering Guide:** numbered articles (`NN Title Case.md`). Operational and procedural content only — no architecture.
 
-**Stories:** per-ticket working folders, archived after `/dev-document` completes. Not permanent reference docs.
+**Stories:** per-ticket working folders, archived after `/dev document` completes. Not permanent reference docs.
 
 ---
 

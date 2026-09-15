@@ -27,10 +27,10 @@ flowchart LR
     TICKET(["🎫 Jira ticket\nACs · scope\nlinked to HLD"]):::input
 
     subgraph DEV_CYCLE ["Dev lifecycle — per ticket"]
-        PLAN["/dev-plan\nImplementation plan\nCritical files · Human gate"]:::cmd
-        IMPL["/dev-implement\n@web · @bff · @db · @infra\nScoped specialist agents"]:::cmd
-        TEST["/dev-test\nBuild · Tests · AC validation\nPR review gate"]:::cmd
-        DOC["/dev-document\nLLD update · Deviations\nStory archive"]:::cmd
+        PLAN["/dev plan\nImplementation plan\nCritical files · Human gate"]:::cmd
+        IMPL["/dev implement\n@web · @bff · @db · @infra\nScoped specialist agents"]:::cmd
+        TEST["/dev test\nBuild · Tests · AC validation\nPR review gate"]:::cmd
+        DOC["/dev document\nLLD update · Deviations\nStory archive"]:::cmd
         PLAN --> IMPL --> TEST --> DOC
     end
 
@@ -52,13 +52,13 @@ flowchart LR
 
 ### Plan — Human Gate Before Any Code
 
-`/dev-plan` reads the Jira ticket and the relevant HLD sections, produces a step-by-step implementation plan, and lists the critical files it will touch. The developer approves before anything is modified.
+`/dev plan` reads the Jira ticket and the relevant HLD sections, produces a step-by-step implementation plan, and lists the critical files it will touch. The developer approves before anything is modified.
 
 > No code is written against an unreviewed plan. The gate is non-negotiable.
 
 ### Implement — Scoped Specialist Agents
 
-`/dev-implement` delegates to the right specialist agent for each container:
+`/dev implement` delegates to the right specialist agent for each container:
 
 | Agent    | Scope                      | What it does                                        |
 | -------- | -------------------------- | --------------------------------------------------- |
@@ -71,11 +71,11 @@ Each agent sees only its container — no noise from the rest of the stack. The 
 
 ### Test — Quality Gate Before Merge
 
-`/dev-test` runs the full quality gate: build check, test suite, AC validation against the original ticket, PR review. Nothing merges without passing.
+`/dev test` runs the full quality gate: build check, test suite, AC validation against the original ticket, PR review. Nothing merges without passing.
 
 ### Document — LLD Updated as Part of the Cycle
 
-`/dev-document` writes what was actually built into the LLD, logs any deviations from the HLD, and archives the story. Documentation is not an afterthought — it is a required output of the cycle.
+`/dev document` writes what was actually built into the LLD, logs any deviations from the HLD, and archives the story. Documentation is not an afterthought — it is a required output of the cycle.
 
 ---
 
@@ -97,7 +97,7 @@ Every session reloads the same context: CLAUDE.md + HLD + LLD. Whether it is the
 At any point in the project:
 
 - **`/where-we-are`** — gap matrix: designed vs implemented vs documented
-- **`/war-implementation`** — AWS Well-Architected audit of the codebase
-- **`/war-design`** — WAF audit of the Target Architecture
+- **`/war implementation`** — AWS Well-Architected audit of the codebase
+- **`/war design`** — WAF audit of the Target Architecture
 
 No retrospective needed to discover drift. No sprint-end scramble to update docs. The project stays legible — to humans and to AI — throughout the delivery.

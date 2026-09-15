@@ -38,6 +38,12 @@ sequenceDiagram
 | Language     | TypeScript                                                                                                                                                                                                                              |
 | Deploy model | Lambda@Edge — CDK provisions a placeholder in `us-east-1`; real handler ships via `lambda-auth:deploy` after CDK. Re-run `lambda-auth:deploy` after any DocsStack deploy. See `Engineering Guide/Infrastructure/02 Deploy Lifecycle.md` |
 
+## Boundary contracts
+
+- Input: every CloudFront viewer request, including the `Authorization` header if present
+- Output: either a `401` with `WWW-Authenticate: Basic realm="Docs"` (no credentials, malformed header, unverifiable secret fetch, or wrong password), or the original request passed through unmodified to the S3 origin (correct password)
+- Guarantee: no request reaches S3 without a successful timing-safe comparison against the stored password hash (NFR-1); the stored credential is a SHA-256 hash fetched from Secrets Manager, never a plaintext secret, and never hardcoded in source (NFR-2)
+
 Reading the Discuss container's comments is not gated by anything beyond this Lambda — since giscus reads via its App's own token, not the viewer's, this basic-auth gate is the only thing standing between an anonymous visitor and the comment content. Posting is separately gated by GitHub repository permission, independent of this Lambda (see NFR-6).
 
 ## Constraints

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "answers": {
+    "Q1": {
+      "question": "Project purpose and why it exists",
+      "value": "Canonical source of the Artisyn Harness — an AI-first engineering lifecycle system (skills, agents, conventions) that runs this platform's own development and is bootstrapped into other projects via docs/Harness/package/. Also ships the ADLC Discovery Tool docs site itself.",
+      "source": "CLAUDE.md",
+      "status": "verified"
+    },
+    "Q2": {
+      "question": "Languages, frameworks, runtime, datastore, cloud; propose from config",
+      "value": "Node.js >=24, TypeScript, yarn 4 (Berry) workspaces, Nx monorepo; VitePress 1.x/Vite for docs; AWS CDK for infra; AWS Lambda@Edge (Node.js/TS) for auth; AWS CloudFront + S3 as runtime targets. No datastore beyond AWS Secrets Manager for credentials.",
+      "source": "package.json, CLAUDE.md architecture table, apps/*/package.json",
+      "status": "verified"
+    },
+    "Q3": {
+      "value": "Web (apps/docs-web), Auth (apps/lambda-auth), Infrastructure (apps/infra), plus Discuss (client-side giscus comments widget, no infra of its own) documented in HLD/LLD but missing from the CLAUDE.md architecture table",
+      "question": "Named containers/layers; drives CONTAINER_LIST and specialist scope",
+      "source": "CLAUDE.md, docs/Target Architecture (HLD)/v1/Containers/*, docs/System Architecture (LLD)/*",
+      "status": "confirmed"
+    },
+    "Q4": {
+      "question": "Primary data flow and integrations",
+      "value": "Browser → CloudFront (Lambda@Edge auth gate) → S3 (VitePress static build). Discuss container integrates client-side with giscus.app/GitHub Discussions.",
+      "source": "CLAUDE.md, docs/Target Architecture (HLD)/v1/Containers/Discuss.md",
+      "status": "verified"
+    },
+    "Q5": {
+      "question": "Tracker (Jira/Linear/GitHub Issues/none); ticket prefix, tracker URL, optional Confluence/board details",
+      "value": "Jira, project key ND, tracker URL https://support.dataart.com (e.g. ND-230). Corrected by developer 2026-09-15 — originally recorded as 'no external tracker' with informal ADLC-NNN references; scrum-master agent deployed and dev/design skills' tracker delegation steps restored accordingly. Confluence URL, transition IDs, labels taxonomy, and team-composition notes not yet provided — left as explicit TODOs in .claude/agents/scrum-master.md pending developer input or MCP lookup once Atlassian credentials are filled in.",
+      "source": "Developer correction 2026-09-15 (ticket URL https://support.dataart.com/browse/ND-230)",
+      "status": "confirmed"
+    },
+    "Q6": {
+      "question": "Claude Code/Codex CLI/Cursor/Kiro/Windsurf/multiple; select installation paths and exactly one project instruction destination",
+      "value": "Claude Code only. Root instruction file: CLAUDE.md (canonical, no AGENTS.md or tool wrapper).",
+      "source": "docs/Engineering Guide/01 Conventions.md",
+      "status": "verified"
+    },
+    "Q7": {
+      "question": "Commit format, branch naming, build/check commands, guarded commands",
+      "value": "Commit: `<type>(<scope>): <what changed>` (feat/fix/docs/refactor/test/chore). Branch: `<type>/short-description`. Package manager: yarn only (never npm/npx). Guarded commands (never run directly, present as instructions): `cdk deploy`, `yarn nx run infra:provision`, `git push`.",
+      "source": "CLAUDE.md, docs/Engineering Guide/01 Conventions.md",
+      "status": "verified"
+    },
+    "Q8": {
+      "question": "Confirmed NFR targets: availability, latency, residency, accessibility, cost, etc.",
+      "value": "Already documented: NFR-1..NFR-6 (basic auth on all routes, no hardcoded credentials, region never hardcoded, IaC via CDK, VitePress dead-link build gate, giscus comment-posting permission gating). Constraints: no cost ceiling, small team (~10 internal users), fixed-duration engagement.",
+      "source": "docs/Target Architecture (HLD)/v1/Non-Functional Concerns/Requirements.md",
+      "status": "verified"
+    },
+    "Q9": {
+      "question": "Team, pace, risks, other constraints",
+      "value": "Small internal team (~10 users), fixed-duration engagement, no defined cost ceiling. No further team/pace detail found in repo evidence.",
+      "source": "docs/Target Architecture (HLD)/v1/Non-Functional Concerns/Requirements.md",
+      "status": "proposed"
+    },
+    "Q10": {
+      "question": "Enabled Dev/Design/Skill/Architecture lifecycles; default all, Dev required",
+      "value": "All four lifecycles enabled: Dev (/dev), Design (/design), Skill (/skill-*), Architecture (/war).",
+      "source": "CLAUDE.md skills table",
+      "status": "verified"
+    },
+    "Q10b": {
+      "question": "If Design: Project-scoped (default), Product-context-scoped, or Two-track",
+      "value": "Two-track. Corrected by developer 2026-09-15 — this repo needs both its own Target Architecture (HLD) AND a shared cross-project product-context layer (docs/Harness/, since this repo also bootstraps the harness into other projects), chosen per design session.",
+      "source": "Developer correction",
+      "status": "confirmed"
+    },
+    "Q10c": {
+      "question": "If Product-context or Two-track: shared folder under project:docs/",
+      "value": "Harness (i.e. docs/Harness/ — the existing harness product/handbook documentation, reused as the shared product-context layer)",
+      "source": "Developer correction; docs/Harness/ already exists",
+      "status": "confirmed"
+    },
+    "Q11": {
+      "question": "Azure/AWS/GCP/custom WAF with explicit pillars, or None",
+      "value": "AWS Well-Architected Framework, standard pillars (Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability). Matches CLAUDE.md's /war-design description and the all-AWS deployment target.",
+      "source": "CLAUDE.md skills table, apps/infra (AWS CDK)",
+      "status": "confirmed"
+    }
+  }
+}

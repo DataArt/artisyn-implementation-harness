@@ -24,12 +24,10 @@ corepack enable      # activates Yarn 4 via packageManager field
 yarn install         # installs all workspace deps
 ```
 
-Copy the env file, fill in your credentials, then launch Claude Code with MCP servers active:
+Fill in your MCP credentials in `.claude/settings.local.json`'s `env` block, then launch Claude Code — no shell sourcing step needed:
 
 ```bash
-cp .env.example .env
-# edit .env
-source .env && claude
+claude
 ```
 
 → See `docs/Engineering Guide/05 Getting Started.md` for the full command reference (running apps, code quality, NX commands) and `docs/Engineering Guide/06 MCP Setup.md` for the full credentials guide — or run `@onboarding` inside Claude Code for a guided walkthrough.
@@ -38,7 +36,7 @@ source .env && claude
 
 `docs/` follows a three-tier model — architecture decisions (`Target Architecture (HLD)/`), stable conventions (`Engineering Guide/`), and archived work records (`Stories/archive/`) — plus `Harness/`, the harness's own self-description. Each tier has a different update cadence and ownership.
 
-→ See `docs/Engineering Guide/02 Doc Structure.md` for the full tier breakdown and placement guide, and `docs/Engineering Guide/07 Documentation Principles.md` for how to write within each tier.
+→ See `docs/Engineering Guide/Documentation/02 Structure.md` for the full tier breakdown and placement guide, and `docs/Engineering Guide/Documentation/01 Principles.md` for how to write within each tier.
 
 ## Onboarding
 
@@ -52,8 +50,8 @@ Once oriented:
 
 ## Primary commands
 
-| Command                    | When to use                                                       |
-| -------------------------- | ----------------------------------------------------------------- |
-| `/design ADLC-XXX <topic>` | Start a new design session (target architecture, recommendations) |
-| `/dev ADLC-XXX <task>`     | Implement a ticket (site changes, auth, infra)                    |
-| `/where-we-are`            | Delivery gap report                                               |
+| Command                  | When to use                                                       |
+| ------------------------ | ----------------------------------------------------------------- |
+| `/design ND-XXX <topic>` | Start a new design session (target architecture, recommendations) |
+| `/dev ND-XXX <task>`     | Implement a ticket (site changes, auth, infra)                    |
+| `/where-we-are`          | Delivery gap report                                               |

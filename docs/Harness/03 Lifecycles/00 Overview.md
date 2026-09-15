@@ -6,14 +6,14 @@ _The four lifecycles, how they interact, and when to use each one._
 
 ## The four lifecycles
 
-| Lifecycle        | Orchestrator            | Phases                                                  |
-| ---------------- | ----------------------- | ------------------------------------------------------- |
-| **Dev**          | `/dev`                  | Plan → Implement → Test → Document                      |
-| **Design**       | `/design`               | Frame → Research → Elaborate → Solution → Publish       |
-| **Skill**        | — (no orchestrator)     | Reflect → Triage → New → Promote                        |
-| **Architecture** | — (standalone commands) | `/where-we-are` · `/war-design` · `/war-implementation` |
+| Lifecycle        | Orchestrator            | Phases                                                                            |
+| ---------------- | ----------------------- | --------------------------------------------------------------------------------- |
+| **Dev**          | `/dev`                  | Plan → Implement → Test → Document                                                |
+| **Design**       | `/design`               | Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
+| **Skill**        | — (no orchestrator)     | Reflect → Triage → Draft → Validate → Adopt                                       |
+| **Architecture** | — (standalone commands) | `/where-we-are` · `/war design` · `/war implementation`                           |
 
-Each orchestrator runs all phases in one session, stopping at every boundary for confirmation. Individual phase commands (`/dev-plan`, `/design-frame`, etc.) allow resuming mid-flow.
+Each orchestrator runs its phases in order. Dev continues routine authorized work and pauses only for material decisions or required human actions; other lifecycles retain their own review gates. Individual phase commands (`/dev plan`, `/design frame`, etc.) run the requested stage or support resuming mid-flow.
 
 ---
 
@@ -23,11 +23,11 @@ Each orchestrator runs all phases in one session, stopping at every boundary for
 | --------------------------------------------- | ---------------------------------------------- |
 | Any ticket — feature, bug fix, chore          | Dev lifecycle always                           |
 | Ticket is large, novel, or crosses containers | Design lifecycle first, then Dev               |
-| Something surprised you during a ticket       | Skill lifecycle (Reflect)                      |
-| 2–4 pending reflections                       | Skill lifecycle (Triage)                       |
+| Something surprised you during a ticket       | Evolve lifecycle (Reflect)                     |
+| Observed harness friction                     | Evolve lifecycle (Triage)                      |
 | End of sprint / before planning               | Architecture lifecycle (`/where-we-are`)       |
-| After major HLD changes                       | Architecture lifecycle (`/war-design`)         |
-| Before a major release                        | Architecture lifecycle (`/war-implementation`) |
+| After major HLD changes                       | Architecture lifecycle (`/war design`)         |
+| Before a major release                        | Architecture lifecycle (`/war implementation`) |
 
 **Design is optional.** Small, well-understood changes within a single container that introduce no new integrations or architecture decisions — skip Design, go straight to Dev.
 
@@ -35,9 +35,9 @@ Each orchestrator runs all phases in one session, stopping at every boundary for
 
 ## Cross-lifecycle invariants
 
-- The AI does not move between phases without explicit developer confirmation.
+- Follow each lifecycle's approval contract. Dev reuses existing authorization across routine phase transitions; unresolved material decisions still require human input.
 - No code is written until the plan is approved and the architecture audit passes.
-- Documentation is mandatory — tickets are not complete until `/dev-document` has run.
+- Documentation is mandatory — tickets are not complete until `/dev document` has run.
 - Architecture deviations approved at plan time are tracked through to the Document phase.
 - Reflections are not optional ceremony — they are how conventions accumulate.
 
@@ -53,7 +53,7 @@ flowchart TB
 
     subgraph DESIGN ["  🎨 Design lifecycle (optional)  "]
         direction LR
-        D1["Frame\nproblem + ACs"]:::design --> D2["Research\noptions via {resolved architect agent}"]:::design --> D3["Elaborate\nmatrix + recommend"]:::design --> D4["Solution\ncertainty artifacts"]:::design --> D5["Publish\nMR → docs → tickets"]:::design
+        D1["Frame\nproblem + ECs"]:::design --> D2["Research\noptions via {resolved architect agent}"]:::design --> D3["Evaluate\nmatrix + recommend"]:::design --> D4["Solution\ncertainty artifacts"]:::design --> D5["Publish\nMR → docs → tickets"]:::design
     end
 
     subgraph DEV ["  🔨 Dev lifecycle  "]
@@ -61,12 +61,12 @@ flowchart TB
         V1["Plan\n+ arch audit"]:::dev --> V2["Implement\nstep-by-step"]:::dev --> V3["Test\n+ PR review"]:::dev --> V4["Document\n+ deviations"]:::dev
     end
 
-    subgraph SKILL ["  💡 Skill lifecycle  "]
+    subgraph SKILL ["  💡 Evolve lifecycle  "]
         direction TB
         S1["Reflect"]:::skill --> S2["Triage"]:::skill --> S3["Promote"]:::skill
     end
 
-    WAR["🏛️ WAR Audit\n/war-design · /war-implementation\nIs the architecture sound?"]:::war
+    WAR["🏛️ WAR Audit\n/war design · /war implementation\nIs the architecture sound?"]:::war
     WWA["📊 Where We Are\n/where-we-are\nDesigned vs implemented vs documented"]:::wwa
 
     TICKET -->|"large / novel"| DESIGN
@@ -91,7 +91,7 @@ flowchart TB
 ---
 
 → `01 Dev Lifecycle.md` — Plan → Implement → Test → Document  
-→ `02 Design Lifecycle.md` — Frame → Research → Elaborate → Solution → Publish  
-→ `03 Skill Lifecycle.md` — Reflect → Triage → New → Promote  
-→ `04 Architecture Lifecycle.md` — `/where-we-are` · `/war-design` · `/war-implementation`  
+→ `02 Design Lifecycle.md` — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish  
+→ `03 Evolve Lifecycle.md` — Reflect → Triage → Draft → Validate → Adopt
+→ `04 Architecture Lifecycle.md` — `/where-we-are` · `/war design` · `/war implementation`  
 → `05 Documents Flow.md` — how docs are born, graduate, and reach their permanent home

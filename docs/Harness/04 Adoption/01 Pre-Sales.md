@@ -20,7 +20,7 @@ _Build the project skeleton during pre-sales — before any code is written._
 During pre-sales, the SA can:
 
 1. **Bootstrap the repo** — create the harness structure, CLAUDE.md, agent definitions
-2. **Draft the HLD** — use `/design-frame` and `/design-solution` to produce an initial Target Architecture from client conversations and RFP materials
+2. **Draft the HLD** — use `/design frame` and `/design solution` to produce an initial Target Architecture from client conversations and RFP materials
 3. **Shape CLAUDE.md** — encode client-specific conventions, tech constraints, compliance requirements, NFRs
 4. **Pre-load memory** — capture key decisions, open questions, stakeholder constraints as memory files
 5. **Draft a gap report** — use `/where-we-are` to show exactly what is designed vs what still needs to be built
@@ -36,7 +36,7 @@ flowchart LR
     AGENT["🤖 AI agent\nfull context\nloaded"]:::ai
 
     CC --> SA
-    SA -->|"/init\n/design-frame\n/design-solution"| REPO
+    SA -->|"/init\n/design frame\n/design solution"| REPO
     REPO --> DEV
     REPO --> AGENT
     DEV <-->|no ramp-up| AGENT
@@ -123,18 +123,18 @@ _Effort sizing grounded in a real HLD, not guesswork._
 
 **How the harness improves estimation**
 
-1. `/design-solution` — each solution includes an Efforts section with sizing per container and phase
+1. `/design solution` — each solution includes an Efforts section with sizing per container and phase
 2. `/where-we-are` — the gap matrix shows exactly what is designed vs not yet built, making scope explicit
-3. `/war-design` — WAF audit flags complexity hotspots that inflate estimates (auth, compliance, network constraints)
-4. `/design-publish` — creates granular implementation tickets from the solution, each with ACs that bound the estimate
+3. `/war design` — WAF audit flags complexity hotspots that inflate estimates (auth, compliance, network constraints)
+4. `/design publish` — creates granular implementation tickets from the solution, each with ACs that bound the estimate
 
 ```mermaid
 flowchart TD
     HLD["📐 HLD\nTarget Architecture"]:::input
-    DS["/design-solution\nEfforts per container"]:::cmd
+    DS["/design solution\nEfforts per container"]:::cmd
     WW["/where-we-are\nGap matrix"]:::cmd
-    WD["/war-design\nRisk flags"]:::cmd
-    DP["/design-publish\nTicket backlog"]:::cmd
+    WD["/war design\nRisk flags"]:::cmd
+    DP["/design publish\nTicket backlog"]:::cmd
     EST(["📋 Estimate\nscoped · traceable\n· updatable"]):::output
 
     HLD --> DS
@@ -153,9 +153,9 @@ flowchart TD
 
 | Artefact        | Command            | Content                                                |
 | --------------- | ------------------ | ------------------------------------------------------ |
-| Efforts section | `/design-solution` | T-shirt sizing per container, per phase                |
+| Efforts section | `/design solution` | T-shirt sizing per container, per phase                |
 | Gap matrix      | `/where-we-are`    | Designed vs built vs documented — shows delivery scope |
-| Risk flags      | `/war-design`      | WAF findings that drive contingency                    |
-| Ticket backlog  | `/design-publish`  | Implementation tickets with ACs                        |
+| Risk flags      | `/war design`      | WAF findings that drive contingency                    |
+| Ticket backlog  | `/design publish`  | Implementation tickets with ACs                        |
 
 > Key talking points: <!-- TODO: HLD fidelity vs estimate confidence; T-shirt vs story points -->

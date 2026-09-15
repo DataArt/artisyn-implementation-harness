@@ -35,7 +35,7 @@ This wiring only holds if [The Mental Model Shift](./04%20The%20Mental%20Model%2
 | **Design**              | Operational Context · Technical Context | Operational Context ↑ — refined tickets, sprints, UI/UX specs                  |
 | **Implementation**      | Operational Context · Project Context   | Project Context — code, HLD/LLD updates; Operational Context ↑ — ticket status |
 | **Quality Assurance**   | Project Context · Operational Context   | Operational Context ↑ — bug reports, QA sign-off                               |
-| **Deploy / Maintain**   | Project Context                         | Running system · Maintenance loop → Jira, `/skill-reflect` → bootstrap         |
+| **Deploy / Maintain**   | Project Context                         | Running system · Maintenance loop → Jira, `/evolve reflect` → harness          |
 
 Every row is a wiring requirement, not a suggestion — if a phase can't actually reach the context layer it's supposed to consume, or its output doesn't land where the next phase expects it, the loop breaks at that link, and the AI defaults back to generic patterns.
 
@@ -52,8 +52,8 @@ Fully wired, the map becomes explicit at every phase:
 - **At Analysis**: structured requirements land in Jira before Design starts
 - **At Design**: `/design` requires Operational Context as input; produces HLD as output before a line of code is written
 - **At Implementation**: `/dev` consumes the approved HLD and a scoped ticket; produces code plus an LLD update
-- **At QA**: `/dev-test` validates against ACs from the Operational layer; closes the loop back to Jira
-- **At Deploy/Maintain**: `/where-we-are` and `/war` surface drift; `/skill-reflect` captures lessons back into the bootstrap
+- **At QA**: `/dev test` validates against ACs from the Operational layer; closes the loop back to Jira
+- **At Deploy/Maintain**: `/where-we-are` and `/war` surface drift; `/evolve reflect` captures lessons back into the harness
 
 Context stays proper, non-contradictory, current, and scoped — not because someone remembers to update it, but because the setup makes it a required output of the phase, not a by-product.
 

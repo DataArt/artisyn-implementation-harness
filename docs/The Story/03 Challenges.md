@@ -149,7 +149,7 @@ The ARB is not the problem. The gap is one level below it — at the project lev
 flowchart TD
     QA["Q1–Q11<br/>project identity · stack · containers<br/>conventions · NFRs · tracker"]
 
-    A["Block A — Skills<br/>/dev · /design · /war<br/>/where-we-are · /skill-reflect"]
+    A["Block A — Skills<br/>/dev · /design · /war<br/>/where-we-are · /evolve"]
     B["Block B — Agents<br/>@web · @bff · @db<br/>@infra · @architect"]
     C["Block C — Root Context<br/>CLAUDE.md · settings.json<br/>always loaded at session start"]
     D["Block D — Engineering Guide<br/>Conventions · Lifecycles<br/>Doc principles"]
@@ -199,34 +199,34 @@ flowchart LR
 
 The cost is invisible because the next project never knows what it missed.
 
-**How to address this — the harness (Project Context):** hard-won patterns are captured, validated, and shipped to the next project through a dedicated lifecycle, not left in a post-mortem nobody reads.
+**How to address this — the harness (Project Context):** hard-won patterns are captured, validated, and adopted back into the project's harness through a dedicated lifecycle, not left in a post-mortem nobody reads.
 
-> The Skill Lifecycle
+> The Evolve Lifecycle
 
 ```mermaid
 flowchart LR
     FRICTION["Real project friction<br/>something was hard<br/>something broke<br/>a pattern emerged"]
 
-    R["/skill-reflect<br/>capture the lesson"]
-    T["/skill-triage<br/>cluster and structure"]
-    P["/skill-promote<br/>validate and activate"]
-    H["/skill-harvest<br/>ship to bootstrap"]
+    R["/evolve reflect<br/>capture the lesson"]
+    T["/evolve triage<br/>cluster and draft"]
+    V["/evolve validate<br/>check structure and behaviour"]
+    A["/evolve adopt<br/>integrate locally"]
 
-    NEXT["Next project<br/>starts with accumulated<br/>learnings built in"]
+    NEXT["This project — and any other<br/>it's shared with via<br/>patch harvest / patch apply"]
 
-    FRICTION --> R --> T --> P --> H --> NEXT
+    FRICTION --> R --> T --> V --> A --> NEXT
     NEXT -->|"generates new friction"| FRICTION
 
     classDef skill fill:#2471A3,stroke:#1A5276,color:#fff
     classDef outcome fill:#27AE60,stroke:#1E8449,color:#fff
     classDef input fill:#7F8C8D,stroke:#616A6B,color:#fff
 
-    class R,T,P,H skill
+    class R,T,V,A skill
     class NEXT outcome
     class FRICTION input
 ```
 
-The bootstrap is a living platform. Every project improves it. Every lesson compounds.
+The harness is a living platform. Every project improves it locally through Evolve; cross-project sharing is a separate, bootstrap-level `patch harvest` / `patch apply` step. Every lesson compounds.
 
 ---
 

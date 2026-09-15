@@ -40,3 +40,6 @@ cdk.out/
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
+
+# Harness bootstrap portable toolkit (not deployed harness output)
+#/.claude/skills/harness-bootstrap/

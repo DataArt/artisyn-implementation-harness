@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": ["Bash(yarn:*)", "Bash(git mv:*)"],
+    "deny": [
+      "Bash(git push:*)",
+      "Bash(yarn nx run infra:apply:*)",
+      "Bash(yarn nx run infra:destroy:*)",
+      "Bash(yarn nx run frontline-report:deploy:*)"
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_ENABLE_TASKS": "1",
+    "CLAUDE_CODE_ENABLE_TODO_TOOLS": "1"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); if echo \"$input\" | jq -r '.tool_input.command // \"\"' | grep -q 'Stories/archive'; then printf '{\"systemMessage\": \"Story archived.\\nIf anything surprised you this ticket, capture it now:\\n\\n  /evolve reflect <your brain-dump>\\n\\nEven one sentence is enough.\"}'; fi",
+            "statusMessage": "Checking for reflection prompt..."
+          }
+        ]
+      }
+    ]
+  }
+}

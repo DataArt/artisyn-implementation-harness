@@ -24,8 +24,9 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 | Web            | VitePress documentation site               | VitePress 1.x · Vite |
 | Auth           | Lambda@Edge basic auth password protection | Node.js · TypeScript |
 | Infrastructure | CDN, static origin, edge auth wiring       | AWS CDK · TypeScript |
+| Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
 
-Data flow: Browser → CloudFront (Lambda@Edge auth gate) → S3 (VitePress static build).
+Data flow: Browser → CloudFront (Lambda@Edge auth gate) → S3 (VitePress static build). Discuss integrates client-side with giscus.app/GitHub Discussions.
 
 See `docs/Target Architecture (HLD)/README.md` for the active version's full design.
 
@@ -40,33 +41,28 @@ Key constraint: basic auth password protection on all routes.
 | Skill                 | Purpose                                                                |
 | --------------------- | ---------------------------------------------------------------------- |
 | `/dev`                | Dev lifecycle orchestrator — Plan → Implement → Test → Document        |
-| `/design`             | Design lifecycle orchestrator — Frame → Research → Elaborate → Solution → Review → Address Feedback → Publish |
-| `/design-review-gate` | Opens the draft MR and records the approval gate; session pauses for out-of-band human approval |
-| `/design-address-feedback` | Only if the approver raises concerns — reiterates into the traced-to phase, then waits for re-approval |
-| `/skill-reflect`      | Brain-dump observations after completing a ticket                      |
-| `/skill-triage`       | Cluster reflections into patterns worth capturing                      |
-| `/skill-new`          | Draft a new skill or rule from a triage cluster                        |
-| `/skill-promote`      | Merge a drafted skill into the active skill set                        |
-| `/skill-harvest`      | Batch-extract patterns from a session transcript                       |
-| `/war`                | Architecture lifecycle router (`design` / `impl` / version)            |
+| `/design`             | Design lifecycle orchestrator — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
+| `/evolve`             | Evolve lifecycle orchestrator — Reflect → Triage → Draft → Validate → Adopt |
+| `/war`                | Architecture lifecycle router (`design` / `implementation` / version)  |
 | `/where-we-are`       | Delivery gap report: Designed vs Implemented vs Documented             |
-| `/war-design`         | Assess target architecture against AWS Well-Architected Framework      |
-| `/war-implementation` | Audit running code against AWS WAF pillars                             |
+| `/x-ray`               | Full-strength, project-aware code review — heavier reviewer pass, typically run by whoever approves the MR |
 | `/patch`              | Cross-project patch router (`prepare` / `apply`)                       |
 
 ## How
 
 ### Slash commands
 
-Orchestrators: `/dev` · `/design` · `/war` · `/where-we-are`
+Orchestrators: `/dev` · `/design` · `/evolve` · `/war` · `/where-we-are`
 
-Dev phases: `/dev-plan` → `/dev-implement` → `/dev-test` → `/dev-document`
+Dev phases: `/dev plan` → `/dev implement` → `/dev test` → `/dev document`
 
-Design phases: `/design-frame` → `/design-research` → `/design-elaborate` → `/design-solution` (WAF gate: `/design-review`) → `/design-review-gate` → (`/design-address-feedback`) → `/design-publish`
+Design phases: `/design frame` → `/design research` → `/design evaluate` → `/design solution` (WAF gate: `patterns/waf-review.md`) → `/design review-gate` → (`/design address-feedback`) → `/design publish`
 
-Skill phases: `/skill-reflect` → `/skill-triage` → `/skill-new` → `/skill-promote`
+Design scope is **two-track**, chosen per session: project-scoped (this repo's own `docs/Target Architecture (HLD)/`) or product-context-scoped (the shared cross-project layer at `docs/Harness/`, reused since this repo also bootstraps the harness into other projects).
 
-Architecture: `/where-we-are` · `/war design` · `/war impl`
+Evolve phases: `/evolve reflect` → `/evolve triage` → `/evolve draft` → `/evolve validate` → `/evolve adopt`
+
+Architecture: `/where-we-are` · `/war design` · `/war implementation`
 
 Patch: `/patch prepare` · `/patch apply`
 
@@ -80,7 +76,13 @@ Patch: `/patch prepare` · `/patch apply`
 | `@infra`       | Infrastructure (`apps/infra/`)             | Read, Edit, Write, Glob, Grep       |
 | `@architect`   | All (reviewer + doc author)                | Read, Glob, Grep, Bash, Write, Edit |
 | `@docs-writer` | `docs/` (content authoring)                | Read, Edit, Write, Glob, Grep       |
+| `@product-architect` | `docs/Harness/` (product-track governance, read-only) | Read, Glob, Grep |
+| `@scrum-master` | Jira only (issue reads/writes/transitions) | Read, `mcp__atlassian__*` |
 
 ### Issue tracker
 
-No external tracker. Internal ticket prefix: `ADLC` (e.g. `ADLC-001`). Story folders live in `docs/Stories/`.
+Jira, project `ND`, at `https://support.dataart.com`. All tracker reads/writes go through `@scrum-master` — skills never call Jira MCP tools directly. Story folders live in `docs/Stories/`.
+
+### MCP
+
+Configured in `project:.mcp.json` (variable references only, no literal credentials): `aws-mcp` (AWS account access), `atlassian` (Confluence/Jira lookups), `github` (repo operations). Enable per-session in `.claude/settings.local.json`; set credential env vars locally per `docs/Engineering Guide/06 MCP Setup.md`, then restart the session.
