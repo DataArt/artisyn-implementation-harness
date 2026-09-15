@@ -1,0 +1,22 @@
+--- a/canonical/skills/dev/scripts/dev-metrics.test.mjs
++++ b/canonical/skills/dev/scripts/dev-metrics.test.mjs
+@@ -126,7 +126,8 @@
+   fs.writeFileSync(file, prose); f.ok('report'); f.ok('report');
+   const report = fs.readFileSync(file, 'utf8');
+   assert.ok(report.startsWith(prose));
+-  assert.equal(report.match(/<!-- dev-metrics:start -->/g).length, 1);
++  assert.equal(report.match(/<!-- dev-metrics-stage:start -->/g).length, 1);
++  assert.equal(report.match(/<!-- dev-metrics-step:start -->/g).length, 1);
+   assert.ok(report.includes('step-1: Implement change'));
+ });
+ test('report refresh is stable when titles contain replacement patterns', t => {
+@@ -136,7 +137,8 @@
+   f.ok('step', 'start', '--id', 'step-1');
+   f.ok('report'); f.ok('report');
+   const report = fs.readFileSync(path.join(f.dir, '2-report.md'), 'utf8');
+-  assert.equal(report.match(/<!-- dev-metrics:start -->/g).length, 1);
++  assert.equal(report.match(/<!-- dev-metrics-stage:start -->/g).length, 1);
++  assert.equal(report.match(/<!-- dev-metrics-step:start -->/g).length, 1);
+   assert.ok(report.includes('Costs $& and $100'));
+ });
+ test('direct-stage completion does not finalize ticket automatically', t => {

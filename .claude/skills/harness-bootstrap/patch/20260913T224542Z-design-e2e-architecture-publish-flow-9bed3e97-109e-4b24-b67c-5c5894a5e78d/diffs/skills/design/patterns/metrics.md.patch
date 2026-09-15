@@ -1,0 +1,46 @@
+--- a/skills/design/patterns/metrics.md
++++ b/skills/design/patterns/metrics.md
+@@ -4,12 +4,15 @@
+ CLI at `.claude/skills/design/scripts/design-metrics.mjs` for every mutation; never
+ hand-edit JSON, infer completion from artifacts, estimate tokens, or sum worker time.
+ Node.js 22+ is required; there are no dependencies. Every command takes explicit
+-`--dir "$DESIGN_DIR"`, where DESIGN_DIR is the current story's **design directory**.
++`--dir "$DESIGN_DIR"`, where DESIGN_DIR is the current story's **design directory**
++(`docs/Stories/[{TICKET}] {name}/design/`). Working design artifacts and metrics
++files live there; settled solution artifacts remain in the sibling `solution/`
++directory.
+ Dev uses a separate impl directory and recorder; the CLIs reject lifecycle mismatches.
+ 
+ ## Initialization and recovery
+ 
+-Once Frame creates the design directory and Report.md:
++Once Frame creates the story's `design/` directory and `design/Report.md`:
+ 
+ ```sh
+ node .claude/skills/design/scripts/design-metrics.mjs init --dir "$DESIGN_DIR" --ticket "$TICKET"
+@@ -148,10 +151,11 @@
+ supported. Design and dev samples must be disjoint. Coverage remains partial whenever
+ samples are imported; per-stage tokens stay unavailable rather than allocating totals.
+ 
+-`report` updates only its marker block in Report.md, preserving context, State, Gate,
++`report` updates only its marker block in `design/Report.md`, preserving context, State, Gate,
+ WAF findings, and human notes. It lists all seven stages, statuses, timing, attempts,
+ and failed checks. Totals include observed work/wait, open intervals, unclassified
+-time, rework, blockers, approval waits, and token subtotals in stat.json. First-pass
++time, rework, blockers, approval waits, and token subtotals in stat.json.
++`wait_seconds_to_date` includes the currently open wait, so approval wait is visible before resume; `observed_wait_seconds` remains closed-only. First-pass
+ verification rate uses stages with pass/fail evidence: each named check's first run
+ must have passed. This is provisional until reviews are finished. Human effort is
+ not inferred. `templates/stat.schema.json` defines the design profile of v2.
+@@ -159,8 +163,9 @@
+ ## Publish and completion
+ 
+ Keep Publish active through permanent-doc updates, archive, commit confirmation,
+-and required tracker sync. When archiving, move stat.json with the design directory
+-and update DESIGN_DIR before further commands. Do not merge its metrics into impl.
++and required tracker sync. When archiving, move the `design/` directory, including
++`design/stat.json`, with the story and update DESIGN_DIR before further commands. Do
++not merge its metrics into impl.
+ After all required design work succeeds, run `stage complete --stage publish`, then
+ `complete`, then `report`. Full-flow completion requires all seven stages completed
+ or the authorized Feedback skip; partial runs leave unseen stages pending. A direct

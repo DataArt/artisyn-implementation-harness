@@ -1,0 +1,11 @@
+--- a/canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md
++++ b/canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md
+@@ -81,7 +81,7 @@
+ 
+ **Supersession** — HLD is versioned. Creating a new version is a human and business decision — the lifecycle never creates one automatically. When the team decides to cut a new version, the old version folder is kept as history and the README router is updated to point to the new active version. In-progress deviations always land in the current active version.
+ 
+-**Archival** — Stories are archived when `/dev document` completes. Archived stories are read-only references.
++**Archival** — Stories are archived after doc consistency review, evidence-backed terminal resolutions in the single Review Findings ledger, and passing required acceptance/checks. Routine LLD lag is a doc-update task; deviation auditing compares implementation to HLD only. Archived stories are read-only references.
+ 
+ ---
+ 

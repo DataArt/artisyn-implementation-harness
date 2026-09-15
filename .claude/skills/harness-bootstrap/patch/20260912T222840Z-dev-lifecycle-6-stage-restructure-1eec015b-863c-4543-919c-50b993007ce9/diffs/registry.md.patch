@@ -1,0 +1,15 @@
+diff --git a/registry.md b/registry.md
+index d2061ee..2a95655 100644
+--- a/registry.md
++++ b/registry.md
+@@ -21,10 +21,6 @@ not rows copied from the source project.
+ | Name | Type | Compare | Template Path | Deployed Path |
+ | ---- | ---- | ------- | -------------- | --------------- |
+ | dev | skill | content | `skills/dev/TEMPLATE.md` | `.claude/skills/dev/SKILL.md` |
+-| dev-plan | skill | content | `skills/dev-plan/TEMPLATE.md` | `.claude/skills/dev-plan/SKILL.md` |
+-| dev-implement | skill | content | `skills/dev-implement/TEMPLATE.md` | `.claude/skills/dev-implement/SKILL.md` |
+-| dev-test | skill | content | `skills/dev-test/TEMPLATE.md` | `.claude/skills/dev-test/SKILL.md` |
+-| dev-document | skill | content | `skills/dev-document/TEMPLATE.md` | `.claude/skills/dev-document/SKILL.md` |
+ | design | skill | content | `skills/design/TEMPLATE.md` | `.claude/skills/design/SKILL.md` |
+ | design-frame | skill | content | `skills/design-frame/TEMPLATE.md` | `.claude/skills/design-frame/SKILL.md` |
+ | design-research | skill | content | `skills/design-research/TEMPLATE.md` | `.claude/skills/design-research/SKILL.md` |

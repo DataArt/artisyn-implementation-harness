@@ -1,0 +1,205 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index d12be62..f746b4c 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,200 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 7.19.0
++
++Dev canonical skill 2.15.0 → 2.16.0. Consistency pass over the whole 7.6.0–7.18.0
++sign-off restoration, from an independent review (Fable) reading every touched file
++plus its untouched neighbors. Fixes leftover 7.5.0 "softening" language that
++contradicted the restored gates, plus unrelated stale references surfaced along the
++way.
++
++**Contradictions (would genuinely confuse an executing agent):**
++
++- `patterns/approvals.md` and `patterns/do-report-commit.md` both still said, in
++  effect, "offer a commit message and continue independent work" with no scoping —
++  read literally, license to start Step N+1 while a gated commit (Plan Step 6,
++  Implement Step 3) is still pending, i.e. the exact failure this session fixed.
++  Both now explicitly defer to a named sign-off gate's stop-and-wait when the call
++  site is one.
++- `patterns/write-confirm.md`'s entire text was the softened "no per-item
++  confirmation" version, yet Plan Step 5 names it as the mechanism for a mandatory
++  stop-and-wait. Added an explicit exception: when a call site names this pattern as
++  its sign-off gate, that gate's stop-and-wait governs, not this pattern's default.
++- `INTENT.md`'s verify checklist said "no unconditional per-file/fix/phase gates" and
++  "native Plan Mode ... or a reviewable local plan" — both are exactly the 7.5.0
++  positions this session reversed. A bootstrap installer following this checklist
++  would be told to remove the fixes. Reworded to name the fixed sign-off gates as an
++  explicit exception, and to require `EnterPlanMode`/`ExitPlanMode` unconditionally.
++- Implement's "never commit yourself" banned "any git write command", which reads as
++  conflicting with Document's `git mv` for local archival. Narrowed to specifically
++  `git add`/`git commit` (staging and committing); `git mv` for a reversible local
++  move is unaffected, same as other reversible operations elsewhere in this harness.
++  Document's own commit line reworded to state the same never-commit-yourself rule
++  explicitly, rather than the ambiguous "before any authorized commit" phrasing.
++
++**Stale references (harmless but confusing on a close read):**
++
++- `TEMPLATE.md` and every stage reference's boilerplate ("continue routine work
++  without phase-boundary confirmations" / "pause only for a concrete unresolved
++  decision or required human verification") predates the sign-off gates and reads as
++  contradicting them, even though `patterns/approvals.md`'s "explicit stop-and-wait
++  gates always win" rule already resolves it for a careful reader. Reworded both to
++  name the fixed sign-off gates as an explicit exception, so the contradiction
++  doesn't have to be resolved by cross-referencing another file.
++- `patterns/approvals.md`'s "complete all available checks first and request the
++  specific missing check" bullet is now qualified: at a sign-off gate, every plan
++  verification item is still presented regardless.
++- `templates/stat.schema.json`: `author` was required at the top level while `flags`
++  was deliberately optional, for the exact reason stated in 7.17.0's own entry
++  (required would break validation of pre-existing `stat.json` documents) — an
++  inconsistency in the schema itself, though harmless in practice since nothing in
++  `timing.mjs` actually validates against this schema file at runtime. Made `author`
++  optional too, matching `flags`.
++- `templates/report.md`'s Stage/Step Metrics table skeletons predated the 7.17.0
++  Flags column and 7.x token-coverage wording; self-healing on the first `report`
++  run, but now match the generated output for anyone reading the template directly.
++- `patterns/announce-progress.md` listed only 4 of the 6 stages in its phase-handoff
++  trigger list (missing Context Gathering and Ceremony, added by the earlier
++  6-stage restructure). `patterns/metrics.md`'s permission-allowlist example omitted
++  the `quality` subcommand that `references/06-document.md` requires before archive.
++
++All 22 existing `timing.test.mjs` cases pass unchanged; `stat.schema.json` remains
++valid JSON.
++
++## 7.18.0
++
++`docs/Engineering Guide/Documentation/01 Principles.md` (single-sourced — `docs-writer`
++doesn't duplicate this rule, so no agent file changes needed).
++
++- Softened the **Length budget** rule: it now applies to prose lines only —
++  Mermaid diagrams and tables never count against it, since they carry
++  information density prose can't match. Live-session evidence showed
++  `docs-writer` fighting the budget hard on a diagram-heavy document, treating
++  diagram lines as if they were the same cost as prose.
++- Reworded the existing split-a-companion-doc escape hatch to be something to
++  reach for readily when essential prose still doesn't fit, not a last resort —
++  the rule already permitted this, but the phrasing read as reluctant tolerance
++  rather than a normal move.
++
++## 7.17.0
++
++Dev canonical skill 2.14.0 → 2.15.0.
++
++- New **Flags** column in the Stage/Step Metrics tables (`2-report.md`) and a
++  matching `flags` array persisted on each stage/step object in `stat.json` —
++  derived, never hand-set, recalculated by `save()` on every mutation the same
++  way `metrics` already is. Surfaces 🔁 retried/rework, 🔀 scope change, 🔓
++  reopened (from existing attempt `trigger` values) and ⚠️ failed check (from
++  existing check results), so a reader can scan for problem stages/steps without
++  parsing every row or re-deriving the logic themselves from raw intervals.
++- `flags` is optional in `stat.schema.json`, not required — required would break
++  `loadState()`'s validation on every existing in-flight `stat.json` the moment
++  this ships, since older documents don't have it yet. It appears once `save()`
++  next runs.
++- Verified end-to-end: both `retried` (via `step retry`) and `failed_check` (via
++  `check record --result failed`) render correctly in both `stat.json` and the
++  rendered report table. All 22 existing `timing.test.mjs` cases still pass
++  unchanged.
++
++## 7.16.0
++
++Dev canonical skill 2.13.0 → 2.14.0.
++
++- `stat.json` now tracks `author` (the developer running the session, e.g. from
++  `git config user.name`) — set once at `init`, not re-derived per stage/step.
++  Added to `templates/stat.json`, `templates/stat.schema.json` (property +
++  required), and `scripts/timing.mjs` (new `--author` init flag).
++- `patterns/metrics.md`'s `init` example now passes `--author "$(git config
++  user.name)"`. Context Gathering Step 5 reuses the same `git config user.name`
++  value already captured for `2-report.md`'s Author header field, rather than
++  running it twice.
++- All 22 existing `timing.test.mjs` cases pass unchanged.
++
++## 7.15.0
++
++Dev canonical skill 2.12.0 → 2.13.0.
++
++- `patterns/satellite-review.md`: added an explicit **Handoff — present and
++  approve** section. Previously Step 3 said "worker presents verification to the
++  developer" on a `go` verdict — the same ambiguity already fixed in Implement
++  Step 3 (7.14.0), but unfixed here: a worker agent should never present directly
++  to the developer, and a satellite `go` verdict is an input to the orchestrator's
++  sign-off gate, never a substitute for it. Now: worker hands the orchestrator a
++  structured report (what changed, what it self-verified, the satellite's
++  verdict) → orchestrator verifies the claimed changes actually landed (not just
++  the worker's self-report) → orchestrator runs Implement Step 3's gate in full.
++- `patterns/approvals.md`: Implement Step 3's entry now names this explicitly —
++  a satellite `go` verdict doesn't substitute for the sign-off gate.
++
++## 7.14.0
++
++Dev canonical skill 2.11.0 → 2.12.0. Major gap: self-run verification was being
++treated as implicit sign-off.
++
++- Implement Step 3: clarified the flow to implement → optionally self-run a
++  non-guarded check as a debugging aid → report the actual validation performed
++  (real commands + real output, not a restated copy of the plan's instructions) →
++  still present every plan verification item for the developer → HARD STOP
++  regardless. The old wording ("run the checks... then present the verification
++  instructions from the plan exactly as written") assumed the developer would be
++  the one running them, which stopped matching reality once the agent ran checks
++  itself.
++- Named the underlying principle explicitly, from live-session evidence: the agent
++  treated having Bash access (after a delegated `@web` worker reported it lacked
++  one) as license to run a step's verification itself, then went through a whole
++  troubleshooting chain and proceeded without ever stopping to report it and ask
++  for sign-off. **Verification is a developer confirmation gate, not something
++  self-certified because a command exited 0 in the agent's sandbox** — the
++  sandbox is not the developer's machine, and tool availability, versions, or
++  network behavior can differ; a check passing for the agent doesn't mean it
++  passes for the developer. A delegated worker lacking a tool is never a reason
++  for the orchestrator to take the gate over itself.
++- `patterns/approvals.md`: added this rule explicitly — self-running an available,
++  non-guarded check as a debugging aid is routine authorized work and never needs
++  asking first, but never substitutes for the sign-off itself.
++
++## 7.13.0
++
++Dev canonical skill 2.10.0 → 2.11.0.
++
++- Plan Step 6: committing `1-plan.md` is now a manual-operation sign-off gate, same
++  shape as Ceremony's branch checkout and Implement's per-step commits — propose the
++  exact commit command and stop and wait for the developer to confirm before
++  advancing to Implement. Previously the step only suggested a commit message and
++  the router advanced to Implement immediately afterward, with no gate ensuring the
++  plan was actually committed first and no "never commit yourself" instruction.
++- Added "Plan Step 6" to `patterns/approvals.md`'s Sign-off gates list.
++
++## 7.12.0
++
++Dev canonical skill 2.9.0 → 2.10.0.
++
++- Plan stage: added a **second, distinct sign-off gate** at Step 5, on the
++  persisted `1-plan.md` as it actually landed on disk, via
++  `patterns/write-confirm.md`. Step 3's Plan Mode approval only covers the
++  *drafted* content, and a Step 4 rework sign-off (when it happens) only covers
++  one diff against one finding — neither is a look at the complete final plan,
++  especially after rework folded findings in. Renamed the old Step 5/6 to Step
++  6 (phase advance + report back), which now only runs after this new gate.
++  Live-session testing surfaced the expectation that after an architecture-audit
++  rework, the developer should see the whole finalized plan once more before
++  Implement starts, not just the individual fix diffs.
++- Added "Plan Step 5" to `patterns/approvals.md`'s Sign-off gates list,
++  and clarified Step 3's entry to specify it covers the *drafted* plan only.
++
++## 7.11.0
++
++Dev canonical skill 2.8.0 → 2.9.0.
++
++- Context Gathering: new Step 3.6 — identify the HLD container(s) the ticket's scope
++  falls under (a lightweight read of `Target Architecture (HLD)/README.md` and its
++  container index, not the full constraints/NFR/data-flow read Plan Step 1 already
++  does), and surface it as a line in the Step 4 sign-off summary. Flag explicitly if
++  scope doesn't map cleanly to one container. Live-session testing showed the
++  sign-off summary omitting HLD entirely, so a container-boundary mismatch could
++  only surface later, after Plan had already invested in a design.
++
+ ## 7.10.0
+ 
+ Dev canonical skill 2.7.0 → 2.8.0.

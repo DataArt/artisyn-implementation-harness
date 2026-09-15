@@ -1,0 +1,40 @@
+diff --git a/docs/Engineering Guide/Lifecycles/00 Overview.md b/docs/Engineering Guide/Lifecycles/00 Overview.md
+index ed473d2..d71a764 100644
+--- a/docs/Engineering Guide/Lifecycles/00 Overview.md
++++ b/docs/Engineering Guide/Lifecycles/00 Overview.md
+@@ -11,7 +11,7 @@ _The four lifecycles, how they interact, and when to use each one._
+ | **Dev**          | `/dev`                  | Plan → Implement → Test → Document                      |
+ | **Design**       | `/design`               | Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
+ | **Skill**        | — (no orchestrator)     | Reflect → Triage → New → Promote                        |
+-| **Architecture** | — (standalone commands) | `/where-we-are` · `/war-design` · `/war-implementation` |
++| **Architecture** | — (standalone commands) | `/where-we-are` · `/war design` · `/war implementation` |
+ 
+ Each orchestrator runs all phases in one session, stopping at every boundary for confirmation. Individual phase commands (`/dev plan`, `/design frame`, etc.) allow resuming mid-flow.
+ 
+@@ -26,8 +26,8 @@ Each orchestrator runs all phases in one session, stopping at every boundary for
+ | Something surprised you during a ticket       | Skill lifecycle (Reflect)                      |
+ | 2–4 pending reflections                       | Skill lifecycle (Triage)                       |
+ | End of sprint / before planning               | Architecture lifecycle (`/where-we-are`)       |
+-| After major HLD changes                       | Architecture lifecycle (`/war-design`)         |
+-| Before a major release                        | Architecture lifecycle (`/war-implementation`) |
++| After major HLD changes                       | Architecture lifecycle (`/war design`)         |
++| Before a major release                        | Architecture lifecycle (`/war implementation`) |
+ 
+ **Design is optional.** Small, well-understood changes within a single container that introduce no new integrations or architecture decisions — skip Design, go straight to Dev.
+ 
+@@ -66,7 +66,7 @@ flowchart TB
+         S1["Reflect"]:::skill --> S2["Triage"]:::skill --> S3["Promote"]:::skill
+     end
+ 
+-    WAR["🏛️ WAR Audit\n/war-design · /war-implementation\nIs the architecture sound?"]:::war
++    WAR["🏛️ WAR Audit\n/war design · /war implementation\nIs the architecture sound?"]:::war
+     WWA["📊 Where We Are\n/where-we-are\nDesigned vs implemented vs documented"]:::wwa
+ 
+     TICKET -->|"large / novel"| DESIGN
+@@ -93,5 +93,5 @@ flowchart TB
+ → `01 Dev Lifecycle.md` — Plan → Implement → Test → Document  
+ → `02 Design Lifecycle.md` — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish  
+ → `03 Skill Lifecycle.md` — Reflect → Triage → New → Promote  
+-→ `04 Architecture Lifecycle.md` — `/where-we-are` · `/war-design` · `/war-implementation`  
++→ `04 Architecture Lifecycle.md` — `/where-we-are` · `/war design` · `/war implementation`  
+ → `05 Documents Flow.md` — how docs are born, graduate, and reach their permanent home

@@ -1,0 +1,18 @@
+diff --git a/skills/dev/references/01-context-gathering.md b/skills/dev/references/01-context-gathering.md
+index 1f6a5ff..25c4b28 100644
+--- a/skills/dev/references/01-context-gathering.md
++++ b/skills/dev/references/01-context-gathering.md
+@@ -85,8 +85,11 @@ Then fetch each linked Confluence page directly and extract relevant content (re
+ Check whether an approved design exists for this ticket:
+ 
+ - Glob for `docs/Stories/*{TICKET}*/solution/` — use `*{TICKET}*` wildcard (never `[{TICKET}]*`)
+-- If found, read all files in `solution/` in full: `Architecture.md`, `Design.md`, `Stack.md`, `Efforts.md`
+-- The `solution/` files are the primary spec — `Architecture.md` covers integration and NFRs, `Design.md` covers component detail
++- If found, read `design/Report.md` and use its `selected_artifacts` paths as the
++  solution specification. Read only those approved files; do not assume a fixed
++  Architecture/Design/Stack/Efforts set.
++- The selected solution artifacts are the primary spec. Use each artifact's
++  interface role and the Evidence table in `Report.md` to determine coverage.
+ 
+ If a `solution/` folder is found, tell the developer:
+ 

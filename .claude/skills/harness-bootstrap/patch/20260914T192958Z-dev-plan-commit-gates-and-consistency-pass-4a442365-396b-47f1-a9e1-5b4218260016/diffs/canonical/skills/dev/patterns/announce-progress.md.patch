@@ -1,0 +1,13 @@
+diff --git a/canonical/skills/dev/patterns/announce-progress.md b/canonical/skills/dev/patterns/announce-progress.md
+index f5fe727..31cf155 100644
+--- a/canonical/skills/dev/patterns/announce-progress.md
++++ b/canonical/skills/dev/patterns/announce-progress.md
+@@ -16,7 +16,7 @@ Omit the "After this phase" line if the current item is not the last one in the
+ 
+ - After verification completes each implementation step (`references/04-implement.md`)
+ - After completing each documentation item (`references/06-document.md`)
+-- At every phase handoff in the dev router (Plan → Implement → Test → Document)
++- At every phase handoff in the dev router (Context Gathering → Ceremony → Plan → Implement → Test → Document)
+ 
+ ## Why
+ 

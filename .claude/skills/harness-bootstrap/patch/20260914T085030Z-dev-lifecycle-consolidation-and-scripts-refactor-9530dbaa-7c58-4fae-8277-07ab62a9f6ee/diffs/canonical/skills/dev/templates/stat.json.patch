@@ -1,0 +1,10 @@
+--- a/canonical/skills/dev/templates/stat.json
++++ b/canonical/skills/dev/templates/stat.json
+@@ -61,5 +61,6 @@
+     "first_pass_verification_rate": null
+   },
+   "checks": [],
+-  "lifecycle": "dev"
++  "lifecycle": "dev",
++  "quality": null
+ }

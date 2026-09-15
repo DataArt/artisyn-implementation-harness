@@ -1,0 +1,74 @@
+--- a/canonical/skills/dev/TEMPLATE.md
++++ b/canonical/skills/dev/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: dev
+ metadata:
+-  version: 2.16.0
++  version: 2.19.0
+ description: >
+   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
+   → Test → Document, or a single stage via
+@@ -69,10 +69,12 @@
+ 
+ **Stop and wait.**
+ 
+-- If **resume** — skip directly to the appropriate phase (e.g. if Phase shows `🔨 Implement 🔄`, jump to Phase 4). Do not re-run earlier phases.
++- If **resume** — skip directly to the appropriate phase (e.g. if Phase shows
++  `🔨 Implement 🔄`, jump to Phase 4). Do not re-run earlier phases.
+ - If **restart** — continue normally from Phase 1 below.
+ 
+-If no stale state is found — continue normally from Phase 1.
++If no stale state is found — resolve the ticket/local ID (below), then continue to
++Phase 1.
+ 
+ For free-form input with no tracker ticket, first search existing story folders for a
+ matching generated local ID (`DEV-YYYYMMDD-XXXX`) and title. Reuse that ID and
+@@ -81,6 +83,29 @@
+ metrics and hand-off references. This is a local implementation identifier and does
+ not imply a tracker record.
+ 
++Either way — resume, restart, or no stale state — apply **Stage tasks** below once the
++ticket/local ID is resolved, before the target phase's own work starts. The pattern
++it delegates to determines create-vs-reuse itself; this router never branches on that.
++
++---
++
++## Stage tasks — apply once, every entry (mandatory)
++
++This step is not optional background information — it is a required action, on every
++full-chain and every direct single-stage entry alike, resumed or fresh. Do not treat
++repeated system reminders about `TaskCreate`/`TaskUpdate`/`TaskList` availability as
++informational only; they are the trigger to act on this step now, not later.
++
++Apply `.claude/skills/dev/patterns/task-tracking.md` — it inspects existing state
++itself (`TaskList` or `2-report.md`) and decides create vs. reuse vs. reconcile; this
++router never re-derives that logic per branch. For the full chain, the unit list is
++the six stages (Context Gathering, Ceremony, Plan, Implement, Test, Document),
++chained in that order. For a direct single-stage invocation, the unit list is just
++that one stage. Mark a stage `in_progress` on entry and `completed` only once its
++phase-tracker banner (below) shows it done; a stage's own reference file (e.g.
++`references/04-implement.md`) separately tracks any child units it defines (plan
++steps, in Implement's case).
++
+ ---
+ 
+ ## Metrics
+@@ -91,17 +116,6 @@
+ run `recover` before recording new work. Stage and step boundaries record observed
+ time and available runtime token evidence. Keep unknown measurements explicit.
+ 
+-## Stage tasks
+-
+-Apply `.claude/skills/dev/patterns/task-tracking.md`. For the full chain, the unit
+-list is the six stages (Context Gathering, Ceremony, Plan, Implement, Test,
+-Document), chained in that order. Create them after resolving the ticket/local ID and
+-before gathering context. Reuse existing tasks on resume. For a direct
+-single-stage invocation, the unit list is just that one stage. Mark a stage
+-`in_progress` on entry and `completed` only once its phase-tracker banner (below)
+-shows it done; a stage's own reference file (e.g. `references/04-implement.md`)
+-separately tracks any child units it defines (plan steps, in Implement's case).
+-
+ ---
+ 
+ ## Phase tracker

@@ -1,0 +1,48 @@
+diff --git a/skills/skill-authoring.md b/skills/skill-authoring.md
+index 973ec66..e622645 100644
+--- a/skills/skill-authoring.md
++++ b/skills/skill-authoring.md
+@@ -12,9 +12,9 @@ Rules for writing and structuring Claude Code skills in this project. Read befor
+ 
+ ### Template files
+ 
+-4. Any skill that instructs Claude to create a structured `.md` file (reflection, report, plan, review, etc.) must have a companion `<name>.template.md` in the same skill folder. Do not inline the file structure as a fenced code block inside `SKILL.md`.
++4. Any skill that instructs Claude to create a structured `.md` file (reflection, report, plan, review, etc.) must have a companion template file in the same skill folder. Do not inline the file structure as a fenced code block inside `SKILL.md`.
+ 5. `SKILL.md` references the template file by name; the template file is independently editable without touching the skill instructions.
+-6. Example: `skill-reflect/reflection.template.md`, `skill-new/rule-skill.template.md`, `skill-triage/triage-summary.template.md`.
++6. **Location:** a skill with one or two templates keeps them flat, named `<name>.template.md` — e.g. `skill-reflect/reflection.template.md`, `skill-new/rule-skill.template.md`, `skill-triage/triage-summary.template.md`. A skill with enough companions to warrant it (several templates, or templates alongside patterns — see below) uses a `templates/` subfolder instead, and the prefix moves to the folder name: `dev/templates/plan.md`, `dev/templates/report.md`. Pick one style per skill — don't mix flat and subfolder templates in the same skill.
+ 
+ ### DRY — one source per concept
+ 
+@@ -24,8 +24,8 @@ Rules for writing and structuring Claude Code skills in this project. Read befor
+ 
+ ### Patterns — shared multi-step protocols
+ 
+-10. When the same multi-step protocol appears in 3 or more workflow skills, extract it into a `pattern-<name>.md` file. Co-locate it with the skills that use them (e.g. `.claude/skills/dev/pattern-review-gate.md` for dev-flow patterns). Do **not** register pattern files in `CLAUDE.md` — they are loaded on-demand via explicit references, not at session start.
+-11. Each workflow skill that uses a pattern must include an explicit path reference at the point of use: `"Apply the X pattern — read `.claude/skills/dev/pattern-X.md`."` This is what triggers Claude to read it mid-execution. A name-only reference is not enough.
++10. When the same multi-step protocol appears in 3 or more workflow skills (or 3 or more call sites within one collapsed multi-stage skill — e.g. a router stage plus the stage references it delegates to), extract it into its own file. **Location:** a skill with only one or two patterns keeps them flat, named `pattern-<name>.md`, co-located with the skill (e.g. a hypothetical `some-skill/pattern-review-gate.md`). A skill with enough patterns to warrant it (three or more, or patterns alongside stage `references/`) uses a `patterns/` subfolder instead, dropping the prefix — the folder name already carries that meaning: `dev/patterns/review-gate.md`, `dev/patterns/task-tracking.md`. Pick one style per skill. Do **not** register pattern files in `CLAUDE.md` — they are loaded on-demand via explicit references, not at session start.
++11. Each workflow skill that uses a pattern must include an explicit path reference at the point of use: `"Apply the X pattern — read `.claude/skills/<skill>/patterns/X.md`."` (or `pattern-X.md` for a skill using the flat style). This is what triggers Claude to read it mid-execution. A name-only reference is not enough.
+ 12. Pattern files define the rule text once. Workflow skills own only the trigger condition (when to apply) and any local overrides (e.g. section name, tri-choice options). Never repeat the rule body in the workflow skill.
+ 13. When a pattern evolves, update the pattern file only. Workflow skills need to change only if their trigger condition or override changes — not because the rule text changed.
+ 
+@@ -79,6 +79,20 @@ task: ...
+ ## What happened
+ ```
+ 
++**Correct** — subfolder style, once a skill has enough companions:
++
++```
++# In dev/TEMPLATE.md (→ dev/SKILL.md):
++Create this file using the template at `.claude/skills/dev/templates/plan.md`.
++Apply the write-confirm pattern — read `.claude/skills/dev/patterns/write-confirm.md`.
++
++# Folder layout:
++dev/templates/plan.md
++dev/templates/report.md
++dev/patterns/write-confirm.md
++dev/patterns/review-gate.md
++```
++
+ **Wrong** — concept repeated in CLAUDE.md and a skill file:
+ 
+ ```

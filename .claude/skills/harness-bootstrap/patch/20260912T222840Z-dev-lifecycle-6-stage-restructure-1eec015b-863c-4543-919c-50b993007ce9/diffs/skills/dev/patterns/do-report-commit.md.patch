@@ -1,0 +1,21 @@
+diff --git a/skills/dev/pattern-do-report-commit.md b/skills/dev/patterns/do-report-commit.md
+index 4d66dca..b86296e 100644
+--- a/skills/dev/pattern-do-report-commit.md
++++ b/skills/dev/patterns/do-report-commit.md
+@@ -19,11 +19,11 @@ Applies whenever a unit of work completes and needs to be committed — an imple
+ 
+ ## Where this applies
+ 
+-| Phase                                         | Unit of work                    |
+-| --------------------------------------------- | ------------------------------- |
+-| Implement (`dev-implement` Step 3)            | Each plan step                  |
+-| PR review fix (`pattern-review-gate` Stage 2) | Each confirmed fix or fix group |
+-| Document (`dev-document` Step 4 → 6)          | Full doc phase wrap-up          |
++| Phase                                              | Unit of work                    |
++| --------------------------------------------------- | ------------------------------- |
++| Implement (`references/04-implement.md` Step 3)    | Each plan step                  |
++| PR review fix (`review-gate.md` Stage 2)           | Each confirmed fix or fix group |
++| Document (`references/06-document.md` Step 4 → 6)  | Full doc phase wrap-up          |
+ 
+ ## Why
+ 

@@ -1,0 +1,13 @@
+diff --git a/skills/dev/patterns/satellite-review.md b/skills/dev/patterns/satellite-review.md
+index 6231341..fd581c8 100644
+--- a/skills/dev/patterns/satellite-review.md
++++ b/skills/dev/patterns/satellite-review.md
+@@ -17,7 +17,7 @@ Skip for mechanical steps: rename, dependency bump, config value with no structu
+ 
+ 1. Worker completes the step
+ 2. Worker invokes `@architect` with:
+-   > "Read `docs/Target Architecture (HLD)/README.md` to find the active version. Review the implementation of Step N from plan `<1-plan.md path>`. Check: HLD container boundaries and data-flow direction, layer best practices (infrastructure: naming/security rules/IAM least-privilege; backend: p95/N+1; frontend: accessibility), NFRs from `docs/Target Architecture (HLD)/<active version>/02. Non-Functional Concerns/00. Requirements.md`. Verdict: **go** or **reiterate** — one finding per line."
++   > "Read `docs/Target Architecture (HLD)/README.md` to find the active version. Review the implementation of Step N from plan `<1-plan.md path>`. Check: HLD container boundaries and data-flow direction, layer best practices (infrastructure: naming/security rules/IAM least-privilege; backend: p95/N+1; frontend: accessibility), NFRs located through the active architecture documentation index. Do not write or edit files; return findings only. Verdict: **go** or **reiterate** — one finding per line."
+ 3. If **go**: worker presents verification to the developer
+ 4. If **reiterate**: worker addresses findings, loop repeats
+ 5. **Maximum 3 iterations.** If still unresolved after 3, worker escalates to the developer with a summary of the stalemate

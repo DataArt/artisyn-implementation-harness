@@ -1,0 +1,36 @@
+--- a/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md
++++ b/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md
+@@ -19,7 +19,7 @@
+ 
+ ## When to use it
+ 
+-Always. There is no ticket that bypasses this lifecycle. For large or novel tickets, run the Design lifecycle first; `/design-publish` creates the Dev tickets when design is approved.
++Always. There is no ticket that bypasses this lifecycle. For large or novel tickets, run the Design lifecycle first; `/design publish` creates the Dev tickets when design is approved.
+ 
+ ## When NOT to use it
+ 
+@@ -171,3 +171,24 @@
+ ```
+ 
+ Claude guides through all six stages, stopping at each boundary.
++
++## Delivery metrics
++
++Each ticket keeps `impl/stat.json` alongside `2-report.md`. Context initializes it;
++every stage records observed work and waits, and Implement updates per-step metrics
++before verification waits and after confirmed outcomes. The router finalizes completed
++lead/cycle times after required completion work; Document preserves the file through archival. Direct-stage runs mark
++partial coverage; interruptions do not count automatically as active work.
++
++Lead time runs from the known tracker creation timestamp to lifecycle completion;
++cycle time runs from the first observed lifecycle work to completion. Human effort is
++reported separately. Runtime input/output token usage is recorded only when exposed,
++with source and coverage; unavailable measurements stay null. The report summarizes
++per-step timing, attempts and failed checks from the JSON rather than inventing totals.
++
++The portable dev skill includes `scripts/dev-metrics.mjs` (Node.js, no dependencies).
++It owns timestamping, validated transitions, atomic JSON writes, command verification
++capture, recovery checkpoints, and report rendering. Every call requires an explicit
++ticket impl directory. See the dev skill's `patterns/metrics.md` for commands and
++`templates/stat.schema.json` for the versioned interface. Only runtime-provided token
++deltas are accepted; no token usage or human effort is inferred.

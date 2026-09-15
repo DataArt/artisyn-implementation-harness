@@ -1,0 +1,19 @@
+--- a/canonical/skills/dev/patterns/approvals.md
++++ b/canonical/skills/dev/patterns/approvals.md
+@@ -68,9 +68,13 @@
+   rationale and attribution; never treat silence as acceptance.
+ - Verification requiring human judgment, credentials or access unavailable to the
+   agent. Complete all available checks first and request the specific missing check —
+-  except at a sign-off gate above, where every plan verification item is presented
+-  regardless of how many you already ran yourself; that gate's completeness
+-  requirement is not weakened by this bullet.
++  except at a sign-off gate above, where every item the developer needs to
++  meaningfully confirm is presented regardless of how many you already ran yourself;
++  that gate's completeness requirement is not weakened by this bullet. At Implement
++  Step 3, that item set is adapted to what the step actually became (see its own
++  instructions) rather than a fixed copy of the plan's original wording — adapting
++  *what's* asked to match reality is not the same as asking for *less*, and never
++  drops an item because it was merely already run once.
+ - External mutations (tracker tasks, publishing, deployment, migrations), destructive
+   operations, or commits when not already authorized. Present exact targets and
+   prepared content/diffs before asking. Respect project guarded-command rules.

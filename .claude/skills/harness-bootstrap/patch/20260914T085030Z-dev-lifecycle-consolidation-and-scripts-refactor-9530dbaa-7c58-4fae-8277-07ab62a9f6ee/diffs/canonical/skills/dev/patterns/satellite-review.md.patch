@@ -1,0 +1,11 @@
+--- a/canonical/skills/dev/patterns/satellite-review.md
++++ b/canonical/skills/dev/patterns/satellite-review.md
+@@ -19,7 +19,7 @@
+ 2. Worker invokes `@architect` with:
+    > "Read `docs/Target Architecture (HLD)/README.md` to find the active version. Review the implementation of Step N from plan `<1-plan.md path>`. Check: HLD container boundaries and data-flow direction, layer best practices (infrastructure: naming/security rules/IAM least-privilege; backend: p95/N+1; frontend: accessibility), NFRs located through the active architecture documentation index. Do not write or edit files; return findings only. Verdict: **go** or **reiterate** — one finding per line."
+ 3. If **go**: worker presents verification to the developer
+-4. If **reiterate**: worker addresses findings, loop repeats
++4. If **reiterate**: return findings to the orchestrator for `patterns/review-gate.md` recording before fixes. The orchestrator owns the report, delegates in-scope fixes, and requests only unresolved human decisions. Repeat relevant review after fixes.
+ 5. **Maximum 3 iterations.** If still unresolved after 3, worker escalates to the developer with a summary of the stalemate
+ 
+ ## Why

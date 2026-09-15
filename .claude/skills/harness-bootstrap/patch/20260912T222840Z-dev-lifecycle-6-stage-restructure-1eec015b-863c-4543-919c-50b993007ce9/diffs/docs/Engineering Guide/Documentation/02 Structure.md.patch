@@ -1,0 +1,13 @@
+diff --git a/docs/Engineering Guide/Documentation/02 Structure.md b/docs/Engineering Guide/Documentation/02 Structure.md
+index a39006e..0516e4b 100644
+--- a/docs/Engineering Guide/Documentation/02 Structure.md
++++ b/docs/Engineering Guide/Documentation/02 Structure.md
+@@ -78,7 +78,7 @@ docs/System Architecture (LLD)/
+ 
+ **Engineering Guide:** numbered articles (`NN Title Case.md`). Operational and procedural content only — no architecture.
+ 
+-**Stories:** per-ticket working folders, archived after `/dev-document` completes. Not permanent reference docs.
++**Stories:** per-ticket working folders, archived after `/dev document` completes. Not permanent reference docs.
+ 
+ ---
+ 

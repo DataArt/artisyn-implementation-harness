@@ -1,0 +1,21 @@
+diff --git a/skills/design/interfaces/architecture.md b/skills/design/interfaces/architecture.md
+new file mode 100644
+index 0000000..964b0d0
+--- /dev/null
++++ b/skills/design/interfaces/architecture.md
+@@ -0,0 +1,15 @@
++# Architecture interface
++
++Use when the solution changes system, container, component ownership, deployment
++topology or a cross-boundary contract. State the affected boundary and the intended
++responsibility distribution. Show only the relevant C4 level or supporting view:
++system context, containers, deployment, dynamic flow or another justified diagram.
++
++Describe relationships, communication purpose, data/control crossings, technology
++constraints and confirmed architectural decisions. Reference existing HLD/LLD/NFR
++documents and describe the solution delta rather than copying them. Include a flow
++when ordering, ownership, failure or recovery affects the decision.
++
++Do not invent containers for folders, teams or tools. Do not put implementation
++classes or unconfirmed target requirements in this artifact. Record affected
++architecture documents and verification obligations for the publish phase.

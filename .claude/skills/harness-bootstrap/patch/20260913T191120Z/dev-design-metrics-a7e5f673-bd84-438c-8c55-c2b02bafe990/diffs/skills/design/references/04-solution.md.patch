@@ -1,0 +1,15 @@
+diff --git a/skills/design/references/04-solution.md b/skills/design/references/04-solution.md
+index 52b616d..e05ad23 100644
+--- a/skills/design/references/04-solution.md
++++ b/skills/design/references/04-solution.md
+@@ -1,5 +1,10 @@
+ # Solution stage
+ 
++Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
++`--stage solution`. Follow its initialization/recovery, entry, wait, check, and exit
++commands. When this reference is used only as a correction recipe within another
++active stage, retain that stage's metrics ownership.
++
+ Read `../interfaces/INTENT.md` first. Select only the solution artifact interfaces
+ that apply to the framed problem, then read each selected interface. Interfaces are
+ the sole authoring contract; do not copy a fixed solution template. Record selection and omissions

@@ -1,0 +1,45 @@
+diff --git a/references/01b-launch-install.md b/references/01b-launch-install.md
+index 8196c2e..28ebf1a 100644
+--- a/references/01b-launch-install.md
++++ b/references/01b-launch-install.md
+@@ -1,5 +1,7 @@
+ # Launch blocks A–C and D.1 — install in dependency order
+ 
++Before generating skill entrypoints and companions, apply [Skill authoring](patterns/skill-authoring.md). This is a bootstrap authoring pattern, not a deployed standalone skill.
++
+ Stage sequence and tracking live in [01-launch.md](01-launch.md); planning and
+ materialization in [01a-launch-plan.md](01a-launch-plan.md).
+ 
+@@ -12,7 +14,7 @@ Install required referenced writing/review helpers even when outside these lifec
+ | --------- | ------ |
+ | Always | dev |
+ | Design enabled | design |
+-| Skill enabled | evolve; include shared skill-authoring.md |
++| Skill enabled | evolve |
+ | Architecture enabled and Q11≠None | war, where-we-are |
+ 
+ When the Skill lifecycle is enabled, deploy `evolve` and its companion inventory.
+@@ -34,6 +36,23 @@ review customized legacy commands before removal. Keep the legacy configuration
+ | Windsurf | Unique fragments → reserved `.windsurfrules` | Same final assembly |
+ 
+ Resolve all cross-file references for the selected tool; preserve companion names.
++
++For an existing installation, reconcile retired helpers within the authorized
++deployment scope:
++
++- `writing-docs` and `story-folder-glob` have no replacement command. Documentation
++  guidance belongs to `docs-writer`; story lookup rules remain in Dev and Design.
++- The old flat `claude-in-chrome-setup.md` is now an X-ray companion at
++  `x-ray/references/claude-in-chrome-setup.md`; deploy it when X-ray is selected.
++- `worker-satellite-review.md` is replaced by `dev/patterns/satellite-review.md`.
++  Verify that companion is installed before updating Infrastructure's caller.
++- The old deployed `skill-authoring.md` is now bootstrap-only guidance at
++  `references/patterns/skill-authoring.md`. Remove legacy callers as part of the
++  corresponding lifecycle migration; do not leave references to a removed file.
++
++Inspect local modifications and remaining callers before retiring installed copies.
++Update project mappings and root discovery entries for the actual deployment;
++preserve historical reports and patch bundles.
+ Summarize actual outputs/checks at A's boundary; carry pending dependencies forward.
+ 
+ ## Block B — Agents

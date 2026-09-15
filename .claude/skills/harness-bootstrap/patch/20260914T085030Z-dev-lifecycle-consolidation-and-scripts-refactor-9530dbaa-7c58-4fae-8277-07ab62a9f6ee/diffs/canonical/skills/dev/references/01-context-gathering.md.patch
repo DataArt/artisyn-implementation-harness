@@ -1,0 +1,46 @@
+--- a/canonical/skills/dev/references/01-context-gathering.md
++++ b/canonical/skills/dev/references/01-context-gathering.md
+@@ -10,7 +10,8 @@
+ before any tracker/branch ceremony or plan-writing begins. Read-only except for the
+ final write in Step 5.
+ 
+-> ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
++Apply `patterns/approvals.md`: follow dependencies, continue routine authorized work,
++and pause only for a concrete unresolved decision or required human verification.
+ 
+ > 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+ 
+@@ -104,20 +105,12 @@
+ 
+ If no approved `solution/Architecture.md` exists — continue normally, intent will be derived from the tracker and developer input alone.
+ 
+-## Step 4 — Stop and validate context
++## Step 4 — Validate context
+ 
+-Present the combined context summary to the developer and ask:
+-
+-> "Here's what I'm working from:
+->
+-> - **Ticket**: `<summary or 'not provided'>`
+-> - **Confluence**: `<page titles or 'none found'>`
+-> - **Approved design**: `<found / not found>`
+-> - **Developer input**: `<problem + thoughts or 'none'>`
+->
+-> Does this capture the right scope? Anything missing, incorrect, or out of scope before I write it down?"
+-
+-**Stop and wait for confirmation.** If the developer corrects anything — update the context and re-summarise before continuing.
++Summarize the scope and sources. If the request and approved design settle the intent,
++write it and proceed. Ask only about material missing or conflicting requirements;
++combine related questions. If the user requests a change to approved design, surface
++that decision explicitly before dependent implementation.
+ 
+ ## Step 5 — Create the story folder and write intent.md
+ 
+@@ -145,6 +138,6 @@
+ ## Step 6 — Report back
+ 
+ Tell the developer: "Intent saved to `docs/Stories/[{TICKET}] {name}/impl/intent.md`."
+-The router owns the phase-boundary confirmation before Ceremony starts — do not ask it here.
++Continue to Ceremony for a full-flow request; stop after this stage for direct entry.
+ 
+ 🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Ceremony).

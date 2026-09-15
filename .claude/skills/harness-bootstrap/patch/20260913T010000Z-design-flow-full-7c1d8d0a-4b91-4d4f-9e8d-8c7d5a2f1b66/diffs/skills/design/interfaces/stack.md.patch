@@ -1,0 +1,17 @@
+diff --git a/skills/design/interfaces/stack.md b/skills/design/interfaces/stack.md
+new file mode 100644
+index 0000000..bb46823
+--- /dev/null
++++ b/skills/design/interfaces/stack.md
+@@ -0,0 +1,11 @@
++# Technology decision interface
++
++Use only when technology selection, replacement, versioning or compatibility is part
++of the solution. State the decision scope, constraints, selected technology and the
++capability it provides. Record relevant alternatives and trade-offs in the evaluation
++record; publish only the confirmed choice and its consequences.
++
++Cover compatibility with existing interfaces, runtime/build/deployment constraints,
++operational ownership, licensing or cost obligations, migration and rollback needs,
++and verification of the selected technology. Do not generate a generic full-stack
++diagram or inventory unchanged technologies. Link existing HLD/LLD/NFR decisions.

@@ -1,0 +1,26 @@
+--- a/canonical/skills/design/scripts/utils.mjs
++++ b/canonical/skills/design/scripts/utils.mjs
+@@ -66,3 +66,23 @@
+  * @returns {string}
+  */
+ export const escapeMarkdownCell = value => String(value ?? 'unavailable').replaceAll('|', '\\|').replaceAll('\n', ' ');
++
++/**
++ * Format a duration in seconds as a compact human-readable string, e.g.
++ * `4s`, `2m 4s`, `1h 2m 4s`. Rounds to the nearest second; omits leading
++ * zero units (no `0h` when under an hour). A negative value keeps its sign.
++ * @param {number|null|undefined} totalSeconds
++ * @returns {string|null} Null passes through so callers can render "unavailable".
++ */
++export const humanDuration = totalSeconds => {
++  if (totalSeconds == null || !Number.isFinite(totalSeconds)) return null;
++  const sign = totalSeconds < 0 ? '-' : '';
++  let s = Math.round(Math.abs(totalSeconds));
++  const h = Math.floor(s / 3600); s -= h * 3600;
++  const m = Math.floor(s / 60); s -= m * 60;
++  const parts = [];
++  if (h) parts.push(`${h}h`);
++  if (h || m) parts.push(`${m}m`);
++  parts.push(`${s}s`);
++  return sign + parts.join(' ');
++};

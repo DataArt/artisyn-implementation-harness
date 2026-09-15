@@ -1,0 +1,76 @@
+diff --git a/canonical/skills/dev/references/03-plan.md b/canonical/skills/dev/references/03-plan.md
+index ffb78f1..7d50a2e 100644
+--- a/canonical/skills/dev/references/03-plan.md
++++ b/canonical/skills/dev/references/03-plan.md
+@@ -9,7 +9,8 @@ approving `1-plan.md`. It does not gather context or run tracker/branch ceremony
+ those already happened in Context Gathering and Ceremony.
+ 
+ Apply `patterns/approvals.md`: follow dependencies, continue routine authorized work,
+-and pause only for a concrete unresolved decision or required human verification.
++and pause only for a concrete unresolved decision, required human verification, or a
++fixed sign-off gate (`patterns/approvals.md`).
+ 
+ > 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+ 
+@@ -162,20 +163,38 @@ The plan may reference RF IDs and the approved constraints; do not create a seco
+ live deviations table. Planned exceptions remain open until their required resolution
+ is verified in Document, unless explicitly accepted as a lasting exception.
+ 
+-## Step 5 — Finalise the plan
++## Step 5 — Final sign-off on the persisted plan
+ 
+-`impl/1-plan.md` is now immutable — never edit it after sign-off. If Step 4 revised
+-the plan directly (not via Plan Mode), do not enter this step until the developer has
+-signed off on that revision — a `go` audit verdict alone does not authorize it.
++This is a **second, distinct sign-off gate** (`patterns/approvals.md`) — separate
++from Step 3's Plan Mode approval and from any Step 4 rework sign-off. Step 3 approves
++the *drafted* content inside Plan Mode; a Step 4 rework sign-off (if it happened)
++only covers one diff against one finding. Neither is a look at the complete plan as
++it actually landed on disk, especially after rework — so once `impl/1-plan.md` is
++written (Step 3's initial write, plus any Step 4 revisions), apply
++`patterns/write-confirm.md` to it: present the persisted file — in full if reasonably
++short, or a summary (step list, step count, Acceptance Criteria, and every Step 4
++rework/deviation entry called out explicitly) for a long plan — and ask:
+ 
+-Update the already-existing `2-report.md` (created in Context Gathering):
++> "Plan finalized at `impl/1-plan.md` — {N} steps, {M} deviations recorded. Ready to
++> start Implement, or does anything need another look now that it's all in one place?"
++
++**Stop and wait for the developer's sign-off.** If they ask for changes, they are
++changes to an unapproved plan — treat them like any other Step 3/4 revision (edit,
++then re-present here) rather than writing them silently. `impl/1-plan.md` is
++immutable only once this sign-off is given.
++
++## Step 6 — Advance phase and report back
++
++Only after Step 5's sign-off, update the already-existing `2-report.md` (created in
++Context Gathering):
+ 
+ - `Phase` row → `🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳`
+ - Progress table — one row per plan step, all set to `⏳ Pending`, Notes/Test/Docs empty
+ 
+-## Step 6 — Report back
+-
+-Tell the developer the folder path and suggest a commit message:
++Committing the plan is a manual operation, same as Ceremony's branch checkout and
++Implement's per-step commits: never run `git add`/`git commit` yourself. This is a
++sign-off gate (`patterns/approvals.md`) — tell the developer the folder path and
++propose the exact command:
+ 
+ > "Plan saved to `docs/Stories/[{TICKET}] {name}/impl/1-plan.md`.
+ >
+@@ -183,6 +202,12 @@ Tell the developer the folder path and suggest a commit message:
+ >
+ > ```
+ > docs({ticket-lowercase}): add implementation plan for {short-name}
+-> ```"
++> ```
++>
++> Let me know once it's committed and I'll start Implement."
++
++**Stop and wait for the developer's sign-off** that they've committed it. Do not
++advance to Implement until they confirm.
+ 
+-🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Implement).
++🔁 Once confirmed, re-read `.claude/skills/dev/SKILL.md` and resume the router from
++the next stage (Implement).

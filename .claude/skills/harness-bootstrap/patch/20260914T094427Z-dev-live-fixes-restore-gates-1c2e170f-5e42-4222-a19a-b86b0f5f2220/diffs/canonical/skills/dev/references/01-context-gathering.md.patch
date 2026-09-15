@@ -1,0 +1,32 @@
+diff --git a/canonical/skills/dev/references/01-context-gathering.md b/canonical/skills/dev/references/01-context-gathering.md
+index 5aecbfe..c4b91f7 100644
+--- a/canonical/skills/dev/references/01-context-gathering.md
++++ b/canonical/skills/dev/references/01-context-gathering.md
+@@ -105,12 +105,22 @@ Use the solution files as the primary spec input for Step 4. Developer free-form
+ 
+ If no approved `solution/Architecture.md` exists — continue normally, intent will be derived from the tracker and developer input alone.
+ 
+-## Step 4 — Validate context
++## Step 4 — Stop and validate context
+ 
+-Summarize the scope and sources. If the request and approved design settle the intent,
+-write it and proceed. Ask only about material missing or conflicting requirements;
+-combine related questions. If the user requests a change to approved design, surface
+-that decision explicitly before dependent implementation.
++Present the combined context summary to the developer and ask:
++
++> "Here's what I'm working from:
++>
++> - **Ticket**: `<summary or 'not provided'>`
++> - **Confluence**: `<page titles or 'none found'>`
++> - **Approved design**: `<found / not found>`
++> - **Developer input**: `<problem + thoughts or 'none'>`
++>
++> Does this capture the right scope? Anything missing, incorrect, or out of scope before I write it down?"
++
++**Stop and wait for confirmation.** If the developer corrects anything — update the
++context and re-summarise before continuing. If the user requests a change to approved
++design, surface that decision explicitly before dependent implementation.
+ 
+ ## Step 5 — Create the story folder and write intent.md
+ 

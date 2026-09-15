@@ -1,0 +1,440 @@
+--- a/canonical/skills/dev/templates/stat.schema.json
++++ b/canonical/skills/dev/templates/stat.schema.json
+@@ -268,6 +268,437 @@
+     },
+     "lifecycle": {
+       "const": "dev"
++    },
++    "quality": {
++      "anyOf": [
++        {
++          "type": "null"
++        },
++        {
++          "type": "object",
++          "properties": {
++            "version": {
++              "const": 1
++            },
++            "as_of": {
++              "type": "string",
++              "format": "date-time"
++            },
++            "source": {
++              "const": "2-report.md"
++            },
++            "source_sha256": {
++              "type": "string",
++              "pattern": "^[a-f0-9]{64}$"
++            },
++            "findings": {
++              "anyOf": [
++                {
++                  "type": "null"
++                },
++                {
++                  "type": "object",
++                  "properties": {
++                    "total": {
++                      "type": "integer",
++                      "minimum": 0
++                    },
++                    "by_kind": {
++                      "type": "object",
++                      "properties": {
++                        "deviation": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "bug": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "design": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "improve": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "security": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "performance": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "docs": {
++                          "type": "integer",
++                          "minimum": 0
++                        }
++                      },
++                      "required": [
++                        "deviation",
++                        "bug",
++                        "design",
++                        "improve",
++                        "security",
++                        "performance",
++                        "docs"
++                      ],
++                      "additionalProperties": false
++                    },
++                    "by_severity": {
++                      "type": "object",
++                      "properties": {
++                        "critical": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "high": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "medium": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "low": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "info": {
++                          "type": "integer",
++                          "minimum": 0
++                        }
++                      },
++                      "required": [
++                        "critical",
++                        "high",
++                        "medium",
++                        "low",
++                        "info"
++                      ],
++                      "additionalProperties": false
++                    },
++                    "by_classification": {
++                      "type": "object",
++                      "properties": {
++                        "introduced": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "pre-existing": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "ruled-out": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "advisory": {
++                          "type": "integer",
++                          "minimum": 0
++                        }
++                      },
++                      "required": [
++                        "introduced",
++                        "pre-existing",
++                        "ruled-out",
++                        "advisory"
++                      ],
++                      "additionalProperties": false
++                    },
++                    "by_resolution": {
++                      "type": "object",
++                      "properties": {
++                        "open": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "fixed": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "accepted": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "tech-debt": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "doc-updated": {
++                          "type": "integer",
++                          "minimum": 0
++                        }
++                      },
++                      "required": [
++                        "open",
++                        "fixed",
++                        "accepted",
++                        "tech-debt",
++                        "doc-updated"
++                      ],
++                      "additionalProperties": false
++                    },
++                    "deviations_by_type": {
++                      "type": "object",
++                      "properties": {
++                        "contradiction": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "extension": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "omission": {
++                          "type": "integer",
++                          "minimum": 0
++                        }
++                      },
++                      "required": [
++                        "contradiction",
++                        "extension",
++                        "omission"
++                      ],
++                      "additionalProperties": false
++                    },
++                    "pr_review": {
++                      "type": "object",
++                      "properties": {
++                        "total": {
++                          "type": "integer",
++                          "minimum": 0
++                        },
++                        "by_kind": {
++                          "type": "object",
++                          "properties": {
++                            "deviation": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "bug": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "design": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "improve": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "security": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "performance": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "docs": {
++                              "type": "integer",
++                              "minimum": 0
++                            }
++                          },
++                          "required": [
++                            "deviation",
++                            "bug",
++                            "design",
++                            "improve",
++                            "security",
++                            "performance",
++                            "docs"
++                          ],
++                          "additionalProperties": false
++                        },
++                        "by_severity": {
++                          "type": "object",
++                          "properties": {
++                            "critical": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "high": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "medium": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "low": {
++                              "type": "integer",
++                              "minimum": 0
++                            },
++                            "info": {
++                              "type": "integer",
++                              "minimum": 0
++                            }
++                          },
++                          "required": [
++                            "critical",
++                            "high",
++                            "medium",
++                            "low",
++                            "info"
++                          ],
++                          "additionalProperties": false
++                        }
++                      },
++                      "required": [
++                        "total",
++                        "by_kind",
++                        "by_severity"
++                      ],
++                      "additionalProperties": false
++                    }
++                  },
++                  "required": [
++                    "total",
++                    "by_kind",
++                    "by_severity",
++                    "by_classification",
++                    "by_resolution",
++                    "deviations_by_type",
++                    "pr_review"
++                  ],
++                  "additionalProperties": false
++                }
++              ]
++            },
++            "tech_debt": {
++              "anyOf": [
++                {
++                  "type": "null"
++                },
++                {
++                  "type": "object",
++                  "properties": {
++                    "total": {
++                      "type": "integer",
++                      "minimum": 0
++                    },
++                    "ticketed": {
++                      "type": "integer",
++                      "minimum": 0
++                    },
++                    "unticketed": {
++                      "type": "integer",
++                      "minimum": 0
++                    }
++                  },
++                  "required": [
++                    "total",
++                    "ticketed",
++                    "unticketed"
++                  ],
++                  "additionalProperties": false
++                }
++              ]
++            },
++            "tests": {
++              "anyOf": [
++                {
++                  "type": "null"
++                },
++                {
++                  "type": "object",
++                  "properties": {
++                    "written": {
++                      "type": [
++                        "integer",
++                        "null"
++                      ],
++                      "minimum": 0
++                    },
++                    "passed": {
++                      "type": [
++                        "integer",
++                        "null"
++                      ],
++                      "minimum": 0
++                    },
++                    "failed": {
++                      "type": [
++                        "integer",
++                        "null"
++                      ],
++                      "minimum": 0
++                    },
++                    "skipped": {
++                      "type": [
++                        "integer",
++                        "null"
++                      ],
++                      "minimum": 0
++                    },
++                    "scopes": {
++                      "type": "integer",
++                      "minimum": 0
++                    }
++                  },
++                  "required": [
++                    "written",
++                    "passed",
++                    "failed",
++                    "skipped",
++                    "scopes"
++                  ],
++                  "additionalProperties": false
++                }
++              ]
++            },
++            "test_runs": {
++              "type": "object",
++              "properties": {
++                "recorded": {
++                  "type": "integer",
++                  "minimum": 0
++                },
++                "failed": {
++                  "type": "integer",
++                  "minimum": 0
++                },
++                "errors": {
++                  "type": "integer",
++                  "minimum": 0
++                },
++                "interrupted": {
++                  "type": "integer",
++                  "minimum": 0
++                }
++              },
++              "required": [
++                "recorded",
++                "failed",
++                "errors",
++                "interrupted"
++              ],
++              "additionalProperties": false
++            },
++            "closure_issues": {
++              "type": "array",
++              "items": {
++                "type": "string"
++              }
++            }
++          },
++          "required": [
++            "version",
++            "as_of",
++            "source",
++            "source_sha256",
++            "findings",
++            "tech_debt",
++            "tests",
++            "test_runs",
++            "closure_issues"
++          ],
++          "additionalProperties": false
++        }
++      ]
+     }
+   },
+   "required": [

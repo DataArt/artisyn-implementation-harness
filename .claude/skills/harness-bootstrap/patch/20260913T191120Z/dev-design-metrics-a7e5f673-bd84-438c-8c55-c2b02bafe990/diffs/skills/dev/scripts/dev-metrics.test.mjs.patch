@@ -1,0 +1,30 @@
+diff --git a/skills/dev/scripts/dev-metrics.test.mjs b/skills/dev/scripts/dev-metrics.test.mjs
+index f41ae08..509fdc7 100644
+--- a/skills/dev/scripts/dev-metrics.test.mjs
++++ b/skills/dev/scripts/dev-metrics.test.mjs
+@@ -279,3 +279,25 @@ test('termination records cancellation and does not restart work', async t => {
+   assert.equal(d.intervals.filter(i => i.ended_at === null).length, 0);
+   assert.equal(f.run('step', 'complete', '--id', 'step-1').status, 1);
+ });
++
++test('CLI installs alone with its own constants and helpers', t => {
++  const isolated = fs.mkdtempSync(path.join(os.tmpdir(), 'dev-metrics-alone-'));
++  t.after(() => fs.rmSync(isolated, { recursive: true, force: true }));
++  const installed = path.join(isolated, 'dev-metrics.mjs');
++  fs.copyFileSync(cli, installed);
++  fs.copyFileSync(new URL('./utils.mjs', import.meta.url), path.join(isolated, 'utils.mjs'));
++  const constants = fs.readFileSync(new URL('./constants.mjs', import.meta.url), 'utf8')
++    .replaceAll('stat.json', 'custom-stat.json')
++    .replaceAll('2-report.md', 'custom-report.md')
++    .replaceAll('.dev-metrics.lock', '.custom-metrics.lock');
++  fs.writeFileSync(path.join(isolated, 'constants.mjs'), constants);
++  const dir = path.join(isolated, 'ticket');
++  const run = (...args) => spawnSync(process.execPath, [installed, '--dir', dir, ...args], { encoding: 'utf8' });
++  for (const args of [['init', '--ticket', 'SOLO-1'], ['stage', 'start', '--stage', 'context'], ['report']]) {
++    const result = run(...args); assert.equal(result.status, 0, result.stderr);
++  }
++  assert.ok(fs.existsSync(path.join(dir, 'custom-stat.json')));
++  assert.ok(fs.readFileSync(path.join(dir, 'custom-report.md'), 'utf8').includes('[custom-stat.json](custom-stat.json)'));
++  fs.writeFileSync(path.join(dir, '.custom-metrics.lock'), 'occupied');
++  assert.equal(run('checkpoint').status, 1);
++});

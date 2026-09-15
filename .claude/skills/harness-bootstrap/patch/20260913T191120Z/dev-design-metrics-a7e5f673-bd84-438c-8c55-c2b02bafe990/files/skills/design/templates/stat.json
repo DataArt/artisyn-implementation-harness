@@ -1,0 +1,71 @@
+{
+  "schema_version": 2,
+  "ticket": null,
+  "tracking_started_at": null,
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": null,
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "frame",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "research",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "evaluate",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "solution",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "review-gate",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "address-feedback",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "publish",
+      "status": "pending",
+      "attempts": []
+    }
+  ],
+  "steps": [],
+  "intervals": [],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": null,
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 0,
+    "observed_wait_seconds": 0,
+    "unclassified_seconds": null,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable",
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 0,
+    "failed_checks": 0,
+    "first_pass_verification_rate": null
+  },
+  "checks": [],
+  "lifecycle": "design",
+  "design_revision": 0
+}

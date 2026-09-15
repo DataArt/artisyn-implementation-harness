@@ -1,0 +1,24 @@
+diff --git a/docs/Engineering Guide/Lifecycles/05 Documents Flow.md b/docs/Engineering Guide/Lifecycles/05 Documents Flow.md
+index de7965b..9500dac 100644
+--- a/docs/Engineering Guide/Lifecycles/05 Documents Flow.md	
++++ b/docs/Engineering Guide/Lifecycles/05 Documents Flow.md	
+@@ -73,7 +73,7 @@ flowchart LR
+ 
+ ## Lifecycle of a doc
+ 
+-**Creation** — all new docs are born in `Stories/<TICKET>/` as working drafts. No doc goes directly to HLD, LLD, or the Engineering Guide without passing through a ticket.
++**Creation** — delivery docs are born in `Stories/<TICKET>/` as working drafts. No doc goes directly to HLD, LLD, or the Engineering Guide without passing through a ticket.
+ 
+ **Graduation** — content graduates at two points: during `/dev document` (implementation outcomes) and during `/design publish` (design outcomes). Only settled outcomes graduate — rationale, comparisons, and open questions stay in the Story. Where an implementation change lands (HLD vs LLD) is determined by the HLD/LLD placement matrix in `dev/references/06-document.md`: HLD hit → update the relevant HLD doc and record detail in the LLD; HLD miss → create a minimal new HLD entry and capture full detail in the LLD. Design graduation is track-routed, resolved once in Frame and recorded in `Report.md`'s `## Context` section: Product lands in `{{PRODUCT_CONTEXT_DIR}}/`; Project lands in `Target Architecture (HLD)/`.
+ 
+@@ -95,3 +95,10 @@ flowchart LR
+ | WAF assessment                     | `Stories/<TICKET>/design/Report.md` WAF section |
+ | Implementation notes (2-report.md) | `Stories/<TICKET>/impl/2-report.md`             |
+ | Exploration drafts                 | `Stories/<TICKET>/design/`                      |
++
++## Harness improvement artifacts
++
++Evolve reflections and candidate reports live in provider-local reflections/ and
++evolve/ directories. Candidate evidence remains there; /evolve adopt integrates
++validated skills, agents and conventions into their recorded destinations. See
++[the Evolve lifecycle](03%20Evolve%20Lifecycle.md).

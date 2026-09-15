@@ -1,0 +1,41 @@
+--- a/skills/design/patterns/waf-review.md
++++ b/skills/design/patterns/waf-review.md
+@@ -11,9 +11,9 @@
+ | Target      | Artifact(s) read                                    | Default review lens                                |
+ | ----------- | ---------------------------------------------------- | ---------------------------------------------------- |
+ | `frame`     | `design/00 Frame.md`                                 | Completeness, risk, missing ECs                     |
+-| `research`  | `design/01 Research.md`                              | Coverage, credibility, option gaps                  |
+-| `evaluate` | `design/02 Evaluate.md`                             | Full WAF on recommended option                      |
+-| `solution`  | `solution/Architecture.md` + `solution/Design.md`    | Full WAF on the chosen approach as specified         |
++| `research`  | `design/01 Research*.md`                             | Coverage, credibility, option gaps                  |
++| `evaluate` | `design/02 Evaluate*.md`                            | Full WAF on recommended option                      |
++| `solution`  | `solution/Architecture.md` + `solution/Design*.md` | Full WAF on the chosen approach; Architecture.md is the integrated E2E record |
+ 
+ If the target artifact does not exist, tell the developer which phase to complete
+ first and stop. Also read `design/Report.md` for existing WAF findings, to avoid
+@@ -59,14 +59,14 @@
+ **For `evaluate` target:** standard WAF assessment of the recommended option.
+ 
+ **For `solution` target:** standard WAF assessment of the chosen approach as
+-specified in `Architecture.md`/`Design.md` — this is the last WAF pass before the
++specified in `solution/Architecture.md`/`solution/Design.md` — this is the last WAF pass before the
+ human-approval gate, so treat any P1 here as blocking.
+ 
+ ## Step 3 — Present findings
+ 
+ Present the full assessment in the console. Say:
+ 
+-> "Review complete. Any corrections before I append to `Report.md`? (**yes** to save / **no** to discuss)"
++> "Review complete. Any corrections before I append to `design/Report.md`? (**yes** to save / **no** to discuss)"
+ 
+ **Stop and wait.** Apply corrections if requested.
+ 
+@@ -88,7 +88,7 @@
+ - <list or "none">
+ ```
+ 
+-If the `## WAF Assessment` section does not exist in `Report.md`, create it.
++If the `## WAF Assessment` section does not exist in `design/Report.md`, create it.
+ 
+ ## Step 5 — Report back
+ 

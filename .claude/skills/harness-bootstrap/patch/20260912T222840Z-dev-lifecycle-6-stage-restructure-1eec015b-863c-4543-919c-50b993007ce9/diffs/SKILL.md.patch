@@ -1,0 +1,13 @@
+diff --git a/SKILL.md b/SKILL.md
+index 01bcc28..0b68133 100644
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1,7 +1,7 @@
+ ---
+ name: harness-bootstrap
+ metadata:
+-  version: 4.0.0
++  version: 5.0.0
+ description: >
+   Install the portable AI-dev harness, harvest project skill improvements into its
+   canonical templates, or apply canonical updates to an existing project.

@@ -1,0 +1,14 @@
+diff --git a/skills/dev/templates/stat.schema.json b/skills/dev/templates/stat.schema.json
+index 2f19ec3..c037c47 100644
+--- a/skills/dev/templates/stat.schema.json
++++ b/skills/dev/templates/stat.schema.json
+@@ -265,6 +265,9 @@
+         "token_coverage"
+       ],
+       "additionalProperties": true
++    },
++    "lifecycle": {
++      "const": "dev"
+     }
+   },
+   "required": [

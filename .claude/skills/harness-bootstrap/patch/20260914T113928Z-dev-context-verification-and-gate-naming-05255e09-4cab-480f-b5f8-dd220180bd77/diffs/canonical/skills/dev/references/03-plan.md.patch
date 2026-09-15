@@ -1,0 +1,72 @@
+diff --git a/canonical/skills/dev/references/03-plan.md b/canonical/skills/dev/references/03-plan.md
+index fb6e218..ffb78f1 100644
+--- a/canonical/skills/dev/references/03-plan.md
++++ b/canonical/skills/dev/references/03-plan.md
+@@ -4,7 +4,7 @@ Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+ `--stage plan`.
+ 
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage is
+-dedicated to planning only — reading `intent.md` and the codebase, then writing and
++dedicated to planning only — reading `0-intent.md` and the codebase, then writing and
+ approving `1-plan.md`. It does not gather context or run tracker/branch ceremony;
+ those already happened in Context Gathering and Ceremony.
+ 
+@@ -40,12 +40,12 @@ If no stale state is found — continue normally from Step 1.
+ 
+ ## Step 1 — Read intent and codebase
+ 
+-Read `impl/intent.md` in full — it is the confirmed proto-spec from Context
++Read `impl/0-intent.md` in full — it is the confirmed proto-spec from Context
+ Gathering. If it references an approved `solution/Architecture.md`, read the story's `design/Report.md`
+ and the paths listed in its `selected_artifacts` state — they remain the primary
+-spec; intent.md and tracker ACs supplement, they do not override the solution.
++spec; 0-intent.md and tracker ACs supplement, they do not override the solution.
+ 
+-Then read any context files or docs `intent.md` references, and any relevant
++Then read any context files or docs `0-intent.md` references, and any relevant
+ existing code in the affected layers. Do not guess — read the actual files before
+ proposing anything.
+ 
+@@ -113,9 +113,10 @@ Other rules:
+ Call `EnterPlanMode`. Design decisions, exploration, and the developer-facing
+ proposal all happen inside Plan Mode rather than through a manual write/confirm
+ loop — Plan Mode's own explore → design → present → approve cycle replaces that here.
+-This step is never skipped or downgraded to a local draft, regardless of routine-work
+-authorization elsewhere in the lifecycle — the plan itself always requires explicit
+-developer approval before Implement.
++This is a sign-off gate (`patterns/approvals.md`) and is never skipped or downgraded
++to a local draft, regardless of routine-work authorization elsewhere in the
++lifecycle — the plan itself always requires the developer's explicit sign-off before
++Implement.
+ 
+ While in Plan Mode, the only file you may write is the plan file the system assigns
+ (e.g. `~/.claude/plans/<slug>.md`) — every other write, including to the story
+@@ -128,7 +129,7 @@ Call `ExitPlanMode` when the plan is ready. If the developer raises concerns, re
+ and call it again within the same Plan Mode session — do not exit and re-enter for
+ each revision.
+ 
+-**Once approved** (Plan Mode has exited and normal write access is back): write the
++**Once signed off** (Plan Mode has exited and normal write access is back): write the
+ identical, approved content to `docs/Stories/[{TICKET}] {name}/impl/1-plan.md` — the
+ folder and `2-report.md` already exist from Context Gathering. This is the
+ authoritative project-relative copy that later stages read — the system's own plan
+@@ -150,7 +151,7 @@ When triggered, delegate to `@architect` following the satellite review protocol
+ 
+ - **go** → proceed silently to Step 5
+ - **reiterate** → present findings to the developer and ask:
+-  1. **Rework** — revise the affected step(s); if the plan file needs structural changes, re-enter Plan Mode for the revision, otherwise edit `1-plan.md` directly and re-run this audit
++  1. **Rework** — revise the affected step(s); if the plan file needs structural changes, re-enter Plan Mode for the revision (its own approve cycle covers the sign-off). Otherwise, edit `1-plan.md` directly, then this is a sign-off gate (`patterns/approvals.md`): present the exact diff of what changed and why (referencing the RF finding) and **stop and wait for the developer's sign-off** before re-running this audit. A `go` verdict from a re-audit does not substitute for this — the developer signs off on the content, `@architect` only checks it against HLD.
+   2. **Justify** — record as an approved deviation (see below)
+ 
+ Maximum 3 iterations. If still unresolved, present the stalemate to the developer and stop.
+@@ -163,7 +164,9 @@ is verified in Document, unless explicitly accepted as a lasting exception.
+ 
+ ## Step 5 — Finalise the plan
+ 
+-`impl/1-plan.md` is now immutable — never edit it after approval.
++`impl/1-plan.md` is now immutable — never edit it after sign-off. If Step 4 revised
++the plan directly (not via Plan Mode), do not enter this step until the developer has
++signed off on that revision — a `go` audit verdict alone does not authorize it.
+ 
+ Update the already-existing `2-report.md` (created in Context Gathering):
+ 

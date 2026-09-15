@@ -1,0 +1,17 @@
+diff --git a/skills/dev/pattern-announce-progress.md b/skills/dev/patterns/announce-progress.md
+index 8ef464a..9914798 100644
+--- a/skills/dev/pattern-announce-progress.md
++++ b/skills/dev/patterns/announce-progress.md
+@@ -14,9 +14,9 @@ Omit the "After this phase" line if the current item is not the last one in the
+ 
+ ## When to emit
+ 
+-- After developer confirms each implementation step (dev-implement)
+-- After developer confirms each documentation item (dev-document)
+-- At every phase handoff in the dev orchestrator (Plan → Implement → Test → Document)
++- After developer confirms each implementation step (`references/04-implement.md`)
++- After developer confirms each documentation item (`references/06-document.md`)
++- At every phase handoff in the dev router (Plan → Implement → Test → Document)
+ 
+ ## Why
+ 

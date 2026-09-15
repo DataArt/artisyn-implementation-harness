@@ -1,0 +1,25 @@
+--- a/skills/dev/TEMPLATE.md
++++ b/skills/dev/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: dev
+ metadata:
+-  version: 2.0.0
++  version: 2.1.0
+ description: >
+   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
+   → Test → Document, or a single stage via
+@@ -72,6 +72,13 @@
+ 
+ If no stale state is found — continue normally from Phase 1.
+ 
++For free-form input with no tracker ticket, first search existing story folders for a
++matching generated local ID (`DESIGN-YYYYMMDD-XXXX`) and title. Reuse that ID and
++folder when found. If none matches, generate a collision-checked local ID before
++creating the implementation folder; use it consistently in `intent.md`, reports,
++metrics and hand-off references. This is a local implementation identifier and does
++not imply a tracker record.
++
+ ---
+ 
+ ## Metrics

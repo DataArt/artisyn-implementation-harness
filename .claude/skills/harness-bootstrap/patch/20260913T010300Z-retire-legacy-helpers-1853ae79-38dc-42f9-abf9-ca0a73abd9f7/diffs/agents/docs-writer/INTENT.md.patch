@@ -1,0 +1,17 @@
+diff --git a/agents/docs-writer/INTENT.md b/agents/docs-writer/INTENT.md
+index 2610c64..cbef10b 100644
+--- a/agents/docs-writer/INTENT.md
++++ b/agents/docs-writer/INTENT.md
+@@ -5,7 +5,11 @@ output: .claude/agents/docs-writer.md
+ 
+ ## Purpose
+ 
+-Permanent doc writer invoked any time architecture or project docs need to be created or updated — during the design lifecycle's Publish stage, the dev lifecycle's Document stage, or any inline conversation. Reads the project's Documentation Principles article before writing, enforces diagram-first format with colored Mermaid, and applies the certainty principle. Replaces the old `writing-docs` skill.
++When adding, renaming or removing pages, verify existing documentation-site navigation
++still resolves. This responsibility is conditional on a site configuration being
++present; it does not require creating one.
++
++Permanent doc writer invoked any time architecture or project docs need to be created or updated — during the design lifecycle's Publish stage, the dev lifecycle's Document stage, or any inline conversation. Reads the project's Documentation Principles article before writing, enforces diagram-first format with colored Mermaid, and applies the certainty principle. Also maintains existing docs-site navigation when pages are added, renamed or removed.
+ 
+ ## Substitutions
+ 

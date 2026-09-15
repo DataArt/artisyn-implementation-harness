@@ -1,0 +1,112 @@
+--- a/canonical/skills/dev/patterns/metrics.md
++++ b/canonical/skills/dev/patterns/metrics.md
+@@ -1,6 +1,6 @@
+ # Dev metrics
+ 
+-The orchestrator uses the dependency-free Node.js CLI in `scripts/dev-metrics.mjs`
++The orchestrator uses the dependency-free Node.js CLI in `scripts/timing.mjs`
+ (relative to this dev skill). Only the orchestrator writes metrics. Never hand-edit
+ `stat.json`, derive durations in prose, estimate tokens, sum worker wall times, or
+ infer stage/step completion from file presence — record only observed transitions.
+@@ -10,9 +10,9 @@
+ If configuring automatic permission for recording commands, use subcommand-specific
+ rules with the subcommand immediately after the script path, for example:
+ 
+-- `Bash(node .claude/skills/dev/scripts/dev-metrics.mjs checkpoint *)`
+-- `Bash(node .claude/skills/dev/scripts/dev-metrics.mjs stage *)`
+-- `Bash(node .claude/skills/dev/scripts/dev-metrics.mjs check record *)`
++- `Bash(node .claude/skills/dev/scripts/timing.mjs checkpoint *)`
++- `Bash(node .claude/skills/dev/scripts/timing.mjs stage *)`
++- `Bash(node .claude/skills/dev/scripts/timing.mjs check record *)`
+ 
+ The same narrow pattern can cover `init`, `step`, `wait`, `resume`, `recover`,
+ `report`, `validate`, `usage`, and `complete`. Never allowlist the entire script or
+@@ -25,7 +25,7 @@
+ Once Context creates the impl directory and report, run:
+ 
+ ```sh
+-node .claude/skills/dev/scripts/dev-metrics.mjs init --dir "$IMPL_DIR" --ticket "$TICKET"
++node .claude/skills/dev/scripts/timing.mjs init --dir "$IMPL_DIR" --ticket "$TICKET"
+ ```
+ 
+ For direct-stage entry or an existing ticket without metrics, add `--coverage partial`.
+@@ -96,7 +96,7 @@
+ Wrap an already authorized verification command without using a shell:
+ 
+ ```sh
+-node .claude/skills/dev/scripts/dev-metrics.mjs check --dir "$IMPL_DIR" \
++node .claude/skills/dev/scripts/timing.mjs check --dir "$IMPL_DIR" \
+   --id step-01-typecheck-run-01 --kind typecheck --name "Frontend typecheck" \
+   -- yarn nx run frontline-report:typecheck
+ ```
+@@ -117,7 +117,7 @@
+ For an actual developer confirmation or an externally executed check:
+ 
+ ```sh
+-node .claude/skills/dev/scripts/dev-metrics.mjs check record --dir "$IMPL_DIR" \
++node .claude/skills/dev/scripts/timing.mjs check record --dir "$IMPL_DIR" \
+   --id step-01-acceptance-01 --kind acceptance --name "Plan acceptance" \
+   --result passed --source developer --evidence "Developer confirmed the plan's checks passed"
+ ```
+@@ -182,18 +182,46 @@
+ Do not manually duplicate its rows or overwrite historic effort entries. Round display
+ values only; calculations retain seconds precision.
+ 
+-Verify CLI changes with:
+-
+-```sh
+-node --test .claude/skills/dev/scripts/dev-metrics.test.mjs
+-```
+-
+-The CLI is self-contained within this flow. `scripts/constants.mjs` owns lifecycle
+-IDs, filenames, report markers, and activity/reason values. `scripts/utils.mjs` owns validation primitives, timestamp/duration helpers, atomic
+-writes, and Markdown cell escaping. Bootstrap installs this flow's CLI, constants,
+-and utils together; no other flow or shared recorder is required.
+-Run this flow's regression suite after changes:
+-
+-```sh
+-node --test .claude/skills/dev/scripts/dev-metrics.test.mjs
+-```
++The CLI is self-contained within this flow. `scripts/timing.mjs` is the entrypoint —
++stage/step/interval/check state, structural validation, and the generated Stage/Step
++Metrics report sections. `scripts/quality.mjs` derives the report-sourced quality
++inventory (Review Findings, Tech Debt, Test Results) that `timing.mjs` calls into for
++`report` and `quality validate`. `scripts/constants.mjs` owns lifecycle IDs,
++filenames, report markers, and activity/reason/finding values shared by both.
++`scripts/utils.mjs` owns validation primitives, timestamp/duration helpers, atomic
++writes, and Markdown cell escaping. Bootstrap installs all four together; no other
++flow or shared recorder is required. Run this flow's regression suite after changes:
++
++```sh
++node --test .claude/skills/dev/scripts/*.test.mjs
++```
++
++## Quality inventory
++
++`report` parses the single Review Findings table, Tech Debt ledger and numerical
++Test Results evidence into optional v2 `stat.json.quality`, then renders one summary
++line beside Stage Metrics. It replaces the snapshot on every refresh; repeated report
++runs never increment findings or test counts. IDs and source-table hash make the
++snapshot traceable. Preserve kind, impact severity, classification, resolution,
++deviation type, PR-origin subset, and linked debt as separate dimensions.
++
++The table contract lives in `patterns/review-gate.md` and `templates/report.md`.
++One underlying issue keeps one RF ID across reviews. A PR review counts unique RF
++rows whose Origin includes `pr-review`, not review rounds or commits. Tech Debt counts
++ledger entries and ticketed/unticketed disposition; it is not added to finding totals.
++Tests Written counts new cases in the diff; Passed/Failed/Skipped are latest runner
++case counts over non-overlapping scopes. Unknown source values stay null. Failed test
++runs come from historical `checks` with kind `test`, independently of latest cases;
++build/lint errors are not test failures. Counts are inventory, not a composite score
++or a comparison between tickets with different review coverage.
++
++Old v2 metrics without quality remain valid. Missing legacy table columns yield
++unavailable evidence; do not backfill guesses or automatically rewrite historic reports.
++Malformed canonical tables and duplicate IDs fail refresh rather than emit false counts.
++Use `node --test .claude/skills/dev/scripts/*.test.mjs` after recorder changes.
++
++Before archive, run `quality validate --dir "$IMPL_DIR"` after `report`. This rejects
++open findings, missing terminal evidence/TD ownership, latest failing case counts and
++unresolved recorded checks. It checks structure; the orchestrator must still verify
++AC coverage and the substance/authorization of each resolution. Review Findings must
++exist for closure; explicitly consolidate legacy findings when resuming an old story.

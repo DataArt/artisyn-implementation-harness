@@ -1,0 +1,80 @@
+--- a/canonical/skills/dev/patterns/review-gate.md
++++ b/canonical/skills/dev/patterns/review-gate.md
+@@ -1,32 +1,53 @@
+-# Pattern: Review Gate
++# Review findings and resolution
+ 
+-Applies whenever an agent (`@architect`, `@nestjs-dev`, `@react-dev`, etc.) returns findings that must be acted on — PR review, deviation audit, satellite review, or any structured agent output. The pattern has two stages with a hard stop between them.
++All Plan, Implement, PR, HLD deviation and documentation consistency reviews use one
++`## Review Findings` table in `2-report.md`. Apply `patterns/approvals.md`.
++Write findings before acting, then update the same rows as evidence and decisions
++arrive. Reviewers return findings; the orchestrator owns the ledger.
+ 
+-## Stage 1 — Write and present
++| ID | Stage | Origin | Kind | Deviation type | Severity | Classification | Finding | Evidence | Resolution | TD | Decision |
++| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+ 
+-1. **Write all findings to `2-report.md`** under a named section (e.g. `## PR Review`, `## Deviation Audit`, `## Satellite Review`) before doing anything else. If the session ends early, the findings are preserved.
+-2. **Classify each finding** before presenting it:
+-   - **Real, introduced by this change** → `Must fix` (apply only after developer confirms in Stage 2)
+-   - **Pre-existing** → out of scope; note it but do not fix
+-   - **Ruled out by explicit design decision** → counter-explain why it doesn't apply; record the rationale
+-   - **Theoretical / non-load-bearing** → advisory only; do not act
+-3. **Present the classified table** with triage reasoning to the developer.
+-4. **STOP** — wait for the developer to confirm which findings to fix. Do not apply any fix, even an obviously correct one, before this confirmation.
++- **ID:** stable `RF-001`, never recycled. Deduplicate by underlying issue and affected
++  contract/location, not reviewer wording. Later reviews reuse the ID and append
++  their origin/evidence. Preserve prior decisions in Decision when reopening a row.
++- **Stage:** first discovery: `plan`, `implement`, `test`, `document`.
++- **Origin:** semicolon-separated unique values: `plan-audit`, `implementation-review`,
++  `pr-review`, `hld-audit`, `doc-consistency`.
++- **Kind:** `deviation`, `bug`, `design`, `improve`, `security`, `performance`, `docs`.
++  HLD contract divergence is `deviation`; design is another design concern. Translate
++  legacy BUG/SEC/PERF/DESIGN/IMPROVE codes using the actual finding's meaning.
++- **Deviation type:** `contradiction`, `extension`, `omission` for deviations; `—` otherwise.
++- **Severity:** impact, independent of triage: `critical`, `high`, `medium`, `low`, `info`.
++- **Classification:** `introduced`, `pre-existing`, `ruled-out`, `advisory`.
++- **Evidence:** concrete file/section, test output or review reference. Escape literal
++  pipes as `\|`; each row occupies one line. No placeholder rows in live reports.
++- **Resolution:** `open`, `fixed`, `accepted`, `tech-debt`, `doc-updated`.
++- **TD:** linked ledger ID (`TD-1`) for tech-debt, otherwise `—`.
++- **Decision:** fix/verification evidence or attributed acceptance/deferral with rationale.
+ 
+-## Stage 2 — Per-fix loop
++Fix confirmed in-scope regressions and routine doc inconsistencies, then run relevant
++verification without a per-fix confirmation. Do not expand scope to fix unrelated
++pre-existing issues. Combine unresolved scope/risk decisions for human review after
++preparing the available fixes. A ruled-out finding becomes `accepted` with the
++counter-evidence; it needs no human approval unless accepting a real residual risk.
+ 
+-For each confirmed fix (or tightly related group), apply the do → report → commit pattern (`.claude/skills/dev/patterns/do-report-commit.md`):
++`fixed` requires passing relevant verification; `doc-updated` requires completed,
++checked docs, and any changed HLD decision already authorized. HLD omission/extension
++is not permission to rewrite the target to excuse a regression. `accepted` for a real
++risk requires attributed authorization and rationale. `tech-debt` requires a linked
++TD row with an owner and next action, plus authorized deferral of required work.
++Optional tracker creation can be declined: the local ledger remains the durable record.
+ 
+-1. Implement the fix
+-2. Present the change and the verification instructions
+-3. **STOP** — wait for the developer to confirm the fix is correct
+-4. Update the relevant section in `2-report.md` with the resolution
+-5. Present a commit message for this fix
+-6. **STOP** — wait for the developer to confirm the commit is done
+-7. Proceed to the next fix
++No findings is a review coverage note, never a fabricated finding row. Ordinary LLD
++lag pending the Document stage goes directly to Documentation, not a deviation row.
++A contradiction remaining after doc updates is a `docs` finding.
+ 
+-Do not batch multiple unrelated fixes into a single commit. Do not present a commit message before the developer has validated the change.
++Before archival all rows must be terminal, all required AC/checks must pass, and each
++resolution must have evidence. Critical/high risk cannot be silently accepted or
++hidden in debt. Resolve newly discovered consistency findings before final closure.
+ 
+-## Why
+-
+-Skipping Stage 1 (applying fixes before writing the report) means findings are lost if the session ends early. Batching Stage 2 (committing all fixes at once) removes the per-fix validation checkpoint, which is the same discipline the Implement stage (`references/04-implement.md`) enforces for implementation steps. The pattern is identical in both contexts.
++For an existing report, explicitly consolidate legacy findings sections once, retain
++old codes and decisions in Evidence/Decision, and deduplicate across sections. Leave
++immutable plans and archived reports unchanged unless migration is requested. Link
++plan exceptions to RF IDs in the report rather than copying another live table.

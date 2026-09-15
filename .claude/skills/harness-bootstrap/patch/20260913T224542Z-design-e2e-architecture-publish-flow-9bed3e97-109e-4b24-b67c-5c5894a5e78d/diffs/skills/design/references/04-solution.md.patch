@@ -1,0 +1,175 @@
+--- a/skills/design/references/04-solution.md
++++ b/skills/design/references/04-solution.md
+@@ -17,12 +17,16 @@
+ HLD/LLD/NFR requirement; an unaddressed material concern keeps Solution incomplete.
+ 
+ Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`.
+-Solution is the clean deliverable. It contains only the chosen approach: no
+-rationale, no rejected options, no debate. The rationale lives in `02 Evaluate.md`.
+-Output only the selected solution artifacts (for example, `Architecture.md`,
+-`Design.md`, `Stack.md`, or `Efforts.md`). Do not create an unselected or empty artifact.
+-
+-> ⚠️ **Certainty principle** — `solution/` files drive doc updates (Publish) and implementation (`/dev`). Write only settled decisions and their direct consequences. Do not carry over open questions, rejected alternatives, comparative arguments, or rationale from `02 Evaluate.md`. Those live in `design/`.
++Solution is the clean deliverable. `solution/Architecture.md` is its integrated E2E source
++of truth and contains the complete chosen approach: no
++rationale, no rejected options, no debate. The rationale lives in `design/02 Evaluate.md`.
++Output only the selected solution artifacts (for example, `solution/Architecture.md`,
++`solution/Design.md`, `solution/Stack.md`, or `solution/Efforts.md`). Do not create an unselected or empty artifact.
++
++> ⚠️ **Certainty principle** — `solution/` files drive doc updates (Publish)
++> and implementation (`/dev`). Write only settled decisions and their direct
++> consequences. Do not carry over open questions, rejected alternatives, comparative
++> arguments, or rationale from `design/02 Evaluate.md`. Those remain in `design/02 Evaluate.md`.
+ 
+ > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
+ 
+@@ -30,7 +34,7 @@
+ 
+ ## Step 1 — Read inputs
+ 
+-Find the design folder by globbing `docs/Stories/*{TICKET}*/**`.
++Find the story folder by globbing `docs/Stories/*{TICKET}*/design/**`.
+ 
+ Read in full:
+ 
+@@ -38,13 +42,13 @@
+ - `design/02 Evaluate.md` — the recommended option and its open questions
+ - `design/Report.md` — WAF P1 items that must be reflected in the solution
+ 
+-If `02 Evaluate.md` does not exist, tell the developer that Evaluate must be completed first and stop.
++If `design/02 Evaluate.md` does not exist, tell the developer that Evaluate must be completed first and stop.
+ 
+ ---
+ 
+ ## Step 1b — Developer specification session
+ 
+-Before writing any files, walk through the following areas with the developer to capture context that may not be in `02 Evaluate.md`.
++Before writing any files, walk through the following areas with the developer to capture context that may not be in `design/02 Evaluate.md`.
+ 
+ Ask:
+ 
+@@ -64,15 +68,24 @@
+ 
+ ## Step 2 — Draft selected solution artifacts
+ 
+-Before drafting, write the selected interface names to `Report.md` State and use that
++Before drafting, write the selected interface names to `design/Report.md` State and use that
+ list for every subsequent step. Execute the following steps only for selected
+ interfaces; skip unselected artifacts and record the omission in the report.
+ 
+ Using the selected `interfaces/architecture.md` contract:
+ 
+-- Chosen architecture: components, data flows, integration points, sequence diagrams where helpful
++- Start with the end-to-end solution: boundaries, ownership, data/control flows,
++  interfaces, deployment and representative normal/failure/recovery paths.
++- Add a decision register covering every settled decision from `design/00 Frame.md`,
++  `design/02 Evaluate.md`, the developer specification session and WAF/review feedback;
++  include each decision's consequence and verification obligation.
+ - How it plugs into the existing system or engagement context
+-- How WAF P1 items from `Report.md` are addressed
++- How WAF P1 items from `design/Report.md` are addressed
++
++Before moving to the next artifact, compare `solution/Architecture.md` with the decisions
++and findings in `design/Report.md`, `design/00 Frame.md` and `design/02 Evaluate.md`. Every material
++decision must be represented in Architecture.md; unresolved or rejected material
++options remain in Evaluate only.
+ 
+ Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Architecture.md` to `@docs-writer` rather than writing it directly.
+ 
+@@ -86,7 +99,7 @@
+ 
+ Ask:
+ 
+-> "Would you like me to delegate to `{{DESIGN_ARCHITECT_AGENT}}` for an independent read-only review of `Architecture.md` before I begin `Design.md`?"
++> "Would you like me to delegate to `{{DESIGN_ARCHITECT_AGENT}}` for an independent read-only review of `solution/Architecture.md` before I begin `solution/Design.md`?"
+ 
+ **Stop and wait.**
+ 
+@@ -95,9 +108,9 @@
+ 
+ ---
+ 
+-## Step 3 — Draft solution/Design.md
+-
+-**Multi-decision check:** if Research/Evaluate were split per `.claude/skills/design/patterns/multi-decision-split.md`, loop this step once per decision, producing `solution/Design - {Decision}.md` for each. (`Architecture.md` in Step 2 stays a single integrated file regardless — one section per decision, not one file per decision.)
++## Step 3 — Draft Design.md
++
++**Multi-decision check:** if Research/Evaluate were split per `.claude/skills/design/patterns/multi-decision-split.md`, loop this step once per decision, producing `Design - {Decision}.md` for each. (`solution/Architecture.md` in Step 2 stays a single integrated file regardless — one section per decision, not one file per decision.)
+ 
+ Using the selected `interfaces/design.md` contract:
+ 
+@@ -106,6 +119,10 @@
+ - Error handling and failure modes
+ - Configuration and secrets
+ 
++`solution/Design.md` is a detail companion. Summarize and link every material implementation
++decision and its architectural consequence in `solution/Architecture.md` before accepting
++this file.
++
+ Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Design.md` to `@docs-writer` rather than writing it directly.
+ 
+ Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Design.md`. Review in your IDE — any corrections?"
+@@ -114,13 +131,17 @@
+ 
+ ---
+ 
+-## Step 4 — Draft solution/Stack.md
++## Step 4 — Draft Stack.md
+ 
+ Using the selected `interfaces/stack.md` contract:
+ 
+-- One line per concrete technology/library choice: what it is, not why it was chosen over alternatives (that's in `02 Evaluate.md`)
++- One line per concrete technology/library choice: what it is, not why it was chosen over alternatives (that's in `design/02 Evaluate.md`)
+ - Include versions where they matter
+ 
++Reflect each technology choice that changes a boundary, contract, operating model or
++quality attribute in `solution/Architecture.md`, with its consequence; keep version/detail
++inventory here.
++
+ Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Stack.md` to `@docs-writer` rather than writing it directly.
+ 
+ Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Stack.md`. Review in your IDE — any corrections?"
+@@ -129,15 +150,22 @@
+ 
+ ---
+ 
+-## Step 5 — Draft solution/Efforts.md
++## Step 5 — Draft Efforts.md
+ 
+ Using the selected `interfaces/efforts.md` contract:
+ 
+ **WBS (write this):**
+ 
+-- List of implementation tickets using the template columns: `#`, `Summary`, `Type` (feat/fix/chore/spike), `Layer`, `Depends on`
++- List implementation tickets as measurable, outcome-sized units using the template
++  columns: `#`, `Summary`, `Type` (feat/fix/chore/spike), `Layer`, `Depends on`.
++  Choose a component, container, FE/BE/Infra slice or another meaningful boundary;
++  each unit should fit one focused dev session and include all required changes
++  without ceremony overhead. Split or combine units when ownership, sequencing or
++  acceptance evidence requires it.
+ - Sequencing constraints (what must come before what) — include Mermaid diagram
+-- Any spikes or open questions from `02 Evaluate.md` that need a dedicated ticket
++- Any spikes or open questions from `design/02 Evaluate.md` that need a dedicated ticket.
++  Resolve simple spikes through the relevant MCP during design when possible; record
++  the result and evidence in `design/Report.md` instead of creating a ticket.
+ 
+ **Estimate (delegate to developer — do not self-estimate):**
+ 
+@@ -165,11 +193,16 @@
+ A full options analysis is in `design/02 Evaluate.md`. In summary: [one paragraph describing what alternatives were evaluated and why the chosen approach was selected — no detail, just enough context so a reader knows the decision wasn't arbitrary].
+ ```
+ 
++Then perform a decision-coverage check: reconcile the decision register with every
++confirmed decision, WAF finding and review correction recorded in `design/Report.md`. Do not
++proceed until `solution/Architecture.md` contains the settled outcome and consequence for
++each.
++
+ ---
+ 
+ ## Step 7 — Final review before WAF gate
+ 
+-Say: "The selected solution files are saved. Review the paths listed in `Report.md` — any final corrections before I run the design review?"
++Say: "The selected solution files are saved. Review the paths listed in `design/Report.md` — any final corrections before I run the design review?"
+ 
+ **Reiterate paths** — if the developer raises a concern before the WAF gate:
+ 

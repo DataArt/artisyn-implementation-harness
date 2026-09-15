@@ -1,0 +1,13 @@
+diff --git a/skills/skill-reflect/TEMPLATE.md b/skills/skill-reflect/TEMPLATE.md
+index 784f5c4..ce8cfd5 100644
+--- a/skills/skill-reflect/TEMPLATE.md
++++ b/skills/skill-reflect/TEMPLATE.md
+@@ -4,7 +4,7 @@ metadata:
+   version: 0.3.1
+ description: >
+   Post-task debrief (/skill-reflect or "reflect on this", "capture what I learned").
+-  Also trigger when /dev-document ends with the reflection prompt.
++  Also trigger when /dev document ends with the reflection prompt.
+   Structures the brain-dump into .claude/reflections/ for later /skill-triage.
+ ---
+ 

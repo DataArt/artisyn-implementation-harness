@@ -1,0 +1,47 @@
+--- a/canonical/skills/dev/references/05-test.md
++++ b/canonical/skills/dev/references/05-test.md
+@@ -30,7 +30,22 @@
+ 
+ ## Step 3 — Build check
+ 
+-Before the PR review, verify the monorepo builds cleanly:
++Run whichever check(s) actually make sense for what the plan touched — same scope
++rule as Step 7's verification gate; do not run one, then re-derive the other's
++answer independently. Most tickets touch one side and need only that check; a
++mixed-scope ticket (both infra and app code) may reasonably need both.
++
++**Infra changes** (Terraform / config) — verify with Terraform:
++
++> "Please run:
++>
++> ```bash
++> {{INFRA_SYNTH_CMD}}
++> ```
++>
++> Let me know the result."
++
++**App code changes** — verify the monorepo builds cleanly:
+ 
+ > "Please run:
+ >
+@@ -40,7 +55,10 @@
+ >
+ > Let me know the result."
+ 
+-**Stop and wait.** If the build fails, diagnose the failure (type error, missing import, misconfigured target) and present a fix before proceeding. Do not run the PR review or tests against a broken build.
++Skip a check entirely when the plan touched nothing on that side — don't run an app
++build against a Terraform-only diff, or vice versa.
++
++**Stop and wait.** If a check fails, diagnose the failure (type error, missing import, misconfigured target, invalid resource config) and present a fix before proceeding. Do not run the PR review or tests against a failing build/validate.
+ 
+ ## Step 4 — DB migration check _(skip if no DB changes in this plan)_
+ 
+@@ -68,7 +86,7 @@
+ 
+ **@architect audit** — spawn `@architect` before writing the PR Review table when any of the following apply:
+ 
+-- The plan touches infrastructure stacks
++- The plan changes infrastructure topology or boundaries (new resource type, new network path/exposure, new service, a removal-policy or IAM change) — not a routine like-for-like addition within an existing, already-reviewed pattern (e.g. one more container in an existing, already-audited Cosmos account)
+ - The plan introduces a new cross-layer integration (e.g. new backend endpoint consumed by frontend, new auth flow, new queue/event contract)
+ - The plan contains non-trivial flows that span more than one container
+ 

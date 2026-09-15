@@ -1,0 +1,14 @@
+diff --git a/canonical/skills/dev/references/05-test.md b/canonical/skills/dev/references/05-test.md
+index f651862..c232fd0 100644
+--- a/canonical/skills/dev/references/05-test.md
++++ b/canonical/skills/dev/references/05-test.md
+@@ -8,7 +8,8 @@ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage run
+ the test suite and PR review for an implemented plan.
+ 
+ Apply `patterns/approvals.md`: follow dependencies, continue routine authorized work,
+-and pause only for a concrete unresolved decision or required human verification.
++and pause only for a concrete unresolved decision, required human verification, or a
++fixed sign-off gate (`patterns/approvals.md`).
+ 
+ > 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+ 

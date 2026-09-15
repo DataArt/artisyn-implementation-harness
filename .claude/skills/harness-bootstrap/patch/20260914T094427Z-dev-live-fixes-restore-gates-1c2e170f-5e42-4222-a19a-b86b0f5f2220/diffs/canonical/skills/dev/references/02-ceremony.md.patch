@@ -1,0 +1,24 @@
+diff --git a/canonical/skills/dev/references/02-ceremony.md b/canonical/skills/dev/references/02-ceremony.md
+index d222c05..80ca034 100644
+--- a/canonical/skills/dev/references/02-ceremony.md
++++ b/canonical/skills/dev/references/02-ceremony.md
+@@ -31,10 +31,15 @@ Once `@scrum-master` confirms, continue immediately to Step 2.
+ 
+ ## Step 2 — Feature branch checkout
+ 
+-Inspect the current branch and worktree. Reuse the correct feature branch or create a
+-new local feature branch within the requested flow. Preserve unrelated changes; ask
+-only when switching would conflict or the intended branch is ambiguous. No confirmation
+-is needed to establish a fact available from Git.
++Inspect the current branch and worktree. If already on the correct feature branch,
++continue without asking — that's a fact available from Git, not a decision. Otherwise,
++present the branch to create or switch to:
++
++> "Checking out `feat/{ticket-or-local-id}-{slug}` for this work. Confirm? (**yes** / suggest a different name)"
++
++**Stop and wait for confirmation.** Do not check out or create the branch until the
++developer confirms. Preserve unrelated changes; if switching would conflict, surface
++that instead of proceeding.
+ 
+ ## Step 3 — Advance phase and report back
+ 

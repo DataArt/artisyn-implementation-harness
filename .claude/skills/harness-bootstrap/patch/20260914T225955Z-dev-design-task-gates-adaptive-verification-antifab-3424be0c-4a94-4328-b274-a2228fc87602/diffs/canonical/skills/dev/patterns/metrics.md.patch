@@ -1,0 +1,25 @@
+--- a/canonical/skills/dev/patterns/metrics.md
++++ b/canonical/skills/dev/patterns/metrics.md
+@@ -124,6 +124,22 @@
+   --result passed --source developer --evidence "Developer confirmed the plan's checks passed"
+ ```
+ 
++**`--source developer` requires an actual developer reply to attribute.** `--source`
++is free text the script does not validate — nothing technical stops writing
++`developer` for a check you ran yourself. Using it that way is not a shortcut, it is
++fabricating sign-off: the record then falsely tells everyone downstream (`2-report.md`,
++the developer on resume, a future auditor) that a human confirmed something no human
++ever saw. Only record `--source developer` when the developer's own message in this
++conversation is what you are quoting or summarizing as `--evidence`; if no such reply
++exists yet, the check has not happened yet — do not record it, do not mark the step
++Done or complete, and do not invent evidence text to fill the gap. A check you ran
++yourself (typecheck, build, browser walkthrough, anything) is recorded with a source
++that says so (e.g. `--source self` or `--source orchestrator`), never `developer`,
++regardless of how confident you are in the result — confidence is not attribution.
++If you notice you've already recorded a fabricated `--source developer` entry,
++correct it immediately with a new event under a new ID and reopen the step rather
++than leaving the false record standing until asked about it.
++
+ Kinds: `build`, `test`, `lint`, `typecheck`, `acceptance`. Manual results also accept
+ `failed`, `error`, `cancelled`. `running` and `interrupted` are recorder-owned
+ results, not manual assertions. Manual timestamps record when evidence was received,

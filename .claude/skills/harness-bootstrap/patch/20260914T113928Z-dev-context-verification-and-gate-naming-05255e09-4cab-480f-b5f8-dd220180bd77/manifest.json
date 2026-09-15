@@ -1,0 +1,158 @@
+{
+  "schema_version": 2,
+  "id": "05255e09-4cab-480f-b5f8-dd220180bd77",
+  "created_at": "2026-09-14T11:39:28Z",
+  "origin": "magpie-ai-case-study",
+  "operation": "prepare",
+  "summary": "Dev lifecycle 7.6.0 -> 7.10.0 (dev canonical skill 2.4.0 -> 2.8.0). 7.7.0: rename generated impl/intent.md -> impl/0-intent.md so it sorts alongside 1-plan.md/2-report.md (re-harvested after an earlier session's live-only fix was lost to 7.5.0's apply); name the stop-and-wait concept 'sign-off' with a fixed list of lifecycle sign-off points in patterns/approvals.md. 7.8.0: Ceremony Step 2 branch checkout is a manual operation the agent proposes but never runs itself, matching Implement's never-commit-yourself rule. 7.9.0: Plan Step 4 rework (direct 1-plan.md edit for an architecture-audit finding) now requires its own sign-off on the diff before re-audit and Step 5 finalization; a re-audit 'go' verdict checks HLD alignment, not developer approval. 7.10.0: Context Gathering Step 3.5 fetches current official documentation before proposing structure for uncertain external platform/framework conventions, citing what was consulted in the Step 4 summary.",
+  "package_version": "7.10.0",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "d336ceddc10cbe314a5a4158665620da18e336fc6b2734c8ee5d9bc8978b2887",
+      "after_sha256": "42b95454af675c4e63f9acdf82602567d253fd209d91b0cf03a0919f3283e60e",
+      "payload": "diffs/canonical/skills/dev/TEMPLATE.md.patch",
+      "payload_sha256": "98355e0f027854d007b7568e677313f14d74ec61a425d0351d304f8f2805c709",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/INTENT.md",
+      "old_path": null,
+      "before_sha256": "3b1d478a898a76dd6ee5cc99136ef2f33461d68c41784e14e3197f744cfe19cf",
+      "after_sha256": "53ab0d0fe372d1836d50bdf08b4d342df159647ed9f4d3de3d193ed5842d2737",
+      "payload": "diffs/canonical/skills/dev/INTENT.md.patch",
+      "payload_sha256": "1a4fb11e42672c57d1973c7ab174c4858b5384efc053608b6a8ea81997e9baed",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/patterns/approvals.md",
+      "old_path": null,
+      "before_sha256": "92a466703c0ceadbbfbf3a19c6f9ba66fe7ab59ed930a95706406ba6cfcc600d",
+      "after_sha256": "adb7177087de2d79aaf5d5d9bf69f7c1ff9461f0941306bd50744c1fb3ddaf70",
+      "payload": "diffs/canonical/skills/dev/patterns/approvals.md.patch",
+      "payload_sha256": "38db3431a33e52ed7cffe2a1692bc2537fe06b5feff7326f67ba55a657e8cdbf",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": null,
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/00-router.md",
+      "old_path": null,
+      "before_sha256": "4178fa0ad7c020ef28aa9d438cba196776db81ce2d61c5e086431b23b10a64af",
+      "after_sha256": "4a7a19d930e5c470c6638304f4459938e7844b28b70cfaf072e5449823b1af21",
+      "payload": "diffs/canonical/skills/dev/references/00-router.md.patch",
+      "payload_sha256": "90391c99f7fa2991628ca5e6812cd593acfb345907012662ee57f447fd0df906",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/00-router.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "old_path": null,
+      "before_sha256": "3f21124bfae087fdcf7b5801706b690dfef16072552500d92ef8b5b34c895df0",
+      "after_sha256": "d46e8e8aa3166f46274b296f5c6bae79e4682a39bb29aff21d1ff4d60cdc45c3",
+      "payload": "diffs/canonical/skills/dev/references/01-context-gathering.md.patch",
+      "payload_sha256": "fa528c6b0e49662c0aaa3a19b253a21cb10eb0e9aba48584cc4821af8efa715b",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/01-context-gathering.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/02-ceremony.md",
+      "old_path": null,
+      "before_sha256": "2a6817596ac3a10dba17468c7e0ece2f08799699c5ede29ee92c729a657a9fe0",
+      "after_sha256": "d6a60f37ad898ca55be4340e1daf360a51c73f5f8e2c546f76286dbef0dfd2e0",
+      "payload": "diffs/canonical/skills/dev/references/02-ceremony.md.patch",
+      "payload_sha256": "4925ec20b69d839fc3130a7e8c3dd4157e8151e1f167d563042c6db2708928b5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/02-ceremony.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "old_path": null,
+      "before_sha256": "cb087a9fd0a85e46692956e274942bc829eb4a6a8bcecc3c53af9ef9bd8b6ea2",
+      "after_sha256": "55fc2e4f83fef13d392546ca643f56407ae6586782d49b9e11b054a502f27b30",
+      "payload": "diffs/canonical/skills/dev/references/03-plan.md.patch",
+      "payload_sha256": "1cf20c3df97d4b5410e5100aad961ee186bf2a7c20c21f971ef56d15fb250836",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/03-plan.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/templates/intent.md",
+      "old_path": null,
+      "before_sha256": "04914bb4ba6657465057dc79e907d30de4a92e90cbcc281f40338294d4da5726",
+      "after_sha256": "18df3423f81fb7d8fc584aaca58bee8fc086750fdbe8ae1cb98ba5f44fddbeb1",
+      "payload": "diffs/canonical/skills/dev/templates/intent.md.patch",
+      "payload_sha256": "ba539642882409604cc94bd152e4b268d9a3498e2ae238b30b1f6fe4febd9fa8",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/templates/intent.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "d21d08ceef8873da81972b3325c3f66b73a7b15c0538f061697ae7f6c51d4619",
+      "after_sha256": "cbfb4a2ffaf087449cf532aa5c929e8c5acc5aa5cad579deb53cbdb73b2431b8",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "a4d4620512f558f2e4cba7dfd318de85b8f3f4944281ce8286122b6d7574d0b9",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "4fee162f0eaf5ae58c82d589062c5e9f7d65b701b2bdd80639c6c9dba93fe779",
+      "after_sha256": "0bacafeda94fa663d7451666d337b93de2d62179148341cff6f69171b94a049e",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "090aef118ccbf538d59117fecbcb73734bfeeddb7e14f33d70f8177b1e0fbcaf",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

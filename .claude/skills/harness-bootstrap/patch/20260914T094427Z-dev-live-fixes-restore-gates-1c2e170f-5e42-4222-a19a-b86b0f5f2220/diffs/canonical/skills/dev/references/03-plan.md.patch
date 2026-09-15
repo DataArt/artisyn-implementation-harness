@@ -1,0 +1,42 @@
+diff --git a/canonical/skills/dev/references/03-plan.md b/canonical/skills/dev/references/03-plan.md
+index 6022e15..fb6e218 100644
+--- a/canonical/skills/dev/references/03-plan.md
++++ b/canonical/skills/dev/references/03-plan.md
+@@ -110,13 +110,30 @@ Other rules:
+ 
+ ## Step 3 — Design and approve the plan in native Plan Mode
+ 
+-Use native Plan Mode when available, respecting its write restrictions. Prepare the
+-plan using `templates/plan.md` before requesting any unresolved material decision.
+-Use the runtime's required plan approval mechanism when applicable. Otherwise write a
+-reviewable local draft; existing authorization covers a concrete in-scope plan, and
+-only material unsettled choices need a separate approval under `patterns/approvals.md`.
+-After approval/decision resolution, persist the agreed content to
+-`docs/Stories/[{TICKET}] {name}/impl/1-plan.md`. Do not implement code in this stage.
++Call `EnterPlanMode`. Design decisions, exploration, and the developer-facing
++proposal all happen inside Plan Mode rather than through a manual write/confirm
++loop — Plan Mode's own explore → design → present → approve cycle replaces that here.
++This step is never skipped or downgraded to a local draft, regardless of routine-work
++authorization elsewhere in the lifecycle — the plan itself always requires explicit
++developer approval before Implement.
++
++While in Plan Mode, the only file you may write is the plan file the system assigns
++(e.g. `~/.claude/plans/<slug>.md`) — every other write, including to the story
++folder, is blocked until Plan Mode is exited. Write the plan there using
++`templates/plan.md`'s structure and the content rules in Step 2. Use
++`AskUserQuestion` for any approach choice that needs developer input before the plan
++is complete.
++
++Call `ExitPlanMode` when the plan is ready. If the developer raises concerns, revise
++and call it again within the same Plan Mode session — do not exit and re-enter for
++each revision.
++
++**Once approved** (Plan Mode has exited and normal write access is back): write the
++identical, approved content to `docs/Stories/[{TICKET}] {name}/impl/1-plan.md` — the
++folder and `2-report.md` already exist from Context Gathering. This is the
++authoritative project-relative copy that later stages read — the system's own plan
++file is session-scoped and not visible to `references/04-implement.md` or later.
++**Do not write any code.**
+ 
+ ## Step 4 — Architecture audit _(optional — non-trivial plans only)_
+ 

@@ -1,0 +1,22 @@
+diff --git a/canonical/skills/dev/INTENT.md b/canonical/skills/dev/INTENT.md
+index 0affcbb..4f6ac2a 100644
+--- a/canonical/skills/dev/INTENT.md
++++ b/canonical/skills/dev/INTENT.md
+@@ -40,7 +40,7 @@ required human actions under patterns/approvals.md. Replaces the former separate
+ `dev-document` skills — those stages now live under this one skill's `references/`.
+ Context Gathering and Ceremony are new: Context Gathering captures the ticket's
+ intent once (from the tracker, any approved design, and the developer's own words)
+-as `intent.md`, before any tracker/branch ceremony or plan-writing begins.
++as `0-intent.md`, before any tracker/branch ceremony or plan-writing begins.
+ 
+ ## Substitutions
+ 
+@@ -81,7 +81,7 @@ resolves the ID from its own definition. Keeping that mapping in one place
+ - [ ] No literal `ND` used as ticket prefix — all replaced with `{{PROJECT_KEY}}`
+ - [ ] No literal "Jira" wording in `TEMPLATE.md` or any `references/*.md` — tracker activity is named generically and delegated to `@scrum-master`, never described with tracker-specific vocabulary or transition IDs
+ - [ ] TEMPLATE.md only delegates — no implementation logic, no step details (those live in `references/`)
+-- [ ] `references/01-context-gathering.md` creates the story folder, `intent.md`, and the `2-report.md` skeleton (empty Progress table) — no other stage creates these
++- [ ] `references/01-context-gathering.md` creates the story folder, `0-intent.md`, and the `2-report.md` skeleton (empty Progress table) — no other stage creates these
+ - [ ] `references/04-implement.md` applies `patterns/task-tracking.md` for per-step tasks, in addition to the stage-level task the router creates
+ - [ ] Every Phase-row string across `TEMPLATE.md` and `references/*.md` lists all six stages in order (`🎯 Context · 🚀 Ceremony · 📋 Plan · 🔨 Implement · 🧪 Test · 📝 Document`) with consistent status icons
+ - [ ] Every `patterns/*.md` and `templates/*.md` reference across `TEMPLATE.md` and `references/*.md` uses the subfolder path (`patterns/X.md`, `templates/Y.md`), never the old flat `pattern-X.md` / `X-template.md` form

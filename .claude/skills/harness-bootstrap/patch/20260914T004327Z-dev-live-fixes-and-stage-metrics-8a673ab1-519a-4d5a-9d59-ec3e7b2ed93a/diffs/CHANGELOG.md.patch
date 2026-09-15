@@ -1,0 +1,60 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,6 +1,57 @@
+ # Changelog
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
++
++## 7.4.0
++
++Fixes and improvements found while running a live `/dev` session against the
++deployed skill, all applied to `canonical/skills/dev` (and `design` where the
++same duration-formatting change applies). Design skill template 3.1.0 → 3.2.0,
++dev skill template 2.1.0 → 2.2.0.
++
++- **Trackerless local ID prefix bug**: `TEMPLATE.md` and
++  `references/01-context-gathering.md` generated `DESIGN-YYYYMMDD-XXXX` for
++  dev's own trackerless story IDs — copy-pasted verbatim from the design
++  skill's pattern. Corrected to `DEV-YYYYMMDD-XXXX`.
++- **Task-tracking contradiction**: `TEMPLATE.md`'s "Stage tasks" section said
++  to create the six stage tasks "before Phase 1," while Phase 1 said "DO NOT
++  call any tools... until the developer replies yes" — since `TaskCreate` is a
++  tool call, an agent following Phase 1 literally would never create tasks.
++  Clarified that task-tracking setup happens right after the Idempotency
++  check resolves, before the Phase 1 prompt, and is exempt from that gate —
++  stated on both sides of the contradiction so either entry point resolves it
++  the same way.
++- **Test stage Build check ignored ticket scope**: `references/05-test.md`
++  Step 3 unconditionally ran `{{NX_BUILD_CMD}}` (an app build) for every
++  ticket, contradicting Step 7's own "blindly running all NX checks on an
++  infra ticket wastes time" rule just below it. Now runs whichever check(s)
++  actually fit what the plan touched — Terraform validate for infra changes,
++  NX build for app code, both for a mixed-scope ticket, neither forced when
++  it doesn't apply.
++- **`@architect` audit trigger too broad**: "the plan touches infrastructure
++  stacks" forced a full HLD audit even for a routine like-for-like resource
++  addition (e.g. one more container in an already-reviewed Cosmos account).
++  Narrowed to actual topology/boundary changes — new resource type, new
++  network path/exposure, new service, a removal-policy or IAM change.
++- **Plan step granularity**: added a rule to `references/03-plan.md` — within
++  a single NX-project/concern step, split further along testable units when
++  more than one exists (data/schema, then core logic, then wiring), while a
++  genuinely atomic unit stays one step. A decomposition floor, not a mandate
++  to always split.
++- **New Stage Metrics table for dev**, mirroring design's per-stage view:
++  `dev-metrics.mjs`'s `report()` now renders a `## Stage Metrics` section
++  (all six lifecycle stages) in addition to the existing per-implementation-step
++  `## Step Metrics` table, each with its own marker pair
++  (`dev-metrics-stage:*` / `dev-metrics-step:*`, replacing the single
++  `dev-metrics:*`). `constants.mjs`, `templates/report.md`, and the test
++  suite's marker assertions updated to match.
++- **Explanatory Elapsed/Work/Wait columns + human-readable durations** (both
++  design and dev): added a `humanDuration()` helper to both `utils.mjs`
++  copies, formatting durations as `1h 2m 4s` / `2m 4s` / `4s` instead of raw
++  fractional seconds, used throughout both metrics CLIs' generated reports;
++  added a plain-language definition of what Elapsed/Work/Wait each measure
++  (and why they need not sum exactly) to both report templates and the
++  generated report text.
+ 
+ ## 7.3.0
+ 

@@ -1,0 +1,24 @@
+--- a/canonical/skills/dev/patterns/session-continuity.md
++++ b/canonical/skills/dev/patterns/session-continuity.md
+@@ -10,15 +10,10 @@
+ > re-read this full reference file before doing anything. The per-step protocol is
+ > non-negotiable and must be followed even if `dev/SKILL.md` is no longer in context.
+ 
+-## On exit (end of each stage reference)
++## On exit
+ 
+-When a stage is complete, re-read `.claude/skills/dev/SKILL.md` and resume the router
+-from the next stage. This makes the agent self-healing after compaction — the
+-developer does not need to re-invoke `/dev` manually.
+-
+-## Why
+-
+-After session compaction, the `dev` router falls out of active context. Without an
+-explicit re-read instruction, the agent correctly completes the current stage but
+-loses awareness of the stage-handoff protocol — it stops prompting for the next stage
+-and no longer follows the stop-and-confirm rhythm between stages.
++For a full-flow request, re-read `.claude/skills/dev/SKILL.md` and continue from the
++next stage. For direct-stage entry, return the stage result and stop. Preserve existing
++authorization and unresolved decisions across compaction; apply `patterns/approvals.md`
++and recover metrics before recording new work. Do not replay completed work or recreate
++approval gates just because the session resumed.

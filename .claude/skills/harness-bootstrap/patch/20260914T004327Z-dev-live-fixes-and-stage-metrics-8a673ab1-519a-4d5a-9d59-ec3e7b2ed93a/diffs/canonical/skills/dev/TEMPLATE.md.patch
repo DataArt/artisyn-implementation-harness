@@ -1,0 +1,45 @@
+--- a/canonical/skills/dev/TEMPLATE.md
++++ b/canonical/skills/dev/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: dev
+ metadata:
+-  version: 2.1.0
++  version: 2.2.0
+ description: >
+   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
+   → Test → Document, or a single stage via
+@@ -73,7 +73,7 @@
+ If no stale state is found — continue normally from Phase 1.
+ 
+ For free-form input with no tracker ticket, first search existing story folders for a
+-matching generated local ID (`DESIGN-YYYYMMDD-XXXX`) and title. Reuse that ID and
++matching generated local ID (`DEV-YYYYMMDD-XXXX`) and title. Reuse that ID and
+ folder when found. If none matches, generate a collision-checked local ID before
+ creating the implementation folder; use it consistently in `intent.md`, reports,
+ metrics and hand-off references. This is a local implementation identifier and does
+@@ -93,8 +93,12 @@
+ 
+ Apply `.claude/skills/dev/patterns/task-tracking.md`. For the full chain, the unit
+ list is the six stages (Context Gathering, Ceremony, Plan, Implement, Test,
+-Document), chained in that order — create them once, before Phase 1, and reuse them
+-across an idempotency-check resume rather than recreating. For a direct
++Document), chained in that order — create them immediately after the Idempotency
++check resolves (ticket or local ID known), and *before* presenting Phase 1's
++confirmation prompt. This task-tracking setup is orchestration bookkeeping, not
++"gathering context": it is exempt from Phase 1's "do not call any tools until the
++developer replies yes" gate below — the two are not in tension. Reuse existing
++tasks across an idempotency-check resume rather than recreating. For a direct
+ single-stage invocation, the unit list is just that one stage. Mark a stage
+ `in_progress` on entry and `completed` only once its phase-tracker banner (below)
+ shows it done; a stage's own reference file (e.g. `references/04-implement.md`)
+@@ -122,6 +126,9 @@
+ 
+ ## Phase 1 — Context Gathering
+ 
++> Stage tasks (above) are created before this prompt, not after — that's
++> orchestration bookkeeping, not "gathering context," and isn't gated by the rule below.
++
+ **STOP.** Present to the developer:
+ 
+ > "Ready to gather context for this ticket?

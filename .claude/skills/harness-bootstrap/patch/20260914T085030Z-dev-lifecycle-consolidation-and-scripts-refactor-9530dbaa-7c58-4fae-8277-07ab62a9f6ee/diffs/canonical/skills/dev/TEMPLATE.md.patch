@@ -1,0 +1,227 @@
+--- a/canonical/skills/dev/TEMPLATE.md
++++ b/canonical/skills/dev/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: dev
+ metadata:
+-  version: 2.2.0
++  version: 2.3.1
+ description: >
+   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
+   → Test → Document, or a single stage via
+@@ -17,7 +17,8 @@
+ 
+ ---
+ 
+-> ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
++Apply `patterns/approvals.md` throughout. Follow stage dependencies and record evidence;
++continue routine work without phase-boundary confirmations.
+ 
+ ## Route
+ 
+@@ -84,7 +85,7 @@
+ ## Metrics
+ 
+ Apply `patterns/metrics.md` throughout the lifecycle. Each ticket has `impl/stat.json`
+-alongside `2-report.md`. Use `scripts/dev-metrics.mjs` with explicit `--dir` for all
++alongside `2-report.md`. Use `scripts/timing.mjs` with explicit `--dir` for all
+ metric mutations and report refreshes; do not edit the JSON by hand. At session resume,
+ run `recover` before recording new work. Stage and step boundaries record observed
+ time and available runtime token evidence. Keep unknown measurements explicit.
+@@ -93,12 +94,8 @@
+ 
+ Apply `.claude/skills/dev/patterns/task-tracking.md`. For the full chain, the unit
+ list is the six stages (Context Gathering, Ceremony, Plan, Implement, Test,
+-Document), chained in that order — create them immediately after the Idempotency
+-check resolves (ticket or local ID known), and *before* presenting Phase 1's
+-confirmation prompt. This task-tracking setup is orchestration bookkeeping, not
+-"gathering context": it is exempt from Phase 1's "do not call any tools until the
+-developer replies yes" gate below — the two are not in tension. Reuse existing
+-tasks across an idempotency-check resume rather than recreating. For a direct
++Document), chained in that order. Create them after resolving the ticket/local ID and
++before gathering context. Reuse existing tasks on resume. For a direct
+ single-stage invocation, the unit list is just that one stage. Mark a stage
+ `in_progress` on entry and `completed` only once its phase-tracker banner (below)
+ shows it done; a stage's own reference file (e.g. `references/04-implement.md`)
+@@ -126,150 +123,65 @@
+ 
+ ## Phase 1 — Context Gathering
+ 
+-> Stage tasks (above) are created before this prompt, not after — that's
+-> orchestration bookkeeping, not "gathering context," and isn't gated by the rule below.
+-
+-**STOP.** Present to the developer:
+-
+-> "Ready to gather context for this ticket?
+->
+-> Type **yes** to begin, or **no** to stop here."
+-
+-**DO NOT call any tools, read any files, or begin gathering context until the developer replies with "yes". Output the question above and wait.**
+-
+-**Only if the developer confirms with "yes":** follow `references/01-context-gathering.md` exactly. It owns intent capture and creates the story folder, `intent.md`, and the `2-report.md` skeleton — do not duplicate any of that here.
+-
+-Once `intent.md` is saved, **STOP** and emit a progress announcement (`.claude/skills/dev/patterns/announce-progress.md`), then ask:
+-
+-> "✅ Done: intent saved to `intent.md`
+-> 📋 After this phase: Ceremony → Plan → Implement → Test → Document
+->
+-> Ready to move into ceremony (tracker transition + branch)? Type **yes** to continue, or **no** to stop here and resume later with `/dev ceremony {TICKET}`."
+-
+-Only proceed to Phase 2 if the developer confirms.
++Follow `references/01-context-gathering.md`. Announce the outcome and continue to the next
++stage within a full-flow request; direct-stage entry ends here. Apply
++`patterns/approvals.md` for unresolved decisions.
+ 
+ ---
+ 
+ ## Phase 2 — Ceremony
+ 
+-Follow `references/02-ceremony.md` exactly. Once the ticket is transitioned and the branch is confirmed, **STOP** and emit a progress announcement (`.claude/skills/dev/patterns/announce-progress.md`), then ask:
+-
+-> "✅ Done: ticket transitioned, branch confirmed
+-> 📋 After this phase: Plan → Implement → Test → Document
+->
+-> Ready to plan? Type **yes** to start planning, or **no** to stop here and resume later with `/dev plan {TICKET}`."
+-
+-Only proceed to Phase 3 if the developer confirms.
++Follow `references/02-ceremony.md`. Announce the outcome and continue to the next
++stage within a full-flow request; direct-stage entry ends here. Apply
++`patterns/approvals.md` for unresolved decisions.
+ 
+ ---
+ 
+ ## Phase 3 — Plan
+ 
+-Follow `references/03-plan.md` exactly. Once `1-plan.md` is saved, **STOP** and emit a progress announcement (`.claude/skills/dev/patterns/announce-progress.md`), then ask:
+-
+-> "✅ Done: plan saved to `1-plan.md`
+-> 📋 After this phase: Implement → Test → Document
+->
+-> Ready to move into implementation? Type **yes** to start Step 1, or **no** to stop here and resume later with `/dev implement {TICKET}`."
+-
+-Only proceed to Phase 4 if the developer confirms.
++Follow `references/03-plan.md`. Announce the outcome and continue to the next
++stage within a full-flow request; direct-stage entry ends here. Apply
++`patterns/approvals.md` for unresolved decisions.
+ 
+ ---
+ 
+ ## Phase 4 — Implement
+ 
+-Follow `references/04-implement.md` exactly. Once all steps are verified and `2-report.md` is updated, **STOP** and emit a progress announcement (`.claude/skills/dev/patterns/announce-progress.md`), then ask:
+-
+-> "✅ Done: all implementation steps verified and committed
+-> 📋 After this phase: Test → Document
+->
+-> Ready to run the test stage? Type **yes** to continue, or **no** to stop here and resume later with `/dev test {TICKET}`."
+-
+-Only proceed to Phase 5 if the developer confirms.
++Follow `references/04-implement.md`. Announce the outcome and continue to the next
++stage within a full-flow request; direct-stage entry ends here. Apply
++`patterns/approvals.md` for unresolved decisions.
+ 
+ ---
+ 
+ ## Phase 5 — Test
+ 
+-Follow `references/05-test.md` exactly. Once test results are recorded in `2-report.md`, **STOP** and emit a progress announcement (`.claude/skills/dev/patterns/announce-progress.md`), then ask:
+-
+-> "✅ Done: tests complete, PR review recorded
+-> 📋 After this phase: Document
+->
+-> Ready to run the documentation stage? Type **yes** to continue, or **no** to stop here and resume later with `/dev document {TICKET}`."
+-
+-Only proceed to Phase 6 if the developer confirms.
++Follow `references/05-test.md`. Announce the outcome and continue to the next
++stage within a full-flow request; direct-stage entry ends here. Apply
++`patterns/approvals.md` for unresolved decisions.
+ 
+ ---
+ 
+ ## Phase 6 — Document
+ 
+-Follow `references/06-document.md` exactly. Once the `## Documentation` section is appended to `2-report.md`, proceed to Completion.
++Follow `references/06-document.md`. Announce the outcome and continue to the next
++stage within a full-flow request; direct-stage entry ends here. Apply
++`patterns/approvals.md` for unresolved decisions.
+ 
+ ---
+ 
+ ## Completion
+ 
+-When all six phases are done, first ask about the merge request:
++Prepare a suggested PR title and description from the delivered change and actual
++verification evidence. Present it with any remaining tracker/worklog actions in one
++completion summary. Use existing authorization; ask once for external actions still
++needing approval. Do not estimate human effort; request it only if a worklog is required.
++For local DEV IDs, skip tracker transitions and worklogs. Never create a tracker record
++merely to finish a local flow. Do not send messages without explicit authorization.
+ 
+-> "🔀 Ready to open a merge request? (**yes** / **skip**)"
+-
+-**Stop and wait for confirmation.** If confirmed, present the suggested title and description separately — do not provide a `gh` command:
+-
+-> **Title:**
+->
+-> ```
+-> {type}({ticket-lowercase}): <one-line summary>
+-> ```
+->
+-> _(pick the right type: `feat` for new capability, `fix` for a bug, `chore` for tooling/config, `docs` for documentation-only, `refactor` for code change with no behaviour change)_
+->
+-> **Description:**
+->
+-> ````
+-> ## Summary
+-> - <bullet points from the plan scope>
+->
+-> ## Test plan
+-> - [ ] <key manual checks from the verification steps>
+->
+-> Closes {TICKET}
+-> ```"
+-> ````
+-
+-**Stop and wait.**
+-
+----
+-
+-## Completion — Tracker sync
+-
+-Ask:
+-
+-> "How much effort did this ticket take? (for the worklog)"
+-
+-**Stop and wait.**
+-
+-Delegate to `@scrum-master`: log the worklog with the effort given, then transition `{TICKET}` to Done — or ask which status if the ticket's workflow offers alternatives. Report the outcome in one line.
+-
+----
+-
+-After required completion work succeeds, complete the Document metrics stage and
+-run `complete`, then `report`, using `scripts/dev-metrics.mjs` with `--dir` pointing
+-to the **current archived impl directory**. Preserve stat.json when moving the story.
+-Do not finalize ticket metrics if tracker sync or other required work remains unfinished.
+-
+-Then tell the developer:
+-
+-> 🎉 **{TICKET} is done — great work!**
+->
+-> 🎯 Context ✅ -> 🚀 Ceremony ✅ -> 📋 Plan ✅ -> 🔨 Implement ✅ -> 🧪 Test ✅ -> 📝 Document ✅
+->
+-> - Intent: `docs/Stories/archive/[{TICKET}] ✅ Done — {name}/impl/intent.md`
+-> - Plan: `docs/Stories/archive/[{TICKET}] ✅ Done — {name}/impl/1-plan.md`
+-> - Report: `docs/Stories/archive/[{TICKET}] ✅ Done — {name}/impl/2-report.md`
+->
+-> 💡 If anything surprised you during this ticket, capture it now:
+->
+-> ```
+-> /evolve reflect <your brain-dump here>
+-> ```
++The full-flow router owns tracker completion exactly once; Document does not duplicate
++it. If required sync fails, report the pending work and keep metrics unfinished.
++After required completion work succeeds, complete Document and run `complete`, then
++`report` with the current archived impl directory. Preserve stat.json during archival.
++Set the report Phase row to all six stages complete and Status to Complete only after
++required completion work succeeds. Report actual delivery, verification, open optional
++external work (if any), and artifact paths.

@@ -1,0 +1,15 @@
+--- a/skills/design/patterns/context-resolution.md
++++ b/skills/design/patterns/context-resolution.md
+@@ -1,10 +1,10 @@
+ ---
+ name: Context Resolution
+-description: Resolves which track (Product / Project) a design session belongs to. Applied exactly once, in Frame Step 4. Every other phase reads the result from Report.md's Context section instead of re-resolving it — no branching logic elsewhere in the lifecycle.
++description: Resolves which track (Product / Project) a design session belongs to. Applied exactly once, in Frame Step 4. Every other phase reads the result from design/Report.md's Context section instead of re-resolving it — no branching logic elsewhere in the lifecycle.
+ type: pattern
+ ---
+ 
+-> ⚠️ **Two-track deployments only.** Do not deploy this file for Project-scoped or Product-context-scoped deployments — see the design-lifecycle-scope conditional in `design/INTENT.md`.
++> ⚠️ **Two-track deployments only.** Do not deploy this file for Project-scoped or Product-context-scoped deployments — see the design-lifecycle-scope conditional in `INTENT.md`.
+ 
+ Ask the developer once, in Frame Step 4:
+ 

@@ -1,0 +1,51 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,6 +1,48 @@
+ # Changelog
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
++
++## 7.5.0
++
++Dev canonical skill 2.2.0 → 2.3.0. Canonical source update; installed project copies
++are updated separately through patch apply.
++
++- Consolidate all dev review findings into one stable-ID ledger; keep linked Tech
++  Debt for owner, next action and optional tracker creation. HLD-only deviation
++  auditing sends routine LLD lag directly to documentation updates.
++- Replace phase/file/fix confirmation loops with shared decision and authorization
++  boundaries. Reuse existing authorization, prepare concrete decisions, and retain
++  project guarded commands and required human verification.
++- Require evidence-backed terminal findings, checked docs and passing required
++  verification before archival. Full-flow tracker completion has one owner.
++- Add report-derived quality inventory to optional v2 stat.json quality: finding kind,
++  deviation type, severity, classification, resolution, PR-origin subset, debt and
++  tests written/latest case counts. Historical failed test runs remain separate.
++  Reject malformed/duplicate records; unknown measurements remain unavailable.
++- Tests are conditional on value and project setup: unit/integration/load/other types
++  fit the work, with no mandatory test-writing Step 1. If test-first work is chosen,
++  red/green stays within one logical step compatible with the metrics completion gate.
++- Remove assumed hooks/targets and synchronize canonical lifecycle documentation.
++- Review fix: `report` now migrates the pre-split single `<!-- dev-metrics:* -->`
++  marker block in place (into the step section, mirroring the design CLI's legacy
++  handling) instead of appending new sections beside an orphaned stale block on
++  older reports.
++- Refactor `scripts/`: renamed the CLI entrypoint `dev-metrics.mjs` → `timing.mjs`
++  (its actual subject — stage/step/interval/check timing, structural validation,
++  the generated Stage/Step Metrics report sections) so the folder reads as exactly
++  two metrics-domain files, `timing.mjs` and `quality.mjs`, plus the shared
++  `constants.mjs`/`utils.mjs`. Moved `quality.mjs`'s inline constant arrays
++  (`KINDS`/`SEVERITIES`/etc.) into `constants.mjs` as `FINDING_*`, consolidating
++  every shared constant in one file. Split `timing.mjs`'s row/section building into
++  small named helpers (`metricsRow`, `metricsSection`) shared by the Stage and Step
++  tables instead of two near-duplicate inline blocks. No behavior or CLI contract
++  change — same commands, same stat.json shape, same report output (verified
++  byte-for-byte on a smoke test); `dev-metrics.test.mjs` renamed to
++  `timing.test.mjs` to match, and every path reference across `INTENT.md`,
++  `TEMPLATE.md`, and `patterns/metrics.md` updated. Report markers
++  (`dev-metrics-stage:*`/`dev-metrics-step:*`/legacy `dev-metrics:*`) keep their
++  existing names — they're a report-format concept, not tied to the script filename.
++  Dev template 2.3.0 → 2.3.1.
+ 
+ ## 7.4.0
+ 

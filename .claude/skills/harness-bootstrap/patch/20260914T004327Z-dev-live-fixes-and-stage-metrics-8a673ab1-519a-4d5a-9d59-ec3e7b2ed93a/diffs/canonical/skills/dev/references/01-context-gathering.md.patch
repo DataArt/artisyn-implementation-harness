@@ -1,0 +1,13 @@
+--- a/canonical/skills/dev/references/01-context-gathering.md
++++ b/canonical/skills/dev/references/01-context-gathering.md
+@@ -48,8 +48,8 @@
+ - **Mixed** — ticket number followed by free-form text (e.g. `{{PROJECT_KEY}}-42 hey lets build CI pipelines. Thoughts: 1 2 3`)
+ 
+ A ticket number matches the pattern `{{PROJECT_KEY}}-\d+`. If none is found, reuse
+-an existing matching `DESIGN-YYYYMMDD-XXXX` story ID when available; otherwise
+-generate a collision-checked `DESIGN-YYYYMMDD-XXXX` local ID before creating files.
++an existing matching `DEV-YYYYMMDD-XXXX` story ID when available; otherwise
++generate a collision-checked `DEV-YYYYMMDD-XXXX` local ID before creating files.
+ 
+ Extract from the arguments:
+ 

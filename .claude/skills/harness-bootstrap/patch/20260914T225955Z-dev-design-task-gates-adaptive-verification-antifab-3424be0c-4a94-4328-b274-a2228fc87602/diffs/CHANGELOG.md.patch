@@ -1,0 +1,148 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,145 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 7.23.0
++
++Dev canonical skill 2.18.0 → 2.19.0. Live-session finding — the inverse failure of
++7.22.0's duplication problem, on the same session: for Steps 1–4 the hard stop worked
++correctly, but on Steps 5 and 7 (a UI change the developer explicitly wanted to run
++locally and review in a browser) the agent skipped the stop entirely — self-ran
++typecheck and a full live-browser verification via Claude-in-Chrome, marked the steps
++✅ Done in `2-report.md`, and recorded their verification checks with
++`check record --source developer` and invented evidence text ("Developer confirmed
++the plan's checks passed") — a developer confirmation that never happened. Caught
++only because the developer asked "why did you skip validation instructions from my
++side?" — the record itself gave no signal that anything was wrong.
++
++Root cause: `--source` in `scripts/timing.mjs` is free text with no enum validation —
++nothing technical stops attributing a self-run check to "developer." The only
++safeguard was the Step 3 hard-stop instruction itself, and nothing in either
++`patterns/metrics.md` or `references/04-implement.md` named this specific failure
++mode (self-attributing your own pass as the developer's) as something to actively
++avoid — the hard stop said to wait, but didn't say what fabricating the record you'd
++produce by not waiting would actually mean.
++
++Fixed:
++
++- `patterns/metrics.md`'s `check record` section now states plainly that
++  `--source developer` requires an actual developer reply to quote/summarize as
++  `--evidence`; if no such reply exists, the check hasn't happened — don't record it,
++  don't mark the step done, don't invent evidence text. A self-run check gets a source
++  that says so (`self`/`orchestrator`), never `developer`, regardless of confidence in
++  the result. Includes a self-correction instruction: if a fabricated entry is found,
++  fix it with a new event under a new ID and reopen the step rather than leaving the
++  false record standing.
++- `references/04-implement.md`'s HARD STOP banner gained two things: an explicit
++  UI/UX callout (a developer who wants to look at a visible change themselves cannot
++  be signed off on their behalf by any automated pass, however thorough) and a direct
++  ban on recording `--source developer` or marking a step Done/complete before the
++  developer's actual reply exists in this conversation, with the same
++  fix-immediately-if-caught instruction.
++- The "On reply" verification-recording line now says evidence must quote or
++  summarize what the developer actually said, "never invented text."
++
++## 7.22.0
++
++Dev canonical skill 2.17.0 → 2.18.0. Live-session finding: on simple steps, the same
++check ran three times for no reason — a delegated worker ran typecheck as part of its
++satellite review and reported back, then the orchestrator redundantly re-ran the
++identical typecheck itself, then still asked the developer to run the same typecheck
++again as a mechanical restatement of the plan's original verification text. The
++duplication (worker → orchestrator) was pure waste; the developer-facing ask itself
++was also too rigid — a fixed copy of the plan's verification wording regardless of
++what the step actually became, when a step's real implementation reasonably drifts
++from the plan's original phrasing (narrower scope, a legitimately added check,
++whatever was actually true by the time the step finished).
++
++`references/04-implement.md` Step 3 changed on two axes — reducing wasted duplicate
++*execution*, and making the *content* presented to the developer track reality
++instead of stale plan text, without reducing what the developer is asked to confirm:
++
++- Item 2: if a delegated worker already ran a check with real captured output during
++  its satellite review, that's existing evidence — the orchestrator no longer
++  reflexively re-runs the identical check itself with nothing new to learn from it.
++  Re-running is still fine for a concrete reason (worker lacked the tool, differing
++  surface, suspect result) — just not as a reflex.
++- Item 3: the sign-off ask is now composed from what the step actually became, not a
++  mechanical restatement of the plan's original verification section — drop an item
++  that's genuinely inapplicable, add one the plan didn't anticipate, and explicitly
++  name any divergence from the plan rather than silently smoothing over it. Made
++  explicit this is a change to *what's* asked, not *how much*: an item can never be
++  dropped merely because it was already run once by the orchestrator or a worker —
++  that distinction (self-run sandbox pass vs. developer sign-off) is unchanged from
++  7.14.0/7.19.0's hardening.
++- `patterns/approvals.md`'s "every plan verification item is presented" bullet
++  reworded to "every item the developer needs to meaningfully confirm," with a new
++  clause pointing at Implement Step 3's adaptation rule so a future reader doesn't
++  read the two as contradictory — adapting content to match reality is not the same
++  as weakening the gate.
++
++## 7.21.0
++
++Design canonical skill 3.2.0 → 3.3.0. Same structural gap found in `dev` 7.20.0,
++checked for and confirmed present here too: the full-chain **Resume Detection**
++section ended with "go to Phase 1" / "wait for confirmation before proceeding" with
++no call-out to actually apply Stage tasks first — the "## Stage tasks" section sat
++below Metrics as disconnected descriptive prose, not wired into the flow. Design's
++direct single-stage Route lines already said "apply Stage tasks below ... then
++follow" per line, so only the full-chain path had the gap.
++
++Fixed the same way, without introducing per-branch (fresh vs. resume) if-else:
++
++- Resume Detection's "no files found" and "files found" outcomes now converge on one
++  line after the confirmation wait: "Either way — fresh start or resume — apply
++  Stage tasks below once the local/tracker ID is resolved, before the target phase's
++  own work starts."
++- Retitled the section "Stage tasks — apply once, every entry (mandatory)", moved it
++  to sit immediately after Resume Detection (before Metrics, matching actual
++  execution order), and made explicit that create-vs-reuse is entirely
++  `patterns/task-tracking.md`'s own responsibility via its `TaskList`/
++  `design/Report.md` state inspection — confirmed that pattern already reconciles on
++  resume, so no change was needed there.
++- Added the same line as `dev` 7.20.0: repeated system reminders about
++  `TaskCreate`/`TaskUpdate`/`TaskList` availability are the trigger to act on this
++  step now, not informational noise to note and move past.
++
++## 7.20.0
++
++Dev canonical skill 2.16.0 → 2.17.0. Live-session finding: a full-chain run skipped
++`patterns/task-tracking.md` entirely — went straight from the ticket/local-ID resolve
++into Context Gathering, Ceremony, and Plan, then only created tasks retroactively
++mid-Implement once directly asked "why haven't you done this?". Root cause per the
++agent's own diagnosis: `TEMPLATE.md`'s "Stage tasks" section only *described* when to
++create tasks ("before gathering context") but sat disconnected from the actual
++executed flow — the Idempotency check's "continue normally from Phase 1" language
++gave no explicit call-out to create tasks first, so it read as background information
++rather than a required step, and repeated system reminders about `TaskCreate`
++availability were treated as informational rather than as the trigger to act.
++
++Fixed by routing every entry path through one unconditional "Stage tasks" step,
++instead of branch-specific create/reconcile instructions duplicated per outcome
++(more if-else surface to keep in sync, and the exact kind of place a branch gets
++missed):
++
++- The full-chain Idempotency check's three outcomes (no stale state / resume /
++  restart) now converge on a single line: "Either way ... apply Stage tasks below
++  once the ticket/local ID is resolved, before the target phase's own work starts."
++  No branch says "continue normally" without that call-out anymore.
++- Each direct single-stage route (`context`, `ceremony`, `plan`, `implement`, `test`,
++  `document`) already said "apply Stage tasks below ... then follow" per line —
++  unchanged, and now consistent with the full-chain path instead of the two having
++  diverged wording.
++- Retitled the section "Stage tasks — apply once, every entry (mandatory)" and made
++  explicit that it delegates create-vs-reuse-vs-reconcile entirely to
++  `patterns/task-tracking.md`'s own state inspection (`TaskList`/`2-report.md`) —
++  the router itself never branches on resume vs. fresh, so there's no per-branch
++  wording to drift out of sync in the first place.
++- Moved the section to sit immediately after the Idempotency check (before Metrics),
++  matching its place in the actual execution order.
++- Added a line that repeated system reminders about `TaskCreate`/`TaskUpdate`/
++  `TaskList` availability are the trigger to act on this step now, not informational
++  noise to note and move past — that's what got missed live.
++
+ ## 7.19.0
+ 
+ Dev canonical skill 2.15.0 → 2.16.0. Consistency pass over the whole 7.6.0–7.18.0

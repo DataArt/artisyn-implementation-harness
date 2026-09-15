@@ -1,0 +1,22 @@
+--- a/skills/design/patterns/task-tracking.md
++++ b/skills/design/patterns/task-tracking.md
+@@ -16,8 +16,8 @@
+ `in_progress` before starting it and `completed` only after verifying its completion
+ evidence — never on a worker's self-report alone. A failed or blocked stage (e.g.
+ Review pending out-of-band approval) stays `in_progress` with its dependents
+-`pending`; record the state and next action in `Report.md` rather than inventing a
+-native `failed` status. On resume, reconcile `TaskList` with `Report.md`: recreate
++`pending`; record the state and next action in `design/Report.md` rather than inventing a
++native `failed` status. On resume, reconcile `TaskList` with `design/Report.md`: recreate
+ missing tasks, rebuild dependencies, restore verified statuses, and reopen any stage
+ invalidated since the last session — never create a duplicate chain while this
+ session's tasks still exist.
+@@ -36,7 +36,7 @@
+ Review and Address Feedback/Publish, well past any single session's lifetime. Every
+ task transition mirrors the corresponding Phase-tracker update — never let the two
+ disagree. If a session ends mid-stage (including waiting on external approval), the
+-next session resumes from `Report.md`, not from task state that may not have
++next session resumes from `design/Report.md`, not from task state that may not have
+ survived.
+ 
+ ## Why

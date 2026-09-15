@@ -1,0 +1,51 @@
+--- a/skills/design/TEMPLATE.md
++++ b/skills/design/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: design
+ metadata:
+-  version: 3.0.0
++  version: 3.1.0
+ description: >
+   Full design lifecycle (/design {ticket}): Frame → Research → Evaluate → Solution
+   → Review Gate → Address Feedback → Publish, or a single stage via
+@@ -66,6 +66,11 @@
+ 
+ **Step 1 — Locate the design folder**
+ 
++For trackerless/free-form input, first reuse an existing `DESIGN-YYYYMMDD-XXXX`
++folder whose title matches the request. If none exists, generate that stable local
++ID (checking for a collision) before globbing and use it for the folder and all
++subsequent artifacts.
++
+ Glob for `docs/Stories/*{TICKET}*/**` using a `*{TICKET}*` wildcard (never `[{TICKET}]*` — square brackets are glob metacharacters). The `/**` suffix is required because Glob matches files, not directories.
+ 
+ - No files found → fresh start; go to Phase 1.
+@@ -81,8 +86,8 @@
+ | Artifact on disk              | Phase done                                      |
+ | ----------------------------- | ----------------------------------------------- |
+ | `design/00 Frame.md`          | Frame ✅                                        |
+-| `design/01 Research.md`       | Research ✅                                     |
+-| `design/02 Evaluate.md`      | Evaluate ✅                                    |
++| `design/01 Research*.md`      | Research ✅                                     |
++| `design/02 Evaluate*.md`     | Evaluate ✅                                    |
+ | Selected solution artifacts   | Solution ✅                                     |
+ | Report.md Gate — Draft MR set | Review 🔄 (pending)                             |
+ | Report.md Gate — Approved set | Review ✅ · Address Feedback ✅ (or ⏭️ skipped) |
+@@ -102,8 +107,8 @@
+ ## Metrics
+ 
+ Apply `patterns/metrics.md` throughout the lifecycle, including direct-stage entry.
+-Use `scripts/design-metrics.mjs` with explicit `--dir` pointing to the story's design
+-directory. Frame initializes `design/stat.json` beside Report.md; interrupted sessions
++Use `scripts/design-metrics.mjs` with explicit `--dir` pointing to the story's `design/`
++directory. Frame initializes `design/stat.json` beside `design/Report.md`; interrupted sessions
+ run `recover` before new work. Record waits and refresh the report before each hard
+ stop. Stages own timing; WBS implementation tasks are not design steps. Review Gate
+ records actual approval evidence, Address Feedback records rework or an approved skip,
+@@ -228,4 +233,4 @@
+ 
+ > Skip if Report.md phase tracker shows Publish ✅.
+ 
+-Follow `references/07-publish.md` exactly — doc impact identification, doc updates, `{{DESIGN_ARCHITECT_AGENT}}` review, archive, tracker sync, and hand-off. This is the final phase; the design lifecycle is closed once it completes.
++Follow `references/07-publish.md` exactly — doc impact identification, doc updates, `{{DESIGN_ARCHITECT_AGENT}}` review, then a single wrap-up stop (publish implementation tickets?), then ticket publication, archive, tracker sync, and close-out run straight through. This is the final phase; the design lifecycle is closed once it completes.

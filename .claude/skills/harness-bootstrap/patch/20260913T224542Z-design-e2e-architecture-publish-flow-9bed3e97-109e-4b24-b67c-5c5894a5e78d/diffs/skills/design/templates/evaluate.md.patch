@@ -1,0 +1,16 @@
+--- a/skills/design/templates/evaluate.md
++++ b/skills/design/templates/evaluate.md
+@@ -6,11 +6,11 @@
+ 
+ # <TICKET>: <Short Title> — Evaluate
+ 
+-_Produced by the 🏗 Evaluate phase. This is the judgment artifact. WAF assessment lives in `Report.md`._
++_Produced by the 🏗 Evaluate phase. This is the judgment artifact. WAF assessment lives in `design/Report.md`._
+ 
+ ## Requirements × Options Matrix
+ 
+-Rows = evaluation criteria from `00 Frame.md` (functional requirements, NFRs, constraints). Columns = options from `01 Research.md`.  
++Rows = evaluation criteria from `design/00 Frame.md` (functional requirements, NFRs, constraints). Columns = options from `design/01 Research.md`.
+ ✅ satisfies · ⚠️ partially (see note) · ❌ does not satisfy
+ 
+ | Requirement | Option A | Option B | Option C |

@@ -1,0 +1,22 @@
+diff --git a/skills/claude-in-chrome-setup.md b/skills/claude-in-chrome-setup.md
+index 7d370a3..75bdcb4 100644
+--- a/skills/claude-in-chrome-setup.md
++++ b/skills/claude-in-chrome-setup.md
+@@ -1,7 +1,7 @@
+ # Claude in Chrome — Setup
+ 
+ Read before running any workflow step that uses the `mcp__claude-in-chrome__*` browser tools
+-(`/dev-test` Step 8b, `/x-ray` Step 4b) if those tools aren't already available in the session.
++(`/x-ray` Step 4b) if those tools aren't already available in the session.
+ 
+ ## Requirements
+ 
+@@ -47,7 +47,7 @@ any page and interact with it; a new Chrome tab should open and respond.
+ 
+ ## Scope restriction for this project
+ 
+-Every workflow step that uses these tools (`/dev-test` Step 8b, `/x-ray` Step 4b) is restricted to
++Every workflow step that uses these tools (`/x-ray` Step 4b) is restricted to
+ **`{{LOCAL_WEB_URL}}`** (the web app's dev server) — never any other URL or origin, even if the
+ extension itself has broader site permissions granted. Reading network requests the loaded page
+ fires to other local ports (e.g. `{{LOCAL_API_URL}}` for the BFF) via `read_network_requests` is

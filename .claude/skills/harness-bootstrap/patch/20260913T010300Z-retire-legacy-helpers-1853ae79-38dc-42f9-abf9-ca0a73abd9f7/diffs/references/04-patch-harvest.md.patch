@@ -1,0 +1,13 @@
+diff --git a/references/04-patch-harvest.md b/references/04-patch-harvest.md
+index 89e4d97..0178bb3 100644
+--- a/references/04-patch-harvest.md
++++ b/references/04-patch-harvest.md
+@@ -40,7 +40,7 @@ For each selected improvement:
+ - Separate reusable behavior from project-only customizations. Resolve ambiguous
+   generalization and conflicting edits with the developer using a concrete diff.
+ - Bump changed template versions and the package version according to
+-  `skills/skill-authoring.md`; update the package changelog.
++  `references/patterns/skill-authoring.md`; update the package changelog.
+ 
+ Show the canonical before/after diff, affected mappings, and any local-only content
+ excluded. Proceed with clean requested changes; ask for unresolved choices or

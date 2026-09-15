@@ -1,0 +1,35 @@
+--- a/skills/design/references/01-frame.md
++++ b/skills/design/references/01-frame.md
+@@ -22,13 +22,22 @@
+ 
+ The argument is a ticket number (e.g. `{{PROJECT_KEY}}-042`) or a direct folder path.
+ 
++If no tracker ticket is supplied, generate a stable local ID before creating any
++files: `DESIGN-YYYYMMDD-XXXX`, where `XXXX` is four uppercase alphanumeric characters.
++Check the story folder for a collision; if it exists, generate a new suffix. Use this
++ID everywhere a ticket is required, including the folder name, Report.md, stat.json,
++branch suggestion, commit message, and later hand-off. It is a local design identifier,
++not a claim that a tracker record exists.
++
+ - If a ticket number: glob for `docs/Stories/*{TICKET}*/**` — use `*{TICKET}*` wildcard (never `[{TICKET}]*`). On a fresh start no files exist yet, so the glob will return nothing — proceed directly to creating the folder.
+-- If not found: ask the developer for a short title, then create the folder:
++- If not found: ask the developer for a short title, then create the story folder:
+ 
+   ```
+   docs/Stories/[{TICKET}] {name}/
+       design/
+   ```
++
++  (`solution/` is created later, by the Solution phase.)
+ 
+   > "What is the short title for this design ticket? (e.g. 'Context Topology Mapping', 'Data Platform Integration Contract')"
+ 
+@@ -154,7 +163,7 @@
+ - Problem framing wrong → "Reiterate from Step 5 — re-draft the Problem and Boundaries sections."
+ - Target subfolder or design context wrong → "Reiterate from Step 4 — re-resolve context and re-prime."
+ 
+-`00 Frame.md` is the single source of ticket context for all subsequent phases. It is not modified again unless the developer explicitly requests a correction.
++`design/00 Frame.md` is the single source of ticket context for all subsequent phases. It is not modified again unless the developer explicitly requests a correction.
+ 
+ ---
+ 

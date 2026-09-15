@@ -1,0 +1,41 @@
+diff --git a/docs/Engineering Guide/Lifecycles/00 Overview.md b/docs/Engineering Guide/Lifecycles/00 Overview.md
+index d71a764..d91acdd 100644
+--- a/docs/Engineering Guide/Lifecycles/00 Overview.md	
++++ b/docs/Engineering Guide/Lifecycles/00 Overview.md	
+@@ -10,7 +10,7 @@ _The four lifecycles, how they interact, and when to use each one._
+ | ---------------- | ----------------------- | ------------------------------------------------------- |
+ | **Dev**          | `/dev`                  | Plan → Implement → Test → Document                      |
+ | **Design**       | `/design`               | Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
+-| **Skill**        | — (no orchestrator)     | Reflect → Triage → New → Promote                        |
++| **Skill**        | — (no orchestrator)     | Reflect → Triage → Draft → Validate → Adopt                        |
+ | **Architecture** | — (standalone commands) | `/where-we-are` · `/war design` · `/war implementation` |
+ 
+ Each orchestrator runs all phases in one session, stopping at every boundary for confirmation. Individual phase commands (`/dev plan`, `/design frame`, etc.) allow resuming mid-flow.
+@@ -23,8 +23,8 @@ Each orchestrator runs all phases in one session, stopping at every boundary for
+ | --------------------------------------------- | ---------------------------------------------- |
+ | Any ticket — feature, bug fix, chore          | Dev lifecycle always                           |
+ | Ticket is large, novel, or crosses containers | Design lifecycle first, then Dev               |
+-| Something surprised you during a ticket       | Skill lifecycle (Reflect)                      |
+-| 2–4 pending reflections                       | Skill lifecycle (Triage)                       |
++| Something surprised you during a ticket       | Evolve lifecycle (Reflect)                      |
++| Observed harness friction                       | Evolve lifecycle (Triage)                       |
+ | End of sprint / before planning               | Architecture lifecycle (`/where-we-are`)       |
+ | After major HLD changes                       | Architecture lifecycle (`/war design`)         |
+ | Before a major release                        | Architecture lifecycle (`/war implementation`) |
+@@ -61,7 +61,7 @@ flowchart TB
+         V1["Plan\n+ arch audit"]:::dev --> V2["Implement\nstep-by-step"]:::dev --> V3["Test\n+ PR review"]:::dev --> V4["Document\n+ deviations"]:::dev
+     end
+ 
+-    subgraph SKILL ["  💡 Skill lifecycle  "]
++    subgraph SKILL ["  💡 Evolve lifecycle  "]
+         direction TB
+         S1["Reflect"]:::skill --> S2["Triage"]:::skill --> S3["Promote"]:::skill
+     end
+@@ -92,6 +92,6 @@ flowchart TB
+ 
+ → `01 Dev Lifecycle.md` — Plan → Implement → Test → Document  
+ → `02 Design Lifecycle.md` — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish  
+-→ `03 Skill Lifecycle.md` — Reflect → Triage → New → Promote  
++→ `03 Evolve Lifecycle.md` — Reflect → Triage → Draft → Validate → Adopt
+ → `04 Architecture Lifecycle.md` — `/where-we-are` · `/war design` · `/war implementation`  
+ → `05 Documents Flow.md` — how docs are born, graduate, and reach their permanent home

@@ -1,0 +1,11 @@
+diff --git a/agents/infra/INTENT.md b/agents/infra/INTENT.md
+index f5db0ad..317fb4d 100644
+--- a/agents/infra/INTENT.md
++++ b/agents/infra/INTENT.md
+@@ -30,5 +30,5 @@ Specialist agent for infrastructure as code (CDK, Terraform, Pulumi, etc.). Enfo
+ - [ ] Guarded commands match Q7
+ - [ ] Known Pitfalls retained: at minimum platform mismatch, asset staging recursion, and SCP/policy diagnosis
+ - [ ] `{{INFRA_APP_PATH}}` resolved — no literal placeholder remaining
+-- [ ] Satellite review section references `.claude/skills/worker-satellite-review.md`
++- [ ] Satellite review section references `.claude/skills/dev/patterns/satellite-review.md`
+ - [ ] Satellite review section specifies that the worker invokes @architect directly (not the orchestrator)

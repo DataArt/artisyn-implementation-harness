@@ -1,0 +1,15 @@
+diff --git a/skills/dev/references/03-plan.md b/skills/dev/references/03-plan.md
+index 5b49330..6abc265 100644
+--- a/skills/dev/references/03-plan.md
++++ b/skills/dev/references/03-plan.md
+@@ -37,8 +37,8 @@ If no stale state is found — continue normally from Step 1.
+ ## Step 1 — Read intent and codebase
+ 
+ Read `impl/intent.md` in full — it is the confirmed proto-spec from Context
+-Gathering. If it references an approved `solution/` folder, read those files too
+-(`Architecture.md`, `Design.md`, `Stack.md`, `Efforts.md`) — they remain the primary
++Gathering. If it references an approved `solution/` folder, read `design/Report.md`
++and the paths listed in its `selected_artifacts` state — they remain the primary
+ spec; intent.md and tracker ACs supplement, they do not override the solution.
+ 
+ Then read any context files or docs `intent.md` references, and any relevant

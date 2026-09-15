@@ -1,0 +1,18 @@
+diff --git a/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md b/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md
+index 9c279b6..a89fed1 100644
+--- a/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md	
++++ b/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md	
+@@ -134,3 +134,13 @@ Patterns are shared multi-step protocols co-located in `.claude/skills/design/pa
+ | WAF assessment                 | `design/Report.md` WAF section — never graduates                               |
+ | Chosen approach (outcome only) | `Stories/<TICKET>/solution/` → drives `{{DESIGN_DOCS_ROOT}}` update at Publish |
+ | Implementation spec            | `Stories/<TICKET>/solution/` → guides Dev tickets                              |
++
++## Design delivery metrics
++
++Each story owns `design/stat.json` alongside `design/Report.md`. The design metrics
++CLI captures seven stage attempts, observed work and waits, review evidence, feedback
++rework, blockers, and actual runtime token deltas. Review approval waits persist across
++sessions; approval without concerns explicitly skips Address Feedback. Publish completes
++metrics after required archive/tracker work and before any dev hand-off. Design and dev
++records remain separate. See the design skill's `patterns/metrics.md` for exact commands,
++recovery, approval recording, and the schema. The design CLI and its constants install independently of other flows.

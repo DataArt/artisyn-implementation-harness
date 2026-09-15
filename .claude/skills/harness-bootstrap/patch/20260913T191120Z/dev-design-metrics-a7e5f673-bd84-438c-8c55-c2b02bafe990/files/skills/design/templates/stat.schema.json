@@ -1,0 +1,730 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Design lifecycle metrics v2",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "ticket": {
+      "type": ["string", "null"]
+    },
+    "tracking_started_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ticket_created_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ticket_created_source": {
+      "type": ["string", "null"]
+    },
+    "started_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "completed_at": {
+      "anyOf": [
+        {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "coverage": {
+      "enum": ["from_tracking_start", "partial"]
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stage"
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/step"
+      },
+      "maxItems": 0
+    },
+    "intervals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/interval"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      }
+    },
+    "usage_samples": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/usage"
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "lead_time_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "cycle_time_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "observed_work_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "observed_wait_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "unclassified_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "human_reported_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "open_work_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "open_wait_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "rework_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "blocked_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "approval_wait_seconds": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "failed_checks": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "first_pass_verification_rate": {
+          "type": ["number", "null"],
+          "minimum": 0
+        },
+        "as_of": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "tokens": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "input_tokens": {
+                  "type": ["number", "null"],
+                  "minimum": 0
+                },
+                "output_tokens": {
+                  "type": ["number", "null"],
+                  "minimum": 0
+                }
+              },
+              "required": ["input_tokens", "output_tokens"],
+              "additionalProperties": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "token_coverage": {
+          "enum": ["unavailable", "partial"]
+        }
+      },
+      "required": [
+        "lead_time_seconds",
+        "cycle_time_seconds",
+        "observed_work_seconds",
+        "observed_wait_seconds",
+        "unclassified_seconds",
+        "human_reported_seconds",
+        "open_work_seconds",
+        "open_wait_seconds",
+        "rework_seconds",
+        "blocked_seconds",
+        "approval_wait_seconds",
+        "failed_checks",
+        "first_pass_verification_rate",
+        "as_of",
+        "tokens",
+        "token_coverage"
+      ],
+      "additionalProperties": true
+    },
+    "lifecycle": {
+      "const": "design"
+    },
+    "design_revision": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "schema_version",
+    "ticket",
+    "tracking_started_at",
+    "ticket_created_at",
+    "ticket_created_source",
+    "started_at",
+    "completed_at",
+    "coverage",
+    "stages",
+    "steps",
+    "intervals",
+    "checks",
+    "usage_samples",
+    "metrics",
+    "lifecycle",
+    "design_revision"
+  ],
+  "additionalProperties": true,
+  "$defs": {
+    "attempt": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "trigger": {
+          "enum": ["initial", "verification_failure", "review_feedback", "scope_change", "reopened"]
+        },
+        "outcome": {
+          "enum": [null, "completed", "superseded"]
+        }
+      },
+      "required": ["id", "started_at", "ended_at", "trigger", "outcome"],
+      "additionalProperties": true
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "enum": [
+            "frame",
+            "research",
+            "evaluate",
+            "solution",
+            "review-gate",
+            "address-feedback",
+            "publish"
+          ]
+        },
+        "status": {
+          "enum": ["pending", "active", "waiting", "completed", "skipped"]
+        },
+        "attempts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/attempt"
+          }
+        },
+        "skip_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "skipped_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        }
+      },
+      "required": ["id", "status", "attempts"],
+      "additionalProperties": true
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "plan_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "depends_on": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "status": {
+          "enum": ["pending", "active", "waiting", "completed"]
+        },
+        "attempts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/attempt"
+          }
+        }
+      },
+      "required": ["id", "title", "order", "plan_ref", "depends_on", "status", "attempts"],
+      "additionalProperties": true
+    },
+    "interval": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stage_id": {
+              "enum": [
+                "frame",
+                "research",
+                "evaluate",
+                "solution",
+                "review-gate",
+                "address-feedback",
+                "publish"
+              ]
+            },
+            "stage_attempt_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "step": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "attempt_id": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": ["id", "attempt_id"],
+                  "additionalProperties": true
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "started_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            "ended_at": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "Z$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "last_observed_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            "kind": {
+              "const": "work"
+            },
+            "activity": {
+              "enum": [
+                "investigation",
+                "planning",
+                "implementation",
+                "verification",
+                "review",
+                "documentation"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "stage_id",
+            "stage_attempt_id",
+            "step",
+            "started_at",
+            "ended_at",
+            "last_observed_at",
+            "kind",
+            "activity"
+          ],
+          "additionalProperties": true
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "stage_id": {
+              "enum": [
+                "frame",
+                "research",
+                "evaluate",
+                "solution",
+                "review-gate",
+                "address-feedback",
+                "publish"
+              ]
+            },
+            "stage_attempt_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "step": {
+              "anyOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "attempt_id": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": ["id", "attempt_id"],
+                  "additionalProperties": true
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "started_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            "ended_at": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "format": "date-time",
+                  "pattern": "Z$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "last_observed_at": {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            "kind": {
+              "const": "wait"
+            },
+            "reason": {
+              "enum": ["approval", "user_input", "external_dependency", "environment"]
+            },
+            "detail": {
+              "type": ["string", "null"]
+            }
+          },
+          "required": [
+            "id",
+            "stage_id",
+            "stage_attempt_id",
+            "step",
+            "started_at",
+            "ended_at",
+            "last_observed_at",
+            "kind",
+            "reason",
+            "detail"
+          ],
+          "additionalProperties": true
+        }
+      ]
+    },
+    "check": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stage_id": {
+          "enum": [
+            "frame",
+            "research",
+            "evaluate",
+            "solution",
+            "review-gate",
+            "address-feedback",
+            "publish"
+          ]
+        },
+        "stage_attempt_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "step": {
+          "anyOf": [
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "attempt_id": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": ["id", "attempt_id"],
+              "additionalProperties": true
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": ["build", "test", "lint", "typecheck", "acceptance"]
+        },
+        "result": {
+          "enum": ["running", "passed", "failed", "error", "cancelled", "interrupted"]
+        },
+        "started_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "ended_at": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time",
+              "pattern": "Z$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exit_code": {
+          "type": ["integer", "null"]
+        },
+        "signal": {
+          "type": ["string", "null"]
+        },
+        "last_observed_at": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "design_revision": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "stage_id",
+        "stage_attempt_id",
+        "step",
+        "name",
+        "kind",
+        "result",
+        "started_at",
+        "ended_at",
+        "source",
+        "evidence_ref",
+        "exit_code",
+        "signal",
+        "design_revision"
+      ],
+      "additionalProperties": true,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "result": {
+                "const": "running"
+              }
+            }
+          },
+          "then": {
+            "required": ["last_observed_at"],
+            "properties": {
+              "ended_at": {
+                "type": "null"
+              },
+              "source": {
+                "const": "command"
+              },
+              "exit_code": {
+                "type": "null"
+              },
+              "signal": {
+                "type": "null"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "ended_at": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "Z$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "sample_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "session_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "const": "ticket"
+        },
+        "measurement": {
+          "const": "delta"
+        },
+        "input_tokens": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        },
+        "output_tokens": {
+          "type": ["integer", "null"],
+          "minimum": 0
+        }
+      },
+      "required": [
+        "sample_id",
+        "source",
+        "session_id",
+        "scope",
+        "measurement",
+        "input_tokens",
+        "output_tokens"
+      ],
+      "additionalProperties": true
+    }
+  }
+}

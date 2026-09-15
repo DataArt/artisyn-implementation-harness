@@ -1,0 +1,27 @@
+--- a/skills/design/references/05-review-gate.md
++++ b/skills/design/references/05-review-gate.md
+@@ -25,16 +25,21 @@
+ Verify all of the following exist:
+ 
+ - `design/00 Frame.md`
+-- `design/01 Research.md`
+-- `design/02 Evaluate.md`
++- `design/01 Research*.md`
++- `design/02 Evaluate*.md`
+ - `solution/Architecture.md`
+-- `solution/Design.md`
++- `solution/Design*.md`
+ - `solution/Stack.md`
+ - `solution/Efforts.md`
+ 
+ If any is missing, tell the developer which phase to complete first and stop.
+ 
+ Read `design/Report.md`. If the Gate section already has a Draft MR URL recorded, **the gate has been opened** — skip directly to Step 4.
++
++Review `solution/Architecture.md` as the canonical E2E solution. Confirm that every settled
++decision and review correction in the report is represented there with its affected
++flow, consequence and verification obligation, and that the supporting solution
++files do not conflict with it.
+ 
+ ---
+ 

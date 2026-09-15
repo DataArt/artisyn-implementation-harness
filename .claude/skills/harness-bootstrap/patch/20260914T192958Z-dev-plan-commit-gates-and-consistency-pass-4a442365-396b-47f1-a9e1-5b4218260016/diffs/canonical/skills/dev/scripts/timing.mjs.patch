@@ -1,0 +1,91 @@
+diff --git a/canonical/skills/dev/scripts/timing.mjs b/canonical/skills/dev/scripts/timing.mjs
+index 2968868..095dc28 100644
+--- a/canonical/skills/dev/scripts/timing.mjs
++++ b/canonical/skills/dev/scripts/timing.mjs
+@@ -12,7 +12,7 @@ import { LIFECYCLE, STAGES, FINAL_STAGE, FILES, STAGE_REPORT_MARKERS, STEP_REPOR
+ import { fail, need, member, utc, stamp, seconds, last, atomic, escapeMarkdownCell, humanDuration } from './utils.mjs';
+ import { deriveQuality, qualitySummary } from './quality.mjs';
+ 
+-const names = ['dir', 'ticket', 'coverage', 'stage', 'id', 'title', 'order', 'plan-ref', 'depends-on', 'activity', 'reason', 'detail', 'kind', 'name', 'result', 'evidence', 'source', 'file', 'created-at'];
++const names = ['dir', 'ticket', 'coverage', 'stage', 'id', 'title', 'order', 'plan-ref', 'depends-on', 'activity', 'reason', 'detail', 'kind', 'name', 'result', 'evidence', 'source', 'file', 'created-at', 'author'];
+ const argv = process.argv.slice(2);
+ const separator = argv.indexOf('--');
+ const command = separator < 0 ? [] : argv.slice(separator + 1);
+@@ -137,9 +137,12 @@ function deriveMetrics(d, now) {
+   };
+ }
+ 
+-/** Validate, re-derive metrics, and atomically persist stat.json. */
++/** Validate, re-derive metrics and per-unit flags, and atomically persist stat.json. */
+ function save() {
+-  validateState(data); data.metrics = deriveMetrics(data, utc());
++  validateState(data);
++  for (const stage of data.stages) stage.flags = flagsOf(stage, data.checks.filter(c => c.stage_id === stage.id));
++  for (const step of data.steps) step.flags = flagsOf(step, data.checks.filter(c => c.step?.id === step.id));
++  data.metrics = deriveMetrics(data, utc());
+   atomic(path.join(dir, FILES.stat), JSON.stringify(data, null, 2) + '\n');
+ }
+ /** @returns {object|undefined} The single open interval, if any. */
+@@ -196,7 +199,7 @@ function attempt(unit, trigger, now) {
+ 
+ /** Shared column-definition prose for the Stage/Step Metrics section header. */
+ function columnNotes(unit) {
+-  return `**Elapsed** = wall-clock time from the ${unit}'s first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the ${unit}. Durations are shown as \`Xh Ym Zs\`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait.`;
++  return `**Elapsed** = wall-clock time from the ${unit}'s first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the ${unit}. Durations are shown as \`Xh Ym Zs\`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem ${unit}s without parsing every row.`;
+ }
+ 
+ /**
+@@ -220,13 +223,34 @@ function spliceSection(existing, heading, markers, sectionText, legacy) {
+   return existing + '\n' + sectionText;
+ }
+ 
++/** Non-initial attempt triggers that count as a flaggable code, keyed by trigger. */
++const TRIGGER_FLAGS = { verification_failure: 'retried', review_feedback: 'rework', scope_change: 'scope_change', reopened: 'reopened' };
++/** Scannable label for each flag code, used only when rendering the report. */
++const FLAG_LABELS = { retried: '🔁 retried', rework: '🔁 rework', scope_change: '🔀 scope change', reopened: '🔓 reopened', failed_check: '⚠️ failed check' };
++
++/**
++ * Derive scannable problem-flag codes for `unit` from data already recorded —
++ * never a new judgment call, only a label over existing attempt triggers and
++ * check results. Persisted onto the unit itself by `save()`, and re-rendered as
++ * labels in the report's Flags column.
++ * @returns {string[]} Flag codes (keys of `FLAG_LABELS`), empty when none apply.
++ */
++function flagsOf(unit, checks) {
++  const flags = new Set();
++  for (const a of unit.attempts) if (TRIGGER_FLAGS[a.trigger]) flags.add(TRIGGER_FLAGS[a.trigger]);
++  if (checks.some(c => c.result === 'failed')) flags.add('failed_check');
++  return [...flags];
++}
++
+ /** One Stage/Step Metrics table row for `unit` (a stage or a numbered step). */
+ function metricsRow(unit, label, intervalsOf, checksOf) {
+   const ints = intervalsOf(unit).filter(i => i.ended_at);
+   const sum = kind => ints.filter(i => i.kind === kind).reduce((n, i) => n + seconds(i.started_at, i.ended_at), 0);
+   const start = unit.attempts[0]?.started_at;
+   const end = unit.status === 'completed' ? last(unit).ended_at : null;
+-  const cells = [label, start, end, humanDuration(end ? seconds(start, end) : null), humanDuration(sum('work')), humanDuration(sum('wait')), 'unavailable', 'unavailable', data.coverage, unit.attempts.length, checksOf(unit).filter(c => c.result === 'failed').length];
++  const checks = checksOf(unit);
++  const flags = flagsOf(unit, checks).map(f => FLAG_LABELS[f]).join(' ') || '—';
++  const cells = [label, start, end, humanDuration(end ? seconds(start, end) : null), humanDuration(sum('work')), humanDuration(sum('wait')), 'unavailable', 'unavailable', data.coverage, unit.attempts.length, checks.filter(c => c.result === 'failed').length, flags];
+   return `| ${cells.map(escapeMarkdownCell).join(' | ')} |`;
+ }
+ 
+@@ -237,7 +261,7 @@ function metricsRow(unit, label, intervalsOf, checksOf) {
+  */
+ function metricsSection(unitName, rows, markers, unit, trailer = '') {
+   const heading = `${unitName} Metrics`;
+-  const table = `| ${unitName} | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n${rows.join('\n')}`;
++  const table = `| ${unitName} | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks | Flags |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n${rows.join('\n')}`;
+   const summary = `Observed work: ${humanDuration(data.metrics.observed_work_seconds)} · Wait: ${humanDuration(data.metrics.observed_wait_seconds)} · Unclassified: ${humanDuration(data.metrics.unclassified_seconds)}`;
+   return `## ${heading}\n\n${markers.start}\nSource: [${FILES.stat}](${FILES.stat}). ${columnNotes(unit)} Token subtotals have ${data.metrics.token_coverage} coverage; ticket usage is not allocated to individual units.\n\n${summary}\n\n${table}${trailer}\n${markers.end}\n`;
+ }
+@@ -264,7 +288,7 @@ function report() {
+ 
+ /** @returns {object} A fresh v2 stat.json document for this lifecycle. */
+ function initialState(now) {
+-  return { schema_version: 2, lifecycle: LIFECYCLE, ticket: need(o.ticket, 'init requires --ticket'), tracking_started_at: now, ticket_created_at: o['created-at'] ?? null, ticket_created_source: o['created-at'] ? need(o.source, '--created-at requires --source') : null, started_at: null, completed_at: null, coverage: member(o.coverage ?? 'from_tracking_start', ['from_tracking_start', 'partial']), stages: STAGES.map(id => ({ id, status: 'pending', attempts: [] })), steps: [], intervals: [], checks: [], usage_samples: [], metrics: {} };
++  return { schema_version: 2, lifecycle: LIFECYCLE, ticket: need(o.ticket, 'init requires --ticket'), author: o.author ?? null, tracking_started_at: now, ticket_created_at: o['created-at'] ?? null, ticket_created_source: o['created-at'] ? need(o.source, '--created-at requires --source') : null, started_at: null, completed_at: null, coverage: member(o.coverage ?? 'from_tracking_start', ['from_tracking_start', 'partial']), stages: STAGES.map(id => ({ id, status: 'pending', attempts: [] })), steps: [], intervals: [], checks: [], usage_samples: [], metrics: {} };
+ }
+ 
+ /** @returns {object} A check record attributed to the current stage/step attempt. */

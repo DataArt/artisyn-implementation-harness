@@ -1,0 +1,21 @@
+diff --git a/canonical/skills/dev/INTENT.md b/canonical/skills/dev/INTENT.md
+index 4f6ac2a..9abc6a7 100644
+--- a/canonical/skills/dev/INTENT.md
++++ b/canonical/skills/dev/INTENT.md
+@@ -93,9 +93,14 @@ resolves the ID from its own definition. Keeping that mapping in one place
+ 
+ - [ ] One Review Findings ledger uses stable IDs across reviews; no separate live findings tables.
+ - [ ] HLD-only deviation audit routes routine LLD updates directly to Documentation.
+-- [ ] Approval boundaries apply throughout; no unconditional per-file/fix/phase gates.
++- [ ] Approval boundaries apply throughout; no unconditional per-file/fix/phase gates
++      *beyond* the fixed sign-off gates listed in `patterns/approvals.md`'s "Sign-off
++      gates" section (Context Step 4, Ceremony Step 2, Plan Steps 3/4/5/6, Implement
++      Step 3) — verify each of those gates still exists and still stops unconditionally.
+ - [ ] Quality summary preserves unknown counts and distinguishes failed runs from cases.
+ - [ ] Closure requires evidence for terminal resolutions; full-flow tracker completion has one owner.
+ 
+-- [ ] Use available native Plan Mode with runtime approval rules, or a reviewable local plan.
++- [ ] Plan Step 3 calls `EnterPlanMode`/`ExitPlanMode` unconditionally — no "when
++      available" fallback to a reviewable local plan; that fallback was removed and
++      must not resurface.
+ - [ ] New tests are conditional on value and project setup; choose unit/integration/load/etc. for the work, with no mandatory test-writing Step 1. When using TDD, keep red/green within a logical step.

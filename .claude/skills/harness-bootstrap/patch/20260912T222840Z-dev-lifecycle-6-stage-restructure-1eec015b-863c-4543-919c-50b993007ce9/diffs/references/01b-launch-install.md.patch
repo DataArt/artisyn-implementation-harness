@@ -1,0 +1,20 @@
+diff --git a/references/01b-launch-install.md b/references/01b-launch-install.md
+index dd2962a..3401551 100644
+--- a/references/01b-launch-install.md
++++ b/references/01b-launch-install.md
+@@ -10,7 +10,7 @@ Install required referenced writing/review helpers even when outside these lifec
+ 
+ | Selection | Skills |
+ | --------- | ------ |
+-| Always | dev, dev-plan, dev-implement, dev-test, dev-document |
++| Always | dev |
+ | Design enabled | design, design-frame, design-research, design-elaborate, design-solution, design-review, design-review-gate, design-address-feedback, design-publish; omit design-review if Q11=None |
+ | Skill enabled | skill-lifecycle, skill-reflect, skill-triage, skill-new, skill-promote; include shared skill-authoring.md |
+ | Architecture enabled and Q11≠None | war, where-we-are, war-design, war-implementation |
+@@ -129,5 +129,5 @@ Resolve project/WAF/MCP placeholders and active lifecycle references in installe
+ Design Lifecycle and Documents Flow ship as Two-track: preserve that structure for
+ Two-track; otherwise remove context-resolution steps/pattern rows and the unused
+ Product/Project publication branch, simplify remaining labels, and preserve the HLD
+-node and `/dev-document` edges. Resolve design-agent/root/product-folder substitutions
++node and `/dev document` edges. Resolve design-agent/root/product-folder substitutions
+ consistently with Q10b and design-frame INTENT. Record these rules as planned adaptations.

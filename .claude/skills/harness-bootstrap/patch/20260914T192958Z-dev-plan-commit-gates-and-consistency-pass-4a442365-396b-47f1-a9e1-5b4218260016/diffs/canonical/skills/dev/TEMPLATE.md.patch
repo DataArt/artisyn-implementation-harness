@@ -1,0 +1,23 @@
+diff --git a/canonical/skills/dev/TEMPLATE.md b/canonical/skills/dev/TEMPLATE.md
+index c25ed19..0d2c170 100644
+--- a/canonical/skills/dev/TEMPLATE.md
++++ b/canonical/skills/dev/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: dev
+ metadata:
+-  version: 2.8.0
++  version: 2.16.0
+ description: >
+   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
+   → Test → Document, or a single stage via
+@@ -18,7 +18,8 @@ The developer wants to run the dev lifecycle for a ticket. Here is their input:
+ ---
+ 
+ Apply `patterns/approvals.md` throughout. Follow stage dependencies and record evidence;
+-continue routine work without phase-boundary confirmations.
++continue routine work without inventing extra phase-boundary confirmations beyond the
++fixed sign-off gates that pattern lists.
+ 
+ ## Route
+ 

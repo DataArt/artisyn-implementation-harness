@@ -1,0 +1,17 @@
+diff --git a/canonical/skills/dev/patterns/approvals.md b/canonical/skills/dev/patterns/approvals.md
+index 5e656f5..be41ea7 100644
+--- a/canonical/skills/dev/patterns/approvals.md
++++ b/canonical/skills/dev/patterns/approvals.md
+@@ -5,6 +5,12 @@ inspection, planning, reversible local edits within scope, relevant checks, repo
+ updates, and routine stage transitions. Existing authorization persists; do not ask
+ again at each file, finding, step, or phase. Announce progress and continue.
+ 
++**Explicit stop-and-wait gates always win.** Where a stage reference marks a point
++with "Stop and wait", a HARD STOP banner, or a mandatory approval mechanism (e.g.
++Plan Mode approval, per-step verification confirmation, branch checkout confirmation),
++that gate is a human checkpoint by design — this pattern's routine-work authorization
++never overrides it, skips it, or downgrades it to an announcement.
++
+ Ask only when a concrete decision or action needs human input:
+ 
+ - Material scope, acceptance criteria, architecture or security tradeoffs not already

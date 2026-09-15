@@ -1,0 +1,287 @@
+--- a/canonical/skills/dev/references/06-document.md
++++ b/canonical/skills/dev/references/06-document.md
+@@ -9,7 +9,8 @@
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This is the final
+ stage — it updates permanent docs, resolves deviations, and archives the story.
+ 
+-> ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
++Apply `patterns/approvals.md`: follow dependencies, continue routine authorized work,
++and pause only for a concrete unresolved decision or required human verification.
+ 
+ > 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+ 
+@@ -34,12 +35,20 @@
+ 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document 🔄
+ ```
+ 
+-**Deviation audit (before classifying docs):**
++**HLD deviation audit:**
+ 
+-1. Read `1-plan.md` and `2-report.md` in full — plan steps, architecture deviations table, and every implementation note
+-2. Merge them into a single context block
+-3. Feed the merged context to `@architect`: "Given this plan and implementation report, identify every decision — planned or emergent — that diverges from, extends, or is absent from `docs/Target Architecture (HLD)/` and `docs/System Architecture (LLD)/`. For each finding, name the exact doc section and the one-sentence change required. **Do not write or edit any files — return output only.**"
+-4. **Apply the review gate pattern** (`.claude/skills/dev/patterns/review-gate.md`) with section name `## Deviation Audit` — write findings to `2-report.md` first, then present triage, then wait for confirmation before proceeding to the classified doc list
++Read the active HLD version, the approved plan/design and actual changed code as well
++as the report. Compare implementation against HLD contracts, boundaries and NFRs only.
++Ask `@architect` for evidence-backed contradictions, extensions and omissions, without
++editing files. Use `patterns/review-gate.md`: upsert existing RF IDs, including issues
++already found by PR review. Record review coverage even when no findings exist.
++LLD lag is normal before this stage; route it directly into the doc-update list.
++
++Include implemented impacts from the approved solution's selected artifacts in that
++same list now. Do not postpone design-impact documentation until after a closure gate.
++If applicable, update the LLD feature doc in `09. Features/`, following local naming
++conventions, with built flows/schema/contracts only. HLD target decisions remain the
++baseline; any material target change needs authorization before editing that decision.
+ 
+ From the combined picture, identify what needs documenting. Use the placement matrix below, then the per-destination rules.
+ 
+@@ -83,22 +92,16 @@
+ 
+ **DRY rule:** if the substance of a change mostly belongs in the Engineering Guide or System Architecture (LLD), put the full content there and add only a short one-sentence reference in the app `README.md`. Never duplicate the same detail in two places.
+ 
+-Present the classified list to the developer:
+-
+-> "Based on the plan, I'll check/update:
+->
+-> - `{app}/README.md` — `<what changed at app level>` _(+ reference to Engineering Guide article if applicable)_
+-> - `docs/Engineering Guide/{article}` — `<what changed globally>`
+->
+-> Does that look right? Confirm to proceed or tell me what to add/remove."
+-
+-**Stop and wait for confirmation before proceeding.**
++Announce the combined documentation list and implement routine updates. Surface
++unsettled target/scope decisions together under `patterns/approvals.md`; continue work
++that does not depend on those answers.
+ 
+ ---
+ 
+ ## Step 2 — Update documentation
+ 
+-Work through each identified item one at a time. Apply the write-confirm pattern (`.claude/skills/dev/patterns/write-confirm.md`) for each item — announce what you are about to update before writing, then follow the loop. After each confirmation, emit a progress announcement (`.claude/skills/dev/patterns/announce-progress.md`) showing remaining doc items.
++Update the identified docs as a coherent set using `patterns/write-confirm.md`.
++Check links, diagrams, placement and consistency with the code. No per-file stops.
+ 
+ Suggested checks based on the documentation skill:
+ 
+@@ -110,18 +113,14 @@
+ 
+ ---
+ 
+-## Step 3 — Collaborative documentation review
++## Step 3 — Consistency review
+ 
+-After completing all identified items, ask:
+-
+-> "Based on what was implemented, you may also want to document:
+->
+-> - `<suggestion 1>` — `<why it might be worth capturing>`
+-> - `<suggestion 2>` — `<why it might be worth capturing>`
+->
+-> Is there anything else you'd like to document or update before I write the report?"
+-
+-**Stop and wait.** If the developer wants additional items, work through them using the same one-at-a-time flow from Step 2. Only proceed once they confirm documentation is complete.
++Have `@architect` check the updated docs against each other, the HLD target and actual
++code for contradictions and stale references. Return evidence only, no edits. Upsert
++findings in Review Findings with origin `doc-consistency`; resolve routine in-scope
++issues and repeat relevant checks. After at most three unsuccessful review/fix rounds,
++escalate the remaining issue with evidence. Do not archive with unresolved findings.
++Optional documentation suggestions do not introduce another stop; report them briefly.
+ 
+ ---
+ 
+@@ -149,159 +148,49 @@
+ <any decisions made, docs skipped and why>
+ ```
+ 
+-Say:
++Refresh metrics with `report`; the quality summary is generated beside Stage Metrics.
+ 
+-> "`2-report.md` updated with documentation summary. Please confirm it looks correct."
++## Step 5 — Resolve decisions and tech debt
+ 
+-**Stop and wait for confirmation.**
++Present one combined review of unresolved findings, prepared doc changes and proposed
++TD tasks. Request only decisions that remain unauthorized: real risk acceptance,
++required-work deferral, target changes, or external tracker creation. For each proposed
++task prepare its title, description, owner, linked RF IDs and next action before asking.
++Reuse existing authorization and skip this gate when no human decision remains.
+ 
+----
++Create only authorized tracker tasks through `@scrum-master`; record returned keys.
++If creation fails, keep the local TD row and the external action pending, never invent
++a key. Local-ID or trackerless flows retain owner/next action in the local ledger.
++Declining optional tracker creation is allowed; it is not permission to skip a required
++finding resolution. New findings from late changes use the same table and closure checks.
+ 
+-## Step 5 — Create issue tracker tasks from tech debt
++## Step 6 — Closure and archive
+ 
+-Read the `## Tech Debt` section from `2-report.md`. If there are any TD items (rows without a tracker ticket), present them to the developer:
++Verify before moving the story:
+ 
+-> "The following tech debt items were captured during implementation:
+->
+-> - **TD-1** — `{title}`: `<one-line description>`
+-> - **TD-2** — ...
+->
+-> Would you like me to create issue tracker tasks for any of these? List the ones to create, or say **skip** to continue."
++- Every RF row is `fixed`, `accepted`, `tech-debt` or `doc-updated` with the evidence,
++  attributed decisions and TD links required by `patterns/review-gate.md`.
++- Required acceptance criteria and latest applicable checks pass. Deferred required work
++  needs an explicit approved scope decision; a TD row alone does not waive acceptance.
++- Planned doc updates and consistency review are complete; no pending required action
++  is represented as complete. Run metrics `report` then `quality validate` to check the
++  ledger's structural closure; this does not substitute for reviewing its evidence.
+ 
+-**Stop and wait for confirmation.**
++Apply `patterns/approvals.md`. Archive locally using `git mv` when files are tracked,
++or a normal move for an untracked story, preserving `impl/stat.json` and all artifacts.
++Never overwrite an existing archive destination. Use
++`docs/Stories/archive/[{TICKET}] ✅ Done — {name}` and update relative links as needed.
++Update report state before any authorized commit; offer a Conventional Commit otherwise.
++Use the new impl path for every subsequent metrics command.
+ 
+-If the developer confirms any items, invoke `@scrum-master`:
+-
+-> "Create tech debt tasks in {{PROJECT_KEY}}:
+->
+-> - TD-1: {title} — {description}
+-> - TD-2: ..."
+-
+-`@scrum-master` returns the created issue keys. Update the corresponding TD entries in `2-report.md` with the tracker links.
+-
+----
+-
+-## Step 5b — Propose architecture doc updates from design impact
+-
+-Check whether an approved design exists for this ticket:
+-
+-- Glob for `docs/Stories/*{TICKET}*/solution/Architecture.md` — use `*{TICKET}*` wildcard (never `[{TICKET}]*`)
+-- Also check `docs/Stories/archive/*{TICKET}*/solution/Architecture.md` (folder may already be archived)
+-- If found, read `solution/Architecture.md` for the settled, end-to-end architecture decisions from the design
+-
+-If an Architecture Impact table is found, cross-reference it against what was actually implemented (from `1-plan.md` and `2-report.md`). Only surface impacts whose corresponding implementation step is marked complete.
+-
+-**LLD feature doc** — if an approved `solution/Architecture.md` exists for this ticket, create or update `docs/System Architecture (LLD)/09. Features/{feature-name}.md` describing the implemented cross-cutting feature — flows, schema, endpoints, hooks. This tier captures what is too granular for HLD containers but too architectural for code comments. Name the file after the feature (e.g. `User Profile.md`). Apply the same certainty principle: outcomes only, no rationale, no open questions.
+-
+-Present to the developer:
+-
+-> "The design for `{TICKET}` identified these architecture doc updates. Based on what was implemented, the following are ready to publish:
+->
+-> - [ ] `<doc path>` — `<what to add or change>`
+->
+-> These should reflect only what was built — no rationale, no alternatives, settled outcomes only.
+->
+-> Run `@architect` with the doc path and a summary of the decision to update each one, or run `@docs-sync` for a broader sweep.
+->
+-> Proceed with archiving? (**yes** / **update docs first**)"
+-
+-**Stop and wait.** If the developer wants to update docs now, assist and confirm each change before continuing. If they say yes — proceed to Step 5c.
+-
+-If no design folder or Architecture Impact table is found — skip this step silently and proceed to Step 5c.
+-
+----
+-
+-## Step 5c — Resolve architecture deviations
+-
+-Check `1-plan.md` for an `## Architecture Deviations` section. If any rows are present, they must be resolved before archiving.
+-
+-For each deviation, present to the developer:
+-
+-> "The plan recorded the following architecture deviation(s) that must be resolved now:
+->
+-> | #   | Deviation     | Justification     |
+-> | --- | ------------- | ------------------ |
+-> | 1   | `{deviation}` | `{justification}` |
+->
+-> For each deviation, choose one:
+->
+-> 1. **Update Target Architecture** — the change is intentional and the HLD/LLD should reflect it. Run `@architect` with the doc path and the approved justification.
+-> 2. **Create tech debt ticket** — the deviation is a known shortcut and will be corrected later. I'll create a task tagged `tech-debt`.
+->
+-> Tell me which action to take for each deviation."
+-
+-**Stop and wait.** Work through each deviation one at a time using the same confirm-per-item flow from Step 2. Do not proceed to Step 5d until all deviations are resolved.
+-
+-If `1-plan.md` has no `## Architecture Deviations` section or the table is empty — skip this step silently and proceed to Step 5d.
+-
+----
+-
+-## Step 5d — Satellite consistency review
+-
+-Before archiving, spawn `@architect` to cross-check all documentation modified in this session for internal contradictions and stale references.
+-
+-Prompt template:
+-
+-> "Read the following docs that were created or updated during this documentation session: `<list every file written or edited in Steps 2–5c>`. For each file, identify: (1) any statement that contradicts a statement in another listed doc or in `docs/Target Architecture (HLD)/`, (2) any reference to a technology, tool, or resource that is no longer present in the codebase (stale reference). One finding per line. If none, say 'No issues found.' **Do not write or edit any files — return output only.**"
+-
+-If `@architect` returns findings, **apply the review gate pattern** (`.claude/skills/dev/patterns/review-gate.md`) with section name `## Satellite Review`. The tri-choice for each finding is **fix** / **td** (create a tech-debt ticket) / **skip** — present this alongside the standard triage.
+-
+-If no issues are found, continue directly to Step 6.
+-
+----
+-
+-## Step 6 — Archive the story
+-
+-Mark the story as done and move it to the archive:
+-
+-1. Update the `Phase` row in `2-report.md` to all-complete:
+-   ```
+-   🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅
+-   ```
+-2. Update `Status` in `2-report.md` to `✅ Complete`.
+-3. Run `git mv` to archive the story folder (the skill runs this directly — do not present as a user instruction):
+-
+-   ```bash
+-   git mv "docs/Stories/[{TICKET}] {name}" "docs/Stories/archive/[{TICKET}] ✅ Done — {name}"
+-   ```
+-
+-   Report to the developer: "Story archived to `docs/Stories/archive/[{TICKET}] ✅ Done — {name}`."
+-
+-4. Apply the do → report → commit pattern (`.claude/skills/dev/patterns/do-report-commit.md`) — present a commit message only after Steps 4–5 above have updated `2-report.md`:
+-
+-> "Documentation complete and story archived. Please commit with:
+->
+-> ```
+-> docs({ticket-lowercase}): update lld docs and archive story
+-> ```
+->
+-> Once committed, let me know."
+-
+-**Stop and wait for confirmation before proceeding to Step 7.**
+-
+----
++For full-flow entry keep Document active and Status In Progress while required router
++Completion work remains. The router finalizes phase/status and metrics once it succeeds.
++For direct-stage entry finish only Document, record actual remaining lifecycle work,
++and leave tracker completion to an authorized full-flow completion. Archive only when
++the story as a whole satisfies the closure checks above.
+ 
+ ## Step 7 — Report back
+ 
+-Tell the developer:
+-
+-- Documentation stage complete
+-- Summary of what was updated
+-- Any items intentionally skipped and why
+-- Story archived to `docs/Stories/archive/[{TICKET}] ✅ Done — {name}`
+-
+-Invoke `@scrum-master`:
+-
+-> "Transition {TICKET} to Done."
+-
+-Then close with:
+-
+-> "**Ticket complete.** If anything surprised you during this ticket — an approach that didn't work, a pattern you had to figure out, or a convention you had to invent — capture it now:
+->
+-> ```
+-> /evolve reflect <your brain-dump here>
+-> ```
+->
+-> Reflections feed the skill library. Even a sentence is enough."
+-
+-🔁 Document is the final stage — no further router handoff needed.
++Report changed docs, verified finding resolutions, retained debt and its disposition,
++actual archive location (if moved), and any pending external actions. Do not duplicate
++the router's tracker Done transition. Return to Completion only for full-flow entry.

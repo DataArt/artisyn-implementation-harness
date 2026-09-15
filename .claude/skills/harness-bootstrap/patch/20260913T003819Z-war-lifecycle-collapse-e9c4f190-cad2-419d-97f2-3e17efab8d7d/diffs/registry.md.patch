@@ -1,0 +1,13 @@
+diff --git a/registry.md b/registry.md
+index 5429abc..5a4c12f 100644
+--- a/registry.md
++++ b/registry.md
+@@ -23,8 +23,6 @@ not rows copied from the source project.
+ | dev | skill | content | `skills/dev/TEMPLATE.md` | `.claude/skills/dev/SKILL.md` |
+ | design | skill | content | `skills/design/TEMPLATE.md` | `.claude/skills/design/SKILL.md` |
+ | war | skill | content | `skills/war/TEMPLATE.md` | `.claude/skills/war/SKILL.md` |
+-| war-design | skill | content | `skills/war-design/TEMPLATE.md` | `.claude/skills/war-design/SKILL.md` |
+-| war-implementation | skill | content | `skills/war-implementation/TEMPLATE.md` | `.claude/skills/war-implementation/SKILL.md` |
+ | where-we-are | skill | content | `skills/where-we-are/TEMPLATE.md` | `.claude/skills/where-we-are/SKILL.md` |
+ | skill-lifecycle | skill | content | `skills/skill-lifecycle/TEMPLATE.md` | `.claude/skills/skill-lifecycle/SKILL.md` |
+ | skill-new | skill | content | `skills/skill-new/TEMPLATE.md` | `.claude/skills/skill-new/SKILL.md` |

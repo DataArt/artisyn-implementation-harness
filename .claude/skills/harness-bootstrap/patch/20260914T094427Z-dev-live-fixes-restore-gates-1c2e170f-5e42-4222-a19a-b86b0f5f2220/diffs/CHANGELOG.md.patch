@@ -1,0 +1,34 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 89283d2..c371d28 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,29 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 7.6.0
++
++Dev canonical skill 2.3.1 → 2.4.0. Restore human gates that 7.5.0's approval
++consolidation softened — live-session testing showed the lifecycle running past
++points that require developer sign-off.
++
++- Ceremony Step 2: branch checkout presents the branch name and stops for
++  confirmation again; only an already-correct branch continues without asking.
++- Plan Step 3: `EnterPlanMode`/`ExitPlanMode` is mandatory again — no
++  "when available" fallback to an unreviewed local draft; the plan always gets
++  explicit developer approval before Implement.
++- Context Gathering Step 4: restore the stop-and-validate scope summary before
++  `intent.md` is written.
++- Implement Step 3: restore the per-step verification HARD STOP and the
++  wait-for-commit-confirmation before the next step; restore "never commit
++  yourself".
++- `patterns/approvals.md`: explicit stop-and-wait gates in stage references always
++  override routine-work authorization.
++
++Kept from 7.5.0: Ceremony Step 1 tracker authorization reuse, the consolidated
++review-findings ledger, metrics/quality changes, and the softened write-confirm
++pattern for routine doc writes.
++
+ ## 7.5.0
+ 
+ Dev canonical skill 2.2.0 → 2.3.0. Canonical source update; installed project copies

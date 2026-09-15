@@ -1,0 +1,30 @@
+--- a/skills/design/INTENT.md
++++ b/skills/design/INTENT.md
+@@ -107,8 +107,8 @@
+     - `{{DESIGN_CONTEXT_STEP}}` = "Apply `.claude/skills/design/patterns/context-resolution.md` — ask the developer which track this is (Product or Project), then which subfolder within it, and write the resolved Track, Source docs, Dest docs, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md` (created in Step 3). Context sources for Step 5 and all subsequent phases: read relevant docs under the resolved Source docs path for anything already established on this topic."
+     - Deploy `patterns/context-resolution.md` — resolve its lookup table's Product row using `{{PRODUCT_CONTEXT_DIR}}`; its Project row is fixed.
+     - Deploy `agents/product-architect/TEMPLATE.md` alongside `@architect` — both agents exist side by side.
+-    - `{{DESIGN_HANDOFF_NOTE}}` resolves to the runtime instruction: "Read the Implementation note from `design/Report.md`'s `## Context` section. Offer option B only per that note's guidance." — not a fixed string, since the note varies by which track the session resolved to.
+-    - `{{DESIGN_LIFECYCLE_SCOPE_NOTE}}` resolves to: `> 🗂 **Two-track design** — Product (`docs/{{PRODUCT_CONTEXT_DIR}}/`) or Project (`docs/Target Architecture (HLD)/`). Resolved once in Frame Step 4 (`patterns/context-resolution.md`) and recorded in `Report.md`'s `## Context` section; every later phase reads it from there.`
++    - `{{DESIGN_HANDOFF_NOTE}}` resolves to the runtime instruction: "Read the Implementation note from `design/Report.md`'s `## Context` section before publishing implementation tickets." — not a fixed string, since the note varies by which track the session resolved to.
++    - `{{DESIGN_LIFECYCLE_SCOPE_NOTE}}` resolves to: `> 🗂 **Two-track design** — Product (`docs/{{PRODUCT_CONTEXT_DIR}}/`) or Project (`docs/Target Architecture (HLD)/`). Resolved once in Frame Step 4 (`patterns/context-resolution.md`) and recorded in `design/Report.md`'s `## Context` section; every later phase reads it from there.`
+ 
+ - If Q5 is "none" (no issue tracker): remove every tracker reference across `TEMPLATE.md` and `references/01-frame.md` — the tracker-fetch step, the tracker-transition half of Step 3's ceremony, and the Completion — tracker sync section; use free-text ticket titles instead.
+ - If Q11 is "None" (no WAF framework): omit `patterns/waf-review.md` entirely, remove Solution's Step 7b, and remove Evaluate's Step 5 (closing WAF assessment) — keep only Integration Complexity and Vendor Lock-in columns in Evaluate's tradeoffs table.
+@@ -121,7 +121,7 @@
+ - [ ] Resume Detection uses `*{TICKET}*/**` wildcard, never `[{TICKET}]*`
+ - [ ] No literal tracker-specific wording (e.g. "Jira") in `TEMPLATE.md` or any `references/*.md` — tracker activity is named generically and delegated to `@scrum-master`, never described with tracker-specific vocabulary or transition IDs
+ - [ ] `references/01-frame.md` Step 3 (ceremony) runs after Steps 1–2 (folder + tracker fetch), not before — the branch slug depends on the resolved title/summary
+-- [ ] `patterns/waf-review.md`'s target table includes `solution` → `solution/Architecture.md` + `solution/Design.md`, and `references/04-solution.md` Step 7b applies it directly rather than invoking a retired `/design-review` command
++- [ ] `patterns/waf-review.md`'s target table includes `solution` → `solution/Architecture.md` + `solution/Design*.md`, and `references/04-solution.md` Step 7b applies it directly rather than invoking a retired `/design-review` command
+ - [ ] `references/03-evaluate.md` Step 5 keeps its own inline WAF assessment — it does not call `patterns/waf-review.md` (deliberate: minimal consolidation, not full unification)
+ - [ ] Each phase section in TEMPLATE.md has an explicit phase-boundary stop with the exact quoted question format; any additional human gates are owned by the stage reference and do not replace the phase boundary
+ - [ ] TEMPLATE.md only delegates — no implementation logic, no step details (those live in `references/`)
+@@ -133,6 +133,6 @@
+ - [ ] Story folder globs use `*{TICKET}*/**` wildcard, never `[{TICKET}]*`, everywhere they appear
+ 
+ - [ ] Design metrics companions are installed verbatim; stage IDs, review waits, feedback skips/retries, and Publish completion are wired through `patterns/metrics.md`
+-- [ ] Metrics live in design/stat.json and update only Report.md's generated block; implementation metrics remain separate
++- [ ] Design metrics live in `design/stat.json` and update only `design/Report.md`'s generated block; implementation metrics remain separate in `impl/stat.json`
+ 
+ - [ ] The design metrics CLI and its own `scripts/constants.mjs` / `scripts/utils.mjs` work when installed alone; its standalone-install test passes

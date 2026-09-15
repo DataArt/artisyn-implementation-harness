@@ -1,0 +1,49 @@
+--- a/skills/dev/references/01-context-gathering.md
++++ b/skills/dev/references/01-context-gathering.md
+@@ -47,11 +47,13 @@
+ - **Free-form only** — no ticket number present (e.g. `hey lets build CI pipelines. Thoughts: 1 2 3`)
+ - **Mixed** — ticket number followed by free-form text (e.g. `{{PROJECT_KEY}}-42 hey lets build CI pipelines. Thoughts: 1 2 3`)
+ 
+-A ticket number matches the pattern `{{PROJECT_KEY}}-\d+`. If none is found, use `{{PROJECT_KEY}}-000` as a placeholder.
++A ticket number matches the pattern `{{PROJECT_KEY}}-\d+`. If none is found, reuse
++an existing matching `DESIGN-YYYYMMDD-XXXX` story ID when available; otherwise
++generate a collision-checked `DESIGN-YYYYMMDD-XXXX` local ID before creating files.
+ 
+ Extract from the arguments:
+ 
+-- **ticket** — `{{PROJECT_KEY}}-\d+` if present, otherwise `{{PROJECT_KEY}}-000`
++- **ticket** — `{{PROJECT_KEY}}-\d+` if present, otherwise the reused/generated local ID
+ - **problem** — free-form description of what to build or fix (may be empty for ticket-only)
+ - **thoughts** — developer's initial implementation ideas (may be empty)
+ - **context** — any file paths, URLs, or doc references
+@@ -83,24 +85,24 @@
+ 
+   **Stop and wait** for the developer to provide this before continuing to Step 3.
+ 
+-## Step 3 — Check for approved design (solution/ folder)
++## Step 3 — Check for approved design
+ 
+ Check whether an approved design exists for this ticket:
+ 
+-- Glob for `docs/Stories/*{TICKET}*/solution/` — use `*{TICKET}*` wildcard (never `[{TICKET}]*`)
+-- If found, read `design/Report.md` and use its `selected_artifacts` paths as the
++- Glob for `docs/Stories/*{TICKET}*/solution/Architecture.md` — use `*{TICKET}*` wildcard (never `[{TICKET}]*`)
++- If found, read the story's `design/Report.md` and use its `selected_artifacts` paths as the
+   solution specification. Read only those approved files; do not assume a fixed
+   Architecture/Design/Stack/Efforts set.
+ - The selected solution artifacts are the primary spec. Use each artifact's
+   interface role and the Evidence table in `Report.md` to determine coverage.
+ 
+-If a `solution/` folder is found, tell the developer:
++If an approved `Architecture.md` is found, tell the developer:
+ 
+-> "Found approved design for `{TICKET}` — reading `solution/` as the source of truth for intent and planning."
++> "Found approved design for `{TICKET}` — reading `solution/Architecture.md` and the selected solution artifacts as the source of truth for intent and planning."
+ 
+ Use the solution files as the primary spec input for Step 4. Developer free-form input and tracker ACs supplement; they do not override the solution.
+ 
+-If no `solution/` folder exists — continue normally, intent will be derived from the tracker and developer input alone.
++If no approved `solution/Architecture.md` exists — continue normally, intent will be derived from the tracker and developer input alone.
+ 
+ ## Step 4 — Stop and validate context
+ 

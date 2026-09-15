@@ -1,0 +1,20 @@
+--- a/canonical/docs/Engineering Guide/Lifecycles/00 Overview.md
++++ b/canonical/docs/Engineering Guide/Lifecycles/00 Overview.md
+@@ -13,7 +13,7 @@
+ | **Skill**        | — (no orchestrator)     | Reflect → Triage → Draft → Validate → Adopt                        |
+ | **Architecture** | — (standalone commands) | `/where-we-are` · `/war design` · `/war implementation` |
+ 
+-Each orchestrator runs all phases in one session, stopping at every boundary for confirmation. Individual phase commands (`/dev plan`, `/design frame`, etc.) allow resuming mid-flow.
++Each orchestrator runs its phases in order. Dev continues routine authorized work and pauses only for material decisions or required human actions; other lifecycles retain their own review gates. Individual phase commands (`/dev plan`, `/design frame`, etc.) run the requested stage or support resuming mid-flow.
+ 
+ ---
+ 
+@@ -35,7 +35,7 @@
+ 
+ ## Cross-lifecycle invariants
+ 
+-- The AI does not move between phases without explicit developer confirmation.
++- Follow each lifecycle's approval contract. Dev reuses existing authorization across routine phase transitions; unresolved material decisions still require human input.
+ - No code is written until the plan is approved and the architecture audit passes.
+ - Documentation is mandatory — tickets are not complete until `/dev document` has run.
+ - Architecture deviations approved at plan time are tracked through to the Document phase.

@@ -1,0 +1,30 @@
+--- a/canonical/skills/design/scripts/design-metrics.mjs
++++ b/canonical/skills/design/scripts/design-metrics.mjs
+@@ -8,7 +8,7 @@
+ 
+ import { LIFECYCLE, STAGES, FINAL_STAGE, FILES, REPORT_MARKERS, LEGACY_REPORT_MARKERS, ACTIVITIES_BY_STAGE, ACTIVITIES, REASONS, TRIGGERS } from './constants.mjs';
+ 
+-import { fail, need, member, utc, stamp, seconds, last, atomic, escapeMarkdownCell } from './utils.mjs';
++import { fail, need, member, utc, stamp, seconds, last, atomic, escapeMarkdownCell, humanDuration } from './utils.mjs';
+ 
+ const names = ['dir', 'ticket', 'coverage', 'stage', 'id', 'activity', 'reason', 'detail', 'kind', 'name', 'result', 'evidence', 'source', 'file', 'created-at'];
+ const argv = process.argv.slice(2);
+@@ -223,14 +223,15 @@
+ function report() {
+   const rows = data.stages.map(s => {
+     const ints = data.intervals.filter(i => i.stage_id === s.id && i.ended_at);
+-    const sum = kind => ints.filter(i => i.kind === kind).reduce((n, i) => n + seconds(i.started_at, i.ended_at), 0).toFixed(3);
++    const sum = kind => ints.filter(i => i.kind === kind).reduce((n, i) => n + seconds(i.started_at, i.ended_at), 0);
+     const start = s.attempts[0]?.started_at;
+     const end = s.status === 'completed' ? last(s).ended_at : null;
+-    return `| ${[s.id + ' (' + s.status + ')', start, end, end ? seconds(start, end) : null, sum('work'), sum('wait'), 'unavailable', 'unavailable', data.coverage, s.attempts.length, data.checks.filter(c => c.stage_id === s.id && c.result === 'failed').length].map(escapeMarkdownCell).join(' | ')} |`;
++    return `| ${[s.id + ' (' + s.status + ')', start, end, humanDuration(end ? seconds(start, end) : null), humanDuration(sum('work')), humanDuration(sum('wait')), 'unavailable', 'unavailable', data.coverage, s.attempts.length, data.checks.filter(c => c.stage_id === s.id && c.result === 'failed').length].map(escapeMarkdownCell).join(' | ')} |`;
+   });
+   const heading = 'Stage Metrics';
+   const unitName = 'Stage';
+-  const section = `## ${heading}\n\n${REPORT_MARKERS.start}\nSource: [${FILES.stat}](${FILES.stat}). Durations are seconds of closed, observed intervals; open intervals are excluded. Token subtotals have ${data.metrics.token_coverage} coverage; ticket usage is not allocated to individual units.\n\nObserved work: ${data.metrics.observed_work_seconds.toFixed(3)}s · Wait to date: ${data.metrics.wait_seconds_to_date.toFixed(3)}s (closed ${data.metrics.observed_wait_seconds.toFixed(3)}s + current ${data.metrics.open_wait_seconds.toFixed(3)}s) · Unclassified: ${data.metrics.unclassified_seconds.toFixed(3)}s\n\n| ${unitName} | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n${rows.join('\n')}\n${REPORT_MARKERS.end}\n`;
++  const columnNotes = `**Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as \`Xh Ym Zs\`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait.`;
++  const section = `## ${heading}\n\n${REPORT_MARKERS.start}\nSource: [${FILES.stat}](${FILES.stat}). ${columnNotes} Token subtotals have ${data.metrics.token_coverage} coverage; ticket usage is not allocated to individual units.\n\nObserved work: ${humanDuration(data.metrics.observed_work_seconds)} · Wait to date: ${humanDuration(data.metrics.wait_seconds_to_date)} (closed ${humanDuration(data.metrics.observed_wait_seconds)} + current ${humanDuration(data.metrics.open_wait_seconds)}) · Unclassified: ${humanDuration(data.metrics.unclassified_seconds)}\n\n| ${unitName} | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |\n| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n${rows.join('\n')}\n${REPORT_MARKERS.end}\n`;
+   const file = path.join(dir, FILES.report);
+   const existing = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '';
+   const marker = existing.includes(REPORT_MARKERS.start)

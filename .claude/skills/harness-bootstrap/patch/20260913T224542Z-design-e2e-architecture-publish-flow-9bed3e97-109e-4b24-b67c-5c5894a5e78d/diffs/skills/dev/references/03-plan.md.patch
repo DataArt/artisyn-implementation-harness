@@ -1,0 +1,11 @@
+--- a/skills/dev/references/03-plan.md
++++ b/skills/dev/references/03-plan.md
+@@ -40,7 +40,7 @@
+ ## Step 1 — Read intent and codebase
+ 
+ Read `impl/intent.md` in full — it is the confirmed proto-spec from Context
+-Gathering. If it references an approved `solution/` folder, read `design/Report.md`
++Gathering. If it references an approved `solution/Architecture.md`, read the story's `design/Report.md`
+ and the paths listed in its `selected_artifacts` state — they remain the primary
+ spec; intent.md and tracker ACs supplement, they do not override the solution.
+ 

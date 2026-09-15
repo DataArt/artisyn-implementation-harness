@@ -1,0 +1,10 @@
+--- a/harness-bootstrap.md
++++ b/harness-bootstrap.md
+@@ -1,6 +1,6 @@
+ # Harness Bootstrap
+ 
+-**Version:** 7.3.0 · [Changelog](CHANGELOG.md)
++**Version:** 7.4.0 · [Changelog](CHANGELOG.md)
+ 
+ The package owns reusable skills, agents, workflows, and guide templates. Permanent
+ project files are personalized deployments of that canonical source.

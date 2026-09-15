@@ -1,0 +1,11 @@
+diff --git a/skills/dev/TEMPLATE.md b/skills/dev/TEMPLATE.md
+index 1f34ace..5862fb6 100644
+--- a/skills/dev/TEMPLATE.md
++++ b/skills/dev/TEMPLATE.md
+@@ -244,5 +244,5 @@ Then tell the developer:
+ > 💡 If anything surprised you during this ticket, capture it now:
+ >
+ > ```
+-> /skill-reflect <your brain-dump here>
++> /evolve reflect <your brain-dump here>
+ > ```

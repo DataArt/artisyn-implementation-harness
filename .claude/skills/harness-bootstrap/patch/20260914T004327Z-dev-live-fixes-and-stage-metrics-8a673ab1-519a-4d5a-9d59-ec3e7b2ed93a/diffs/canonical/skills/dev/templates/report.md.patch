@@ -1,0 +1,46 @@
+--- a/canonical/skills/dev/templates/report.md
++++ b/canonical/skills/dev/templates/report.md
+@@ -26,16 +26,39 @@
+ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
+ -->
+ 
++## Stage Metrics
++
++<!-- dev-metrics-stage:start -->
++Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first
++start to its completion (includes any wait). **Work** = summed observed work
++intervals (active effort) within that span. **Wait** = summed observed wait
++intervals (blocked on developer input, approval, or an external dependency) within
++that span. Work + Wait can read less than Elapsed when time went unclassified, or
++more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to
++the nearest second; open intervals are excluded from Elapsed/Work/Wait. Missing
++token telemetry is unavailable, never zero.
++
++| Stage | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |
++| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
++
++<!-- dev-metrics-stage:end -->
++
+ ## Step Metrics
+ 
+-<!-- dev-metrics:start -->
+-Source: [stat.json](stat.json). Durations are seconds; work is observed wall time,
+-not human effort. Missing token telemetry is unavailable, never zero.
++<!-- dev-metrics-step:start -->
++Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first
++start to its completion (includes any wait). **Work** = summed observed work
++intervals (active effort) within that span. **Wait** = summed observed wait
++intervals (blocked on developer input, approval, or an external dependency) within
++that span. Work + Wait can read less than Elapsed when time went unclassified, or
++more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to
++the nearest second; open intervals are excluded from Elapsed/Work/Wait. Missing
++token telemetry is unavailable, never zero.
+ 
+ | Step | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |
+ | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+ 
+-<!-- dev-metrics:end -->
++<!-- dev-metrics-step:end -->
+ 
+ ## Architecture Deviations
+ 

@@ -1,0 +1,258 @@
+{
+  "schema_version": 2,
+  "id": "7c1d8d0a-4b91-4d4f-9e8d-8c7d5a2f1b66",
+  "created_at": "2026-09-13T01:00:00.000Z",
+  "origin": "magpie-ai-case-study",
+  "operation": "harvest",
+  "summary": "Full design-flow adaptive interfaces, state, quality gates, and downstream wiring",
+  "package_version": "4.0.0",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "skills/design/INTENT.md",
+      "payload": "diffs/skills/design/INTENT.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/TEMPLATE.md",
+      "payload": "diffs/skills/design/TEMPLATE.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/interfaces/INTENT.md",
+      "payload": "diffs/skills/design/interfaces/INTENT.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/interfaces/architecture.md",
+      "payload": "diffs/skills/design/interfaces/architecture.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/interfaces/design.md",
+      "payload": "diffs/skills/design/interfaces/design.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/interfaces/efforts.md",
+      "payload": "diffs/skills/design/interfaces/efforts.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/interfaces/stack.md",
+      "payload": "diffs/skills/design/interfaces/stack.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/announce-progress.md",
+      "payload": "diffs/skills/design/patterns/announce-progress.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/compact-between-phases.md",
+      "payload": "diffs/skills/design/patterns/compact-between-phases.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/context-resolution.md",
+      "payload": "diffs/skills/design/patterns/context-resolution.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/design-architect-review.md",
+      "payload": "diffs/skills/design/patterns/design-architect-review.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/design-oq-triage.md",
+      "payload": "diffs/skills/design/patterns/design-oq-triage.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/design-quality-gate.md",
+      "payload": "diffs/skills/design/patterns/design-quality-gate.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/do-report-commit.md",
+      "payload": "diffs/skills/design/patterns/do-report-commit.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/docs-writer-authoring.md",
+      "payload": "diffs/skills/design/patterns/docs-writer-authoring.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/multi-decision-split.md",
+      "payload": "diffs/skills/design/patterns/multi-decision-split.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/satellite-review.md",
+      "payload": "diffs/skills/design/patterns/satellite-review.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/session-continuity.md",
+      "payload": "diffs/skills/design/patterns/session-continuity.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/task-tracking.md",
+      "payload": "diffs/skills/design/patterns/task-tracking.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/waf-review.md",
+      "payload": "diffs/skills/design/patterns/waf-review.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/patterns/write-confirm.md",
+      "payload": "diffs/skills/design/patterns/write-confirm.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/00-router.md",
+      "payload": "diffs/skills/design/references/00-router.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/01-frame.md",
+      "payload": "diffs/skills/design/references/01-frame.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/02-research.md",
+      "payload": "diffs/skills/design/references/02-research.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/03-evaluate.md",
+      "payload": "diffs/skills/design/references/03-evaluate.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/04-solution.md",
+      "payload": "diffs/skills/design/references/04-solution.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/05-review-gate.md",
+      "payload": "diffs/skills/design/references/05-review-gate.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/06-address-feedback.md",
+      "payload": "diffs/skills/design/references/06-address-feedback.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/references/07-publish.md",
+      "payload": "diffs/skills/design/references/07-publish.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/templates/evaluate.md",
+      "payload": "diffs/skills/design/templates/evaluate.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/templates/frame.md",
+      "payload": "diffs/skills/design/templates/frame.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/templates/report.md",
+      "payload": "diffs/skills/design/templates/report.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/design/templates/research.md",
+      "payload": "diffs/skills/design/templates/research.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/dev/references/01-context-gathering.md",
+      "payload": "diffs/skills/dev/references/01-context-gathering.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "skills/dev/references/03-plan.md",
+      "payload": "diffs/skills/dev/references/03-plan.md.patch",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

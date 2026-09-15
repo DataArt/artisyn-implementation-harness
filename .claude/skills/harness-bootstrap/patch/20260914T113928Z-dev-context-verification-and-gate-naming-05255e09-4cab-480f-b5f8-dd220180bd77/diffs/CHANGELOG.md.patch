@@ -1,0 +1,73 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index c371d28..d12be62 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,68 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 7.10.0
++
++Dev canonical skill 2.7.0 → 2.8.0.
++
++- Context Gathering: new Step 3.5 — when the intent depends on an external
++  platform/service/framework convention carrying mid-to-high uncertainty, fetch
++  the current official documentation (`WebFetch`/`WebSearch`) before proposing that
++  structure, and cite what was consulted in the Step 4 summary. Skipped for
++  well-established, low-uncertainty conventions. Live-session testing found the
++  agent proposing an incorrect Azure Static Web Apps API file structure from
++  memory when the developer had already linked the relevant Microsoft Learn page.
++
++## 7.9.0
++
++Dev canonical skill 2.6.0 → 2.7.0.
++
++- Plan Step 4: closed a gap where the "Rework" direct-edit path (fixing `1-plan.md`
++  in response to an `@architect` finding, without re-entering Plan Mode) went
++  straight to re-audit and Step 5 finalization with no developer sign-off on the
++  revised content — only the pre-revision draft had ever been signed off in Step 3.
++  Live-session testing showed three architecture-audit findings fixed directly in
++  the plan and the flow moving straight to Implement afterward. Now a sign-off gate:
++  present the diff and the RF finding it addresses, stop and wait, and only then
++  re-run the audit. A `go` re-audit verdict checks HLD alignment, not developer
++  approval, and never substitutes for the sign-off.
++- Step 5 now states explicitly that it must not start until any Step-4 direct
++  revision has been signed off.
++- Added "Plan Step 4 rework" to `patterns/approvals.md`'s Sign-off gates list.
++
++## 7.8.0
++
++Dev canonical skill 2.5.0 → 2.6.0.
++
++- Ceremony Step 2: branch checkout is a manual operation, not something the agent
++  runs after confirmation — it now proposes the exact `git checkout` command and
++  waits for the developer to run it themselves, matching Implement's existing
++  "never commit yourself" rule. Live-session testing showed the agent executing
++  the checkout itself right after the developer said yes, which is a guarded-style
++  operation the developer should perform.
++- `patterns/approvals.md`'s Sign-off gates list updated to describe both sign-off
++  shapes explicitly: approving content (Context Gathering, Plan) vs. personally
++  running a manual operation the agent never runs itself (Ceremony checkout,
++  Implement commit).
++
++## 7.7.0
++
++Dev canonical skill 2.4.0 → 2.5.0.
++
++- Generated output renamed `impl/intent.md` → `impl/0-intent.md` so it sorts
++  numerically alongside `1-plan.md`/`2-report.md`, updated across
++  `references/00-router.md`, `01-context-gathering.md`, `03-plan.md`. The template
++  source file keeps its unprefixed name, `templates/intent.md`, matching
++  `templates/plan.md`/`templates/report.md`'s existing convention. This fix had only
++  reached the live project copy in an earlier session and was lost when that copy
++  was overwritten by 7.5.0's apply — now harvested into canonical directly.
++- Name the stop-and-wait human-approval concept **sign-off** in
++  `patterns/approvals.md`, with a fixed list of the lifecycle's sign-off points
++  (Context Gathering Step 4, Ceremony Step 2, Plan Step 3, Implement Step 3).
++  Context Gathering Step 4 and Plan Step 3 wording now explicitly names the gate as
++  a sign-off, so future edits touching it are self-evidently touching a human
++  checkpoint rather than routine prose.
++
+ ## 7.6.0
+ 
+ Dev canonical skill 2.3.1 → 2.4.0. Restore human gates that 7.5.0's approval

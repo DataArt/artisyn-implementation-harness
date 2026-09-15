@@ -1,0 +1,48 @@
+--- a/canonical/skills/dev/templates/plan.md
++++ b/canonical/skills/dev/templates/plan.md
+@@ -43,37 +43,25 @@
+ 
+ ## Steps
+ 
+-<!--
+-Step 1 defaults to writing tests for the Acceptance Criteria (TDD), using the
+-project's existing test framework/convention — failing now, passing once the real
+-implementation lands. Omit only when the developer opted out, the project has no
+-established test convention, or the ticket has no testable code path.
++<!-- Choose tests only where useful for this work and supported by project setup:
++unit, integration, end-to-end, contract, load/performance, infra checks, or another
++relevant type. State why it fits; if no new tests make sense, record why and the
++alternative verification. No mandatory test-writing Step 1 or TDD requirement.
++When using test-first work, keep red → implementation → green within a logical step.
+ -->
+-
+-### Step 1 — Tests: write tests for the Acceptance Criteria
+-
+-**Changes:**
+-
+-- `path/to/thing.test.ts` — tests for AC-1, AC-2, … using the project's existing test framework/convention
+-
+-**Verification:**
+-
+-> Run: `<the project's test command>`
+-> Expected: the new tests fail (no implementation yet) — everything else still passes
+-
+-⚠️ **Stop here. Verify this step before proceeding to Step 2.**
+ 
+ ### Step N — <Layer>: <What>
+ 
+ **Changes:**
+ 
++- `<project-appropriate test location>` — new/updated tests if useful; choose the type and convention from the work and existing setup
+ - `path/to/file.ts` — what changes and why
+ 
+ **Verification:**
+ 
+ > Run: `<command>`
+-> Expected: `<what to see>` — including the corresponding Step 1 test(s) now passing
++> Expected: `<what to see>` — including relevant tests passing, where applicable
+ >
+ > Or: open `<URL>` and confirm `<what>`
+ 
+-⚠️ **Stop here. Verify this step before proceeding to Step N+1.**
++Run required verification before dependent steps; request human verification only when needed.

@@ -1,0 +1,26 @@
+diff --git a/README.md b/README.md
+index 80f3ef3..f9acc4b 100644
+--- a/README.md
++++ b/README.md
+@@ -17,10 +17,12 @@ checks are executable; semantic evidence and final-file verification remain the
+ 
+ Launch first adds `/.claude/skills/harness-bootstrap/` to the project `.gitignore`.
+ Already tracked package files remain tracked; launch does not remove them from Git.
+-The toolkit remains the canonical source for materialization. Project records live
+-outside it: `.harness/launch/answers.json`, dated reports, JSON plans/receipts,
+-`.harness/registry.md`, `.harness/state/`, and `.harness/patch/`. Historical Q&A is
+-retained with its source and revalidated before use. Never record secret values.
++The toolkit remains the canonical source for materialization. Its own `patch/`
++directory travels with the portable package and contains immutable reusable bundles.
++Project records live outside it: `.harness/launch/answers.json`, dated reports,
++JSON plans/receipts, `.harness/registry.md`, `.harness/state/`, and `.harness/patch/`
++for local apply/harvest execution history. Historical Q&A is retained with its source
++and revalidated before use. Never record secret values.
+ 
+ ## Three operations
+ 
+@@ -209,4 +211,3 @@ primitives. Runtime discovery and semantic agent behavior still need a real laun
+ - [Harvest recipe](references/04-patch-harvest.md)
+ - [Apply recipe](references/05-patch-apply.md)
+ - [Manifest and state contract](references/06-patch-state.md)
+-

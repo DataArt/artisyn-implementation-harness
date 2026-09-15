@@ -1,0 +1,13 @@
+diff --git a/skills/dev/references/05-test.md b/skills/dev/references/05-test.md
+index b3b1357..1787ffa 100644
+--- a/skills/dev/references/05-test.md
++++ b/skills/dev/references/05-test.md
+@@ -100,7 +100,7 @@ After appending the table, check the findings for patterns worth encoding as ski
+ 
+ - If there are any `BUG`, `SEC`, or `DESIGN` findings that represent a **repeatable mistake** (not a one-off typo) — something that a skill or rule could prevent in future — say:
+ 
+-  > "This review found `{X}` pattern findings that look like a repeatable convention gap. Consider running `/skill-reflect` with a short description so it can be encoded as a skill."
++  > "This review found `{X}` pattern findings that look like a repeatable convention gap. Consider running `/evolve reflect` with a short description so it can be encoded as a skill."
+ 
+   Name the specific patterns briefly. Do not prompt this if all findings are `IMPROVE`-only or `No findings`.
+ 

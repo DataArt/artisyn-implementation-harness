@@ -1,0 +1,230 @@
+--- a/canonical/skills/dev/references/05-test.md
++++ b/canonical/skills/dev/references/05-test.md
+@@ -7,7 +7,8 @@
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage runs
+ the test suite and PR review for an implemented plan.
+ 
+-> ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
++Apply `patterns/approvals.md`: follow dependencies, continue routine authorized work,
++and pause only for a concrete unresolved decision or required human verification.
+ 
+ > 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+ 
+@@ -35,30 +36,11 @@
+ answer independently. Most tickets touch one side and need only that check; a
+ mixed-scope ticket (both infra and app code) may reasonably need both.
+ 
+-**Infra changes** (Terraform / config) — verify with Terraform:
+-
+-> "Please run:
+->
+-> ```bash
+-> {{INFRA_SYNTH_CMD}}
+-> ```
+->
+-> Let me know the result."
+-
+-**App code changes** — verify the monorepo builds cleanly:
+-
+-> "Please run:
+->
+-> ```bash
+-> {{NX_BUILD_CMD}}
+-> ```
+->
+-> Let me know the result."
+-
+-Skip a check entirely when the plan touched nothing on that side — don't run an app
+-build against a Terraform-only diff, or vice versa.
+-
+-**Stop and wait.** If a check fails, diagnose the failure (type error, missing import, misconfigured target, invalid resource config) and present a fix before proceeding. Do not run the PR review or tests against a failing build/validate.
++Inspect available project targets and run authorized checks for the changed scope:
++`{{INFRA_SYNTH_CMD}}` for relevant infra, `{{NX_BUILD_CMD}}` for app code when those
++commands exist in this project. Use the metrics wrapper. Never assume a test/lint
++suite or pre-commit hook exists. For guarded or inaccessible checks, present the exact
++command and request its result. Diagnose/fix in-scope failures before review proceeds.
+ 
+ ## Step 4 — DB migration check _(skip if no DB changes in this plan)_
+ 
+@@ -84,7 +66,7 @@
+ - {{FRONTEND_LAYER_KEYWORDS}} changes → delegate to `{{FRONTEND_AGENT}}` for a focused layer review
+ - Infra / config / docs changes → review inline
+ 
+-**@architect audit** — spawn `@architect` before writing the PR Review table when any of the following apply:
++**@architect audit** — spawn `@architect` before recording PR review findings when any of the following apply:
+ 
+ - The plan changes infrastructure topology or boundaries (new resource type, new network path/exposure, new service, a removal-policy or IAM change) — not a routine like-for-like addition within an existing, already-reviewed pattern (e.g. one more container in an existing, already-audited Cosmos account)
+ - The plan introduces a new cross-layer integration (e.g. new backend endpoint consumed by frontend, new auth flow, new queue/event contract)
+@@ -94,72 +76,40 @@
+ 
+ > "Read `docs/Target Architecture (HLD)/README.md` to find the active version. Audit the following implementation against HLD container boundaries, data-flow direction, and NFRs (read `docs/Target Architecture (HLD)/README.md` to find the active version, then read `docs/Target Architecture (HLD)/{active-version}/Non-Functional Concerns/Requirements.md`). Also check layer-specific best practices (infrastructure: naming, removal policies, security rules, IAM least-privilege; backend: N+1 queries, p95 < 200ms patterns; frontend: accessibility). Files to review: `<list from plan>`. One finding per line with BUG/DESIGN/IMPROVE code." **Do not write or edit any files — return output only.**
+ 
+-Classify each finding using triage discipline before adding it to the PR Review table. Skip for purely mechanical or single-layer changes with no cross-cutting impact.
++Classify each finding using triage discipline before upserting it in Review Findings. Skip for purely mechanical or single-layer changes with no cross-cutting impact.
+ 
+ **Architecture note** — if anything structural changed (new module, new layer pattern, new cross-layer interaction), create `{story-folder}/impl/architecture-notes.md` with a brief description and a Mermaid diagram. Skip this file if nothing structural changed.
+ 
+-**Apply the review gate pattern** (`.claude/skills/dev/patterns/review-gate.md`) with section name `## PR Review`.
++Apply `patterns/review-gate.md`: upsert findings in `## Review Findings` with origin
++`pr-review` and stage `test` for first discoveries. Use impact severity independently
++of classification and required action. Reuse prior RF IDs for repeat findings; record
++PR coverage and verdict in prose even when no issues were found. Normal pending LLD
++updates belong in Documentation. Never add a separate PR Review findings table.
+ 
+-The findings table format for `## PR Review`:
++After updating the findings, check the findings for patterns worth encoding as skills:
+ 
+-```markdown
+-## PR Review
+-
+-_Date: {date}_
+-
+-| Code        | Finding       | File            | Severity | Resolution   |
+-| ----------- | ------------- | ---------------- | -------- | ------------ |
+-| BUG-001     | <short title> | `{path}:{line}` | Must fix | {fix}        |
+-| DESIGN-001  | <short title> | `{path}:{line}` | Advisory | {suggestion} |
+-| IMPROVE-001 | <short title> | `{path}:{line}` | Optional | {suggestion} |
+-
+-**Verdict:** <LGTM / Needs changes — one sentence>
+-```
+-
+-Finding codes: `BUG` (incorrect behaviour), `SEC` (security), `PERF` (performance), `DESIGN` (architecture deviation), `IMPROVE` (optional improvement). If there are no findings, write `No findings — LGTM.`
+-
+-After appending the table, check the findings for patterns worth encoding as skills:
+-
+-- If there are any `BUG`, `SEC`, or `DESIGN` findings that represent a **repeatable mistake** (not a one-off typo) — something that a skill or rule could prevent in future — say:
++- If there are any `bug`, `security`, `design` or `deviation` findings that represent a **repeatable mistake** (not a one-off typo) — something that a skill or rule could prevent in future — say:
+ 
+   > "This review found `{X}` pattern findings that look like a repeatable convention gap. Consider running `/evolve reflect` with a short description so it can be encoded as a skill."
+ 
+-  Name the specific patterns briefly. Do not prompt this if all findings are `IMPROVE`-only or `No findings`.
++  Name the specific patterns briefly. Do not prompt this if all findings are `improve`-only or `No findings`.
+ 
+-## Step 6 — Commit PR review fixes
++## Step 6 — Resolve PR review findings
+ 
+-Follow Stage 2 of the review gate pattern (`.claude/skills/dev/patterns/review-gate.md`) — per-fix loop until all confirmed fixes are committed. Only proceed to Step 7 once all fixes are committed and verified.
++Apply `patterns/review-gate.md` and `patterns/do-report-commit.md`. Fix and verify
++in-scope regressions without per-fix approvals. Batch only the unresolved human
++decisions, and preserve actual resolution/verification evidence in the ledger.
+ 
+-## Step 7 — Run the checks that match what changed
++## Step 7 — Run checks matching the change
+ 
+-Pick the verification gate from what the plan actually touched — blindly running all NX checks on, say, an infra ticket wastes time and gives false confidence (a clean typecheck says nothing about whether resources were tagged correctly).
++Run existing checks for affected projects and dependents where relevant. Infra-only
++changes use `{{INFRA_SYNTH_CMD}}` and `{{INFRA_DIFF_CMD}}` where applicable; app changes
++use their actual build/typecheck/test/lint targets. Reuse successful checks on unchanged
++inputs; rerun affected checks after fixes. Do not invent missing targets or imply a
++skipped suite passed. Follow project guarded-command rules for live actions.
+ 
+-**For infra-only tickets** (Terraform / config; no TypeScript app code changed) — the primary gate is Terraform, not NX:
+-
+-> "Please run:
+->
+-> ```bash
+-> {{INFRA_SYNTH_CMD}}
+-> {{INFRA_DIFF_CMD}}
+-> ```
+->
+-> Share the output. Optionally apply in a safe context once the diff looks correct."
+-
+-Run `typecheck`/`lint`/`test` only for the subset of NX projects that actually changed.
+-
+-**For app-code tickets** — ask the developer to run the full suite:
+-
+-> "Please run:
+->
+-> ```bash
+-> yarn nx run-many -t typecheck --all
+-> yarn nx run-many -t test --all
+-> yarn nx run-many -t lint --all
+-> ```
+->
+-> Share the output and I'll triage any failures."
+-
+-**Stop and wait.** Report results project by project as they are shared.
++Capture actual outcomes with the metrics wrapper, and preserve runner output as test
++case count evidence. A failed command is one failed run, not one failing test case.
+ 
+ ## Step 8 — Failure triage
+ 
+@@ -170,7 +120,7 @@
+ - **Lint error** — identify the rule and file; most are auto-fixable with `yarn nx run {project}:lint --fix`
+ - **Missing env / config** — identify the missing variable or misconfiguration
+ 
+-Present a concise diagnosis per failure and ask the developer how to proceed before updating the report.
++Record the diagnosis and fix in-scope failures. Ask only when the fix requires a new scope/risk decision or inaccessible verification.
+ 
+ ## Step 9 — Acceptance criteria validation
+ 
+@@ -180,53 +130,32 @@
+ - Any explicit verification instructions in the plan steps
+ - Ask the developer to perform any manual checks that cannot be inferred from output alone
+ 
+-Present the result:
++Record each AC result and its evidence. Ask for specific required manual checks
++that cannot be performed with available access; do not ask a general "anything else?"
++question. Unresolved or failing required ACs block completion. Record optional test
++suggestions without turning them into a new approval gate.
+ 
+-> "**Acceptance Criteria:**
+->
+-> - [x/☐] `{AC-1}` — `<pass reason or fail reason>`
+-> - [x/☐] `{AC-2}` — `<pass reason or fail reason>`
+->
+-> Are there any AC items you'd like to verify manually before I continue?"
++## Step 9b — Test evidence and coverage
+ 
+-**Stop and wait.** Do not proceed to Step 9b if any AC item is unresolved. If `1-plan.md` has no `## Acceptance Criteria` section, skip this step silently.
+-
+-## Step 9b — Collaborative test review
+-
+-After AC validation, review what was implemented in `1-plan.md` and suggest any additional manual or integration tests the developer should consider — things the automated suite doesn't cover. Then ask:
+-
+-> "Based on what was implemented, you may also want to verify:
+->
+-> - `<suggestion 1>` — `<why it matters>`
+-> - `<suggestion 2>` — `<why it matters>`
+->
+-> Anything else you'd like to test or check before moving to documentation?"
+-
+-**Stop and wait.** If the developer wants to run additional checks, do so before updating the report. Only proceed once they confirm testing is complete.
++Update the existing Test Results table to the latest run for each non-overlapping
++project/suite scope. Record Written (new test cases from the diff), Passed, Failed,
++Skipped (latest runner counts), and Evidence. Unknown counts are `unavailable`, not
++zero. Modified tests are not newly written cases. Retain historic failures in metrics
++checks; do not sum suite reruns as additional cases. Note absent suites and skipped
++checks explicitly. No suite means no measured case count, unless zero new cases is
++independently verified from the diff.
+ 
+ ## Step 10 — Update `2-report.md`
+ 
+ For each step row in the `## Progress` table, fill in the **Test** column:
+ 
+-- `✅` — tests, typecheck, and lint all passed for projects touched by this step
++- `✅` — all applicable required checks passed for the changed scope
+ - `❌` — one or more checks failed (add a brief note in the Notes column)
+ - `—` — not applicable (e.g. infra-only step with no runnable tests)
+ 
+-Then append a `## Test Results` section to `2-report.md`:
+-
+-```markdown
+-## Test Results
+-
+-_Date: {date}_
+-
+-| Project     | Build   | Tests   | Typecheck | Lint    |
+-| ----------- | ------- | ------- | --------- | ------- |
+-| `{project}` | ✅ / ❌ | ✅ / ❌ | ✅ / ❌   | ✅ / ❌ |
+-
+-### Notes
+-
+-<failures diagnosed, migrations run, anything skipped and why>
+-```
++Update (do not append another copy of) `## Test Results` using
++`templates/report.md`. Check that numeric counts have evidence. Refresh metrics with
++`report`; its quality block counts findings, debt and cases without replacing timing.
+ 
+ ## Step 11 — Report back
+ 

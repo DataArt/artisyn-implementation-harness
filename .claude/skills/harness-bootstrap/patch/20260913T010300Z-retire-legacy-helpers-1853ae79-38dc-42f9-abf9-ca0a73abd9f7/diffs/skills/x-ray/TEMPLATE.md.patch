@@ -1,0 +1,13 @@
+diff --git a/skills/x-ray/TEMPLATE.md b/skills/x-ray/TEMPLATE.md
+index 60c794a..9f4076f 100644
+--- a/skills/x-ray/TEMPLATE.md
++++ b/skills/x-ray/TEMPLATE.md
+@@ -184,7 +184,7 @@ may not have a dev server running or want the extra round-trip. Ask:
+ a blocker on the rest of the review.
+ 
+ If yes and the `mcp__claude-in-chrome__*` tools aren't available in this session, walk the
+-developer through `.claude/skills/claude-in-chrome-setup.md` (install + connect + grant
++developer through `.claude/skills/x-ray/references/claude-in-chrome-setup.md` (install + connect + grant
+ permission) before continuing.
+ 
+ **Scope restriction (always):** only navigate/interact with `{{LOCAL_WEB_URL}}` — never any

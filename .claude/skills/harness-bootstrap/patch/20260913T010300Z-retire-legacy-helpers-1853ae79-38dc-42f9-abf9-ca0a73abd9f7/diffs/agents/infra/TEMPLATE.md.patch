@@ -1,0 +1,13 @@
+diff --git a/agents/infra/TEMPLATE.md b/agents/infra/TEMPLATE.md
+index 4e45c5c..625be73 100644
+--- a/agents/infra/TEMPLATE.md
++++ b/agents/infra/TEMPLATE.md
+@@ -23,7 +23,7 @@ Owns all infrastructure as code covering {{INFRA_RESOURCES}}. Does not own appli
+ 
+ ## Satellite review
+ 
+-After completing any non-trivial step (new infrastructure stack or construct, IAM policy change, security rule change, data-flow change), invoke `@architect` as a satellite reviewer before presenting verification to the developer. See `.claude/skills/worker-satellite-review.md` for the protocol and prompt template. The worker (you) invokes @architect directly — not the orchestrator. Maximum 3 iterations — escalate to the developer if unresolved.
++After completing any non-trivial step (new infrastructure stack or construct, IAM policy change, security rule change, data-flow change), invoke `@architect` as a satellite reviewer before presenting verification to the developer. See `.claude/skills/dev/patterns/satellite-review.md` for the protocol and prompt template. The worker (you) invokes @architect directly — not the orchestrator. Maximum 3 iterations — escalate to the developer if unresolved.
+ 
+ Skip satellite review for mechanical steps (config value change, dependency bump, rename with no structural impact).
+ 

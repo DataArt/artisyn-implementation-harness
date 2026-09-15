@@ -1,0 +1,8 @@
+--- a/skills/design/patterns/write-confirm.md
++++ b/skills/design/patterns/write-confirm.md
+@@ -15,4 +15,4 @@
+ 
+ ## Why
+ 
+-Writing multiple artifacts without confirmation checkpoints means errors in one file are carried silently into the next. Each design artifact builds on the previous one — a wrong assumption in `Architecture.md` propagates into `Design.md` and `Stack.md` before anyone catches it.
++Writing multiple artifacts without confirmation checkpoints means errors in one file are carried silently into the next. Each design artifact builds on the previous one — a wrong assumption in `solution/Architecture.md` propagates into `solution/Design.md` and `solution/Stack.md` before anyone catches it.

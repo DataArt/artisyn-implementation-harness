@@ -1,0 +1,60 @@
+--- a/canonical/skills/dev/references/04-implement.md
++++ b/canonical/skills/dev/references/04-implement.md
+@@ -55,18 +55,31 @@
+ For each step:
+ 
+ 1. Register the approved step with `step add` (stable ID, title, order, plan reference), then `step start --id <ID>` and `report` per `patterns/metrics.md`. Mark the step's task `in_progress` (per `patterns/task-tracking.md`). Announce which step you are starting (e.g. "Starting Step 2 — Backend: user-profile module") and whether you are delegating or implementing inline
+-2. Implement (or delegate). Worker agents run a satellite review after non-trivial steps before returning (see `.claude/skills/dev/patterns/satellite-review.md`)
++2. Implement (or delegate). Worker agents run a satellite review after non-trivial steps before returning (see `.claude/skills/dev/patterns/satellite-review.md`). If a delegated worker already ran a check with real captured output as part of that review, treat it as existing evidence — do not blindly re-run the identical check yourself with no new information to gain. Re-run it yourself only for a concrete reason (the worker lacked the tool, the surface differs from the worker's sandbox, or the result looks suspect) — never as a reflexive duplicate of work already done and reported.
+ 3. When the step is done — including any satellite review — you may run a
+    non-guarded check yourself (build, typecheck, curl, `terraform validate`, etc.)
+-   as a debugging aid to catch obvious breakage before presenting. This never
+-   substitutes for the verification gate itself: verification is a **developer
+-   confirmation gate**, not something self-certified because a command exited 0 in
+-   your sandbox. Your sandbox is not the developer's machine — tool availability,
+-   versions, and network behavior can differ, and a check that passed for you can
+-   still fail for them. Report back the actual validation performed — the exact
+-   commands run and their real output/result, not a restated copy of the plan's
+-   instructions — but still present every verification item from the plan for the
+-   developer to run and confirm themselves.
++   as a debugging aid to catch obvious breakage before presenting, subject to the
++   no-reflexive-duplicate rule above. This never substitutes for the verification
++   gate itself: verification is a **developer confirmation gate**, not something
++   self-certified because a command exited 0 in your sandbox. Your sandbox is not
++   the developer's machine — tool availability, versions, and network behavior can
++   differ, and a check that passed for you (or a worker) can still fail for them.
++   Report back the actual validation performed — the exact commands run (yours or a
++   worker's) and their real output/result, not a restated copy of the plan's
++   instructions.
++
++   Then compose the sign-off ask from what this step actually became, not a
++   mechanical restatement of the plan's original verification text: drop an item the
++   plan listed but that no longer applies (scope narrowed in a reasonable,
++   already-noted way), add one the plan didn't anticipate (scope legitimately grew
++   within the step), and explicitly name any point where the implementation diverged
++   from the plan's description — never silently reconcile a real divergence by
++   presenting it as if it matched. This changes *what's worth asking*, not *how much*:
++   the ask must still let the developer meaningfully confirm everything this step
++   actually did, and dropping an item still requires it to be genuinely inapplicable,
++   not merely already run once by you or a worker — self-run evidence answers "did it
++   pass in a sandbox," never "should the developer still confirm it" (see the HARD
++   STOP below and `patterns/approvals.md`'s sign-off-gate completeness rule).
+ 4. Close the work interval, record the verification wait and update the step metrics in
+    `2-report.md` before yielding. **Stop and wait for the developer to confirm the step
+    passes before continuing** — this stop happens regardless of how many checks you
+@@ -75,10 +88,13 @@
+    delegated worker lacking a tool (e.g. no Bash access) is never a reason for you to
+    take the gate over yourself — hand back to the developer instead.
+ 
+-> ⛔ **HARD STOP — do not edit any file, do not update `2-report.md`, do not start the next step until the developer explicitly confirms verification passed.** This applies even when every available check was already run and passed in your own sandbox — self-run checks are reported, not silently treated as the developer's sign-off.
++> ⛔ **HARD STOP — do not edit any file, do not update `2-report.md`, do not start the next step until the developer explicitly confirms verification passed.** This applies even when every available check was already run and passed in your own sandbox — self-run checks are reported, not silently treated as the developer's sign-off. This is doubly true for a UI/UX-visible change: a developer who says they want to look at it themselves (locally, in a browser) cannot be signed off on their behalf by your own automated pass, however thorough — that pass is evidence to report, not a substitute for their eyes.
++>
++> **Never record `check record --source developer` for a check you ran yourself, and never mark a step's Progress row ✅ Done or run `step complete` before the developer's actual reply exists in this conversation.** Fabricating that attribution — even with true-sounding evidence text — puts a false sign-off in the permanent record. If you catch yourself having already done this, correct it immediately (new event, new ID, re-source it honestly, reopen the step) rather than leaving it standing. See `patterns/metrics.md`'s `--source developer` rule for the full detail.
+ 
+ On reply, use `resume`, record the actual verification outcome with `check record` and
+-attributed evidence. If it failed, use `step retry --id <ID> --reason verification_failure`
++attributed evidence quoting or summarizing what the developer actually said — never
++invented text. If it failed, use `step retry --id <ID> --reason verification_failure`
+ before revising; otherwise use `step complete --id <ID>` only after all current checks
+ pass. For TDD, record the initial failing run truthfully, then implement and rerun the
+ same named check within the step until green. Once verification passes, follow the

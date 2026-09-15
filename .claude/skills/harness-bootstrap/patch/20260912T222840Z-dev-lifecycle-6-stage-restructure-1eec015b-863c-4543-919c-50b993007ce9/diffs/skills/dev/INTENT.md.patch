@@ -1,0 +1,109 @@
+diff --git a/skills/dev/INTENT.md b/skills/dev/INTENT.md
+index fe8c78c..dbf88b1 100644
+--- a/skills/dev/INTENT.md
++++ b/skills/dev/INTENT.md
+@@ -2,42 +2,81 @@
+ skill: dev
+ output: .claude/skills/dev/SKILL.md
+ companion_templates:
+-  - plan-template.md
+-  - report-template.md
+-  - pattern-review-gate.md
+-  - pattern-session-continuity.md
+-  - pattern-write-confirm.md
+-  - pattern-announce-progress.md
+-  - pattern-do-report-commit.md
+-  - pattern-satellite-review.md
++  - templates/intent.md
++  - templates/plan.md
++  - templates/report.md
++  - patterns/review-gate.md
++  - patterns/session-continuity.md
++  - patterns/write-confirm.md
++  - patterns/announce-progress.md
++  - patterns/do-report-commit.md
++  - patterns/satellite-review.md
++  - patterns/task-tracking.md
++  - references/00-router.md
++  - references/01-context-gathering.md
++  - references/02-ceremony.md
++  - references/03-plan.md
++  - references/04-implement.md
++  - references/05-test.md
++  - references/06-document.md
+ ---
+ 
+ ## Purpose
+ 
+-Orchestrator for the full Dev lifecycle: Plan → Implement → Test → Document. Delegates to each phase skill in order, stopping at every phase boundary for developer confirmation.
++The full dev lifecycle in one skill: Context Gathering → Ceremony → Plan →
++Implement → Test → Document. Routes to each stage reference in order (or directly
++to one stage, on request), stopping at every phase boundary for developer
++confirmation. Replaces the former separate `dev-plan`, `dev-implement`, `dev-test`,
++`dev-document` skills — those stages now live under this one skill's `references/`.
++Context Gathering and Ceremony are new: Context Gathering captures the ticket's
++intent once (from the tracker, any approved design, and the developer's own words)
++as `intent.md`, before any tracker/branch ceremony or plan-writing begins.
+ 
+ ## Substitutions
+ 
+-| Placeholder                          | Source                       | Notes                                                                                  |
+-| ------------------------------------ | ---------------------------- | -------------------------------------------------------------------------------------- |
+-| `{{PROJECT_KEY}}`                    | Q5 — ticket prefix           | e.g. `AIFD`. Replaces every occurrence of `ND` used as a Jira project key              |
+-| `{{JIRA_TRANSITION_START_PROGRESS}}` | Developer confirms from Jira | Transition ID for "Start Progress" — ask developer to provide from their Jira workflow |
+-| `{{JIRA_TRANSITION_TESTING}}`        | Developer confirms from Jira | Transition ID for moving to Testing state                                              |
++| Placeholder                  | Source                                    | Notes                                                                                              |
++| ------------------------------ | ------------------------------------------ | ---------------------------------------------------------------------------------------------------- |
++| `{{PROJECT_KEY}}`             | Q5 — ticket prefix                        | e.g. `AIFD`. Replaces every occurrence of `ND` used as a tracker project key                       |
++| `{{BACKEND_AGENT}}`           | AGENTS.md — agent for BFF/backend layer   | e.g. `@bff`. Check AGENTS.md `## Agents` table for the agent scoped to the BFF/backend container   |
++| `{{FRONTEND_AGENT}}`          | AGENTS.md — agent for Web/frontend layer  | e.g. `@web`. Check AGENTS.md `## Agents` table for the agent scoped to the Web/frontend container  |
++| `{{DATA_AGENT}}`              | AGENTS.md — agent for data/DB layer       | e.g. `@data`. Check AGENTS.md `## Agents` table for the agent scoped to the DB/data layer           |
++| `{{BACKEND_LAYER_KEYWORDS}}`  | Detected stack — backend container(s)     | The project's actual backend framework/keywords, quoted and slash-joined the same way as the sample they replace, e.g. `` `bff` / "BFF" / "NestJS" / backend `` for a NestJS BFF, `` `api` / "API" / "Express" / backend `` for an Express API. Derive from `package.json`/build config, not a guess. |
++| `{{FRONTEND_LAYER_KEYWORDS}}` | Detected stack — frontend container(s)    | Same format, frontend framework, e.g. `` `web` / "Web" / "FE" / "Frontend" / "React" ``.            |
++| `{{DATA_LAYER_KEYWORDS}}`     | Detected stack — data/DB layer            | Same format, data layer, e.g. `` `db` / "DB" / "schema" / "migration" / "repository" / "Postgres" ``. |
++| `{{NX_BUILD_CMD}}`            | Test stage — detected NX projects         | Full `yarn nx run-many -t build -p {projects}` command. Detect project names from `project.json` files under `apps/`. Example: `yarn nx run-many -t build -p bff web` |
++| `{{NX_DB_MIGRATE_CMD}}`       | Test stage — detected DB project          | Full `yarn nx run {db-project}:migrate` command. Detect DB project name from `apps/` structure. Example: `yarn nx run db:migrate` |
++| `{{INFRA_SYNTH_CMD}}`         | Q — infra tooling                         | Command to synthesize/validate infra. Terraform: `terraform validate`. CDK: `yarn nx run infra:synth`. Pulumi: `pulumi preview`. |
++| `{{INFRA_DIFF_CMD}}`          | Q — infra tooling                         | Command to diff/plan infra changes. Terraform: `terraform plan`. CDK: `yarn nx run infra:diff`. Pulumi: `pulumi preview --diff`. |
++| `{{DOC_PRINCIPLES_ARTICLE}}`  | Q — Doc Principles article path           | e.g. `docs/Engineering Guide/Documentation/01 Principles.md` — used by Document stage Step 0       |
++| `{{DOC_STRUCTURE_ARTICLE}}`   | Q — Doc Structure article path            | e.g. `docs/Engineering Guide/Documentation/02 Structure.md` — used by Document stage Step 0        |
+ 
+-> If Jira transition IDs are unknown during bootstrap, insert placeholder values and note them in AGENTS.md with a `# TODO: verify Jira transition IDs` comment. The developer must update these before using the skill.
++Transition IDs are never substituted here — dev only asks `@scrum-master` to
++transition a ticket by state name ("In Progress", "Done", …); the tracker agent
++resolves the ID from its own definition. Keeping that mapping in one place
++(`@scrum-master`) avoids the two skills drifting out of sync.
+ 
+ ## Conditionals
+ 
+-- If Q5 is "none" (no issue tracker): remove the Jira transition IDs table and the Jira transition step at Completion
+-- If Q5 is not Jira: remove the Jira transition IDs table entirely
++- If Q5 is "none" (no issue tracker): remove every tracker reference across `TEMPLATE.md` and all six `references/*.md` files — Context Gathering Step 2 (fetch tracker context) and Ceremony Step 1 (tracker setup), Document Step 5 (tech-debt tasks), and the Completion — tracker sync section
++- If no specialist agents are defined for a layer: replace `references/04-implement.md` and `references/05-test.md`'s delegation logic with "implement/review inline" for that layer
++- If no DB layer exists in the project: remove `references/05-test.md` Step 4 (DB migration check)
++- If not an NX monorepo (Q3/Q2 detection): replace the NX commands in `references/05-test.md` with the project's actual build/test commands
+ 
+ ## Verify checklist
+ 
+ - [ ] TEMPLATE.md starts with `---` frontmatter containing `name:` (skill name) and `description:` (trigger conditions for this skill)
+-
+-- [ ] Idempotency check section is present before Phase tracker, using `{{PROJECT_KEY}}-\d+` pattern
++- [ ] Route section covers all seven entry forms: `context`, `ceremony`, `plan`, `implement`, `test`, `document`, and bare-ticket full chain, plus the ambiguous-stage-word ask
++- [ ] `{{BACKEND_LAYER_KEYWORDS}}`/`{{FRONTEND_LAYER_KEYWORDS}}`/`{{DATA_LAYER_KEYWORDS}}` in `references/04-implement.md` and `references/05-test.md` are resolved to the project's actual detected framework/keywords — not left as the literal placeholder, and not left as the generic NestJS/React/Postgres sample unless that really is the project's stack
++- [ ] Idempotency check section is present, scoped to full-chain entry only, using `{{PROJECT_KEY}}-\d+` pattern
+ - [ ] No literal `ND` used as ticket prefix — all replaced with `{{PROJECT_KEY}}`
+-- [ ] Jira transition ID table is present (or removed if no Jira)
+-- [ ] Each phase section has exactly one stop, with the exact quoted question format
+-- [ ] Orchestrator only delegates — no implementation logic, no step details
+-- [ ] Completion section has two stops: MR offer first, then a "Completion — Jira sync" stop asking effort spent and delegating the worklog + `{{JIRA_TRANSITION_DONE}}` transition to `@scrum-master` — PR URL update step is intentionally absent (would produce a commit after the PR is open)
++- [ ] No literal "Jira" wording in `TEMPLATE.md` or any `references/*.md` — tracker activity is named generically and delegated to `@scrum-master`, never described with tracker-specific vocabulary or transition IDs
++- [ ] Each phase section in TEMPLATE.md has exactly one stop, with the exact quoted question format, and delegates to its `references/NN-*.md` file by path (not by retired `/dev-X` skill name)
++- [ ] TEMPLATE.md only delegates — no implementation logic, no step details (those live in `references/`)
++- [ ] Completion section has two stops: MR offer first, then a "Completion — tracker sync" stop asking effort spent and delegating the worklog + Done transition to `@scrum-master` by state name only — PR URL update step is intentionally absent (would produce a commit after the PR is open)
++- [ ] `references/01-context-gathering.md` creates the story folder, `intent.md`, and the `2-report.md` skeleton (empty Progress table) — no other stage creates these
++- [ ] `references/03-plan.md` Step 3 calls `EnterPlanMode`/`ExitPlanMode` and persists the approved plan to `docs/Stories/<TICKET>/impl/1-plan.md` after exiting Plan Mode — not before; it does not itself create `2-report.md`, only updates its Phase row and Progress table
++- [ ] `references/03-plan.md` Step 2 states the TDD-first default (Step 1 of the generated plan writes tests for the ACs using the project's existing test convention, opt-out only for no-test-convention/no-testable-path/developer-declined cases) — not stated as a hard mandate
++- [ ] `references/04-implement.md` applies `patterns/task-tracking.md` for per-step tasks, in addition to the stage-level task the router creates
++- [ ] Every Phase-row string across `TEMPLATE.md` and `references/*.md` lists all six stages in order (`🎯 Context · 🚀 Ceremony · 📋 Plan · 🔨 Implement · 🧪 Test · 📝 Document`) with consistent status icons
++- [ ] Every `patterns/*.md` and `templates/*.md` reference across `TEMPLATE.md` and `references/*.md` uses the subfolder path (`patterns/X.md`, `templates/Y.md`), never the old flat `pattern-X.md` / `X-template.md` form
++- [ ] Story folder globs use `*{TICKET}*` wildcard, never `[{TICKET}]*`, everywhere they appear

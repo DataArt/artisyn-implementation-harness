@@ -1,0 +1,26 @@
+diff --git a/skills/design/references/01-frame.md b/skills/design/references/01-frame.md
+index 823854b..fbb2217 100644
+--- a/skills/design/references/01-frame.md
++++ b/skills/design/references/01-frame.md
+@@ -1,5 +1,10 @@
+ # Frame stage
+ 
++Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
++`--stage frame`. Follow its initialization/recovery, entry, wait, check, and exit
++commands. When this reference is used only as a correction recipe within another
++active stage, retain that stage's metrics ownership.
++
+ Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`. Frame
+ frames the problem, frames the requirements (evaluation criteria for Evaluate),
+ and frames the boundaries before any research begins. Output: `design/00 Frame.md`.
+@@ -90,6 +95,10 @@ with `Phase` set to
+ 
+ ---
+ 
++Initialize design metrics now that Report.md and its directory exist: `init` with
++an explicit design `--dir` and the ticket/story identifier, then `stage start --stage frame`.
++If stat.json already exists, recover/resume it rather than initializing new history.
++
+ ## Step 4 — Resolve design context
+ 
+ {{DESIGN_CONTEXT_STEP}}

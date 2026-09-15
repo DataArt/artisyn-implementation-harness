@@ -1,0 +1,39 @@
+diff --git a/canonical/skills/dev/patterns/approvals.md b/canonical/skills/dev/patterns/approvals.md
+index be41ea7..abb358c 100644
+--- a/canonical/skills/dev/patterns/approvals.md
++++ b/canonical/skills/dev/patterns/approvals.md
+@@ -11,6 +11,34 @@ Plan Mode approval, per-step verification confirmation, branch checkout confirma
+ that gate is a human checkpoint by design — this pattern's routine-work authorization
+ never overrides it, skips it, or downgrades it to an announcement.
+ 
++## Sign-off gates
++
++A **sign-off** is a stop-and-wait gate where the developer must explicitly approve
++content, or personally run a manual operation, before the lifecycle proceeds —
++distinct from routine authorized work, which continues without asking. Every
++sign-off blocks progress until an explicit reply; silence, a later unrelated
++message, or an automated notification is never a sign-off. The fixed sign-off
++points in this lifecycle:
++
++- **Context Gathering Step 4** — developer signs off on the summarized scope/sources
++  before `0-intent.md` is written.
++- **Ceremony Step 2** — branch checkout is a manual operation: propose the exact
++  `git checkout` command and wait for the developer to run it and confirm — never
++  run it yourself.
++- **Plan Step 3** — developer signs off on the plan via Plan Mode's approve cycle
++  before `1-plan.md` is written and Implement starts.
++- **Plan Step 4 rework** — a direct edit to `1-plan.md` in response to an
++  architecture-audit finding needs its own sign-off on the diff before re-audit and
++  finalization; a re-audit `go` verdict checks HLD alignment, not developer approval,
++  and never substitutes for it. (Rework done by re-entering Plan Mode is already
++  covered by its own approve cycle.)
++- **Implement Step 3** — developer signs off on each step's verification (HARD STOP)
++  and personally runs and confirms each commit before the next step starts — never
++  commit yourself.
++
++Do not add, remove, or weaken a sign-off gate as a side effect of an unrelated change;
++touching one requires calling it out explicitly, the same way this section does.
++
+ Ask only when a concrete decision or action needs human input:
+ 
+ - Material scope, acceptance criteria, architecture or security tradeoffs not already
