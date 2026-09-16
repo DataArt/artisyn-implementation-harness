@@ -1,0 +1,76 @@
+diff --git a/skills/dev/TEMPLATE.md b/skills/dev/TEMPLATE.md
+index e2b377f..cf07d92 100644
+--- a/skills/dev/TEMPLATE.md
++++ b/skills/dev/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: dev
+ metadata:
+-  version: 2.19.0
++  version: 2.20.0
+ description: >
+   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
+   → Test → Document, or a single stage via
+@@ -17,7 +17,7 @@ The developer wants to run the dev lifecycle for a ticket. Here is their input:
+ 
+ ---
+ 
+-Apply `patterns/approvals.md` throughout. Follow stage dependencies and record evidence;
++Apply `patterns/approval-sign-off.md` throughout. Follow stage dependencies and record evidence;
+ continue routine work without inventing extra phase-boundary confirmations beyond the
+ fixed sign-off gates that pattern lists.
+ 
+@@ -140,7 +140,7 @@ Example when entering Plan:
+ 
+ Follow `references/01-context-gathering.md`. Announce the outcome and continue to the next
+ stage within a full-flow request; direct-stage entry ends here. Apply
+-`patterns/approvals.md` for unresolved decisions.
++`patterns/approval-sign-off.md` for unresolved decisions.
+ 
+ ---
+ 
+@@ -148,7 +148,7 @@ stage within a full-flow request; direct-stage entry ends here. Apply
+ 
+ Follow `references/02-ceremony.md`. Announce the outcome and continue to the next
+ stage within a full-flow request; direct-stage entry ends here. Apply
+-`patterns/approvals.md` for unresolved decisions.
++`patterns/approval-sign-off.md` for unresolved decisions.
+ 
+ ---
+ 
+@@ -156,7 +156,7 @@ stage within a full-flow request; direct-stage entry ends here. Apply
+ 
+ Follow `references/03-plan.md`. Announce the outcome and continue to the next
+ stage within a full-flow request; direct-stage entry ends here. Apply
+-`patterns/approvals.md` for unresolved decisions.
++`patterns/approval-sign-off.md` for unresolved decisions.
+ 
+ ---
+ 
+@@ -164,7 +164,7 @@ stage within a full-flow request; direct-stage entry ends here. Apply
+ 
+ Follow `references/04-implement.md`. Announce the outcome and continue to the next
+ stage within a full-flow request; direct-stage entry ends here. Apply
+-`patterns/approvals.md` for unresolved decisions.
++`patterns/approval-sign-off.md` for unresolved decisions.
+ 
+ ---
+ 
+@@ -172,7 +172,7 @@ stage within a full-flow request; direct-stage entry ends here. Apply
+ 
+ Follow `references/05-test.md`. Announce the outcome and continue to the next
+ stage within a full-flow request; direct-stage entry ends here. Apply
+-`patterns/approvals.md` for unresolved decisions.
++`patterns/approval-sign-off.md` for unresolved decisions.
+ 
+ ---
+ 
+@@ -180,7 +180,7 @@ stage within a full-flow request; direct-stage entry ends here. Apply
+ 
+ Follow `references/06-document.md`. Announce the outcome and continue to the next
+ stage within a full-flow request; direct-stage entry ends here. Apply
+-`patterns/approvals.md` for unresolved decisions.
++`patterns/approval-sign-off.md` for unresolved decisions.
+ 
+ ---
+ 

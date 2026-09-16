@@ -58,7 +58,9 @@ the developer signs off to proceed. Having Bash access, or a delegated worker la
 a tool, is never a reason to take a sign-off gate over yourself.
 
 Do not add, remove, or weaken a sign-off gate as a side effect of an unrelated change;
-touching one requires calling it out explicitly, the same way this section does.
+touching one requires calling it out explicitly, the same way this section does. This
+never happens implicitly via `patterns/approval-intelligent.md`, which only governs
+checkpoints explicitly designated there as using it — never a gate in the list above.
 
 Ask only when a concrete decision or action needs human input:
 

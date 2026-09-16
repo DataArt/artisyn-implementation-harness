@@ -1,0 +1,13 @@
+diff --git a/skills/dev/patterns/satellite-review.md b/skills/dev/patterns/satellite-review.md
+index d386b23..5c70642 100644
+--- a/skills/dev/patterns/satellite-review.md
++++ b/skills/dev/patterns/satellite-review.md
+@@ -28,7 +28,7 @@ Skip for mechanical steps: rename, dependency bump, config value with no structu
+ A satellite `go` verdict, and a worker's own account of what it did, are both
+ inputs to the orchestrator's sign-off gate — neither is a substitute for it, the
+ same way a self-run check is not (`references/04-implement.md` Step 3,
+-`patterns/approvals.md`).
++`patterns/approval-sign-off.md`).
+ 
+ 1. Worker hands the orchestrator a structured summary: what changed (files
+    touched, brief rationale), what the worker itself verified and its actual

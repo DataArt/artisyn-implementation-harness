@@ -1,6 +1,6 @@
 # Write and review
 
-Apply `patterns/approvals.md`. Write the authorized set of local docs/config files,
+Apply `patterns/approval-sign-off.md`. Write the authorized set of local docs/config files,
 check references and consistency, then present a combined summary. Continue through
 routine items. Ask for specific unsettled decisions or unavailable human verification
 only; file creation and routine edits do not require per-item confirmation.

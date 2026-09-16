@@ -2,7 +2,7 @@
 
 Complete the in-scope work, run relevant available checks, then update `2-report.md`
 with actual progress, evidence and findings resolutions before any commit.
-Apply `patterns/approvals.md`: pause for unavailable required verification or an
+Apply `patterns/approval-sign-off.md`: pause for unavailable required verification or an
 unauthorized commit, not for each local fix. A failed required check blocks completion.
 
 Use logical commits. Outside a call site that names this pattern as part of a fixed

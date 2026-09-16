@@ -1,0 +1,12 @@
+diff --git a/skills/dev/patterns/write-confirm.md b/skills/dev/patterns/write-confirm.md
+index 6c3e2d3..f603a10 100644
+--- a/skills/dev/patterns/write-confirm.md
++++ b/skills/dev/patterns/write-confirm.md
+@@ -1,6 +1,6 @@
+ # Write and review
+ 
+-Apply `patterns/approvals.md`. Write the authorized set of local docs/config files,
++Apply `patterns/approval-sign-off.md`. Write the authorized set of local docs/config files,
+ check references and consistency, then present a combined summary. Continue through
+ routine items. Ask for specific unsettled decisions or unavailable human verification
+ only; file creation and routine edits do not require per-item confirmation.

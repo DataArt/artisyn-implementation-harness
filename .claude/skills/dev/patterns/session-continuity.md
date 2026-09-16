@@ -14,6 +14,6 @@ Applies to every dev-lifecycle stage reference (`references/01-context-gathering
 
 For a full-flow request, re-read `.claude/skills/dev/SKILL.md` and continue from the
 next stage. For direct-stage entry, return the stage result and stop. Preserve existing
-authorization and unresolved decisions across compaction; apply `patterns/approvals.md`
+authorization and unresolved decisions across compaction; apply `patterns/approval-sign-off.md`
 and recover metrics before recording new work. Do not replay completed work or recreate
 approval gates just because the session resumed.

@@ -8,34 +8,40 @@ official start of work on the ticket: assign and transition it via `@scrum-maste
 then get onto the right branch. It does no reading or writing of intent/plan content
 — that's Context Gathering's and Plan's job respectively.
 
-Apply `patterns/approvals.md`: follow dependencies, continue routine authorized work,
+Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
 and pause only for a concrete unresolved decision, required human verification, or a
-fixed sign-off gate (`patterns/approvals.md`).
+fixed sign-off gate (`patterns/approval-sign-off.md`).
 
 > 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
 
 ## Step 1 — Tracker setup _(skip if no ticket number detected)_
 
-If a ticket number was found in Context Gathering, present to the developer:
+If a ticket number was found in Context Gathering, invoke `@scrum-master` to read the
+ticket's current assignee and status first — never assume it's untouched.
 
-> "I'll assign ND-XX to you and move it to **In Progress**. Confirm? (**yes** / **skip**)"
-
-Apply `patterns/approvals.md`: use existing tracker authorization, otherwise ask once.
-
-If confirmed:
-
-Invoke `@scrum-master`:
+Apply `patterns/approval-intelligent.md`'s designated Ceremony Step 1 checkpoint:
+unassigned (or already assigned to the authenticated user) and in a pre-work status
+(Backlog/To Do/Selected) auto-approves — invoke `@scrum-master`:
 
 > "Start {TICKET}: assign to the authenticated user and transition to In Progress."
 
-Once `@scrum-master` confirms, continue immediately to Step 2.
+then announce what was done (ticket, prior status, new status) and continue to Step 2
+without asking first. Otherwise (already assigned elsewhere, already past In Progress,
+or the next status isn't obvious) it's material — present to the developer:
+
+> "ND-XX is currently `{assignee}` / `{status}`. I'll assign it to you and move it to
+> **In Progress**. Confirm? (**yes** / **skip**)"
+
+Apply `patterns/approval-sign-off.md`: use existing tracker authorization if already
+given, otherwise ask once. If confirmed, invoke `@scrum-master` with the same start
+instruction above. Once `@scrum-master` confirms (either path), continue to Step 2.
 
 ## Step 2 — Feature branch checkout
 
 Inspect the current branch and worktree. If already on the correct feature branch,
 continue without asking — that's a fact available from Git, not a decision. Otherwise,
 branch checkout is a manual operation: never run `git checkout`/`git switch` yourself.
-This is a sign-off gate (`patterns/approvals.md`) — present the exact command for the
+This is a sign-off gate (`patterns/approval-sign-off.md`) — present the exact command for the
 developer to run:
 
 > "Please check out the feature branch for this work:

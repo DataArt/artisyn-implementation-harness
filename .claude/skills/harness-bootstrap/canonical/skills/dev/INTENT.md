@@ -6,7 +6,8 @@ companion_templates:
   - scripts/utils.mjs
   - scripts/quality.mjs
   - scripts/quality.test.mjs
-  - patterns/approvals.md
+  - patterns/approval-sign-off.md
+  - patterns/approval-intelligent.md
   - scripts/timing.mjs
   - scripts/timing.test.mjs
   - templates/stat.schema.json
@@ -36,7 +37,7 @@ companion_templates:
 The full dev lifecycle in one skill: Context Gathering → Ceremony → Plan →
 Implement → Test → Document. Routes to each stage reference in order (or directly
 to one stage, on request), continuing routine authorized work and pausing only for material decisions or
-required human actions under patterns/approvals.md. Replaces the former separate `dev-plan`, `dev-implement`, `dev-test`,
+required human actions under patterns/approval-sign-off.md. Replaces the former separate `dev-plan`, `dev-implement`, `dev-test`,
 `dev-document` skills — those stages now live under this one skill's `references/`.
 Context Gathering and Ceremony are new: Context Gathering captures the ticket's
 intent once (from the tracker, any approved design, and the developer's own words)
@@ -94,7 +95,7 @@ resolves the ID from its own definition. Keeping that mapping in one place
 - [ ] One Review Findings ledger uses stable IDs across reviews; no separate live findings tables.
 - [ ] HLD-only deviation audit routes routine LLD updates directly to Documentation.
 - [ ] Approval boundaries apply throughout; no unconditional per-file/fix/phase gates
-      _beyond_ the fixed sign-off gates listed in `patterns/approvals.md`'s "Sign-off
+      _beyond_ the fixed sign-off gates listed in `patterns/approval-sign-off.md`'s "Sign-off
       gates" section (Context Step 4, Ceremony Step 2, Plan Steps 3/4/5/6, Implement
       Step 3) — verify each of those gates still exists and still stops unconditionally.
 - [ ] Quality summary preserves unknown counts and distinguishes failed runs from cases.

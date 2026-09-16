@@ -41,7 +41,7 @@ linter or pre-commit hook that the project has not configured.
 
 ## Human decisions
 
-The dev skill's `patterns/approvals.md` owns authorization boundaries. Routine context
+The dev skill's `patterns/approval-sign-off.md` owns authorization boundaries. Routine context
 reads, reversible local edits, checks, report updates and stage transitions continue
 within scope. Preserve existing authorization across steps and sessions.
 
@@ -86,17 +86,18 @@ Direct-stage entry reports only its own result; local IDs skip tracker worklogs/
 
 ## Shared patterns
 
-| Pattern                 | Purpose                                                             |
-| ----------------------- | ------------------------------------------------------------------- |
-| `approvals.md`          | Material decisions and authorization boundaries across the flow     |
-| `review-gate.md`        | Stable finding identity, classification and evidence-backed closure |
-| `do-report-commit.md`   | Verify and update the report before any authorized commit           |
-| `write-confirm.md`      | Batch routine doc edits; ask only for unresolved decisions          |
-| `satellite-review.md`   | Scoped architecture review with at most three fix/review rounds     |
-| `announce-progress.md`  | Concise progress at completed units and stage transitions           |
-| `session-continuity.md` | Resume current state and authorization without replaying work       |
-| `task-tracking.md`      | Six stage tasks and implementation step tasks, with tool fallback   |
-| `metrics.md`            | Observed timing, checks, token evidence and quality inventory       |
+| Pattern                   | Purpose                                                             |
+| ------------------------- | ------------------------------------------------------------------- |
+| `approval-sign-off.md`    | Fixed, unconditional human sign-off gates across the flow           |
+| `approval-intelligent.md` | Optional auto-approve for designated non-material checkpoints       |
+| `review-gate.md`          | Stable finding identity, classification and evidence-backed closure |
+| `do-report-commit.md`     | Verify and update the report before any authorized commit           |
+| `write-confirm.md`        | Batch routine doc edits; ask only for unresolved decisions          |
+| `satellite-review.md`     | Scoped architecture review with at most three fix/review rounds     |
+| `announce-progress.md`    | Concise progress at completed units and stage transitions           |
+| `session-continuity.md`   | Resume current state and authorization without replaying work       |
+| `task-tracking.md`        | Six stage tasks and implementation step tasks, with tool fallback   |
+| `metrics.md`              | Observed timing, checks, token evidence and quality inventory       |
 
 Patterns are companions under `.claude/skills/dev/patterns/`; stage references own their
 trigger conditions. Keep the shared contract in the pattern, not repeated local overrides.

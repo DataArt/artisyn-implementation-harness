@@ -1,0 +1,25 @@
+diff --git a/skills/dev/references/01-context-gathering.md b/skills/dev/references/01-context-gathering.md
+index 6046892..2366347 100644
+--- a/skills/dev/references/01-context-gathering.md
++++ b/skills/dev/references/01-context-gathering.md
+@@ -10,9 +10,9 @@ any approved design, and the developer's own words, and persists it as `0-intent
+ before any tracker/branch ceremony or plan-writing begins. Read-only except for the
+ final write in Step 5.
+ 
+-Apply `patterns/approvals.md`: follow dependencies, continue routine authorized work,
++Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
+ and pause only for a concrete unresolved decision, required human verification, or a
+-fixed sign-off gate (`patterns/approvals.md`).
++fixed sign-off gate (`patterns/approval-sign-off.md`).
+ 
+ > 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+ 
+@@ -138,7 +138,7 @@ that explicitly as part of the summary rather than silently picking one.
+ 
+ ## Step 4 — Sign-off on context
+ 
+-This is a sign-off gate (`patterns/approvals.md`): present the combined context
++This is a sign-off gate (`patterns/approval-sign-off.md`): present the combined context
+ summary to the developer and ask:
+ 
+ > "Here's what I'm working from:

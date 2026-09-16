@@ -1,7 +1,7 @@
 # Review findings and resolution
 
 All Plan, Implement, PR, HLD deviation and documentation consistency reviews use one
-`## Review Findings` table in `2-report.md`. Apply `patterns/approvals.md`.
+`## Review Findings` table in `2-report.md`. Apply `patterns/approval-sign-off.md`.
 Write findings before acting, then update the same rows as evidence and decisions
 arrive. Reviewers return findings; the orchestrator owns the ledger.
 

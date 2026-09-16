@@ -19,12 +19,17 @@ product-context), Skill (Evolve), Architecture (AWS Well-Architected). Tracker: 
 project `ND`, at `https://support.dataart.com` (`@scrum-master` deployed). X-ray
 deployed (adapted: no BFF/DB layer — Auth row uses `@auth`; `@interactive-demo`
 referenced verbatim per its own INTENT, not yet deployed anywhere in canonical).
+`dev-approvals` was renamed to `dev-approval-sign-off` (`patterns/approval-sign-off.md`)
+and split out a new `dev-approval-intelligent` (`patterns/approval-intelligent.md`)
+companion; harvested into canonical as bundle `09e72961-134c-4597-8e0c-45c1e93264dd`
+(`patch/REGISTRY.md`).
 
 | Name                           | Type      | Compare | Template Path                                                 | Deployed Path                                               |
 | ------------------------------ | --------- | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
 | dev                            | skill     | content | `canonical/skills/dev/TEMPLATE.md`                            | `.claude/skills/dev/SKILL.md`                               |
 | dev-announce-progress          | companion | content | `canonical/skills/dev/patterns/announce-progress.md`          | `.claude/skills/dev/patterns/announce-progress.md`          |
-| dev-approvals                  | companion | content | `canonical/skills/dev/patterns/approvals.md`                  | `.claude/skills/dev/patterns/approvals.md`                  |
+| dev-approval-sign-off          | companion | content | `canonical/skills/dev/patterns/approval-sign-off.md`          | `.claude/skills/dev/patterns/approval-sign-off.md`          |
+| dev-approval-intelligent       | companion | content | `canonical/skills/dev/patterns/approval-intelligent.md`       | `.claude/skills/dev/patterns/approval-intelligent.md`       |
 | dev-do-report-commit           | companion | content | `canonical/skills/dev/patterns/do-report-commit.md`           | `.claude/skills/dev/patterns/do-report-commit.md`           |
 | dev-metrics                    | companion | content | `canonical/skills/dev/patterns/metrics.md`                    | `.claude/skills/dev/patterns/metrics.md`                    |
 | dev-review-gate                | companion | content | `canonical/skills/dev/patterns/review-gate.md`                | `.claude/skills/dev/patterns/review-gate.md`                |
