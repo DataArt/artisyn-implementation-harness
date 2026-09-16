@@ -2,6 +2,19 @@
 
 All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
 
+## 1.1.0
+
+Fixes found while bootstrapping the harness into other projects.
+
+- **Launch ignore setup**: a fresh bootstrap/patch into a target project now untracks
+  any already-committed `.claude/skills/harness-bootstrap/` files before gitignoring
+  the folder, so the ignore rule actually takes effect there. This repo's own
+  canonical copy is exempt — it stays tracked as the source of truth.
+- **Block C (root context/MCP)**: launch now merges `CLAUDE_CODE_ENABLE_TASKS` and
+  `CLAUDE_CODE_ENABLE_TODO_TOOLS` into the target project's `.claude/settings.json`
+  `env` block (Claude Code only) if not already present, since native Task tracking
+  used throughout launch/patch depends on them.
+
 ## 1.0.0
 
 First stable release. Installs the portable AI-dev harness (`launch`) and keeps it in

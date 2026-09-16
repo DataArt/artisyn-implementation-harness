@@ -106,7 +106,12 @@ concerns project-wide instructions; scoped layer agent files remain part of Bloc
 where required by the selected provider.
 
 Preserve existing settings/hooks; reconcile Claude permissions with Q7 and include
-applicable lifecycle hooks rather than replacing config wholesale. Propose plausible
+applicable lifecycle hooks rather than replacing config wholesale. For Claude Code,
+merge `CLAUDE_CODE_ENABLE_TASKS: "1"` and `CLAUDE_CODE_ENABLE_TODO_TOOLS: "1"` into
+`project:.claude/settings.json`'s `env` block if not already present — the tracking
+protocol in [01-launch.md](01-launch.md#tracking-protocol) depends on native Task
+tools, which these enable. Preserve any existing `env` keys; do not replace the block.
+Propose plausible
 tracker/repo/cloud/stack MCP servers from evidence and install only selected servers.
 Use `project:.mcp.json` with `${ENV_VAR}` references, never literal credentials. Add
 placeholder env keys to `project:.claude/settings.local.json`, ensure project gitignore

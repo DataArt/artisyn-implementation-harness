@@ -5,8 +5,15 @@ Stage sequence and tracking live in [01-launch.md](01-launch.md).
 ## 1. Initialize storage, recover, and inspect
 
 **First launch action:** add `/.claude/skills/harness-bootstrap/` to the project root
-`.gitignore` if absent, preserving existing entries. This ignores the portable toolkit;
-already tracked files stay tracked. Do not run `git rm` or otherwise untrack them.
+`.gitignore` if absent, preserving existing entries. This ignores the portable toolkit:
+it is a materialized copy used to run bootstrap/patch operations, not the project's
+own canonical source. If any of its files are already tracked in this project's git
+history, untrack them with `git rm -r --cached .claude/skills/harness-bootstrap/`
+(working-tree copies stay in place) so the ignore rule actually takes effect; record
+this cleanup in the report. This does not apply to the harness's own canonical
+repository, where `.claude/skills/harness-bootstrap/` is the authoritative source and
+must stay tracked — only apply this untrack step in a project this toolkit was
+bootstrapped or patched into.
 Keep durable project records outside it: `project:.harness/launch/answers.json`,
 `project:.harness/launch/reports/`, and `project:.harness/launch/runs/<run_id>/`.
 Use project `.harness/registry.md`, `.harness/patch/`, and `.harness/state/` for deployed

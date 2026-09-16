@@ -25,8 +25,10 @@ subfolder holds Engineering Guide intent contracts. `canonical/` is the only fol
 documented set of package-internal exceptions — see `06-patch-state.md`). Everything
 else at the package root — `references/`, `scripts/`, `patch/`, `patterns/`,
 `workflows/`, `reports/` — is the bootstrap's own process and tooling, not payload.
-Launch ignores this toolkit folder in Git; it does not untrack existing files.
-Installed project outputs remain separate from the toolkit.
+Launch ignores this toolkit folder in Git in the target project; if any of its files
+were already tracked there, launch untracks them so the ignore rule takes effect (the
+harness's own canonical repository is exempt — there the toolkit is the tracked
+source of truth). Installed project outputs remain separate from the toolkit.
 
 Project-owned records live under .harness/: launch answers, plans, receipts and reports;
 deployment mappings; synchronization state; and new patch bundles. Preserve the existing
