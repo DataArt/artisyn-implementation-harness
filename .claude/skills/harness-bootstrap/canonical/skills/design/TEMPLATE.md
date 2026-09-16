@@ -1,7 +1,7 @@
 ---
 name: design
 metadata:
-  version: 3.3.0
+  version: 3.4.0
 description: >
   Full design lifecycle (/design {ticket}): Frame → Research → Evaluate → Solution
   → Review Gate → Address Feedback → Publish, or a single stage via
@@ -125,6 +125,14 @@ its phase-tracker banner (below) shows it done — design has no per-step child 
 to track underneath a stage the way `dev`'s Implement stage does.
 
 ---
+
+## Approval boundaries
+
+Apply `patterns/approval-sign-off.md` throughout — it owns the fixed sign-off gates
+listed there and the routine-work authorization that continues without asking
+between them. `patterns/approval-intelligent.md` is a narrower, opt-in companion for
+checkpoints explicitly designated there as using it; it never touches a gate on
+`approval-sign-off.md`'s fixed list.
 
 ## Metrics
 

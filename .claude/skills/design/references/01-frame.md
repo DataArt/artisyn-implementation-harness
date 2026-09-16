@@ -76,11 +76,27 @@ official start-of-work ceremony.
 
 **Tracker transition** _(skip if no ticket number detected)_:
 
-> "I'll assign ND-XX to you and move it to **In Progress**. Confirm? (**yes** / **skip**)"
+Invoke `@scrum-master` to read the ticket's current assignee and status first —
+never assume it's untouched.
 
-**Stop and wait for confirmation.** If confirmed, invoke `@scrum-master`:
+Apply `.claude/skills/design/patterns/approval-intelligent.md`'s designated Frame
+Step 3 checkpoint: unassigned (or already assigned to the authenticated user) and
+in a pre-work status (Backlog/To Do/Selected) auto-approves — invoke `@scrum-master`:
 
 > "Start {TICKET}: assign to the authenticated user and transition to In Progress."
+
+then announce what was done (ticket, prior status, new status) and continue to the
+feature branch check below without asking first. Otherwise (already assigned
+elsewhere, already past In Progress, or the next status isn't obvious) it's
+material — present to the developer:
+
+> "ND-XX is currently `{assignee}` / `{status}`. I'll assign it to you and move it to
+> **In Progress**. Confirm? (**yes** / **skip**)"
+
+Apply `.claude/skills/design/patterns/approval-sign-off.md`: use existing tracker
+authorization if already given, otherwise ask once. **Stop and wait for
+confirmation.** If confirmed, invoke `@scrum-master` with the same start
+instruction above.
 
 **Feature branch check:**
 

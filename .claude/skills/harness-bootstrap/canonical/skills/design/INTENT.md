@@ -18,6 +18,8 @@ companion_templates:
   - interfaces/design.md
   - interfaces/stack.md
   - interfaces/efforts.md
+  - patterns/approval-sign-off.md
+  - patterns/approval-intelligent.md
   - patterns/announce-progress.md
   - patterns/compact-between-phases.md
   - patterns/do-report-commit.md
