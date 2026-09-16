@@ -21,8 +21,16 @@ deployed (adapted: no BFF/DB layer — Auth row uses `@auth`; `@interactive-demo
 referenced verbatim per its own INTENT, not yet deployed anywhere in canonical).
 `dev-approvals` was renamed to `dev-approval-sign-off` (`patterns/approval-sign-off.md`)
 and split out a new `dev-approval-intelligent` (`patterns/approval-intelligent.md`)
-companion; harvested into canonical as bundle `09e72961-134c-4597-8e0c-45c1e93264dd`
-(`patch/REGISTRY.md`).
+companion; harvested into canonical as bundle `09e72961-134c-4597-8e0c-45c1e93264dd`.
+The same split was added to `design` (new `design-approval-sign-off`/
+`design-approval-intelligent` — additive, design never had a centralized approvals
+file before) via bundle `47f2bd3b-e3ba-4a6a-b1ff-243fc53c63ee`. A separate audit
+found hardcoded "NX monorepo"/`apps/`+`libs/` assumptions in `where-we-are`, `war`,
+and `dev`'s canonical templates; fixed via `prepare` bundle
+`8bc7fb00-a021-456c-a4b4-2d4e506dc62b` and applied to this project's deployed
+`where-we-are`/`war` skills (`dev` needed no deployed change — its literal "NX
+project" wording already equals this project's resolved `{{BUILD_UNIT_LABEL}}`).
+See `patch/REGISTRY.md` for all three bundles.
 
 | Name                           | Type      | Compare | Template Path                                                 | Deployed Path                                               |
 | ------------------------------ | --------- | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |
@@ -56,6 +64,8 @@ companion; harvested into canonical as bundle `09e72961-134c-4597-8e0c-45c1e9326
 | dev-stat                       | companion | content | `canonical/skills/dev/templates/stat.json`                    | `.claude/skills/dev/templates/stat.json`                    |
 | dev-stat.schema                | companion | content | `canonical/skills/dev/templates/stat.schema.json`             | `.claude/skills/dev/templates/stat.schema.json`             |
 | design                         | skill     | content | `canonical/skills/design/TEMPLATE.md`                         | `.claude/skills/design/SKILL.md`                            |
+| design-approval-sign-off       | companion | content | `canonical/skills/design/patterns/approval-sign-off.md`       | `.claude/skills/design/patterns/approval-sign-off.md`       |
+| design-approval-intelligent    | companion | content | `canonical/skills/design/patterns/approval-intelligent.md`    | `.claude/skills/design/patterns/approval-intelligent.md`    |
 | design-announce-progress       | companion | content | `canonical/skills/design/patterns/announce-progress.md`       | `.claude/skills/design/patterns/announce-progress.md`       |
 | design-compact-between-phases  | companion | content | `canonical/skills/design/patterns/compact-between-phases.md`  | `.claude/skills/design/patterns/compact-between-phases.md`  |
 | design-context-resolution      | companion | content | `canonical/skills/design/patterns/context-resolution.md`      | `.claude/skills/design/patterns/context-resolution.md`      |

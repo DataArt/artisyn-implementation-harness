@@ -36,6 +36,10 @@ Before marking complete, audit actual outputs against the selected plan:
 - LLD registry and HLD active-version pointers match disk; claims have evidence, required
   categories and flows meet budgets; NFRs distinguish facts from target obligations,
   and uncertainties are recorded outside the published architecture.
+- Every discovered app's `README.md` satisfies installed Documentation/02 Structure.md's
+  "App README scope" — including links to its HLD container and LLD component doc,
+  not just `project:docs/README.md`. An app with no corresponding HLD container yet
+  is an explicitly recorded skip, not a silent gap.
 - Mermaid inventory and CLI results match final source hashes; all diagrams render,
   visual findings are resolved, or a zero-diagram inventory records non-applicability.
 - Author self-check, orchestrator verification and independent satellite verdict are

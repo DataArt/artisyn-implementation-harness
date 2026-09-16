@@ -134,7 +134,7 @@ first, then present the commit message. In order:**
 
    - `{type}({scope}): {description}` — all lowercase, imperative mood, no period
    - Types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `ci`, `build`
-   - Scope: the NX project name or layer (`infra`, `auth`, `web`)
+   - Scope: the {{BUILD_UNIT_LABEL}} name or layer (`infra`, `auth`, `web`)
    - No body unless breaking change — then add `BREAKING CHANGE: <what and why>` as a footer
    - Examples: `feat(infra): provision managed identity and key vault` · `feat(auth): add basic auth header validation`
 

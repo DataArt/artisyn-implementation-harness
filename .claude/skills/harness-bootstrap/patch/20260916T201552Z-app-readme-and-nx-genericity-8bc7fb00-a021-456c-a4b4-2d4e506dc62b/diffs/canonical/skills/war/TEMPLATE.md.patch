@@ -1,0 +1,13 @@
+diff --git a/canonical/skills/war/TEMPLATE.md b/canonical/skills/war/TEMPLATE.md
+index fd387ba..8b42408 100644
+--- a/canonical/skills/war/TEMPLATE.md
++++ b/canonical/skills/war/TEMPLATE.md
+@@ -1,7 +1,7 @@
+ ---
+ name: war
+ metadata:
+-  version: 1.0.0
++  version: 1.1.0
+ description: Well-Architected Review (/war [design|implementation] [VERSION]). Prompts design vs implementation if ambiguous, then follows the matching reference exactly. @architect assesses against the configured {{WAF_FRAMEWORK}} pillars.
+ ---
+ 

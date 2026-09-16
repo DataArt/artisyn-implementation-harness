@@ -1,0 +1,21 @@
+diff --git a/canonical/skills/where-we-are/INTENT.md b/canonical/skills/where-we-are/INTENT.md
+index fa086dc..0b4f981 100644
+--- a/canonical/skills/where-we-are/INTENT.md
++++ b/canonical/skills/where-we-are/INTENT.md
+@@ -14,6 +14,8 @@ Produces a delivery gap report: what has been designed in Target Architecture (H
+ | Placeholder                | Source                        | Notes                                                                                                                                                                                                                                                                 |
+ | -------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+ | `{{LLD_FOLDER_STRUCTURE}}` | Stage 1b — detected from repo | The `docs/System Architecture (LLD)/` subfolder structure. Detect from existing `docs/System Architecture (LLD)/` folder or use generic container names from Q3. Do not hardcode ncfc-specific folders (Canonical, Compute, Synthetic, Serving, Data, Infrastructure) |
++| `{{CODE_SCAN_TARGET}}` | Q2/Q3 — detected monorepo tool and layout | A phrase describing where code lives, matched to the project's actual layout — e.g. "the NX monorepo under `apps/` and `libs/`" for an NX monorepo, "the Turborepo monorepo under `apps/`" for a Turborepo project with no `libs/`, "the codebase" for a single non-monorepo app. Shared with `war`'s `references/02-implementation.md`. |
++| `{{BUILD_UNIT_LABEL}}` | Q2/Q3 — detected monorepo tool | Same placeholder as `dev`'s INTENT — the generic noun for one buildable unit (`NX project`, `package`, `module`, or the single app's name). |
+ 
+ ## Conditionals
+ 
+@@ -25,6 +27,7 @@ None.
+ 
+ - [ ] Step 1 reads HLD README to find active version — not hardcoded
+ - [ ] Step 3 shows the actual LLD folder structure detected from the project (not ncfc's Canonical/Compute/etc.)
++- [ ] `{{CODE_SCAN_TARGET}}` and `{{BUILD_UNIT_LABEL}}` in Step 4 are resolved to the project's actual detected monorepo tool and directory layout — never left hardcoded as "NX monorepo" / "`apps/` and `libs/`" for a project that uses a different tool or layout
+ - [ ] Step 4 `@architect` prompt is bounded: "Return a structured list. Do not write files. Do not make changes."
+ - [ ] Step 5 gap matrix rows are populated from HLD containers discovered in Step 2, not hardcoded
+ - [ ] Step 7 uses `report-template.md` from same skill folder

@@ -4,7 +4,7 @@
   "mappings": {
     "dev": {
       "canonical_path": "canonical/skills/dev/TEMPLATE.md",
-      "canonical_sha256": "bd54c64fecbe4407955efea9d428097c1dc99456f68d2bb999133e6d5ca57e8f",
+      "canonical_sha256": "85c85489073be3496a999843985a40a5269e0bb7d831e94f691149dc109de769",
       "rendered_sha256": "aa906dd7b70402992ca1469e0102f9d249ec34d72c7b4c0c4f38c2ce17023feb",
       "deployed_path": ".claude/skills/dev/SKILL.md",
       "deployed_sha256": "aa906dd7b70402992ca1469e0102f9d249ec34d72c7b4c0c4f38c2ce17023feb",
@@ -100,7 +100,7 @@
     },
     "dev-03-plan": {
       "canonical_path": "canonical/skills/dev/references/03-plan.md",
-      "canonical_sha256": "ab793a6e3dc4f0d6adaab472e47aadce984d398f48e4e2f5204c20f028b7caf4",
+      "canonical_sha256": "c4d3a4c669f0ff2a1acb6ad6f1889760e80da4c0b706578be69ec4319dde57b4",
       "rendered_sha256": "045301214b4639b718ec9463882512e577d5df240e140565a711a577406a0050",
       "deployed_path": ".claude/skills/dev/references/03-plan.md",
       "deployed_sha256": "045301214b4639b718ec9463882512e577d5df240e140565a711a577406a0050",
@@ -108,7 +108,7 @@
     },
     "dev-04-implement": {
       "canonical_path": "canonical/skills/dev/references/04-implement.md",
-      "canonical_sha256": "025f8d0919307e3a626f63b6e209707b009a004969387e0b0585d83d4f1bf779",
+      "canonical_sha256": "07812db99d434e4a4b4c70bd50facd4b236fe019973e65091a8ef4129f1ab2f0",
       "rendered_sha256": "c75268e976e67622abe9079ac1a989288036668846dcd5a4626e483b38dd5412",
       "deployed_path": ".claude/skills/dev/references/04-implement.md",
       "deployed_sha256": "c75268e976e67622abe9079ac1a989288036668846dcd5a4626e483b38dd5412",
@@ -220,10 +220,10 @@
     },
     "design": {
       "canonical_path": "canonical/skills/design/TEMPLATE.md",
-      "canonical_sha256": "32c9cd860cbf6df3015166f78be724dfba385520af58f1fbf85d7d60adaeec17",
-      "rendered_sha256": "85550591bd8f8a873809b6af07ae7129ac4ddc6fc564e7a29a86e149a6f3650c",
+      "canonical_sha256": "107638dd5f617c8728448d1c28b38a77c51bb37e5a700a657a036b33e85003b5",
+      "rendered_sha256": "29e81c714015b825e4e6b820e623eb418c77dfd7220b4bbffea6df28b3ba180e",
       "deployed_path": ".claude/skills/design/SKILL.md",
-      "deployed_sha256": "85550591bd8f8a873809b6af07ae7129ac4ddc6fc564e7a29a86e149a6f3650c",
+      "deployed_sha256": "29e81c714015b825e4e6b820e623eb418c77dfd7220b4bbffea6df28b3ba180e",
       "retained_customization": true
     },
     "design-announce-progress": {
@@ -356,10 +356,10 @@
     },
     "design-01-frame": {
       "canonical_path": "canonical/skills/design/references/01-frame.md",
-      "canonical_sha256": "91b7cf9000ccf2b110b359cc3c8464ed54d56f0e94daee9e30070bf3aef9fa2a",
-      "rendered_sha256": "9a28d01a34d5a799a72ef64d15eded6f57cfa5ab06edfcbc56611adf8c9f6bdf",
+      "canonical_sha256": "573566c75543f7edaa5ce8bbfaab0c0109675da09af544b77079ac6b1972cd27",
+      "rendered_sha256": "d6df8105cfe52511cc09f033d317fa0d72ba2e22b775c0bb4a437e7bc3579a8d",
       "deployed_path": ".claude/skills/design/references/01-frame.md",
-      "deployed_sha256": "9a28d01a34d5a799a72ef64d15eded6f57cfa5ab06edfcbc56611adf8c9f6bdf",
+      "deployed_sha256": "d6df8105cfe52511cc09f033d317fa0d72ba2e22b775c0bb4a437e7bc3579a8d",
       "retained_customization": true
     },
     "design-02-research": {
@@ -620,7 +620,7 @@
     },
     "war": {
       "canonical_path": "canonical/skills/war/TEMPLATE.md",
-      "canonical_sha256": "c3e3cf139a78421f056d3735ede40e787ff786e417cefd78485352fbf150275e",
+      "canonical_sha256": "7ce0020164031bdf9bbf0260c5fa97731b235efb15bafeac9b5b1bf9dca43a4d",
       "rendered_sha256": "b288f9257bddd462ee6d2be4962d711006c52d41b3d90c06e20f7022559b0220",
       "deployed_path": ".claude/skills/war/SKILL.md",
       "deployed_sha256": "b288f9257bddd462ee6d2be4962d711006c52d41b3d90c06e20f7022559b0220",
@@ -652,10 +652,10 @@
     },
     "war-02-implementation": {
       "canonical_path": "canonical/skills/war/references/02-implementation.md",
-      "canonical_sha256": "d63fc704346c7380f7e44fa752e568e386f34ddcb96fb5a5676bb36bfb5336c7",
-      "rendered_sha256": "75c1b2f5c522216e0e612fd0e0659b86be2367a15bbc6434ddc7d2636f82b61c",
+      "canonical_sha256": "b4b633a93ac66f9623006ae1769af36ff634752ec1674edcebc211e5a51284c3",
+      "rendered_sha256": "db2a875d77149ff7d096cd3256425931ec3beb3a65220c03f02b35cf93e00a92",
       "deployed_path": ".claude/skills/war/references/02-implementation.md",
-      "deployed_sha256": "75c1b2f5c522216e0e612fd0e0659b86be2367a15bbc6434ddc7d2636f82b61c",
+      "deployed_sha256": "db2a875d77149ff7d096cd3256425931ec3beb3a65220c03f02b35cf93e00a92",
       "retained_customization": true
     },
     "war-design-report": {
@@ -676,10 +676,10 @@
     },
     "where-we-are": {
       "canonical_path": "canonical/skills/where-we-are/TEMPLATE.md",
-      "canonical_sha256": "2021322c9bdc714dcf6750d8101478b578f57020b23222af0e1fbfcf6a9719a9",
-      "rendered_sha256": "4f1bff3ebb0f1153975246c4818f4a3f14a9372496c5e01c6e3de65c7ae2bdf9",
+      "canonical_sha256": "135396fd15a15b9202eca433671805913e2490ebef3013b398c280aa0f7fd8a7",
+      "rendered_sha256": "145499c015e2147206b884e3bd80132215dab409157520c6016d3d427accba12",
       "deployed_path": ".claude/skills/where-we-are/SKILL.md",
-      "deployed_sha256": "4f1bff3ebb0f1153975246c4818f4a3f14a9372496c5e01c6e3de65c7ae2bdf9",
+      "deployed_sha256": "145499c015e2147206b884e3bd80132215dab409157520c6016d3d427accba12",
       "retained_customization": true
     },
     "where-we-are-report-template": {
@@ -784,6 +784,22 @@
       "rendered_sha256": "ab8d98752f1cdfef0e2fb1905f9b38e4765d2d99c978cc7475b955fc8cb89af9",
       "deployed_path": ".claude/skills/dev/patterns/approval-intelligent.md",
       "deployed_sha256": "ab8d98752f1cdfef0e2fb1905f9b38e4765d2d99c978cc7475b955fc8cb89af9",
+      "retained_customization": false
+    },
+    "design-approval-sign-off": {
+      "canonical_path": "canonical/skills/design/patterns/approval-sign-off.md",
+      "canonical_sha256": "430e1c3366597f81c3e3fe52d8602f25481480d8cd60039a76bae95a9da8a9cb",
+      "rendered_sha256": "430e1c3366597f81c3e3fe52d8602f25481480d8cd60039a76bae95a9da8a9cb",
+      "deployed_path": ".claude/skills/design/patterns/approval-sign-off.md",
+      "deployed_sha256": "430e1c3366597f81c3e3fe52d8602f25481480d8cd60039a76bae95a9da8a9cb",
+      "retained_customization": false
+    },
+    "design-approval-intelligent": {
+      "canonical_path": "canonical/skills/design/patterns/approval-intelligent.md",
+      "canonical_sha256": "5ba30ac0c371257b9c95118f3bbbe74cfdb0a72e9d8ae1362ac6309a7bb6793b",
+      "rendered_sha256": "5ba30ac0c371257b9c95118f3bbbe74cfdb0a72e9d8ae1362ac6309a7bb6793b",
+      "deployed_path": ".claude/skills/design/patterns/approval-intelligent.md",
+      "deployed_sha256": "5ba30ac0c371257b9c95118f3bbbe74cfdb0a72e9d8ae1362ac6309a7bb6793b",
       "retained_customization": false
     }
   }

@@ -2,6 +2,45 @@
 
 All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
 
+## 1.3.0
+
+Audit found while bootstrapping into another project: several canonical skills
+hardcoded "NX monorepo" / `apps/` + `libs/` instead of using placeholders, so a
+non-NX project (that launch was correctly reported as a Turborepo/pnpm monorepo
+during Q&A) still got NX-specific wording baked into its deployed skills.
+
+- **Q2** (`references/02-launch-questions.md`) now explicitly captures the
+  monorepo tool (NX/Turborepo/Lerna/pnpm workspaces/none) and the actual source
+  directory layout, as the single authoritative source for two new shared
+  placeholders instead of each skill inventing its own detection.
+- **New placeholders**: `{{CODE_SCAN_TARGET}}` (a phrase describing where code
+  lives, e.g. "the NX monorepo under `apps/` and `libs/`" vs "the codebase") and
+  `{{BUILD_UNIT_LABEL}}` (the generic noun for one buildable unit — `NX project`,
+  `package`, `module`, or the app's own name).
+- **Fixed hardcoded canonical templates**: `where-we-are/TEMPLATE.md` (0.3.1 ->
+  0.4.0) and `war/references/02-implementation.md` (war 1.0.0 -> 1.1.0) no longer
+  assume an NX monorepo under `apps/`/`libs/`. `dev`'s plan/implement guidance
+  (dev 2.20.0 -> 2.21.0) no longer says "NX project" as prose language, only as an
+  example value for `{{BUILD_UNIT_LABEL}}`. `x-ray`, `agents/infra`,
+  `agents/layer`, and `agents/onboarding` were already placeholder-based (NX only
+  appeared as an "e.g." in their INTENT notes) — no change needed there.
+
+## 1.2.0
+
+Fix found bootstrapping the harness into another project: launch created HLD/LLD
+docs but never linked them from each app's `README.md`, even though installed
+Documentation/02 Structure.md's "App README scope" requires it. `/dev document`
+keeps this in sync incrementally afterward, but a first launch has no prior
+`/dev document` run to have seeded it.
+
+- **D.4/D.5 (indexes)**: after creating/confirming HLD/LLD outputs, launch now also
+  adds/updates an `## Architecture` section linking to the relevant HLD container
+  and LLD component doc in every discovered app's `README.md` — not just
+  `project:docs/README.md`. An app with no corresponding HLD container yet is a
+  recorded skip.
+- **Final audit**: added a checklist bullet catching any app README still missing
+  those links, as a defense-in-depth check independent of the D.5 step above.
+
 ## 1.1.0
 
 Fixes found while bootstrapping the harness into other projects.

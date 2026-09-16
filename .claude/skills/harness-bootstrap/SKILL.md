@@ -1,7 +1,7 @@
 ---
 name: harness-bootstrap
 metadata:
-  version: 1.1.0
+  version: 1.3.0
 description: >
   Install the portable AI-dev harness, harvest project skill improvements into its
   canonical templates, package direct canonical edits into a portable bundle, or

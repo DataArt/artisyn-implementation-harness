@@ -1,0 +1,21 @@
+diff --git a/canonical/skills/war/INTENT.md b/canonical/skills/war/INTENT.md
+index b396c77..a376765 100644
+--- a/canonical/skills/war/INTENT.md
++++ b/canonical/skills/war/INTENT.md
+@@ -24,6 +24,8 @@ live under this one skill's `references/`.
+ | ----------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+ | `{{WAF_FRAMEWORK}}`     | Q11 — WAF framework name             | e.g. "AWS Well-Architected Framework", "Azure Well-Architected Framework"                                                                                                                      |
+ | `{{WAF_PILLARS_TABLE}}` | Q11 — pillar list with key questions | Full pillar definitions table. For AWS WAF: 6 pillars (adds Sustainability). For Azure WAF: 5 pillars. Same table used by both `references/01-design.md` and `references/02-implementation.md` |
++| `{{CODE_SCAN_TARGET}}` | Q2/Q3 — detected monorepo tool and layout | A phrase describing where code lives, matched to the project's actual layout — e.g. "the NX monorepo under `apps/` and `libs/`" for an NX monorepo, "the codebase" for a single non-monorepo app. Same placeholder as `where-we-are`'s INTENT — used by `references/02-implementation.md` Step 3. |
++| `{{BUILD_UNIT_LABEL}}` | Q2/Q3 — detected monorepo tool | Same placeholder as `dev`'s INTENT — the generic noun for one buildable unit (`NX project`, `package`, `module`, or the single app's name). |
+ 
+ ## Conditionals
+ 
+@@ -38,6 +40,7 @@ live under this one skill's `references/`.
+ - [ ] Both references apply `patterns/present-and-save.md` for their closing present-then-save mechanics rather than duplicating it inline
+ - [ ] `references/01-design.md` reads Target Architecture docs only — no code/`@architect` delegation
+ - [ ] `references/02-implementation.md` Step 3's `@architect` prompt is verbatim — "Return your findings as a structured list. Do not write files. Do not make changes."
++- [ ] `{{CODE_SCAN_TARGET}}` and `{{BUILD_UNIT_LABEL}}` in `references/02-implementation.md` are resolved to the project's actual detected monorepo tool and directory layout — never left hardcoded as "NX monorepo" / "`apps/` and `libs/`" for a project that uses a different tool or layout
+ - [ ] Output paths: `docs/Target Architecture (HLD)/WAR/{VERSION}/{YYYY-MM-DD}-design-audit.md` and `...-implementation-audit.md` — never overwrite a previous report
+ - [ ] `where-we-are` mentioned as the delivery gap companion
+ - [ ] `TEMPLATE.md` is thin — only routes, no audit logic (that lives in `references/`)

@@ -2,7 +2,7 @@
 name: where-we-are
 metadata:
   version: 0.3.1
-description: Delivery gap report (/where-we-are or "what's implemented vs designed?"). Compares HLD containers vs LLD docs and NX codebase. Saves snapshot to docs/System Architecture (LLD)/where-we-are/.
+description: Delivery gap report (/where-we-are or "what's implemented vs designed?"). Compares HLD containers vs LLD docs and the codebase. Saves snapshot to docs/System Architecture (LLD)/where-we-are/.
 ---
 
 The developer wants to see the current delivery gap between Target Architecture (HLD) and System Architecture (LLD). Here is their input:
@@ -19,7 +19,7 @@ The developer wants to see the current delivery gap between Target Architecture 
 
 ## Overview
 
-This skill produces a **delivery gap report**: what has been designed in Target Architecture (HLD) vs what has been documented in System Architecture (LLD) vs what exists in the NX codebase.
+This skill produces a **delivery gap report**: what has been designed in Target Architecture (HLD) vs what has been documented in System Architecture (LLD) vs what exists in the codebase (the NX monorepo under `apps/`).
 
 It answers the question: _"Where are we relative to where we want to be?"_
 
@@ -29,7 +29,7 @@ Three dimensions are assessed per container:
 | --------------- | --------------------------------- | ----------------------------------------- |
 | **Designed**    | `docs/Target Architecture (HLD)/` | Container is defined in the HLD           |
 | **Documented**  | `docs/System Architecture (LLD)/` | Container has LLD docs (populated folder) |
-| **Implemented** | `apps/` in NX monorepo            | Code exists for this container            |
+| **Implemented** | the NX monorepo under `apps/`     | Code exists for this container            |
 
 Gaps between these three dimensions indicate delivery debt, documentation debt, or both.
 
@@ -87,9 +87,9 @@ Do not judge quality — only presence.
 
 Invoke `@architect` with this prompt (do not deviate):
 
-> "Scan the NX monorepo under `apps/`. For each project, identify:
+> "Scan the NX monorepo under `apps/`. For each NX project, identify:
 >
-> 1. Project name and inferred purpose
+> 1. Name and inferred purpose
 > 2. Which HLD container it maps to
 > 3. Rough implementation maturity: stub / in-progress / functional
 >

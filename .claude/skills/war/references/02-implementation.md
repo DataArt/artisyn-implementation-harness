@@ -1,6 +1,6 @@
 # Implementation audit
 
-This reference audits the **NX monorepo implementation** against the Target Architecture. It delegates research to `@architect` (read-only), presents findings in the console for review, then saves a dated snapshot.
+This reference audits the **implementation** (the NX monorepo under `apps/`) against the Target Architecture. It delegates research to `@architect` (read-only), presents findings in the console for review, then saves a dated snapshot.
 
 The subject is code and infrastructure — not design artifacts. For design artifact review, the WAF assessment runs inside the `/design` lifecycle itself (`patterns/waf-review.md`, applied from Solution's gate step) rather than as a standalone command. For version-level design review across all stories, use `/war design [VERSION]`.
 
@@ -33,7 +33,7 @@ Do not summarise to the developer. Proceed to Step 3.
 
 Invoke `@architect` with the following research prompt (do not deviate from this pattern):
 
-> "Read the NX monorepo under `apps/`. For each app, identify:
+> "Read the NX monorepo under `apps/`. For each NX project, identify:
 >
 > 1. What the app does (inferred from code and config)
 > 2. What it connects to (dependencies, external calls, env vars)
