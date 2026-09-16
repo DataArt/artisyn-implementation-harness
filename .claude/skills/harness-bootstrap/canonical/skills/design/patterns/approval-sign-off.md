@@ -1,96 +1,34 @@
-# Decision and approval boundaries
+# Sign-off
 
-Apply throughout the design lifecycle. A request to run the flow authorizes context
-inspection, drafting, delegating to `{resolved architect agent}`/`@docs-writer`,
-reversible local writes within scope, relevant checks, report updates, and routine
-stage transitions. Existing authorization persists; do not ask again at each file,
-finding, step, or phase. Announce progress and continue.
+A **sign-off** is a stop-and-wait gate: the developer must explicitly approve
+content, personally run a manual operation, or confirm an out-of-band decision,
+before the lifecycle proceeds. It blocks progress until an explicit reply; silence,
+a later unrelated message, or an automated notification is never a sign-off.
 
-**Explicit stop-and-wait gates always win.** Where a stage reference marks a point
-with "Stop and wait," "Stop and ask," or a mandatory external-approval mechanism
-(the Review Gate MR), that gate is a human checkpoint by design — this pattern's
-routine-work authorization never overrides it, skips it, or downgrades it to an
-announcement.
+A step that names itself a sign-off gate is a human checkpoint by design: that stop
+is unconditional, never skipped, downgraded to an announcement, or weakened by
+routine-work authorization — however small the change looks. Whether a given step
+requires a sign-off, and which kind, is a decision made at that step, not by this
+pattern; changing it is its own explicit edit, called out on its own, never a side
+effect of an unrelated change.
 
-## Sign-off gates
+Three common shapes:
 
-A **sign-off** is a stop-and-wait gate where the developer must explicitly approve
-content, personally run a manual operation, or confirm an out-of-band human
-decision, before the lifecycle proceeds — distinct from routine authorized work,
-which continues without asking. Every sign-off blocks progress until an explicit
-reply; silence, a later unrelated message, or an automated notification is never a
-sign-off. The fixed sign-off points in this lifecycle:
+- **Content sign-off** — the developer reviews a drafted or persisted artifact and
+  confirms it. Present the actual content (in full if reasonably short, or a
+  faithful summary for a long artifact); a summary that omits what changed is not
+  a basis for approval. Present every item the developer needs to meaningfully
+  confirm, regardless of how many you already checked yourself.
+- **Manual operation** — an action only the developer can run (branch checkout, a
+  commit, a guarded command). Propose the exact command and wait for them to run
+  it and confirm — never run it yourself, even once they've said yes.
+- **External confirmation** — a fact only the developer can attest to (the MR was
+  approved, a manual check passed). This can never be inferred, self-certified, or
+  substituted by a WAF pass or a clean satellite review, however thorough those are
+  as evidence to report.
 
-- **Frame Step 1** — developer supplies the short title for a trackerless/free-form
-  ticket before the folder is created.
-- **Frame Step 3** — tracker transition and branch checkout are each their own
-  confirm; branch checkout is a manual operation — propose the exact `git checkout`
-  command and wait for the developer to run it and confirm, never run it yourself.
-- **Frame Step 5** — developer signs off on the drafted `design/00 Frame.md`
-  (`patterns/write-confirm.md`) before it becomes the fixed source of ticket context
-  for every later phase.
-- **Frame Step 7 / every phase's Do → Report → Commit step** (Research Step 5,
-  Evaluate Step 7, Solution Step 8) — committing the phase's artifact is a manual
-  operation: propose the exact commit command and wait for the developer to run it
-  and confirm — never commit yourself.
-- **Research Step 2b** — developer confirms the combined context before research begins.
-- **Research Step 3** — developer confirms the options set from `{resolved architect agent}` is complete before drafting.
-- **Research Step 3b** — developer classifies each open question (V/E) before it is recorded.
-- **Research Step 4** — developer signs off on the drafted `design/01 Research.md`.
-- **Evaluate Step 1b** — developer resolves or accepts-as-conditional every unresolved viability OQ before the matrix is built.
-- **Evaluate Step 2b** — developer signs off on the matrix/tradeoffs draft before the recommendation is written.
-- **Evaluate Step 4** — developer signs off on the recommendation.
-- **Evaluate Step 4b** — developer resolves or defers each open question from the recommendation.
-- **Evaluate Step 5** — developer signs off on the closing WAF assessment.
-- **Solution Step 1b** — developer confirms readiness for the specification session before any solution file is drafted.
-- **Solution Step 2 / 3 / 4 / 5** — developer signs off on each drafted solution artifact (`Architecture.md`, `Design.md`, `Stack.md`, `Efforts.md`) in turn; Efforts additionally waits for the developer to fill in estimates before the total is computed.
-- **Solution Step 7** — developer gives final confirmation on the full set of selected solution files before the WAF gate runs.
-- **Solution Step 7b** — if the WAF gate finds P1 gaps, the developer chooses reiterate-and-fix or explicit accept before Publish; this is never inferred from silence.
-- **Review Gate Step 2** — developer supplies the approver name and, separately, the opened draft MR's PR URL; both are their own stop.
-- **Review Gate Step 4 / Address Feedback Step 3** — developer confirms the actual MR approval outcome (approved / concerns) each time the gate is checked. This is an external, out-of-band fact only the developer can attest to — it can never be inferred or self-certified.
-- **Publish Step 2** — developer confirms the doc-impact list before doc updates are applied.
-- **Publish Step 3** — developer confirms the applied doc updates before `{resolved architect agent}` reviews them.
-- **Publish Step 6** — the single wrap-up stop: whether to publish implementation tickets from `solution/Efforts.md`. Once answered, Steps 7–10 run straight through with no further stops.
-- **Every phase's Announce → Compact → Resume triad** (`SKILL.md`, after each phase's commit is confirmed) — the Resume step is its own explicit yes/no before the next phase starts, even though Announce and Compact are not themselves approval content.
-
-Running an available, non-guarded check yourself as a debugging aid (re-reading a
-file, re-deriving a table from data already confirmed) is routine authorized work
+Running an available, non-guarded check yourself (re-reading a file, re-deriving a
+table from data already confirmed) as a debugging aid is routine authorized work
 and does not require asking first — but it never substitutes for the sign-off
-itself. The Review Gate / Address Feedback approval outcome is a developer
-confirmation gate, not something inferable from the design's own quality: a WAF
-pass or a clean satellite review is evidence to report, never a stand-in for
-whether the actual MR was approved. Report exactly what you checked, then still
-stop and wait for the specific confirmation the gate needs.
-
-Do not add, remove, or weaken a sign-off gate as a side effect of an unrelated
-change; touching one requires calling it out explicitly, the same way this section
-does. This never happens implicitly via `patterns/approval-intelligent.md`, which
-only governs checkpoints explicitly designated there as using it — never a gate in
-the list above.
-
-Ask only when a concrete decision or action needs human input:
-
-- Material scope, requirement, or tradeoff decisions not already settled. Prepare
-  the draft or proposed content first; combine related choices once.
-- Accepting a real unresolved risk (an unresolved OQ marked conditional, a WAF P1
-  gap accepted rather than fixed) or deferring required work. Record the decision,
-  rationale, and attribution; never treat silence as acceptance.
-- Verification requiring human judgment or access unavailable to the agent (the
-  actual MR approval state) — except at a sign-off gate above, where every item the
-  developer needs to meaningfully confirm is presented regardless of how much was
-  already checked; that gate's completeness requirement is not weakened by this
-  bullet.
-- External mutations (tracker tasks, publishing, branch checkout, commits) or
-  destructive operations, when not already authorized. Present exact targets and
-  prepared content/diffs before asking. Respect project guarded-command rules.
-
-Outside the fixed sign-off gates above, a local fix is not itself a commit approval
-gate: keep commits logical, update `design/Report.md` before committing, and reuse
-authorization for subsequent in-scope commits within the same phase. Where a
-sign-off gate above names a specific commit (every phase's Do → Report → Commit
-step), that gate's explicit stop-and-wait governs instead — this paragraph never
-shortens it.
-
-Archive the story folder only after Publish's closure checks pass (Step 8). Its
-reversible move does not need a separate permission prompt within an authorized
-Publish run. Never overwrite an existing archive destination.
+itself. Report exactly what you checked, then still stop and wait for the specific
+confirmation the gate needs.

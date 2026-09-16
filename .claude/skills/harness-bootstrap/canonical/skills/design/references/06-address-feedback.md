@@ -44,7 +44,8 @@ Once the reiteration is applied and committed, ask:
 
 Before yielding, record an approval wait and run `report`.
 
-**Stop and wait.**
+This is a sign-off gate (`patterns/approval-sign-off.md`) — the actual MR approval
+state is an external fact only the developer can attest to. **Stop and wait.**
 
 - If **still concerns** → resume and record a failed `Design approval` check with a new round ID; return to Step 2 for the new or ongoing concern. Loop until resolved.
 - If **yes** → resume and record a passed `Design approval` check with attributed evidence and a new round ID; update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 💬 Address Feedback ✅ · 📤 Publish ⏳`. Tell the developer: "Re-approved — run `/design publish {TICKET}` to continue."

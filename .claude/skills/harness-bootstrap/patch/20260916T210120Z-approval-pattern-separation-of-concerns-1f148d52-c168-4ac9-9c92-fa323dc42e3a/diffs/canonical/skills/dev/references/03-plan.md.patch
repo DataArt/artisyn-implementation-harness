@@ -1,0 +1,13 @@
+diff --git a/canonical/skills/dev/references/03-plan.md b/canonical/skills/dev/references/03-plan.md
+index 3002a6e..2b7f27b 100644
+--- a/canonical/skills/dev/references/03-plan.md
++++ b/canonical/skills/dev/references/03-plan.md
+@@ -152,7 +152,7 @@ When triggered, delegate to `@architect` following the satellite review protocol
+ 
+ - **go** → proceed silently to Step 5
+ - **reiterate** → present findings to the developer and ask:
+-  1. **Rework** — revise the affected step(s); if the plan file needs structural changes, re-enter Plan Mode for the revision (its own approve cycle covers the sign-off). Otherwise, edit `1-plan.md` directly, then apply `patterns/approval-intelligent.md`'s designated Plan Step 4 checkpoint: a mechanical, single-purpose fix with no change to scope, acceptance criteria, or approach auto-approves (record the finding, the fix, and "no scope/approach change" in the Step 4 record, then re-run the audit); anything else is material — this is a sign-off gate (`patterns/approval-sign-off.md`): present the exact diff of what changed and why (referencing the RF finding) and **stop and wait for the developer's sign-off** before re-running this audit. A `go` verdict from a re-audit does not substitute for either path — the developer (or the stated auto-approve criterion) signs off on the content, `@architect` only checks it against HLD.
++  1. **Rework** — revise the affected step(s); if the plan file needs structural changes, re-enter Plan Mode for the revision (its own approve cycle covers the sign-off). Otherwise, edit `1-plan.md` directly. This is an intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval conditions: the rework is a mechanical, single-purpose fix, and it changes no scope, acceptance criteria, or approach. All conditions met → auto-approve: record the finding, the fix, and "no scope/approach change" in the Step 4 record, then re-run the audit. Any condition fails or is uncertain (the change alters what a step does, adds/removes a step, or resolves the finding differently than intended) → this is a sign-off gate (`patterns/approval-sign-off.md`): present the exact diff of what changed and why (referencing the RF finding) and **stop and wait for the developer's sign-off** before re-running this audit. A `go` verdict from a re-audit does not substitute for either path — the developer (or the stated auto-approve conditions) signs off on the content, `@architect` only checks it against HLD.
+   2. **Justify** — record as an approved deviation (see below)
+ 
+ Maximum 3 iterations. If still unresolved, present the stalemate to the developer and stop.

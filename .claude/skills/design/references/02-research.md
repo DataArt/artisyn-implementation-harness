@@ -50,7 +50,7 @@ Present the combined context to the developer before delegating to `{resolved ar
 >
 > Anything missing, incorrect, or out of scope before I begin research?"
 
-**Stop and wait.** Apply any corrections to the context before proceeding.
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply any corrections to the context before proceeding.
 
 ---
 
@@ -67,7 +67,7 @@ Delegate to `{resolved architect agent}` with **explicit constraints**:
 
 Once `{resolved architect agent}` returns, present the options output directly in the console.
 
-**Stop and ask:**
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and ask:**
 
 > "Here's what `{resolved architect agent}` found. Does this cover all the options you want evaluated? Any gaps, missing options, or corrections before I draft `design/01 Research.md`?"
 
@@ -88,7 +88,7 @@ After the options are confirmed, present the open questions surfaced by `{resolv
 
 > "Here are the open questions from research. Classify each as **(V) Viability** — would the answer disqualify one or more options — or **(E) Evaluation-input** — affects cost/detail but not which options survive."
 
-**Stop and wait.** Record the classification next to each OQ in `design/01 Research.md`.
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Record the classification next to each OQ in `design/01 Research.md`.
 
 See `.claude/skills/design/patterns/design-oq-triage.md` for the full two-tier protocol and resolution rules.
 
@@ -110,7 +110,7 @@ Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-wr
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `design/01 Research.md`. Review in your IDE — does the structure capture the options and OQ classifications correctly? Any corrections?"
 
-**Stop and wait.** Apply corrections and re-save if needed. Iterate until the developer confirms.
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply corrections and re-save if needed. Iterate until the developer confirms.
 
 ---
 
@@ -127,6 +127,6 @@ Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-repor
 
 > `docs({TICKET}): research — {N} options evaluated`
 
-**Stop and wait** for the developer to confirm the commit.
+This is a sign-off gate (`patterns/approval-sign-off.md`) — committing is a manual operation, never run yourself. **Stop and wait** for the developer to confirm the commit.
 
 🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.

@@ -1,0 +1,57 @@
+diff --git a/canonical/skills/design/references/03-evaluate.md b/canonical/skills/design/references/03-evaluate.md
+index e56581e..0d7889e 100644
+--- a/canonical/skills/design/references/03-evaluate.md
++++ b/canonical/skills/design/references/03-evaluate.md
+@@ -37,7 +37,7 @@ If any unresolved `(V)` OQs exist:
+ 
+ > "The following viability OQs from Research are still open and would block the matrix if left unresolved: [list]. Can you answer any of these now, or should I mark the affected option as conditional?"
+ 
+-**Stop and wait.** Record resolutions in `design/01 Research.md` before building the matrix, or mark affected options conditional.
++This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Record resolutions in `design/01 Research.md` before building the matrix, or mark affected options conditional.
+ 
+ See `.claude/skills/design/patterns/design-oq-triage.md` for the full protocol.
+ 
+@@ -61,7 +61,7 @@ Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.m
+ 
+ > "Draft saved at `design/02 Evaluate.md` — review the Requirements × Options matrix and tradeoffs table in your IDE. Any corrections before I write the recommendation?"
+ 
+-**Stop and wait.** Apply corrections and re-save. Iterate until confirmed.
++This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply corrections and re-save. Iterate until confirmed.
+ 
+ Only after confirmation, proceed to the recommendation (Step 4 fills the placeholder in the same file).
+ 
+@@ -94,7 +94,7 @@ Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.m
+ - Tradeoff cell wrong → "Reiterate from Evaluate, Step 2 — rebuild the tradeoffs table with the correction."
+ - Recommendation needs revisiting after a fix → "Reiterate from Evaluate, Step 4 — restate the recommendation against the updated table."
+ 
+-**Stop and wait.** Apply corrections and re-save if needed. Iterate until the developer confirms.
++This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply corrections and re-save if needed. Iterate until the developer confirms.
+ 
+ ---
+ 
+@@ -109,7 +109,7 @@ This can be a single exchange — not one stop per question. Ask:
+ 
+ > "Here are the open questions from the recommendation. Which can you answer now before we move to Solution?"
+ 
+-**Stop and wait.** Update any resolved questions in the draft before saving.
++This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Update any resolved questions in the draft before saving.
+ 
+ ---
+ 
+@@ -127,7 +127,7 @@ For each pillar: Strengths · Gaps · Recommendations (P1 / P2 / P3).
+ 
+ Present the assessment in the console for review. Apply corrections if requested.
+ 
+-**Stop and ask:**
++This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and ask:**
+ 
+ > "Any corrections to the WAF assessment before I save? (**yes** / **I have corrections**)"
+ 
+@@ -179,6 +179,6 @@ Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-repor
+ 
+ > `docs({TICKET}): evaluate — recommend <option name>`
+ 
+-**Stop and wait** for the developer to confirm the commit.
++This is a sign-off gate (`patterns/approval-sign-off.md`) — committing is a manual operation, never run yourself. **Stop and wait** for the developer to confirm the commit.
+ 
+ 🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.

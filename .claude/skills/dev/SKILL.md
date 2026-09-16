@@ -17,9 +17,28 @@ The developer wants to run the dev lifecycle for a ticket. Here is their input:
 
 ---
 
-Apply `patterns/approval-sign-off.md` throughout. Follow stage dependencies and record evidence;
-continue routine work without inventing extra phase-boundary confirmations beyond the
-fixed sign-off gates that pattern lists.
+A request to run the dev lifecycle authorizes context inspection, planning,
+reversible local edits within scope, relevant checks, report updates, and routine
+stage transitions. Existing authorization persists; do not ask again at each file,
+finding, step, or phase. Announce progress and continue.
+
+Apply `patterns/approval-sign-off.md` for the sign-off mechanism and
+`patterns/approval-intelligent.md` for the checkpoints that name it — never invent
+extra phase-boundary confirmations beyond what each stage reference names. Outside
+those named checkpoints, ask only when:
+
+- Material scope, acceptance criteria, architecture or security tradeoffs are not
+  already settled. Prepare the plan or proposed change first; combine related
+  choices once.
+- Accepting a real unresolved risk or deferring required work. Record the decision,
+  rationale and attribution; never treat silence as acceptance.
+- Verification requires human judgment, credentials or access unavailable to the
+  agent. Complete all available checks first and request the specific missing
+  check.
+- External mutations (tracker tasks, publishing, deployment, migrations),
+  destructive operations, or commits when not already authorized. Present exact
+  targets and prepared content/diffs before asking. Respect project
+  guarded-command rules.
 
 ## Route
 

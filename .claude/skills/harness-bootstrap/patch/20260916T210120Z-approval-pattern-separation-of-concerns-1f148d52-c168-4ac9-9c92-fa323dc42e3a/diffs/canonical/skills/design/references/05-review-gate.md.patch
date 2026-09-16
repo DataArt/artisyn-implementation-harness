@@ -1,0 +1,29 @@
+diff --git a/canonical/skills/design/references/05-review-gate.md b/canonical/skills/design/references/05-review-gate.md
+index 1d8d201..cd73996 100644
+--- a/canonical/skills/design/references/05-review-gate.md
++++ b/canonical/skills/design/references/05-review-gate.md
+@@ -72,13 +72,13 @@ Ask:
+ 
+ > "Who should be the approver? (name or @handle)"
+ 
+-**Stop and wait for the approver name.**
++This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait for the approver name.**
+ 
+ Then say:
+ 
+ > "Open a draft MR using the title and body above and paste the resulting PR URL here."
+ 
+-**Stop and wait for the PR URL.**
++This is a manual operation (`patterns/approval-sign-off.md`) — never open the MR yourself. **Stop and wait for the PR URL.**
+ 
+ ---
+ 
+@@ -110,7 +110,7 @@ Ask:
+ 
+ > "Has the MR been approved? (**yes** / **concerns**)"
+ 
+-**Stop and wait.**
++This is a sign-off gate (`patterns/approval-sign-off.md`) — the actual MR approval state is an external fact only the developer can attest to. **Stop and wait.**
+ 
+ - If **yes** → resume work, record a passed `Design approval` acceptance check with attributed evidence, and `stage skip --stage address-feedback --reason no_concerns --evidence <confirmation>` per the metrics pattern; then update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ⏳`. Tell the developer: "Approved — run `/design publish {TICKET}` to continue."
+ - If **concerns** → resume work and record a failed `Design approval` check before completing Review Gate and entering Address Feedback; then update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback 🔄 · 📤 Publish ⏳`. Tell the developer: "Concerns raised — run `/design address-feedback {TICKET}` to resolve them."

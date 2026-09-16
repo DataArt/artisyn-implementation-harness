@@ -30,7 +30,22 @@ and `dev`'s canonical templates; fixed via `prepare` bundle
 `8bc7fb00-a021-456c-a4b4-2d4e506dc62b` and applied to this project's deployed
 `where-we-are`/`war` skills (`dev` needed no deployed change — its literal "NX
 project" wording already equals this project's resolved `{{BUILD_UNIT_LABEL}}`).
-See `patch/REGISTRY.md` for all three bundles.
+Review feedback (three rounds) then fixed the two approval patterns: (1) they
+mixed concerns — sign-off philosophized about intelligent-approval, both
+hardcoded a call-site inventory that had drifted into a real contradiction
+(dev's sign-off pattern listed Plan Step 4 rework as mandatory while
+intelligent-approval listed it as conditional) — split into independent, lean
+mechanisms with every call site stating its own criterion inline; (2) the
+per-site criterion had inverted polarity ("materiality criterion" described the
+auto-approve condition, not when review is required) — renamed to
+"auto-approval conditions", and remaining lifecycle policy (routine-work
+authorization, commit policy, archival, recording destination) was extracted
+out of the patterns into SKILL.md/do-report-commit.md/06-document.md/
+07-publish.md and each call site; (3) Ceremony/Frame's auto-approval conditions
+were missing a case (ambiguous next transition could satisfy both the
+auto-approve and escalate branches) — added a third condition. All landed via
+bundle `1f148d52-c168-4ac9-9c92-fa323dc42e3a`. See `patch/REGISTRY.md` for all
+four bundles.
 
 | Name                           | Type      | Compare | Template Path                                                 | Deployed Path                                               |
 | ------------------------------ | --------- | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |

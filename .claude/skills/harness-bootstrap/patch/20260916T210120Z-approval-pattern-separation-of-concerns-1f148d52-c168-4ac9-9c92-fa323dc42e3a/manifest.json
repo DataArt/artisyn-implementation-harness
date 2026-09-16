@@ -1,0 +1,280 @@
+{
+  "schema_version": 2,
+  "id": "1f148d52-c168-4ac9-9c92-fa323dc42e3a",
+  "created_at": "2026-09-16T21:01:20Z",
+  "origin": "artisyn-harness",
+  "operation": "harvest",
+  "summary": "Separation-of-concerns fix for the approval pattern split (dev canonical 2.21.1, design canonical 3.4.1), following two rounds of review feedback. Round 1: approval-sign-off.md and approval-intelligent.md mixed concerns (sign-off philosophized about intelligent-approval, both hardcoded a call-site inventory -- a real contradiction, since dev's sign-off pattern listed Plan Step 4 rework as mandatory while intelligent-approval listed the same checkpoint as conditionally automatic). Both patterns are now independent and lean: approval-sign-off.md defines only the sign-off mechanism (three shapes -- content/manual-operation/external-confirmation -- plus the generic ask-only-when-material rules), with zero cross-reference to approval-intelligent.md and zero site enumeration. approval-intelligent.md defines only the auto-approve mechanism, with no 'designated checkpoints' list. Every reference file states its own criterion inline and cites whichever pattern governs it -- extended to every design stop-and-wait point (Research through Publish) for consistency, since design never had a shared pattern to cite before this feature existed. Round 2: fixed 'materiality criterion' polarity (the stated condition described when auto-approval fires, not when human review is required, inverting the pattern's own definition) -- renamed to 'auto-approval conditions' phrased as what must be true to skip review, at all 4 checkpoint sites. Finished extracting lifecycle policy out of approval-sign-off.md into the orchestrator (SKILL.md) and relevant references (do-report-commit.md already owned commit policy; 06-document.md/07-publish.md already owned archival) -- the pattern no longer owns general routine-work authorization, commit policy, or archival scope. Design's approval-intelligent.md no longer hardcodes design/Report.md as the recording destination; the invoking reference now supplies it. Round 3: Ceremony/Frame's auto-approval conditions omitted a case -- 'next status isn't obvious' was an escalation trigger with no corresponding auto-approval condition to fail, so both branches could technically fire together; added 'In Progress is the confirmed, unambiguous next workflow transition' as a third condition.",
+  "package_version": "7.27.0",
+  "requires": ["8bc7fb00-a021-456c-a4b4-2d4e506dc62b"],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/INTENT.md",
+      "old_path": null,
+      "before_sha256": "5ea41c53bb4346c782837dceb4939dfb0846cd440d4a6109964134c0132d729b",
+      "after_sha256": "87accda41bd62d3db4be0874137b1bdd5dca518d440de22c7143b8fe61c7b884",
+      "payload": "diffs/canonical/skills/dev/INTENT.md.patch",
+      "payload_sha256": "2108ef534568dde2b8b63eaf00b57fe3b39f2d0421d9f4292a0c326cc06ab947",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "85c85489073be3496a999843985a40a5269e0bb7d831e94f691149dc109de769",
+      "after_sha256": "1d060209f4f72644e12930bb763d08ce45652dfd1ee9f21acfb1e6a97be0d1b4",
+      "payload": "diffs/canonical/skills/dev/TEMPLATE.md.patch",
+      "payload_sha256": "80c7a87a4dd4f1a44912224977dfe2628759362adc47b8b2996b73a6886db94e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/patterns/approval-sign-off.md",
+      "old_path": null,
+      "before_sha256": "4dc645a7b927d4b7c93f29a9c34a19f7ea8a66c87b4f6a739e065a6d6f240abf",
+      "after_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
+      "payload": "diffs/canonical/skills/dev/patterns/approval-sign-off.md.patch",
+      "payload_sha256": "fb25b4079039ab1942befa8005341d006d649e856b29f4e4f4daf594672e8a20",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/approval-sign-off.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/patterns/approval-intelligent.md",
+      "old_path": null,
+      "before_sha256": "ab8d98752f1cdfef0e2fb1905f9b38e4765d2d99c978cc7475b955fc8cb89af9",
+      "after_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
+      "payload": "diffs/canonical/skills/dev/patterns/approval-intelligent.md.patch",
+      "payload_sha256": "293af0ecd9836d0310344b0e25329101600868601b3655299de5b11217feef87",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/approval-intelligent.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/02-ceremony.md",
+      "old_path": null,
+      "before_sha256": "19503ddb132a7c504aa5802abe198a1bf1253f2bcc2da5926da9e1f39fd5a116",
+      "after_sha256": "1e37c0b739bf9105a12245a6819718f2af555b34132ec4ff83958544a928cfac",
+      "payload": "diffs/canonical/skills/dev/references/02-ceremony.md.patch",
+      "payload_sha256": "e5a19b97ccd100ea2691f085aefdfd6c44d5235f7575f59b89dcb88ab9fd66d6",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/02-ceremony.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "old_path": null,
+      "before_sha256": "c4d3a4c669f0ff2a1acb6ad6f1889760e80da4c0b706578be69ec4319dde57b4",
+      "after_sha256": "ede40f553409c8fa93685906ae07f402428786cea736bbc0158747b622d1a4ae",
+      "payload": "diffs/canonical/skills/dev/references/03-plan.md.patch",
+      "payload_sha256": "b69bb8b651676f972a35f59ad3954f0b702ff28b06ae3b9844647dea66772f2f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/03-plan.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/06-document.md",
+      "old_path": null,
+      "before_sha256": "66336bcf48975473b3a5f3ea2fe1d87ba7cb5c164ac00cecf8255bd6b54f115e",
+      "after_sha256": "e96b78f57e9e9f39fdb36a04deef91842da6bf13ceb7a3dc075bd311f42a00f4",
+      "payload": "diffs/canonical/skills/dev/references/06-document.md.patch",
+      "payload_sha256": "ae30329fbfea4c3ac14d81dce8bc5da62b153dbb4ade435951430fbf1b60b8b0",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/06-document.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "107638dd5f617c8728448d1c28b38a77c51bb37e5a700a657a036b33e85003b5",
+      "after_sha256": "c03a7c1ad1287e4d51f3dbf7df664eb5f25bb4550719c3bb342c151212aa9959",
+      "payload": "diffs/canonical/skills/design/TEMPLATE.md.patch",
+      "payload_sha256": "42375adb55aaf2e2dcb8bf4c564b83a60896c866c4a63fc17ffd93e46adec2a5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/approval-sign-off.md",
+      "old_path": null,
+      "before_sha256": "430e1c3366597f81c3e3fe52d8602f25481480d8cd60039a76bae95a9da8a9cb",
+      "after_sha256": "e8d88a443281da885b48c327ceda3b74541d88332c117723aec3387ea71277a0",
+      "payload": "diffs/canonical/skills/design/patterns/approval-sign-off.md.patch",
+      "payload_sha256": "b07e1682c33a4886f1a46d99034020362e8a1233a5b9eaa99330d1594fac6924",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/patterns/approval-sign-off.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/approval-intelligent.md",
+      "old_path": null,
+      "before_sha256": "5ba30ac0c371257b9c95118f3bbbe74cfdb0a72e9d8ae1362ac6309a7bb6793b",
+      "after_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
+      "payload": "diffs/canonical/skills/design/patterns/approval-intelligent.md.patch",
+      "payload_sha256": "96d6a43d1a88323d21d6e3b9a7a244e9c4fbe8372390b0aa6419d5ef2ea2966d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/patterns/approval-intelligent.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/01-frame.md",
+      "old_path": null,
+      "before_sha256": "573566c75543f7edaa5ce8bbfaab0c0109675da09af544b77079ac6b1972cd27",
+      "after_sha256": "4bde8ec8f91c3a7cc80be75e79af0e67ec06c254702678a1b229a34f39304094",
+      "payload": "diffs/canonical/skills/design/references/01-frame.md.patch",
+      "payload_sha256": "c1e2606314cc8d1f284ceff5d2fb0ef1dfcb61f04937acaf2e6d00a68df52e2c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/01-frame.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/02-research.md",
+      "old_path": null,
+      "before_sha256": "24e15e795ca56341d58f2ffc0b6881eb766d37eee73932eee719ac84db9775ca",
+      "after_sha256": "025e89af9f34fac4fb3a4ecbf90240167a81afc6bdbfc80a8d9a4ebccafeacda",
+      "payload": "diffs/canonical/skills/design/references/02-research.md.patch",
+      "payload_sha256": "e6a53bac80a061abe8047cce57f9eab3839b4bf75e3cdf141291900ae40e5f04",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/02-research.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/03-evaluate.md",
+      "old_path": null,
+      "before_sha256": "58a3efb53f1897651097826e1dca1d65f2ee7a18d12fb219d874acb9b1f1a5e4",
+      "after_sha256": "8fad3643da36af10dc4390ea76d8c8cb34a0be5c30fb7818fbde2f8ffe37de89",
+      "payload": "diffs/canonical/skills/design/references/03-evaluate.md.patch",
+      "payload_sha256": "a8eb3e6abdb696bf41e083b68ab955183efd2f4071d62f378606fe4a4c778b6c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/03-evaluate.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/04-solution.md",
+      "old_path": null,
+      "before_sha256": "7a6b4ef16c765ecda95b23df0346517ce541e22b31eb852422c5eec67a0a53a1",
+      "after_sha256": "7a3ff51df46f3d115a9219390397fccbe52c957a4b89bce5a56d8410136ab94a",
+      "payload": "diffs/canonical/skills/design/references/04-solution.md.patch",
+      "payload_sha256": "f89c8982bb36e400489013c1f9d1e27cb28db4e404e7706a6b52ae103e3d7902",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/04-solution.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/05-review-gate.md",
+      "old_path": null,
+      "before_sha256": "f0b3e4c962edebf4e679e79197ee393d316d18c110156c3f82184a51265a4623",
+      "after_sha256": "b3adbd5a8398ad19a9ed77fdd8f82e0cc50ff307731ae96faf0e1bf5f0b0e95f",
+      "payload": "diffs/canonical/skills/design/references/05-review-gate.md.patch",
+      "payload_sha256": "7e469b30c491bd2202f505143f3fff53a64e4fa1a07fefbb3c02a77e2d37fd80",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/05-review-gate.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/06-address-feedback.md",
+      "old_path": null,
+      "before_sha256": "abff4cf2a0693c691308dbbe9f0445624186328fd5f9e20ac9c950fe1bc37ba7",
+      "after_sha256": "2f7d1ef84a687ebbfe89c0cb59e5fdaf625e22681c69c0dc7778d7a699ea7944",
+      "payload": "diffs/canonical/skills/design/references/06-address-feedback.md.patch",
+      "payload_sha256": "15124f45d5a08a824b805a1e626cc46370e177b6cd37e580f35741a1f5976fc9",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/06-address-feedback.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/07-publish.md",
+      "old_path": null,
+      "before_sha256": "08dcf635536125b227be1780337fa5dfa44d159f14e198d9b1799b208894db91",
+      "after_sha256": "87151955228d0ee55c9aafa6abba2b1fca131d1864ebf551be7d69b9745ec32b",
+      "payload": "diffs/canonical/skills/design/references/07-publish.md.patch",
+      "payload_sha256": "4fc27d230947936cf14683ce3e15760ddffa7b4682b5062aca389541bf0afc07",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/07-publish.md",
+        "compare": "content"
+      }
+    }
+  ]
+}

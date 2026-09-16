@@ -41,7 +41,7 @@ not a claim that a tracker record exists.
 
   > "What is the short title for this design ticket? (e.g. 'Context Topology Mapping', 'Data Platform Integration Contract')"
 
-  **Stop and wait.** Use the provided title as `{name}`.
+  This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Use the provided title as `{name}`.
 
 - If `design/Report.md` exists, read it to restore session context and skip to
   Step 4 (ceremony has already run). If it does not exist, continue to Step 2.
@@ -79,30 +79,35 @@ official start-of-work ceremony.
 Invoke `@scrum-master` to read the ticket's current assignee and status first —
 never assume it's untouched.
 
-Apply `.claude/skills/design/patterns/approval-intelligent.md`'s designated Frame
-Step 3 checkpoint: unassigned (or already assigned to the authenticated user) and
-in a pre-work status (Backlog/To Do/Selected) auto-approves — invoke `@scrum-master`:
+This is an intelligent-approval checkpoint (`patterns/approval-intelligent.md`).
+Auto-approval conditions: unassigned (or already assigned to the authenticated
+user); in a pre-work status (Backlog/To Do/Selected); and In Progress is the
+confirmed, unambiguous next workflow transition.
+
+All conditions met → auto-approve: invoke `@scrum-master`:
 
 > "Start {TICKET}: assign to the authenticated user and transition to In Progress."
 
-then announce what was done (ticket, prior status, new status) and continue to the
-feature branch check below without asking first. Otherwise (already assigned
-elsewhere, already past In Progress, or the next status isn't obvious) it's
-material — present to the developer:
+then announce what was done (ticket, prior status, new status), note it for
+`design/Report.md` (created below in this same step), and continue to the feature
+branch check without asking first.
+
+Any condition fails or is uncertain (already assigned elsewhere, already past In
+Progress, or the next status isn't obvious) → this is a sign-off gate
+(`patterns/approval-sign-off.md`): present to the developer:
 
 > "{{PROJECT_KEY}}-XX is currently `{assignee}` / `{status}`. I'll assign it to you and
 > move it to **In Progress**. Confirm? (**yes** / **skip**)"
 
-Apply `.claude/skills/design/patterns/approval-sign-off.md`: use existing tracker
-authorization if already given, otherwise ask once. **Stop and wait for
-confirmation.** If confirmed, invoke `@scrum-master` with the same start
+Use existing tracker authorization if already given, otherwise ask once. **Stop and
+wait for confirmation.** If confirmed, invoke `@scrum-master` with the same start
 instruction above.
 
 **Feature branch check:**
 
 > "You're currently on branch `{current-branch}`. Should I suggest a feature branch name first (e.g. `docs/{ticket-lowercase}-{slug}`, using the title/summary above)? (**yes** / **skip**)"
 
-**Stop and wait for confirmation.** Do not write any files until the developer
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait for confirmation.** Do not write any files until the developer
 confirms or skips.
 
 `git checkout -b` is a guarded command — same class as `git commit` / `git push`.
@@ -167,7 +172,7 @@ Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-wr
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `design/00 Frame.md`. Proposed requirements are marked `[proposed]` — review in your IDE, accept/reject/edit any of them, then confirm."
 
-**Stop and wait.** Apply any edits the developer requests and re-save. Iterate until the developer confirms.
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply any edits the developer requests and re-save. Iterate until the developer confirms.
 
 ---
 
@@ -196,6 +201,6 @@ Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-repor
 
 > `docs({TICKET}): frame — <short title>`
 
-**Stop and wait** for the developer to confirm the commit.
+This is a sign-off gate (`patterns/approval-sign-off.md`) — committing is a manual operation, never run yourself. **Stop and wait** for the developer to confirm the commit.
 
 🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.

@@ -42,7 +42,7 @@ Present `{resolved architect agent}`'s findings to the developer:
 >
 > Confirm to proceed with updates? (**yes** / **adjust**)"
 
-**Stop and wait.**
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.**
 
 ---
 
@@ -86,7 +86,7 @@ Once `@docs-writer` completes, present the summary to the developer:
 >
 > Ready for `{resolved architect agent}` to review? (**yes** / **undo and revise**)"
 
-**Stop and wait.**
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.**
 
 ---
 
@@ -135,7 +135,7 @@ in the lifecycle. Ask both closing questions in one message:
 >
 > Then I'll finish up: archive the story, sync the tracker, and hand you the final commit."
 
-**Stop and wait.** Record the wait per the metrics pattern. Once answered, run
+This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Record the wait per the metrics pattern. Once answered, run
 Steps 7–10 straight through with no further stops.
 
 ---
