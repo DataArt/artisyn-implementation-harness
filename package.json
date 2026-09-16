@@ -14,7 +14,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "bootstrap:client": "tsx scripts/bootstrap/bootstrap-client.mts"
+    "bootstrap:client": "tsx scripts/bootstrap/bootstrap-client.mts",
+    "release:harness-bootstrap": "node scripts/release/release-harness-bootstrap.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.0.0",
