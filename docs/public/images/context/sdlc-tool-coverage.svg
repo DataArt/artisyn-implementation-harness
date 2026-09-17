@@ -1,0 +1,268 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1660" viewBox="0 0 1800 1660" role="img" aria-labelledby="title desc">
+<title id="title">AI engineering tools across six SDLC stages</title>
+<desc id="desc">Six stage panels compare nine tools, their documented features, and source-assessed capability depth. M1 task assistance, M2 repeatable workflow, M3 maintained context. External and unestablished deployment coverage are shown explicitly. These are not verified product maturity ratings.</desc>
+<rect width="1800" height="1660" fill="#f8fafc"/>
+<text x="36" y="56" font-family="Arial, Helvetica, sans-serif" font-size="34" fill="#0f172a" font-weight="700">AI tools across the SDLC</text>
+<text x="36" y="88" font-family="Arial, Helvetica, sans-serif" font-size="20" fill="#334155" font-weight="400">Analysis → Design → Implementation → QA → Deployment → Maintenance → feedback</text>
+<text x="36" y="123" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#334155" font-weight="400">Maturity here = documented capability depth per stage, not reliability, market adoption or a tool ranking.</text>
+<rect x="36" y="145" width="44" height="28" rx="7" fill="#fef3c7"/>
+<text x="44" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#92400e" font-weight="700">M1</text>
+<text x="89" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Task assistance</text>
+<rect x="365" y="145" width="44" height="28" rx="7" fill="#dbeafe"/>
+<text x="373" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#1e40af" font-weight="700">M2</text>
+<text x="418" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Repeatable workflow</text>
+<rect x="775" y="145" width="44" height="28" rx="7" fill="#d1fae5"/>
+<text x="783" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#065f46" font-weight="700">M3</text>
+<text x="828" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Maintained context</text>
+<rect x="1195" y="145" width="44" height="28" rx="7" fill="#f1f5f9"/>
+<text x="1203" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#475569" font-weight="700">E</text>
+<text x="1248" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">External / enabling only</text>
+<rect x="1580" y="145" width="44" height="28" rx="7" fill="#f1f5f9"/>
+<text x="1588" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#64748b" font-weight="700">—</text>
+<text x="1633" y="165" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Not established</text>
+<text x="36" y="205" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#334155" font-weight="400">M3 includes durable constraints, records or feedback that inform later work. It does not mean autonomous or fully enforced.</text>
+<rect x="36" y="235" width="560" height="614" rx="16" fill="white" stroke="#cbd5e1"/>
+<text x="56" y="274" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0f172a" font-weight="700">01  Analysis</text>
+<text x="56" y="303" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Needs, requirements and acceptance criteria</text>
+<rect x="46" y="323" width="540" height="53" rx="7" fill="#eff6ff"/>
+<rect x="529" y="327" width="45" height="26" rx="6" fill="#fef3c7"/>
+<text x="537" y="346" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#92400e" font-weight="700">M1</text>
+<text x="56" y="343" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Artisyn</text>
+<text x="56" y="366" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Clarify supplied intent and acceptance criteria</text>
+<rect x="529" y="383" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="537" y="402" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="56" y="399" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">BMAD</text>
+<text x="56" y="422" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Product brief, PRD and requirement identities</text>
+<rect x="529" y="439" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="458" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="455" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Superpowers</text>
+<text x="56" y="478" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Clarify problem and approve change scope</text>
+<rect x="529" y="495" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="514" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="511" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Compound Engineering</text>
+<text x="56" y="534" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Brainstorm and frame product contracts</text>
+<rect x="529" y="551" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="570" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="567" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Spec Kit</text>
+<text x="56" y="590" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Specify requirements and resolve ambiguity</text>
+<rect x="529" y="607" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="537" y="626" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="56" y="623" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">OpenSpec</text>
+<text x="56" y="646" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Proposals and persistent requirement deltas</text>
+<rect x="529" y="663" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="682" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="679" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Agent OS</text>
+<text x="56" y="702" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Shape specifications and product context</text>
+<rect x="529" y="719" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="738" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="735" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Matt’s skills</text>
+<text x="56" y="758" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Clarify intent; create specs and tickets</text>
+<rect x="529" y="775" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="794" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="791" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Kiro</text>
+<text x="56" y="814" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Requirements and acceptance criteria</text>
+<rect x="620" y="235" width="560" height="614" rx="16" fill="white" stroke="#cbd5e1"/>
+<text x="640" y="274" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0f172a" font-weight="700">02  Design</text>
+<text x="640" y="303" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Architecture, decisions and solution structure</text>
+<rect x="630" y="323" width="540" height="53" rx="7" fill="#eff6ff"/>
+<rect x="1113" y="327" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="346" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="343" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Artisyn</text>
+<text x="640" y="366" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Evaluate options; govern HLD and solution</text>
+<rect x="1113" y="383" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="402" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="399" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">BMAD</text>
+<text x="640" y="422" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Shared architecture spine and decision IDs</text>
+<rect x="1113" y="439" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="1121" y="458" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="640" y="455" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Superpowers</text>
+<text x="640" y="478" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Architectural design and execution plan</text>
+<rect x="1113" y="495" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="514" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="511" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Compound Engineering</text>
+<text x="640" y="534" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Plan decisions using prior solution knowledge</text>
+<rect x="1113" y="551" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="570" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="567" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Spec Kit</text>
+<text x="640" y="590" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Technical plan under project constitution</text>
+<rect x="1113" y="607" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="626" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="623" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">OpenSpec</text>
+<text x="640" y="646" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Change design linked to current system specs</text>
+<rect x="1113" y="663" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="682" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="679" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Agent OS</text>
+<text x="640" y="702" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Inject shared standards into shaped specs</text>
+<rect x="1113" y="719" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="738" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="735" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Matt’s skills</text>
+<text x="640" y="758" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Domain model, context map and ADRs</text>
+<rect x="1113" y="775" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1121" y="794" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="640" y="791" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Kiro</text>
+<text x="640" y="814" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Design documents with persistent steering</text>
+<rect x="1204" y="235" width="560" height="614" rx="16" fill="white" stroke="#cbd5e1"/>
+<text x="1224" y="274" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0f172a" font-weight="700">03  Implementation</text>
+<text x="1224" y="303" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Code, tasks and engineering execution</text>
+<rect x="1214" y="323" width="540" height="53" rx="7" fill="#eff6ff"/>
+<rect x="1697" y="327" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="346" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="343" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Artisyn</text>
+<text x="1224" y="366" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Layer agents, HLD constraints, step approvals</text>
+<rect x="1697" y="383" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="402" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="399" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">BMAD</text>
+<text x="1224" y="422" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Story delivery under shared project context</text>
+<rect x="1697" y="439" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="1705" y="458" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="1224" y="455" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Superpowers</text>
+<text x="1224" y="478" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Task agents, TDD and spec/quality reviews</text>
+<rect x="1697" y="495" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="514" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="511" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Compound Engineering</text>
+<text x="1224" y="534" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Planned delivery informed by reusable lessons</text>
+<rect x="1697" y="551" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="570" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="567" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Spec Kit</text>
+<text x="1224" y="590" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Dependency tasks and constitution-led delivery</text>
+<rect x="1697" y="607" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="626" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="623" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">OpenSpec</text>
+<text x="1224" y="646" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Apply change tasks against system specs</text>
+<rect x="1697" y="663" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1705" y="682" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475569" font-weight="700">E</text>
+<text x="1224" y="679" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Agent OS</text>
+<text x="1224" y="702" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Standards support; host owns execution</text>
+<rect x="1697" y="719" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="1705" y="738" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="1224" y="735" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Matt’s skills</text>
+<text x="1224" y="758" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Implement tickets with TDD and review</text>
+<rect x="1697" y="775" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="794" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="791" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Kiro</text>
+<text x="1224" y="814" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Execute spec tasks using project steering</text>
+<rect x="36" y="875" width="560" height="614" rx="16" fill="white" stroke="#cbd5e1"/>
+<text x="56" y="914" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0f172a" font-weight="700">04  QA</text>
+<text x="56" y="943" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Verification, review and acceptance</text>
+<rect x="46" y="963" width="540" height="53" rx="7" fill="#eff6ff"/>
+<rect x="529" y="967" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="537" y="986" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="56" y="983" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Artisyn</text>
+<text x="56" y="1006" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Checks, deviation ledger and quality statistics</text>
+<rect x="529" y="1023" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="1042" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="1039" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">BMAD</text>
+<text x="56" y="1062" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Testing/review workflows; module-dependent</text>
+<rect x="529" y="1079" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="1098" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="1095" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Superpowers</text>
+<text x="56" y="1118" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">TDD, debugging and independent review</text>
+<rect x="529" y="1135" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="1154" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="1151" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Compound Engineering</text>
+<text x="56" y="1174" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Specialist review and planned validation</text>
+<rect x="529" y="1191" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="1210" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="1207" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Spec Kit</text>
+<text x="56" y="1230" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Analyze consistency; converge code with spec</text>
+<rect x="529" y="1247" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="1266" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="1263" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">OpenSpec</text>
+<text x="56" y="1286" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Optional change and implementation verification</text>
+<rect x="529" y="1303" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="537" y="1322" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475569" font-weight="700">E</text>
+<text x="56" y="1319" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Agent OS</text>
+<text x="56" y="1342" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Standards inform checks owned by host</text>
+<rect x="529" y="1359" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="1378" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="1375" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Matt’s skills</text>
+<text x="56" y="1398" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">TDD, debugging and review practices</text>
+<rect x="529" y="1415" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="537" y="1434" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="56" y="1431" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Kiro</text>
+<text x="56" y="1454" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Spec validation; surface-dependent testing</text>
+<rect x="620" y="875" width="560" height="614" rx="16" fill="white" stroke="#cbd5e1"/>
+<text x="640" y="914" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0f172a" font-weight="700">05  Deployment</text>
+<text x="640" y="943" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Release execution, rollout and rollback</text>
+<rect x="630" y="963" width="540" height="53" rx="7" fill="#eff6ff"/>
+<rect x="1113" y="967" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="986" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475569" font-weight="700">E</text>
+<text x="640" y="983" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Artisyn</text>
+<text x="640" y="1006" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Infra work/evidence; no general release engine</text>
+<rect x="1113" y="1023" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1042" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b" font-weight="700">—</text>
+<text x="640" y="1039" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">BMAD</text>
+<text x="640" y="1062" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Release/rollback mechanism not established</text>
+<rect x="1113" y="1079" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1098" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475569" font-weight="700">E</text>
+<text x="640" y="1095" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Superpowers</text>
+<text x="640" y="1118" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Branch/PR handoff is not production rollout</text>
+<rect x="1113" y="1135" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1154" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b" font-weight="700">—</text>
+<text x="640" y="1151" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Compound Engineering</text>
+<text x="640" y="1174" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Release/rollback mechanism not established</text>
+<rect x="1113" y="1191" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1210" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b" font-weight="700">—</text>
+<text x="640" y="1207" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Spec Kit</text>
+<text x="640" y="1230" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Release/rollback mechanism not established</text>
+<rect x="1113" y="1247" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1266" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b" font-weight="700">—</text>
+<text x="640" y="1263" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">OpenSpec</text>
+<text x="640" y="1286" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Archive/sync is not application deployment</text>
+<rect x="1113" y="1303" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1322" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#475569" font-weight="700">E</text>
+<text x="640" y="1319" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Agent OS</text>
+<text x="640" y="1342" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Host and external delivery pipeline</text>
+<rect x="1113" y="1359" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1378" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b" font-weight="700">—</text>
+<text x="640" y="1375" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Matt’s skills</text>
+<text x="640" y="1398" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Release/rollback mechanism not established</text>
+<rect x="1113" y="1415" width="45" height="26" rx="6" fill="#f1f5f9"/>
+<text x="1121" y="1434" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#64748b" font-weight="700">—</text>
+<text x="640" y="1431" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Kiro</text>
+<text x="640" y="1454" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Not established by reviewed spec/steering docs</text>
+<rect x="1204" y="875" width="560" height="614" rx="16" fill="white" stroke="#cbd5e1"/>
+<text x="1224" y="914" font-family="Arial, Helvetica, sans-serif" font-size="26" fill="#0f172a" font-weight="700">06  Maintenance</text>
+<text x="1224" y="943" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#334155" font-weight="400">Engineering evolution; operations shown separately</text>
+<rect x="1214" y="963" width="540" height="53" rx="7" fill="#eff6ff"/>
+<rect x="1697" y="967" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="986" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="983" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Artisyn</text>
+<text x="1224" y="1006" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">History, drift checks, Evolve and patch recipes</text>
+<rect x="1697" y="1023" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="1042" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="1039" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">BMAD</text>
+<text x="1224" y="1062" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Refresh context and shared architectural records</text>
+<rect x="1697" y="1079" width="45" height="26" rx="6" fill="#dbeafe"/>
+<text x="1705" y="1098" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#1e40af" font-weight="700">M2</text>
+<text x="1224" y="1095" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Superpowers</text>
+<text x="1224" y="1118" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Debugging and tested skill improvements</text>
+<rect x="1697" y="1135" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="1154" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="1151" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Compound Engineering</text>
+<text x="1224" y="1174" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Capture solutions; retrieve lessons next time</text>
+<rect x="1697" y="1191" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="1210" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="1207" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Spec Kit</text>
+<text x="1224" y="1230" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Maintain constitution; converge changed code</text>
+<rect x="1697" y="1247" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="1266" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="1263" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">OpenSpec</text>
+<text x="1224" y="1286" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Archive changes; merge into current specs</text>
+<rect x="1697" y="1303" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="1322" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="1319" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Agent OS</text>
+<text x="1224" y="1342" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Discover, maintain and share standards</text>
+<rect x="1697" y="1359" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="1378" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="1375" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Matt’s skills</text>
+<text x="1224" y="1398" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Refactor architecture; maintain domain/ADRs</text>
+<rect x="1697" y="1415" width="45" height="26" rx="6" fill="#d1fae5"/>
+<text x="1705" y="1434" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#065f46" font-weight="700">M3</text>
+<text x="1224" y="1431" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#0f172a" font-weight="700">Kiro</text>
+<text x="1224" y="1454" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#334155" font-weight="400">Maintain specs and persistent project steering</text>
+<text x="36" y="1542" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#0f172a" font-weight="700">READ THE BOUNDARIES</text>
+<text x="36" y="1572" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#334155" font-weight="400">Analysis: technical clarification ≠ product discovery. QA: review ≠ complete security/performance assurance.</text>
+<text x="36" y="1601" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#334155" font-weight="400">Maintenance: engineering knowledge ≠ production monitoring or incident response. Deployment gaps are intentional evidence gaps.</text>
+<text x="36" y="1635" font-family="Arial, Helvetica, sans-serif" font-size="16" fill="#64748b" font-weight="400">Source assessment • 17 September 2026 • See the accompanying coverage table, competitor sources and Artisyn capability audit.</text>
+</svg>

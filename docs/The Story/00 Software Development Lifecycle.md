@@ -23,6 +23,8 @@ It executes fast and directionless.
 
 ---
 
+For the concrete tool landscape, see [Tools Across the Six SDLC Stages](<../Harness/01 Explore/04 SDLC Tool Coverage.md>): stage-specific features, assessed capability depth, and explicit gaps.
+
 ## 2. But Something Is Wrong
 
 > These problems do not disappear with AI. They get faster.
@@ -146,6 +148,8 @@ There are three tiers of AI adoption.
   a team member who was properly onboarded, not a contractor who just arrived.
 
 ---
+
+For concrete options, see [Competitors and Related Tools](<../Harness/01 Explore/01 Competitors and Related Tools.md#three-tiers-of-adoption>): how delivery methodologies, specification tools, and composable skills relate to these tiers. The tiers describe adoption practices, not fixed product rankings; several tools support persistent context when a team maintains it.
 
 ## 6. The Fix: The Harness
 

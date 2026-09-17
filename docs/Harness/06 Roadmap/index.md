@@ -114,3 +114,25 @@ uses bootstrap  Run /where-we-are   /evolve triage
 - Next project gets the improvement via a bootstrap PR and semver bump
 
 > Open questions: who owns the bootstrap registry? What is the PR / review process for skill graduation?
+
+---
+
+## 5. Gaps to close
+
+The comparison and capability audit identified the following work. These are ordered by risk to the harness's central promise: project context should remain useful and connected to delivery.
+
+| Priority | Gap                                                           | Roadmap outcome                                                                                                                                     | Suggested measure                                                                    |
+| -------- | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| P0       | Context consistency is instructed rather than guaranteed      | Add source-of-truth checks across HLD, LLD, reports, decisions and code; detect stale, missing and contradictory context before execution continues | Contradictions caught; stale-context escapes; reconciliation success rate            |
+| P0       | Skill behavior is not covered by a presented test suite       | Create a pressure-test suite for every shipped skill: intended task, negative trigger, regression caller, tool boundary and versioned verdict       | Skills with passing behavioral evidence; regressions caught before activation        |
+| P0       | Design handoffs have contract drift                           | Unify selected-artifact paths, review gates, publication completion and tracker-free local IDs; add minimal-design contract tests                   | Invalid handoffs blocked; local designs completed without tracker errors             |
+| P1       | Product discovery is upstream of Artisyn                      | Define an explicit intake contract and integrations for PRD, prioritization, product decisions and approved tickets                                 | Intake completeness; requirements changed after Design begins                        |
+| P1       | Deployment and production operations are outside the core     | Decide whether to integrate release/rollback, monitoring, incidents and SLO evidence or document the boundary as a supported integration            | Deployment evidence coverage; rollback drill success                                 |
+| P1       | History is archived better than it is retrieved               | Add relevance-aware history selection, conflict handling and citations for prior decisions, reports and solved problems                             | Relevant-history precision; missed relevant decisions; contradiction rate            |
+| P1       | Statistics are local, without aggregate visibility            | Build a provenance-preserving project/portfolio aggregation layer for timing, waits, quality, rework and cost                                       | Dashboard completeness; unknown-value rate; attribution coverage                     |
+| P1       | Human gates may impose too much ceremony                      | Add risk-based policies for lightweight changes while preserving stronger gates for architecture, security and infrastructure work                  | Approval count; wait time; escaped defects by policy tier                            |
+| P1       | Cross-host behavior is not proven at parity                   | Run real smoke scenarios on each claimed host and publish supported/unsupported capability differences                                              | Host scenario pass rate; documented exceptions                                       |
+| P2       | Improvement sharing is portable but not centrally coordinated | Define fleet rollout, staged adoption, rollback and ownership for canonical patches                                                                 | Adoption success; rollback success; project customizations preserved                 |
+| P2       | No independent benchmark supports superiority claims          | Run matched changes across Artisyn and selected alternatives with pinned revisions, models and tests                                                | Correctness, architecture drift, human interventions, elapsed time and measured cost |
+
+The intended sequence is: make context and skill behavior testable, remove internal contract drift, then add retrieval and aggregate evidence. Deployment integrations and fleet operations should follow explicit ownership decisions rather than quietly expanding the harness's scope.
