@@ -1,0 +1,94 @@
+--- a/canonical/skills/design/patterns/metrics.md
++++ b/canonical/skills/design/patterns/metrics.md
+@@ -1,7 +1,7 @@
+ # Design metrics
+ 
+ The orchestrator owns `design/stat.json`, beside `design/Report.md`. Use the Node.js
+-CLI at `.claude/skills/design/scripts/design-metrics.mjs` for every mutation; never
++CLI at `{{provider:skills_root}}/design/scripts/design-metrics.mjs` for every mutation; never
+ hand-edit JSON, infer completion from artifacts, estimate tokens, or sum worker time.
+ Node.js 22+ is required; there are no dependencies. Every command takes explicit
+ `--dir "$DESIGN_DIR"`, where DESIGN_DIR is the current story's **design directory**
+@@ -15,8 +15,8 @@
+ Once Frame creates the story's `design/` directory and `design/Report.md`:
+ 
+ ```sh
+-node .claude/skills/design/scripts/design-metrics.mjs init --dir "$DESIGN_DIR" --ticket "$TICKET"
+-node .claude/skills/design/scripts/design-metrics.mjs stage start --dir "$DESIGN_DIR" --stage frame
++node {{provider:skills_root}}/design/scripts/design-metrics.mjs init --dir "$DESIGN_DIR" --ticket "$TICKET"
++node {{provider:skills_root}}/design/scripts/design-metrics.mjs stage start --dir "$DESIGN_DIR" --stage frame
+ ```
+ 
+ Use a stable story identifier for free-form designs without a tracker key. For direct
+@@ -40,7 +40,7 @@
+ 
+ ## Boundaries and commands
+ 
+-All arguments below follow `node .claude/skills/design/scripts/design-metrics.mjs`
++All arguments below follow `node {{provider:skills_root}}/design/scripts/design-metrics.mjs`
+ and include `--dir "$DESIGN_DIR"`:
+ 
+ | Boundary                                     | Arguments                                                                   |
+@@ -64,7 +64,7 @@
+ verification_failure, scope_change, reopened.
+ 
+ Record waits and run report **before** every hard stop, including IDE review, commit
+-confirmation, compaction approval, and the out-of-band MR review. On the reply,
++confirmation, and the out-of-band MR review. On the reply,
+ resume work. Keep the current stage open through its boundary approval; then complete
+ it and start the next stage. Direct-stage completion closes that stage only, not the
+ whole design. Checkpoint after long delegated work, not after every tool call.
+@@ -83,7 +83,7 @@
+ After confirmed approval or concerns, resume and record the actual outcome:
+ 
+ ```sh
+-node .claude/skills/design/scripts/design-metrics.mjs check record --dir "$DESIGN_DIR" \
++node {{provider:skills_root}}/design/scripts/design-metrics.mjs check record --dir "$DESIGN_DIR" \
+   --id gate-round-01 --kind acceptance --name "Design approval" \
+   --result passed --source "developer confirmation" --evidence "MR URL and confirmed approval"
+ ```
+@@ -95,7 +95,7 @@
+ If approved without concerns, while Review Gate remains active:
+ 
+ ```sh
+-node .claude/skills/design/scripts/design-metrics.mjs stage skip --dir "$DESIGN_DIR" \
++node {{provider:skills_root}}/design/scripts/design-metrics.mjs stage skip --dir "$DESIGN_DIR" \
+   --stage address-feedback --reason no_concerns --evidence "Confirmed MR approval"
+ ```
+ 
+@@ -124,7 +124,7 @@
+ Wrap only already-authorized finite verification commands:
+ 
+ ```sh
+-node .claude/skills/design/scripts/design-metrics.mjs check --dir "$DESIGN_DIR" \
++node {{provider:skills_root}}/design/scripts/design-metrics.mjs check --dir "$DESIGN_DIR" \
+   --id docs-check-01 --kind test --name "Documentation checks" -- <executable> <arguments>
+ ```
+ 
+@@ -138,8 +138,8 @@
+ 
+ Existing workflow permission gates still apply. Do not allowlist the whole recorder
+ or `check *`, because it can execute arbitrary programs. Narrow recording rules can
+-cover individual subcommands, such as `Bash(node .claude/skills/design/scripts/design-metrics.mjs checkpoint *)`
+-and `Bash(node .claude/skills/design/scripts/design-metrics.mjs check record *)`.
++cover individual subcommands, such as `Bash(node {{provider:skills_root}}/design/scripts/design-metrics.mjs checkpoint *)`
++and `Bash(node {{provider:skills_root}}/design/scripts/design-metrics.mjs check record *)`.
+ Keep executable checks subject to normal command approval.
+ 
+ ## Usage and reporting
+@@ -170,7 +170,7 @@
+ `complete`, then `report`. Full-flow completion requires all seven stages completed
+ or the authorized Feedback skip; partial runs leave unseen stages pending. A direct
+ non-Publish invocation never finalizes design completion. Finalize before invoking
+-`/dev` so implementation time is not charged to design.
++`{{provider:invoke:dev}}` so implementation time is not charged to design.
+ 
+ The CLI is self-contained within this flow. `scripts/constants.mjs` owns lifecycle
+ IDs, filenames, report markers, and activity/reason values. `scripts/utils.mjs` owns validation primitives, timestamp/duration helpers, atomic
+@@ -179,5 +179,5 @@
+ Run this flow's regression suite after changes:
+ 
+ ```sh
+-node --test .claude/skills/design/scripts/design-metrics.test.mjs
++node --test {{provider:skills_root}}/design/scripts/design-metrics.test.mjs
+ ```

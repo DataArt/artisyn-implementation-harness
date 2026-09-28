@@ -1,0 +1,17 @@
+--- a/canonical/skills/evolve/INTENT.md
++++ b/canonical/skills/evolve/INTENT.md
+@@ -1,6 +1,6 @@
+ ---
+ skill: evolve
+-output: .claude/skills/evolve/SKILL.md
++output: {{provider:skills_root}}/evolve/SKILL.md
+ companion_templates:
+   - references/00-router.md
+   - references/01-reflect.md
+@@ -35,5 +35,5 @@
+ - Native tasks and durable report use the same stage evidence.
+ - Candidate content stays inactive until adoption; skills deploy as name/SKILL.md.
+ - Validation records evidence and hashes, with no elapsed-time promotion gate.
+-- Dev hooks invoke /evolve reflect; docs and discovery use /evolve.
++- Dev hooks invoke {{provider:invoke:evolve}} reflect; docs and discovery use /evolve.
+ - Adoption completion requires verified local integration; there is no subsequent stage.

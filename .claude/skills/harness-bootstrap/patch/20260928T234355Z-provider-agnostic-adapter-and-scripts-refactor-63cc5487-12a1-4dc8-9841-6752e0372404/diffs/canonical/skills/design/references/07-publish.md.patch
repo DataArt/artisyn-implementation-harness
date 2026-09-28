@@ -1,0 +1,40 @@
+--- a/canonical/skills/design/references/07-publish.md
++++ b/canonical/skills/design/references/07-publish.md
+@@ -1,24 +1,24 @@
+ # Publish stage
+ 
+-Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
++Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
+ `--stage publish`. Follow its initialization/recovery, entry, wait, check, and exit
+ commands. When this reference is used only as a correction recipe within another
+ active stage, retain that stage's metrics ownership.
+ 
+-Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`.
++Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`.
+ Publish is the final stage. It runs once Review Gate (or Address Feedback) has
+ recorded an approved gate.
+ 
+ > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
+ 
+-> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`. When this stage is complete, the design lifecycle is closed — no router handoff needed.
++> 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`. When this stage is complete, the design lifecycle is closed — no router handoff needed.
+ 
+ ## Step 1 — Verify the gate is approved
+ 
+ Find the story folder by globbing `docs/Stories/*{TICKET}*/design/**`. Read
+ `design/Report.md`'s `## Gate` section.
+ 
+-If `Approved:` is still `pending` or unset, tell the developer: "The design gate isn't approved yet — run `/design review-gate {TICKET}` (or `/design address-feedback {TICKET}` if there are open concerns) first." Stop.
++If `Approved:` is still `pending` or unset, tell the developer: "The design gate isn't approved yet — run `{{provider:invoke:design}} review-gate {TICKET}` (or `{{provider:invoke:design}} address-feedback {TICKET}` if there are open concerns) first." Stop.
+ 
+ ---
+ 
+@@ -92,7 +92,7 @@
+ 
+ ## Step 4 — `{{DESIGN_ARCHITECT_AGENT}}` reviews doc changes
+ 
+-Apply the satellite review pattern (`.claude/skills/design/patterns/satellite-review.md`). Delegate to `{{DESIGN_ARCHITECT_AGENT}}` to review the doc changes just made:
++Apply the satellite review pattern (`{{provider:skills_root}}/design/patterns/satellite-review.md`). Delegate to `{{DESIGN_ARCHITECT_AGENT}}` to review the doc changes just made:
+ 
+ - Read the updated doc(s)
+ - Verify the changes are accurate, consistent with the rest of the docs, and don't introduce contradictions or gaps

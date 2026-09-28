@@ -1,6 +1,6 @@
 ---
 skill: agents/docs-writer
-output: .claude/agents/docs-writer.md
+output: {{provider:agents_root}}/docs-writer.{{provider:agent_extension}}
 ---
 
 ## Purpose

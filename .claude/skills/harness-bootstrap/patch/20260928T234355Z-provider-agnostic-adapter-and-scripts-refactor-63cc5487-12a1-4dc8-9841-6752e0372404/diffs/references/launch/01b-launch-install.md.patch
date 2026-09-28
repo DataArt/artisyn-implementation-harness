@@ -1,0 +1,140 @@
+--- a/references/01b-launch-install.md
++++ b/references/launch/01b-launch-install.md
+@@ -1,6 +1,6 @@
+ # Launch blocks A–C and D.1 — install in dependency order
+ 
+-Before generating skill entrypoints and companions, apply [Skill authoring](../patterns/skill-authoring.md). This is a bootstrap authoring pattern, not a deployed standalone skill.
++Before generating skill entrypoints and companions, apply [Skill authoring](../../patterns/skill-authoring.md). This is a bootstrap authoring pattern, not a deployed standalone skill.
+ 
+ Stage sequence and tracking live in [01-launch.md](01-launch.md); planning and
+ materialization in [01a-launch-plan.md](01a-launch-plan.md).
+@@ -27,23 +27,19 @@
+ `skill-harvest` is retired; bootstrap's `patch harvest/apply` replaces it. Follow
+ `package:registry.md` for canonical inventory, including flat/shared references.
+ 
+-| Q6          | Project skill destination                         | Project agent destination                                      |
+-| ----------- | ------------------------------------------------- | -------------------------------------------------------------- |
+-| Claude Code | `.claude/skills/<name>/SKILL.md`                  | `.claude/agents/<name>.md`                                     |
+-| Codex CLI   | `skills/<name>/SKILL.md`                          | `<layer-dir>/AGENTS.md`; map cross-cutting guidance explicitly |
+-| Cursor      | `.cursor/rules/<name>.mdc`; set globs/alwaysApply | `.cursor/rules/agent-<name>.mdc`, alwaysApply:false            |
+-| Kiro        | `.kiro/steering/<name>.md`                        | `.kiro/hooks/<name>.md`                                        |
+-| Windsurf    | Unique fragments → reserved `.windsurfrules`      | Same final assembly                                            |
+-
+-Resolve all cross-file references for the selected tool; preserve companion names.
++Read destinations and runtime procedures from `canonical/manifest.json`.
++Claude installs `.claude/skills/<name>/SKILL.md` and `.claude/agents/<name>.md`;
++Codex installs `.agents/skills/<name>/SKILL.md` and `.codex/agents/<name>.toml`.
++Rename skill TEMPLATE.md, preserve companion names, install the selected provider's
++runtime procedures, apply INTENT to permanent content, and verify before removing
++temporary INTENT copies. Canonical INTENTs remain in the package.
+ 
+ For an existing installation, reconcile retired helpers within the authorized
+ deployment scope:
+ 
+ - `writing-docs` and `story-folder-glob` have no replacement command. Documentation
+   guidance belongs to `docs-writer`; story lookup rules remain in Dev and Design.
+-- The old flat `claude-in-chrome-setup.md` is now an X-ray companion at
+-  `x-ray/references/claude-in-chrome-setup.md`; deploy it when X-ray is selected.
++- X-ray uses the selected runtime/browser.md procedure; browser checks are capability-specific and optional.
+ - `worker-satellite-review.md` is replaced by `dev/patterns/satellite-review.md`.
+   Verify that companion is installed before updating Infrastructure's caller.
+ - The old deployed `skill-authoring.md` is now bootstrap-only guidance at
+@@ -74,56 +70,26 @@
+ 
+ ## Block C — Provider instruction file and MCP
+ 
+-Select exactly one authoritative project instruction file from confirmed Q6:
++Generate one root instruction file for each selected provider: CLAUDE.md for Claude,
++AGENTS.md for Codex, both for both. Derive shared project facts once and render
++provider paths/invocations consistently. Reconcile existing guidance; preserve
++unselected provider files and unrelated local configuration.
+ 
+-| Provider    | Instruction destination                                                        |
+-| ----------- | ------------------------------------------------------------------------------ |
+-| Claude Code | `project:CLAUDE.md`                                                            |
+-| Codex CLI   | `project:AGENTS.md`                                                            |
+-| Cursor      | `project:.cursor/rules/project.mdc` with alwaysApply:true                      |
+-| Kiro        | `project:.kiro/steering/project.md` with root scope                            |
+-| Windsurf    | Confirm the provider-supported project instruction path in Q6                  |
+-| Multiple    | Resolve one primary provider and instruction destination in Q6 before planning |
++Structure root instructions as Why / What / How within the installed Documentation
++Principles budget: purpose, conventions, guarded commands, stack, HLD/NFR pointers,
++selected lifecycle scope, installed skills/roles, tracker and integration setup.
+ 
+-Reserve only this destination in the JSON plan. Claude-only launch creates CLAUDE.md
+-with the actual guidance; it does not create AGENTS.md or a link-only CLAUDE.md wrapper.
+-Codex-only launch creates AGENTS.md and no CLAUDE.md. Multiple-provider selection
+-must not silently generate both: record the primary provider, selected path, and any
+-secondary-provider discovery limitation before freezing the plan. An additional
+-instruction file requires an explicit change to the requested single-file scope.
++`canonical/settings.json` is the native settings source for Claude and Codex.
++`canonical/mcp.json` holds the selected shared server declarations (empty by default).
++The adapter renders Claude settings and MCP separately and assembles both into
++Codex config.toml. Existing non-identical configuration is a reserved derivation: the
++materializer does not overwrite it. Reconcile exact changes while preserving existing
++hooks, permissions, servers and unrelated keys; validate the final syntax.
+ 
+-Reconcile useful existing guidance into the selected authority. Existing files from
+-other providers are adoption inputs, not permission to delete them; include proposed
+-retirement in the cleanup inventory and resolve conflicting guidance explicitly.
+-Do not claim a single-authority migration complete with unresolved competing guidance.
+-Structure the file as Why / What / How within the root-context budget from installed
+-Documentation/01 Principles.md: purpose, critical conventions and guarded commands,
+-containers/stack, HLD/NFR pointers, selected design track, actual skills/commands/
+-agents, tracker and MCP. Point to docs for full guidance. Update generated links to
+-the selected instruction path. Task C verifies that the plan and generated outputs
+-contain one provider-selected authority and no unsolicited root wrapper. This rule
+-concerns project-wide instructions; scoped layer agent files remain part of Block B
+-where required by the selected provider.
+-
+-Preserve existing settings/hooks; reconcile Claude permissions with Q7 and include
+-applicable lifecycle hooks rather than replacing config wholesale. For Claude Code,
+-merge `CLAUDE_CODE_ENABLE_TASKS: "1"` and `CLAUDE_CODE_ENABLE_TODO_TOOLS: "1"` into
+-`project:.claude/settings.json`'s `env` block if not already present — the tracking
+-protocol in [01-launch.md](01-launch.md#tracking-protocol) depends on native Task
+-tools, which these enable. Preserve any existing `env` keys; do not replace the block.
+-Propose plausible
+-tracker/repo/cloud/stack MCP servers from evidence and install only selected servers.
+-Use `project:.mcp.json` with `${ENV_VAR}` references, never literal credentials. Add
+-placeholder env keys to `project:.claude/settings.local.json`, ensure project gitignore
+-covers it, and document keys/setup in the installed MCP guide. Preserve existing keys.
+-For Claude Code PAT authentication, the developer edits the PAT value locally in
+-settings.local.json's env block; bootstrap merges placeholders only. Do not generate
+-an MCP .env file, source command or application-env dependency. Shared .mcp.json
+-contains variable references only. The installed MCP guide and onboarding instructions
+-must describe this same route, including restarting the session after editing settings.
+-Never collect PAT values in Q&A or copy them into tracked run/patch records. This is
+-Claude-specific; other selected providers use their supported credential configuration.
+-Verify JSON, server selection, the selected instruction file, and permissions; record unavailable integrations.
++Credentials remain environment references. Explain selected runtime/credentials.md
++in onboarding and the MCP guide. Do not collect credentials in answers, plans or
++reports, copy local credential values, or grant provider trust on behalf of a user.
++Record unavailable integrations and required human setup honestly.
+ 
+ ## D.1 — Engineering Guide
+ 
+@@ -148,6 +114,24 @@
+ | `Lifecycles/04 Architecture Lifecycle.md` | Architecture enabled                             |
+ | `Lifecycles/05 Documents Flow.md`         | Always                                           |
+ 
++### Provider placeholders in shared docs
++
++Shared docs are generated once for all selected providers, so they carry no literal
++provider paths. Resolve these placeholders during D.1 and verify none survive:
++
++| Placeholder             | Resolve to                                                                                           |
++| ----------------------- | ---------------------------------------------------------------------------------------------------- |
++| `{{SKILL_PREFIX}}`      | The invocation prefix from the manifest (`/` Claude, `$` Codex). For a both-provider install use the |
++|                         | primary provider's prefix and keep the notation note that explains the other.                        |
++| `{{ROOT_INSTRUCTIONS}}` | The generated root instruction filename(s) — `CLAUDE.md`, `AGENTS.md`, or both.                      |
++
++Do not reintroduce a provider skill/agent root into a shared doc. Reference skill
++companions by their path inside the installed bundle (`patterns/…`, `runtime/…`), and
++leave the provider→path mapping to `04 AI Coding Tool Compatibility.md`, which is the
++one doc that legitimately names both providers' paths. `05 MCP Setup.md` documents
++each selected provider's credential route; remove the sections for providers that were
++not selected.
++
+ All documentation writers read installed Documentation/01 Principles.md and the
+ applicable intent before drafting; validate against both immediately after writing.
+ Formatting rules live in Principles, not copied into each worker instruction.

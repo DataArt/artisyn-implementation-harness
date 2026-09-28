@@ -1,0 +1,99 @@
+--- a/references/01a-launch-plan.md
++++ b/references/launch/01a-launch-plan.md
+@@ -4,28 +4,27 @@
+ 
+ ## 1. Initialize storage, recover, and inspect
+ 
+-**First launch action:** add `/.claude/skills/harness-bootstrap/` to the project root
+-`.gitignore` if absent, preserving existing entries. This ignores the portable toolkit:
+-it is a materialized copy used to run bootstrap/patch operations, not the project's
+-own canonical source. If any of its files are already tracked in this project's git
+-history, untrack them with `git rm -r --cached .claude/skills/harness-bootstrap/`
+-(working-tree copies stay in place) so the ignore rule actually takes effect; record
+-this cleanup in the report. This does not apply to the harness's own canonical
+-repository, where `.claude/skills/harness-bootstrap/` is the authoritative source and
+-must stay tracked — only apply this untrack step in a project this toolkit was
+-bootstrapped or patched into.
+-Keep durable project records outside it: `project:.harness/launch/answers.json`,
+-`project:.harness/launch/reports/`, and `project:.harness/launch/runs/<run_id>/`.
+-Use project `.harness/registry.md`, `.harness/patch/`, and `.harness/state/` for deployed
+-inventory, patch manifests and baselines. Do not ignore these durable project records.
++**First launch action:** select `claude`, `codex`, or both, reusing an explicit
++selection already supplied by the developer. Record Q6 before provider output planning.
++`package:` is the actual bootstrap directory, independent of the selected targets;
++use one package/state directory for both providers. In a consumer project, add
++`/<package-relative-path>/` to .gitignore; the toolkit and its local launch history
++are disposable after verification. Do not untrack files as a side effect of launch.
++The harness source repository keeps its authoritative package tracked.
+ 
+-Read the newest incomplete `project:.harness/launch/reports/*-launch.md` and its operation record.
++Keep answers, reports, plans and receipts in `package:state/launch/`. Exclude state
++from release archives and preserve it when updating the toolkit. Existing project
++`.harness/launch/` records are read-only migration inputs: copy/revalidate into the
++new location with provenance; do not delete originals. Keep patch inventory and
++baselines in project `.harness/registry.md`, `.harness/patch/`, and `.harness/state/`.
++
++Read the newest incomplete `package:state/launch/reports/*-launch.md` and its operation record.
+ Match tracked tasks by the recorded run ID. Resume that run, asking only if multiple
+ runs or restart intent are ambiguous. Recheck input/output hashes before reusing
+ completed work; retain verified independent results.
+ 
+ For a new run, copy `package:reports/report.template.md` to
+-`project:.harness/launch/reports/<UTC YYYY-MM-DD-HHMMSS>-launch.md`, keeping launch progress rows.
++`package:state/launch/reports/<UTC YYYY-MM-DD-HHMMSS>-launch.md`, keeping launch progress rows.
+ Record run ID, package version, plan/operation-record paths, decisions, and evidence.
+ Load permanent `answers.json` first. If absent, import the newest populated legacy
+ `package:reports/` Answers, recording provenance and `historical` status; preserve
+@@ -94,11 +93,11 @@
+ 
+ Read each TEMPLATE with its INTENT. Inventory source/hash, target, existing target
+ hash, substitutions, conditional actions, and dependencies. Include INTENT companions
+-and references found in templates: patterns, flat rule files, and workflows. Each
++and references found in templates: patterns and flat rule files. Each
+ companion gets its own entry; a filename glob alone is not a companion inventory.
+ Missing dependencies and destination collisions are planning errors.
+ 
+-Store immutable JSON at `project:.harness/launch/runs/<run_id>/plan.json`; use a new linked
++Store immutable JSON at `package:state/launch/runs/<run_id>/plan.json`; use a new linked
+ run ID if the plan changes, and separate linked plans for later blocks with unresolved
+ inputs. Freeze the selected canonical payload/manifest before writes per Patch State.
+ Keep project values and baseline bytes local; never put secrets in plans.
+@@ -119,7 +118,7 @@
+   },
+   "files": [
+     {
+-      "source": "<package-relative TEMPLATE path>",
++      "source": "<package-relative canonical/... TEMPLATE path>",
+       "source_sha256": "<SHA-256 of canonical source bytes>",
+       "target": "<project-relative destination>",
+       "expected_target_sha256": "<reviewed existing hash, or null when absent>",
+@@ -150,14 +149,13 @@
+ or assembly outputs with a rule, inputs, and overwrite precondition; the script checks
+ these reservations but does not write them. Future inputs may name planned outputs;
+ accept them before deriving dependents. Recheck target hashes immediately before
+-AI/workflow writes and record evidence, coverage, final hashes, and verification.
++agent writes and record evidence, coverage, final hashes, and verification.
+ 
+ Show a reconciliation diff for existing content and preserve retained local changes.
+-For Windsurf, stage uniquely named skill/agent fragments under
+-`project:.harness-launch/<run_id>/fragments/`, apply their INTENTs, then assemble one
+-reserved `project:.windsurfrules` output in recorded order with retained content.
+-Never model repeated appends as colliding entries. Remove only this run's fragments
+-after successful final verification; inventory the final assembly for deployment state.
++Provider selection and transformations are owned by `canonical/manifest.json`.
++Use [Provider launch](08-provider-launch.md) to generate the skill/agent/config plan.
++Extend it with shared docs and reserved derivations before freezing it. Both providers
++share project facts and adaptation decisions, but receive separate native files.
+ 
+ ### Materialize → apply INTENT → verify
+ 
+@@ -170,7 +168,8 @@
+ 
+ The Node standard-library script validates the whole plan, copies/replaces declared
+ sources, and writes `<run-dir>/materialization.json`. It performs no deletions or
+-semantic INTENT reasoning. Attach the receipt to the operation record; partial writes
++semantic INTENT reasoning. The finalizer removes only recorded temporary INTENT copies
++after final evidence is verified; see [Provider launch](08-provider-launch.md). Attach the receipt to the operation record; partial writes
+ remain partial.
+ 
+ After materialization, apply each recorded INTENT action: omit, replace, adapt, or

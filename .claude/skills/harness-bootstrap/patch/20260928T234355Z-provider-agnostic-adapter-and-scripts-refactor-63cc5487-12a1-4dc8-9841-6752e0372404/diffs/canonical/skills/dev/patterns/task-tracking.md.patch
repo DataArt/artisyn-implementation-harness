@@ -1,0 +1,60 @@
+--- a/canonical/skills/dev/patterns/task-tracking.md
++++ b/canonical/skills/dev/patterns/task-tracking.md
+@@ -1,46 +1,13 @@
+-# Pattern: Native Task Tracking
++# Task tracking
+ 
+-Applies wherever a call site needs live progress tracking over an ordered list of
+-units — the dev router tracking the six stages (Context Gathering/Ceremony/Plan/
+-Implement/Test/Document), or the Implement stage tracking a plan's numbered steps.
+-The unit list and its completion evidence are supplied by the call site; this
+-pattern only defines the tracking mechanics.
++Track the work units supplied by the caller, their dependency order, status and
++completion evidence. Use the installed procedure at
++`{{provider:skills_root}}/dev/runtime/task-tracking.md` for the live tracking mechanism.
++Record the selected mechanism once in 2-report.md.
+ 
+-## Protocol
+-
+-Before starting the first unit, inspect the tools already exposed in this session.
+-A failed `ToolSearch` alone does not prove native Task tools are absent — check
+-directly exposed tools first. State which tracker is active once, in `2-report.md`.
+-
+-**With native `TaskCreate`/`TaskUpdate`/`TaskList`:** create one task per unit (reuse
+-existing tasks that belong to this run instead of duplicating them), chained to its
+-predecessor by dependency so units stay ordered. Mark a unit `in_progress` before
+-starting it and `completed` only after verifying its completion evidence — never on
+-a worker's self-report alone. A failed unit stays `in_progress` with its dependents
+-`pending`; record the failure and next action in `2-report.md` rather than inventing
+-a native `failed` status. On resume, reconcile `TaskList` with `2-report.md`:
+-recreate missing tasks, rebuild dependencies, restore verified statuses, and reopen
+-any unit invalidated since the last session — never create a duplicate chain while
+-this run's tasks still exist.
+-
+-**Without native Task tools:** keep the same units, order, and evidence in a
+-`TodoWrite` checklist if it's exposed; enforce the dependency order yourself, since
+-the checklist carries no native IDs or links. If neither tracker exists, `2-report.md`
+-alone drives the sequence — it already carries this information (the Progress table
+-for stages, the per-step rows for implementation steps) regardless of which tracker
+-is active.
+-
+-## Report stays authoritative
+-
+-Tasks are the live-tracking layer for this session; `2-report.md` is the durable,
+-cross-session record. Every task transition mirrors a corresponding `2-report.md`
+-update (Phase row for stages, Progress-table row for implementation steps) — never
+-let the two disagree. If a session ends mid-unit, the next session resumes from
+-`2-report.md`, not from task state that may not have survived.
+-
+-## Why
+-
+-A markdown table alone gives no live signal of what's currently active, and native
+-tasks alone don't survive a session boundary the way a committed file does. Running
+-both, with the report as the source of truth on resume, gets the live UX without
+-losing the recovery guarantee.
++2-report.md is authoritative across sessions and providers. Mark a unit in progress
++before starting, and complete only after inspecting its required evidence. A worker
++self-report is not completion. Record failures and leave dependent work pending.
++On resume, verify artifacts, reopen invalidated units, and reconcile/recreate native
++tracking without duplicating this run's existing tasks. Native task IDs are session
++metadata, never the durable identity of a workflow stage.

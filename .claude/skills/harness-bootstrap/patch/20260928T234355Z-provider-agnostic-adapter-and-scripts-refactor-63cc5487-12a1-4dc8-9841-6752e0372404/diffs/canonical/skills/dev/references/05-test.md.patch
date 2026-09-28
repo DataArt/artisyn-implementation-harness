@@ -1,0 +1,55 @@
+--- a/canonical/skills/dev/references/05-test.md
++++ b/canonical/skills/dev/references/05-test.md
+@@ -1,17 +1,17 @@
+ # Test stage
+ 
+-Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
++Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
+ `--stage test`. Wrap authorized automated verification commands with
+ `check --kind <kind> --name <name> -- <command>` to capture actual exit status.
+ 
+-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage runs
++Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This stage runs
+ the test suite and PR review for an implemented plan.
+ 
+ Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
+ and pause only for a concrete unresolved decision, required human verification, or a
+ fixed sign-off gate (`patterns/approval-sign-off.md`).
+ 
+-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
++> 🔁 **Session continuity:** apply `{{provider:skills_root}}/dev/patterns/session-continuity.md`.
+ 
+ ## Step 1 — Find the implementation folder
+ 
+@@ -61,11 +61,11 @@
+ 
+ Run the PR review **before** the test suite so that must-fix changes are included in the validation run.
+ 
+-**Layer delegation** — for each layer touched by the plan:
+-
+-- {{BACKEND_LAYER_KEYWORDS}} changes → delegate to `{{BACKEND_AGENT}}` for a focused layer review
+-- {{FRONTEND_LAYER_KEYWORDS}} changes → delegate to `{{FRONTEND_AGENT}}` for a focused layer review
+-- Infra / config / docs changes → review inline
++**Component delegation** — match changed paths to the Agents table in
++`{{provider:instructions_file}}` and installed role scopes. Delegate each touched
++component's focused convention review to its actual specialist using
++runtime/delegation.md. Review unmatched scope inline; resolve ambiguous ownership
++explicitly. Preserve independent architecture review where required below.
+ 
+ **@architect audit** — spawn `@architect` before recording PR review findings when any of the following apply:
+ 
+@@ -91,7 +91,7 @@
+ 
+ - If there are any `bug`, `security`, `design` or `deviation` findings that represent a **repeatable mistake** (not a one-off typo) — something that a skill or rule could prevent in future — say:
+ 
+-  > "This review found `{X}` pattern findings that look like a repeatable convention gap. Consider running `/evolve reflect` with a short description so it can be encoded as a skill."
++  > "This review found `{X}` pattern findings that look like a repeatable convention gap. Consider running `{{provider:invoke:evolve}} reflect` with a short description so it can be encoded as a skill."
+ 
+   Name the specific patterns briefly. Do not prompt this if all findings are `improve`-only or `No findings`.
+ 
+@@ -167,4 +167,4 @@
+ - Whether migration was run and what the outcome was
+ - PR review verdict and any must-fix items
+ 
+-🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Document).
++🔁 Re-read `{{provider:skills_root}}/dev/SKILL.md` and resume the router from the next stage (Document).

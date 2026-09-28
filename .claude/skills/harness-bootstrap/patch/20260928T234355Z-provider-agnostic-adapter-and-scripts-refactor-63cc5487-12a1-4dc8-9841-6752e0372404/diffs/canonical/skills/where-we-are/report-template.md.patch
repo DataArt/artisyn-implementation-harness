@@ -1,0 +1,16 @@
+--- a/canonical/skills/where-we-are/report-template.md
++++ b/canonical/skills/where-we-are/report-template.md
+@@ -52,8 +52,8 @@
+ 
+ ## Recommended Next Actions
+ 
+-| Priority | Action     | Command                                        |
+-| -------- | ---------- | ---------------------------------------------- |
+-| P1       | {{action}} | `/dev document <TICKET>` or `/design <TICKET>` |
+-| P2       | {{action}} |                                                |
+-| P3       | {{action}} |                                                |
++| Priority | Action     | Command                                                                              |
++| -------- | ---------- | ------------------------------------------------------------------------------------ |
++| P1       | {{action}} | `{{provider:invoke:dev}} document <TICKET>` or `{{provider:invoke:design}} <TICKET>` |
++| P2       | {{action}} |                                                                                      |
++| P3       | {{action}} |                                                                                      |

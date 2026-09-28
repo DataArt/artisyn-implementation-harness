@@ -1,6 +1,6 @@
 ---
 skill: design
-output: .claude/skills/design/SKILL.md
+output: {{provider:skills_root}}/design/SKILL.md
 companion_templates:
   - scripts/constants.mjs
   - scripts/utils.mjs
@@ -13,7 +13,7 @@ companion_templates:
   - templates/research.md
   - templates/evaluate.md
   - templates/report.md
-  - interfaces/INTENT.md
+  - interfaces/contract.md
   - interfaces/architecture.md
   - interfaces/design.md
   - interfaces/stack.md
@@ -72,7 +72,7 @@ branch slug isn't known any earlier.
 | `{{DESIGN_CONTEXT_STEP}}`         | Q — design lifecycle scope (see Conditionals) | The full body of Frame Step 4 — how the design's destination is determined. Structurally different per mode, not just a value swap                                                                                        |
 | `{{DESIGN_CONTEXT_SOURCES}}`      | Q — design lifecycle scope (see Conditionals) | Research Step 2's context-reading instruction — same resolution as `{{DESIGN_CONTEXT_STEP}}`, phrased for a read rather than a folder decision                                                                            |
 | `{{PRODUCT_CONTEXT_DIR}}`         | Q — design lifecycle scope (see Conditionals) | Folder name under `docs/` for the shared product-context layer, only asked when Product-context-scoped or Two-track. Default suggestion: `Product Context`                                                                |
-| `{{DESIGN_LIFECYCLE_SCOPE_NOTE}}` | Q — design lifecycle scope (see Conditionals) | One callout line in the router stating what `/design` targets and where output lands                                                                                                                                      |
+| `{{DESIGN_LIFECYCLE_SCOPE_NOTE}}` | Q — design lifecycle scope (see Conditionals) | One callout line in the router stating what `{{provider:invoke:design}}` targets and where output lands                                                                                                                   |
 | `{{DESIGN_HANDOFF_NOTE}}`         | Developer describes the repo topology         | One line explaining where implementation tickets are actually built — e.g. "Most designs are implemented in the owning downstream repo, not here" for a multi-repo product, or omitted entirely for a single-repo project |
 | `{{DOC_PRINCIPLES_ARTICLE}}`      | Q — Doc Principles article path               | Passed to `@docs-writer` in Publish Step 3; same value as `docs-writer/INTENT.md`'s substitution                                                                                                                          |
 | `{{WAF_PILLARS_TABLE}}`           | Q11 — WAF framework                           | Pillar definitions table (pillar name + key questions), used by both Evaluate's inline assessment and `patterns/waf-review.md`                                                                                            |
@@ -90,15 +90,15 @@ resolves the ID from its own definition. Keeping that mapping in one place
 
 ## Conditionals
 
-- **Design lifecycle scope** — ask at bootstrap time (Q10 in the [launch questions](../../references/02-launch-questions.md)) which of three modes `/design` runs in. This is **one decision, used consistently** across every stage reference and pattern in this skill — not a per-stage choice. `/dev` is unaffected in every mode.
+- **Design lifecycle scope** — ask at bootstrap time (Q10 in the [launch questions](../../../references/launch/02-launch-questions.md)) which of three modes `{{provider:invoke:design}}` runs in. This is **one decision, used consistently** across every stage reference and pattern in this skill — not a per-stage choice. `{{provider:invoke:dev}}` is unaffected in every mode.
 
-  - **Project-scoped** (default — most single-repo projects): `/design` always targets this project's own architecture.
+  - **Project-scoped** (default — most single-repo projects): `{{provider:invoke:design}}` always targets this project's own architecture.
     - `{{DESIGN_DOCS_ROOT}}` = `docs/Target Architecture (HLD)/`
     - `{{DESIGN_ARCHITECT_AGENT}}` = `@architect` — do not deploy `product-architect`
     - `{{DESIGN_CONTEXT_STEP}}` = a step reading `docs/Target Architecture (HLD)/README.md` to find the active version and selecting the relevant container(s); ends with "Context sources for Step 5 and all subsequent phases: read the relevant container doc(s) and NFR docs for the areas this ticket touches."
     - Do not deploy `patterns/context-resolution.md`. `{{PRODUCT_CONTEXT_DIR}}` is not asked.
 
-  - **Product-context-scoped** (a repo whose entire purpose is a shared cross-project docs layer with no target architecture of its own): `/design` always targets the shared product-context layer.
+  - **Product-context-scoped** (a repo whose entire purpose is a shared cross-project docs layer with no target architecture of its own): `{{provider:invoke:design}}` always targets the shared product-context layer.
     - `{{DESIGN_DOCS_ROOT}}` = `docs/{{PRODUCT_CONTEXT_DIR}}/`
     - `{{DESIGN_ARCHITECT_AGENT}}` = `@product-architect` — deploy `canonical/agents/product-architect/TEMPLATE.md`
     - `{{DESIGN_CONTEXT_STEP}}` = a bullet list of the product-context subfolders, followed by "Context sources for Step 5 and all subsequent phases: read relevant docs under each of those subfolders."
@@ -106,7 +106,7 @@ resolves the ID from its own definition. Keeping that mapping in one place
 
   - **Two-track** (a repo that needs both: its own target architecture _and_ a shared cross-project product-context layer, chosen per design session):
     - `{{DESIGN_DOCS_ROOT}}` and `{{DESIGN_ARCHITECT_AGENT}}` resolve, everywhere they appear in every stage reference and pattern, to the **literal runtime tokens** `{dest docs}` / `{source docs}` and `{resolved architect agent}` — not bootstrap-time substitutions, but strings the deployed skill writes and resolves per design session from `design/Report.md`'s `## Context` section. Do not resolve them to a fixed value at generation time.
-    - `{{DESIGN_CONTEXT_STEP}}` = "Apply `.claude/skills/design/patterns/context-resolution.md` — ask the developer which track this is (Product or Project), then which subfolder within it, and write the resolved Track, Source docs, Dest docs, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md` (created in Step 3). Context sources for Step 5 and all subsequent phases: read relevant docs under the resolved Source docs path for anything already established on this topic."
+    - `{{DESIGN_CONTEXT_STEP}}` = "Apply `{{provider:skills_root}}/design/patterns/context-resolution.md` — ask the developer which track this is (Product or Project), then which subfolder within it, and write the resolved Track, Source docs, Dest docs, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md` (created in Step 3). Context sources for Step 5 and all subsequent phases: read relevant docs under the resolved Source docs path for anything already established on this topic."
     - Deploy `patterns/context-resolution.md` — resolve its lookup table's Product row using `{{PRODUCT_CONTEXT_DIR}}`; its Project row is fixed.
     - Deploy `canonical/agents/product-architect/TEMPLATE.md` alongside `@architect` — both agents exist side by side.
     - `{{DESIGN_HANDOFF_NOTE}}` resolves to the runtime instruction: "Read the Implementation note from `design/Report.md`'s `## Context` section before publishing implementation tickets." — not a fixed string, since the note varies by which track the session resolved to.

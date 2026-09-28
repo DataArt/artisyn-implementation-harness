@@ -1,0 +1,45 @@
+--- a/reports/report.template.md
++++ b/reports/report.template.md
+@@ -1,6 +1,6 @@
+ ---
+ name: Bootstrap Report Template
+-description: Blank structure for a fresh /harness-bootstrap run — copy to a new dated file outside the toolkit (project .harness/launch/reports/YYYY-MM-DD-HHMMSS-<mode>.md, per SKILL.md progress instructions) and keep it updated for the duration of that run: Q&A answers plus per-stage/block status. Never overwrite this template itself, and never edit a prior run's dated file.
++description: Blank structure for a fresh /harness-bootstrap run — copy to a new dated file at package:state/launch/reports/YYYY-MM-DD-HHMMSS-<mode>.md, per SKILL.md progress instructions and keep it updated for the duration of that run: Q&A answers plus per-stage/block status. Never overwrite this template itself, and never edit a prior run's dated file.
+ type: reference
+ ---
+ 
+@@ -17,7 +17,7 @@
+ ## Progress
+ 
+ **launch mode:** at run start, create one row per stage of the
+-[Launch task table](../references/01-launch.md#launch-task-table) — that table is
++[Launch task table](../references/launch/01-launch.md#launch-task-table) — that table is
+ the single source for stage names, order, and completion evidence. Statuses:
+ ⏳ Pending / 🔄 In progress / ✅ Complete.
+ 
+@@ -79,11 +79,11 @@
+ 
+ ## Stats
+ 
+-| Field                     | Value                                                                                         |
+-| ------------------------- | --------------------------------------------------------------------------------------------- |
+-| Existing harness detected | none / partial / full _(from Stage 1d)_                                                       |
+-| Satellite review verdict  | _(Block E — go, or iteration count up to 3)_                                                  |
+-| LLD deviations found      | _(sum of `deviationsFound` across the `harness-bootstrap-lld` workflow's results, if launch)_ |
++| Field                     | Value                                                                               |
++| ------------------------- | ----------------------------------------------------------------------------------- |
++| Existing harness detected | none / partial / full _(from Stage 1d)_                                             |
++| Satellite review verdict  | _(Block E — go, or iteration count up to 3)_                                        |
++| LLD deviations found      | _(sum of deviations found across layer/component documentation reviews, if launch)_ |
+ 
+ ### Efforts Spent
+ 
+@@ -99,7 +99,7 @@
+ ## Answers
+ 
+ One row per applicable key from the
+-[question checklist](../references/02-launch-questions.md); copy the checklist's
++[question checklist](../references/launch/02-launch-questions.md); copy the checklist's
+ wording into Question at resolution time. Mark inapplicable branches explicitly.
+ 
+ | Key | Question | Answer |

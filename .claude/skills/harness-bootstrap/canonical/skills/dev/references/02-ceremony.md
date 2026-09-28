@@ -1,9 +1,9 @@
 # Ceremony stage
 
-Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
 `--stage ceremony`.
 
-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage is the
+Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This stage is the
 official start of work on the ticket: assign and transition it via `@scrum-master`,
 then get onto the right branch. It does no reading or writing of intent/plan content
 — that's Context Gathering's and Plan's job respectively.
@@ -12,7 +12,7 @@ Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine aut
 and pause only for a concrete unresolved decision, required human verification, or a
 fixed sign-off gate (`patterns/approval-sign-off.md`).
 
-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+> 🔁 **Session continuity:** apply `{{provider:skills_root}}/dev/patterns/session-continuity.md`.
 
 ## Step 1 — Tracker setup _(skip if no ticket number detected)_
 
@@ -75,4 +75,4 @@ Update the `Phase` row in `2-report.md`:
 Tell the developer the ticket is assigned/transitioned and the branch is confirmed.
 Continue to Plan for full-flow entry.
 
-🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Plan).
+🔁 Re-read `{{provider:skills_root}}/dev/SKILL.md` and resume the router from the next stage (Plan).

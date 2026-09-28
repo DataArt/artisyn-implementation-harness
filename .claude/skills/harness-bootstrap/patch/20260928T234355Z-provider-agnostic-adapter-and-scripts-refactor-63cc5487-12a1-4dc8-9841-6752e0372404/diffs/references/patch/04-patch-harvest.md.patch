@@ -1,0 +1,20 @@
+--- a/references/04-patch-harvest.md
++++ b/references/patch/04-patch-harvest.md
+@@ -6,7 +6,7 @@
+ narrow set of `canonical-only` package-internal files (see `06-patch-state.md`).
+ Bookkeeping aliases `registry.md`,
+ `patch/`, and `state/` refer to project `.harness/` locations defined in the state
+-contract; use `.harness/launch/answers.json` and local reports for project knowns.
++contract; use `package:state/launch/answers.json` and local reports for project knowns.
+ 
+ ## 1 — Inspect permanent changes
+ 
+@@ -43,7 +43,7 @@
+ - Separate reusable behavior from project-only customizations. Resolve ambiguous
+   generalization and conflicting edits with the developer using a concrete diff.
+ - Bump changed template versions and the package version according to
+-  `../patterns/skill-authoring.md`; update the package changelog.
++  `../../patterns/skill-authoring.md`; update the package changelog.
+ 
+ Show the canonical before/after diff, affected mappings, and any local-only content
+ excluded. Proceed with clean requested changes; ask for unresolved choices or

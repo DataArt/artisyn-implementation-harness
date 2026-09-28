@@ -52,8 +52,8 @@ HLD containers with significant open questions or TBD sections:
 
 ## Recommended Next Actions
 
-| Priority | Action     | Command                                        |
-| -------- | ---------- | ---------------------------------------------- |
-| P1       | {{action}} | `/dev document <TICKET>` or `/design <TICKET>` |
-| P2       | {{action}} |                                                |
-| P3       | {{action}} |                                                |
+| Priority | Action     | Command                                                                              |
+| -------- | ---------- | ------------------------------------------------------------------------------------ |
+| P1       | {{action}} | `{{provider:invoke:dev}} document <TICKET>` or `{{provider:invoke:design}} <TICKET>` |
+| P2       | {{action}} |                                                                                      |
+| P3       | {{action}} |                                                                                      |

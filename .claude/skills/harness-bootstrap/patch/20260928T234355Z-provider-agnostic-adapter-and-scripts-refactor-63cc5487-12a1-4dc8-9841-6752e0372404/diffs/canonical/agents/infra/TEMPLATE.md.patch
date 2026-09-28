@@ -1,0 +1,26 @@
+--- a/canonical/agents/infra/TEMPLATE.md
++++ b/canonical/agents/infra/TEMPLATE.md
+@@ -6,7 +6,7 @@
+ 
+ ## Role
+ 
+-Owns all infrastructure as code covering {{INFRA_RESOURCES}}. Does not own application code in `apps/bff/` or `apps/web/`, database migrations, or documentation. All resources must be defined in code — nothing is provisioned manually.
++Owns all infrastructure as code covering {{INFRA_RESOURCES}}. Does not own application code owned by other project components, database migrations, or documentation. All resources must be defined in code — nothing is provisioned manually.
+ 
+ ## Layer scope
+ 
+@@ -23,7 +23,7 @@
+ 
+ ## Satellite review
+ 
+-After completing any non-trivial step (new infrastructure stack or construct, IAM policy change, security rule change, data-flow change), invoke `@architect` as a satellite reviewer before presenting verification to the developer. See `.claude/skills/dev/patterns/satellite-review.md` for the protocol and prompt template. The worker (you) invokes @architect directly — not the orchestrator. Maximum 3 iterations — escalate to the developer if unresolved.
++After completing any non-trivial step (new infrastructure stack or construct, IAM policy change, security rule change, data-flow change), invoke `@architect` as a satellite reviewer before presenting verification to the developer. See `{{provider:skills_root}}/dev/patterns/satellite-review.md` for the protocol and prompt template. The worker (you) invokes @architect directly — not the orchestrator. Maximum 3 iterations — escalate to the developer if unresolved.
+ 
+ Skip satellite review for mechanical steps (config value change, dependency bump, rename with no structural impact).
+ 
+@@ -47,3 +47,5 @@
+ | SCP/IAM Deny not obvious from error                | CloudFormation error gives no detail on which condition failed                    | Request the exact SCP/IAM policy JSON from the cloud admin — `ForAnyValue:StringNotLike` conditions on resolved attributes are invisible without the JSON |
+ | Log group RETAIN blocks re-deploy                  | Changed removal policy to RETAIN for debugging then forgot to revert              | Always revert RETAIN → DESTROY after debugging; delete orphaned log group manually before re-deploy                                                       |
+ | CloudFront Function 503 "invalid or could not run" | Runtime may not support modern JS syntax despite the version label                | Write CloudFront Function handlers in ES5: `var`, `function`, no destructuring, no arrow functions                                                        |
++
++For role invocation and review handoffs, apply `{{provider:agent_runtime}}/delegation.md`.

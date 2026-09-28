@@ -1,8 +1,8 @@
 # Draft — internal Triage procedure
 
-Invoked by Triage, not exposed as /evolve draft.
+Invoked by Triage, not exposed as {{provider:invoke:evolve}} draft.
 Read [the improvement interface](../interfaces/improvement.md) and the scoped report.
-Legacy .claude/skills/drafts/{name}.md candidates may be imported without deleting
+Legacy {{provider:skills_root}}/drafts/{name}.md candidates may be imported without deleting
 the original; record its source and do not activate it while importing.
 
 Read the affected owner, its callers, the applicable authoring/documentation guidance,

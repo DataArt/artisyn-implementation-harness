@@ -17,7 +17,7 @@ The engineer owns the problem. The AI owns the execution.
 
 ## What the AI Does
 
-- **Follows the workflow** — runs the `/dev` lifecycle (Plan → Implement → Test → Document) without skipping steps
+- **Follows the workflow** — runs the `{{SKILL_PREFIX}}dev` lifecycle (Context → Ceremony → Plan → Implement → Test → Document) without skipping steps
 - **Knows the conventions** — reads the skills, respects the architecture, applies project-specific rules automatically
 - **Implements incrementally** — one step at a time, surfacing blockers early rather than delivering a big surprise
 - **Keeps the docs honest** — updates READMEs and skills as part of the same task, not as an afterthought

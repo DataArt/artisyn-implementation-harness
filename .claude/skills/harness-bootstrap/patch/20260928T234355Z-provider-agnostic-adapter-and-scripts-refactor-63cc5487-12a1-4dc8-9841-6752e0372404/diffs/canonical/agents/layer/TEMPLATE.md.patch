@@ -1,0 +1,17 @@
+--- a/canonical/agents/layer/TEMPLATE.md
++++ b/canonical/agents/layer/TEMPLATE.md
+@@ -22,7 +22,7 @@
+ 
+ ## Satellite review
+ 
+-After completing any non-trivial step ({{LAYER_REVIEW_TRIGGERS}}), invoke `@architect` as a satellite reviewer before presenting verification to the developer. See `.claude/skills/dev/patterns/satellite-review.md` for the protocol. Maximum 3 iterations — escalate to the developer if unresolved.
++After completing any non-trivial step ({{LAYER_REVIEW_TRIGGERS}}), invoke `@architect` as a satellite reviewer before presenting verification to the developer. See `{{provider:skills_root}}/dev/patterns/satellite-review.md` for the protocol. Maximum 3 iterations — escalate to the developer if unresolved.
+ 
+ Skip satellite review for mechanical steps ({{LAYER_REVIEW_SKIP_EXAMPLES}}).
+ 
+@@ -33,3 +33,5 @@
+ - Never add features beyond what the current plan step specifies
+ - Never hardcode secrets or environment-specific values
+   {{LAYER_NEVER_DO}}
++
++For role invocation and review handoffs, apply `{{provider:agent_runtime}}/delegation.md`.

@@ -1,9 +1,9 @@
 # Context Gathering stage
 
-Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
 `--stage context`.
 
-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage exists
+Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This stage exists
 because what reaches planning is otherwise several steps removed from what the
 originator meant — it captures the ticket's intent once, from tracker/Confluence,
 any approved design, and the developer's own words, and persists it as `0-intent.md`
@@ -14,12 +14,12 @@ Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine aut
 and pause only for a concrete unresolved decision, required human verification, or a
 fixed sign-off gate (`patterns/approval-sign-off.md`).
 
-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+> 🔁 **Session continuity:** apply `{{provider:skills_root}}/dev/patterns/session-continuity.md`.
 
 ## Step 0 — Idempotency check (direct stage invocation)
 
-This check fires when this stage is entered directly (`/dev context {TICKET}`) —
-the router's own resume check already handled the bare `/dev {TICKET}` case before
+This check fires when this stage is entered directly (`{{provider:invoke:dev}} context {TICKET}`) —
+the router's own resume check already handled the bare `{{provider:invoke:dev}} {TICKET}` case before
 delegating here, so this only guards a deliberate re-run request.
 
 - Glob for `docs/Stories/*{TICKET}*/impl/2-report.md` (use `*{TICKET}*` wildcard — never `[{TICKET}]*`)
@@ -32,7 +32,7 @@ If stale state is found, present:
 > - Intent: `docs/Stories/{folder}/impl/0-intent.md`
 > - Report current phase: `{phase-row}`
 >
-> Start fresh (overwrite) or stop here and use `/dev plan {TICKET}` to resume? (**overwrite** / **stop**)"
+> Start fresh (overwrite) or stop here and use `{{provider:invoke:dev}} plan {TICKET}` to resume? (**overwrite** / **stop**)"
 
 **Stop and wait.**
 
@@ -166,14 +166,14 @@ Confirm the folder structure:
 
 The folder name is **stable for the life of the ticket** — do not rename it later. Phase state is tracked in the `Phase` row of `2-report.md`, not in the folder name.
 
-Write the confirmed summary as `impl/0-intent.md` using `.claude/skills/dev/templates/intent.md`
+Write the confirmed summary as `impl/0-intent.md` using `{{provider:skills_root}}/dev/templates/intent.md`
 — a small, versioned proto-spec (problem, proposed outcome, affected users/systems,
 constraints, open questions) that the Plan stage reads from, distinct from the
 step-by-step `1-plan.md` written later. Write it once; only append to Open Questions
 afterward, never rewrite the confirmed sections.
 
 Create `impl/2-report.md` — the living implementation report — using the template at
-`.claude/skills/dev/templates/report.md`. Replace the placeholder values:
+`{{provider:skills_root}}/dev/templates/report.md`. Replace the placeholder values:
 
 - `{TICKET}` and `<Short Title>` — from the ticket / intent title
 - Header table — fill in Ticket, Branch, and Author (run `git config user.name` to get the value); leave PR as `—`, Status as `🔄 In Progress`, Phase as `🎯 Context ✅ · 🚀 Ceremony ⏳ · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳`
@@ -187,4 +187,4 @@ value for `--author` rather than running it twice.
 Tell the developer: "Intent saved to `docs/Stories/[{TICKET}] {name}/impl/0-intent.md`."
 Continue to Ceremony for a full-flow request; stop after this stage for direct entry.
 
-🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Ceremony).
+🔁 Re-read `{{provider:skills_root}}/dev/SKILL.md` and resume the router from the next stage (Ceremony).

@@ -1,0 +1,64 @@
+--- a/canonical/skills/where-we-are/TEMPLATE.md
++++ b/canonical/skills/where-we-are/TEMPLATE.md
+@@ -1,15 +1,15 @@
+ ---
+ name: where-we-are
+ metadata:
+-  version: 0.4.0
+-description: Delivery gap report (/where-we-are or "what's implemented vs designed?"). Compares HLD containers vs LLD docs and the codebase. Saves snapshot to docs/System Architecture (LLD)/where-we-are/.
++  version: 1.0.0
++description: Delivery gap report ({{provider:invoke:where-we-are}} or "what's implemented vs designed?"). Compares HLD containers vs LLD docs and the codebase. Saves snapshot to docs/System Architecture (LLD)/where-we-are/.
+ ---
+ 
+ The developer wants to see the current delivery gap between Target Architecture (HLD) and System Architecture (LLD). Here is their input:
+ 
+ ---
+ 
+-## $ARGUMENTS
++## {{provider:input}}
+ 
+ ---
+ 
+@@ -39,7 +39,7 @@
+ 
+ Read `docs/Target Architecture (HLD)/README.md` to find the **current active version**.
+ 
+-Parse `$ARGUMENTS`:
++Parse `{{provider:input}}`:
+ 
+ - If a version is given (e.g. `MVP`): use that version
+ - If no argument: use the active version
+@@ -156,10 +156,10 @@
+ 
+ ## Recommended next actions
+ 
+-| Priority | Action | Command                                        |
+-| -------- | ------ | ---------------------------------------------- |
+-| P1       | ...    | `/dev document {TICKET}` or `/design {TICKET}` |
+-| ...      |        |                                                |
++| Priority | Action | Command                                                                              |
++| -------- | ------ | ------------------------------------------------------------------------------------ |
++| P1       | ...    | `{{provider:invoke:dev}} document {TICKET}` or `{{provider:invoke:design}} {TICKET}` |
++| ...      |        |                                                                                      |
+ ```
+ 
+ ---
+@@ -172,7 +172,7 @@
+ 
+ > "Gap report complete. Save as a dated snapshot? (**yes** / **no**)"
+ 
+-If yes, use `.claude/skills/where-we-are/report-template.md` as the file structure. Replace all `{{VERSION}}` and `{{YYYY-MM-DD}}` placeholders with actual values, populate the gap matrix with the containers discovered from the HLD (one row per container — do not hardcode), and fill in all report sections.
++If yes, use `{{provider:skills_root}}/where-we-are/report-template.md` as the file structure. Replace all `{{VERSION}}` and `{{YYYY-MM-DD}}` placeholders with actual values, populate the gap matrix with the containers discovered from the HLD (one row per container — do not hardcode), and fill in all report sections.
+ 
+ Save to:
+ 
+@@ -190,6 +190,6 @@
+ 
+ > "Saved to `docs/System Architecture (LLD)/where-we-are/{date}-gap-report.md`.
+ >
+-> To re-run after new deliveries: `/where-we-are`
+-> To document a container's LLD: `/dev document {TICKET}`
+-> To run a full WAF code audit: `/war implementation`"
++> To re-run after new deliveries: `{{provider:invoke:where-we-are}}`
++> To document a container's LLD: `{{provider:invoke:dev}} document {TICKET}`
++> To run a full WAF code audit: `{{provider:invoke:war}} implementation`"

@@ -31,10 +31,14 @@ function main() {
   fs.mkdirSync(RELEASES_DIR, { recursive: true });
   if (fs.existsSync(outPath)) fs.rmSync(outPath);
 
-  const result = spawnSync('zip', ['-r', '-X', outPath, 'harness-bootstrap', '-x', '*.DS_Store'], {
-    cwd: path.join(ROOT, '.claude', 'skills'),
-    stdio: 'inherit',
-  });
+  const result = spawnSync(
+    'zip',
+    ['-r', '-X', outPath, 'harness-bootstrap', '-x', '*.DS_Store', 'harness-bootstrap/state/*'],
+    {
+      cwd: path.join(ROOT, '.claude', 'skills'),
+      stdio: 'inherit',
+    }
+  );
   if (result.status !== 0) {
     throw new Error(`zip failed with exit code ${result.status}`);
   }

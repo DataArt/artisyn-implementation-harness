@@ -1,0 +1,23 @@
+--- a/references/01d-launch-verify.md
++++ b/references/launch/01d-launch-verify.md
+@@ -55,15 +55,14 @@
+ Then finalize tasks/report and Ended, summarize outcomes, and suggest a Conventional
+ Commit covering installation and cleanup. Do not stage, commit, push or deploy merely
+ because launch ran; respect project guarded commands. Suggest `/where-we-are` only if
+-installed, and run it only when requested. The toolkit remains ignored; preserve already
+-tracked files and keep durable project records outside it per Patch State.
++installed, and run it only when requested. Preserve toolkit state/launch across updates; exclude it from distribution archives.
++Complete final evidence and INTENT cleanup with the provider finalizer before closing.
+ 
+-Optional local implementation checks, run from the project root:
++Optional local regression tests, run from the project root:
+ 
+ ```sh
+-node .claude/skills/harness-bootstrap/scripts/check-materialize-launch.mjs
+-node .claude/skills/harness-bootstrap/scripts/check-launch-workflows.mjs
++node --test .claude/skills/harness-bootstrap/scripts/tests/*.test.mjs
+ ```
+ 
+-These check an isolated fake project and mocked Claude primitives. Runtime discovery,
++These exercise an isolated fake project and mocked Claude primitives. Runtime discovery,
+ agent writes and semantic documentation verification still require an actual launch.

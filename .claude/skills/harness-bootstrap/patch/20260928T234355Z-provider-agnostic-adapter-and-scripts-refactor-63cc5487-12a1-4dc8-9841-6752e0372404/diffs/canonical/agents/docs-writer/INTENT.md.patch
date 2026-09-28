@@ -1,0 +1,10 @@
+--- a/canonical/agents/docs-writer/INTENT.md
++++ b/canonical/agents/docs-writer/INTENT.md
+@@ -1,6 +1,6 @@
+ ---
+ skill: agents/docs-writer
+-output: .claude/agents/docs-writer.md
++output: {{provider:agents_root}}/docs-writer.{{provider:agent_extension}}
+ ---
+ 
+ ## Purpose

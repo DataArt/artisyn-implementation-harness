@@ -6,7 +6,7 @@ type: pattern
 
 Read `docs/Target Architecture (HLD)/README.md` to find the **current active version**. Use that version for all paths — do not hardcode a version.
 
-Parse `$ARGUMENTS`:
+Parse `{{provider:input}}`:
 
 - If a version is given (e.g. `MVP`, `V1`): use that version instead of the active version
 - If a pillar is specified (e.g. `MVP Security`, `RE`): scope the audit to that pillar only

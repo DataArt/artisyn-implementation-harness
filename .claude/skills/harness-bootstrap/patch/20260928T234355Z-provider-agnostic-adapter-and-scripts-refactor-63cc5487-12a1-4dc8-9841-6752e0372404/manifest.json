@@ -1,0 +1,1677 @@
+{
+  "schema_version": 2,
+  "id": "63cc5487-12a1-4dc8-9841-6752e0372404",
+  "created_at": "2026-09-28T23:43:55Z",
+  "origin": "artisyn-harness (canonical source repo)",
+  "operation": "prepare",
+  "summary": "Provider-agnostic Claude/Codex adapter: canonical manifest/settings/mcp inputs, per-provider adoptors runtime procedures, provider-neutral Engineering Guide docs, genericized onboarding agent, and a scripts/ decomposition (shared lib/, manifest.json as the sole source of truth for provider format/prefix, tests moved to scripts/tests/). Retires Claude Workflows LLD/HLD fan-out, Cursor/Kiro/Windsurf install targets, and project .harness/launch/ state in favor of package state/launch/.",
+  "package_version": "2.0.0",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "rename",
+      "path": "canonical/skills/design/interfaces/contract.md",
+      "old_path": "canonical/skills/design/interfaces/INTENT.md",
+      "before_sha256": "76e88abe059f0731932cae197d4b40098eec125615e9945c52e29528139e3f1f",
+      "after_sha256": "76e88abe059f0731932cae197d4b40098eec125615e9945c52e29528139e3f1f",
+      "payload": null,
+      "payload_sha256": null,
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "rename",
+      "path": "references/launch/01-launch.md",
+      "old_path": "references/01-launch.md",
+      "before_sha256": "2734dd5a3f3e91093d8e614fcb1aa1932a37d3563974a7d7821c55ac43284c3e",
+      "after_sha256": "32a610392c7179e8c6962e42a85b144e0bc699612a2db1ed8270a0fee33893f8",
+      "payload": "diffs/references/launch/01-launch.md.patch",
+      "payload_sha256": "5ffa50782175f4d8647b1ee3d2caae0ce59195e085f8f422ab4adcfe7a19cf83",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/launch/01a-launch-plan.md",
+      "old_path": "references/01a-launch-plan.md",
+      "before_sha256": "62498bdbb58ce57b320bc7412fdb58a5cc5fe7c7f1dff89f59fd74a9bcdf5fb1",
+      "after_sha256": "c3d3ab5957e71f3744b2760f73e2430175f1d77eb2d4e87a0c78bf729aeaa984",
+      "payload": "diffs/references/launch/01a-launch-plan.md.patch",
+      "payload_sha256": "8b9a3a348ed66d64525a3503ed5ca49cdb4698ac81bcae4e71d08960bdf80bf7",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/launch/01b-launch-install.md",
+      "old_path": "references/01b-launch-install.md",
+      "before_sha256": "0e43453ffc49238cdeef0bed2afca8a4d8c7d06b57359c0edaad40e451a748f3",
+      "after_sha256": "8264ed911e8cc7cc74679bbb7873533a2ee1a1229457e25c85f793ba3cfe1bf6",
+      "payload": "diffs/references/launch/01b-launch-install.md.patch",
+      "payload_sha256": "47ca061bdce1b967481e53d46110a927477222c768183ebd89bb892a01f1b458",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/launch/01c-launch-docs.md",
+      "old_path": "references/01c-launch-docs.md",
+      "before_sha256": "c932b91992c9292743e63599c3f9538a767052b79bf31e8c550b7982259f71de",
+      "after_sha256": "e5b6327b8a14daa3638e01dc3b22ea6ab38941e325b3712453748aeaa4a4b960",
+      "payload": "diffs/references/launch/01c-launch-docs.md.patch",
+      "payload_sha256": "59b9372fd4e221242b070052d07f287d41f2849157ff10979955fa968dd134fd",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/launch/01d-launch-verify.md",
+      "old_path": "references/01d-launch-verify.md",
+      "before_sha256": "edbefa56823a100c2b2eb130f621f1f2e77216a5223dbaf2e6560092f7c1245b",
+      "after_sha256": "f56e35e198d0b0f74d4d871869b4c10a4615a9867228dbfaec36a128481593e2",
+      "payload": "diffs/references/launch/01d-launch-verify.md.patch",
+      "payload_sha256": "e719ced7f5d18ba59a510984defe6ff9ab17aa679edafc8792c809d98e838d6d",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/launch/02-launch-questions.md",
+      "old_path": "references/02-launch-questions.md",
+      "before_sha256": "2fe03653b544db0b4aa329b2b6e93f43321926b3c23c4901dd8e2b19885dc1ee",
+      "after_sha256": "7199fdfde47912e38ca71c17e1495c43516e939284117f73ec57780ef1b4efca",
+      "payload": "diffs/references/launch/02-launch-questions.md.patch",
+      "payload_sha256": "afc943a4e7afa763a313547580ad856d1c65561564b21aae30db8c06cb0c3797",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/patch/03-patch.md",
+      "old_path": "references/03-patch.md",
+      "before_sha256": "d02f04818063f6141d18c1cfeae25e6d35bc9ac174b05339e213612cce4996e8",
+      "after_sha256": "d02f04818063f6141d18c1cfeae25e6d35bc9ac174b05339e213612cce4996e8",
+      "payload": null,
+      "payload_sha256": null,
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/patch/04-patch-harvest.md",
+      "old_path": "references/04-patch-harvest.md",
+      "before_sha256": "419992e3b25c010ddaa1c8624792f283f4269ce7c4c2e7a315a969b18f274c83",
+      "after_sha256": "53c0e0d5ca705df4f3bb74c404ce088a70f7b4976ca71ea9aa425ba3938991f4",
+      "payload": "diffs/references/patch/04-patch-harvest.md.patch",
+      "payload_sha256": "e1bd97a19689df3c80a328d198cf56682bd0e120c0544438f3e98686ced10da3",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/patch/05-patch-apply.md",
+      "old_path": "references/05-patch-apply.md",
+      "before_sha256": "912640cfff24f470d39e401df9e4509e3810ada81dc1ac8ed7ac22633269019f",
+      "after_sha256": "7b9f49ea15adb057ed0e3399f2c9878e70f71c9566884c375d2ce03964224b07",
+      "payload": "diffs/references/patch/05-patch-apply.md.patch",
+      "payload_sha256": "fc44e2c149f2e07bc6b1ca487424bee590efb5166f63a4eda5372ff70b484e4c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/patch/06-patch-state.md",
+      "old_path": "references/06-patch-state.md",
+      "before_sha256": "0f794bcfd0aa3fe1f6a823bbc8e8fea68c0e2cf9a5f011bf51ec435bd0bbe832",
+      "after_sha256": "b8c72311878f20bc1b48636a3d5804bb5a77d6e5c52d055135163c1dcf48bc18",
+      "payload": "diffs/references/patch/06-patch-state.md.patch",
+      "payload_sha256": "14686ce7c3cf97c6aa7c2db6e61d7c395fd3d93f5dd1dd466d99fe7ab5f96a2d",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "rename",
+      "path": "references/patch/07-patch-prepare.md",
+      "old_path": "references/07-patch-prepare.md",
+      "before_sha256": "4a1d535f80fc282ebbee6f4927ec0ba7536f4f1f2475ab8e4b7d7dfb17616bd6",
+      "after_sha256": "61e32293e3a9ed86a6a9472411a18ae479a9bb5a9460d86fee1f9a1b0533f9a6",
+      "payload": "diffs/references/patch/07-patch-prepare.md.patch",
+      "payload_sha256": "21c73db984c60605ee15145339403e05350f323f16ccb23376837e5a675d0139",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/browser.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "payload": "files/canonical/adoptors/claude/browser.md",
+      "payload_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (browser.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/context.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "payload": "files/canonical/adoptors/claude/context.md",
+      "payload_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (context.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/credentials.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "payload": "files/canonical/adoptors/claude/credentials.md",
+      "payload_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (credentials.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/delegation.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "payload": "files/canonical/adoptors/claude/delegation.md",
+      "payload_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (delegation.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/interaction.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "payload": "files/canonical/adoptors/claude/interaction.md",
+      "payload_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (interaction.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/planning.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "payload": "files/canonical/adoptors/claude/planning.md",
+      "payload_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (planning.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/review.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "payload": "files/canonical/adoptors/claude/review.md",
+      "payload_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (review.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/claude/task-tracking.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "1e8beee35c5b1a497cd7ded850e8566660a85405c599203183391174596a7e5c",
+      "payload": "files/canonical/adoptors/claude/task-tracking.md",
+      "payload_sha256": "1e8beee35c5b1a497cd7ded850e8566660a85405c599203183391174596a7e5c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the claude provider's skill runtime/ and agent runtime directory (task-tracking.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/browser.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d21bb18d08213e9542563c2905b2943d6a54fabef91fd4fc8b0cc07a4e87cfe5",
+      "payload": "files/canonical/adoptors/codex/browser.md",
+      "payload_sha256": "d21bb18d08213e9542563c2905b2943d6a54fabef91fd4fc8b0cc07a4e87cfe5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (browser.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/context.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "payload": "files/canonical/adoptors/codex/context.md",
+      "payload_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (context.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/credentials.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d89a348add3d897bdfa92fa2624aaaecb959c0c60c0fcb7311801f8ac2ed949d",
+      "payload": "files/canonical/adoptors/codex/credentials.md",
+      "payload_sha256": "d89a348add3d897bdfa92fa2624aaaecb959c0c60c0fcb7311801f8ac2ed949d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (credentials.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/delegation.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "payload": "files/canonical/adoptors/codex/delegation.md",
+      "payload_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (delegation.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/interaction.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "payload": "files/canonical/adoptors/codex/interaction.md",
+      "payload_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (interaction.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/planning.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "092ce683b3f842e3c82124248a72b3f8bdde481c01b8d180939d54438a03b881",
+      "payload": "files/canonical/adoptors/codex/planning.md",
+      "payload_sha256": "092ce683b3f842e3c82124248a72b3f8bdde481c01b8d180939d54438a03b881",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (planning.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/review.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b46a2ad5b6797d4a86c4e01226518824771551f0548395545bc53d664f17fbc7",
+      "payload": "files/canonical/adoptors/codex/review.md",
+      "payload_sha256": "b46a2ad5b6797d4a86c4e01226518824771551f0548395545bc53d664f17fbc7",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (review.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adoptors/codex/task-tracking.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "6d38a243d26b8843e1d4294899d1289cf8df892579a7335df2591ed8eddd6eeb",
+      "payload": "files/canonical/adoptors/codex/task-tracking.md",
+      "payload_sha256": "6d38a243d26b8843e1d4294899d1289cf8df892579a7335df2591ed8eddd6eeb",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Installed to the codex provider's skill runtime/ and agent runtime directory (task-tracking.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/architect/INTENT.md",
+      "old_path": null,
+      "before_sha256": "7fd6bda6399031944a614b32ef42baa3e1911a15a9687a8d685b6af6bf140601",
+      "after_sha256": "4bdd8fe331325845b278a12eb9f7c8ace3ce2b0fe88024a2f53ee095e73dd31c",
+      "payload": "diffs/canonical/agents/architect/INTENT.md.patch",
+      "payload_sha256": "d8906352b8473a2479d31c26ea4b4bd12ac07efbbcf561af8689df893bc0d456",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/architect/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "f3667855d5fc03c469b3a0e38408bf1a7376e5d57e3511de46e230323d988073",
+      "after_sha256": "dd5f42fd3656c971481dd730498de757ee7459dc829dc613002abbaf292bc99b",
+      "payload": "diffs/canonical/agents/architect/TEMPLATE.md.patch",
+      "payload_sha256": "685b4a7e8d215b9568f621d9a89b3d2ccd0b005e7c9495411aedb4adba2538fb",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/architect/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/agents/<name>.md, .codex/agents/<name>.toml)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/docs-writer/INTENT.md",
+      "old_path": null,
+      "before_sha256": "9aa8786709f768228d368f1ef1e72b010c7174d485f56055d4c1825bf557c1b8",
+      "after_sha256": "d8abb53caa5b8987cdd587e71bf1af33002c6308ba2e3dae0b5cc2d2fd2af54a",
+      "payload": "diffs/canonical/agents/docs-writer/INTENT.md.patch",
+      "payload_sha256": "93b8431ab968b76c3dcd4c6993194c0660c9234f7df326fc7b43160698c8c9f2",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/docs-writer/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "c1b622ec61ad4dc68b0da4640c9fec092968029fe4f5ed487e8e7817af0dfd56",
+      "after_sha256": "15903256d7807a825f661daf4d93e16d4c1dd2e2a1a1a8c56a876ca9665eadec",
+      "payload": "diffs/canonical/agents/docs-writer/TEMPLATE.md.patch",
+      "payload_sha256": "63db674a7888139dff07dd7aedd599b6f9da5937ce0c27aee53021f695574b08",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/docs-writer/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/agents/<name>.md, .codex/agents/<name>.toml)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/infra/INTENT.md",
+      "old_path": null,
+      "before_sha256": "5a91c172e7c4f6f702ef184c56e9519379201277df34ed9c7ba20e46d9a9e660",
+      "after_sha256": "0c9e73d8329326419ee03aa4592e2185a26e03649196ae2eefa3432953933bc4",
+      "payload": "diffs/canonical/agents/infra/INTENT.md.patch",
+      "payload_sha256": "bfe7003c0ca27707e85adff65af85f00c32f0b6f4d2568da01769fc85efdf23f",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/infra/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "4d8053872715b0eef99aa0689478a35fd02dd396345325019c009dc034c84062",
+      "after_sha256": "dc86743d039e81ef10d03e7db345d118fa0e627f2d94e78773494fe3b3b4f8c0",
+      "payload": "diffs/canonical/agents/infra/TEMPLATE.md.patch",
+      "payload_sha256": "0f5b824c2d2a4f777e36539e5a9358c037361c708e4bbdf2df3cf2f717d0e82e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/infra/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/agents/<name>.md, .codex/agents/<name>.toml)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/layer/INTENT.md",
+      "old_path": null,
+      "before_sha256": "f09cdd7b0a48aa10f7c076203f5ac0433f986b34d8d4ae027dd341713ca939d9",
+      "after_sha256": "a935d0562564097be9067cce930fa16063a285006b304c8b6f81f73c730f66b0",
+      "payload": "diffs/canonical/agents/layer/INTENT.md.patch",
+      "payload_sha256": "65e751667aaa7593ffbb4968dfa6aceacaa0a0fe6fdaa8dd72c2cc8910191675",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/layer/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "ade9063202345fb79a7d32e75ef45eb5e7457989848ada98c9d82939c8c4764b",
+      "after_sha256": "b53dc6c4503a9e1cfbf8c7a9621f4aff400e20ca70ba9985734ce7a1ed480144",
+      "payload": "diffs/canonical/agents/layer/TEMPLATE.md.patch",
+      "payload_sha256": "d9b27dc36afb3480ed7b94c0c3ee9b4a13df929504df12b1c7dde56226151f12",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/layer/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/agents/<name>.md, .codex/agents/<name>.toml)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/onboarding/INTENT.md",
+      "old_path": null,
+      "before_sha256": "7bb5cb706aaf053c95204aba5e4df9fff766afa70352336054e2012a9c304af0",
+      "after_sha256": "7bf7736e3a1e12befd1486555f53be459a4101ca14a80bdd8d1814bd75470272",
+      "payload": "diffs/canonical/agents/onboarding/INTENT.md.patch",
+      "payload_sha256": "52ba1a99ce38cd92242349f25ba0b7f4a46b48dc4067ad7e85543d514807ace9",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/onboarding/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "4a1c4094688a099324851ec5ceca202f618ed2701dec84cf0c3a96b42f7cc46f",
+      "after_sha256": "6f7ae96c24797dca51107fde8bda55c1b4cc1de1eb4f341b620aee06b20057d0",
+      "payload": "diffs/canonical/agents/onboarding/TEMPLATE.md.patch",
+      "payload_sha256": "1692b37385ba9826f182bdad45de36fc3c3f289193525be95d238edca27c01de",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/onboarding/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/agents/<name>.md, .codex/agents/<name>.toml)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/product-architect/INTENT.md",
+      "old_path": null,
+      "before_sha256": "d0406f1b382ecc22252c65c2cdba800d92224b6e6c390c5d60637ac2f111996a",
+      "after_sha256": "4ebe03331062b227b97f746caaf2f3dcb75521a4382df3680cc9bde6340ea059",
+      "payload": "diffs/canonical/agents/product-architect/INTENT.md.patch",
+      "payload_sha256": "036fb2394efd61cc45881216bc31d2d72d20d00185e910e5c2c01ff005d6847f",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/product-architect/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "1943e98118237d3b2b98d1758b97ce5d8dee71e73d380226c4e5f8474f39d639",
+      "after_sha256": "3111d9c6f48067a97d3c9fa1310764f9d412ab567ea7a971f5b3fa4fa4ada621",
+      "payload": "diffs/canonical/agents/product-architect/TEMPLATE.md.patch",
+      "payload_sha256": "b70eada3df160da61eb079e83365fdba21ea937b5b1940f68d54e1baa81e2951",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/product-architect/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/agents/<name>.md, .codex/agents/<name>.toml)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/scrum-master/INTENT.md",
+      "old_path": null,
+      "before_sha256": "12721440df684b20e742120a6963f0c0f27db46badc1ae91183a1abfc92ae43f",
+      "after_sha256": "d639c4075e820212854e4f5c1b058d96281fd2da2a6ec2472c333793f88f8589",
+      "payload": "diffs/canonical/agents/scrum-master/INTENT.md.patch",
+      "payload_sha256": "1c3e7ef85b7f36f880b6e79b9fdc8eaf1802c5e6b8e18a5ae1e37d1fdd2cc178",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/scrum-master/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "13de913c7bd8e444e0b1cf586305a1154c655c2cd59940c08c4881388d6b136c",
+      "after_sha256": "3b534c7bc2d89d2520ec2bde03d9ef2be26ffc1f8f0b76dbe7f5e9344b475749",
+      "payload": "diffs/canonical/agents/scrum-master/TEMPLATE.md.patch",
+      "payload_sha256": "19b985492aba5b1054c61503af0bbec5f359eb2fb68da43ba404425827a974bc",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/scrum-master/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/agents/<name>.md, .codex/agents/<name>.toml)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/03 Engineer Role.md",
+      "old_path": null,
+      "before_sha256": "6d55772e07c4adeff5ad132b07e73922ec5c9c903dafa78bc1c205299076b8ce",
+      "after_sha256": "649ca952e9ba85ca6eec2080893a22a4a1838edfdf23c5efe2b70e142e43cd67",
+      "payload": "diffs/canonical/docs/Engineering Guide/03 Engineer Role.md.patch",
+      "payload_sha256": "5d34a8d80790ea2846c1f11258bc7e94df0fa45528f5b2fc5026520319e7d6a5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/03 Engineer Role.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md",
+      "old_path": null,
+      "before_sha256": "68208e3abb2206b4b24735d40e7cf68976a6f3af1dbf58fb8c1f20e1e9ba9dae",
+      "after_sha256": "66343545834b6b5e182d15eec9e6d25c3b8d6950f8a1dacdf0e694dea91e5af5",
+      "payload": "diffs/canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md.patch",
+      "payload_sha256": "5fc3ad9cb871aa0095e692585afb95d4a1d153c090834305104cc3f72bf50980",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/04 AI Coding Tool Compatibility.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/05 MCP Setup.md",
+      "old_path": null,
+      "before_sha256": "3e098db5c69aef4bfab56124bc4f20ffa52f534d862a48a4cdf88a466234b5e3",
+      "after_sha256": "27b9e37bdfa844c5c263a8de7e92f328d02a7ce819f93d55bb432b0332db921e",
+      "payload": "diffs/canonical/docs/Engineering Guide/05 MCP Setup.md.patch",
+      "payload_sha256": "adedeaf3b7627da2cc104a1d84a33164b01490898986c7622e25cc4d664dc872",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/05 MCP Setup.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "old_path": null,
+      "before_sha256": "f91231b9867642367213f2a7681b515690724c36b114908697a4561f6e5f43c5",
+      "after_sha256": "cb2ee40cc95bf8c2cbd55fb44cd07a980bc372f3e7419da11b68ef271293ff37",
+      "payload": "diffs/canonical/docs/Engineering Guide/Documentation/01 Principles.md.patch",
+      "payload_sha256": "2ca534700eaee184e7cfe9b5337585e3db1b46662a6bec67e1c78a8e904ac453",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Documentation/01 Principles.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Documentation/02 Structure.md",
+      "old_path": null,
+      "before_sha256": "26f086370fe8894e1ed7690824bcfd40949fc1adcbca2f996feaa66430957cd5",
+      "after_sha256": "9c2bf93c76f234c8175e3c4f10d714442f420661301b1439207af602617a1d64",
+      "payload": "diffs/canonical/docs/Engineering Guide/Documentation/02 Structure.md.patch",
+      "payload_sha256": "39d740bebe8d93d192a6b260c2eb91aaff09731da7846094d5131c75af919801",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Documentation/02 Structure.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "old_path": null,
+      "before_sha256": "9d7e475fcd5db4da40772c42da4e95a33d14f7b915806736eea06486f95204c2",
+      "after_sha256": "7e0eae7b84cc11b7730079c660bce80869038605ec69ccb13f82648a67396d54",
+      "payload": "diffs/canonical/docs/Engineering Guide/Lifecycles/00 Overview.md.patch",
+      "payload_sha256": "35ddcb82560466c13e1626be2c7482d0b186f9346c28b80e91dad922effe8b63",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/00 Overview.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
+      "old_path": null,
+      "before_sha256": "6f1f1a19dd0e46c8d1467f6ed1bd4571c32d15ba2f71729d090a2ef15d9d3454",
+      "after_sha256": "f3899e7ac96c28e2bcd6affa4d510e5a7cfb30cef94065df611256b0666b2455",
+      "payload": "diffs/canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md.patch",
+      "payload_sha256": "894476f824b1ee9bf1d43daa0df4a86393c2c4ca1a069940b7dd733ee09d3a27",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md",
+      "old_path": null,
+      "before_sha256": "fd5713f4a772783883d4dc3a32753512b28e259f008d7a6c181d7b51abcd8c64",
+      "after_sha256": "d8a9fcbe6c0c5e9f19555e97647469041dc4b441b832aa455a922eacf3649ccc",
+      "payload": "diffs/canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md.patch",
+      "payload_sha256": "c6d957dad5ce4fe2f4b39d2ba86d7e00cafbfeac984e67e78a7d922cc627bd29",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md",
+      "old_path": null,
+      "before_sha256": "d882e3ab70c9bb5209ad5069237057a4beade61f5786f79c4b637f264c69fe82",
+      "after_sha256": "78123cd95a946e006ed90b0456de1c2bfc45df51b3c1b6b44c5ca449acd7c8b8",
+      "payload": "diffs/canonical/docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md.patch",
+      "payload_sha256": "e4fc94cd199ee4d1775ff9f78ba06d3ae0b415ab94e9a337389decd1e8ba8fef",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md",
+      "old_path": null,
+      "before_sha256": "00b7b0f36f064a3f4606351f6f8cf7191298d6af6d20faa075bea0ba264dac03",
+      "after_sha256": "0eeeab2871344ea3062b447309b5d22a6d4b14aff211e141336fc337d3cb2969",
+      "payload": "diffs/canonical/docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md.patch",
+      "payload_sha256": "224c6826764edf06db7eafb91e8bc0127e0d104a42622f6fa59c55007420c8cb",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "old_path": null,
+      "before_sha256": "598a2c2c24c08ee81a178e2c314af24f51c1da97bf0a2587b25c1f6770cbd573",
+      "after_sha256": "f95afcb4a4227877b8b4074f06b874a1e4a4ae11742decba87aff932068f3fc8",
+      "payload": "diffs/canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md.patch",
+      "payload_sha256": "3c2364568ff9be2d6db537d92d6b1fb558c01c20b94320c42360a08f03bbaf94",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/05 Documents Flow.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/manifest.json",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e7dbbdb36689096dbad077978010452011585ca40c048d6943bade16af8b124a",
+      "payload": "files/canonical/manifest.json",
+      "payload_sha256": "e7dbbdb36689096dbad077978010452011585ca40c048d6943bade16af8b124a",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "config",
+        "intent": null,
+        "output_rule": "Adapter contract consumed by the planner/materializer",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/mcp.json",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d8e397af03b5b032f21d0aa967086f0c78b33c87b76f2e9898ae0a144df7de02",
+      "payload": "files/canonical/mcp.json",
+      "payload_sha256": "d8e397af03b5b032f21d0aa967086f0c78b33c87b76f2e9898ae0a144df7de02",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "config",
+        "intent": null,
+        "output_rule": "Rendered into each selected provider's native settings/MCP destination via canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/settings.json",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "99953caf109b5a622ef5a9e867b4917a97eb9f78e7945c595534ff3d5cfc30c6",
+      "payload": "files/canonical/settings.json",
+      "payload_sha256": "99953caf109b5a622ef5a9e867b4917a97eb9f78e7945c595534ff3d5cfc30c6",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "config",
+        "intent": null,
+        "output_rule": "Rendered into each selected provider's native settings/MCP destination via canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/INTENT.md",
+      "old_path": null,
+      "before_sha256": "f18939d7f1ee155b1aae90e21390933b65306b4db64d84f1b0a8db3c9567ea63",
+      "after_sha256": "06b703f24bcc46937cd2c2226e24359d5a13d0b0fb08177f07a642b1ed7e8019",
+      "payload": "diffs/canonical/skills/design/INTENT.md.patch",
+      "payload_sha256": "7d8a7019cb4adef46c503e92b7a6b18d7d73a969dd2ae2cf38bb45181621bb7c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "c03a7c1ad1287e4d51f3dbf7df664eb5f25bb4550719c3bb342c151212aa9959",
+      "after_sha256": "ece4ffa8c95da20f7686450ae0c604239a14424a11dceb93f46556c116cabb50",
+      "payload": "diffs/canonical/skills/design/TEMPLATE.md.patch",
+      "payload_sha256": "fbc47c65060fb65c22699e5145033a57cf7eb0c2468c70153bd9cf16e2b0389e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/skills/<name>/SKILL.md, .agents/skills/<name>/SKILL.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/compact-between-phases.md",
+      "old_path": null,
+      "before_sha256": "071f4f26c46dfe0df00cb4c24e94908af3e2384154e2c26ca8b3b1ac56a3c1ca",
+      "after_sha256": "f6ad0cc775bc1ad8b0e6a0922b9a80e28e6ca9d58cf6f6e84502d38a6902d704",
+      "payload": "diffs/canonical/skills/design/patterns/compact-between-phases.md.patch",
+      "payload_sha256": "6f1fde152cf19fc72cbabe5de31fbfc316f6853061ea23003e06dc737fda9720",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/context-resolution.md",
+      "old_path": null,
+      "before_sha256": "e699962fc8e9ef355f2f0895d433396617879d346013fa5b124c4c5f815a9e14",
+      "after_sha256": "39b58821a98fc93f80d5478a56443fbe47e282885f98ac8dd258bd6a443bab75",
+      "payload": "diffs/canonical/skills/design/patterns/context-resolution.md.patch",
+      "payload_sha256": "975ee9a4a3da86a87b7e5866822da6ed769a2a757baaedcb27546c98b6ab7e6f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/docs-writer-authoring.md",
+      "old_path": null,
+      "before_sha256": "2535a59ae864dd95df262c89a6942884c09fcd1db57db8df87d694b25e60f719",
+      "after_sha256": "0a95ffb63c91ef7e585e301c04468ae0a6e283e9fc9388cda026aa0b93eb991d",
+      "payload": "diffs/canonical/skills/design/patterns/docs-writer-authoring.md.patch",
+      "payload_sha256": "19a4b1cfafdc78c53fb1cfb02b8e3d16032599979ae51aa410d4552e33a96ed3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/metrics.md",
+      "old_path": null,
+      "before_sha256": "1644b649d404f698a3f3115e19ff1949ffacfaec68f14059fa32102838391946",
+      "after_sha256": "a5363f47d9e210fd4293ff07131d6fc57ee3ef53bb67fad39404e03586bf0174",
+      "payload": "diffs/canonical/skills/design/patterns/metrics.md.patch",
+      "payload_sha256": "63c05575f940873f4e639929738dee5e75e9b1957d7ed077a1c51acc7f9acae6",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/satellite-review.md",
+      "old_path": null,
+      "before_sha256": "cd5ea628b2822422493933a690a12bfaa7cc29b9dad7c00c2d0c607648063d25",
+      "after_sha256": "192d649bbb95d86a75a52b1233b2abcb84feaac27231d7b29cb1eecfc1b28bc8",
+      "payload": "diffs/canonical/skills/design/patterns/satellite-review.md.patch",
+      "payload_sha256": "d7fce557f448510cd33a64b48a5b5df2c4b7299f9f7f40d4ee2bafc79608915e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/session-continuity.md",
+      "old_path": null,
+      "before_sha256": "b2506ce78ea44bfd3d131ddcf4a037a4b5685205b4b30597d712de14eb2152f8",
+      "after_sha256": "60774609be6a944042edad7b8deb2ab0eb9cc585f1cadaed892bd1b0c7afa738",
+      "payload": "diffs/canonical/skills/design/patterns/session-continuity.md.patch",
+      "payload_sha256": "ebdac7ca668544ff282b3d91205e7a39c29907f1a6c7d5b6e0ea16e0b4f91bdf",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/task-tracking.md",
+      "old_path": null,
+      "before_sha256": "b5270fa0110236c331e64d4289a48bceed9e10123e8984db5436ba5cd418a460",
+      "after_sha256": "db66a16369ebbcb890bd0e3c96403e96cdd5e8f9eede5a2346e307c7cc932f98",
+      "payload": "diffs/canonical/skills/design/patterns/task-tracking.md.patch",
+      "payload_sha256": "fca1b7c49ba7fbd1ad5fc256b044aa86014a7ff2f80a28edea074cd774bd1d91",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/patterns/waf-review.md",
+      "old_path": null,
+      "before_sha256": "7330794e70557edcbc33edbb92ce29cf2e334afadfc65309d52f80cbed061de4",
+      "after_sha256": "00fa05925098ab95c4ba3e520f1697be61ba456e5c171abf35c4fb89821a5fa1",
+      "payload": "diffs/canonical/skills/design/patterns/waf-review.md.patch",
+      "payload_sha256": "dce8de9ca6ea9948b627a00ed0a4b4bc5071ee7724f66e9c059efdcc21117521",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/01-frame.md",
+      "old_path": null,
+      "before_sha256": "4bde8ec8f91c3a7cc80be75e79af0e67ec06c254702678a1b229a34f39304094",
+      "after_sha256": "ad5d217045b2cc7e818e118f9962d28d58f47a1337621f3510319ed2b63b0332",
+      "payload": "diffs/canonical/skills/design/references/01-frame.md.patch",
+      "payload_sha256": "ce7366189e6ddf171ca7b743e6aa6827e9c8251f6af2450c87d3e5e772f2eab7",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/02-research.md",
+      "old_path": null,
+      "before_sha256": "025e89af9f34fac4fb3a4ecbf90240167a81afc6bdbfc80a8d9a4ebccafeacda",
+      "after_sha256": "ed48f92b82af0bc2409cd16007ca80fbe9a1f4cbf653d0f9260c272f853f69a4",
+      "payload": "diffs/canonical/skills/design/references/02-research.md.patch",
+      "payload_sha256": "98c0b3b4b1660d30fbc8a0d00b6aba4d730adceb062e63bfeb6d18b9090d4714",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/03-evaluate.md",
+      "old_path": null,
+      "before_sha256": "8fad3643da36af10dc4390ea76d8c8cb34a0be5c30fb7818fbde2f8ffe37de89",
+      "after_sha256": "657a3112f2a44296f9235943f3819b486da3f72320b85b631719123c68d45042",
+      "payload": "diffs/canonical/skills/design/references/03-evaluate.md.patch",
+      "payload_sha256": "66607ea7a02769a4d0c73862c09217ab90cb30fa345b6b945059633cf2f5f55f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/04-solution.md",
+      "old_path": null,
+      "before_sha256": "7a3ff51df46f3d115a9219390397fccbe52c957a4b89bce5a56d8410136ab94a",
+      "after_sha256": "ac357a6bc93a8a5137cdaa259a4402af6b6c0c1f5a15e7581e8acc50182ecd25",
+      "payload": "diffs/canonical/skills/design/references/04-solution.md.patch",
+      "payload_sha256": "78a1d6d12e0546365dc03766f2a41545c347e8650bfce4ac3116f524ddf47ebf",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/05-review-gate.md",
+      "old_path": null,
+      "before_sha256": "b3adbd5a8398ad19a9ed77fdd8f82e0cc50ff307731ae96faf0e1bf5f0b0e95f",
+      "after_sha256": "faf8c8e17dcb06fa835cd7138f34fc7ef3289c429bd4e578177b2e2748f2f3bc",
+      "payload": "diffs/canonical/skills/design/references/05-review-gate.md.patch",
+      "payload_sha256": "00754541081ddd0f692ea80ef1634c03d37220f7583b0f704bf4679a09654312",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/06-address-feedback.md",
+      "old_path": null,
+      "before_sha256": "2f7d1ef84a687ebbfe89c0cb59e5fdaf625e22681c69c0dc7778d7a699ea7944",
+      "after_sha256": "037cc19db9fed9ff824ed80b544acd0dd9e263617a4e0aef80e4e29fbfcf4e94",
+      "payload": "diffs/canonical/skills/design/references/06-address-feedback.md.patch",
+      "payload_sha256": "13c845f68a1c3bb8a025aae2e47d606eb11b3bcc4aaa1bc345a573f68846a038",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/07-publish.md",
+      "old_path": null,
+      "before_sha256": "87151955228d0ee55c9aafa6abba2b1fca131d1864ebf551be7d69b9745ec32b",
+      "after_sha256": "e1f6873229482e41453019352b9f54338ff81b3c5f0a88bafa6d2215147313c2",
+      "payload": "diffs/canonical/skills/design/references/07-publish.md.patch",
+      "payload_sha256": "09d36618bd7891b5ad608bce0a1c90dbc551e50377b257e5eb7d8fe3cfd77f04",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": "Deployed alongside the design skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/INTENT.md",
+      "old_path": null,
+      "before_sha256": "87accda41bd62d3db4be0874137b1bdd5dca518d440de22c7143b8fe61c7b884",
+      "after_sha256": "66178f48eaf6e51dafe7bdb0afdbd6b4cb762d8f4a130c239e0550cdb2ef41cf",
+      "payload": "diffs/canonical/skills/dev/INTENT.md.patch",
+      "payload_sha256": "a930bd3818339e8e35d49654763dd8256915e8d41fb0fc8bb65e7ecc48801698",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "1d060209f4f72644e12930bb763d08ce45652dfd1ee9f21acfb1e6a97be0d1b4",
+      "after_sha256": "81f17f43225c0f1d334f5c21f3060c7163798bde04833875e713c1c762fbc929",
+      "payload": "diffs/canonical/skills/dev/TEMPLATE.md.patch",
+      "payload_sha256": "476e1d5a1d9f4f060369e3ec63cdc24ec3e77fe61ec12b5879a326f22df3f933",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/skills/<name>/SKILL.md, .agents/skills/<name>/SKILL.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/patterns/metrics.md",
+      "old_path": null,
+      "before_sha256": "eb6bc96e360b0c2949f2f51be493e0de8dd232e32c183b44933e337e7bf9e36b",
+      "after_sha256": "ba3bc7ad68a1059bef97929bde4598b61729349e82f93a5d745a21a0bb47f7ef",
+      "payload": "diffs/canonical/skills/dev/patterns/metrics.md.patch",
+      "payload_sha256": "ed7bd168ad3b37f11a922318384b11c1008301a0bec393b5242a30df54fc5852",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/patterns/satellite-review.md",
+      "old_path": null,
+      "before_sha256": "299dfa85347fbcc28744a95f73e3bc9425ccf9629934953a0fa6ff60a487d13d",
+      "after_sha256": "cb56389b7a889c7d761471ba0b81c06fe277fc9635252b02a1f38fbc964d3352",
+      "payload": "diffs/canonical/skills/dev/patterns/satellite-review.md.patch",
+      "payload_sha256": "044603dc3940465a678c4cbc341dfd00c33b05377b0821f0f2ff135a02191aa5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/patterns/session-continuity.md",
+      "old_path": null,
+      "before_sha256": "8a472332c5e7a0e656e652852e5f5c408ebedd51528e047344aca83fc3b7fc9c",
+      "after_sha256": "30202994fa0242d70424cd9e1ac494b967942963d4849034fa0bceb10f6294f4",
+      "payload": "diffs/canonical/skills/dev/patterns/session-continuity.md.patch",
+      "payload_sha256": "e4d2a14b7e5267d9dff03f82cd9efe7a7e90d875ba62e093d09dba4fa7cd4d1d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/patterns/task-tracking.md",
+      "old_path": null,
+      "before_sha256": "e517435f0ba3d2362db60f7773f2711de08da9befc676bcb4e59217a6684d0bb",
+      "after_sha256": "b758a523c0d6b5498481b748c2179c673455ae1416ef2b4f641906624c960670",
+      "payload": "diffs/canonical/skills/dev/patterns/task-tracking.md.patch",
+      "payload_sha256": "d9b41ff404e7e793a86cea5eccde456f70a9a92c0a7c374db8d7b0cad7744361",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/00-router.md",
+      "old_path": null,
+      "before_sha256": "b1ffd719066cf26e568f72527feebd2b136219bfd487f869f6c23ff189366e8f",
+      "after_sha256": "09693de8536e427b469bcf72a60f9f3105b5a2228cdee3cc6e0c308ae752c5cc",
+      "payload": "diffs/canonical/skills/dev/references/00-router.md.patch",
+      "payload_sha256": "e40309e683f3c33e3cc69a705bfcd15a7b5fe4ec73319c7f42fab88bf33000fd",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "old_path": null,
+      "before_sha256": "0e1194107d652e9eec8793adf3ace3c01e62be22e8d36f72d1456353f1b4362e",
+      "after_sha256": "5c12bb4e3d13ded7e0384c58c11eee890e13409310db0b1098d275f64f961322",
+      "payload": "diffs/canonical/skills/dev/references/01-context-gathering.md.patch",
+      "payload_sha256": "6cba94893dec21b1829f6d2406a15e0209a16a4d19916e9c864dadd63cf1bc11",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/02-ceremony.md",
+      "old_path": null,
+      "before_sha256": "1e37c0b739bf9105a12245a6819718f2af555b34132ec4ff83958544a928cfac",
+      "after_sha256": "95d1279d600f3da7fce7e3453b950216036dfd5157aa23d8f0298cd185784ed3",
+      "payload": "diffs/canonical/skills/dev/references/02-ceremony.md.patch",
+      "payload_sha256": "af69d0763daf66d5ab44336cd852563f34bbc663b272d1460df55a438fd3e565",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "old_path": null,
+      "before_sha256": "ede40f553409c8fa93685906ae07f402428786cea736bbc0158747b622d1a4ae",
+      "after_sha256": "b3450a174aab5515a5135730b1ea5d532e61bcf6e1e90eb8f81ef343b00a3bdd",
+      "payload": "diffs/canonical/skills/dev/references/03-plan.md.patch",
+      "payload_sha256": "db035f7870eaf75158854ac6ab03f6703b0608fd81cc34af96e0e4a6793610f6",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/04-implement.md",
+      "old_path": null,
+      "before_sha256": "07812db99d434e4a4b4c70bd50facd4b236fe019973e65091a8ef4129f1ab2f0",
+      "after_sha256": "afe8b6639ce40c9c83a8838fa62394614b0e86aedaf223df6fb7a5bbbb97fa41",
+      "payload": "diffs/canonical/skills/dev/references/04-implement.md.patch",
+      "payload_sha256": "4c320b3d07b6c1cd3f24162fb3a9b5202aa4472139cb185afe6fb0f6af030aaa",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/05-test.md",
+      "old_path": null,
+      "before_sha256": "6e45af8fe691d6f428d0041e386e60571601aa11adfddaf10c79218524c738b3",
+      "after_sha256": "9b4ea6a756b62fd5e1cf2f3df1d0090d068ea9ea181c90888b7196ad914a1911",
+      "payload": "diffs/canonical/skills/dev/references/05-test.md.patch",
+      "payload_sha256": "a1daa8187b16f58bc45ee8f3e80ae0c3b40816d27cc44deab1fe5c7decb8b17e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/06-document.md",
+      "old_path": null,
+      "before_sha256": "e96b78f57e9e9f39fdb36a04deef91842da6bf13ceb7a3dc075bd311f42a00f4",
+      "after_sha256": "af8105be02c03a87869f7fdb663dc708dc98d24c8474c19933dd1559d23540ae",
+      "payload": "diffs/canonical/skills/dev/references/06-document.md.patch",
+      "payload_sha256": "b9e63d10fd124a3b8e7ad066fe4bffe2db23494080e30cf09d63f8b88dfcf2d3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/templates/plan.md",
+      "old_path": null,
+      "before_sha256": "b97cc14c836a7d61a35e76942e224ec319738da48174881ab53ccf0144ddfec1",
+      "after_sha256": "3a86b8ff962887e62749a9a5aa4480da60512fe9d9ab3fdfd8683607240ddda8",
+      "payload": "diffs/canonical/skills/dev/templates/plan.md.patch",
+      "payload_sha256": "370e89aa83882beae4fe8a23e882f4d4825491dbdf9f5249f4b78d4914565ff5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/templates/report.md",
+      "old_path": null,
+      "before_sha256": "17feb1a3c2a32ed0fbc275296e529bf140f0cd2ac1a3bf97330c5dc398ac7893",
+      "after_sha256": "fb6cd4ecce02866cd01dce04c10a9754281a594fc688d6adc55128ac4840a2b7",
+      "payload": "diffs/canonical/skills/dev/templates/report.md.patch",
+      "payload_sha256": "1d1e226f01b6a012e8fd132746eb348308cbd96e502c2f07a13d978ad8c4e836",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": "Deployed alongside the dev skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/evolve/INTENT.md",
+      "old_path": null,
+      "before_sha256": "8ec498794b1fcbe09e6fce962568bbe8c53c600aacf02601b5fd5d9e55454608",
+      "after_sha256": "daafa32917e1ac69d784e365e949e3676da13b07f6caaa1d03655e36d5563950",
+      "payload": "diffs/canonical/skills/evolve/INTENT.md.patch",
+      "payload_sha256": "89a27dc6d5063ad7117ef3a30fc37c176f229138f29cc3126f9397e30c062048",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/evolve/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "d2d534590588d7bbfa21d99f1c70eb24aa3790264f59fd6dabbead73ad7bdd2f",
+      "after_sha256": "daab68d22a9ffb4bedc6258176dd02c1606f666d902e57271a0ef131d5040c91",
+      "payload": "diffs/canonical/skills/evolve/TEMPLATE.md.patch",
+      "payload_sha256": "2f27d3ddb76fb9ccc9ab4e09e1adb280c7559f4f049917c786f60a117b8fd421",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/evolve/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/skills/<name>/SKILL.md, .agents/skills/<name>/SKILL.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/evolve/interfaces/improvement.md",
+      "old_path": null,
+      "before_sha256": "3b63bbe6f301cce07ed87ac74354e3f91231a850716c3c9069126c1e637e3b99",
+      "after_sha256": "58a545bb9753e6f75cae9f4df47564a36ec91c0806255f359e32de524a977769",
+      "payload": "diffs/canonical/skills/evolve/interfaces/improvement.md.patch",
+      "payload_sha256": "5436b69fd5c81e2dc2fdd066a7ea66b7456c63c336c8c29a316345c182c6e222",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/evolve/INTENT.md",
+        "output_rule": "Deployed alongside the evolve skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/evolve/patterns/task-tracking.md",
+      "old_path": null,
+      "before_sha256": "fd5642099907f689522c4a5e98d6e5e2ee38acd3503b0c9c6c812d84e298ea33",
+      "after_sha256": "3285056cd45e171d3c3b6714eaab44ccf38655aa0d706d323d4deb11dba34730",
+      "payload": "diffs/canonical/skills/evolve/patterns/task-tracking.md.patch",
+      "payload_sha256": "d57b865f08ff5272e6581bc53c7f51f39316e6fc02d79167fcf372121f764629",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/evolve/INTENT.md",
+        "output_rule": "Deployed alongside the evolve skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/evolve/references/00-router.md",
+      "old_path": null,
+      "before_sha256": "33d8392da8bc5fbdcbee0b3b810eeb77f35bf42a8501e8a0f3f9c631c0b60192",
+      "after_sha256": "21a86b229bda6796554354f7d8629584dd03ea6893ed12d6a6a79799ac8cc0a4",
+      "payload": "diffs/canonical/skills/evolve/references/00-router.md.patch",
+      "payload_sha256": "6324a40cc9652ffe835f22f1d104c54118d212f7312c96857488b2c6a51aca7c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/evolve/INTENT.md",
+        "output_rule": "Deployed alongside the evolve skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/evolve/references/01-reflect.md",
+      "old_path": null,
+      "before_sha256": "2696c3724c89b5ed60ed4a8cf3766624e0c2693a7c59ade5245a65646a725d66",
+      "after_sha256": "f31314d83c1def6c8ed7f24a7f3f097c14cfc8e3326e5b72ff4fa8e1ee0484f5",
+      "payload": "diffs/canonical/skills/evolve/references/01-reflect.md.patch",
+      "payload_sha256": "618fd47707a62fe833886f9899bf8fbcced8bf8a75ebf7bf0421803fbf7c12d9",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/evolve/INTENT.md",
+        "output_rule": "Deployed alongside the evolve skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/evolve/references/03-draft.md",
+      "old_path": null,
+      "before_sha256": "a2d5fe9bee731e39adb9b2e7efcec77634e56073e1db8c1ca0277c9fafd82f29",
+      "after_sha256": "5df5fbe4a9fec555557e05ef8498c629e2457c88962b7ba1ef1c1c5b311ae93b",
+      "payload": "diffs/canonical/skills/evolve/references/03-draft.md.patch",
+      "payload_sha256": "4ff6f30f94aa1f1755022bce789a8df9e5598ca43709efcee4db239f801deae3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/evolve/INTENT.md",
+        "output_rule": "Deployed alongside the evolve skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/war/INTENT.md",
+      "old_path": null,
+      "before_sha256": "dc1fdbfa7356bed96294a8dbabef4bdc5a400a68b623c0ed7635b39edf90464c",
+      "after_sha256": "c0438afe06bf269ac0f9de419f14319a973122abb19914153493bef59c29390b",
+      "payload": "diffs/canonical/skills/war/INTENT.md.patch",
+      "payload_sha256": "71f5138431dda16eedd3a24ee4800b90e9a98b09b62aef59aaddc8e9f8d964de",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/war/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "7ce0020164031bdf9bbf0260c5fa97731b235efb15bafeac9b5b1bf9dca43a4d",
+      "after_sha256": "7efc2ac9fb5303b0ccc47a326141fa667a635b815ba9ec3455562cfc6a863fd4",
+      "payload": "diffs/canonical/skills/war/TEMPLATE.md.patch",
+      "payload_sha256": "cebf52e66b22caa6b3e08baced580399dbd9ea9ca0a60cab39be342671b8f66c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/war/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/skills/<name>/SKILL.md, .agents/skills/<name>/SKILL.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/war/patterns/scope-resolution.md",
+      "old_path": null,
+      "before_sha256": "f06d1b45a1e5d623012f07b96d9881555f128ec14f8289cd50e8034ae482cddf",
+      "after_sha256": "fd56e5740887a09fe4f6a7f6bfdbb528a15e0e6f004fefd9d2e2d6dde1b94cca",
+      "payload": "diffs/canonical/skills/war/patterns/scope-resolution.md.patch",
+      "payload_sha256": "7729c85ea7b6a160fa59b9d4a44f6a3afa49e8406ba4a3ed54098e513508155c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/war/INTENT.md",
+        "output_rule": "Deployed alongside the war skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/war/references/01-design.md",
+      "old_path": null,
+      "before_sha256": "89992c8c446e3a7ee563ad5bb607738ca6aa7f8978abb19c3d07bd3174d9d9c6",
+      "after_sha256": "277d24cade3dd8230a4e5e1142fd4e1ed78ccf2bdb96969bf1028b4176a68232",
+      "payload": "diffs/canonical/skills/war/references/01-design.md.patch",
+      "payload_sha256": "159d5b087ed35316c9f0b8005abd9bfc90e065d8542c6bf6dc97325926a4a8bc",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/war/INTENT.md",
+        "output_rule": "Deployed alongside the war skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/war/references/02-implementation.md",
+      "old_path": null,
+      "before_sha256": "b4b633a93ac66f9623006ae1769af36ff634752ec1674edcebc211e5a51284c3",
+      "after_sha256": "2917387a77cf02b52d92b85304dc22a93aa3ebe8a173e110ad812f65685e8dfe",
+      "payload": "diffs/canonical/skills/war/references/02-implementation.md.patch",
+      "payload_sha256": "c51336a56f35856732ef97d2119853e129caf413f8fa3314e34192320cdc4f7e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/war/INTENT.md",
+        "output_rule": "Deployed alongside the war skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/where-we-are/INTENT.md",
+      "old_path": null,
+      "before_sha256": "d7091a72e35d6767cd9cb8c79fa87760bd1f42d3bfe94d45af48a9b42755a79a",
+      "after_sha256": "30916347f2820931a8c3884efc20208b63f4e5ab9a68d367b7638432aceda831",
+      "payload": "diffs/canonical/skills/where-we-are/INTENT.md.patch",
+      "payload_sha256": "d82f3e886d23baac44a45b22b840f5511c8a88116ac4f96d08ee0b29c4ccd2e8",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/where-we-are/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "135396fd15a15b9202eca433671805913e2490ebef3013b398c280aa0f7fd8a7",
+      "after_sha256": "7afa959f583636cf0f9886f8d8298da4b212e5b193f4c1a13310031f4e1acbe4",
+      "payload": "diffs/canonical/skills/where-we-are/TEMPLATE.md.patch",
+      "payload_sha256": "4db3d747331a4e21e155779e24e745d52655c266ed6f3e800d273ade3b1e7e8d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/where-we-are/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/skills/<name>/SKILL.md, .agents/skills/<name>/SKILL.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/where-we-are/report-template.md",
+      "old_path": null,
+      "before_sha256": "2869492a1609a4661eb28de4df069169e39082a17a96f418e6562a5a854660c4",
+      "after_sha256": "2b793d9d52164822fa062a035f9ffe60b27cd50e996e12dfedc75d9767edd10e",
+      "payload": "diffs/canonical/skills/where-we-are/report-template.md.patch",
+      "payload_sha256": "96c3583c4ea5a9c7be25c0d9a4e3bcfac383bcbfe9214e28a6a25f2192658b77",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/where-we-are/INTENT.md",
+        "output_rule": "Deployed alongside the where-we-are skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/x-ray/INTENT.md",
+      "old_path": null,
+      "before_sha256": "5b5ae9ed35b910b7e749d3fd39e3cc96e3d43a871c9ba1658434ec7228f24e2e",
+      "after_sha256": "1f5df7c37bb40c4c410edee3283ee7bcc49cd65c04667440db376a67c4abdaee",
+      "payload": "diffs/canonical/skills/x-ray/INTENT.md.patch",
+      "payload_sha256": "7e191aec865614990456876411657c7427937cc461ad304db7d06786834fc981",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/x-ray/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "8e69dae4b826743c39e465de37208e9cb1980e7f58cefcdb364a5c9fda4371d8",
+      "after_sha256": "4f64f7fb6f0bf539ee5185122f3f1545234d75453a9763025f0322661f8dfd38",
+      "payload": "diffs/canonical/skills/x-ray/TEMPLATE.md.patch",
+      "payload_sha256": "8b7c7b8cf849a54ebbfea58e5a8ce655ea1c724e63b73500ecf88e2da5224ab0",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/x-ray/INTENT.md",
+        "output_rule": "Resolved via canonical/manifest.json for each selected provider (e.g. .claude/skills/<name>/SKILL.md, .agents/skills/<name>/SKILL.md)",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "delete",
+      "path": "canonical/skills/x-ray/references/claude-in-chrome-setup.md",
+      "old_path": null,
+      "before_sha256": "0a0e70ef457e3872b3275eacb7cea05732a5e0dd7697230afeadd2eff9dd24d9",
+      "after_sha256": null,
+      "payload": null,
+      "payload_sha256": null,
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/x-ray/INTENT.md",
+        "output_rule": "Deployed alongside the x-ray skill bundle for each selected provider",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "references/00-overview.md",
+      "old_path": null,
+      "before_sha256": "a11ad345fbc159e31e33b929934ff2cc31025db2eee3a2a8cb442b519b021d1f",
+      "after_sha256": "2f33224b658588785e8d9e8d8e94c7bedfe19f53b7a126e28280e280d850c759",
+      "payload": "diffs/references/00-overview.md.patch",
+      "payload_sha256": "523437299be3401ed7a9f74841ed0e2f5ea48909a856a2bd3e5afdddcb416ee9",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "references/launch/08-provider-launch.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "7ac4b45c9b3b26ae6b2eee382b6e44ddde6fccc41de9ae81d705a0739e8ea233",
+      "payload": "files/references/launch/08-provider-launch.md",
+      "payload_sha256": "7ac4b45c9b3b26ae6b2eee382b6e44ddde6fccc41de9ae81d705a0739e8ea233",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "d7f381b27ed1cb0b7f9de576f831eb0866600179c628d080fc38f44f35bdb63b",
+      "after_sha256": "2fe8cbe77fcfc8e7c6b1b4e6f9ecd5c9b3fbacb1c2f2a42798616e2b37b69974",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "83f88495550de72e2e5d67e2f8bf5433abae2ad0a7dbcc0c246053a4d8b95c37",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "README.md",
+      "old_path": null,
+      "before_sha256": "c18275d81d8f4954057a091e30adc30f72b4afb9c117ee37d70242cfdc46cb88",
+      "after_sha256": "e2d35e1229fbf49c4e40be6f36fc78d926b15dbc19fe01692c5c2da957071731",
+      "payload": "diffs/README.md.patch",
+      "payload_sha256": "f41c575eb0e94185535b0bf7d39595f973fab881a60846c661289a991bdf0cfc",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "3ae7e8854c953bd0e7224b54789fe6761045efd7682c29ed6e7732163fb3d09c",
+      "after_sha256": "6bc4a015f4c189e1b6f59ce23de40fdbd6779080433cf0baf86fd331bd16e268",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "1a2c3804ee95d3a515c1e44c131d787705a7e8e3ebfa4b3e691228df6069dd03",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "harness-bootstrap.md",
+      "old_path": null,
+      "before_sha256": "86f3458045389ac27675001d857168f82973009eab4b1c39cee396403f78b187",
+      "after_sha256": "50d1ebc143add4082e787d0f6a8c0d01b84cbe5ea11fda23a77b353d9728affd",
+      "payload": "diffs/harness-bootstrap.md.patch",
+      "payload_sha256": "a3a58f5cab5e87b220b1d568970fc3137541edf3c10dfd5d77b326c027c34b19",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "registry.md",
+      "old_path": null,
+      "before_sha256": "e82805353effbdd8dd751725cb364b553a9f3ab7c7f48d8834c826b8b6629323",
+      "after_sha256": "033f56f94ef1f760fd5b8930ee0db1c6abb3983db146e56b7d2e721a2884161b",
+      "payload": "diffs/registry.md.patch",
+      "payload_sha256": "122a07c23676d3c7a8adc714eca17630bcb1f64c4ee0ebeb4b2207c60dd77adf",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "reports/report.template.md",
+      "old_path": null,
+      "before_sha256": "a9e6c2ce19ed7cb95ad09cf012a9c091d52d895d47836a32d4719bf342b8b111",
+      "after_sha256": "244630c5da5d765fe5398544a2e2d1837476cd9045a1229c703bc622a9f361cc",
+      "payload": "diffs/reports/report.template.md.patch",
+      "payload_sha256": "2869d78fae1f4a69e4f9d031cb510048a3d0e7bee0f19b8ab07c2bb279531ed4",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

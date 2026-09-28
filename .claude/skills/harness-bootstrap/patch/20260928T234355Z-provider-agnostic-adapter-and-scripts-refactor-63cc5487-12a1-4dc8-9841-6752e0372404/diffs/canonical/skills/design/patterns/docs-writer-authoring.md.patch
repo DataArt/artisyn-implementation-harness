@@ -1,0 +1,29 @@
+--- a/canonical/skills/design/patterns/docs-writer-authoring.md
++++ b/canonical/skills/design/patterns/docs-writer-authoring.md
+@@ -4,7 +4,7 @@
+ 
+ ## The rule
+ 
+-**Never write the artifact file directly.** Delegate the actual authoring to `@docs-writer`. The orchestrating skill still does all the thinking — framing the problem, running the OQ triage, building the tradeoff matrix, deciding the recommendation — but the act of rendering that content to disk as a `.md` file goes through `@docs-writer`, not a direct `Write`/`Edit` call from the orchestrator.
++Apply `{{provider:skills_root}}/design/runtime/delegation.md`. Delegate authoring to the installed `docs-writer` role when delegation is available and permitted; otherwise use its explicitly recorded inline-authoring fallback. The orchestrating skill still does all the thinking — framing the problem, running the OQ triage, building the tradeoff matrix, deciding the recommendation — but the act of rendering that content to disk as a `.md` file goes through `@docs-writer`, not a direct `Write`/`Edit` call from the orchestrator.
+ 
+ ## Why delegate a file the orchestrator already knows how to write
+ 
+@@ -12,7 +12,7 @@
+ 
+ ## How to apply
+ 
+-1. Assemble the full content for the artifact yourself first — this pattern does not change _what_ goes in the file, only _who_ performs the write. Have the target path, the template to follow (e.g. `.claude/skills/design/templates/frame.md`), and the drafted content (problem statement, options, matrix, recommendation, etc.) ready.
++1. Assemble the full content for the artifact yourself first — this pattern does not change _what_ goes in the file, only _who_ performs the write. Have the target path, the template to follow (e.g. `{{provider:skills_root}}/design/templates/frame.md`), and the drafted content (problem statement, options, matrix, recommendation, etc.) ready.
+ 2. Delegate to `@docs-writer` with: the target file path, the template file path, the drafted content/decisions to render, and an explicit instruction to apply the certainty principle and diagram-first Mermaid conventions.
+    For sections destined for architecture documentation, also provide the relevant
+    Engineering Guide intents and require them to be applied at the target tier:
+@@ -21,7 +21,7 @@
+    for NFR requirements and acceptance evidence. Read the applicable intent before
+    drafting; keep HLD, LLD and NFR responsibilities separate, link authoritative
+    sources, and do not duplicate or weaken their required coverage.
+-3. Once `@docs-writer` confirms the file is written, proceed to the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`) exactly as before — the developer still reviews and confirms in their IDE.
++3. Once `@docs-writer` confirms the file is written, proceed to the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`) exactly as before — the developer still reviews and confirms in their IDE.
+ 
+ ## Why
+ 

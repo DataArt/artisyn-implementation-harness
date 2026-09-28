@@ -2,6 +2,12 @@
 
 This project uses [mcp-atlassian](https://github.com/sooperset/mcp-atlassian) to give the AI assistant access to Jira and Confluence.
 
+Server declarations are shared and tracked; credential **values** are always local to
+your machine. Nothing in this guide is ever committed, pasted into a chat, or copied
+into launch answers, reports or manifests. Where a step differs per AI coding tool,
+both variants are given — follow the one for the tool you actually run, and see
+`04 AI Coding Tool Compatibility.md` for the full file mapping.
+
 ## Prerequisites
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) — the MCP server runs via `uvx`:
@@ -17,19 +23,18 @@ Generate a PAT for each service (bearer token auth, no expiry recommended for lo
 - **Jira PAT** — `<your-jira-url>/secure/ViewProfile.jspa?selectedTab=com.atlassian.pats.pats-plugin:jira-user-personal-access-tokens`
 - **Confluence PAT** — `<your-confluence-url>/plugins/personalaccesstokens/usertokens.action`
 
-## 2. Add your tokens to `.claude/settings.local.json`
+## 2. Provide the tokens locally
 
-For Claude Code, store MCP PATs only in this per-developer file's `env` block.
-Do not create an MCP .env file or add tokens to application .env files. Verify that
-.claude/settings.local.json is gitignored. Merge the entries below into existing
-settings; preserve permissions, hooks and other environment entries. Include only
-the selected services. The developer fills the real PAT locally in their editor;
-bootstrap writes placeholders only, never asks for tokens in chat, and never copies
-secret values into answers.json, reports, manifests or shared .mcp.json.
+Include only the services this project actually selected. Bootstrap writes placeholders
+and environment-variable references only; you fill the real values in your editor or
+shell. Never create an MCP `.env` file or add these tokens to application `.env` files.
 
-Add (or fill in) the `env` block:
+**Claude Code** — store the PATs in the per-developer settings file's `env` block.
+Confirm that file is gitignored, and merge into what is already there: preserve existing
+permissions, hooks and environment entries.
 
 ```jsonc
+// .claude/settings.local.json
 {
   "env": {
     "JIRA_PERSONAL_TOKEN": "<your-jira-pat>",
@@ -38,20 +43,34 @@ Add (or fill in) the `env` block:
 }
 ```
 
-Claude Code loads this on session start and resolves `.mcp.json`'s `${JIRA_PERSONAL_TOKEN}` /
-`${CONFLUENCE_PERSONAL_TOKEN}` references from it — no separate `.env` file or shell `source` step
-needed.
+Claude Code loads this at session start and resolves the shared `.mcp.json`'s
+`${JIRA_PERSONAL_TOKEN}` / `${CONFLUENCE_PERSONAL_TOKEN}` references from it — no
+separate `.env` file or shell `source` step is needed.
 
-## 3. Start or restart Claude Code
-
-The `.mcp.json` at the project root is picked up automatically. Claude Code will prompt you to approve the MCP server on first use.
+**Codex** — MCP servers are declared in `.codex/config.toml`, which is tracked and must
+stay free of secrets. A stdio server names the variables it needs via `env_vars`, and an
+HTTP server names one via `bearer_token_env_var`; in both cases the values come from your
+own process environment. Export them in your shell profile:
 
 ```bash
-claude
+export JIRA_PERSONAL_TOKEN="<your-jira-pat>"
+export CONFLUENCE_PERSONAL_TOKEN="<your-confluence-pat>"
 ```
 
-Verify the server is connected with:
+Do not copy a Claude `settings.local.json` into Codex — the two tools read credentials
+differently, and the file has no meaning there.
+
+## 3. Start or restart your AI coding tool
+
+Project MCP configuration is picked up at session start, so restart after editing it.
+The tool prompts you to approve each server on first use; installing configuration does
+not grant that approval on your behalf.
+
+Verify the server is connected using your tool's own MCP listing — for Claude Code:
 
 ```bash
 claude mcp list
 ```
+
+If a server does not appear, check that the variables are set in the environment the
+tool actually starts from, then restart the session.

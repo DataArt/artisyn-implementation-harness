@@ -1,0 +1,10 @@
+--- a/canonical/skills/dev/templates/report.md
++++ b/canonical/skills/dev/templates/report.md
+@@ -1,6 +1,6 @@
+ ---
+ name: Dev Report Template
+-description: Template for 2-report.md — the living implementation report created by /dev context and updated throughout the dev lifecycle
++description: Template for 2-report.md — the living implementation report created by {{provider:invoke:dev}} context and updated throughout the dev lifecycle
+ type: reference
+ ---
+ 

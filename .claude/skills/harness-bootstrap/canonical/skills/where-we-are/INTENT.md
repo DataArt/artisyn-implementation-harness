@@ -1,6 +1,6 @@
 ---
 skill: where-we-are
-output: .claude/skills/where-we-are/SKILL.md
+output: {{provider:skills_root}}/where-we-are/SKILL.md
 companion_templates:
   - report-template.md
 ---

@@ -1,18 +1,18 @@
 # Research stage
 
-Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
+Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
 `--stage research`. Follow its initialization/recovery, entry, wait, check, and exit
 commands. When this reference is used only as a correction recipe within another
 active stage, retain that stage's metrics ownership.
 
-Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`. It
+Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`. It
 produces a neutral, exhaustive options list — 3 to 5 alternatives with industry
 references. **No recommendation is made here.** Judgment lives in Evaluate. Output:
 `design/01 Research.md`.
 
 > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
 
-> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
+> 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`.
 
 ## Step 1 — Find the design folder and read Frame
 
@@ -25,7 +25,7 @@ Read:
 
 If `design/00 Frame.md` does not exist, tell the developer that Frame must be completed first and stop.
 
-**Multi-decision check:** if Frame implies two or more independent decisions, apply `.claude/skills/design/patterns/multi-decision-split.md` — loop this phase once per decision, producing `design/01 Research - {Decision}.md` for each.
+**Multi-decision check:** if Frame implies two or more independent decisions, apply `{{provider:skills_root}}/design/patterns/multi-decision-split.md` — loop this phase once per decision, producing `design/01 Research - {Decision}.md` for each.
 
 ---
 
@@ -88,7 +88,7 @@ After the options are confirmed, present the open questions surfaced by `{{DESIG
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Record the classification next to each OQ in `design/01 Research.md`.
 
-See `.claude/skills/design/patterns/design-oq-triage.md` for the full two-tier protocol and resolution rules.
+See `{{provider:skills_root}}/design/patterns/design-oq-triage.md` for the full two-tier protocol and resolution rules.
 
 **Persist the result as Assumptions.** Once triage completes, the answered/classified OQs are a design artifact — not ephemeral conversation. Fill in the **existing** `## Assumptions` section in `design/Report.md` (pre-created by the report template — do not add a new `##` heading). Record the full OQ table (question, V/E, answer/status). Without this, Evaluate starts with no written record of what was already decided.
 
@@ -104,9 +104,9 @@ _From Research OQ triage ({YYYY-MM-DD})._
 
 ## Step 4 — Save and review 01 Research.md
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/01 Research.md` (using `.claude/skills/design/templates/research.md`, populated with the confirmed options and OQ classifications — including every option's Mermaid diagram from {{DESIGN_ARCHITECT_AGENT}}'s output) to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate the write of `design/01 Research.md` (using `{{provider:skills_root}}/design/templates/research.md`, populated with the confirmed options and OQ classifications — including every option's Mermaid diagram from {{DESIGN_ARCHITECT_AGENT}}'s output) to `@docs-writer` using the selected delegation procedure.
 
-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `design/01 Research.md`. Review in your IDE — does the structure capture the options and OQ classifications correctly? Any corrections?"
+Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`): say "File saved at `design/01 Research.md`. Review in your IDE — does the structure capture the options and OQ classifications correctly? Any corrections?"
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply corrections and re-save if needed. Iterate until the developer confirms.
 
@@ -114,7 +114,7 @@ This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Ap
 
 ## Step 5 — Do → Report → Commit
 
-Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-report-commit.md`):
+Apply the do→report→commit pattern (`{{provider:skills_root}}/design/patterns/do-report-commit.md`):
 
 **Report** — update `design/Report.md`:
 
@@ -127,4 +127,4 @@ Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-repor
 
 This is a sign-off gate (`patterns/approval-sign-off.md`) — committing is a manual operation, never run yourself. **Stop and wait** for the developer to confirm the commit.
 
-🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.
+🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage.

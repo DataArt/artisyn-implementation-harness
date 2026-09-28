@@ -1,0 +1,33 @@
+--- a/references/05-patch-apply.md
++++ b/references/patch/05-patch-apply.md
+@@ -4,16 +4,15 @@
+ Canonical source paths are relative to `canonical/` inside the package — the main
+ folder patch operations read from or write into for portable content, aside from a
+ narrow set of `canonical-only` package-internal files (see `06-patch-state.md`).
+-Bookkeeping aliases `registry.md`,
+-`patch/`, and `state/` refer to project `.harness/` locations defined in the state
+-contract; use `.harness/launch/answers.json` and local reports for project knowns.
++Bookkeeping aliases `registry.md` and `patch/` refer to project `.harness/` locations;
++`state/` refers to the bootstrap package state directory defined in the state contract.
++Use `package:state/launch/answers.json` and local reports for project knowns.
+ 
+ ## 1 — Select canonical input and inspect
+ 
+ Without a bundle argument, use the current canonical package, limited by any named
+-scope. Discover new skills, agents, companions, patterns, guide docs (all under
+-`canonical/`), and workflows (deployed like canonical content but sourced from the
+-package-root `workflows/`, a documented exception) from package sources/INTENT, then
++scope. Discover new skills, agents, companions, patterns, and guide docs under `canonical/`
++from package sources/INTENT, then
+ extend local mappings for applicable outputs.
+ Use launch's Q&A/conditionals for applicability; do not deploy archived components.
+ Detect changed and deleted canonical paths against stored snapshots, including
+@@ -68,7 +67,7 @@
+ Freeze the bundle and pending local operation record before writes. For incoming
+ patches, write/verify the reconciled canonical state first, then deploy its outputs.
+ For current-source apply, use the verified result reconstructed from the frozen diff/add payload, not changing live templates.
+-Install/update required companions and workflow copies with the affected components.
++Install/update required companions with the affected components.
+ Do not automatically run a newly imported recipe in the middle of this operation;
+ finish with the contract loaded at its start, and use updated instructions next run.
+ 

@@ -1,7 +1,7 @@
 ---
 name: scrum-master
 metadata:
-  version: 1.0.0
+  version: 2.0.0
 description: Jira workflow agent for project {{PROJECT_KEY}} — handles all issue reads, transitions,
   assignments, ticket creation, and label management. Invoked by dev and design lifecycle skills
   whenever they need to interact with Jira. Never call Jira MCP tools directly from a skill — always
@@ -236,3 +236,5 @@ priority required.
 - Report Jira errors clearly: `"Jira error on {{PROJECT_KEY}}-XX: {reason}"` — do not silently retry.
 - Confirm every operation with a brief message.
 - Log time as work progresses — never accumulate and log all at once at the end.
+
+For role invocation and review handoffs, apply `{{provider:agent_runtime}}/delegation.md`.

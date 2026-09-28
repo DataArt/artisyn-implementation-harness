@@ -1,0 +1,56 @@
+--- a/references/01c-launch-docs.md
++++ b/references/launch/01c-launch-docs.md
+@@ -1,28 +1,23 @@
+-# Launch D.2–D.5 and E — documentation workflows, review, and rendering gate
++# Launch D.2–D.5 and E — documentation ownership, review, and rendering gate
+ 
+-Stage sequence and tracking live in [01-launch.md](01-launch.md). This file is the
+-contract passed to documentation workers (`contractPath`).
++Stage sequence and tracking live in [01-launch.md](01-launch.md). Documentation is
++performed by the installed layer/component agents selected from the project's actual
++Agents table. The orchestrator assigns each agent a non-overlapping evidence-backed
++scope, then verifies the outputs and owns cross-component indexes and summaries.
+ 
+-## D.2/D.3 — Native documentation workflows
++## D.2/D.3 — Layer/component documentation
+ 
+-Include `package:workflows/harness-bootstrap-lld.js` and `harness-bootstrap-hld.js`
+-as copies to `project:.claude/workflows/` with the same names; preserve/reconcile
+-existing copies and verify bytes. Each workflow file is standalone — the runtime
+-injects its inputs and primitives, so the files carry no imports. Check runtime discovery before dispatch. Use native Claude
+-Workflows for component/container fan-out, not manual spawning. If unavailable, record
+-and agree an explicit fallback using identical prompts/contracts and per-output checks.
+-Local file presence alone does not establish runtime availability.
++Identify actual C4 containers and decompose each into cohesive implementation
++components using the installed LLD/HLD intents. File counts estimate effort; they do
++not define architecture boundaries. Start one layer/component agent per confirmed
++scope. Agents write only their assigned component or container documents. The
++orchestrator owns shared pattern documents, indexes, system overview, and sizing.
++Never dispatch overlapping scopes or invent fixed backend/frontend/data categories.
+ 
+-Pass existing, project-relative contract paths: `docIntentPath` is the installed LLD
+-or HLD Intent, `principlesPath` is installed Documentation/01 Principles.md, and
+-`contractPath` is `.claude/skills/harness-bootstrap/references/01c-launch-docs.md`.
+-`maxLines` is the matching per-document budget from installed Documentation/01
+-Principles.md.
+-
+-| Workflow                | Input array and each item's fields                                                                                                    |
+-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+-| `harness-bootstrap-lld` | `components`: `{ componentName, filePaths, destPath, maxLines, docIntentPath, principlesPath, contractPath }`                         |
+-| `harness-bootstrap-hld` | `containers`: `{ containerName, lldPaths, intentPaths, greenfield, destPath, maxLines, docIntentPath, principlesPath, contractPath }` |
++Each agent receives project-relative paths, the applicable intent and principles,
++source evidence boundaries, output budget, and this contract. A completed response is
++not proof: inspect the written files, links, evidence, and hashes before accepting it.
++Record failed or partial scopes in the run report and resume them explicitly.
+ 
+ D.2: identify actual C4 containers and decompose each into cohesive components per
+ LLD Intent before assigning work. File counts estimate effort, not architecture
+@@ -160,7 +155,7 @@
+ The helper extracts top-level backtick/tilde fences, follows inline local .mmd links,
+ renders each input separately, and writes results.json with source/input/output hashes
+ and per-render command/logs into the config's fresh output folder under
+-`project:.harness/launch/runs/<run_id>/diagram-checks/<attempt>/`. List reference-style
++`package:state/launch/runs/<run_id>/diagram-checks/<attempt>/`. List reference-style
+ or HTML-linked .mmd companions explicitly in `files`; review the inventory for
+ completeness — the check covers all generated or edited documentation, including
+ shared layer patterns and diagram companions. Nested Mermaid fences are rejected for

@@ -1,6 +1,6 @@
 ---
 agent: architect
-output: .claude/agents/architect.md
+output: {{provider:agents_root}}/architect.{{provider:agent_extension}}
 ---
 
 ## Purpose

@@ -7,7 +7,7 @@ permanent outputs; it is an allowlist, not a synchronization checkpoint.
 - `patch prepare`: canonical (direct edits) → portable bundle. No personalization, no deployment.
 - `patch apply`: canonical → personalize → permanent.
 - `state/` holds baselines and outcomes; `patch/` holds immutable manifests with
-  update diffs and full added files. See `references/06-patch-state.md`.
+  update diffs and full added files. See `references/patch/06-patch-state.md`.
 
 Template paths are package-relative, rooted at `canonical/`; deployed paths are
 project-relative. Add explicit
@@ -72,3 +72,21 @@ hld-system-overview, hld-system-sizing, and nfr-pillar all point at 03 HLD Inten
 -->
 
 | evolve | skill | content | `canonical/skills/evolve/TEMPLATE.md` | `.claude/skills/evolve/SKILL.md` |
+
+## Provider adapter inventory
+
+Provider destinations above are historical examples. Resolve installed paths through
+`canonical/manifest.json` for each selected provider, including skill roots, agent
+extensions and root instructions. Register temporary INTENT copies as installation
+aids only, never as permanent runtime dependencies.
+
+| Source                             | Role                       | Permanent mapping                                   |
+| ---------------------------------- | -------------------------- | --------------------------------------------------- |
+| canonical/manifest.json            | Adapter contract           | Consumed by planner/materializer                    |
+| canonical/settings.json            | Native settings            | Selected provider settings destination              |
+| canonical/mcp.json                 | Shared server declarations | Selected provider MCP destination                   |
+| canonical/adoptors/<provider>/*.md | Runtime procedures         | Selected skill runtime/ and agent runtime directory |
+
+The design solution interface uses `interfaces/contract.md`; it is a permanent runtime
+contract, distinct from installation-only INTENT.md. Provider helper scripts are
+package tooling and travel as canonical-only support changes. Exclude state/ from bundles.

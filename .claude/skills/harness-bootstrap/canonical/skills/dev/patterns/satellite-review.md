@@ -2,6 +2,9 @@
 
 After completing any non-trivial implementation step, the worker agent itself invokes `@architect` as a satellite reviewer before presenting verification to the developer.
 
+Apply `{{provider:skills_root}}/dev/runtime/delegation.md`. If nested delegation is unavailable,
+the orchestrator dispatches the independent reviewer after the worker returns.
+
 ## When to trigger
 
 Trigger a satellite review after any step that:

@@ -1,11 +1,11 @@
 # Solution stage
 
-Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
+Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
 `--stage solution`. Follow its initialization/recovery, entry, wait, check, and exit
 commands. When this reference is used only as a correction recipe within another
 active stage, retain that stage's metrics ownership.
 
-Read `../interfaces/INTENT.md` first. Select only the solution artifact interfaces
+Read `../interfaces/contract.md` first. Select only the solution artifact interfaces
 that apply to the framed problem, then read each selected interface. Interfaces are
 the sole authoring contract; do not copy a fixed solution template. Record selection and omissions
 in the design report. Apply Documentation Principles before drafting and recheck
@@ -16,7 +16,7 @@ informational and not-applicable concerns with evidence. Resolve each material
 concern through a selected artifact, a confirmed decision, or a link to the owning
 HLD/LLD/NFR requirement; an unaddressed material concern keeps Solution incomplete.
 
-Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`.
+Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`.
 Solution is the clean deliverable. `solution/Architecture.md` is its integrated E2E source
 of truth and contains the complete chosen approach: no
 rationale, no rejected options, no debate. The rationale lives in `design/02 Evaluate.md`.
@@ -24,13 +24,13 @@ Output only the selected solution artifacts (for example, `solution/Architecture
 `solution/Design.md`, `solution/Stack.md`, or `solution/Efforts.md`). Do not create an unselected or empty artifact.
 
 > ⚠️ **Certainty principle** — `solution/` files drive doc updates (Publish)
-> and implementation (`/dev`). Write only settled decisions and their direct
+> and implementation (`{{provider:invoke:dev}}`). Write only settled decisions and their direct
 > consequences. Do not carry over open questions, rejected alternatives, comparative
 > arguments, or rationale from `design/02 Evaluate.md`. Those remain in `design/02 Evaluate.md`.
 
 > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
 
-> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
+> 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`.
 
 ## Step 1 — Read inputs
 
@@ -87,9 +87,9 @@ and findings in `design/Report.md`, `design/00 Frame.md` and `design/02 Evaluate
 decision must be represented in Architecture.md; unresolved or rejected material
 options remain in Evaluate only.
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Architecture.md` to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Architecture.md` to `@docs-writer` using the selected delegation procedure.
 
-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Architecture.md`. Review in your IDE — any corrections?"
+Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`): say "File saved at `solution/Architecture.md`. Review in your IDE — any corrections?"
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply corrections and re-save if needed, then proceed.
 
@@ -103,14 +103,14 @@ Ask:
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.**
 
-If yes: apply the satellite review pattern (`.claude/skills/design/patterns/satellite-review.md`) — use `.claude/skills/design/patterns/design-architect-review.md` for the prompt template and scope rules specific to Architecture.md.
+If yes: apply the satellite review pattern (`{{provider:skills_root}}/design/patterns/satellite-review.md`) — use `{{provider:skills_root}}/design/patterns/design-architect-review.md` for the prompt template and scope rules specific to Architecture.md.
 If no: proceed to Step 3.
 
 ---
 
 ## Step 3 — Draft Design.md
 
-**Multi-decision check:** if Research/Evaluate were split per `.claude/skills/design/patterns/multi-decision-split.md`, loop this step once per decision, producing `Design - {Decision}.md` for each. (`solution/Architecture.md` in Step 2 stays a single integrated file regardless — one section per decision, not one file per decision.)
+**Multi-decision check:** if Research/Evaluate were split per `{{provider:skills_root}}/design/patterns/multi-decision-split.md`, loop this step once per decision, producing `Design - {Decision}.md` for each. (`solution/Architecture.md` in Step 2 stays a single integrated file regardless — one section per decision, not one file per decision.)
 
 Using the selected `interfaces/design.md` contract:
 
@@ -123,9 +123,9 @@ Using the selected `interfaces/design.md` contract:
 decision and its architectural consequence in `solution/Architecture.md` before accepting
 this file.
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Design.md` to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Design.md` to `@docs-writer` using the selected delegation procedure.
 
-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Design.md`. Review in your IDE — any corrections?"
+Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`): say "File saved at `solution/Design.md`. Review in your IDE — any corrections?"
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply corrections and re-save if needed, then proceed.
 
@@ -142,9 +142,9 @@ Reflect each technology choice that changes a boundary, contract, operating mode
 quality attribute in `solution/Architecture.md`, with its consequence; keep version/detail
 inventory here.
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Stack.md` to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Stack.md` to `@docs-writer` using the selected delegation procedure.
 
-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Stack.md`. Review in your IDE — any corrections?"
+Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`): say "File saved at `solution/Stack.md`. Review in your IDE — any corrections?"
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply corrections and re-save if needed, then proceed.
 
@@ -171,9 +171,9 @@ Using the selected `interfaces/efforts.md` contract:
 
 - Draft the Effort Estimate table with `#`, `Description`, and an empty `Estimate` column
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Efforts.md` (with the empty estimate table) to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Efforts.md` (with the empty estimate table) to `@docs-writer` using the selected delegation procedure.
 
-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Efforts.md`. Fill in the `Estimate` column in your IDE, then confirm."
+Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`): say "File saved at `solution/Efforts.md`. Fill in the `Estimate` column in your IDE, then confirm."
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** When the developer confirms estimates are filled in, read the file, compute the total, update the `**Total**` row, and re-save.
 
@@ -215,7 +215,7 @@ Apply corrections. Iterate until the content is confirmed.
 
 ## Step 7b — WAF review gate
 
-Once the solution content is confirmed, apply `.claude/skills/design/patterns/waf-review.md`
+Once the solution content is confirmed, apply `{{provider:skills_root}}/design/patterns/waf-review.md`
 with `target: solution` — a full WAF assessment against `solution/Architecture.md`
 and `solution/Design.md`.
 
@@ -245,7 +245,7 @@ do not enter Review Gate while a required check is failing.
 
 ## Step 8 — Do → Report → Commit
 
-Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-report-commit.md`):
+Apply the do→report→commit pattern (`{{provider:skills_root}}/design/patterns/do-report-commit.md`):
 
 **Report** — update `design/Report.md`:
 
@@ -258,4 +258,4 @@ Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-repor
 
 This is a sign-off gate (`patterns/approval-sign-off.md`) — committing is a manual operation, never run yourself. **Stop and wait** for the developer to confirm the commit.
 
-🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.
+🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage.

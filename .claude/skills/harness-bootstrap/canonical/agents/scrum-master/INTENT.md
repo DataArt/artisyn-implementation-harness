@@ -1,6 +1,6 @@
 ---
 skill: agents/scrum-master
-output: .claude/agents/scrum-master.md
+output: {{provider:agents_root}}/scrum-master.{{provider:agent_extension}}
 ---
 
 ## Purpose
@@ -43,7 +43,7 @@ To find transition IDs: in Jira, open any issue in the project → Transitions A
 - [ ] `tools:` frontmatter includes `mcp__atlassian__*` (or the deployment's actual Jira MCP tool namespace) — `Read` alone cannot call Jira
 - [ ] Link direction verification section present verbatim — this is a real MCP tool behavior bug, not project-specific content, and should ship with every deployment using this Jira MCP integration
 - [ ] Story description quality section forbids process/history narrative ("split from," "originally bundled with") — WHAT/WHY only
-- [ ] `dev-plan/SKILL.md` delegates Jira start/fetch to `@scrum-master` (not inline MCP calls), if `/dev` in this deployment touches Jira in Plan
+- [ ] `dev-plan/SKILL.md` delegates Jira start/fetch to `@scrum-master` (not inline MCP calls), if `{{provider:invoke:dev}}` in this deployment touches Jira in Plan
 - [ ] `dev/SKILL.md` Completion delegates worklog + Done transition to `@scrum-master`
 - [ ] `dev-document/SKILL.md` delegates TD creation to `@scrum-master`, if applicable
 - [ ] `design/references/07-publish.md` tracker-sync step delegates worklog + Done transition to `@scrum-master` by state name only (no literal "Jira" wording, no transition IDs)

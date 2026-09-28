@@ -29,3 +29,5 @@ After writing, return a one-line summary per doc:
 ```
 
 Flag any item that was skipped or needed clarification, and why.
+
+For role invocation and review handoffs, apply `{{provider:agent_runtime}}/delegation.md`.

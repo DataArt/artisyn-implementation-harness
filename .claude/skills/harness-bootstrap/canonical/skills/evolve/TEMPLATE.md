@@ -7,8 +7,8 @@ description: Improve harness skills, agents, workflows, and conventions from obs
 
 Turn observed practice into a validated, integrated harness improvement.
 
-Route $ARGUMENTS with [the stage router](references/00-router.md). Load only the
-current stage, its required interfaces, and relevant source files. Bare /evolve
+Route {{provider:input}} with [the stage router](references/00-router.md). Load only the
+current stage, its required interfaces, and relevant source files. Bare {{provider:invoke:evolve}}
 triages pending reflections; clarify the candidate
 when several match. Reflect is a capture-only operation. An explicit stage runs
 that stage only. Triage includes drafting and stops with inactive candidates by

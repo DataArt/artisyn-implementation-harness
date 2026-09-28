@@ -1,6 +1,6 @@
 ---
 name: Dev Plan Template
-description: Template for 1-plan.md — the immutable implementation plan created by /dev plan
+description: Template for 1-plan.md — the immutable implementation plan created by {{provider:invoke:dev}} plan
 type: reference
 ---
 

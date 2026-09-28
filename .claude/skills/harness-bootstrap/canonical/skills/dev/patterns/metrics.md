@@ -10,9 +10,9 @@ existing `impl` directory; there is no implicit current ticket.
 If configuring automatic permission for recording commands, use subcommand-specific
 rules with the subcommand immediately after the script path, for example:
 
-- `Bash(node .claude/skills/dev/scripts/timing.mjs checkpoint *)`
-- `Bash(node .claude/skills/dev/scripts/timing.mjs stage *)`
-- `Bash(node .claude/skills/dev/scripts/timing.mjs check record *)`
+- `Bash(node {{provider:skills_root}}/dev/scripts/timing.mjs checkpoint *)`
+- `Bash(node {{provider:skills_root}}/dev/scripts/timing.mjs stage *)`
+- `Bash(node {{provider:skills_root}}/dev/scripts/timing.mjs check record *)`
 
 The same narrow pattern can cover `init`, `step`, `wait`, `resume`, `recover`,
 `report`, `validate`, `usage`, `quality`, and `complete`. Never allowlist the entire script or
@@ -25,7 +25,7 @@ adding narrow rules alongside it does not remove the broad permission.
 Once Context creates the impl directory and report, run:
 
 ```sh
-node .claude/skills/dev/scripts/timing.mjs init --dir "$IMPL_DIR" --ticket "$TICKET" --author "$(git config user.name)"
+node {{provider:skills_root}}/dev/scripts/timing.mjs init --dir "$IMPL_DIR" --ticket "$TICKET" --author "$(git config user.name)"
 ```
 
 For direct-stage entry or an existing ticket without metrics, add `--coverage partial`.
@@ -98,7 +98,7 @@ apply: recording a transition does not authorize the underlying action.
 Wrap an already authorized verification command without using a shell:
 
 ```sh
-node .claude/skills/dev/scripts/timing.mjs check --dir "$IMPL_DIR" \
+node {{provider:skills_root}}/dev/scripts/timing.mjs check --dir "$IMPL_DIR" \
   --id step-01-typecheck-run-01 --kind typecheck --name "Frontend typecheck" \
   -- yarn nx run frontline-report:typecheck
 ```
@@ -119,7 +119,7 @@ never use the wrapper to bypass them. Avoid shell commands or indefinite servers
 For an actual developer confirmation or an externally executed check:
 
 ```sh
-node .claude/skills/dev/scripts/timing.mjs check record --dir "$IMPL_DIR" \
+node {{provider:skills_root}}/dev/scripts/timing.mjs check record --dir "$IMPL_DIR" \
   --id step-01-acceptance-01 --kind acceptance --name "Plan acceptance" \
   --result passed --source developer --evidence "Developer confirmed the plan's checks passed"
 ```
@@ -211,7 +211,7 @@ writes, and Markdown cell escaping. Bootstrap installs all four together; no oth
 flow or shared recorder is required. Run this flow's regression suite after changes:
 
 ```sh
-node --test .claude/skills/dev/scripts/*.test.mjs
+node --test {{provider:skills_root}}/dev/scripts/*.test.mjs
 ```
 
 ## Quality inventory
@@ -236,7 +236,7 @@ or a comparison between tickets with different review coverage.
 Old v2 metrics without quality remain valid. Missing legacy table columns yield
 unavailable evidence; do not backfill guesses or automatically rewrite historic reports.
 Malformed canonical tables and duplicate IDs fail refresh rather than emit false counts.
-Use `node --test .claude/skills/dev/scripts/*.test.mjs` after recorder changes.
+Use `node --test {{provider:skills_root}}/dev/scripts/*.test.mjs` after recorder changes.
 
 Before archive, run `quality validate --dir "$IMPL_DIR"` after `report`. This rejects
 open findings, missing terminal evidence/TD ownership, latest failing case counts and

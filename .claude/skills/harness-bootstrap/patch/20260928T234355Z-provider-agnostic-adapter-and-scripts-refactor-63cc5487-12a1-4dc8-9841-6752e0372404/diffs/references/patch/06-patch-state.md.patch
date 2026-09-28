@@ -1,0 +1,63 @@
+--- a/references/06-patch-state.md
++++ b/references/patch/06-patch-state.md
+@@ -2,21 +2,24 @@
+ 
+ Harvest, prepare, and apply all use this contract. Canonical payload paths are
+ relative to `.claude/skills/harness-bootstrap/canonical/` — the package's single
+-canonical root, holding `agents/`, `docs/`, and `skills/` — with one documented
++canonical root, holding `agents/`, `docs/`, `skills/`, `adoptors/`, and adapter/configuration JSON — with one documented
+ exception: `canonical-only` entries (the package's own entrypoints, references,
+ changelog, and report template) are package-internal support files outside
+ `canonical/`, addressed by their normal package-root-relative path instead (see
+ "Mappings" below). Permanent paths are relative to the project root.
+-Launch ignores the toolkit folder in Git. Durable project bookkeeping stays outside it.
++Consumer ignore rules cover the disposable toolkit and its local launch history. Patch
++baselines remain project-local under `.harness/patch/`; bootstrap operation state is
++package-local under `state/`.
+ 
+ Path aliases in the patch recipes: `package-patch/` = canonical package
+-`.claude/skills/harness-bootstrap/patch/`; `project-patch/` = project `.harness/patch/`,
+-`state/` = project `.harness/state/`, `registry.md` = project `.harness/registry.md`,
+-and local reports = project `.harness/launch/reports/`. New writes always use these
+-locations. Portable package changes are written to `package-patch/`; project execution
+-bundles and apply/harvest receipts are written to `project-patch/`. Package-local
+-state/registry/reports are read-only migration fallbacks; preserve them and copy
+-needed records without merging conflicting IDs.
++`.claude/skills/harness-bootstrap/patch/`; `project-patch/` = project `.harness/patch/`;
++`state/` = the bootstrap package's `.claude/skills/harness-bootstrap/state/`;
++`registry.md` = project `.harness/registry.md`; and local reports =
++`package:state/launch/reports/`. New bootstrap writes always use the package state
++directory. Project `.harness/state/` and old `.harness/launch/` records are read-only
++migration inputs; preserve them and copy needed records without merging conflicting IDs.
++Portable package changes are written to `package-patch/`; project execution bundles and
++apply/harvest receipts are written to `project-patch/`.
+ The package's templates and portable support files are authoritative. Project
+ Answers, mappings, operation histories, and deployment baselines belong to this repo.
+ 
+@@ -171,9 +174,9 @@
+ 
+ ## First launch and existing projects
+ 
+-Persist Q&A in project `.harness/launch/answers.json` with value, source, and status
+-per question. Plans and materialization receipts live in `.harness/launch/runs/<run_id>/`.
+-Dated reports live in `.harness/launch/reports/`. Do not ignore this project state or
++Persist Q&A in `package:state/launch/answers.json` with value, source, and status
++per question. Plans and materialization receipts live in `package:state/launch/runs/<run_id>/`.
++Dated reports live in `package:state/launch/reports/`. Preserve local launch history across updates when needed for later operations; never
+ copy secret values into it. Revalidate historical answers before using them as plan knowns.
+ 
+ Launch records an initial `launch` manifest before deployment with add entries for
+@@ -198,3 +201,13 @@
+ When copying the package into another project, exclude local state, populated reports,
+ registry rows, and prepared/applied histories. Copy selected bundle folders when needed.
+ Preserve the destination's local state when refreshing its canonical package files.
++
++## Provider-aware package updates
++
++`canonical/manifest.json`, `canonical/settings.json`, `canonical/mcp.json` and
++`canonical/adoptors/` are deployable adapter inputs. Package them with canonical
++changes; scripts/provider-adapter.mjs, plan-provider-launch.mjs and finalize-launch.mjs
++are package tooling. Never include `state/` in portable bundles or overwrite it on
++package update. Resolve output mappings through the manifest for every selected
++provider; do not reuse a Claude output path for Codex. Harvest project-specific
++changes independently of generated provider mechanics.

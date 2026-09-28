@@ -2,13 +2,13 @@
 
 This reference audits the **implementation** ({{CODE_SCAN_TARGET}}) against the Target Architecture. It delegates research to `@architect` (read-only), presents findings in the console for review, then saves a dated snapshot.
 
-The subject is code and infrastructure — not design artifacts. For design artifact review, the WAF assessment runs inside the `/design` lifecycle itself (`patterns/waf-review.md`, applied from Solution's gate step) rather than as a standalone command. For version-level design review across all stories, use `/war design [VERSION]`.
+The subject is code and infrastructure — not design artifacts. For design artifact review, the WAF assessment runs inside the `{{provider:invoke:design}}` lifecycle itself (`patterns/waf-review.md`, applied from Solution's gate step) rather than as a standalone command. For version-level design review across all stories, use `{{provider:invoke:war}} design [VERSION]`.
 
 > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
 
 ## Step 1 — Determine scope
 
-Apply `.claude/skills/war/patterns/scope-resolution.md` (fill the placeholder as "Code").
+Apply `{{provider:skills_root}}/war/patterns/scope-resolution.md` (fill the placeholder as "Code").
 
 ## Step 2 — Read Target Architecture
 
@@ -80,7 +80,7 @@ Using the architecture docs (Step 2) and the architect's findings (Step 3), asse
 
 ## Step 5 — Present, then save
 
-Apply `.claude/skills/war/patterns/present-and-save.md` (fill the placeholders as "" / "implementation"), using `.claude/skills/war/templates/implementation-report.md` as the file structure. Replace all `{{VERSION}}`, `{{YYYY-MM-DD}}`, and `{{all pillars | <pillar name>}}` placeholders with actual values, and fill in all audit content.
+Apply `{{provider:skills_root}}/war/patterns/present-and-save.md` (fill the placeholders as "" / "implementation"), using `{{provider:skills_root}}/war/templates/implementation-report.md` as the file structure. Replace all `{{VERSION}}`, `{{YYYY-MM-DD}}`, and `{{all pillars | <pillar name>}}` placeholders with actual values, and fill in all audit content.
 
 ## Step 6 — Confirm and close
 
@@ -88,6 +88,6 @@ After saving:
 
 > "Audit saved to `docs/Target Architecture (HLD)/WAR/{VERSION}/{date}-implementation-audit.md`.
 >
-> To re-run after implementation changes: `/war implementation`
-> To scope to one pillar: `/war implementation {pillar}` (e.g. `/war implementation Security`)
-> To review design artifacts for this version: `/war design {VERSION}`"
+> To re-run after implementation changes: `{{provider:invoke:war}} implementation`
+> To scope to one pillar: `{{provider:invoke:war}} implementation {pillar}` (e.g. `{{provider:invoke:war}} implementation Security`)
+> To review design artifacts for this version: `{{provider:invoke:war}} design {VERSION}`"

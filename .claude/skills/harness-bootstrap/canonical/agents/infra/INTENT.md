@@ -1,6 +1,6 @@
 ---
 skill: agents/infra
-output: .claude/agents/infra.md
+output: {{provider:agents_root}}/infra.{{provider:agent_extension}}
 ---
 
 ## Purpose
@@ -30,5 +30,5 @@ Specialist agent for infrastructure as code (CDK, Terraform, Pulumi, etc.). Enfo
 - [ ] Guarded commands match Q7
 - [ ] Known Pitfalls retained: at minimum platform mismatch, asset staging recursion, and SCP/policy diagnosis
 - [ ] `{{INFRA_APP_PATH}}` resolved — no literal placeholder remaining
-- [ ] Satellite review section references `.claude/skills/dev/patterns/satellite-review.md`
+- [ ] Satellite review section references `{{provider:skills_root}}/dev/patterns/satellite-review.md`
 - [ ] Satellite review section specifies that the worker invokes @architect directly (not the orchestrator)

@@ -1,0 +1,34 @@
+--- a/references/07-patch-prepare.md
++++ b/references/patch/07-patch-prepare.md
+@@ -5,8 +5,8 @@
+ folder this operation reads from or writes into for portable content, aside from a
+ narrow set of `canonical-only` package-internal files (see `06-patch-state.md`);
+ bookkeeping aliases `registry.md`,
+-`patch/`, and `state/` refer to project `.harness/` locations defined in the state
+-contract.
++`patch/` refers to project `.harness/` locations; `state/` refers to the bootstrap
++package state directory defined in the state contract.
+ 
+ Prepare exists for one situation: canonical sources inside this package were edited
+ directly — not generalized from a permanent project file by `harvest` — and need to
+@@ -25,9 +25,8 @@
+ ## 1 — Detect direct canonical edits
+ 
+ Compare every canonical path in `state/index.json`'s mappings, plus any discovered
+-but unmapped canonical file (skills, agents, patterns, companions, guide docs — all
+-under `canonical/` — plus `workflows/`, deployed like canonical content but sourced
+-from the package root as a documented exception), against its recorded
++but unmapped canonical file (skills, agents, patterns, companions and guide docs, all
++under `canonical/`), against its recorded
+ `canonical_sha256`. Include untracked new canonical files. A path whose current bytes already equal a `requires`-eligible bundle's
+ `after_sha256` (already captured by an earlier bundle, checkpoint merely stale) is a
+ checkpoint-only advance, not new content — record it in state but do not re-diff it.
+@@ -53,7 +52,7 @@
+ Do not generalize, substitute, or otherwise rewrite the content while bundling —
+ that already happened (or didn't need to) before the canonical edit was made. Prepare
+ packages what is already there; it is not a second harvest pass. Bump changed
+-template versions and the package version per `../patterns/skill-authoring.md`'s
++template versions and the package version per `../../patterns/skill-authoring.md`'s
+ versioning rule if this hasn't already been done on the canonical files themselves;
+ update `CHANGELOG.md`.
+ 

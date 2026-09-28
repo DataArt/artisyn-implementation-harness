@@ -1,0 +1,45 @@
+--- a/canonical/skills/dev/references/06-document.md
++++ b/canonical/skills/dev/references/06-document.md
+@@ -1,19 +1,19 @@
+ # Document stage
+ 
+-Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
++Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
+ `--stage document`. Complete it directly only for direct-stage entry — for the
+ full chain, keep Document active through the router's Completion work; the router
+ completes the stage and ticket metrics after that work succeeds. After archival,
+ use the new impl path for every metrics command.
+ 
+-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This is the final
++Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This is the final
+ stage — it updates permanent docs, resolves deviations, and archives the story.
+ 
+ Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
+ and pause only for a concrete unresolved decision, required human verification, or a
+ fixed sign-off gate (`patterns/approval-sign-off.md`).
+ 
+-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
++> 🔁 **Session continuity:** apply `{{provider:skills_root}}/dev/patterns/session-continuity.md`.
+ 
+ ## Step 0 — Read documentation writing rules
+ 
+@@ -89,7 +89,7 @@
+ - Cross-cutting tooling or workflow changes
+ - Anything a new developer would need to understand before touching the project
+ 
+-**File naming inside `docs/`:** All Markdown files under `docs/` use the format `NN Title Case.md` — two-digit number prefix, space separator, Title Case (e.g. `01 MCP Setup.md`, `09 Launching Env.md`). Pick the next available number within the folder. Update all references in `README.md` and `AGENTS.md` when adding or renaming a file.
++**File naming inside `docs/`:** All Markdown files under `docs/` use the format `NN Title Case.md` — two-digit number prefix, space separator, Title Case (e.g. `01 MCP Setup.md`, `09 Launching Env.md`). Pick the next available number within the folder. Update all references in `README.md` and `{{provider:instructions_file}}` when adding or renaming a file.
+ 
+ **DRY rule:** if the substance of a change mostly belongs in the Engineering Guide or System Architecture (LLD), put the full content there and add only a short one-sentence reference in the app `README.md`. Never duplicate the same detail in two places.
+ 
+@@ -109,8 +109,8 @@
+ - New or changed API endpoint → update app `README.md` endpoints table
+ - New env var → update app `README.md` env table + `.env.example`
+ - New build target → update app `README.md` targets table
+-- Non-obvious architectural decision → capture as a skill in `.claude/skills/` or note in the relevant Target Architecture doc
+-- New repeatable pattern → write skill in `.claude/skills/` + register in `AGENTS.md`
++- Non-obvious architectural decision → capture as a skill in `{{provider:skills_root}}/` or note in the relevant Target Architecture doc
++- New repeatable pattern → write skill in `{{provider:skills_root}}/` + register in `{{provider:instructions_file}}`
+ 
+ ---
+ 

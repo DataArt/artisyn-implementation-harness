@@ -1,0 +1,77 @@
+--- a/canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md
++++ b/canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md
+@@ -28,12 +28,12 @@
+     end
+ 
+     T --> STORIES
+-    SOL -->|"/design publish (Product)"| PCTX
+-    SOL -->|"/design publish (Project)"| HLD
+-    IMPL -->|"/dev document\narch deviations"| HLD
+-    IMPL -->|"/dev document\ncomponent detail"| LLD
+-    IMPL -->|"/dev document\noperational steps"| EG
+-    IMPL -->|"/dev document\nenv vars · targets"| README
++    SOL -->|"{{SKILL_PREFIX}}design publish (Product)"| PCTX
++    SOL -->|"{{SKILL_PREFIX}}design publish (Project)"| HLD
++    IMPL -->|"{{SKILL_PREFIX}}dev document\narch deviations"| HLD
++    IMPL -->|"{{SKILL_PREFIX}}dev document\ncomponent detail"| LLD
++    IMPL -->|"{{SKILL_PREFIX}}dev document\noperational steps"| EG
++    IMPL -->|"{{SKILL_PREFIX}}dev document\nenv vars · targets"| README
+ 
+     classDef ticket   fill:#2C3E50,stroke:#1A252F,color:#fff
+     classDef impl     fill:#1A6B3C,stroke:#14532d,color:#fff
+@@ -52,22 +52,22 @@
+ 
+ ## Graduation rules
+ 
+-| Lifecycle phase                   | Produces                                                        | Lives in                                                                       | Mutability                                            |
+-| --------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- |
+-| `/dev context`                    | `intent.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Confirmed proto-spec — open questions may be appended |
+-| `/dev plan`                       | `1-plan.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Immutable after approval                              |
+-| `/dev context`                    | `2-report.md` (skeleton)                                        | `Stories/<TICKET>/impl/`                                                       | Living through the ticket                             |
+-| `/dev implement`                  | Code commits                                                    | Codebase                                                                       | —                                                     |
+-| `/dev document`                   | LLD updates                                                     | `System Architecture (LLD)/`                                                   | Living                                                |
+-| `/dev document`                   | Engineering Guide entries                                       | `Engineering Guide/`                                                           | Living                                                |
+-| `/dev document`                   | App README updates                                              | `apps/*/README.md`                                                             | Living                                                |
+-| `/dev document` (deviation path)  | Container or NFR updates within the active version              | `Target Architecture (HLD)/<active>/Containers/` or `Non-Functional Concerns/` | Living                                                |
+-| `/design evaluate`                | Recommendation + WAF assessment                                 | `Stories/<TICKET>/design/02 Evaluate.md` + `Report.md`                         | Immutable in Story                                    |
+-| `/design solution`                | Certainty artifacts                                             | `Stories/<TICKET>/solution/`                                                   | Immutable after Publish gate                          |
+-| `/design publish` (Product track) | Product architecture content                                    | `{{PRODUCT_CONTEXT_DIR}}/<resolved subfolder>`                                 | Living — accumulates over the product lifetime        |
+-| `/design publish` (Project track) | Updates reviewed by `{{DESIGN_ARCHITECT_AGENT}}` (max 2 passes) | `{{DESIGN_DOCS_ROOT}}<resolved subfolder>`                                     | Living post-merge                                     |
+-| `/dev document` (archive)         | Full Story folder                                               | `Stories/archive/`                                                             | Archived — no further edits                           |
+-| `/where-we-are` · `/war-*`        | Architecture audit snapshots                                    | `LLD/where-we-are/` or `HLD/WAR/<version>/`                                    | Append-only — see Architecture Lifecycle invariants   |
++| Lifecycle phase                                          | Produces                                                        | Lives in                                                                       | Mutability                                            |
++| -------------------------------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- |
++| `{{SKILL_PREFIX}}dev context`                            | `intent.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Confirmed proto-spec — open questions may be appended |
++| `{{SKILL_PREFIX}}dev plan`                               | `1-plan.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Immutable after approval                              |
++| `{{SKILL_PREFIX}}dev context`                            | `2-report.md` (skeleton)                                        | `Stories/<TICKET>/impl/`                                                       | Living through the ticket                             |
++| `{{SKILL_PREFIX}}dev implement`                          | Code commits                                                    | Codebase                                                                       | —                                                     |
++| `{{SKILL_PREFIX}}dev document`                           | LLD updates                                                     | `System Architecture (LLD)/`                                                   | Living                                                |
++| `{{SKILL_PREFIX}}dev document`                           | Engineering Guide entries                                       | `Engineering Guide/`                                                           | Living                                                |
++| `{{SKILL_PREFIX}}dev document`                           | App README updates                                              | `apps/*/README.md`                                                             | Living                                                |
++| `{{SKILL_PREFIX}}dev document` (deviation path)          | Container or NFR updates within the active version              | `Target Architecture (HLD)/<active>/Containers/` or `Non-Functional Concerns/` | Living                                                |
++| `{{SKILL_PREFIX}}design evaluate`                        | Recommendation + WAF assessment                                 | `Stories/<TICKET>/design/02 Evaluate.md` + `Report.md`                         | Immutable in Story                                    |
++| `{{SKILL_PREFIX}}design solution`                        | Certainty artifacts                                             | `Stories/<TICKET>/solution/`                                                   | Immutable after Publish gate                          |
++| `{{SKILL_PREFIX}}design publish` (Product track)         | Product architecture content                                    | `{{PRODUCT_CONTEXT_DIR}}/<resolved subfolder>`                                 | Living — accumulates over the product lifetime        |
++| `{{SKILL_PREFIX}}design publish` (Project track)         | Updates reviewed by `{{DESIGN_ARCHITECT_AGENT}}` (max 2 passes) | `{{DESIGN_DOCS_ROOT}}<resolved subfolder>`                                     | Living post-merge                                     |
++| `{{SKILL_PREFIX}}dev document` (archive)                 | Full Story folder                                               | `Stories/archive/`                                                             | Archived — no further edits                           |
++| `{{SKILL_PREFIX}}where-we-are` · `{{SKILL_PREFIX}}war-*` | Architecture audit snapshots                                    | `LLD/where-we-are/` or `HLD/WAR/<version>/`                                    | Append-only — see Architecture Lifecycle invariants   |
+ 
+ ---
+ 
+@@ -75,7 +75,7 @@
+ 
+ **Creation** — delivery docs are born in `Stories/<TICKET>/` as working drafts. No doc goes directly to HLD, LLD, or the Engineering Guide without passing through a ticket.
+ 
+-**Graduation** — content graduates at two points: during `/dev document` (implementation outcomes) and during `/design publish` (design outcomes). Only settled outcomes graduate — rationale, comparisons, and open questions stay in the Story. Where an implementation change lands (HLD vs LLD) is determined by the HLD/LLD placement matrix in `dev/references/06-document.md`: HLD hit → update the relevant HLD doc and record detail in the LLD; HLD miss → create a minimal new HLD entry and capture full detail in the LLD. Design graduation is track-routed, resolved once in Frame and recorded in `Report.md`'s `## Context` section: Product lands in `{{PRODUCT_CONTEXT_DIR}}/`; Project lands in `Target Architecture (HLD)/`.
++**Graduation** — content graduates at two points: during `{{SKILL_PREFIX}}dev document` (implementation outcomes) and during `{{SKILL_PREFIX}}design publish` (design outcomes). Only settled outcomes graduate — rationale, comparisons, and open questions stay in the Story. Where an implementation change lands (HLD vs LLD) is determined by the HLD/LLD placement matrix in `dev/references/06-document.md`: HLD hit → update the relevant HLD doc and record detail in the LLD; HLD miss → create a minimal new HLD entry and capture full detail in the LLD. Design graduation is track-routed, resolved once in Frame and recorded in `Report.md`'s `## Context` section: Product lands in `{{PRODUCT_CONTEXT_DIR}}/`; Project lands in `Target Architecture (HLD)/`.
+ 
+ **Update** — permanent docs (HLD, LLD, Engineering Guide) are updated by subsequent tickets, not by reopening the original Story.
+ 
+@@ -99,6 +99,6 @@
+ ## Harness improvement artifacts
+ 
+ Evolve reflections and candidate reports live in provider-local reflections/ and
+-evolve/ directories. Candidate evidence remains there; /evolve adopt integrates
++evolve/ directories. Candidate evidence remains there; {{SKILL_PREFIX}}evolve adopt integrates
+ validated skills, agents and conventions into their recorded destinations. See
+ [the Evolve lifecycle](03%20Evolve%20Lifecycle.md).

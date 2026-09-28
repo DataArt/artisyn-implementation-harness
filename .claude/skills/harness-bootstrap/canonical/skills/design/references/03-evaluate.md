@@ -1,11 +1,11 @@
 # Evaluate stage
 
-Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
+Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
 `--stage evaluate`. Follow its initialization/recovery, entry, wait, check, and exit
 commands. When this reference is used only as a correction recipe within another
 active stage, retain that stage's metrics ownership.
 
-Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`.
+Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`.
 Evaluate is the judgment phase. It maps requirements against options, surfaces
 tradeoffs across all WAF pillars, makes a recommendation with explicit WHY, and
 runs a closing WAF assessment of the recommended option. Output:
@@ -13,7 +13,7 @@ runs a closing WAF assessment of the recommended option. Output:
 
 > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
 
-> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
+> 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`.
 
 ## Step 1 — Read inputs
 
@@ -39,7 +39,7 @@ If any unresolved `(V)` OQs exist:
 
 This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Record resolutions in `design/01 Research.md` before building the matrix, or mark affected options conditional.
 
-See `.claude/skills/design/patterns/design-oq-triage.md` for the full protocol.
+See `{{provider:skills_root}}/design/patterns/design-oq-triage.md` for the full protocol.
 
 ---
 
@@ -55,9 +55,9 @@ See `.claude/skills/design/patterns/design-oq-triage.md` for the full protocol.
 
 ## Step 2b — Write the draft and review in the IDE
 
-By this point the matrix + tradeoffs are already the bulk of the draft content, and they are too large to review comfortably in the console. Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/02 Evaluate.md` (matrix + tradeoffs, recommendation section left as a placeholder, using `.claude/skills/design/templates/evaluate.md`) to `@docs-writer` rather than writing it directly, then point the developer to the file.
+By this point the matrix + tradeoffs are already the bulk of the draft content, and they are too large to review comfortably in the console. Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate the write of `design/02 Evaluate.md` (matrix + tradeoffs, recommendation section left as a placeholder, using `{{provider:skills_root}}/design/templates/evaluate.md`) to `@docs-writer` using the selected delegation procedure, then point the developer to the file.
 
-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`):
+Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`):
 
 > "Draft saved at `design/02 Evaluate.md` — review the Requirements × Options matrix and tradeoffs table in your IDE. Any corrections before I write the recommendation?"
 
@@ -83,9 +83,9 @@ Also list the **open questions** that must be resolved before implementation beg
 
 ## Step 4 — Fill the recommendation in 02 Evaluate.md
 
-`design/02 Evaluate.md` already exists from **Step 2b** (matrix + tradeoffs, confirmed). Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate filling the recommendation placeholder with the Step 3 recommendation + open questions to `@docs-writer` rather than editing it directly; do not rewrite the matrix/tradeoffs unless corrections were raised.
+`design/02 Evaluate.md` already exists from **Step 2b** (matrix + tradeoffs, confirmed). Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate filling the recommendation placeholder with the Step 3 recommendation + open questions to `@docs-writer` using the selected delegation procedure; do not rewrite the matrix/tradeoffs unless corrections were raised.
 
-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "Recommendation written to `design/02 Evaluate.md`. Review in your IDE — does the recommendation hold? Any corrections?"
+Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`): say "Recommendation written to `design/02 Evaluate.md`. Review in your IDE — does the recommendation hold? Any corrections?"
 
 **Reiterate paths** — if the developer raises a concern:
 
@@ -168,7 +168,7 @@ Full elaboration: `design/02 Evaluate.md`
 
 ## Step 7 — Do → Report → Commit
 
-Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-report-commit.md`):
+Apply the do→report→commit pattern (`{{provider:skills_root}}/design/patterns/do-report-commit.md`):
 
 **Report** — update `design/Report.md`:
 
@@ -181,4 +181,4 @@ Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-repor
 
 This is a sign-off gate (`patterns/approval-sign-off.md`) — committing is a manual operation, never run yourself. **Stop and wait** for the developer to confirm the commit.
 
-🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.
+🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage.

@@ -1,0 +1,13 @@
+--- a/canonical/skills/evolve/interfaces/improvement.md
++++ b/canonical/skills/evolve/interfaces/improvement.md
+@@ -1,8 +1,8 @@
+ # Improvement interface
+ 
+-Store each candidate under .claude/evolve/{timestamp}-{slug}/ with Report.md,
++Store each candidate under .harness/evolve/{timestamp}-{slug}/ with Report.md,
+ candidate/ content and Validation.md. These are working artifacts, not discoverable
+-active skills. Use the configured provider's equivalent root when applicable.
++active skills. Both providers use this shared artifact root; import legacy provider-local candidates explicitly, preserving originals.
+ 
+ Report.md owns:
+ 

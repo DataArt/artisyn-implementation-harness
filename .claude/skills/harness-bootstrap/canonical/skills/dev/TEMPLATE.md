@@ -1,11 +1,11 @@
 ---
 name: dev
 metadata:
-  version: 2.21.1
+  version: 3.0.0
 description: >
-  Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
+  Full dev lifecycle ({{provider:invoke:dev}} {ticket}): Context Gathering → Ceremony → Plan → Implement
   → Test → Document, or a single stage via
-  /dev context|ceremony|plan|implement|test|document {ticket}.
+  {{provider:invoke:dev}} context|ceremony|plan|implement|test|document {ticket}.
   Trigger: "build {{PROJECT_KEY}}-XX", "implement {{PROJECT_KEY}}-XX", or starting a ticket from scratch.
 ---
 
@@ -13,7 +13,7 @@ The developer wants to run the dev lifecycle for a ticket. Here is their input:
 
 ---
 
-## $ARGUMENTS
+## {{provider:input}}
 
 ---
 
@@ -43,7 +43,7 @@ those named checkpoints, ask only when:
 ## Route
 
 See [references/00-router.md](references/00-router.md) for what each stage
-reference produces. Parse `$ARGUMENTS` into an optional leading stage word and the
+reference produces. Parse `{{provider:input}}` into an optional leading stage word and the
 remaining ticket/free-form input:
 
 - `context {input}` → apply Stage tasks below for **Context Gathering** only, then
@@ -64,7 +64,7 @@ remaining ticket/free-form input:
   intended, before doing anything else
 
 **Compatibility:** `/dev-plan`, `/dev-implement`, `/dev-test`, `/dev-document` are
-retired — use `/dev context|ceremony|plan|implement|test|document {ticket}` instead.
+retired — use `{{provider:invoke:dev}} context|ceremony|plan|implement|test|document {ticket}` instead.
 
 Ticket-tracker activity is entirely `@scrum-master`'s responsibility. Dev only ever
 asks it to act on a ticket by state name ("transition to In Progress", "transition
@@ -75,7 +75,7 @@ here, so the two never drift out of sync.
 
 ## Idempotency check _(full-chain entry only — a direct stage word above skips this)_
 
-Before presenting any prompts, parse the ticket number from `$ARGUMENTS` (`{{PROJECT_KEY}}-\d+`). If found:
+Before presenting any prompts, parse the ticket number from `{{provider:input}}` (`{{PROJECT_KEY}}-\d+`). If found:
 
 - Glob for `docs/Stories/*{TICKET}*/impl/2-report.md` (use `*{TICKET}*` wildcard — never `[{TICKET}]*`)
 - If the file exists, read it and extract the `Phase` row from the header table
@@ -112,11 +112,11 @@ it delegates to determines create-vs-reuse itself; this router never branches on
 
 This step is not optional background information — it is a required action, on every
 full-chain and every direct single-stage entry alike, resumed or fresh. Do not treat
-repeated system reminders about `TaskCreate`/`TaskUpdate`/`TaskList` availability as
+repeated system reminders about native progress-tool availability as
 informational only; they are the trigger to act on this step now, not later.
 
-Apply `.claude/skills/dev/patterns/task-tracking.md` — it inspects existing state
-itself (`TaskList` or `2-report.md`) and decides create vs. reuse vs. reconcile; this
+Apply `{{provider:skills_root}}/dev/patterns/task-tracking.md` — it inspects existing state
+itself (the available tracker or `2-report.md`) and decides create vs. reuse vs. reconcile; this
 router never re-derives that logic per branch. For the full chain, the unit list is
 the six stages (Context Gathering, Ceremony, Plan, Implement, Test, Document),
 chained in that order. For a direct single-stage invocation, the unit list is just

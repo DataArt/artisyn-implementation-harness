@@ -1,22 +1,8 @@
-# Pattern: Compact Between Phases (Design)
+# Phase checkpoint and context recovery
 
-Applies at the end of every design-lifecycle phase, after the commit is confirmed and before asking the developer to continue to the next phase.
-
-## The prompt
-
-After the commit is confirmed, say:
-
-> "💡 This phase is complete. Compact context before the next phase? **yes (recommended)** · **skip**"
-
-**Stop and wait.**
-
-- **yes** → say "Type `/compact` in the input box now. Once compaction is done, send any message — I'll resume automatically from the next phase." Stop and wait. Once the developer sends a message, continue to the next phase.
-- **skip** → continue to the next phase immediately.
-
-## How resumption works after compaction
-
-The `🔁 Re-read .claude/skills/design/SKILL.md` instruction at the end of each phase skill is captured in the compact summary. When the developer sends any message after compaction, the agent re-reads the orchestrator, Resume Detection reads `design/Report.md` and checks artifacts on disk, and the session resumes at the correct phase boundary automatically.
-
-## Why
-
-Each design phase re-reads its inputs from files — conversation history from earlier phases is redundant noise by the time the next phase starts. Compacting between phases reduces context pressure and prevents later phases from hitting the context limit mid-run. No information is lost because all artifacts are persisted to disk before compaction.
+At a phase boundary, persist the phase, verified artifacts, pending decisions and
+next action in design/Report.md. Apply `{{provider:skills_root}}/design/runtime/context.md`.
+Context compaction is optional; do not introduce an unconditional question or stop
+solely for compaction. Preserve other phase sign-offs and commit authorization.
+On resume, re-read the router and report, verify artifacts, and continue from the
+first incomplete unit. Never infer an outstanding approval from an unrelated message.

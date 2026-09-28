@@ -1,0 +1,32 @@
+--- a/canonical/skills/design/references/06-address-feedback.md
++++ b/canonical/skills/design/references/06-address-feedback.md
+@@ -1,17 +1,17 @@
+ # Address Feedback stage
+ 
+-Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
++Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
+ `--stage address-feedback`. Follow its initialization/recovery, entry, wait, check, and exit
+ commands. When this reference is used only as a correction recipe within another
+ active stage, retain that stage's metrics ownership.
+ 
+-Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`. This
++Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`. This
+ stage only runs when Review Gate reported concerns. It loops until the MR is
+ re-approved.
+ 
+ > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
+ 
+-> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
++> 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`.
+ 
+ ## Step 1 — Find the design folder and read the gate
+ 
+@@ -48,6 +48,6 @@
+ state is an external fact only the developer can attest to. **Stop and wait.**
+ 
+ - If **still concerns** → resume and record a failed `Design approval` check with a new round ID; return to Step 2 for the new or ongoing concern. Loop until resolved.
+-- If **yes** → resume and record a passed `Design approval` check with attributed evidence and a new round ID; update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 💬 Address Feedback ✅ · 📤 Publish ⏳`. Tell the developer: "Re-approved — run `/design publish {TICKET}` to continue."
++- If **yes** → resume and record a passed `Design approval` check with attributed evidence and a new round ID; update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 💬 Address Feedback ✅ · 📤 Publish ⏳`. Tell the developer: "Re-approved — run `{{provider:invoke:design}} publish {TICKET}` to continue."
+ 
+-🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.
++🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage.

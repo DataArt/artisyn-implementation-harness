@@ -1,19 +1,19 @@
 # Review Gate stage
 
-Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
+Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
 `--stage review-gate`. Follow its initialization/recovery, entry, wait, check, and exit
 commands. When this reference is used only as a correction recipe within another
 active stage, retain that stage's metrics ownership.
 
-Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`. This
+Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`. This
 stage has two entry points: **pre-gate** (Steps 1–3, open draft MR) and **post-gate**
 (Step 4, run after the MR is approved or commented on out-of-band). The session
-always ends at Step 3. Step 4 begins on the next `/design review-gate {TICKET}`
+always ends at Step 3. Step 4 begins on the next `{{provider:invoke:design}} review-gate {TICKET}`
 invocation.
 
 > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
 
-> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
+> 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`.
 
 This is the human-approval gate — a different concern from the WAF quality checks
 in `patterns/waf-review.md`.
@@ -96,7 +96,7 @@ Update phase tracker: `📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ 
 
 Tell the developer:
 
-> "Design is pending approval from `{approver}`. Come back and run `/design review-gate {TICKET}` once the MR is approved or commented on."
+> "Design is pending approval from `{approver}`. Come back and run `{{provider:invoke:design}} review-gate {TICKET}` once the MR is approved or commented on."
 
 Before yielding, run `wait start --reason approval` with the approver/MR context, then `report`.
 
@@ -112,7 +112,7 @@ Ask:
 
 This is a sign-off gate (`patterns/approval-sign-off.md`) — the actual MR approval state is an external fact only the developer can attest to. **Stop and wait.**
 
-- If **yes** → resume work, record a passed `Design approval` acceptance check with attributed evidence, and `stage skip --stage address-feedback --reason no_concerns --evidence <confirmation>` per the metrics pattern; then update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ⏳`. Tell the developer: "Approved — run `/design publish {TICKET}` to continue."
-- If **concerns** → resume work and record a failed `Design approval` check before completing Review Gate and entering Address Feedback; then update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback 🔄 · 📤 Publish ⏳`. Tell the developer: "Concerns raised — run `/design address-feedback {TICKET}` to resolve them."
+- If **yes** → resume work, record a passed `Design approval` acceptance check with attributed evidence, and `stage skip --stage address-feedback --reason no_concerns --evidence <confirmation>` per the metrics pattern; then update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ⏳`. Tell the developer: "Approved — run `{{provider:invoke:design}} publish {TICKET}` to continue."
+- If **concerns** → resume work and record a failed `Design approval` check before completing Review Gate and entering Address Feedback; then update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback 🔄 · 📤 Publish ⏳`. Tell the developer: "Concerns raised — run `{{provider:invoke:design}} address-feedback {TICKET}` to resolve them."
 
-🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.
+🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage.

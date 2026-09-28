@@ -1,0 +1,84 @@
+--- a/canonical/skills/design/references/01-frame.md
++++ b/canonical/skills/design/references/01-frame.md
+@@ -1,11 +1,11 @@
+ # Frame stage
+ 
+-Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
++Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
+ `--stage frame`. Follow its initialization/recovery, entry, wait, check, and exit
+ commands. When this reference is used only as a correction recipe within another
+ active stage, retain that stage's metrics ownership.
+ 
+-Resume detection and stage tracking live in `.claude/skills/design/SKILL.md`. Frame
++Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`. Frame
+ frames the problem, frames the requirements (evaluation criteria for Evaluate),
+ and frames the boundaries before any research begins. Output: `design/00 Frame.md`.
+ 
+@@ -16,7 +16,7 @@
+ 
+ > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
+ 
+-> 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
++> 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`.
+ 
+ ## Step 1 — Find or create the design folder
+ 
+@@ -58,7 +58,7 @@
+ (requirements, specs, design notes). This is a read: do not assign or transition
+ the ticket here — that's Step 3.
+ 
+-Developer free-form input (from `$ARGUMENTS`) takes precedence over tracker content
++Developer free-form input (from `{{provider:input}}`) takes precedence over tracker content
+ if they conflict; use the tracker/Confluence as background context and the known
+ ECs source, and developer input as the primary intent. The fetched summary also
+ supplies `{name}` for the folder path above, if it wasn't already asked.
+@@ -119,7 +119,7 @@
+ 
+ Wait for the developer to confirm they've created the branch before proceeding.
+ 
+-Create `design/Report.md` now using `.claude/skills/design/templates/report.md`,
++Create `design/Report.md` now using `{{provider:skills_root}}/design/templates/report.md`,
+ with `Phase` set to
+ `📋 Frame 🔄 · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳`.
+ 
+@@ -137,9 +137,9 @@
+ 
+ ## Step 5 — Write 00 Frame.md
+ 
+-Using `.claude/skills/design/templates/frame.md`, write `design/00 Frame.md`. Pull context from the sources identified in Steps 2 and 4 — the tracker fetch supplies the Known ECs and background; the resolved design context supplies constraints and precedent.
+-
+-**Problem** — one paragraph from the ticket description (or `$ARGUMENTS`): what is broken or missing, and why it matters now.
++Using `{{provider:skills_root}}/design/templates/frame.md`, write `design/00 Frame.md`. Pull context from the sources identified in Steps 2 and 4 — the tracker fetch supplies the Known ECs and background; the resolved design context supplies constraints and precedent.
++
++**Problem** — one paragraph from the ticket description (or `{{provider:input}}`): what is broken or missing, and why it matters now.
+ 
+ **Requirements** — two sub-sections:
+ 
+@@ -168,9 +168,9 @@
+ - Related tickets: `<any linked {{PROJECT_KEY}} tickets if any>`
+ - Reference docs: `<any {{DESIGN_DOCS_ROOT}} docs referenced>`
+ 
+-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/00 Frame.md` to `@docs-writer` rather than writing it directly.
+-
+-Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `design/00 Frame.md`. Proposed requirements are marked `[proposed]` — review in your IDE, accept/reject/edit any of them, then confirm."
++Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`): delegate the write of `design/00 Frame.md` to `@docs-writer` using the selected delegation procedure.
++
++Apply the write-confirm pattern (`{{provider:skills_root}}/design/patterns/write-confirm.md`): say "File saved at `design/00 Frame.md`. Proposed requirements are marked `[proposed]` — review in your IDE, accept/reject/edit any of them, then confirm."
+ 
+ This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.** Apply any edits the developer requests and re-save. Iterate until the developer confirms.
+ 
+@@ -190,7 +190,7 @@
+ 
+ ## Step 7 — Do → Report → Commit
+ 
+-Apply the do→report→commit pattern (`.claude/skills/design/patterns/do-report-commit.md`):
++Apply the do→report→commit pattern (`{{provider:skills_root}}/design/patterns/do-report-commit.md`):
+ 
+ **Report** — update `design/Report.md`:
+ 
+@@ -203,4 +203,4 @@
+ 
+ This is a sign-off gate (`patterns/approval-sign-off.md`) — committing is a manual operation, never run yourself. **Stop and wait** for the developer to confirm the commit.
+ 
+-🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage.
++🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage.

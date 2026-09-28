@@ -72,7 +72,7 @@ Present the full assessment in the console. Say:
 
 ## Step 4 — Append to Report.md
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`):
+Apply the docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`):
 delegate appending the dated block below to the `## WAF Assessment` section of
 `design/Report.md` to `@docs-writer` rather than editing it directly.
 

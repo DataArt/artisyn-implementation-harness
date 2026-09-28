@@ -1,0 +1,66 @@
+--- a/canonical/docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md
++++ b/canonical/docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md
+@@ -14,27 +14,27 @@
+ 
+ ## When to use it
+ 
+-| Command               | When                                                                       |
+-| --------------------- | -------------------------------------------------------------------------- |
+-| `/where-we-are`       | After a sprint; before a planning session; when "where are we?" is unclear |
+-| `/war design`         | After major HLD updates; before a design gate for a large feature          |
+-| `/war implementation` | Quarterly; before a major release; when architectural drift is suspected   |
++| Command                              | When                                                                       |
++| ------------------------------------ | -------------------------------------------------------------------------- |
++| `{{SKILL_PREFIX}}where-we-are`       | After a sprint; before a planning session; when "where are we?" is unclear |
++| `{{SKILL_PREFIX}}war design`         | After major HLD updates; before a design gate for a large feature          |
++| `{{SKILL_PREFIX}}war implementation` | Quarterly; before a major release; when architectural drift is suspected   |
+ 
+ ---
+ 
+ ## Commands
+ 
+-| Command                         | What it does                                                                      | Output                                                                                     |
+-| ------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+-| `/where-we-are [VERSION]`       | Delivery gap report: designed vs implemented vs documented, per container         | `docs/System Architecture (LLD)/where-we-are/<YYYY-MM-DD>-gap-report.md`                   |
+-| `/war design [VERSION]`         | WAF assessment of the Target Architecture documents — is the design itself sound? | `docs/Target Architecture (HLD)/WAR/<active version>/<YYYY-MM-DD>-design-audit.md`         |
+-| `/war implementation [VERSION]` | WAF code audit — does the implementation match the Target Architecture?           | `docs/Target Architecture (HLD)/WAR/<active version>/<YYYY-MM-DD>-implementation-audit.md` |
++| Command                                        | What it does                                                                      | Output                                                                                     |
++| ---------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
++| `{{SKILL_PREFIX}}where-we-are [VERSION]`       | Delivery gap report: designed vs implemented vs documented, per container         | `docs/System Architecture (LLD)/where-we-are/<YYYY-MM-DD>-gap-report.md`                   |
++| `{{SKILL_PREFIX}}war design [VERSION]`         | WAF assessment of the Target Architecture documents — is the design itself sound? | `docs/Target Architecture (HLD)/WAR/<active version>/<YYYY-MM-DD>-design-audit.md`         |
++| `{{SKILL_PREFIX}}war implementation [VERSION]` | WAF code audit — does the implementation match the Target Architecture?           | `docs/Target Architecture (HLD)/WAR/<active version>/<YYYY-MM-DD>-implementation-audit.md` |
+ 
+ ---
+ 
+ ## Invariants
+ 
+-**`/where-we-are`:**
++**`{{SKILL_PREFIX}}where-we-are`:**
+ 
+ - Read `docs/Target Architecture (HLD)/README.md` first to find the active version. Do not hardcode a version name.
+ - Assess three dimensions per container: Designed (exists in HLD), Implemented (code exists), Documented (LLD folder populated). All three checked independently.
+@@ -42,13 +42,13 @@
+ - Delegate the code scan to the Architect agent — do not scan inline.
+ - Present the full gap matrix before asking to save. Never auto-save.
+ 
+-**`/war design`:**
++**`{{SKILL_PREFIX}}war design`:**
+ 
+ - Assess HLD documents only — not the codebase.
+ - All WAF pillars must be addressed. Present findings before saving.
+ - Save to `WAR/<active version>/` — create the folder if it does not exist. Never overwrite a previous report.
+ 
+-**`/war implementation`:**
++**`{{SKILL_PREFIX}}war implementation`:**
+ 
+ - Delegate code scan to the Architect agent.
+ - All WAF pillars must be addressed. Flag any implementation patterns that deviate from HLD without a recorded justification.
+@@ -59,7 +59,7 @@
+ ## The audit loop
+ 
+ ```
+-/where-we-are → gap tickets → /dev (fill gaps) → /war implementation → verify alignment
++{{SKILL_PREFIX}}where-we-are → gap tickets → {{SKILL_PREFIX}}dev (fill gaps) → {{SKILL_PREFIX}}war implementation → verify alignment
+ ```
+ 
+ Gap tickets produced by audit commands feed back into the Dev lifecycle as regular tickets.

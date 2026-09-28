@@ -1,16 +1,16 @@
 # Implement stage
 
-Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
 `--stage implement`.
 
-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage executes
+Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This stage executes
 the approved `1-plan.md` one step at a time.
 
 Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
 and pause only for a concrete unresolved decision, required human verification, or a
 fixed sign-off gate (`patterns/approval-sign-off.md`).
 
-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+> 🔁 **Session continuity:** apply `{{provider:skills_root}}/dev/patterns/session-continuity.md`.
 
 ## Step 1 — Find the plan
 
@@ -34,7 +34,7 @@ Update the `Phase` row in `2-report.md`:
 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳
 ```
 
-Apply `.claude/skills/dev/patterns/task-tracking.md` with the plan's numbered steps
+Apply `{{provider:skills_root}}/dev/patterns/task-tracking.md` with the plan's numbered steps
 as the unit list: one task per step, chained in plan order. This is in addition to
 the stage-level Implement task the router already created — these are the child
 units within it.
@@ -43,19 +43,23 @@ Announce the plan and step count, then start within existing authorization.
 
 ## Step 3 — Execute one step at a time
 
-Before starting each step, determine its layer from the step title and scope:
+Before each step, match its actual target paths and responsibilities against the
+Agents table in `{{provider:instructions_file}}` and the installed role definitions.
+Use the specialist instantiated from the canonical `layer` template for the owning
+component; there is no fixed frontend/backend/data routing list. Give it the full
+step from `1-plan.md` and current `2-report.md`. Apply runtime/delegation.md; the
+orchestrator owns verification and report updates.
 
-- **{{BACKEND_LAYER_KEYWORDS}}** → delegate to `{{BACKEND_AGENT}}`. Give it the full step description from `1-plan.md` plus the current `2-report.md` for context. `{{BACKEND_AGENT}}` handles the implementation; you coordinate verification and report updates.
-- **{{FRONTEND_LAYER_KEYWORDS}}** → delegate to `{{FRONTEND_AGENT}}`. Same handoff pattern.
-- **{{DATA_LAYER_KEYWORDS}}** → delegate to `{{DATA_AGENT}}`. Same handoff pattern.
-- **infra / config / docs** → implement inline.
+If no specialist owns this scope, implement inline within authorization. Resolve
+overlapping/ambiguous ownership before dispatch. For a cross-component step, assign
+disjoint scopes to the relevant owners and coordinate shared contracts centrally.
 
 > **Scope discipline:** implement exactly what the step describes — no more, no less. Do not add features, refactors, or improvements beyond what the step specifies.
 
 For each step:
 
-1. Register the approved step with `step add` (stable ID, title, order, plan reference), then `step start --id <ID>` and `report` per `patterns/metrics.md`. Mark the step's task `in_progress` (per `patterns/task-tracking.md`). Announce which step you are starting (e.g. "Starting Step 2 — Backend: user-profile module") and whether you are delegating or implementing inline
-2. Implement (or delegate). Worker agents run a satellite review after non-trivial steps before returning (see `.claude/skills/dev/patterns/satellite-review.md`). If a delegated worker already ran a check with real captured output as part of that review, treat it as existing evidence — do not blindly re-run the identical check yourself with no new information to gain. Re-run it yourself only for a concrete reason (the worker lacked the tool, the surface differs from the worker's sandbox, or the result looks suspect) — never as a reflexive duplicate of work already done and reported.
+1. Register the approved step with `step add` (stable ID, title, order, plan reference), then `step start --id <ID>` and `report` per `patterns/metrics.md`. Mark the step's task `in_progress` (per `patterns/task-tracking.md`). Announce which step you are starting (e.g. "Starting Step 2 — <component>: <work unit>") and whether you are delegating or implementing inline
+2. Implement (or delegate). Worker agents run a satellite review after non-trivial steps before returning (see `{{provider:skills_root}}/dev/patterns/satellite-review.md`). If a delegated worker already ran a check with real captured output as part of that review, treat it as existing evidence — do not blindly re-run the identical check yourself with no new information to gain. Re-run it yourself only for a concrete reason (the worker lacked the tool, the surface differs from the worker's sandbox, or the result looks suspect) — never as a reflexive duplicate of work already done and reported.
 3. When the step is done — including any satellite review — you may run a
    non-guarded check yourself (build, typecheck, curl, `terraform validate`, etc.)
    as a debugging aid to catch obvious breakage before presenting, subject to the
@@ -117,7 +121,7 @@ first, then present the commit message. In order:**
 
 3. Upsert the step's `## Step Metrics` row from `stat.json`, including observed time and available token evidence. Add the phase effort row with a link to that step; human time remains unreported unless supplied, and missing AI token usage is marked unavailable. Do not sum duplicate phase and step usage rows.
 
-4. Mark the step's task `completed` (per `patterns/task-tracking.md`), verifying the completion evidence above rather than a worker's self-report alone. Present the commit message and progress announcement (`.claude/skills/dev/patterns/announce-progress.md`):
+4. Mark the step's task `completed` (per `patterns/task-tracking.md`), verifying the completion evidence above rather than a worker's self-report alone. Present the commit message and progress announcement (`{{provider:skills_root}}/dev/patterns/announce-progress.md`):
 
    > "Step N complete — `2-report.md` updated. Please commit with:
    >
@@ -205,4 +209,4 @@ When all steps are verified, update `2-report.md`:
 
 Then tell the developer: "All steps complete. `2-report.md` updated."
 
-🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Test).
+🔁 Re-read `{{provider:skills_root}}/dev/SKILL.md` and resume the router from the next stage (Test).

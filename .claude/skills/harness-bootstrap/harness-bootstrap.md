@@ -21,7 +21,7 @@ resolution and repeated operations. No separate packaging or synchronization mod
 
 Launch retains its Context → Q&A → Generation → Cleanup lifecycle and LLD/HLD
 workflows. Dated reports preserve progress and project Answers. See
-[entry point](SKILL.md) and [patch contract](references/06-patch-state.md).
+[entry point](SKILL.md) and [patch contract](references/patch/06-patch-state.md).
 
 ## Author
 

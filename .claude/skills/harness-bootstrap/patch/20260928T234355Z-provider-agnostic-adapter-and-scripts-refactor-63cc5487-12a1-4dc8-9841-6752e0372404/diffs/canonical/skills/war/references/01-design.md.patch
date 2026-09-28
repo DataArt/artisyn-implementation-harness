@@ -1,0 +1,37 @@
+--- a/canonical/skills/war/references/01-design.md
++++ b/canonical/skills/war/references/01-design.md
+@@ -2,13 +2,13 @@
+ 
+ This reference audits the **Target Architecture documents** for a given version against the {{WAF_FRAMEWORK}} pillars. It assesses whether the architecture _as designed and documented_ is sound — not whether the code implements it (use `references/02-implementation.md` for that).
+ 
+-The subject is `docs/Target Architecture (HLD)/{VERSION}/` — container docs, cross-cutting docs, NFRs, sizing. For implementation code audit, use `/war implementation [VERSION]`. For a single story's design review, the WAF assessment runs inside the `/design` lifecycle itself (`patterns/waf-review.md`, applied from Solution's gate step) rather than as a standalone command.
++The subject is `docs/Target Architecture (HLD)/{VERSION}/` — container docs, cross-cutting docs, NFRs, sizing. For implementation code audit, use `{{provider:invoke:war}} implementation [VERSION]`. For a single story's design review, the WAF assessment runs inside the `{{provider:invoke:design}}` lifecycle itself (`patterns/waf-review.md`, applied from Solution's gate step) rather than as a standalone command.
+ 
+ > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
+ 
+ ## Step 1 — Determine scope
+ 
+-Apply `.claude/skills/war/patterns/scope-resolution.md` (fill the placeholder as "Design").
++Apply `{{provider:skills_root}}/war/patterns/scope-resolution.md` (fill the placeholder as "Design").
+ 
+ ## Step 2 — Read Target Architecture documents
+ 
+@@ -61,7 +61,7 @@
+ 
+ ## Step 4 — Present, then save
+ 
+-Apply `.claude/skills/war/patterns/present-and-save.md` (fill the placeholders as "Design"/"design"), using `.claude/skills/war/templates/design-report.md` as the file structure. Replace all placeholders and fill in all audit content.
++Apply `{{provider:skills_root}}/war/patterns/present-and-save.md` (fill the placeholders as "Design"/"design"), using `{{provider:skills_root}}/war/templates/design-report.md` as the file structure. Replace all placeholders and fill in all audit content.
+ 
+ ## Step 5 — Confirm and close
+ 
+@@ -69,6 +69,6 @@
+ 
+ > "Design audit saved to `docs/Target Architecture (HLD)/WAR/{VERSION}/{date}-design-audit.md`.
+ >
+-> To re-run: `/war design`
+-> To scope to one pillar: `/war design {pillar}` (e.g. `/war design Security`)
+-> To audit the implementation against this design: `/war implementation`"
++> To re-run: `{{provider:invoke:war}} design`
++> To scope to one pillar: `{{provider:invoke:war}} design {pillar}` (e.g. `{{provider:invoke:war}} design Security`)
++> To audit the implementation against this design: `{{provider:invoke:war}} implementation`"

@@ -1,5 +1,7 @@
 # Pattern: Satellite Review (Design)
 
+Apply `{{provider:skills_root}}/design/runtime/delegation.md` for invocation and unavailable-review handling.
+
 After completing a design artifact or applying architecture doc changes, invoke `{{DESIGN_ARCHITECT_AGENT}}` as a read-only reviewer before presenting the result to the developer.
 
 ## When to trigger

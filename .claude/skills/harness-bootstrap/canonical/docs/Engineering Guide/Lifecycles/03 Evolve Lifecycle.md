@@ -54,12 +54,12 @@ Solid arrows show the full improvement flow. Dashed arrows require a later reque
 or a change in circumstances; reflection capture and local adoption do not trigger
 the next lifecycle automatically.
 
-| Command          | Outcome                                                               |
-| ---------------- | --------------------------------------------------------------------- |
-| /evolve reflect  | Save an attributed observation and stop                               |
-| /evolve triage   | Scope improvements and write inactive drafts, or archive observations |
-| /evolve validate | Record intended-use, non-trigger and regression evidence              |
-| /evolve adopt    | Integrate the accepted candidate and verify callers and discovery     |
+| Command                         | Outcome                                                               |
+| ------------------------------- | --------------------------------------------------------------------- |
+| {{SKILL_PREFIX}}evolve reflect  | Save an attributed observation and stop                               |
+| {{SKILL_PREFIX}}evolve triage   | Scope improvements and write inactive drafts, or archive observations |
+| {{SKILL_PREFIX}}evolve validate | Record intended-use, non-trigger and regression evidence              |
+| {{SKILL_PREFIX}}evolve adopt    | Integrate the accepted candidate and verify callers and discovery     |
 
 Concrete improvement requests enter Triage, which checks ownership and duplication
 and prepares drafts internally. Draft is not a command. Triage stops with inactive

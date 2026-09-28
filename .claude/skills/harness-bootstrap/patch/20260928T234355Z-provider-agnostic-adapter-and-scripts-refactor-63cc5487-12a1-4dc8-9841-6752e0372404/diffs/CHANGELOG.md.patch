@@ -1,0 +1,62 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,6 +1,50 @@
+ # Changelog
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
++
++## 2.0.0
++
++Breaking: replaces the Claude-only harness with a manifest-driven Claude/Codex adapter.
++Drops Cursor/Kiro/Windsurf as install targets (documented portability targets only, per
++`04 AI Coding Tool Compatibility.md`). Moves bootstrap operation state from project
++`.harness/launch/` to package-local `state/launch/`. Retires the Claude Workflows-based
++LLD/HLD fan-out in favor of layer/component agent dispatch. Per-template version bumps
++for incompatible placeholder/workflow changes (Claude-only mechanics replaced by
++`{{provider:*}}` tokens and installed runtime procedures): `dev` 2.21.1 -> 3.0.0,
++`design` 3.4.1 -> 4.0.0, `war` 1.1.0 -> 2.0.0, `where-we-are` 0.4.0 -> 1.0.0,
++`scrum-master` (agent) 1.0.0 -> 2.0.0.
++
++- Add canonical manifest, settings and MCP inputs with Claude/Codex/both launch planning.
++- Install provider runtime procedures for planning, tasks, delegation, questions, context and browser checks.
++- Preserve explicit plan sign-offs with a planning-only fallback; make design compaction optional.
++- Render Codex agents/config as TOML and preserve existing configuration for explicit reconciliation.
++- Store launch records in bootstrap state/launch; verify final hashes before removing temporary INTENT copies.
++- Exclude project launch state from release archives; preserve legacy state as migration input.
++- Make shared Engineering Guide docs provider-neutral: `{{SKILL_PREFIX}}` and `{{ROOT_INSTRUCTIONS}}`
++  placeholders resolved at D.1, skill companions referenced inside the installed bundle, and
++  `05 MCP Setup.md` covering each provider's credential route.
++- Rewrite `01 Dev Lifecycle.md` around intent, flow, per-stage invariants and patterns.
++- Move Claude-in-Chrome setup into `adoptors/claude/browser.md` and drop the orphaned x-ray companion.
++- Finalizer prunes directories left empty by removed temporary INTENT copies.
++- Genericize the onboarding agent: components/tracker/wiki drive the checklist instead of a
++  hardcoded web/BFF/Jira/Confluence assumption, and its "Key docs" list points at Engineering
++  Guide files that actually exist in the package.
++- Decompose `scripts/` into single-purpose functions plus a shared `scripts/lib/` (constants,
++  path/hash safety, CLI parsing, fs walk, token resolution, manifest/agent/MCP rendering);
++  `provider-adapter.mjs` stays the frozen public entry point, now a thin façade over `lib/`.
++  Extended the frozen adapter-source set to cover `lib/manifest.mjs`, `lib/agent-format.mjs`
++  and `lib/mcp-config.mjs` so a plan still can't be materialized against a changed renderer.
++- Rename `check-materialize-launch.mjs`/`check-provider-launch.mjs` to
++  `materialize-launch.test.mjs`/`provider-launch.test.mjs`, moved into `scripts/tests/` —
++  they're `node:assert`-based regression tests, not launch-time checks; `check-mermaid.mjs`
++  keeps its name and location, since it's a real launch-time rendering gate invoked with an
++  actual project's `config.json`, not a test.
++- `canonical/manifest.json` is now the sole source of truth for each provider's
++  `agentFormat`/`invocationPrefix`: `lib/constants.mjs` no longer shadows those exact values
++  per provider name, only the enum of formats the renderer implements (`SUPPORTED_AGENT_FORMATS`)
++  and a shape check for the prefix (`INVOCATION_PREFIX_RE`). `PROVIDER_NAMES` stays, documented
++  as the renderer's own support boundary, not provider data the manifest should be re-checked
++  against.
+ 
+ ## 1.3.0
+ 
+@@ -9,7 +53,7 @@
+ non-NX project (that launch was correctly reported as a Turborepo/pnpm monorepo
+ during Q&A) still got NX-specific wording baked into its deployed skills.
+ 
+-- **Q2** (`references/02-launch-questions.md`) now explicitly captures the
++- **Q2** (`references/launch/02-launch-questions.md`) now explicitly captures the
+   monorepo tool (NX/Turborepo/Lerna/pnpm workspaces/none) and the actual source
+   directory layout, as the single authoritative source for two new shared
+   placeholders instead of each skill inventing its own detection.

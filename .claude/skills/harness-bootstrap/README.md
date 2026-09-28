@@ -1,7 +1,6 @@
 # Harness Bootstrap
 
-The harness is a portable set of canonical skills, agents, documentation templates,
-and workflows. Launch installs a project-specific version of that set. Harvest and
+The harness is a portable set of canonical skills, agents, and documentation templates. Launch installs a project-specific version of that set. Harvest and
 apply keep the canonical sources and permanent project files connected afterward.
 
 **Launch should be as deterministic as possible:** copy the canonical material,
@@ -10,33 +9,35 @@ reasoning. The same source version, project evidence, and recorded decisions sho
 produce the same file selection, paths, substitutions, and required structure.
 Derived prose still requires evidence checks; identical wording is not guaranteed.
 
-This document explains the launch contract. JSON materialization and workflow result
-checks are executable; semantic evidence and final-file verification remain the orchestrator’s responsibility.
+This document explains the launch contract. JSON materialization checks are executable; semantic evidence and final-file verification remain the orchestrator’s responsibility.
 
 ## The canonical/ root
 
 Everything the harness deploys or patches lives under one folder, `canonical/`,
-holding exactly `agents/`, `docs/`, and `skills/`. It's the single tree `patch
+holding `agents/`, `docs/`, `skills/`, provider runtime procedures, and the
+`manifest.json`, `settings.json`, and `mcp.json` adapter inputs. It's the single tree `patch
 harvest`, `patch prepare`, and `patch apply` read from and write into for portable
 content (a narrow, documented set of package-internal exceptions — the package's
 own entrypoints, references, changelog, and report template — travel as
-`canonical-only` patch entries; see `references/06-patch-state.md`). Every other
+`canonical-only` patch entries; see `references/patch/06-patch-state.md`). Every other
 top-level item — `references/` (this process's own how-to), `scripts/`
 (materializer tooling), `patch/` (immutable bundle history), `patterns/`
-(bootstrap-authoring guidance), `workflows/` (deployed on launch, but versioned as
-its own scoped exception rather than folded into `canonical/`), `reports/`, and the
+(bootstrap-authoring guidance), `reports/`, and the
 root docs/entrypoints — is the bootstrap's own scaffolding, not deployable payload.
 
 ## Local toolkit and durable project state
 
-Launch first adds `/.claude/skills/harness-bootstrap/` to the project `.gitignore`.
-Already tracked package files remain tracked; launch does not remove them from Git.
-The toolkit remains the canonical source for materialization. Its own `patch/`
-directory travels with the portable package and contains immutable reusable bundles.
-Project records live outside it: `.harness/launch/answers.json`, dated reports,
-JSON plans/receipts, `.harness/registry.md`, `.harness/state/`, and `.harness/patch/`
-for local apply/harvest execution history. Historical Q&A is retained with its source
-and revalidated before use. Never record secret values.
+Launch first selects Claude, Codex, or both. The canonical manifest maps sources
+to provider destinations; native settings and MCP declarations live beside it.
+See [Provider launch](references/launch/08-provider-launch.md) for executable plan generation,
+adaptation and verification. Permanent provider files remain editable project artifacts.
+
+Launch answers, plans, receipts and reports live in `package:state/launch/`. Preserve
+that directory across toolkit updates when retaining launch history and exclude it from release archives. Consumer
+ignore rules cover the disposable package and local state; this source repository tracks
+the package itself. Patch inventory/baselines still live in project `.harness/`.
+Import old `.harness/launch/` records with provenance without deleting originals.
+Never record secret values.
 
 ## Four operations
 
@@ -55,7 +56,7 @@ carry to another project — before any permanent file is touched.
 
 ```mermaid
 flowchart LR
-    C["Canonical harness<br/>skills · agents · docs · workflows"]
+    C["Canonical harness<br/>skills · agents · docs"]
     K["Project knowns<br/>evidence · configuration · decisions"]
     P["Permanent project files<br/>installed skills · agents · docs"]
     H["Harvest<br/>select improvement · generalize"]
@@ -90,7 +91,7 @@ agent, or documentation convention from scratch.
 
 | Treatment  | When to use it                                            | Example                                                                     |
 | ---------- | --------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Copy       | Content is independent of the project                     | A shared process pattern or workflow script                                 |
+| Copy       | Content is independent of the project                     | A shared process pattern or documentation companion                         |
 | Specialize | A canonical source declares substitutions or conditions   | Ticket prefix, build command, agent scope, enabled lifecycle                |
 | Derive     | Actual project evidence is needed to populate the content | A component's responsibilities, integrations, or architecture documentation |
 
@@ -173,22 +174,19 @@ included when they clarify user-facing behavior. Questions and missing decisions
 in working records. NFR statements identify scope, approved targets/controls, operating
 conditions, and verification evidence; no arbitrary targets are invented.
 
-## Claude Tasks, workflows, and recovery
+## Native tracking and recovery
 
-Claude Tasks expose progress and dependencies. The dated report and local operation
+Available native trackers expose progress and, where supported, dependencies. The dated report and local operation
 records preserve progress across sessions. A task is complete when its required
 outputs have been verified, not merely when an agent returned a message.
 
-The LLD workflow distributes component work; the HLD workflow distributes container
-work after its required LLD is verified. Their prompts should consume the same
-canonical documentation contracts as the launch recipe. The orchestrator owns shared
-indexes, cross-document consistency, and the final review.
+The active provider assigns one agent to each confirmed layer or component. The orchestrator owns shared indexes, cross-document consistency, and final review. Do not model documentation as a separate workflow runtime.
 
-Record the selected inputs, output paths, and outcome of each worker. On interruption,
-verify completed outputs and resume unfinished work. A missing worker result is an
-incomplete operation. The LLD workflow requires implementation evidence; the HLD workflow supports either
-verified LLD or the greenfield confirmed-intent branch. If a required runtime capability is unavailable, report
-the limitation and choose an explicit fallback before marking its work complete.
+Record the selected inputs, output paths, and outcome of each agent. On interruption,
+verify completed outputs and resume unfinished work. A missing agent result is an
+incomplete operation. Layer/component agents require implementation evidence; greenfield
+work requires confirmed intent. If an agent is unavailable, report the limitation and
+choose an explicit fallback before marking its work complete.
 
 ## Harvest, apply, and traceability
 
@@ -216,19 +214,21 @@ cleanup—have been verified.
 
 `scripts/materialize-launch.mjs` validates and materializes the JSON plan. INTENT-guided
 adaptation follows script completion; a materialized receipt does not mean launch is done.
-LLD/HLD workers receive explicit documentation intent and launch-contract paths, return
+Layer/component agents receive explicit documentation intent and evidence boundaries, return
 coverage/evidence, and expose partial failures. The orchestrator verifies actual files.
 Canonical INTENT defects are recorded as local plan exceptions, not silently rewritten.
 
-The local materializer checks use an isolated project; workflow checks mock Claude
-primitives. Runtime discovery and semantic agent behavior still need a real launch.
+The local materializer checks use an isolated project. Semantic agent behavior still needs a real launch.
 
 ## Process references
 
 - [Skill entry point](SKILL.md)
-- [Launch recipe](references/01-launch.md)
-- [Patch router](references/03-patch.md)
-- [Harvest recipe](references/04-patch-harvest.md)
-- [Prepare recipe](references/07-patch-prepare.md)
-- [Apply recipe](references/05-patch-apply.md)
-- [Manifest and state contract](references/06-patch-state.md)
+- [Launch recipe](references/launch/01-launch.md)
+- [Patch router](references/patch/03-patch.md)
+- [Harvest recipe](references/patch/04-patch-harvest.md)
+- [Prepare recipe](references/patch/07-patch-prepare.md)
+- [Apply recipe](references/patch/05-patch-apply.md)
+- [Manifest and state contract](references/patch/06-patch-state.md)
+
+Installed runtime procedures are permanent copies. The bootstrap package may be
+removed after verified launch without affecting skill/agent execution.

@@ -14,4 +14,4 @@ Routing, the idempotency check, stage tasks, and Completion live in
 
 Shared protocols used across these stages live in [patterns/](../patterns/), and the
 `0-intent.md`/`1-plan.md`/`2-report.md` scaffolds live in [templates/](../templates/) —
-see `.claude/skills/dev/INTENT.md`'s `companion_templates` for the full inventory.
+the installed bundle contains their companion scripts and schemas. INTENT is installation-only.

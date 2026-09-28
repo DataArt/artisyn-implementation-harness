@@ -1,6 +1,6 @@
 ---
 skill: war
-output: .claude/skills/war/SKILL.md
+output: {{provider:skills_root}}/war/SKILL.md
 companion_templates:
   - references/01-design.md
   - references/02-implementation.md
@@ -35,7 +35,7 @@ live under this one skill's `references/`.
 
 - [ ] TEMPLATE.md starts with `---` frontmatter containing `name:` (skill name) and `description:` (trigger conditions for this skill)
 - [ ] Route section covers both entry forms (`design`, `implementation`) plus the ambiguous/no-argument ask, and both stop for confirmation before delegating
-- [ ] Compatibility note states `/war-design`/`/war-implementation` are retired in favor of `/war design|implementation`
+- [ ] Compatibility note states `/war-design`/`/war-implementation` are retired in favor of `{{provider:invoke:war}} design|implementation`
 - [ ] `references/01-design.md` Step 1 and `references/02-implementation.md` Step 1 both apply `patterns/scope-resolution.md` rather than duplicating the version/pillar-parsing logic inline
 - [ ] Both references apply `patterns/present-and-save.md` for their closing present-then-save mechanics rather than duplicating it inline
 - [ ] `references/01-design.md` reads Target Architecture docs only — no code/`@architect` delegation
