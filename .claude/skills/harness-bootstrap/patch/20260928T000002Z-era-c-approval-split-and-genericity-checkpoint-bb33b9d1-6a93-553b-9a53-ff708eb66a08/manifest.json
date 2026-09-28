@@ -1,0 +1,550 @@
+{
+  "schema_version": 2,
+  "id": "bb33b9d1-6a93-553b-9a53-ff708eb66a08",
+  "created_at": "2026-09-28T00:00:00.000Z",
+  "origin": "artisyn-harness-compaction",
+  "operation": "harvest",
+  "summary": "Consolidated checkpoint of the approval-pattern and genericity wave: dev and design's approval-sign-off / intelligent-approval split (fixed gates vs. logged auto-approve), app README HLD/LLD seeding plus NX-genericity placeholders, and the separation-of-concerns pass that made approval-sign-off.md/approval-intelligent.md self-contained. Replaces 4 superseded bundles (09e72961, 47f2bd3b, 8bc7fb00, 1f148d52); re-derived from current disk-verified canonical content rather than replayed diffs.",
+  "package_version": "2.0.0",
+  "requires": [],
+  "resolves": [],
+  "supersedes": [
+    "09e72961-134c-4597-8e0c-45c1e93264dd",
+    "47f2bd3b-e3ba-4a6a-b1ff-243fc53c63ee",
+    "8bc7fb00-a021-456c-a4b4-2d4e506dc62b",
+    "1f148d52-c168-4ac9-9c92-fa323dc42e3a"
+  ],
+  "changes": [
+    {
+      "operation": "add",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d7f381b27ed1cb0b7f9de576f831eb0866600179c628d080fc38f44f35bdb63b",
+      "payload": "files/CHANGELOG.md",
+      "payload_sha256": "d7f381b27ed1cb0b7f9de576f831eb0866600179c628d080fc38f44f35bdb63b",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "3ae7e8854c953bd0e7224b54789fe6761045efd7682c29ed6e7732163fb3d09c",
+      "payload": "files/SKILL.md",
+      "payload_sha256": "3ae7e8854c953bd0e7224b54789fe6761045efd7682c29ed6e7732163fb3d09c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "f18939d7f1ee155b1aae90e21390933b65306b4db64d84f1b0a8db3c9567ea63",
+      "payload": "files/canonical/skills/design/INTENT.md",
+      "payload_sha256": "f18939d7f1ee155b1aae90e21390933b65306b4db64d84f1b0a8db3c9567ea63",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "c03a7c1ad1287e4d51f3dbf7df664eb5f25bb4550719c3bb342c151212aa9959",
+      "payload": "files/canonical/skills/design/TEMPLATE.md",
+      "payload_sha256": "c03a7c1ad1287e4d51f3dbf7df664eb5f25bb4550719c3bb342c151212aa9959",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/patterns/approval-intelligent.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
+      "payload": "files/canonical/skills/design/patterns/approval-intelligent.md",
+      "payload_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/patterns/approval-intelligent.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/patterns/approval-sign-off.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e8d88a443281da885b48c327ceda3b74541d88332c117723aec3387ea71277a0",
+      "payload": "files/canonical/skills/design/patterns/approval-sign-off.md",
+      "payload_sha256": "e8d88a443281da885b48c327ceda3b74541d88332c117723aec3387ea71277a0",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/patterns/approval-sign-off.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/references/01-frame.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "4bde8ec8f91c3a7cc80be75e79af0e67ec06c254702678a1b229a34f39304094",
+      "payload": "files/canonical/skills/design/references/01-frame.md",
+      "payload_sha256": "4bde8ec8f91c3a7cc80be75e79af0e67ec06c254702678a1b229a34f39304094",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/01-frame.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/references/02-research.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "025e89af9f34fac4fb3a4ecbf90240167a81afc6bdbfc80a8d9a4ebccafeacda",
+      "payload": "files/canonical/skills/design/references/02-research.md",
+      "payload_sha256": "025e89af9f34fac4fb3a4ecbf90240167a81afc6bdbfc80a8d9a4ebccafeacda",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/02-research.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/references/03-evaluate.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8fad3643da36af10dc4390ea76d8c8cb34a0be5c30fb7818fbde2f8ffe37de89",
+      "payload": "files/canonical/skills/design/references/03-evaluate.md",
+      "payload_sha256": "8fad3643da36af10dc4390ea76d8c8cb34a0be5c30fb7818fbde2f8ffe37de89",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/03-evaluate.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/references/04-solution.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "7a3ff51df46f3d115a9219390397fccbe52c957a4b89bce5a56d8410136ab94a",
+      "payload": "files/canonical/skills/design/references/04-solution.md",
+      "payload_sha256": "7a3ff51df46f3d115a9219390397fccbe52c957a4b89bce5a56d8410136ab94a",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/04-solution.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/references/05-review-gate.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b3adbd5a8398ad19a9ed77fdd8f82e0cc50ff307731ae96faf0e1bf5f0b0e95f",
+      "payload": "files/canonical/skills/design/references/05-review-gate.md",
+      "payload_sha256": "b3adbd5a8398ad19a9ed77fdd8f82e0cc50ff307731ae96faf0e1bf5f0b0e95f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/05-review-gate.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/references/06-address-feedback.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "2f7d1ef84a687ebbfe89c0cb59e5fdaf625e22681c69c0dc7778d7a699ea7944",
+      "payload": "files/canonical/skills/design/references/06-address-feedback.md",
+      "payload_sha256": "2f7d1ef84a687ebbfe89c0cb59e5fdaf625e22681c69c0dc7778d7a699ea7944",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/06-address-feedback.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/design/references/07-publish.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "87151955228d0ee55c9aafa6abba2b1fca131d1864ebf551be7d69b9745ec32b",
+      "payload": "files/canonical/skills/design/references/07-publish.md",
+      "payload_sha256": "87151955228d0ee55c9aafa6abba2b1fca131d1864ebf551be7d69b9745ec32b",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/07-publish.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "87accda41bd62d3db4be0874137b1bdd5dca518d440de22c7143b8fe61c7b884",
+      "payload": "files/canonical/skills/dev/INTENT.md",
+      "payload_sha256": "87accda41bd62d3db4be0874137b1bdd5dca518d440de22c7143b8fe61c7b884",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "1d060209f4f72644e12930bb763d08ce45652dfd1ee9f21acfb1e6a97be0d1b4",
+      "payload": "files/canonical/skills/dev/TEMPLATE.md",
+      "payload_sha256": "1d060209f4f72644e12930bb763d08ce45652dfd1ee9f21acfb1e6a97be0d1b4",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/patterns/approval-intelligent.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
+      "payload": "files/canonical/skills/dev/patterns/approval-intelligent.md",
+      "payload_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/approval-intelligent.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/patterns/approval-sign-off.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
+      "payload": "files/canonical/skills/dev/patterns/approval-sign-off.md",
+      "payload_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/approval-sign-off.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/patterns/do-report-commit.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
+      "payload": "files/canonical/skills/dev/patterns/do-report-commit.md",
+      "payload_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/do-report-commit.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/patterns/review-gate.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "233d98827ba0f6f839310843ea23395f863b9ba620acc936f1eae0bdc4ddc784",
+      "payload": "files/canonical/skills/dev/patterns/review-gate.md",
+      "payload_sha256": "233d98827ba0f6f839310843ea23395f863b9ba620acc936f1eae0bdc4ddc784",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/review-gate.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/patterns/satellite-review.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "299dfa85347fbcc28744a95f73e3bc9425ccf9629934953a0fa6ff60a487d13d",
+      "payload": "files/canonical/skills/dev/patterns/satellite-review.md",
+      "payload_sha256": "299dfa85347fbcc28744a95f73e3bc9425ccf9629934953a0fa6ff60a487d13d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/satellite-review.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/patterns/session-continuity.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8a472332c5e7a0e656e652852e5f5c408ebedd51528e047344aca83fc3b7fc9c",
+      "payload": "files/canonical/skills/dev/patterns/session-continuity.md",
+      "payload_sha256": "8a472332c5e7a0e656e652852e5f5c408ebedd51528e047344aca83fc3b7fc9c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/session-continuity.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/patterns/write-confirm.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
+      "payload": "files/canonical/skills/dev/patterns/write-confirm.md",
+      "payload_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/write-confirm.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "0e1194107d652e9eec8793adf3ace3c01e62be22e8d36f72d1456353f1b4362e",
+      "payload": "files/canonical/skills/dev/references/01-context-gathering.md",
+      "payload_sha256": "0e1194107d652e9eec8793adf3ace3c01e62be22e8d36f72d1456353f1b4362e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/01-context-gathering.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/references/02-ceremony.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "1e37c0b739bf9105a12245a6819718f2af555b34132ec4ff83958544a928cfac",
+      "payload": "files/canonical/skills/dev/references/02-ceremony.md",
+      "payload_sha256": "1e37c0b739bf9105a12245a6819718f2af555b34132ec4ff83958544a928cfac",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/02-ceremony.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "ede40f553409c8fa93685906ae07f402428786cea736bbc0158747b622d1a4ae",
+      "payload": "files/canonical/skills/dev/references/03-plan.md",
+      "payload_sha256": "ede40f553409c8fa93685906ae07f402428786cea736bbc0158747b622d1a4ae",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/03-plan.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/references/04-implement.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "07812db99d434e4a4b4c70bd50facd4b236fe019973e65091a8ef4129f1ab2f0",
+      "payload": "files/canonical/skills/dev/references/04-implement.md",
+      "payload_sha256": "07812db99d434e4a4b4c70bd50facd4b236fe019973e65091a8ef4129f1ab2f0",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/04-implement.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/references/05-test.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "6e45af8fe691d6f428d0041e386e60571601aa11adfddaf10c79218524c738b3",
+      "payload": "files/canonical/skills/dev/references/05-test.md",
+      "payload_sha256": "6e45af8fe691d6f428d0041e386e60571601aa11adfddaf10c79218524c738b3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/05-test.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/dev/references/06-document.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e96b78f57e9e9f39fdb36a04deef91842da6bf13ceb7a3dc075bd311f42a00f4",
+      "payload": "files/canonical/skills/dev/references/06-document.md",
+      "payload_sha256": "e96b78f57e9e9f39fdb36a04deef91842da6bf13ceb7a3dc075bd311f42a00f4",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/06-document.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/war/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "dc1fdbfa7356bed96294a8dbabef4bdc5a400a68b623c0ed7635b39edf90464c",
+      "payload": "files/canonical/skills/war/INTENT.md",
+      "payload_sha256": "dc1fdbfa7356bed96294a8dbabef4bdc5a400a68b623c0ed7635b39edf90464c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/war/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "7ce0020164031bdf9bbf0260c5fa97731b235efb15bafeac9b5b1bf9dca43a4d",
+      "payload": "files/canonical/skills/war/TEMPLATE.md",
+      "payload_sha256": "7ce0020164031bdf9bbf0260c5fa97731b235efb15bafeac9b5b1bf9dca43a4d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/war/references/02-implementation.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b4b633a93ac66f9623006ae1769af36ff634752ec1674edcebc211e5a51284c3",
+      "payload": "files/canonical/skills/war/references/02-implementation.md",
+      "payload_sha256": "b4b633a93ac66f9623006ae1769af36ff634752ec1674edcebc211e5a51284c3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/references/02-implementation.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/where-we-are/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d7091a72e35d6767cd9cb8c79fa87760bd1f42d3bfe94d45af48a9b42755a79a",
+      "payload": "files/canonical/skills/where-we-are/INTENT.md",
+      "payload_sha256": "d7091a72e35d6767cd9cb8c79fa87760bd1f42d3bfe94d45af48a9b42755a79a",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "canonical/skills/where-we-are/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "135396fd15a15b9202eca433671805913e2490ebef3013b398c280aa0f7fd8a7",
+      "payload": "files/canonical/skills/where-we-are/TEMPLATE.md",
+      "payload_sha256": "135396fd15a15b9202eca433671805913e2490ebef3013b398c280aa0f7fd8a7",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/where-we-are/INTENT.md",
+        "output_rule": ".claude/skills/where-we-are/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "references/01c-launch-docs.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "c932b91992c9292743e63599c3f9538a767052b79bf31e8c550b7982259f71de",
+      "payload": "files/references/01c-launch-docs.md",
+      "payload_sha256": "c932b91992c9292743e63599c3f9538a767052b79bf31e8c550b7982259f71de",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "references/01d-launch-verify.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "edbefa56823a100c2b2eb130f621f1f2e77216a5223dbaf2e6560092f7c1245b",
+      "payload": "files/references/01d-launch-verify.md",
+      "payload_sha256": "edbefa56823a100c2b2eb130f621f1f2e77216a5223dbaf2e6560092f7c1245b",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "references/02-launch-questions.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "2fe03653b544db0b4aa329b2b6e93f43321926b3c23c4901dd8e2b19885dc1ee",
+      "payload": "files/references/02-launch-questions.md",
+      "payload_sha256": "2fe03653b544db0b4aa329b2b6e93f43321926b3c23c4901dd8e2b19885dc1ee",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

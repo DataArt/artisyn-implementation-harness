@@ -145,6 +145,30 @@ check observed pre-write hashes again if another edit occurred meanwhile. A part
 operation retains old baselines for unsuccessful files. Declining required work is a
 partial outcome, not success. A no-op needs no new bundle; its report may record checks.
 
+## Compacting bundle history
+
+Portable bundles are immutable and append-only in the normal case — an incoming
+apply/harvest never rewrites a prior bundle. A deliberate compaction (developer
+explicitly asks to reduce bundle count) is the one exception, and it replaces
+bundles rather than editing them in place:
+
+1. Never fabricate a "before" state to make old update/rename diffs replay cleanly.
+   If any prior bundle's stored payload hash no longer matches what it claims to
+   produce, treat that payload as untrustworthy rather than propagating it forward.
+2. Re-derive each compacted bundle's entries as fresh `add` operations from current,
+   disk-verified content (`before_sha256: null`, `after_sha256` computed from the
+   real file). This keeps every hash in the result real and reproducible, even when
+   the bundles being replaced already were not.
+3. Give the new bundle a `supersedes` array of the UUIDs it replaces, and keep each
+   replaced bundle's original summary somewhere recoverable (the new manifest or
+   `REGISTRY.md`) for provenance — compaction shrinks bundle count, it does not erase
+   what happened.
+4. Only fold bundles whose replaced files still exist on disk under their final path.
+   A path that a later `delete` (or an untracked rename) removed has nothing to
+   checkpoint; drop it rather than guessing where it went.
+5. Record the compaction itself in `REGISTRY.md` (or `APPLIED.md` for a project-side
+   compaction) with a note on why it was needed and what it changed.
+
 ## First launch and existing projects
 
 Persist Q&A in project `.harness/launch/answers.json` with value, source, and status

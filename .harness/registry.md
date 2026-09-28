@@ -45,7 +45,9 @@ out of the patterns into SKILL.md/do-report-commit.md/06-document.md/
 were missing a case (ambiguous next transition could satisfy both the
 auto-approve and escalate branches) — added a third condition. All landed via
 bundle `1f148d52-c168-4ac9-9c92-fa323dc42e3a`. See `patch/REGISTRY.md` for all
-four bundles.
+four bundles. (These four, plus 15 earlier ones, were compacted on 2026-09-28 into
+3 checkpoint bundles in `patch/REGISTRY.md` — this project-local application record
+is unaffected and still names the original bundle UUIDs it actually applied.)
 
 | Name                           | Type      | Compare | Template Path                                                 | Deployed Path                                               |
 | ------------------------------ | --------- | ------- | ------------------------------------------------------------- | ----------------------------------------------------------- |

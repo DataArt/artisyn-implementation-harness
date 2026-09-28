@@ -1,0 +1,1051 @@
+{
+  "schema_version": 2,
+  "id": "196ea41c-54d8-5d74-ac2e-7aa5758eb1eb",
+  "created_at": "2026-09-28T00:00:00.000Z",
+  "origin": "artisyn-harness-compaction",
+  "operation": "harvest",
+  "summary": "Consolidated checkpoint of the initial harness lifecycle build: dev collapsed into one 6-stage skill (Context Gathering, Ceremony, Plan, Implement, Test, Document), the full design lifecycle flow (Frame..Publish, adaptive interfaces, quality gates), war and evolve each collapsed into one $ARGUMENTS-routed skill, legacy per-stage helpers retired, the portable patch-history contract itself, and independent dev/design metrics CLIs. Replaces 8 superseded bundles (1eec015b, e0691d4e, e9c4f190, a852e4b5, 7c1d8d0a, 1853ae79, 4b39f5ba, a7e5f673) whose stored diff payloads had drifted from canonical content; this bundle re-derives every path from current, disk-verified canonical content instead of replaying the old (partially inconsistent) diffs.",
+  "package_version": "2.0.0",
+  "requires": [],
+  "resolves": [],
+  "supersedes": [
+    "1eec015b-863c-4543-919c-50b993007ce9",
+    "e0691d4e-816f-4cd7-a35e-f2600b2470e0",
+    "e9c4f190-cad2-419d-97f2-3e17efab8d7d",
+    "a852e4b5-df4b-48ab-adf8-f140e944bd85",
+    "7c1d8d0a-4b91-4d4f-9e8d-8c7d5a2f1b66",
+    "1853ae79-38dc-42f9-abf9-ca0a73abd9f7",
+    "4b39f5ba-397d-44b2-81c0-f6c8e2aea721",
+    "a7e5f673-bd84-438c-8c55-c2b02bafe990"
+  ],
+  "changes": [
+    {
+      "operation": "add",
+      "path": "README.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "c18275d81d8f4954057a091e30adc30f72b4afb9c117ee37d70242cfdc46cb88",
+      "payload": "files/README.md",
+      "payload_sha256": "c18275d81d8f4954057a091e30adc30f72b4afb9c117ee37d70242cfdc46cb88",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "agents/docs-writer/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "9aa8786709f768228d368f1ef1e72b010c7174d485f56055d4c1825bf557c1b8",
+      "payload": "files/agents/docs-writer/INTENT.md",
+      "payload_sha256": "9aa8786709f768228d368f1ef1e72b010c7174d485f56055d4c1825bf557c1b8",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "agents/docs-writer/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "c1b622ec61ad4dc68b0da4640c9fec092968029fe4f5ed487e8e7817af0dfd56",
+      "payload": "files/agents/docs-writer/TEMPLATE.md",
+      "payload_sha256": "c1b622ec61ad4dc68b0da4640c9fec092968029fe4f5ed487e8e7817af0dfd56",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "agents/docs-writer/INTENT.md",
+        "output_rule": ".claude/agents/docs-writer.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "agents/infra/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "5a91c172e7c4f6f702ef184c56e9519379201277df34ed9c7ba20e46d9a9e660",
+      "payload": "files/agents/infra/INTENT.md",
+      "payload_sha256": "5a91c172e7c4f6f702ef184c56e9519379201277df34ed9c7ba20e46d9a9e660",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "agents/infra/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "4d8053872715b0eef99aa0689478a35fd02dd396345325019c009dc034c84062",
+      "payload": "files/agents/infra/TEMPLATE.md",
+      "payload_sha256": "4d8053872715b0eef99aa0689478a35fd02dd396345325019c009dc034c84062",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "agents/infra/INTENT.md",
+        "output_rule": ".claude/agents/infra.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "agents/layer/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "f09cdd7b0a48aa10f7c076203f5ac0433f986b34d8d4ae027dd341713ca939d9",
+      "payload": "files/agents/layer/INTENT.md",
+      "payload_sha256": "f09cdd7b0a48aa10f7c076203f5ac0433f986b34d8d4ae027dd341713ca939d9",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "agents/layer/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "ade9063202345fb79a7d32e75ef45eb5e7457989848ada98c9d82939c8c4764b",
+      "payload": "files/agents/layer/TEMPLATE.md",
+      "payload_sha256": "ade9063202345fb79a7d32e75ef45eb5e7457989848ada98c9d82939c8c4764b",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "agents/layer/INTENT.md",
+        "output_rule": ".claude/agents/web.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "docs/Engineering Guide/Documentation/02 Structure.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "26f086370fe8894e1ed7690824bcfd40949fc1adcbca2f996feaa66430957cd5",
+      "payload": "files/docs/Engineering Guide/Documentation/02 Structure.md",
+      "payload_sha256": "26f086370fe8894e1ed7690824bcfd40949fc1adcbca2f996feaa66430957cd5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": "docs/Engineering Guide/Documentation/02 Structure.md",
+        "output_rule": "docs/Engineering Guide/Documentation/02 Structure.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "9d7e475fcd5db4da40772c42da4e95a33d14f7b915806736eea06486f95204c2",
+      "payload": "files/docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "payload_sha256": "9d7e475fcd5db4da40772c42da4e95a33d14f7b915806736eea06486f95204c2",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/00 Overview.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d882e3ab70c9bb5209ad5069237057a4beade61f5786f79c4b637f264c69fe82",
+      "payload": "files/docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md",
+      "payload_sha256": "d882e3ab70c9bb5209ad5069237057a4beade61f5786f79c4b637f264c69fe82",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "00b7b0f36f064a3f4606351f6f8cf7191298d6af6d20faa075bea0ba264dac03",
+      "payload": "files/docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md",
+      "payload_sha256": "00b7b0f36f064a3f4606351f6f8cf7191298d6af6d20faa075bea0ba264dac03",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "598a2c2c24c08ee81a178e2c314af24f51c1da97bf0a2587b25c1f6770cbd573",
+      "payload": "files/docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "payload_sha256": "598a2c2c24c08ee81a178e2c314af24f51c1da97bf0a2587b25c1f6770cbd573",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "references/01b-launch-install.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "0e43453ffc49238cdeef0bed2afca8a4d8c7d06b57359c0edaad40e451a748f3",
+      "payload": "files/references/01b-launch-install.md",
+      "payload_sha256": "0e43453ffc49238cdeef0bed2afca8a4d8c7d06b57359c0edaad40e451a748f3",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "references/04-patch-harvest.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "419992e3b25c010ddaa1c8624792f283f4269ce7c4c2e7a315a969b18f274c83",
+      "payload": "files/references/04-patch-harvest.md",
+      "payload_sha256": "419992e3b25c010ddaa1c8624792f283f4269ce7c4c2e7a315a969b18f274c83",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "references/06-patch-state.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "0c0bf401741f66a931b414f0bd06e56994035eb53f2af1a79c9c9782a9275e09",
+      "payload": "files/references/06-patch-state.md",
+      "payload_sha256": "0c0bf401741f66a931b414f0bd06e56994035eb53f2af1a79c9c9782a9275e09",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "registry.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e82805353effbdd8dd751725cb364b553a9f3ab7c7f48d8834c826b8b6629323",
+      "payload": "files/registry.md",
+      "payload_sha256": "e82805353effbdd8dd751725cb364b553a9f3ab7c7f48d8834c826b8b6629323",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/interfaces/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "76e88abe059f0731932cae197d4b40098eec125615e9945c52e29528139e3f1f",
+      "payload": "files/skills/design/interfaces/INTENT.md",
+      "payload_sha256": "76e88abe059f0731932cae197d4b40098eec125615e9945c52e29528139e3f1f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/interfaces/INTENT.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/interfaces/design.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e4a5c7ed3556ed6d12232672f88d9584e7db9b1f7ca531a60409b004f558da96",
+      "payload": "files/skills/design/interfaces/design.md",
+      "payload_sha256": "e4a5c7ed3556ed6d12232672f88d9584e7db9b1f7ca531a60409b004f558da96",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/interfaces/design.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/interfaces/stack.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "5ad6c5bafe68120879b9971d73a9c6e12145d414f8aad313e85b88ed76e2f208",
+      "payload": "files/skills/design/interfaces/stack.md",
+      "payload_sha256": "5ad6c5bafe68120879b9971d73a9c6e12145d414f8aad313e85b88ed76e2f208",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/interfaces/stack.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/patterns/announce-progress.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "370b601cec68a9944a23977533cacb0d2c8667e334463914e5830fcdc2ed4721",
+      "payload": "files/skills/design/patterns/announce-progress.md",
+      "payload_sha256": "370b601cec68a9944a23977533cacb0d2c8667e334463914e5830fcdc2ed4721",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/patterns/compact-between-phases.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "071f4f26c46dfe0df00cb4c24e94908af3e2384154e2c26ca8b3b1ac56a3c1ca",
+      "payload": "files/skills/design/patterns/compact-between-phases.md",
+      "payload_sha256": "071f4f26c46dfe0df00cb4c24e94908af3e2384154e2c26ca8b3b1ac56a3c1ca",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/patterns/do-report-commit.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "85c64b56316e2ba4df9ae4e160cc975b4d76becbe40e42cc57dedf348862a0d9",
+      "payload": "files/skills/design/patterns/do-report-commit.md",
+      "payload_sha256": "85c64b56316e2ba4df9ae4e160cc975b4d76becbe40e42cc57dedf348862a0d9",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/patterns/session-continuity.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b2506ce78ea44bfd3d131ddcf4a037a4b5685205b4b30597d712de14eb2152f8",
+      "payload": "files/skills/design/patterns/session-continuity.md",
+      "payload_sha256": "b2506ce78ea44bfd3d131ddcf4a037a4b5685205b4b30597d712de14eb2152f8",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/references/06-address-feedback.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "2f7d1ef84a687ebbfe89c0cb59e5fdaf625e22681c69c0dc7778d7a699ea7944",
+      "payload": "files/skills/design/references/06-address-feedback.md",
+      "payload_sha256": "2f7d1ef84a687ebbfe89c0cb59e5fdaf625e22681c69c0dc7778d7a699ea7944",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/scripts/constants.mjs",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "efe1b47bc54e9666031cf0bc1841054a346324c9cb9bc56f632e6553a01fe81c",
+      "payload": "files/skills/design/scripts/constants.mjs",
+      "payload_sha256": "efe1b47bc54e9666031cf0bc1841054a346324c9cb9bc56f632e6553a01fe81c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/scripts/utils.mjs",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "a28b2b3af72be3cc1e7f99c2a3a20eac01e4286ff8c1ea7358354f78dda9edc6",
+      "payload": "files/skills/design/scripts/utils.mjs",
+      "payload_sha256": "a28b2b3af72be3cc1e7f99c2a3a20eac01e4286ff8c1ea7358354f78dda9edc6",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/templates/frame.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "9a91a8f9ee58f3e740e957e99281a2c1583dcd0e0ef716bb08dd50d0364f1d35",
+      "payload": "files/skills/design/templates/frame.md",
+      "payload_sha256": "9a91a8f9ee58f3e740e957e99281a2c1583dcd0e0ef716bb08dd50d0364f1d35",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/design/templates/report.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "fb36289f29266e3ad57b677f5feb4d33f2174cbf16ea9c76fe928d7986685705",
+      "payload": "files/skills/design/templates/report.md",
+      "payload_sha256": "fb36289f29266e3ad57b677f5feb4d33f2174cbf16ea9c76fe928d7986685705",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "87accda41bd62d3db4be0874137b1bdd5dca518d440de22c7143b8fe61c7b884",
+      "payload": "files/skills/dev/INTENT.md",
+      "payload_sha256": "87accda41bd62d3db4be0874137b1bdd5dca518d440de22c7143b8fe61c7b884",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/announce-progress.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "6c663aae90e3b5bf25ecb7f8775ae39a1dd5687677a9a4e8057915232f08976a",
+      "payload": "files/skills/dev/patterns/announce-progress.md",
+      "payload_sha256": "6c663aae90e3b5bf25ecb7f8775ae39a1dd5687677a9a4e8057915232f08976a",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/announce-progress.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/do-report-commit.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
+      "payload": "files/skills/dev/patterns/do-report-commit.md",
+      "payload_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/do-report-commit.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/metrics.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "eb6bc96e360b0c2949f2f51be493e0de8dd232e32c183b44933e337e7bf9e36b",
+      "payload": "files/skills/dev/patterns/metrics.md",
+      "payload_sha256": "eb6bc96e360b0c2949f2f51be493e0de8dd232e32c183b44933e337e7bf9e36b",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/review-gate.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "233d98827ba0f6f839310843ea23395f863b9ba620acc936f1eae0bdc4ddc784",
+      "payload": "files/skills/dev/patterns/review-gate.md",
+      "payload_sha256": "233d98827ba0f6f839310843ea23395f863b9ba620acc936f1eae0bdc4ddc784",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/review-gate.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/satellite-review.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "299dfa85347fbcc28744a95f73e3bc9425ccf9629934953a0fa6ff60a487d13d",
+      "payload": "files/skills/dev/patterns/satellite-review.md",
+      "payload_sha256": "299dfa85347fbcc28744a95f73e3bc9425ccf9629934953a0fa6ff60a487d13d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/satellite-review.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/session-continuity.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8a472332c5e7a0e656e652852e5f5c408ebedd51528e047344aca83fc3b7fc9c",
+      "payload": "files/skills/dev/patterns/session-continuity.md",
+      "payload_sha256": "8a472332c5e7a0e656e652852e5f5c408ebedd51528e047344aca83fc3b7fc9c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/session-continuity.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/task-tracking.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e517435f0ba3d2362db60f7773f2711de08da9befc676bcb4e59217a6684d0bb",
+      "payload": "files/skills/dev/patterns/task-tracking.md",
+      "payload_sha256": "e517435f0ba3d2362db60f7773f2711de08da9befc676bcb4e59217a6684d0bb",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/task-tracking.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/patterns/write-confirm.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
+      "payload": "files/skills/dev/patterns/write-confirm.md",
+      "payload_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/patterns/write-confirm.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/references/00-router.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b1ffd719066cf26e568f72527feebd2b136219bfd487f869f6c23ff189366e8f",
+      "payload": "files/skills/dev/references/00-router.md",
+      "payload_sha256": "b1ffd719066cf26e568f72527feebd2b136219bfd487f869f6c23ff189366e8f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/00-router.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/references/02-ceremony.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "1e37c0b739bf9105a12245a6819718f2af555b34132ec4ff83958544a928cfac",
+      "payload": "files/skills/dev/references/02-ceremony.md",
+      "payload_sha256": "1e37c0b739bf9105a12245a6819718f2af555b34132ec4ff83958544a928cfac",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/02-ceremony.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/references/04-implement.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "07812db99d434e4a4b4c70bd50facd4b236fe019973e65091a8ef4129f1ab2f0",
+      "payload": "files/skills/dev/references/04-implement.md",
+      "payload_sha256": "07812db99d434e4a4b4c70bd50facd4b236fe019973e65091a8ef4129f1ab2f0",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/04-implement.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/references/05-test.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "6e45af8fe691d6f428d0041e386e60571601aa11adfddaf10c79218524c738b3",
+      "payload": "files/skills/dev/references/05-test.md",
+      "payload_sha256": "6e45af8fe691d6f428d0041e386e60571601aa11adfddaf10c79218524c738b3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/05-test.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/scripts/constants.mjs",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8fff1b355b56d516d524854b48fb2bc2cc1f7e814683a6da1a91c0d4c3861253",
+      "payload": "files/skills/dev/scripts/constants.mjs",
+      "payload_sha256": "8fff1b355b56d516d524854b48fb2bc2cc1f7e814683a6da1a91c0d4c3861253",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/scripts/utils.mjs",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "3d5ed3bb6cdfaee0ec34f29956cbe6512d95383319680514bf982948e1a520da",
+      "payload": "files/skills/dev/scripts/utils.mjs",
+      "payload_sha256": "3d5ed3bb6cdfaee0ec34f29956cbe6512d95383319680514bf982948e1a520da",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/templates/intent.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "1f3e103d61001564f78af84f7273b7cdb7b19cf21ae2ac0cf453547b6f11c555",
+      "payload": "files/skills/dev/templates/intent.md",
+      "payload_sha256": "1f3e103d61001564f78af84f7273b7cdb7b19cf21ae2ac0cf453547b6f11c555",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/templates/intent.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/templates/plan.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b97cc14c836a7d61a35e76942e224ec319738da48174881ab53ccf0144ddfec1",
+      "payload": "files/skills/dev/templates/plan.md",
+      "payload_sha256": "b97cc14c836a7d61a35e76942e224ec319738da48174881ab53ccf0144ddfec1",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/templates/plan.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/templates/report.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "17feb1a3c2a32ed0fbc275296e529bf140f0cd2ac1a3bf97330c5dc398ac7893",
+      "payload": "files/skills/dev/templates/report.md",
+      "payload_sha256": "17feb1a3c2a32ed0fbc275296e529bf140f0cd2ac1a3bf97330c5dc398ac7893",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/templates/report.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/templates/stat.json",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "772d817b5b9858c2d0844a281a22fa5f8b935d51d9bd0555e28c57a13a7e9235",
+      "payload": "files/skills/dev/templates/stat.json",
+      "payload_sha256": "772d817b5b9858c2d0844a281a22fa5f8b935d51d9bd0555e28c57a13a7e9235",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/dev/templates/stat.schema.json",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "94989c3d5067adba8122ffaa7f6c126aad96e55d0f01266f589e2b70fa1ae106",
+      "payload": "files/skills/dev/templates/stat.schema.json",
+      "payload_sha256": "94989c3d5067adba8122ffaa7f6c126aad96e55d0f01266f589e2b70fa1ae106",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8ec498794b1fcbe09e6fce962568bbe8c53c600aacf02601b5fd5d9e55454608",
+      "payload": "files/skills/evolve/INTENT.md",
+      "payload_sha256": "8ec498794b1fcbe09e6fce962568bbe8c53c600aacf02601b5fd5d9e55454608",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d2d534590588d7bbfa21d99f1c70eb24aa3790264f59fd6dabbead73ad7bdd2f",
+      "payload": "files/skills/evolve/TEMPLATE.md",
+      "payload_sha256": "d2d534590588d7bbfa21d99f1c70eb24aa3790264f59fd6dabbead73ad7bdd2f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/interfaces/improvement.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "3b63bbe6f301cce07ed87ac74354e3f91231a850716c3c9069126c1e637e3b99",
+      "payload": "files/skills/evolve/interfaces/improvement.md",
+      "payload_sha256": "3b63bbe6f301cce07ed87ac74354e3f91231a850716c3c9069126c1e637e3b99",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/interfaces/improvement.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/interfaces/reflection.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b7f7eedd75c6751d49e9ce13fefd5e027e04845d3fdce680f7d3cdaeb69c6122",
+      "payload": "files/skills/evolve/interfaces/reflection.md",
+      "payload_sha256": "b7f7eedd75c6751d49e9ce13fefd5e027e04845d3fdce680f7d3cdaeb69c6122",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/interfaces/reflection.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/interfaces/validation.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "85e19416fd333bfa8063dabe3b4959762e1a28cc232367211ddc1c6ba7b90a20",
+      "payload": "files/skills/evolve/interfaces/validation.md",
+      "payload_sha256": "85e19416fd333bfa8063dabe3b4959762e1a28cc232367211ddc1c6ba7b90a20",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/interfaces/validation.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/patterns/task-tracking.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "fd5642099907f689522c4a5e98d6e5e2ee38acd3503b0c9c6c812d84e298ea33",
+      "payload": "files/skills/evolve/patterns/task-tracking.md",
+      "payload_sha256": "fd5642099907f689522c4a5e98d6e5e2ee38acd3503b0c9c6c812d84e298ea33",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/patterns/task-tracking.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/references/00-router.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "33d8392da8bc5fbdcbee0b3b810eeb77f35bf42a8501e8a0f3f9c631c0b60192",
+      "payload": "files/skills/evolve/references/00-router.md",
+      "payload_sha256": "33d8392da8bc5fbdcbee0b3b810eeb77f35bf42a8501e8a0f3f9c631c0b60192",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/references/00-router.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/references/01-reflect.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "2696c3724c89b5ed60ed4a8cf3766624e0c2693a7c59ade5245a65646a725d66",
+      "payload": "files/skills/evolve/references/01-reflect.md",
+      "payload_sha256": "2696c3724c89b5ed60ed4a8cf3766624e0c2693a7c59ade5245a65646a725d66",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/references/01-reflect.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/references/02-triage.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "ba58bc90e29380ae83c10070bbefebe7229c8ac5b3d4f78db375a3100b59e6c1",
+      "payload": "files/skills/evolve/references/02-triage.md",
+      "payload_sha256": "ba58bc90e29380ae83c10070bbefebe7229c8ac5b3d4f78db375a3100b59e6c1",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/references/02-triage.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/references/03-draft.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "a2d5fe9bee731e39adb9b2e7efcec77634e56073e1db8c1ca0277c9fafd82f29",
+      "payload": "files/skills/evolve/references/03-draft.md",
+      "payload_sha256": "a2d5fe9bee731e39adb9b2e7efcec77634e56073e1db8c1ca0277c9fafd82f29",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/references/03-draft.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/references/04-validate.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "345793a32dc61a2b2926fca75b804ee4fb133d3bfa66a55ff2621499f9da4539",
+      "payload": "files/skills/evolve/references/04-validate.md",
+      "payload_sha256": "345793a32dc61a2b2926fca75b804ee4fb133d3bfa66a55ff2621499f9da4539",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/references/04-validate.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/evolve/references/05-adopt.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "7e9791e5e11d149f2ae2ce77215a9d8160ed4c2eaff3bc7e1b92ae5f30bbdd42",
+      "payload": "files/skills/evolve/references/05-adopt.md",
+      "payload_sha256": "7e9791e5e11d149f2ae2ce77215a9d8160ed4c2eaff3bc7e1b92ae5f30bbdd42",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/evolve/INTENT.md",
+        "output_rule": ".claude/skills/evolve/references/05-adopt.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "dc1fdbfa7356bed96294a8dbabef4bdc5a400a68b623c0ed7635b39edf90464c",
+      "payload": "files/skills/war/INTENT.md",
+      "payload_sha256": "dc1fdbfa7356bed96294a8dbabef4bdc5a400a68b623c0ed7635b39edf90464c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "7ce0020164031bdf9bbf0260c5fa97731b235efb15bafeac9b5b1bf9dca43a4d",
+      "payload": "files/skills/war/TEMPLATE.md",
+      "payload_sha256": "7ce0020164031bdf9bbf0260c5fa97731b235efb15bafeac9b5b1bf9dca43a4d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/patterns/present-and-save.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "3dea0176d3a884556b232fd4d92026a6addc18435b870c016df3e516f4090235",
+      "payload": "files/skills/war/patterns/present-and-save.md",
+      "payload_sha256": "3dea0176d3a884556b232fd4d92026a6addc18435b870c016df3e516f4090235",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/patterns/present-and-save.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/patterns/scope-resolution.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "f06d1b45a1e5d623012f07b96d9881555f128ec14f8289cd50e8034ae482cddf",
+      "payload": "files/skills/war/patterns/scope-resolution.md",
+      "payload_sha256": "f06d1b45a1e5d623012f07b96d9881555f128ec14f8289cd50e8034ae482cddf",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/patterns/scope-resolution.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/references/01-design.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "89992c8c446e3a7ee563ad5bb607738ca6aa7f8978abb19c3d07bd3174d9d9c6",
+      "payload": "files/skills/war/references/01-design.md",
+      "payload_sha256": "89992c8c446e3a7ee563ad5bb607738ca6aa7f8978abb19c3d07bd3174d9d9c6",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/references/01-design.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/references/02-implementation.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "b4b633a93ac66f9623006ae1769af36ff634752ec1674edcebc211e5a51284c3",
+      "payload": "files/skills/war/references/02-implementation.md",
+      "payload_sha256": "b4b633a93ac66f9623006ae1769af36ff634752ec1674edcebc211e5a51284c3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/references/02-implementation.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/templates/design-report.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e8fd0686265abde2da1ce8038c9fcd4d246923d3f5926297e82b03f3376b524f",
+      "payload": "files/skills/war/templates/design-report.md",
+      "payload_sha256": "e8fd0686265abde2da1ce8038c9fcd4d246923d3f5926297e82b03f3376b524f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/templates/design-report.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/war/templates/implementation-report.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8508cb3038cefebd3e774ca0201cc92bc6fac6953160d97f14621b79ad41c0a5",
+      "payload": "files/skills/war/templates/implementation-report.md",
+      "payload_sha256": "8508cb3038cefebd3e774ca0201cc92bc6fac6953160d97f14621b79ad41c0a5",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "skills/war/INTENT.md",
+        "output_rule": ".claude/skills/war/templates/implementation-report.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/where-we-are/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "135396fd15a15b9202eca433671805913e2490ebef3013b398c280aa0f7fd8a7",
+      "payload": "files/skills/where-we-are/TEMPLATE.md",
+      "payload_sha256": "135396fd15a15b9202eca433671805913e2490ebef3013b398c280aa0f7fd8a7",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/where-we-are/INTENT.md",
+        "output_rule": ".claude/skills/where-we-are/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/where-we-are/report-template.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "2869492a1609a4661eb28de4df069169e39082a17a96f418e6562a5a854660c4",
+      "payload": "files/skills/where-we-are/report-template.md",
+      "payload_sha256": "2869492a1609a4661eb28de4df069169e39082a17a96f418e6562a5a854660c4",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/x-ray/INTENT.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "5b5ae9ed35b910b7e749d3fd39e3cc96e3d43a871c9ba1658434ec7228f24e2e",
+      "payload": "files/skills/x-ray/INTENT.md",
+      "payload_sha256": "5b5ae9ed35b910b7e749d3fd39e3cc96e3d43a871c9ba1658434ec7228f24e2e",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "skills/x-ray/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8e69dae4b826743c39e465de37208e9cb1980e7f58cefcdb364a5c9fda4371d8",
+      "payload": "files/skills/x-ray/TEMPLATE.md",
+      "payload_sha256": "8e69dae4b826743c39e465de37208e9cb1980e7f58cefcdb364a5c9fda4371d8",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/x-ray/INTENT.md",
+        "output_rule": ".claude/skills/x-ray/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "skills/x-ray/references/claude-in-chrome-setup.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "0a0e70ef457e3872b3275eacb7cea05732a5e0dd7697230afeadd2eff9dd24d9",
+      "payload": "files/skills/x-ray/references/claude-in-chrome-setup.md",
+      "payload_sha256": "0a0e70ef457e3872b3275eacb7cea05732a5e0dd7697230afeadd2eff9dd24d9",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "skills/x-ray/INTENT.md",
+        "output_rule": ".claude/skills/x-ray/references/claude-in-chrome-setup.md",
+        "compare": "content"
+      }
+    }
+  ]
+}
