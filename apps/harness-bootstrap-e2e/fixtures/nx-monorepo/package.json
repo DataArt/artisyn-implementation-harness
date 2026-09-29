@@ -1,0 +1,7 @@
+{
+  "name": "@fixture/nx-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ]
+}

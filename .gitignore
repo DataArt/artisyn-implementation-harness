@@ -15,6 +15,7 @@ dist/
 
 # Temp files
 *.bak
+/tmp/
 
 # CDK
 cdk.out/
@@ -42,4 +43,5 @@ cdk.out/
 .yarn/install-state.gz
 
 # Harness bootstrap portable toolkit (not deployed harness output)
-#/.claude/skills/harness-bootstrap/
+#/.canonical-implementation-harness/
+!/.canonical-implementation-harness/state/answers.json

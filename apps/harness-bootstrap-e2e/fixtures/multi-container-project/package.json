@@ -1,0 +1,7 @@
+{
+  "name": "@fixture/multi-container-project",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ]
+}

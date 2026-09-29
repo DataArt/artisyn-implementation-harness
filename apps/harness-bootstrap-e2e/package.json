@@ -1,0 +1,16 @@
+{
+  "name": "@artisyn-harness/harness-bootstrap-e2e",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/diff": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "diff": "^5.2.0",
+    "smol-toml": "1.6.1",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0",
+    "vitest": "^2.0.0",
+    "yaml": "^2.7.0"
+  }
+}

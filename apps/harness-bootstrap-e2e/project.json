@@ -1,0 +1,67 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "harness-bootstrap-e2e",
+  "projectType": "application",
+  "root": "apps/harness-bootstrap-e2e",
+  "sourceRoot": "apps/harness-bootstrap-e2e/src",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**",
+      "{workspaceRoot}/.canonical-implementation-harness/scripts/**",
+      "{workspaceRoot}/.canonical-implementation-harness/canonical/**",
+      "{workspaceRoot}/.canonical-implementation-harness/SKILL.md",
+      "{workspaceRoot}/.canonical-implementation-harness/references/**",
+      "sharedGlobals"
+    ]
+  },
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p tsconfig.json",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint src",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "unit": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "vitest run --config vitest.unit.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "integration": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["default", { "env": "HB_E2E_KEEP_TMP" }],
+      "options": {
+        "command": "vitest run --config vitest.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "agent-e2e": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "vitest run --config vitest.agent-e2e.config.ts -t \"{args.testNamePattern}\"",
+        "cwd": "{projectRoot}",
+        "testNamePattern": ""
+      }
+    },
+    "eval": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/bin/run-evals.ts BOOT-001 BOOT-002 BOOT-003 BOOT-004 BOOT-005",
+        "cwd": "{projectRoot}"
+      }
+    }
+  }
+}
