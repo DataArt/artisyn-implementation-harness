@@ -223,11 +223,14 @@ function gradeExternalGatePartialLaunch(
       ],
       ['Mermaid', operation.checks?.mermaid ?? reviews.mermaid_gate],
     ];
+    let pendingGate = false;
     for (const [name, value] of gates) {
       const check = readCheckpointCheck(value);
-      if (!['pending', 'blocked'].includes(check.status) || !check.evidence)
-        failures.push(`partial operation must record the pending ${name} gate and its blocker`);
+      if (['pending', 'blocked'].includes(check.status)) pendingGate = true;
+      if (!['passed', 'pending', 'blocked'].includes(check.status) || !check.evidence)
+        failures.push(`partial operation must record the ${name} gate with evidence or a blocker`);
     }
+    if (!pendingGate) failures.push('partial operation must have an outstanding external gate');
 
     if (!Array.isArray(receipt.files) || !Array.isArray(receipt.derived_outputs))
       throw new Error('missing materialization output arrays');

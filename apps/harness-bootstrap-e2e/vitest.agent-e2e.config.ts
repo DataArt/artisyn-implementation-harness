@@ -6,7 +6,7 @@ import { defineConfig } from 'vitest/config';
  */
 export default defineConfig({
   test: {
-    include: ['src/cases/e2e/**/*.spec.ts'],
+    include: ['src/cases/*.spec.ts'],
     testTimeout: 65 * 60_000,
     hookTimeout: 65 * 60_000,
     fileParallelism: false,

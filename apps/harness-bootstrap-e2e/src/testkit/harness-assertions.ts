@@ -1,3 +1,4 @@
+import { PROVIDERS, PROVIDER_DETAILS } from './providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import type { LaunchResult, Provider } from './build-launch.ts';
@@ -39,7 +40,7 @@ export class HarnessExpectation {
     if (!this.result.providers.includes(provider))
       throw new Error(`toHaveProjection(${provider}): provider was not selected for this launch`);
     const root = this.result.workspace.root;
-    const skillsDir = provider === 'claude' ? '.claude/skills' : '.agents/skills';
+    const skillsDir = PROVIDER_DETAILS[provider].skills;
     throwOnFailure(
       `toHave${provider}Projection`,
       gradeFilesystem(root, { exists: [skillsDir] }).failures
@@ -48,11 +49,11 @@ export class HarnessExpectation {
   }
 
   toHaveClaudeProjection(): this {
-    return this.toHaveProjection('claude');
+    return this.toHaveProjection(PROVIDERS.claude);
   }
 
   toHaveCodexProjection(): this {
-    return this.toHaveProjection('codex');
+    return this.toHaveProjection(PROVIDERS.codex);
   }
 
   toHaveValidState(expectVerified = false): this {
@@ -108,7 +109,11 @@ export class HarnessExpectation {
     );
     const agents = fs
       .readdirSync(path.join(workspace.packageRoot, 'canonical/agents'))
-      .map((template) => ({ name: template === 'layer' ? 'web' : template }));
+      .flatMap((template) =>
+        template === 'layer'
+          ? workspace.fixture.containers.map((container) => ({ name: container.name }))
+          : [{ name: template }]
+      );
     throwOnFailure(
       'toHaveConsistentProjections (agents)',
       gradeAgentProjectionConsistency(workspace.root, agents, providers, invocationPrefixes, skills)

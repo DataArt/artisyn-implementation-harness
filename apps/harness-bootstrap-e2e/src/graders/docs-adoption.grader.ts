@@ -1,12 +1,8 @@
+import { PROVIDER_DETAILS } from '../testkit/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import type { GradeResult } from './filesystem.grader.ts';
 import type { Provider } from '../testkit/build-launch.ts';
-
-const PROVIDER_AGENT_ROOTS: Record<Provider, { agents: string; extension: string }> = {
-  claude: { agents: '.claude/agents', extension: 'md' },
-  codex: { agents: '.codex/agents', extension: 'toml' },
-};
 
 // The real repo's own root README is ~1.5KB; this is a generous ceiling, not
 // a tight one — the point is catching "the whole project history is in here"
@@ -109,7 +105,7 @@ export function gradeContainerAgentsDeployed(
   provider: Provider,
   containers: string[]
 ): GradeResult {
-  const { agents, extension } = PROVIDER_AGENT_ROOTS[provider];
+  const { agents, extension } = PROVIDER_DETAILS[provider];
   const failures = containers
     .filter((container) => !fs.existsSync(path.join(root, agents, `${container}.${extension}`)))
     .map(

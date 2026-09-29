@@ -10,9 +10,8 @@ export function gradeCodexPlanToolConfigured(root: string): GradeResult {
   try {
     const config = parse(fs.readFileSync(configPath, 'utf8'));
     const tools = config.tools;
-    const plan = tools && typeof tools === 'object' && 'update_plan' in tools
-      ? tools.update_plan
-      : undefined;
+    const plan =
+      tools && typeof tools === 'object' && 'update_plan' in tools ? tools.update_plan : undefined;
     if (!plan || typeof plan !== 'object' || !('enabled' in plan) || plan.enabled !== true)
       failures.push('.codex/config.toml must set tools.update_plan.enabled = true (boolean)');
   } catch (error) {

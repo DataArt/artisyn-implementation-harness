@@ -1,3 +1,4 @@
+import { PROVIDERS, PROVIDER_DETAILS } from '../testkit/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
@@ -5,11 +6,6 @@ import type { GradeResult } from './filesystem.grader.ts';
 import type { Provider } from '../testkit/build-launch.ts';
 // @ts-expect-error -- plain ESM .mjs, no type declarations published
 import { AGENT_WRITE_TOOLS } from '../../../../.canonical-implementation-harness/scripts/lib/constants.mjs';
-
-const PROVIDER_ROOTS: Record<Provider, { skills: string; agents: string; extension: string }> = {
-  claude: { skills: '.claude/skills', agents: '.claude/agents', extension: 'md' },
-  codex: { skills: '.agents/skills', agents: '.codex/agents', extension: 'toml' },
-};
 
 function frontmatter(text: string): Record<string, unknown> {
   const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
@@ -61,7 +57,7 @@ export function gradeSkillProjectionConsistency(
   for (const skill of skills) {
     const installed: Record<string, Record<string, unknown>> = {};
     for (const provider of providers) {
-      const target = path.join(root, PROVIDER_ROOTS[provider].skills, skill, 'SKILL.md');
+      const target = path.join(root, PROVIDER_DETAILS[provider].skills, skill, 'SKILL.md');
       if (!fs.existsSync(target)) {
         failures.push(`missing installed skill for ${provider}: ${target}`);
         continue;
@@ -118,8 +114,8 @@ export function gradeAgentProjectionConsistency(
   for (const { name } of agents) {
     let claudeFields: Record<string, unknown> | undefined;
     let codexText: string | undefined;
-    if (providers.includes('claude')) {
-      const target = path.join(root, PROVIDER_ROOTS.claude.agents, `${name}.md`);
+    if (providers.includes(PROVIDERS.claude)) {
+      const target = path.join(root, PROVIDER_DETAILS[PROVIDERS.claude].agents, `${name}.md`);
       if (!fs.existsSync(target)) failures.push(`missing installed agent for claude: ${target}`);
       else {
         const text = fs.readFileSync(target, 'utf8');
@@ -128,8 +124,8 @@ export function gradeAgentProjectionConsistency(
         claudeFields = frontmatter(text);
       }
     }
-    if (providers.includes('codex')) {
-      const target = path.join(root, PROVIDER_ROOTS.codex.agents, `${name}.toml`);
+    if (providers.includes(PROVIDERS.codex)) {
+      const target = path.join(root, PROVIDER_DETAILS[PROVIDERS.codex].agents, `${name}.toml`);
       if (!fs.existsSync(target)) failures.push(`missing installed agent for codex: ${target}`);
       else codexText = fs.readFileSync(target, 'utf8');
     }

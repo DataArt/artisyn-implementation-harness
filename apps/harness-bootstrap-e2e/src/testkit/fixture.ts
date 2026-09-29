@@ -1,3 +1,6 @@
+import { PROVIDERS, PROVIDER_DETAILS } from './providers.ts';
+import type { Provider } from './providers.ts';
+import type { FixtureDefinition } from '../../fixtures/registry.ts';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -11,9 +14,10 @@ import { fixturesRoot, skillPackageRoot, workspaceRoot } from './paths.ts';
 const KEEP_TMP = process.env.HB_E2E_KEEP_TMP === '1';
 
 /** Default location; installSkillPackage resets this to the chosen host discovery root. */
-const PACKAGE_RELATIVE_PATH = '.claude/skills/harness-bootstrap';
+const PACKAGE_RELATIVE_PATH = `${PROVIDER_DETAILS[PROVIDERS.claude].skills}/harness-bootstrap`;
 
 export interface Workspace {
+  fixture: FixtureDefinition;
   /** Scratch project root — a fresh copy per test, never the source fixture. */
   root: string;
   /** Where the harness-bootstrap package copy lives inside this workspace,
@@ -42,23 +46,25 @@ function registerCleanupHook() {
  * own isolated filesystem state; nothing is ever run against the fixture
  * source directory itself.
  */
-export async function createFixture(name: string): Promise<Workspace> {
-  const source = path.join(fixturesRoot, name);
-  if (!fs.existsSync(source)) throw new Error(`Unknown fixture: ${name}`);
+export async function createFixture(fixture: FixtureDefinition): Promise<Workspace> {
+  if (!fixture.populated) throw new Error(`Fixture ${fixture.id} is not populated`);
+  const source = path.join(fixturesRoot, fixture.path);
+  if (!fs.existsSync(source)) throw new Error(`Unknown fixture: ${fixture.id}`);
   const tmpBase = KEEP_TMP
     ? (fs.mkdirSync(path.join(workspaceRoot, 'tmp'), { recursive: true }),
       path.join(workspaceRoot, 'tmp'))
     : os.tmpdir();
-  const root = fs.mkdtempSync(path.join(tmpBase, `hb-e2e-${name}-`));
+  const root = fs.mkdtempSync(path.join(tmpBase, `hb-e2e-${fixture.id}-`));
   fs.cpSync(source, root, { recursive: true });
   const packageRoot = path.join(root, PACKAGE_RELATIVE_PATH);
   if (KEEP_TMP) {
     console.log(`[HB_E2E_KEEP_TMP] kept workspace: ${root}`);
-    return { root, packageRoot, async cleanup() {} };
+    return { fixture, root, packageRoot, async cleanup() {} };
   }
   live.add(root);
   registerCleanupHook();
   return {
+    fixture,
     root,
     packageRoot,
     async cleanup() {
@@ -76,11 +82,8 @@ export async function destroyFixture(workspace: Workspace): Promise<void> {
  * local fixture. Consumer installation remains a separate release-ZIP workflow.
  * Package state is not copied into a fresh test project.
  */
-export function installSkillPackage(
-  workspace: Workspace,
-  host: 'claude' | 'codex' = 'claude'
-): void {
-  const hostRoot = host === 'claude' ? '.claude/skills' : '.agents/skills';
+export function installSkillPackage(workspace: Workspace, host: Provider = PROVIDERS.claude): void {
+  const hostRoot = PROVIDER_DETAILS[host].skills;
   workspace.packageRoot = path.join(workspace.root, hostRoot, 'harness-bootstrap');
   fs.mkdirSync(workspace.packageRoot, { recursive: true });
 

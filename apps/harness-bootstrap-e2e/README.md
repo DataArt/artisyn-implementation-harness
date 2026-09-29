@@ -1,130 +1,235 @@
 # harness-bootstrap-e2e
 
-Test suite for the `harness-bootstrap` skill (`.canonical-implementation-harness/`)
-itself — the thing that installs/patches this platform's own AI-dev harness
-into a project. Combines normal software testing with AI-skill evaluation:
-deterministic checks wherever possible, real subagent runs only where no
-deterministic script can substitute for the skill's actual judgment.
+Tests for the `harness-bootstrap` authoring package in
+`.canonical-implementation-harness/`. Deterministic tests exercise scripts and
+contracts; agent E2E cases exercise the skill through real Claude or Codex CLI
+sessions in disposable projects.
 
-## Three layers
+## Test layers and CI
 
-| Layer       | Nx target     | What it exercises                                                                                                                                                                                                                               | Real agent spend? | Cached? |
-| ----------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- | ------- |
-| Unit        | `unit`        | The skill's own deterministic scripts (`materialize-launch.mjs`, `plan-provider-launch.mjs`, `provider-adapter.mjs`) directly, in isolated fake projects. Ported from `scripts/tests/*.test.mjs`.                                               | No                | Yes     |
-| Integration | `integration` | Launch's deterministic half (`Q&A → plan → materialize-launch.mjs → INTENT → verify`) against a hand-built plan standing in for Q&A, plus grader-level specs. No subagent — a plan's `knowns` substitute for a completed Q&A.                   | No                | Yes     |
-| Agent E2E   | `agent-e2e`   | The skill's actual judgment: real `claude -p "/harness-bootstrap ..."` calls against isolated fixtures. The only way to test harvest/prepare/apply (no script backs those at all) or whether launch's Q&A/INTENT reasoning is actually correct. | **Yes**           | Never   |
+| Layer       | Nx target     | Coverage                                                                                           | Live agents | Nx caching |
+| ----------- | ------------- | -------------------------------------------------------------------------------------------------- | ----------- | ---------- |
+| Unit        | `unit`        | Materializer/provider scripts, fixture and scenario helpers, grader pass/fail behavior             | No          | Enabled    |
+| Integration | `integration` | Stubbed launch plans, materialization, simulated adaptation, finalization and provider projections | No          | Enabled    |
+| Agent E2E   | `agent-e2e`   | Real bootstrap reasoning and patch prepare/apply across projects                                   | Yes         | Disabled   |
 
-Run them:
+The `test` target depends on `unit` and `integration`. The pull-request workflow
+in [ci.yml](../../.github/workflows/ci.yml) runs affected `test` targets between
+typecheck and build. Live agent E2E runs are separate and use CLI authentication
+and model usage from the developer's environment.
+
+Run from the repository root:
 
 ```sh
 yarn nx run harness-bootstrap-e2e:typecheck
 yarn nx run harness-bootstrap-e2e:lint
+yarn nx run harness-bootstrap-e2e:test
 yarn nx run harness-bootstrap-e2e:unit
 yarn nx run harness-bootstrap-e2e:integration
-yarn nx run harness-bootstrap-e2e:agent-e2e   # real claude CLI calls, costs money, run deliberately
-yarn nx run harness-bootstrap-e2e:eval        # structured JSON report for the deterministic BOOT-* cases
 ```
 
-Run a single agent-e2e case by name (`testNamePattern` is a vitest `-t` filter,
-matched against the full `describe > it` name) instead of all three — useful
-when you're near a usage limit or just iterating on one case:
+Cached deterministic runs can finish quickly. To execute them again:
 
 ```sh
-yarn nx run harness-bootstrap-e2e:agent-e2e --testNamePattern="BOOT-006"
+yarn nx run harness-bootstrap-e2e:test --skip-nx-cache
 ```
-
-Before spending real agent budget on a case, sanity-check it actually
-resolves with a read-only list (never invokes `claude`, never costs
-anything):
-
-```sh
-cd apps/harness-bootstrap-e2e
-npx vitest list --config vitest.agent-e2e.config.ts -t "BOOT-006"
-```
-
-Note: `nx ... --dry-run` is **not** a real flag for this target — `nx:run-commands`
-silently ignores unrecognized flags and runs the command anyway. Use
-`vitest list` above to check without spending anything, never `--dry-run`.
-
-## Why deterministic and agent-e2e are separate
-
-Launch has a real deterministic core (`materialize-launch.mjs`/`provider-adapter.mjs` —
-pure Node, no LLM). Patch (harvest/prepare/apply) has **no script at all**:
-hashing, diffing, and manifest construction are done live by the agent
-following `references/patch/*.md`. So:
-
-- Anything testable without an LLM lives in `integration`/`unit` — fast, free, safe to cache, safe for CI.
-- Anything that requires the skill to actually reason (Q&A inference, INTENT derivation, harvest generalization, patch prepare/apply) can only be tested by really invoking the selected host CLI (`claude` or `codex`), in `agent-e2e` — slow, costs real money, deliberately excluded from CI/caching.
 
 ## Directory layout
 
-```
+```text
+fixtures/
+├── registry.ts                 Typed fixture facts and container definitions
+├── nx-monorepo/                Deterministic launch and patch baseline
+├── multi-container-project/    Four-container greenfield bootstrap fixture
+└── installed-harness/          Reserved, unpopulated feature-flow fixture
 src/
-├── testkit/          Reusable fixture/plan-building/assertion primitives
-│   ├── fixture.ts        createFixture(name) / installSkillPackage(ws) — isolated scratch copies
-│   ├── build-launch.ts   runStubbedLaunch/rematerialize/finalizeStubbedLaunch — the deterministic launch path
-│   ├── eval-case.ts      EvalCase type + runEvalCase() — case/report model
-│   └── harness-assertions.ts   expectHarness(result).toHave...() fluent API
-├── graders/           Pure functions: (filesystem state | event transcript) -> GradeResult
-│   ├── filesystem.grader.ts     exists/absent path checks
-│   ├── state.grader.ts          launch materialization/verification receipts
-│   ├── references.grader.ts     installed-doc cross-references resolve on disk
-│   ├── projection.grader.ts     Claude vs Codex projections stay semantically identical
-│   ├── patch.grader.ts          patch bundle contract (schema v2: manifest/hashes/diff-apply)
-│   ├── agent-behavior.grader.ts task tracking used, no plan-mode during automated runs
-│   └── docs-adoption.grader.ts  README budget, HLD/LLD coverage, per-container agents
-├── agent-runners/      Headless CLI invocation
-│   ├── run-claude-skill.ts   spawns `claude -p --output-format stream-json`, live progress, full event transcript
-│   └── run-codex-skill.ts    spawns `codex exec --json`, workspace-write sandbox, full event transcript
-├── cases/
-│   ├── unit/           Ported scripts/tests/*.test.mjs, now vitest specs
-│   ├── integration/    BOOT-001..005 (stubbed launch, hand-built plans)
-│   └── e2e/            BOOT-006/007, PATCH-001 (real claude CLI calls)
-└── bin/run-evals.ts    CLI: run named cases, print one JSON report line each
+├── cases/                      Agent E2E specs directly in this directory
+│   └── registry.ts             Case IDs and paths; no test registration on import
+├── scenarios/
+│   ├── bootstrap.ts            Bootstrap scenario and input validation
+│   ├── boot-e2e.shared.ts      Host invocation and bootstrap grading
+│   ├── launch-prompt.ts        Automated bootstrap inputs
+│   ├── patch-prepare-apply.ts  Two-workspace patch workflow
+│   └── feature-flows.ts        Pending design/dev scenarios
+├── agent-runners/              Claude and Codex headless CLI adapters
+├── graders/                    Filesystem, transcript and receipt checks
+├── testkit/
+│   ├── providers.ts            Provider type, constants and filesystem mappings
+│   ├── fixture.ts              Scratch workspace creation and package copying
+│   ├── build-launch.ts         Stubbed deterministic launch helpers
+│   ├── eval-case.ts            Integration EvalCase execution and reporting
+│   ├── scenario.ts             Agent E2E case/step execution and reporting
+│   └── harness-assertions.ts   Fluent launch assertions
+└── tests/
+    ├── unit/                   Script, testkit and grader specs
+    │   └── graders/
+    └── integration/            BOOT-001–005 definitions and aggregate spec
 ```
 
-## Fixtures
+Each layer has its own Vitest configuration:
+`vitest.unit.config.ts`, `vitest.config.ts` (integration), and
+`vitest.agent-e2e.config.ts`. Unit and integration tests live outside the E2E
+case registry. Grader specs live under `src/tests/unit/graders/` beside the other
+unit tests. E2E execution uses Vitest directly through Nx; the former standalone
+`src/bin/run-evals.ts` runner has been removed.
 
-Never run against a fixture directly — `createFixture(name)` copies it into a
-fresh OS-tmpdir scratch workspace per test.
+## Fixtures and providers
 
-- **`nx-monorepo/`** — minimal single-container Nx project root. Used by the stubbed BOOT-001..005 cases, which exercise the real canonical skill/agent content (packaged as a release-shaped ZIP and extracted fresh every run) but skip Q&A/INTENT judgment.
-- **`multi-container-project/`** — four real containers (`fe`→react, `be`→express, `infra`→aws-cdk-lib, `mobile`→react-native), each with genuine `package.json` evidence, **no `docs/` at all**. Used by BOOT-006/007: the agent must discover all four containers from evidence and generate README/HLD/LLD/per-container-agent docs itself — nothing is pre-seeded to grade against. See `FIXTURE.md` inside it for exactly what's expected afterward.
-- **`installed-harness/`** — reserved, not yet populated (see its `README.md`).
+`fixtures/registry.ts` defines each fixture's ID, path, project name, purpose,
+population state, existing harness/docs state, and containers with stack and
+source evidence. Cases pass the full definition to `createFixture()`; reports
+record its ID. Fixture facts describe the starting repository, while requested
+integrations and lifecycles belong to case inputs.
 
-Debug tip: set `HB_E2E_KEEP_TMP=1` to land scratch workspaces under `<repo>/tmp/`
-(gitignored) instead of the OS tmpdir, and skip cleanup, so you can inspect
-what a run actually produced:
+| Fixture                   | Starting state                                                                     | Usage                                              |
+| ------------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------- |
+| `nx-monorepo`             | Minimal single-container Nx-shaped repository                                      | Deterministic BOOT-001–005 and patch prepare/apply |
+| `multi-container-project` | `fe`, `be`, `infra`, `mobile` manifests; no architecture docs or installed harness | Claude and Codex greenfield bootstrap              |
+| `installed-harness`       | Reserved; not populated                                                            | Pending design/dev cases                           |
+
+`createFixture()` copies source files into a unique scratch workspace. Tests
+never operate directly on fixture sources; unpopulated fixtures fail explicitly.
+`installSkillPackage()` copies the current authoring package into the selected
+host's skill directory and excludes package `state`. Consumer release-ZIP
+installation is a separate workflow. Scratch projects do not contain an
+`.canonical-implementation-harness/` authoring directory.
+
+`src/testkit/providers.ts` centralizes `PROVIDERS`, the shared `Provider` type,
+and `PROVIDER_DETAILS`: display names, skill and agent paths, instruction files,
+settings, extensions and invocation prefixes. Host and output provider are
+separate case fields: the host selects the CLI and bootstrap discovery path;
+the provider selects the installed harness format.
+
+## Cases, scenarios and steps
+
+A case is the top-level runnable E2E unit. Its `CaseDefinition` selects a
+`ScenarioDefinition`, fixture, configuration and optional host, provider and
+feature. Each descriptively named `src/cases/<id>.spec.ts` exports its definition
+and declares an ordinary Vitest test. Registry entries contain only IDs and paths.
+
+A scenario defines ordered steps plus optional setup and cleanup. `runCase()`
+shares an artifact map between steps and returns overall and per-step outcomes,
+grader results, failures and durations. Outcomes are `passed`, `failed` or
+`blocked`. A failed or blocked step blocks dependent steps; missing step
+implementations are blocked; an empty grader result fails. Setup and cleanup
+failures are included in the report. The patch step owns two isolated workspaces.
+
+| Case IDs                                                                    | Scenario              | Implementation                                                                        |
+| --------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------- |
+| `boot-claude-from-scratch-greenfield`, `boot-codex-from-scratch-greenfield` | `bootstrap`           | Live launch of `multi-container-project` with `aws-dev`, Dev lifecycle only           |
+| `patch-prepare-apply`                                                       | `patch-prepare-apply` | Claude prepare in project A, transfer only the bundle, then Claude apply in project B |
+| `design-dev-claude`, `design-dev-codex`                                     | `design-dev`          | `it.todo`: design feature, then develop feature                                       |
+| `dev-claude`, `dev-codex`                                                   | `dev-only`            | `it.todo`: develop feature from existing artifacts                                    |
+
+Greenfield means no prior harness or architecture docs; application manifests
+already exist. Bootstrap currently validates the specific fixture/configuration
+combination and supported hosts/providers. Feature-flow cases remain pending
+and invoke no agents. Their fixture, prompts, approval handoff and graders still
+need implementation. A combined bootstrap → design → dev scenario is future work.
+
+## Running agent E2E
+
+List cases before executing them:
 
 ```sh
-HB_E2E_KEEP_TMP=1 yarn nx run harness-bootstrap-e2e:integration
+yarn nx run harness-bootstrap-e2e:agent-e2e --mode=list
+yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield --mode=list
 ```
 
-## Cases
+Run a selected case:
 
-| Case           | Layer       | What it proves                                                                                                                                                                                                                                               |
-| -------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| BOOT-001 / 002 | integration | Materialize + provider-adapter render correctly for Claude / Codex alone                                                                                                                                                                                     |
-| BOOT-003       | integration | **Primary CI smoke.** Claude and Codex projections of the same canonical source stay semantically identical (name/description/tool-derived sandbox mode), only the declared `{{provider:*}}` substitutions differ                                            |
-| BOOT-004       | integration | Repeating the same materialize run is a true no-op — no duplicate registrations, byte-identical receipt                                                                                                                                                      |
-| BOOT-005       | integration | An existing `.claude/settings.json`/`.codex/config.toml` is scheduled for reconciliation (`derived_outputs`), never silently rewritten                                                                                                                       |
-| BOOT-006 / 007 | agent-e2e   | BOOT-006 runs Claude; BOOT-007 runs Codex. Each bootstraps `multi-container-project` for its own provider — container discovery, task tracking, no stray plan-mode, docs adoption, all graded for real                                                       |
-| PATCH-001      | agent-e2e   | Real `patch prepare` in project A → bundle → transfer only the bundle folder → real `patch apply` in project B. Proves actual cross-project portability, not just the bundle format in isolation (`patch.grader.spec.ts` covers that half deterministically) |
+```sh
+yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-claude-from-scratch-greenfield
+yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
+yarn nx run harness-bootstrap-e2e:agent-e2e --case=patch-prepare-apply
+```
 
-## Adding a new case
+Omitting `--case` selects all E2E specs, including the live patch workflow and
+pending feature-flow tests. `--mode=list` does not invoke agents. Do not use
+`--dry-run` as a listing substitute: this `nx:run-commands` target does not provide
+that guarantee.
 
-1. Pick the cheapest layer that can prove what you actually care about — reach for `agent-e2e` only when no script/deterministic path can substitute for real judgment.
-2. Write graders as pure functions returning `GradeResult` (`{ grader, pass, failures }`) in `src/graders/`, with their own `*.grader.spec.ts` proving both the pass and fail path against synthetic input — don't gate a grader's first test on a live agent run.
-3. Wire the case into its layer's `*.spec.ts` and, if it should be runnable standalone, into `src/bin/run-evals.ts`'s registry.
-4. Run `vitest list --config vitest.<layer>.config.ts` to confirm it resolves before spending real agent budget on it.
+From `apps/harness-bootstrap-e2e`, a spec can also be run directly:
 
-Fixtures copy the authoring package contents directly into the selected host's skill
-directory (`.agents/skills/harness-bootstrap/` or `.claude/skills/harness-bootstrap/`).
-This keeps fixture setup simple; consumer projects install the distributed release ZIP
-into `.agents/skills/` or `.claude/skills/`. Fixture workspaces never contain a
-`.canonical-implementation-harness/` directory. Execution host and output provider are separate case fields.
-Codex uses existing CLI authentication with noninteractive workspace-write permissions.
-The agent E2E selects `gpt-6-sol` so an incompatible global model alias cannot prevent
-startup; set `HB_E2E_CODEX_MODEL` to another model supported by the signed-in Codex
-account, such as `gpt-6-luna`, when needed. Initialization or authentication failures
-identify the host.
+```sh
+yarn vitest run --config vitest.agent-e2e.config.ts src/cases/boot-codex-from-scratch-greenfield.spec.ts
+```
+
+Runners print live progress and preserve transcript diagnostics. Codex runs with
+workspace-write permissions and noninteractive approval policy, using the
+caller's CLI authentication. The runner passes `--model gpt-6-sol` by default;
+`HB_E2E_CODEX_MODEL` overrides this argument. Bootstrap allows up to 60 minutes
+for the CLI run; E2E Vitest timeouts are 65 minutes and spec files run serially.
+A failed child-agent dispatch does not itself stop the main CLI process; the
+runner waits for process completion and then grades the outputs.
+
+## Graders and result interpretation
+
+Graders return `{ grader, pass, failures }`. Bootstrap checks task tracking,
+absence of plan mode, required files, launch state, references, INTENT cleanup,
+project/provider placeholder resolution, README budget, AWS MCP, Codex planning
+configuration, app architecture links, HLD container coverage, docs index and
+per-container agents. Claude bootstrap runs 14 checks; Codex adds the planning
+configuration check for 15. Integration also checks cross-provider projections;
+patch graders check schema, hashes and diff reconstruction.
+
+The state grader accepts either finalized verification receipts or a documented
+partial Stage E checkpoint with current output hashes and local verification.
+External gates may be passed or pending/blocked with evidence, but a partial
+checkpoint must retain at least one outstanding gate. A passed independent
+review with blocked Mermaid rendering is valid; failed review or missing
+evidence is rejected. The report must preserve all 14 stages in order, with
+stages 1–11 complete, Stage E in progress and dependent stages pending.
+
+**A passing bootstrap test can therefore represent a valid partial installation.**
+Read the dated launch report and operation record to distinguish it from a
+fully finalized launch. Report-template formatting, Stats and Efforts Spent
+sections are not currently enforced by the graders.
+
+All returned checks affect pass/fail, but the result map is keyed by grader name.
+Repeated names such as the five `docs-adoption` checks overwrite individual map
+entries; failures are still accumulated. `runCase()` returns its report to the
+spec; it does not write a separate JSON case report to disk.
+
+## Retaining and inspecting outputs
+
+Normally workspaces live in the OS temporary directory and are cleaned up.
+Set `HB_E2E_KEEP_TMP=1` to retain them under the repository's gitignored `tmp/`:
+
+```sh
+HB_E2E_KEEP_TMP=1 yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
+HB_E2E_KEEP_TMP=1 yarn nx run harness-bootstrap-e2e:integration --skip-nx-cache
+```
+
+For bootstrap, inspect these paths under the host's
+`.agents/skills/harness-bootstrap/` or `.claude/skills/harness-bootstrap/`:
+
+- `state/launch/<host>-transcript-*.jsonl`: full CLI stdout transcript, saved when the runner exits.
+- `state/launch/reports/*-launch.md`: answers, stage progress and blockers.
+- `state/launch/runs/<run-id>/`: plan, materialization, optional verification and diagram evidence.
+- `state/operations/`: recorded output hashes, local checks and external gates.
+
+Each execution creates a fresh workspace. Retained workspaces accumulate until
+removed manually; select the newest directory when reviewing a rerun.
+
+## Deterministic integration coverage
+
+| Test                | Contract                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------- |
+| BOOT-001 / BOOT-002 | Claude / Codex materialization and provider output                                    |
+| BOOT-003            | Both providers from one canonical source; semantic skill/agent projection consistency |
+| BOOT-004            | Idempotent rematerialization without duplicate registrations or receipt changes       |
+| BOOT-005            | Existing settings/config scheduled for reconciliation rather than silently rewritten  |
+
+These use `EvalCase` and `runEvalCase()` through the aggregate
+`boot.integration.spec.ts`, which imports the individual `.test.ts` definitions.
+Stubbed plans and adaptation prove deterministic contracts; live cases verify
+the agent's discovery and INTENT reasoning.
+
+## Adding coverage
+
+1. Use unit or integration tests for behavior that can be proved deterministically.
+2. Keep reusable checks in `src/graders/` and pass/fail regression specs in `src/tests/unit/graders/`.
+3. Add fixture facts to `fixtures/registry.ts` and provider mappings to `src/testkit/providers.ts`.
+4. For live workflows, reuse or implement a scenario and create `src/cases/<id>.spec.ts` plus its registry entry. Use `it.todo` until the workflow exists.
+5. List the selected case before a live run and inspect retained evidence when debugging.

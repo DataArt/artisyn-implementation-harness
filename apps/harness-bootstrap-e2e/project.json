@@ -25,7 +25,7 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "eslint src",
+        "command": "eslint src fixtures/registry.ts",
         "cwd": "{projectRoot}"
       }
     },
@@ -40,7 +40,12 @@
     "integration": {
       "executor": "nx:run-commands",
       "cache": true,
-      "inputs": ["default", { "env": "HB_E2E_KEEP_TMP" }],
+      "inputs": [
+        "default",
+        {
+          "env": "HB_E2E_KEEP_TMP"
+        }
+      ],
       "options": {
         "command": "vitest run --config vitest.config.ts",
         "cwd": "{projectRoot}"
@@ -50,18 +55,14 @@
       "executor": "nx:run-commands",
       "cache": false,
       "options": {
-        "command": "vitest run --config vitest.agent-e2e.config.ts -t \"{args.testNamePattern}\"",
+        "command": "vitest {args.mode} --config vitest.agent-e2e.config.ts src/cases/{args.case}.spec.ts",
         "cwd": "{projectRoot}",
-        "testNamePattern": ""
+        "case": "*",
+        "mode": "run"
       }
     },
-    "eval": {
-      "executor": "nx:run-commands",
-      "cache": false,
-      "options": {
-        "command": "tsx src/bin/run-evals.ts BOOT-001 BOOT-002 BOOT-003 BOOT-004 BOOT-005",
-        "cwd": "{projectRoot}"
-      }
+    "test": {
+      "dependsOn": ["unit", "integration"]
     }
   }
 }

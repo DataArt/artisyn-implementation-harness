@@ -1,3 +1,4 @@
+import { PROVIDERS } from '../testkit/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
@@ -46,7 +47,10 @@ export function runClaudeSkill(options: SkillRunOptions): Promise<SkillRunResult
   const logProgress = options.logProgress ?? true;
 
   return new Promise((resolve, reject) => {
-    const child = spawn('claude', args, { cwd: options.cwd, stdio: ['ignore', 'pipe', 'pipe'] });
+    const child = spawn(PROVIDERS.claude, args, {
+      cwd: options.cwd,
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
     const timeoutMs = options.timeoutMs ?? 5 * 60_000;
     const timer = setTimeout(() => child.kill('SIGTERM'), timeoutMs);
 

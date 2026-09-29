@@ -4,9 +4,9 @@
     "target": "ES2022",
     "lib": ["ES2022"],
     "types": ["node"],
-    "rootDir": "src",
+    "rootDir": ".",
     "noEmit": true,
     "allowImportingTsExtensions": true
   },
-  "include": ["src"]
+  "include": ["src", "fixtures/registry.ts"]
 }

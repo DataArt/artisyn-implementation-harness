@@ -38,5 +38,8 @@ jobs:
       - name: Typecheck (affected)
         run: yarn nx affected --target=typecheck --base=origin/${{ github.base_ref }} --head=HEAD
 
+      - name: Test (affected)
+        run: yarn nx affected --target=test --base=origin/${{ github.base_ref }} --head=HEAD
+
       - name: Build (affected)
         run: yarn nx affected --target=build --configuration=ci --base=origin/${{ github.base_ref }} --head=HEAD

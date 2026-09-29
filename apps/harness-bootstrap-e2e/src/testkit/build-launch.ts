@@ -1,3 +1,4 @@
+import { PROVIDERS } from './providers.ts';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -6,7 +7,8 @@ import { spawnSync } from 'node:child_process';
 import { buildPlan } from '../../../../.canonical-implementation-harness/scripts/plan-provider-launch.mjs';
 import { installSkillPackage, type Workspace } from './fixture.ts';
 
-export type Provider = 'claude' | 'codex';
+import type { Provider } from './providers.ts';
+export type { Provider } from './providers.ts';
 
 export interface LaunchResult {
   workspace: Workspace;
@@ -36,7 +38,11 @@ function fullSelection(workspace: Workspace, providers: Provider[], runId: strin
   const skills = fs.readdirSync(path.join(workspace.packageRoot, 'canonical/skills'));
   const agents = fs
     .readdirSync(path.join(workspace.packageRoot, 'canonical/agents'))
-    .map((template) => ({ template, name: template === 'layer' ? 'web' : template }));
+    .flatMap((template) =>
+      template === 'layer'
+        ? workspace.fixture.containers.map((container) => ({ template, name: container.name }))
+        : [{ template, name: template }]
+    );
   return {
     run_id: runId,
     providers,
@@ -44,7 +50,7 @@ function fullSelection(workspace: Workspace, providers: Provider[], runId: strin
     agents,
     knowns: {
       PROJECT_NAME: {
-        value: 'E2E Fixture Project',
+        value: workspace.fixture.projectName,
         source: 'fixture',
         status: 'verified' as const,
       },
@@ -62,7 +68,7 @@ export async function runStubbedLaunch(
   providers: Provider[],
   runId = 'e2e'
 ): Promise<LaunchResult> {
-  installSkillPackage(workspace, providers[0] ?? 'claude');
+  installSkillPackage(workspace, providers[0] ?? PROVIDERS.claude);
   const selection = fullSelection(workspace, providers, runId);
   const plan = buildPlan(workspace.root, workspace.packageRoot, selection);
   const planFile = path.join(workspace.root, `plan-${runId}.json`);

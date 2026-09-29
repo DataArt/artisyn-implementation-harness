@@ -13,7 +13,11 @@ function walkFiles(dir: string): string[] {
 /** INTENT.md is authoring guidance kept in the bootstrap package. It must never
  * be copied into provider skill or runtime destinations, even temporarily.
  */
-export function gradeIntentCleanup(root: string, dirs: string[], exclude: string[] = []): GradeResult {
+export function gradeIntentCleanup(
+  root: string,
+  dirs: string[],
+  exclude: string[] = []
+): GradeResult {
   const failures: string[] = [];
   for (const dir of dirs) {
     const base = path.join(root, dir);
@@ -22,7 +26,9 @@ export function gradeIntentCleanup(root: string, dirs: string[], exclude: string
       if (exclude.some((excluded) => file === excluded || file.startsWith(excluded + path.sep)))
         continue;
       if (path.basename(file) === 'INTENT.md')
-        failures.push(`INTENT.md must not be copied into provider destinations: ${path.relative(root, file)}`);
+        failures.push(
+          `INTENT.md must not be copied into provider destinations: ${path.relative(root, file)}`
+        );
     }
   }
   return { grader: 'cleanup', pass: failures.length === 0, failures };

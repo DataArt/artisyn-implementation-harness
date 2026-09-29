@@ -1,3 +1,4 @@
+import { PROVIDERS } from '../testkit/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
@@ -40,7 +41,10 @@ export function runCodexSkill(options: SkillRunOptions): Promise<SkillRunResult>
   }
   for (const dir of options.addDirs ?? []) args.push('--add-dir', dir);
   return new Promise((resolve, reject) => {
-    const child = spawn('codex', args, { cwd: options.cwd, stdio: ['pipe', 'pipe', 'pipe'] });
+    const child = spawn(PROVIDERS.codex, args, {
+      cwd: options.cwd,
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
     let stdout = '',
       stderr = '',
       buffered = '';
