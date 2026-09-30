@@ -160,6 +160,11 @@ Use [Provider launch](08-provider-launch.md) to generate the skill/agent/config 
 Extend it with shared docs and reserved derivations before freezing it. Both providers
 share project facts and adaptation decisions, but receive separate native files.
 
+Freezing this Stage-3 plan governs A/B/C only; it does not exempt D.1–D.5 from the
+same discipline. Every doc stage output decided later must still be reserved in
+`derived_outputs` and re-validated via `--check`/`--write` before it is written — see
+["Plan reconciliation for D.1–D.5 outputs"](01c-launch-docs.md#plan-reconciliation-for-d1d5-outputs).
+
 ### Materialize → apply INTENT → verify
 
 Run from the project root against this run's plan:

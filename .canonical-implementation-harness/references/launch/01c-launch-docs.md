@@ -62,6 +62,22 @@ inside that version. No numeric prefixes or initial WAR folder. For shared produ
 context, reserve its README plus one agreed/default `Architecture/` folder; invent no
 further structure. Present verified LLD/HLD summaries at their dependency boundaries.
 
+## Plan reconciliation for D.1–D.5 outputs
+
+The Stage-3 JSON plan is frozen before D.1–D.5 run, so none of their outputs exist in
+it yet. This is not an exemption: every file D.1–D.5 create or update — Engineering
+Guide docs, HLD/LLD docs and indexes, `docs/README.md`, the root `README.md`, app
+READMEs, the two D.2 shared pattern docs, and any other stage output — must be
+reserved in `derived_outputs` and re-validated via `materialize-launch.mjs --plan
+<run-dir>/plan.json --check`/`--write` as each is decided, not only the two LLD shared
+pattern docs called out above. Do this progressively, stage by stage, rather than
+batching it at the end: an output written without a matching `derived_outputs`
+reservation leaves the plan, the materialization receipt, and the operation record
+unreconciled with each other, which fails verification whether the run finishes
+cleanly or is later graded as a partial/blocked run. Stage 13 (cleanup and final
+audit) must find the plan, receipt, and operation record in exact agreement over
+every permanent output that stage produced.
+
 ## Documentation evidence and precedence
 
 Read installed intents/principles first. These launch rules override conflicting
