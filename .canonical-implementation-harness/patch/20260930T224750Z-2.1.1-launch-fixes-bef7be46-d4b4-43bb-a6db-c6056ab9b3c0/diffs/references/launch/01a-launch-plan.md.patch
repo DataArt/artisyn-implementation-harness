@@ -1,0 +1,34 @@
+diff --git a/references/launch/01a-launch-plan.md b/references/launch/01a-launch-plan.md
+index 86af3b2..7393fe8 100644
+--- a/references/launch/01a-launch-plan.md
++++ b/references/launch/01a-launch-plan.md
+@@ -101,9 +101,14 @@ companion gets its own entry; a filename glob alone is not a companion inventory
+ Missing dependencies and destination collisions are planning errors.
+ 
+ Store immutable JSON at `package:state/launch/runs/<run_id>/plan.json`; use a new linked
+-run ID if the plan changes, and separate linked plans for later blocks with unresolved
+-inputs. Freeze the selected canonical payload/manifest before writes per Patch State.
+-Keep project values and baseline bytes local; never put secrets in plans.
++run ID only to split A/B/C materialization into separate verified stage receipts, or
++for a later block whose inputs are unresolved. This is the only sanctioned use of a
++linked run ID: D.1–D.5's own `derived_outputs` reservations are never a new linked run
++— they always amend this same `<run_id>/plan.json` in place (re-run `--check`/`--write`
++against this same path as each is added), because state verification reconciles the
++operation record against this one run's receipt, not against any linked run's. Freeze
++the selected canonical payload/manifest before writes per Patch State. Keep project
++values and baseline bytes local; never put secrets in plans.
+ 
+ Plan shape — `scripts/materialize-launch.mjs` is the validation authority for this
+ schema (hashes, safe paths, knowns, tokens, collisions, preconditions):
+@@ -160,6 +165,11 @@ Use [Provider launch](08-provider-launch.md) to generate the skill/agent/config
+ Extend it with shared docs and reserved derivations before freezing it. Both providers
+ share project facts and adaptation decisions, but receive separate native files.
+ 
++Freezing this Stage-3 plan governs A/B/C only; it does not exempt D.1–D.5 from the
++same discipline. Every doc stage output decided later must still be reserved in
++`derived_outputs` and re-validated via `--check`/`--write` before it is written — see
++["Plan reconciliation for D.1–D.5 outputs"](01c-launch-docs.md#plan-reconciliation-for-d1d5-outputs).
++
+ ### Materialize → apply INTENT → verify
+ 
+ Run from the project root against this run's plan:

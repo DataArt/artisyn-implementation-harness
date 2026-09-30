@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "id": "bef7be46-d4b4-43bb-a6db-c6056ab9b3c0",
+  "created_at": "2026-09-30T22:47:50Z",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "Patch release 2.1.1: fixes surfaced by the Codex greenfield e2e case after 2.1.0 (D.1-D.5 output reservation, run_id/status-cell tightening, and no-background-delegation launch rules).",
+  "package_version": "2.1.1",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "ec471c0053b56bf2fd1c15a78e64b24800b182a7797f90fd74c44c21d486002f",
+      "after_sha256": "7ed983873fcc4bcda1f4392eea79ae9685d37839922f2376dc4c69cf73ff6424",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "c9b115cbfe42a83022406a29a68b348788fdebf0ed565fb50449df3b1b9a2125",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01-launch.md",
+      "old_path": null,
+      "before_sha256": "87e20b05e12f18d4b466951c702fc1203bfb62b96b9797440fd3336eadf109c7",
+      "after_sha256": "9be316dc3a0649f87fef0a84a0f2c608ea1f85fd5607daeccda531df58b0dfd8",
+      "payload": "diffs/references/launch/01-launch.md.patch",
+      "payload_sha256": "0c6137bc7fb557c80e645213eb4861befaa4fba194a7256cd2261b03acde5c5d",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01a-launch-plan.md",
+      "old_path": null,
+      "before_sha256": "42fa372c6ffee74a9a100255e041bacf3c7e9de8f6eaf21a853332dc0a610f43",
+      "after_sha256": "8feb672456f79eb1431c22dc760494297a0e17ee8ad4e27606a04e65e0f453bc",
+      "payload": "diffs/references/launch/01a-launch-plan.md.patch",
+      "payload_sha256": "3ceac75309844f98b9f79363ae60d754931ecad3d3c3eab85ad644c0118f7e10",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01c-launch-docs.md",
+      "old_path": null,
+      "before_sha256": "9dcd422d65cb720e704b907d54ebe1e849192c2a1955fbef14a553b9a3198973",
+      "after_sha256": "addca42fc8de2b8bb74cc60c83f4f7f62438e2ce4cc0c09bc596064995bd6e1b",
+      "payload": "diffs/references/launch/01c-launch-docs.md.patch",
+      "payload_sha256": "933cb71b262b772b3edc3f8290379166eb4e5c25d308d0314b8c24c3332a0028",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "017db794452116dac267f1e2a946e73696834686987c75632af84b9033a10719",
+      "after_sha256": "06e60b3f0b32b17e2a4a71c0efb3312a1c31ce50e4c4353151fb930249304213",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "cdc0613b88a1768705cfbd66e0842d1fd99dcdbc184e5f465de5d2aa3c1e9fef",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

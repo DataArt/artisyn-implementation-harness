@@ -2,80 +2,16 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "2fe8cbe77fcfc8e7c6b1b4e6f9ecd5c9b3fbacb1c2f2a42798616e2b37b69974",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "06e60b3f0b32b17e2a4a71c0efb3312a1c31ce50e4c4353151fb930249304213",
+      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
     },
     "README.md": {
-      "recorded_sha256": "e2d35e1229fbf49c4e40be6f36fc78d926b15dbc19fe01692c5c2da957071731",
+      "recorded_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "SKILL.md": {
-      "recorded_sha256": "6bc4a015f4c189e1b6f59ce23de40fdbd6779080433cf0baf86fd331bd16e268",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/browser.md": {
-      "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/context.md": {
-      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/credentials.md": {
-      "recorded_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/delegation.md": {
-      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/interaction.md": {
-      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/planning.md": {
-      "recorded_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/review.md": {
-      "recorded_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/claude/task-tracking.md": {
-      "recorded_sha256": "1e8beee35c5b1a497cd7ded850e8566660a85405c599203183391174596a7e5c",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/browser.md": {
-      "recorded_sha256": "d21bb18d08213e9542563c2905b2943d6a54fabef91fd4fc8b0cc07a4e87cfe5",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/context.md": {
-      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/credentials.md": {
-      "recorded_sha256": "d89a348add3d897bdfa92fa2624aaaecb959c0c60c0fcb7311801f8ac2ed949d",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/delegation.md": {
-      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/interaction.md": {
-      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/planning.md": {
-      "recorded_sha256": "092ce683b3f842e3c82124248a72b3f8bdde481c01b8d180939d54438a03b881",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/review.md": {
-      "recorded_sha256": "b46a2ad5b6797d4a86c4e01226518824771551f0548395545bc53d664f17fbc7",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adoptors/codex/task-tracking.md": {
-      "recorded_sha256": "6d38a243d26b8843e1d4294899d1289cf8df892579a7335df2591ed8eddd6eeb",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "7ed983873fcc4bcda1f4392eea79ae9685d37839922f2376dc4c69cf73ff6424",
+      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
     },
     "canonical/agents/architect/INTENT.md": {
       "recorded_sha256": "4bdd8fe331325845b278a12eb9f7c8ace3ce2b0fe88024a2f53ee095e73dd31c",
@@ -146,7 +82,7 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/docs/Engineering Guide/05 MCP Setup.md": {
-      "recorded_sha256": "27b9e37bdfa844c5c263a8de7e92f328d02a7ce819f93d55bb432b0332db921e",
+      "recorded_sha256": "821e0fa6653a1bf06f680ea5b36a3b54630e5fb99f11856abe7ccbc6428bb23c",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/docs/Engineering Guide/Documentation/01 Principles.md": {
@@ -194,7 +130,7 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/manifest.json": {
-      "recorded_sha256": "e7dbbdb36689096dbad077978010452011585ca40c048d6943bade16af8b124a",
+      "recorded_sha256": "d8c2f2cfe9cd1bb3fa2f360fcbb9987c3728906e81655e102c718ff8564971a9",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/mcp.json": {
@@ -202,7 +138,7 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/settings.json": {
-      "recorded_sha256": "99953caf109b5a622ef5a9e867b4917a97eb9f78e7945c595534ff3d5cfc30c6",
+      "recorded_sha256": "bedd41f8aa19efd99c4ed56a804a9a2896250fb99a0a3643ac06950c8c1eb4d2",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/design/INTENT.md": {
@@ -374,7 +310,7 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/dev/INTENT.md": {
-      "recorded_sha256": "66178f48eaf6e51dafe7bdb0afdbd6b4cb762d8f4a130c239e0550cdb2ef41cf",
+      "recorded_sha256": "5c0ce1050e7536b50e89a6d47001b230c7ea134c78366730e63a40fc5d96ae09",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/dev/TEMPLATE.md": {
@@ -598,35 +534,35 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/00-overview.md": {
-      "recorded_sha256": "2f33224b658588785e8d9e8d8e94c7bedfe19f53b7a126e28280e280d850c759",
+      "recorded_sha256": "53c748f8f06eea41506ebb95a1ea9b8a05ff03541c21395a50f6539245477c54",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/launch/01-launch.md": {
-      "recorded_sha256": "32a610392c7179e8c6962e42a85b144e0bc699612a2db1ed8270a0fee33893f8",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "9be316dc3a0649f87fef0a84a0f2c608ea1f85fd5607daeccda531df58b0dfd8",
+      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
     },
     "references/launch/01a-launch-plan.md": {
-      "recorded_sha256": "c3d3ab5957e71f3744b2760f73e2430175f1d77eb2d4e87a0c78bf729aeaa984",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "8feb672456f79eb1431c22dc760494297a0e17ee8ad4e27606a04e65e0f453bc",
+      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
     },
     "references/launch/01b-launch-install.md": {
-      "recorded_sha256": "8264ed911e8cc7cc74679bbb7873533a2ee1a1229457e25c85f793ba3cfe1bf6",
+      "recorded_sha256": "01892a62b0799a6172ebfb0fdecbd0f6d2486eb3ddbcee497611cbb435ee56ec",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/launch/01c-launch-docs.md": {
-      "recorded_sha256": "e5b6327b8a14daa3638e01dc3b22ea6ab38941e325b3712453748aeaa4a4b960",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "addca42fc8de2b8bb74cc60c83f4f7f62438e2ce4cc0c09bc596064995bd6e1b",
+      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
     },
     "references/launch/01d-launch-verify.md": {
-      "recorded_sha256": "f56e35e198d0b0f74d4d871869b4c10a4615a9867228dbfaec36a128481593e2",
+      "recorded_sha256": "60e19f52fb49d00b1921e833a217212eeab5acd8e7e3278ba959133e05a2e4aa",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/launch/02-launch-questions.md": {
-      "recorded_sha256": "7199fdfde47912e38ca71c17e1495c43516e939284117f73ec57780ef1b4efca",
+      "recorded_sha256": "fb96842bbc286b5b37e6de9774fc53884825520d258570047d57e52a580578d5",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/launch/08-provider-launch.md": {
-      "recorded_sha256": "7ac4b45c9b3b26ae6b2eee382b6e44ddde6fccc41de9ae81d705a0739e8ea233",
+      "recorded_sha256": "842ad4ef769ab0a04fca1c8b217fccb82b9696565c584ffe79f0b73df15a8cb0",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/patch/03-patch.md": {
@@ -634,27 +570,91 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/patch/04-patch-harvest.md": {
-      "recorded_sha256": "53c0e0d5ca705df4f3bb74c404ce088a70f7b4976ca71ea9aa425ba3938991f4",
+      "recorded_sha256": "bc4d697dd3b9d13c936d11b0d015f6766e30a111f62593c536af0d45229d1e50",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/patch/05-patch-apply.md": {
-      "recorded_sha256": "7b9f49ea15adb057ed0e3399f2c9878e70f71c9566884c375d2ce03964224b07",
+      "recorded_sha256": "c3ae1f382189a075c3dd739ec2b8fd68a8ee4603003853aa052a19781dd2429c",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/patch/06-patch-state.md": {
-      "recorded_sha256": "b8c72311878f20bc1b48636a3d5804bb5a77d6e5c52d055135163c1dcf48bc18",
+      "recorded_sha256": "6929dee0556fb54c5cab88dfd0227cc50f655a754aeef7fe0a74277f84855d2e",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/patch/07-patch-prepare.md": {
-      "recorded_sha256": "61e32293e3a9ed86a6a9472411a18ae479a9bb5a9460d86fee1f9a1b0533f9a6",
+      "recorded_sha256": "24715d161bbe539d4662bad365897ae0d01ce57f5058e836ffa5ac7558b85dc5",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "registry.md": {
-      "recorded_sha256": "033f56f94ef1f760fd5b8930ee0db1c6abb3983db146e56b7d2e721a2884161b",
+      "recorded_sha256": "e82a7dc43884fe24d9bcf2a7b190e741a5ce0d8858d455f75ec5cfdc266cd650",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "reports/report.template.md": {
-      "recorded_sha256": "244630c5da5d765fe5398544a2e2d1837476cd9045a1229c703bc622a9f361cc",
+      "recorded_sha256": "e845d4c9ec87eff401a750121596efb519a0859d5b3004a3e72c5997012b5c1f",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/browser.md": {
+      "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/context.md": {
+      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/credentials.md": {
+      "recorded_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/delegation.md": {
+      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/interaction.md": {
+      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/planning.md": {
+      "recorded_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/review.md": {
+      "recorded_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/task-tracking.md": {
+      "recorded_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/browser.md": {
+      "recorded_sha256": "d21bb18d08213e9542563c2905b2943d6a54fabef91fd4fc8b0cc07a4e87cfe5",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/context.md": {
+      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/credentials.md": {
+      "recorded_sha256": "d89a348add3d897bdfa92fa2624aaaecb959c0c60c0fcb7311801f8ac2ed949d",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/delegation.md": {
+      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/interaction.md": {
+      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/planning.md": {
+      "recorded_sha256": "092ce683b3f842e3c82124248a72b3f8bdde481c01b8d180939d54438a03b881",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/review.md": {
+      "recorded_sha256": "b46a2ad5b6797d4a86c4e01226518824771551f0548395545bc53d664f17fbc7",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/task-tracking.md": {
+      "recorded_sha256": "1969af7d8ba7ddf91bac82c3af440ff57754065a8588e25c296ab4d1c8556811",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     }
   }

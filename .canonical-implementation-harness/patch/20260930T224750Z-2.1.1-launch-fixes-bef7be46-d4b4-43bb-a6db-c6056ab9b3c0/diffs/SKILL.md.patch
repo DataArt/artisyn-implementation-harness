@@ -1,0 +1,28 @@
+diff --git a/SKILL.md b/SKILL.md
+index e4336c5..b03a92d 100644
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1,7 +1,7 @@
+ ---
+ name: harness-bootstrap
+ metadata:
+-  version: 2.0.0
++  version: 2.1.1
+ description: >
+   Install the portable AI-dev harness, harvest project skill improvements into its
+   canonical templates, package direct canonical edits into a portable bundle, or
+@@ -69,6 +69,14 @@ required autonomous stages remain pending or in progress. A truthful in-progress
+ report does not itself justify stopping. Stop only at a concrete external blocker
+ or after final verification, and record the exact blocker or evidence.
+ 
++Never hand the launch (or any span of its remaining stages) to a background/async
++subagent and end the turn expecting to resume from its completion notification later —
++the session ending is exactly what "do not return" forbids, and a killed or orphaned
++background task leaves the run permanently stuck mid-stage. Execute every stage's work
++directly in this session; a delegated worker (per "Delegation safety" below) is
++acceptable only for a single stage's disjoint file writes, dispatched and awaited
++synchronously before moving on, never as a fire-and-forget handoff of the whole run.
++
+ ## Progress and continuity
+ 
+ **Initialize task tracking before context inspection or Q&A**, immediately after

@@ -2,6 +2,24 @@
 
 All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
 
+## 2.1.1
+
+Fixes surfaced by the Codex greenfield e2e case after 2.1.0:
+
+- Require every D.1–D.5 output (Engineering Guide, HLD/LLD, docs/README.md, root
+  README.md, app READMEs), not only the two D.2 shared pattern docs, to be reserved in
+  `derived_outputs` and re-validated progressively, so plan/receipt/operation record
+  stay reconciled instead of failing Stage E verification.
+- Clarify that a D-stage `derived_outputs` reservation always amends the original
+  `<run_id>/plan.json` in place; a new linked run ID is reserved solely for splitting
+  A/B/C materialization or a later block with unresolved inputs, never for D.1–D.5.
+- Require native task subjects to use the exact recorded run ID (not a literal mode
+  name) so run-scoped grader queries match, and tighten the Status cell to
+  byte-for-byte Pending/In progress/Complete with skip rationale moved to Notes.
+- Forbid delegating a launch, or any span of it, to a fire-and-forget background
+  subagent; per-stage delegation must be dispatched and awaited synchronously. D.5
+  now also requires linking the project's root README.md into `docs/`.
+
 ## 2.1.0
 
 Adds provider-neutral partial launch checkpoints for externally blocked Stage E

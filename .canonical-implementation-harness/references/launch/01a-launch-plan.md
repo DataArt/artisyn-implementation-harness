@@ -101,9 +101,14 @@ companion gets its own entry; a filename glob alone is not a companion inventory
 Missing dependencies and destination collisions are planning errors.
 
 Store immutable JSON at `package:state/launch/runs/<run_id>/plan.json`; use a new linked
-run ID if the plan changes, and separate linked plans for later blocks with unresolved
-inputs. Freeze the selected canonical payload/manifest before writes per Patch State.
-Keep project values and baseline bytes local; never put secrets in plans.
+run ID only to split A/B/C materialization into separate verified stage receipts, or
+for a later block whose inputs are unresolved. This is the only sanctioned use of a
+linked run ID: D.1–D.5's own `derived_outputs` reservations are never a new linked run
+— they always amend this same `<run_id>/plan.json` in place (re-run `--check`/`--write`
+against this same path as each is added), because state verification reconciles the
+operation record against this one run's receipt, not against any linked run's. Freeze
+the selected canonical payload/manifest before writes per Patch State. Keep project
+values and baseline bytes local; never put secrets in plans.
 
 Plan shape — `scripts/materialize-launch.mjs` is the validation authority for this
 schema (hashes, safe paths, knowns, tokens, collisions, preconditions):

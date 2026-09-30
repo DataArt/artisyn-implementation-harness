@@ -69,14 +69,18 @@ it yet. This is not an exemption: every file D.1–D.5 create or update — Engi
 Guide docs, HLD/LLD docs and indexes, `docs/README.md`, the root `README.md`, app
 READMEs, the two D.2 shared pattern docs, and any other stage output — must be
 reserved in `derived_outputs` and re-validated via `materialize-launch.mjs --plan
-<run-dir>/plan.json --check`/`--write` as each is decided, not only the two LLD shared
-pattern docs called out above. Do this progressively, stage by stage, rather than
-batching it at the end: an output written without a matching `derived_outputs`
-reservation leaves the plan, the materialization receipt, and the operation record
-unreconciled with each other, which fails verification whether the run finishes
-cleanly or is later graded as a partial/blocked run. Stage 13 (cleanup and final
-audit) must find the plan, receipt, and operation record in exact agreement over
-every permanent output that stage produced.
+<run-dir>/plan.json --check`/`--write`, where `<run-dir>` is this run's **original**
+`runs/<run_id>/` directory from Stage 3 — the same file, amended in place, every time.
+Do not create a new linked run ID for a D-stage addition (linked runs are reserved for
+splitting A/B/C materialization only, per 01a-launch-plan.md); state verification
+reconciles the operation record against this one run's receipt, so anything reserved
+in a different run's plan is invisible to it and the reconciliation will still fail.
+Do this progressively, stage by stage, rather than batching it at the end: an output
+written without a matching `derived_outputs` reservation in the original plan leaves
+the plan, the materialization receipt, and the operation record unreconciled with each
+other, which fails verification whether the run finishes cleanly or is later graded as
+a partial/blocked run. Stage 13 (cleanup and final audit) must find the plan, receipt,
+and operation record in exact agreement over every permanent output that stage produced.
 
 ## Documentation evidence and precedence
 
