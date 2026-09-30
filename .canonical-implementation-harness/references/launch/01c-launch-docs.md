@@ -104,7 +104,12 @@ Use link syntax supported by the project's actual Markdown/link checker. Check l
 destinations with that checker; do not hide failures by stripping or decoding characters
 it treats as part of a filename. Prefer space-free names for new process references.
 
-Indexing is not only the root doc: installed Documentation/02 Structure.md's "App
+Also update the project's own root `README.md` (not `docs/README.md`) to link into
+`docs/`, so `docs/` is discoverable from the project's front door. Add a short section
+or line pointing at `docs/README.md` (or the most relevant entry point); reconcile
+with any existing root README content rather than replacing it wholesale.
+
+Indexing is not only the docs-tree root doc: installed Documentation/02 Structure.md's "App
 README scope" requires every app README to link to its HLD container and LLD
 component doc. Once this launch has created or confirmed those HLD/LLD outputs, add
 or update an `## Architecture` section (or equivalent) linking to them in each

@@ -53,6 +53,14 @@ completion. Continue to the next pending stage in the same launch; do not return
 merely because the report truthfully says work remains. Stop only at a concrete
 external blocker that prevents the next required action, or after final verification.
 
+Do not dispatch the launch, or any remaining span of its stages, to a background/async
+subagent and end the turn to await its completion notification later — that is
+returning while stages remain pending, and an interrupted or killed background task
+leaves the run stuck mid-stage with no session left to resume it. Run every stage's
+work directly in the current session. Delegating a single stage's disjoint work to a
+worker (see "Delegation safety" in SKILL.md) is fine, but only dispatched and awaited
+synchronously before the orchestrator continues — never as a fire-and-forget handoff.
+
 Initialize tracking immediately after ignore setup and report initialization, before
 context inspection or Q&A. Load the selected provider's
 `canonical/adaptors/<provider>/task-tracking.md` and follow its native tracker contract:
@@ -70,7 +78,10 @@ in the report before moving to the next stage. A component-agent dispatch is not
 completion — the parent verifies all required worker outputs first. Keep a failed
 stage in progress and its dependents pending, recording the failure and next action.
 An authorized optional skip completes its stage only after recording the reason and
-checking that downstream stages remain valid. On resume, reconcile the task list
+checking that downstream stages remain valid. The report's Status cell is always
+exactly one of `⏳ Pending`, `🔄 In progress`, or `✅ Complete` — never append a skip
+reason or other annotation to the Status cell itself; record it in the Notes column
+instead. On resume, reconcile the task list
 with recorded IDs and rechecked evidence: recreate missing tasks, rebuild
 dependencies where available, restore verified statuses from the report, and reopen
 invalidated stages — never create a duplicate chain while the run's tasks exist.

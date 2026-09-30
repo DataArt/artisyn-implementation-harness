@@ -69,6 +69,14 @@ required autonomous stages remain pending or in progress. A truthful in-progress
 report does not itself justify stopping. Stop only at a concrete external blocker
 or after final verification, and record the exact blocker or evidence.
 
+Never hand the launch (or any span of its remaining stages) to a background/async
+subagent and end the turn expecting to resume from its completion notification later —
+the session ending is exactly what "do not return" forbids, and a killed or orphaned
+background task leaves the run permanently stuck mid-stage. Execute every stage's work
+directly in this session; a delegated worker (per "Delegation safety" below) is
+acceptable only for a single stage's disjoint file writes, dispatched and awaited
+synchronously before moving on, never as a fire-and-forget handoff of the whole run.
+
 ## Progress and continuity
 
 **Initialize task tracking before context inspection or Q&A**, immediately after
