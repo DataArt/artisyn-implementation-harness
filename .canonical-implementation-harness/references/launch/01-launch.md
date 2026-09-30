@@ -25,9 +25,13 @@ preserve unrelated shared behavior.
 
 ## Launch task table
 
-Track one task per row. Prefix each subject with `[harness-bootstrap <run_id>] `.
-Dependency numbers identify rows; resolve them to real task IDs, never pass row
-numbers as task IDs.
+Track one task per row. Prefix each subject with `[harness-bootstrap <run_id>] `,
+where `<run_id>` is the exact run identifier already recorded in this run's
+`selection.json`/`plan.json` and the report's `Run ID` field (e.g.
+`20260930T192108Z-launch`) — never a shortened form, the mode name alone (`launch`),
+or any other placeholder. Every task subject's prefix must match that string exactly,
+since it is used to identify this run's tasks. Dependency numbers identify rows;
+resolve them to real task IDs, never pass row numbers as task IDs.
 
 | #   | Stage                                   | Depends on | Completion evidence                                                                                          |
 | --- | --------------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------ |
@@ -40,7 +44,7 @@ numbers as task IDs.
 | 7   | D.1 — Engineering Guide                 | 6          | Installed documentation contracts                                                                            |
 | 8   | D.2 — LLD                               | 7          | Verified components or explicit greenfield scaffold                                                          |
 | 9   | D.3 — HLD                               | 8          | Verified containers and system overview/sizing                                                               |
-| 10  | D.4 — NFRs                              | 9          | Verified pillar documents or recorded skip                                                                   |
+| 10  | D.4 — NFRs                              | 9          | Verified pillar documents, or Complete with skip reason in Notes                                             |
 | 11  | D.5 — Indexes                           | 10         | Links to actual verified outputs                                                                             |
 | 12  | E — Satellite review                    | 11         | Recorded verdict, docs-writer final edits, resolved findings and Mermaid rendering gate passed               |
 | 13  | Cleanup and final audit                 | 12         | Rechecked outputs, links, and final baselines                                                                |
@@ -79,9 +83,12 @@ completion — the parent verifies all required worker outputs first. Keep a fai
 stage in progress and its dependents pending, recording the failure and next action.
 An authorized optional skip completes its stage only after recording the reason and
 checking that downstream stages remain valid. The report's Status cell is always
-exactly one of `⏳ Pending`, `🔄 In progress`, or `✅ Complete` — never append a skip
-reason or other annotation to the Status cell itself; record it in the Notes column
-instead. On resume, reconcile the task list
+byte-for-byte exactly one of `⏳ Pending`, `🔄 In progress`, or `✅ Complete` — nothing
+else may ever appear in that cell, not `(skip)`, `(recorded skip)`, a stage number, or
+any other parenthetical. A skipped stage is still `✅ Complete`; its skip reason goes
+only in the Notes column, e.g.:
+`| 10 | D.4 — NFRs | ✅ Complete | Q8/Q11 = None — skipped, no pillar docs written |`.
+On resume, reconcile the task list
 with recorded IDs and rechecked evidence: recreate missing tasks, rebuild
 dependencies where available, restore verified statuses from the report, and reopen
 invalidated stages — never create a duplicate chain while the run's tasks exist.
