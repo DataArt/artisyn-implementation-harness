@@ -47,4 +47,5 @@ export {
   patchManifestSchema,
   patchBundleHashes,
   patchApplyReconstruction,
+  patchProviderScope,
 } from './patch.grader.ts';

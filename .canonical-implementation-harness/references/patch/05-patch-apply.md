@@ -35,6 +35,14 @@ row does not excuse new drift; offer harvest/preservation/replacement as appropr
 Process explicitly selected bundles in dependency order, completing one before the
 next. Unmet prerequisites must be supplied or explicitly reconciled before writes.
 
+Resolve this run's provider scope before inspecting any permanent file: take the
+installed providers from `canonical/manifest.json`'s destinations and the recorded
+answers, confirm each one is actually installed, and limit the run to the providers the
+request names. Do not infer the scope from the execution host, and do not treat one
+installed provider as the whole scope when another is also installed. Inspect, diff and
+record each selected provider's outputs separately — a shared canonical source has one
+rendered result per provider, with its own baseline and its own local edits.
+
 Read local Answers (newest populated report, then legacy answers files) and INTENT
 substitution tables. Infer clear project values from existing context; ask only for
 missing or ambiguous values needed by affected outputs. Do not import source-project
@@ -52,6 +60,11 @@ rendered output. Include stored local customizations in the comparison:
   by harvest, explicitly retained customization, or authorized replacement. Do not
   silently overwrite modifications to existing template text.
 - Missing baseline: use the conservative migration procedure in the shared contract.
+
+Deploy provider by provider, completing and verifying one provider's outputs before
+starting the next, so a failure leaves a known boundary rather than a half-written pair.
+Resolve each provider's output path through the manifest; never write a rendered result
+for one provider to another's destination.
 
 Resolve rename pairs before writes. Compare both the current old and new paths;
 write and verify the destination before removing the old path. Copies retain their
@@ -85,8 +98,10 @@ deployed content can be retired. Advance canonical checkpoints only for verified
 canonical writes. Never mark skipped unresolved items as successfully deployed.
 
 Mark the operation `applied` only after all required canonical writes, deployment,
-and verification succeed. Otherwise retain `partial` or `failed` and resumable
-per-file results. Purely package-internal changes can complete with zero permanent
+and verification succeed for **every** provider in the resolved scope. A run that
+finished one provider and not another is `partial`, with the unfinished provider's
+outputs resumable; record the covered providers rather than implying full coverage.
+Otherwise retain `partial` or `failed` and resumable per-file results. Purely package-internal changes can complete with zero permanent
 outputs when the manifest explicitly marks them canonical-only.
 
 Report applied/skipped/unresolved items, manifest path, and verification results.

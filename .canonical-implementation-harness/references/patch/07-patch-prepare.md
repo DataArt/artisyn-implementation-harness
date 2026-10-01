@@ -14,6 +14,10 @@ the packaging half of `apply`'s Step 1, run standalone, with no personalization 
 no deployment. Nothing under `docs/`, `.claude/skills/`, `.claude/agents/`, or any
 other permanent project path is read or written by this operation.
 
+Prepare is therefore provider-neutral: it resolves no provider scope, reads no installed
+output, and records `providers: []` in its operation record. Which providers eventually
+receive the bundle is `apply`'s decision, made per project.
+
 > ⚠️ **Not the old two-way prepare/apply pair.** An earlier design of this package
 > had `prepare` classify drift in either direction and hand `apply` a decided plan;
 > that added an unresolvable "conflict" case and a cross-command handoff for no real

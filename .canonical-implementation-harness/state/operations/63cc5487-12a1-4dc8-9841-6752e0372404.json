@@ -917,5 +917,7 @@
       "after_sha256": "244630c5da5d765fe5398544a2e2d1837476cd9045a1229c703bc622a9f361cc",
       "verification": "reconstructed and hash-verified from disk payload"
     }
-  ]
+  ],
+  "providers": [],
+  "provider_scope_source": "prepare is provider-neutral — canonical only, no permanent file read or written"
 }

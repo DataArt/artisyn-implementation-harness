@@ -20,6 +20,11 @@ touches; new components and companions are handled by the same recipe.
 the requested scope. Use `prepare` when the bundle needs to exist (for review, or to
 carry to another project) before any permanent file is touched.
 
+`harvest` and `apply` touch permanent files, so both are provider-scoped and recorded
+per provider; `prepare` never leaves canonical and has no provider scope. A project may
+have several providers installed at once — resolve the scope from what is installed, not
+from the execution host. See `06-patch-state.md`'s "Provider scope of an operation".
+
 The bootstrap folder remains authoritative in every direction. Harvest explicitly
 promotes an improvement; it does not make all permanent files authoritative.
 See `06-patch-state.md` for manifests, baselines, and portable bundle contents.

@@ -71,6 +71,7 @@ independent results on resume. Final hashes are recorded after INTENT adaptation
 ## Patch outcome
 
 - Scope:
+- Providers: _(apply: deployed to; harvest: observed from; prepare: none)_
 - Manifest UUID/path:
 - Local operation record:
 - Conflicts and decisions:

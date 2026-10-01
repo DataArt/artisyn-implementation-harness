@@ -2,6 +2,26 @@
 
 All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
 
+## 2.2.0
+
+Provider tracking for every operation that touches permanent files. A project can have
+Claude and Codex installed side by side, and the local records could not say which
+provider an `apply` or `harvest` had actually covered:
+
+- Record a resolved `providers` scope on each operation: deployment targets for `apply`,
+  the observed provider for `harvest`, the selected providers for `launch`, and `[]` for
+  `prepare`, which never leaves canonical. Resolve it from the manifest and what is
+  actually installed — never from the execution host or one provider's presence.
+- Give `project-patch/APPLIED.md` a Providers column, name a `provider` on every mapped
+  per-file result, and make each `state/index.json` mapping entry one provider's output
+  with its own baselines, so one provider's state is never read as the other's.
+- Require per-provider deployment, verification and completion: a run that finished one
+  provider and not another is `partial`, not `applied`, and applying the same bundle to a
+  second provider later is a new operation record and a new `APPLIED.md` row.
+- Keep canonical writes and portable bundles provider-neutral — scope lives in local
+  state, not in payloads — and treat a record with no `providers` as unknown scope to
+  re-resolve rather than assuming full coverage.
+
 ## 2.1.2
 
 Fix surfaced by the Codex greenfield e2e case after 2.1.1:
