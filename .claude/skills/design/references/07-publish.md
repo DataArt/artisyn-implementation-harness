@@ -49,10 +49,10 @@ This is a sign-off gate (`patterns/approval-sign-off.md`). **Stop and wait.**
 ## Step 3 — Apply doc updates
 
 Read `docs/Engineering Guide/Documentation/01 Principles.md` before writing anything. For each destination,
-also apply `docs/Engineering Guide/Documentation/02 Structure.md`'s doc-type cheat sheet for
-the target tier — HLD containers, LLD component details, or NFR requirements and
-acceptance evidence. Tell `@docs-writer` which tier applies to each path and
-require the resulting section to satisfy it.
+also apply the matching Engineering Guide intent: `03 HLD Intent.md` for HLD
+containers, `04 LLD Intent.md` for LLD component details, and `05 NFR Intent.md`
+for NFR requirements and acceptance evidence. Tell `@docs-writer` which intent
+applies to each path and require the resulting section to satisfy that intent.
 
 Use `solution/Architecture.md` as the source for the complete published solution.
 Port its settled decisions and end-to-end flows; treat the other selected solution
@@ -96,7 +96,7 @@ Apply the satellite review pattern (`.claude/skills/design/patterns/satellite-re
 
 - Read the updated doc(s)
 - Verify the changes are accurate, consistent with the rest of the docs, and don't introduce contradictions or gaps
-- Verify the change stays at governance altitude and hasn't drifted into implementation detail
+- Verify the change stays at governance altitude and hasn't drifted into a downstream project's implementation detail
 - **Do not write or edit any files — return output only**
 - Return: **OK** or a specific list of corrections needed
 
@@ -127,6 +127,8 @@ Append to the Efforts table:
 ---
 
 ## Step 6 — Wrap-up question (single stop)
+
+Read the Implementation note from `design/Report.md`'s `## Context` section before publishing implementation tickets.
 
 The permanent docs are updated and reviewed — this is the **only remaining stop**
 in the lifecycle. Ask both closing questions in one message:

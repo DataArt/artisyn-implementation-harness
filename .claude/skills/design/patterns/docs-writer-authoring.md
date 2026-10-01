@@ -4,7 +4,7 @@ Applies whenever a design-lifecycle skill is about to write or update a design a
 
 ## The rule
 
-**Never write the artifact file directly.** Delegate the actual authoring to `@docs-writer`. The orchestrating skill still does all the thinking — framing the problem, running the OQ triage, building the tradeoff matrix, deciding the recommendation — but the act of rendering that content to disk as a `.md` file goes through `@docs-writer`, not a direct `Write`/`Edit` call from the orchestrator.
+Apply `.claude/skills/design/runtime/delegation.md`. Delegate authoring to the installed `docs-writer` role when delegation is available and permitted; otherwise use its explicitly recorded inline-authoring fallback. The orchestrating skill still does all the thinking — framing the problem, running the OQ triage, building the tradeoff matrix, deciding the recommendation — but the act of rendering that content to disk as a `.md` file goes through `@docs-writer`, not a direct `Write`/`Edit` call from the orchestrator.
 
 ## Why delegate a file the orchestrator already knows how to write
 
@@ -14,12 +14,13 @@ Applies whenever a design-lifecycle skill is about to write or update a design a
 
 1. Assemble the full content for the artifact yourself first — this pattern does not change _what_ goes in the file, only _who_ performs the write. Have the target path, the template to follow (e.g. `.claude/skills/design/templates/frame.md`), and the drafted content (problem statement, options, matrix, recommendation, etc.) ready.
 2. Delegate to `@docs-writer` with: the target file path, the template file path, the drafted content/decisions to render, and an explicit instruction to apply the certainty principle and diagram-first Mermaid conventions.
-   For sections destined for architecture documentation, also point to
-   `docs/Engineering Guide/Documentation/02 Structure.md`'s doc-type cheat sheet for the
-   target tier (HLD container, LLD component, or NFR requirement/acceptance
-   evidence) and require the resulting section to satisfy it. Keep HLD, LLD and
-   NFR responsibilities separate, link authoritative sources, and do not duplicate
-   or weaken their required coverage.
+   For sections destined for architecture documentation, also provide the relevant
+   Engineering Guide intents and require them to be applied at the target tier:
+   `docs/Engineering Guide/Documentation/03 HLD Intent.md` for HLD/container
+   content, `04 LLD Intent.md` for LLD/component content, and `05 NFR Intent.md`
+   for NFR requirements and acceptance evidence. Read the applicable intent before
+   drafting; keep HLD, LLD and NFR responsibilities separate, link authoritative
+   sources, and do not duplicate or weaken their required coverage.
 3. Once `@docs-writer` confirms the file is written, proceed to the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`) exactly as before — the developer still reviews and confirms in their IDE.
 
 ## Why

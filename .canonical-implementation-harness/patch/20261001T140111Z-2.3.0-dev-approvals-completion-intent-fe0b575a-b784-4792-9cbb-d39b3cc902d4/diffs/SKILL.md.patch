@@ -1,0 +1,11 @@
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1,7 +1,7 @@
+ ---
+ name: harness-bootstrap
+ metadata:
+-  version: 2.2.0
++  version: 2.3.0
+ description: >
+   Install the portable AI-dev harness, harvest project skill improvements into its
+   canonical templates, package direct canonical edits into a portable bundle, or

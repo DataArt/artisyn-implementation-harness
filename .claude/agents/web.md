@@ -1,7 +1,7 @@
 ---
 name: web
-description: VitePress documentation site specialist — owns apps/docs-web
-tools: Read, Edit, Write, Glob, Grep
+description: "VitePress documentation site specialist — owns apps/docs-web"
+tools: "Read, Edit, Write, Glob, Grep"
 ---
 
 ## Role
@@ -32,3 +32,5 @@ Skip satellite review for mechanical steps (typo fix, content-only edit with no 
 - Never implement work outside `apps/docs-web/`
 - Never add features beyond what the current plan step specifies
 - Never hardcode secrets, the AWS region, or environment-specific values (e.g. `S3_BUCKET_NAME`, giscus repo/category IDs) — these come from `.env.dev`/`.env.prod`, never committed literals
+
+For role invocation and review handoffs, apply `.claude/harness-runtime/delegation.md`.

@@ -4,7 +4,9 @@
     "deny": [
       "Bash(git push:*)",
       "Bash(yarn nx run infra:apply:*)",
-      "Bash(yarn nx run infra:destroy:*)"
+      "Bash(yarn nx run infra:destroy:*)",
+      "Bash(yarn nx run harness-bootstrap-e2e:agent-e2e)",
+      "Bash(yarn nx run harness-bootstrap-e2e:agent-e2e:*)"
     ]
   },
   "env": {

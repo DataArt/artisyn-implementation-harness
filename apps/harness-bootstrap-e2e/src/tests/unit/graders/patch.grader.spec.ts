@@ -8,8 +8,12 @@ import {
   gradePatchManifestSchema,
   gradePatchBundleHashes,
   gradePatchApplyReconstruction,
+  gradePatchProviderScope,
+  latestOperation,
 } from '../../../graders/patch.grader.ts';
-import type { PatchManifest } from '../../../graders/_types.ts';
+import type { PatchManifest, Receipt } from '../../../graders/_types.ts';
+import { OPERATIONS_DIR } from '../../../utils/constants.ts';
+import { PROVIDERS } from '../../../utils/providers.ts';
 
 const sha256 = (data: Buffer) => crypto.createHash('sha256').update(data).digest('hex');
 
@@ -100,5 +104,167 @@ describe('patch bundle contract (schema v2)', () => {
     );
     expect(result.pass).toBe(false);
     expect(result.failures[0]).toMatch(/doesn't match before_sha256/);
+  });
+});
+
+/** A local `apply` operation record as 06-patch-state.md's "Provider scope of
+ * an operation" specifies it: a resolved provider scope, and one per-file
+ * result per provider output plus a provider-neutral canonical-only entry.
+ */
+function applyRecord(overrides: Partial<Receipt> = {}): Receipt {
+  return {
+    id: crypto.randomUUID(),
+    mode: 'apply',
+    status: 'applied',
+    created_at: '2026-10-01T00:00:00Z',
+    providers: [PROVIDERS.claude, PROVIDERS.codex],
+    files: [
+      { path: '.claude/skills/dev/SKILL.md', provider: PROVIDERS.claude, deployment: 'mapped' },
+      { path: '.agents/skills/dev/SKILL.md', provider: PROVIDERS.codex, deployment: 'mapped' },
+      {
+        path: 'docs/Engineering Guide/01 Conventions.md',
+        provider: 'shared',
+        deployment: 'mapped',
+      },
+      { path: 'CHANGELOG.md', provider: null, deployment: 'canonical-only' },
+    ],
+    ...overrides,
+  };
+}
+
+describe('patch operation provider scope', () => {
+  it('accepts an apply record that covers every provider in its scope', () => {
+    const outcome = gradePatchProviderScope(applyRecord(), [PROVIDERS.claude, PROVIDERS.codex]);
+    expect(outcome.pass, outcome.failures.join('\n')).toBe(true);
+  });
+
+  it('rejects a record with no providers array — scope is unknown, not implied', () => {
+    const record = applyRecord();
+    delete record.providers;
+    const outcome = gradePatchProviderScope(record);
+    expect(outcome.pass).toBe(false);
+    expect(outcome.failures[0]).toMatch(/must declare a providers array/);
+  });
+
+  it('rejects applied when one provider in scope has no deployed result', () => {
+    const outcome = gradePatchProviderScope(
+      applyRecord({
+        files: [
+          { path: '.claude/skills/dev/SKILL.md', provider: PROVIDERS.claude, deployment: 'mapped' },
+        ],
+      })
+    );
+    expect(outcome.pass).toBe(false);
+    expect(outcome.failures.join('\n')).toMatch(/no deployed result covers provider codex/);
+  });
+
+  it('accepts the same half-finished run when it honestly records partial', () => {
+    const outcome = gradePatchProviderScope(
+      applyRecord({
+        status: 'partial',
+        files: [
+          { path: '.claude/skills/dev/SKILL.md', provider: PROVIDERS.claude, deployment: 'mapped' },
+        ],
+      })
+    );
+    expect(outcome.pass, outcome.failures.join('\n')).toBe(true);
+  });
+
+  it('rejects a mapped result whose provider is outside the recorded scope', () => {
+    const outcome = gradePatchProviderScope(
+      applyRecord({
+        providers: [PROVIDERS.claude],
+        files: [
+          { path: '.agents/skills/dev/SKILL.md', provider: PROVIDERS.codex, deployment: 'mapped' },
+        ],
+      })
+    );
+    expect(outcome.pass).toBe(false);
+    expect(outcome.failures.join('\n')).toMatch(/outside the recorded scope/);
+  });
+
+  it('rejects a mapped result that names no provider at all', () => {
+    const outcome = gradePatchProviderScope(
+      applyRecord({
+        files: [{ path: '.claude/skills/dev/SKILL.md', provider: null, deployment: 'mapped' }],
+        status: 'partial',
+      })
+    );
+    expect(outcome.pass).toBe(false);
+    expect(outcome.failures.join('\n')).toMatch(/must name its provider/);
+  });
+
+  it('requires prepare to record an empty scope and harvest exactly one provider', () => {
+    expect(
+      gradePatchProviderScope({ mode: 'prepare', status: 'completed', providers: [], files: [] })
+        .pass
+    ).toBe(true);
+    expect(
+      gradePatchProviderScope({
+        mode: 'prepare',
+        status: 'completed',
+        providers: [PROVIDERS.claude],
+        files: [],
+      }).pass
+    ).toBe(false);
+    expect(
+      gradePatchProviderScope({
+        mode: 'harvest',
+        status: 'harvested',
+        providers: [PROVIDERS.claude, PROVIDERS.codex],
+        files: [],
+      }).pass
+    ).toBe(false);
+  });
+
+  it('accepts a shared project output that belongs to no single provider', () => {
+    const outcome = gradePatchProviderScope(
+      applyRecord({
+        providers: [PROVIDERS.claude],
+        files: [
+          { path: '.claude/skills/dev/SKILL.md', provider: PROVIDERS.claude, deployment: 'mapped' },
+          {
+            path: 'docs/Engineering Guide/01 Conventions.md',
+            provider: 'shared',
+            deployment: 'mapped',
+          },
+        ],
+      })
+    );
+    expect(outcome.pass, outcome.failures.join('\n')).toBe(true);
+  });
+
+  it('accepts a canonical-only apply that deploys nothing and so covers no provider', () => {
+    const outcome = gradePatchProviderScope(
+      applyRecord({
+        providers: [],
+        files: [{ path: 'CHANGELOG.md', provider: null, deployment: 'canonical-only' }],
+      })
+    );
+    expect(outcome.pass, outcome.failures.join('\n')).toBe(true);
+  });
+
+  it('still rejects a mapped result when the scope is empty', () => {
+    const outcome = gradePatchProviderScope(
+      applyRecord({
+        providers: [],
+        files: [
+          { path: '.claude/skills/dev/SKILL.md', provider: PROVIDERS.claude, deployment: 'mapped' },
+        ],
+      })
+    );
+    expect(outcome.pass).toBe(false);
+    expect(outcome.failures.join('\n')).toMatch(/outside the recorded scope/);
+  });
+
+  it('reads the newest record for a mode, tolerating the patch- mode prefix', () => {
+    const packageRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'patch-ops-'));
+    const dir = path.join(packageRoot, OPERATIONS_DIR);
+    fs.mkdirSync(dir, { recursive: true });
+    const older = applyRecord({ created_at: '2026-09-01T00:00:00Z', mode: 'patch-apply' });
+    const newer = applyRecord({ created_at: '2026-10-01T00:00:00Z', mode: 'patch-apply' });
+    fs.writeFileSync(path.join(dir, `${older.id}.json`), JSON.stringify(older));
+    fs.writeFileSync(path.join(dir, `${newer.id}.json`), JSON.stringify(newer));
+    expect(latestOperation(packageRoot, 'apply').id).toBe(newer.id);
   });
 });

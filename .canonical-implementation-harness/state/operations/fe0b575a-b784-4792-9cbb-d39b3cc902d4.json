@@ -1,0 +1,276 @@
+{
+  "schema_version": 2,
+  "bundle_id": "fe0b575a-b784-4792-9cbb-d39b3cc902d4",
+  "mode": "prepare",
+  "status": "verified",
+  "created_at": "2026-10-01T14:01:11Z",
+  "notes": "Direct canonical edits from the 2.3.0 refactor session. Bases taken from git HEAD (git archive), byte-matching every recorded_sha256 (verified before diffing). Deployment to installed outputs is the following patch apply.",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "1959bf8ad05a73af634e533e6f22b1f230db4bcf8c3992469b82dfee804c6070",
+      "after_sha256": "02b2454da976c82d534a895b6493fa1cb8a072890ee988dced3cc233b3ee994c",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "SKILL.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "50af37a3b615fff1b69ccd14c345dfa75ef5b19d4d521a42e4862c3348103258",
+      "after_sha256": "7b938f8fd1b9586a93a46cd7841ae03a69d3aaf95a5c7107a1f22eb79e0b1ad5",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "cb2ee40cc95bf8c2cbd55fb44cd07a980bc372f3e7419da11b68ef271293ff37",
+      "after_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "7e0eae7b84cc11b7730079c660bce80869038605ec69ccb13f82648a67396d54",
+      "after_sha256": "ebcf64f15253b35b3d68f8f8821aa73a289e46384fd4885a9aaa932d9d1428ab",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "f3899e7ac96c28e2bcd6affa4d510e5a7cfb30cef94065df611256b0666b2455",
+      "after_sha256": "b12289b05eeddb1ad35d0a79d02f6ef21c9c29a26da9c054ce10c2bf171d8179",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "f95afcb4a4227877b8b4074f06b874a1e4a4ae11742decba87aff932068f3fc8",
+      "after_sha256": "c3f3d52e5b2a013bdc3dcc22cd92a37b7c8cd708838afdd221efd6eb5b5ed2b4",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/INTENT.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "5c0ce1050e7536b50e89a6d47001b230c7ea134c78366730e63a40fc5d96ae09",
+      "after_sha256": "27a6b227f09bed28788c0c201607008107b0bb2792f9bc9d5721c5997414acfa",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/TEMPLATE.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "81f17f43225c0f1d334f5c21f3060c7163798bde04833875e713c1c762fbc929",
+      "after_sha256": "a6ae755a12568a7ff04a78470f583178dbc2edc32a44baa71c9dfe0398e74c21",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/announce-progress.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "6c663aae90e3b5bf25ecb7f8775ae39a1dd5687677a9a4e8057915232f08976a",
+      "after_sha256": "c55c992a99c1f5ec28ac33ae0181254b1960715820784b638a1a2d3789b6adcf",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/approval-sign-off.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
+      "after_sha256": "41e5a1c3ceb16b709d28a7991aeca56c0beddd81972ce24c3fb68b433b7c219e",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/do-report-commit.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
+      "after_sha256": "79e9db5d54ddf5ecc34ca3931dbd4d9aa0722d1822d3667b079f6da32bae90eb",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/metrics.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "ba3bc7ad68a1059bef97929bde4598b61729349e82f93a5d745a21a0bb47f7ef",
+      "after_sha256": "02984f212928c25b48f3c95bb5837d9bb6913c884443c1fdb8ee97af5836456e",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/satellite-review.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "cb56389b7a889c7d761471ba0b81c06fe277fc9635252b02a1f38fbc964d3352",
+      "after_sha256": "76e6712baeec0630bfcf887047fe81814cb9bfcbdd48eb8d8871457877b18be8",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/session-continuity.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "30202994fa0242d70424cd9e1ac494b967942963d4849034fa0bceb10f6294f4",
+      "after_sha256": "7e2a7c6e597127da093fc229e613b8d02283bd56ceb18f9c87dfd84015571f49",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/write-confirm.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
+      "after_sha256": "e5ea574909f7af3148acf5d676619a675019f6fb6652c9fa2347761e9258fdca",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/00-router.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "09693de8536e427b469bcf72a60f9f3105b5a2228cdee3cc6e0c308ae752c5cc",
+      "after_sha256": "c359100eca838f9c18dd0d306f295415e74960c9f297bf0cda5821deb971fb37",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "5c12bb4e3d13ded7e0384c58c11eee890e13409310db0b1098d275f64f961322",
+      "after_sha256": "156ac91ede1b920e73ecd8403d3ab8c3b82735d72402c6349da0ff05348997d0",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/02-ceremony.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "95d1279d600f3da7fce7e3453b950216036dfd5157aa23d8f0298cd185784ed3",
+      "after_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "b3450a174aab5515a5135730b1ea5d532e61bcf6e1e90eb8f81ef343b00a3bdd",
+      "after_sha256": "34c6560014d856f7dec378aa51a2f31c24adc5b6593d1dca1491efea44d26adc",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/04-implement.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "afe8b6639ce40c9c83a8838fa62394614b0e86aedaf223df6fb7a5bbbb97fa41",
+      "after_sha256": "0b36bda3e2dbd483fc9fda6d71ec9361695c49d4a2207fa91887f4e70d918da8",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/05-test.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "9b4ea6a756b62fd5e1cf2f3df1d0090d068ea9ea181c90888b7196ad914a1911",
+      "after_sha256": "270d1eff9068eeac537670b651e9c665843d020ef80b408508c677e65b73510a",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/06-document.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "af8105be02c03a87869f7fdb663dc708dc98d24c8474c19933dd1559d23540ae",
+      "after_sha256": "2fd153a316f21e2cd8d1a19380bca03997267e836526c3f40a1ce08ad38bb322",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/scripts/constants.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "8fff1b355b56d516d524854b48fb2bc2cc1f7e814683a6da1a91c0d4c3861253",
+      "after_sha256": "f146f7191dc328a1277d36c6394298b233e87a0aafe27855c14b0500b1d02af3",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/scripts/timing.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "3fe648777db3099ef154f334e65e9297a55a46e658b60d86d167dad9838bc145",
+      "after_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/scripts/timing.test.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "07dadfb5301d2c1be233984f390a23b0dad51582ee030cb9ca8b79dd420750fa",
+      "after_sha256": "7a2345f5e964afd98b103451deabc2f0a22b466a1ab4876f48301b022ae8decb",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/templates/plan.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "3a86b8ff962887e62749a9a5aa4480da60512fe9d9ab3fdfd8683607240ddda8",
+      "after_sha256": "05d1088a50a2ac950cd56778e924f4fc5a7817bd1af6f0431376951a24f3adb2",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/templates/report.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "fb6cd4ecce02866cd01dce04c10a9754281a594fc688d6adc55128ac4840a2b7",
+      "after_sha256": "8041713d1ea0516a444194ac1dad4066854fdd8326e3b784a72b113e4cee02f3",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/templates/stat.json",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "772d817b5b9858c2d0844a281a22fa5f8b935d51d9bd0555e28c57a13a7e9235",
+      "after_sha256": "f6f0679edb987e0d8ce630a064987ed79e9657b964cc8d2e6982c6fa279a9f56",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/templates/stat.schema.json",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "94989c3d5067adba8122ffaa7f6c126aad96e55d0f01266f589e2b70fa1ae106",
+      "after_sha256": "7a4a6ea46f6aebd560268c862faa673c95c6480a42502feb894504150a8d843b",
+      "verification": "diff applied to recorded base with git apply; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/interfaces/intent.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "dbce01d8b97bdbde0ab4b29792818b6a160a6043d8c940d2c8bb276f9995e40c",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/patterns/phase-sign-off.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "41d3e3c7aa09478cc4a59d32e49598d52d4107824349abdea2e2b2f0aa8f1087",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/07-completion.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/templates/intent.md",
+      "old_path": null,
+      "operation": "delete",
+      "before_sha256": "1f3e103d61001564f78af84f7273b7cdb7b19cf21ae2ac0cf453547b6f11c555",
+      "after_sha256": null,
+      "verification": "absence verified on disk"
+    }
+  ],
+  "providers": [],
+  "provider_scope_source": "prepare is provider-neutral \u2014 canonical only, no permanent file read or written"
+}

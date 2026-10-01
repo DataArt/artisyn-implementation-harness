@@ -18,9 +18,10 @@
     "release:harness-bootstrap": "node scripts/release/release-harness-bootstrap.mjs"
   },
   "devDependencies": {
-    "@eslint/js": "^9.0.0",
-    "eslint": "^9.0.0",
+    "@eslint/js": "^10",
+    "eslint": "^10",
     "eslint-config-prettier": "^10.0.0",
+    "globals": "^17.13.0",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
     "mmdc": "^0.0.1",
@@ -38,5 +39,8 @@
     "*.{json,md,yaml,yml}": [
       "prettier --write"
     ]
+  },
+  "resolutions": {
+    "smol-toml": "^1.9.0"
   }
 }

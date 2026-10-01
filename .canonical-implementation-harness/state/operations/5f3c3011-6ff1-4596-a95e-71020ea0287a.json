@@ -33,5 +33,7 @@
     }
   ],
   "checkpoint_only_advances": [],
-  "unresolved": []
+  "unresolved": [],
+  "providers": [],
+  "provider_scope_source": "prepare is provider-neutral — canonical only, no permanent file read or written"
 }

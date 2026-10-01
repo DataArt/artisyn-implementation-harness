@@ -1,7 +1,7 @@
 ---
 name: harness-bootstrap
 metadata:
-  version: 2.1.2
+  version: 2.3.0
 description: >
   Install the portable AI-dev harness, harvest project skill improvements into its
   canonical templates, package direct canonical edits into a portable bundle, or
@@ -92,7 +92,10 @@ Reports persist progress across sessions and accompany available native tracking
 For patch operations, create `package:state/launch/reports/<timestamp>-<mode>.md` from
 the package report template. Load `package:state/launch/answers.json` and the latest local
 report; legacy package reports are a migration fallback. Use the mode's
-three progress rows, recording scope, manifest ID, decisions, and per-file outcomes.
+three progress rows, recording scope, the resolved provider scope, manifest ID,
+decisions, and per-file outcomes. A project can have several providers installed at
+once: name the providers the run deployed to or harvested from, never "both" by
+assumption. See `references/patch/06-patch-state.md`'s "Provider scope of an operation".
 Mirror these rows with the tracker selected above; preserve their order in a
 progress checklist or report when native Tasks are unavailable. On resume, read the report, selected recipe, and manifest/state first.
 Verify current hashes before continuing; never replay completed writes blindly.

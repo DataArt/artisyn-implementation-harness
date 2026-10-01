@@ -26,7 +26,8 @@ export function resolveExisting(file) {
     if (error.code !== 'ENOENT') throw error;
     if (fs.existsSync(path.dirname(file))) {
       try {
-        if (fs.lstatSync(file).isSymbolicLink()) throw new Error(`Dangling symlink: ${file}`);
+        if (fs.lstatSync(file).isSymbolicLink())
+          throw new Error(`Dangling symlink: ${file}`, { cause: error });
       } catch (e) {
         if (e.code !== 'ENOENT') throw e;
       }

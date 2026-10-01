@@ -175,7 +175,7 @@ These requirements become the evaluation criteria rows in the Requirements × Op
 - Related tickets: `<any linked ND tickets if any>`
 - Reference docs: `<any {source docs} docs referenced>`
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/00 Frame.md` to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/00 Frame.md` to `@docs-writer` using the selected delegation procedure.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `design/00 Frame.md`. Proposed requirements are marked `[proposed]` — review in your IDE, accept/reject/edit any of them, then confirm."
 

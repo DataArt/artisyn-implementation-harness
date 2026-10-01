@@ -1,0 +1,121 @@
+{
+  "schema_version": 2,
+  "id": "f7e3fbd9-9d20-4ef8-b672-5b953b92af02",
+  "mode": "apply",
+  "status": "applied",
+  "created_at": "2026-10-01T10:12:05Z",
+  "bundle": "patch/20261001T101059Z-2.2.0-provider-scoped-operations-00e80d85-54d6-411b-bdf2-a0d2b6179663",
+  "bundle_id": "00e80d85-54d6-411b-bdf2-a0d2b6179663",
+  "package_version": "2.2.0",
+  "providers": [],
+  "provider_scope_source": "all 8 canonical changes are canonical-only (package entrypoint, patch references, changelog, report template) with mapping null, so this apply deploys no permanent output and covers no provider. Installed scope for a future mapped apply here is [claude]: .claude/{skills,agents}, CLAUDE.md, .claude/settings.json and .mcp.json exist; .codex/agents, .codex/config.toml and AGENTS.md do not",
+  "scope": "full canonical package; direct canonical edits self-packaged by this apply",
+  "canonical_writes": "none — canonical already carries the 2.2.0 result; this apply packaged it and advanced checkpoints",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "66a0d7a692ffbdf1a4e9ad147fc9eafaf702480bdeba48718078a4e6ee999add",
+      "after_sha256": "1959bf8ad05a73af634e533e6f22b1f230db4bcf8c3992469b82dfee804c6070",
+      "status": "verified"
+    },
+    {
+      "path": "SKILL.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "0d271e8d5d971f8d891bac862f473062e293e21e2a16e98870b5d1512c038abf",
+      "after_sha256": "50af37a3b615fff1b69ccd14c345dfa75ef5b19d4d521a42e4862c3348103258",
+      "status": "verified"
+    },
+    {
+      "path": "references/patch/03-patch.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "d02f04818063f6141d18c1cfeae25e6d35bc9ac174b05339e213612cce4996e8",
+      "after_sha256": "b34228a8d96dc81ee07f2881a919f6f61f63e0459afe2ef823ee71730bcd38ab",
+      "status": "verified"
+    },
+    {
+      "path": "references/patch/04-patch-harvest.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "bc4d697dd3b9d13c936d11b0d015f6766e30a111f62593c536af0d45229d1e50",
+      "after_sha256": "9916f8457e8931298acf650d9f728ea1edc82786af402bcd84facc61abf33374",
+      "status": "verified"
+    },
+    {
+      "path": "references/patch/05-patch-apply.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "c3ae1f382189a075c3dd739ec2b8fd68a8ee4603003853aa052a19781dd2429c",
+      "after_sha256": "0d0f681fe6ac0642a11891cd1b3889aa49ad2c2872d58ee2b01ade4178192671",
+      "status": "verified"
+    },
+    {
+      "path": "references/patch/06-patch-state.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "6929dee0556fb54c5cab88dfd0227cc50f655a754aeef7fe0a74277f84855d2e",
+      "after_sha256": "9e53c236da6e2605a2327fe33ee3731a432c19cbee65e3eb9c3c542a92090c18",
+      "status": "verified"
+    },
+    {
+      "path": "references/patch/07-patch-prepare.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "24715d161bbe539d4662bad365897ae0d01ce57f5058e836ffa5ac7558b85dc5",
+      "after_sha256": "d8410af0d7eaad7cc1530156932e3c8dcc09ac19c61a6bf41d49b6f70fc02adf",
+      "status": "verified"
+    },
+    {
+      "path": "reports/report.template.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "before_sha256": "e845d4c9ec87eff401a750121596efb519a0859d5b3004a3e72c5997012b5c1f",
+      "after_sha256": "63e901059b9f67d89c88a489e0c01c23ebc3520427da0e63701802dbe8c0af74",
+      "status": "verified"
+    }
+  ],
+  "local_deployment_actions": [
+    {
+      "path": "state/patch/APPLIED.md",
+      "action": "added the Providers column and backfilled the three existing rows (63cc5487 = claude; the two canonical-only releases = none)"
+    },
+    {
+      "path": "state/operations/59753801-94e1-43e1-ab58-50ac879dbb17.json",
+      "action": "declared providers ['claude'] and set provider on all 103 per-file results (94 claude, 8 shared project docs, 1 canonical-only)"
+    },
+    {
+      "path": "state/operations/{63cc5487,bef7be46,5f3c3011}.json",
+      "action": "declared providers [] on the three prepare records"
+    },
+    {
+      "path": "state/index.json",
+      "action": "set provider on all 164 mapping entries (149 claude, 15 shared)"
+    },
+    {
+      "path": "registry.md",
+      "action": "local allowlist — excluded from portable payloads, checkpoint advanced with the rest"
+    }
+  ],
+  "unresolved": [],
+  "completed_at": "2026-10-01T10:13:47Z",
+  "bundle_regenerated_at": "2026-10-01T10:13:32Z",
+  "bundle_regeneration_note": "Re-derived in place before this bundle was applied, transferred or committed: the new provider-scope grader, run against this repo's own records, showed that an apply whose changes are all canonical-only deploys nothing and so has a legitimately empty provider scope. Every hash below is recomputed from the real file; no payload was carried forward unverified.",
+  "verification": {
+    "bundle_payloads": "8/8 payload hashes valid and each diff reconstructs its declared after_sha256 from the recorded base",
+    "canonical_checkpoints": "advanced for all 8 bundled files plus local registry.md; zero remaining canonical drift across 164 tracked paths",
+    "permanent_outputs": "none — every change is canonical-only with mapping null, so the provider scope is legitimately empty",
+    "record_migration": "all 5 local operation records pass the new provider-scope grader (1 apply claude, 3 prepare empty, this canonical-only apply empty)",
+    "suite": "harness-bootstrap-e2e typecheck + lint + unit (135 passed) and integration (5 passed)"
+  }
+}

@@ -1,207 +1,182 @@
 # Document stage
 
 Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage document`. Complete it directly only for direct-stage entry — for the
-full chain, keep Document active through the router's Completion work; the router
-completes the stage and ticket metrics after that work succeeds. After archival,
-use the new impl path for every metrics command.
+`--stage document`. First action: `stage start --stage document`.
 
-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This is the final
-stage — it updates permanent docs, resolves deviations, and archives the story.
+Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+keeps the permanent docs true after the change: find out what the change means for
+them, decide what is new, updated or retired, hand the writing to `@docs-writer`, and
+close the findings and tech debt. Archiving, the PR and the tracker close-out are
+Completion's job.
 
-Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
-and pause only for a concrete unresolved decision, required human verification, or a
-fixed sign-off gate (`patterns/approval-sign-off.md`).
+This stage knows **where** things live and **what** changed. **How** to write a doc
+(diagram-first, certainty, length) is `@docs-writer`'s concern; do not restate it here.
 
-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+Two stops in this stage: the sign-off in Step 6 (`patterns/phase-sign-off.md`) and
+the commit in Step 8. Steps 2 to 5 are intelligent checkpoints
+(`patterns/approval-intelligent.md`).
 
-## Step 0 — Read documentation writing rules
+> 🔁 **After context compaction:** re-read this file and run metrics `recover`
+> before recording anything (`patterns/session-continuity.md`). Fresh vs. resume was
+> already decided by the router's entry check; do not redo completed work.
 
-Read `docs/Engineering Guide/Documentation/01 Principles.md` before doing anything else — it contains destination rules, diagram standards (min 1 colored Mermaid diagram per doc), format priority (diagrams → tables → text), certainty principle, and length budgets. Also read `docs/Engineering Guide/Documentation/02 Structure.md` for tier placement and naming conventions.
+## Step 1 — Read
 
-For multi-file permanent doc updates, delegate to `@docs-writer` instead of writing inline.
+`$IMPL_DIR` comes from the router's entry check. If the `Phase` row does not show
+Test ✅, say which stage is still open and stop.
 
-## Step 1 — Find the implementation folder and advance phase
+Read, in this order:
 
-The argument is a ticket number (e.g. `ND-042`) or a direct folder path.
+- `1-plan.md` — the Solution section and the steps: what was built, where
+- `2-report.md` — implementation notes, review findings, tech debt, `architecture-notes.md` if present
+- `docs/Engineering Guide/Documentation/02 Structure.md` — the tiers, what belongs in each, naming
+- `docs/Target Architecture (HLD)/README.md` for the active version, and
+  `docs/System Architecture (LLD)/README.md` for what LLD docs exist today
 
-- If a ticket number: look for `docs/Stories/*{TICKET}*/impl/` (use `*{TICKET}*` wildcard — never `[{TICKET}]*`, square brackets are glob metacharacters)
-- Read `1-plan.md` to understand what was built and which layers were touched
-- Read `2-report.md` to understand what changed during implementation and any tech debt
-- If not found: tell the developer and stop
+Set the `Phase` row to
+`🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document 🔄 · 🏁 Completion ⏳`.
 
-Update the `Phase` row in `2-report.md`:
+## Step 2 — Deviation audit
 
-```
-🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document 🔄
-```
+Does what was built match what the architecture says? Ask `@architect`, read-only:
 
-**HLD deviation audit:**
+> "Read `docs/Target Architecture (HLD)/README.md` to find the active version. Compare the implementation of `<ticket>` (plan: `<1-plan.md path>`, changed files: `<list>`) against that version's container docs and `Non-Functional Concerns/Requirements.md`. Report only evidence-backed deviations, one per line, each tagged `contradiction` (built differently from a settled decision), `extension` (built something the HLD does not describe) or `omission` (an HLD or NFR requirement the change should have met and did not), with severity by impact and the file/section as evidence. LLD being out of date is not a deviation. Do not write or edit any files."
 
-Read the active HLD version, the approved plan/design and actual changed code as well
-as the report. Compare implementation against HLD contracts, boundaries and NFRs only.
-Ask `@architect` for evidence-backed contradictions, extensions and omissions, without
-editing files. Use `patterns/review-gate.md`: upsert existing RF IDs, including issues
-already found by PR review. Record review coverage even when no findings exist.
-LLD lag is normal before this stage; route it directly into the doc-update list.
+Record every line as an RF row (`patterns/review-gate.md`: origin `hld-audit`, kind
+`deviation`, its type, its severity), reusing the ID when an earlier review already
+found it. With no findings, write one line of coverage in the report.
 
-Include implemented impacts from the approved solution's selected artifacts in that
-same list now. Do not postpone design-impact documentation until after a closure gate.
-If applicable, update the LLD feature doc in `09. Features/`, following local naming
-conventions, with built flows/schema/contracts only. HLD target decisions remain the
-baseline; any material target change needs authorization before editing that decision.
+Intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approve when **all** of these hold:
 
-From the combined picture, identify what needs documenting. Use the placement matrix below, then the per-destination rules.
+- No row is `critical` or `high`
+- Every `contradiction` already has an attributed decision on record (a plan
+  deviation the developer accepted, or a Test-stage finding they resolved)
+- Every `omission` is already fixed or already accepted on record
+- Every `extension` needs nothing but a doc row in Step 3
 
-**HLD / LLD placement matrix:**
+Then say in one line what was audited and that nothing new needs a decision, and
+continue.
 
-| HLD status                                | LLD status  | Action                                                                                                                                                                               |
-| ----------------------------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| HIT — solution matches existing HLD entry | HIT or MISS | Compare actual vs. designed; note deviations explicitly. Update HLD only if a settled decision changed (no rationale). Always update or create LLD entry with implementation detail. |
-| MISS — solution not covered in HLD at all | HIT or MISS | Add a minimal new HLD entry (one paragraph, settled outcome only). Always update or create LLD entry with full detail.                                                               |
+Otherwise stop here, before planning the docs, because the answer decides what gets
+written. Present each unresolved row with its options:
 
-Principle: HLD stays high-level always. LLD is the ground truth for implementation specifics. Deviations from HLD design must be explicitly called out — never silently overwritten.
+- **fix** — change the code; that step goes back through Implement and Test first
+- **accept** — keep the deviation, with the rationale, recorded on the row
+- **retarget** — the HLD decision itself changes; needs the developer's explicit say
 
-Use these rules to classify each item:
+`report`, `wait start --reason approval` naming the RF IDs, **Stop and wait**. Record
+each decision in its row with attribution, then re-check the list above.
 
-**`{app}/README.md`** — for changes scoped to an entire application:
+## Step 3 — Doc impact list
 
-- New or changed build targets
-- New or changed env vars / configuration
-- Infrastructure or build changes for that app
-- Deployment or teardown procedure changes
+From the plan, the report, the audit and the structure article, list every doc or
+section this change touches. One row each, with the tier from the structure article
+and the action:
 
-**`docs/System Architecture (LLD)/{container}/`** — for implementation detail that is non-obvious from the code and worth preserving as a reference:
+| Doc / section                                                         | Tier       | Action  | Why                                |
+| --------------------------------------------------------------------- | ---------- | ------- | ---------------------------------- |
+| `<app root>/README.md` → Env vars                                     | App README | updated | new `<VAR>` read at startup        |
+| `System Architecture (LLD)/<container>/<NN Title>.md`                 | LLD        | new     | built flow, not described anywhere |
+| `Target Architecture (HLD)/<active>/Containers/<Name>.md` → <section> | HLD        | updated | settled decision changed (RF-NNN)  |
+| `Engineering Guide/<NN Title>.md`                                     | Eng Guide  | retired | replaced by the LLD page           |
 
-- Data flows, sequence diagrams, component relationships
-- API contracts or integration patterns between containers
-- Key implementation decisions — **outcomes only, no rationale** (rationale stays in the design evaluation artifact)
-- Schema design, caching strategy, or config that isn't self-documenting
-- Only create/update if the implementation is stable enough to be a reference — not for in-progress or experimental work
-- The affected container folder will be clear from the plan context — check `docs/System Architecture (LLD)/README.md` for the current folder structure if in doubt
+`<app root>` is wherever this project keeps that app (a monorepo folder, the repo
+root for a single app, a package); the structure article's "App README scope" says
+what belongs there. Rules that decide the rows, all from the structure article and
+the plan:
 
-> ⚠️ **Certainty principle** — LLD documents describe what is built, stated with certainty. No comparisons, open questions, or rationale. Write single-direction, settled statements only.
+- A built flow, contract, schema or decision with no LLD home → **new** LLD section
+- An existing doc that now says something false → **updated**, including HLD when a
+  settled target decision changed and that change is authorised (an RF row says so)
+- A doc or section that describes something the change removed → **retired**
+- Approved-design impacts (`solution/` artifacts) are rows too; do not postpone them
+- Nothing lands in two tiers; the structure article says which one owns it
 
-**`docs/Engineering Guide/`** — for changes that concern the entire product, an environment, or a shared process:
+Intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval conditions, all required:
 
-- Environment provisioning or setup changes
-- New or changed operational steps (CI/CD, deployment, secrets management)
-- Cross-cutting tooling or workflow changes
-- Anything a new developer would need to understand before touching the project
+- Every row has a tier the structure article names and a reason traceable to the
+  plan, the report or an RF row
+- No HLD row changes a target decision without an RF row authorising it
+- No row is a judgment the developer has not made (what to retire from the
+  Engineering Guide, whether a decision is settled)
 
-**File naming inside `docs/`:** All Markdown files under `docs/` use the format `NN Title Case.md` — two-digit number prefix, space separator, Title Case (e.g. `01 MCP Setup.md`, `09 Launching Env.md`). Pick the next available number within the folder. Update all references in `README.md` and `CLAUDE.md` when adding or renaming a file.
+All met → write the list into `## Documentation` in `2-report.md` and continue.
+Otherwise present the uncertain rows with the options, `report`, `wait start
+--reason user_input` naming them, **Stop and wait**, record the answers, re-check.
 
-**DRY rule:** if the substance of a change mostly belongs in the Engineering Guide or System Architecture (LLD), put the full content there and add only a short one-sentence reference in the app `README.md`. Never duplicate the same detail in two places.
+## Step 4 — Write
 
-Announce the combined documentation list and implement routine updates. Surface
-unsettled target/scope decisions together under `patterns/approval-sign-off.md`; continue work
-that does not depend on those answers.
+Delegate the whole list to `@docs-writer` in one call: the table from Step 3, the
+source material for each row (plan Solution, implementation notes, architecture
+notes, RF decisions), and the settled outcomes to record. It applies the doc
+principles; you do not repeat them. Retired docs: it removes them and fixes
+references, including the docs-site navigation if the project has one.
 
----
+Intelligent-approval checkpoint (`patterns/approval-intelligent.md`) on what comes back. Auto-approval conditions:
 
-## Step 2 — Update documentation
+- Every row in the list has a returned line, and the action matches (new / updated /
+  retired)
+- Nothing was skipped or flagged for clarification
 
-Update the identified docs as a coherent set using `patterns/write-confirm.md`.
-Check links, diagrams, placement and consistency with the code. No per-file stops.
+All met → mark each row done in `## Documentation` and continue. Otherwise answer
+the flags from the sources you have, or ask the developer the precise question
+(`report`, `wait start --reason user_input`, **Stop and wait**), then re-delegate the
+affected rows.
 
-Suggested checks based on the documentation skill:
+## Step 5 — Consistency review and closure
 
-- New or changed build target → update app `README.md` targets table
-- New env var → update app `README.md` env table + `.env.example`
-- Non-obvious architectural decision → capture as a skill in `.claude/skills/` or note in the relevant Target Architecture doc
-- New repeatable pattern → write skill in `.claude/skills/` + register in `CLAUDE.md`
+Ask `@architect`, read-only, to check the written docs against each other, the HLD
+and the code: contradictions, stale references, broken links, a diagram that no
+longer matches the flow. Record findings (origin `doc-consistency`), fix routine ones
+through `@docs-writer`, review again. At most three rounds; if something is still
+open after the third, it is a decision for the developer below, not a fourth round.
 
----
+Then close the ledgers. Intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval conditions:
 
-## Step 3 — Consistency review
+- The last consistency round returned no findings
+- Every RF row is `fixed`, `accepted`, `tech-debt` or `doc-updated`, with evidence;
+  no `critical`/`high` accepted or deferred without an attributed decision already
+  on record
+- Every TD row has an owner and a next action, and none waives a required AC
+- `quality validate --dir "$IMPL_DIR"` passes after `report`
 
-Have `@architect` check the updated docs against each other, the HLD target and actual
-code for contradictions and stale references. Return evidence only, no edits. Upsert
-findings in Review Findings with origin `doc-consistency`; resolve routine in-scope
-issues and repeat relevant checks. After at most three unsuccessful review/fix rounds,
-escalate the remaining issue with evidence. Do not archive with unresolved findings.
-Optional documentation suggestions do not introduce another stop; report them briefly.
+All met → note in `2-report.md` that closure ran clean and continue. Otherwise
+present the open decisions (risk acceptance, deferral, target change, a consistency
+finding that survived three rounds), `report`, `wait start --reason approval` naming
+them, **Stop and wait**, record each decision in its row with attribution, re-check.
 
----
+## Step 6 — Sign-off (rework if any)
 
-## Step 4 — Update `2-report.md`
+Apply `patterns/phase-sign-off.md`. Present the `## Documentation` table as written
+(doc, tier, action, done), the consistency verdict, and the closed ledgers.
 
-For each step row in the `## Progress` table, fill in the **Docs** column:
+> "Docs are current: {N} new, {M} updated, {K} retired. Findings and tech debt
+> closed. Good to move to Completion (archive, PR)?"
 
-- `✅` — documentation for this step is complete
-- `—` — not applicable (no docs needed for this step)
-- (empty) — not yet done
+`report`, then `wait start --reason approval --detail "Awaiting document sign-off"`.
+**Stop and wait.** No reply, no next step. On approval, record the acceptance check
+(`--name "Document sign-off"`, `--source developer`, their words as evidence); without
+it `stage complete` is refused.
 
-Then append a `## Documentation` section at the end of `2-report.md` for the full item-level breakdown:
+Rework: adjust the list, re-delegate the affected rows, repeat Step 5, present again.
 
-```markdown
-## Documentation
+## Step 7 — Report
 
-_Date: {date}_
+Fill the Docs column per progress row (`✅` / `—`), confirm `## Documentation` is
+current, set the `Phase` row to
+`🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion 🔄`,
+then metrics `report`.
 
-| Item            | Action                               |
-| --------------- | ------------------------------------ |
-| `<file or doc>` | Created / Updated / No change needed |
+## Step 8 — Commit
 
-### Notes
+`docs({scope}): <what the docs now describe>` for the permanent docs and
+`docs({ticket-lowercase}): close findings and tech debt` for the report, or one
+commit if small.
 
-<any decisions made, docs skipped and why>
-```
+Manual-operation sign-off (`patterns/approval-sign-off.md`): `wait start --reason
+user_input --detail "Awaiting commit"`, **Stop and wait.** On the reply, check
+`git log`/`git status`; if something is missing, say what and wait again. Then
+`stage complete --stage document`. For direct-stage entry, stop here and tell the
+developer to run `/dev complete {TICKET}`.
 
-Refresh metrics with `report`; the quality summary is generated beside Stage Metrics.
-
-## Step 5 — Resolve decisions and tech debt
-
-This is an intelligent-approval checkpoint (`patterns/approval-intelligent.md`).
-Auto-approval conditions: every Review Finding already carries a resolution with
-recorded evidence, every proposed TD row has a concrete owner and next action with
-no risk-acceptance or scope-deferral implied, and no tracker task needs creating
-beyond what's already authorized.
-
-All conditions met → auto-approve: record in `2-report.md` that this checkpoint ran
-with nothing outstanding, and continue.
-
-Any condition fails or is uncertain → present one combined review of unresolved
-findings, prepared doc changes and proposed TD tasks. Request only
-decisions that remain unauthorized: real risk acceptance, required-work deferral,
-target changes, or external tracker creation. For each proposed task prepare its
-title, description, owner, linked RF IDs and next action before asking. Reuse
-existing authorization for anything already covered.
-
-Create only authorized tracker tasks through `@scrum-master`; record returned keys.
-If creation fails, keep the local TD row and the external action pending, never invent
-a key. Local-ID or trackerless flows retain owner/next action in the local ledger.
-Declining optional tracker creation is allowed; it is not permission to skip a required
-finding resolution. New findings from late changes use the same table and closure checks.
-
-## Step 6 — Closure and archive
-
-Verify before moving the story:
-
-- Every RF row is `fixed`, `accepted`, `tech-debt` or `doc-updated` with the evidence,
-  attributed decisions and TD links required by `patterns/review-gate.md`.
-- Required acceptance criteria and latest applicable checks pass. Deferred required work
-  needs an explicit approved scope decision; a TD row alone does not waive acceptance.
-- Planned doc updates and consistency review are complete; no pending required action
-  is represented as complete. Run metrics `report` then `quality validate` to check the
-  ledger's structural closure; this does not substitute for reviewing its evidence.
-
-Apply `patterns/approval-sign-off.md`. Archive locally using `git mv` when files are tracked,
-or a normal move for an untracked story, preserving `impl/stat.json` and all artifacts —
-this is a reversible local move, not a commit, and running it directly is fine, same as
-elsewhere in this harness. Never overwrite an existing archive destination. Use
-`docs/Stories/archive/[{TICKET}] ✅ Done — {name}` and update relative links as needed.
-Update report state, then propose the Conventional Commit for the developer to run —
-never commit yourself, same rule as Implement and Plan.
-Use the new impl path for every subsequent metrics command.
-
-For full-flow entry keep Document active and Status In Progress while required router
-Completion work remains. The router finalizes phase/status and metrics once it succeeds.
-For direct-stage entry finish only Document and record actual remaining lifecycle work.
-Archive only when the story as a whole satisfies the closure checks above.
-
-## Step 7 — Report back
-
-Report changed docs, verified finding resolutions, retained debt and its disposition,
-actual archive location (if moved), and any pending external actions. Return to
-Completion only for full-flow entry.
+🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Completion).

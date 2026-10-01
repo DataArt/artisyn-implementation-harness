@@ -1,0 +1,24 @@
+--- a/canonical/skills/dev/patterns/write-confirm.md
++++ b/canonical/skills/dev/patterns/write-confirm.md
+@@ -1,12 +1,12 @@
+ # Write and review
+ 
+-Apply `patterns/approval-sign-off.md`. Write the authorized set of local docs/config files,
+-check references and consistency, then present a combined summary. Continue through
+-routine items. Ask for specific unsettled decisions or unavailable human verification
+-only; file creation and routine edits do not require per-item confirmation.
++Write the files, then show them. Never ask for approval of content that is not on
++disk yet: the developer reviews the artifact in their editor, not in chat.
+ 
+-**Exception — when a call site names this pattern as its sign-off gate** (e.g. Plan
+-Step 5, on the persisted `1-plan.md`): the above "continue through routine items"
+-default does not apply there. Present the content per that gate's own instructions
+-and **stop and wait for the developer's sign-off** before continuing — the call
+-site's explicit stop-and-wait always governs over this pattern's default.
++Write the authorised set of local docs/config files, check references and
++consistency, then present a combined summary. Keep going through routine items.
++Ask only about an unsettled decision or something only a human can verify.
++
++When a phase sign-off (`patterns/phase-sign-off.md`) names this pattern — for
++example the persisted `1-plan.md` at the end of Plan — the sign-off is the one
++stop. Present the file there, once, and wait.

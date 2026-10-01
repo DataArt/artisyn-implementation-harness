@@ -4,7 +4,7 @@ description: Resolves which track (Product / Project) a design session belongs t
 type: pattern
 ---
 
-> ⚠️ **Two-track deployments only.** Do not deploy this file for Project-scoped or Product-context-scoped deployments — see the design-lifecycle-scope conditional in `INTENT.md`.
+> ⚠️ **Two-track deployments only.** Do not deploy this file for Project-scoped or Product-context-scoped deployments — this branch is selected during installation; single-track installs omit it.
 
 Ask the developer once, in Frame Step 4:
 

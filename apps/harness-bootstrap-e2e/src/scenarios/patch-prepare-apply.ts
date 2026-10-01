@@ -14,6 +14,7 @@ import {
   patchManifestSchema,
   patchBundleHashes,
   patchApplyReconstruction,
+  patchProviderScope,
 } from '../graders/_registry.ts';
 
 const CANONICAL_EDIT_TARGET = `${CANONICAL_SKILLS}/where-we-are/TEMPLATE.md`;
@@ -179,6 +180,8 @@ export const patchPrepareApplyScenario: ScenarioDefinition = {
         // change alongside it, this needs a real path->base lookup instead.
         patchApplyReconstruction(BUNDLE_DIR, MANIFEST, ORIGINAL_CANONICAL),
         prepareDoesNotDeploy(),
+        // prepare never leaves canonical, so its record claims no provider.
+        patchProviderScope('prepare', (c) => sender(c as GradeContext).packageRoot),
       ],
     },
     {
@@ -188,7 +191,16 @@ export const patchPrepareApplyScenario: ScenarioDefinition = {
         workspace: 1,
         prompt: (c) => `/harness-bootstrap patch apply ${transferBundle(c)}`,
       },
-      graders: [agentRunSucceeded(), applyUpdatesCanonical()],
+      graders: [
+        agentRunSucceeded(),
+        applyUpdatesCanonical(),
+        // Both projects were launched for both providers, so an apply that
+        // claims `applied` has to say it covered both.
+        patchProviderScope('apply', (c) => receiver(c as GradeContext).packageRoot, [
+          PROVIDERS.claude,
+          PROVIDERS.codex,
+        ]),
+      ],
     },
   ],
 };

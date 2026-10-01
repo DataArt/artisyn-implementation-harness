@@ -1,6 +1,8 @@
 # Pattern: Announce Progress
 
-At every transition point — step complete, doc item complete, or phase boundary — emit a short progress announcement so the developer can verify nothing was skipped and know what comes next.
+At every transition point — step done, doc item done, phase boundary — say in a
+few lines what just finished and what comes next. The developer should always be
+able to tell where the lifecycle is without asking.
 
 ## Format
 
@@ -10,14 +12,18 @@ At every transition point — step complete, doc item complete, or phase boundar
 📋 After this phase: <next stage(s)>
 ```
 
-Omit the "After this phase" line if the current item is not the last one in the phase. Emit it at the final step/item of a phase.
+Omit the "After this phase" line unless this was the last item in the phase.
 
 ## When to emit
 
-- After verification completes each implementation step (`references/04-implement.md`)
-- After completing each documentation item (`references/06-document.md`)
-- At every phase handoff in the dev router (Context Gathering → Ceremony → Plan → Implement → Test → Document)
+- After each implementation step's checkpoint (`references/04-implement.md`)
+- After each documentation item (`references/06-document.md`)
+- At every phase handoff: Context → Ceremony → Plan → Implement → Test → Document → Completion
+- At the very end, Completion's closing message says the ticket is finished
 
 ## Why
 
-The developer loses track of scope mid-session — especially after multiple steps or after returning from a tangent. A one-line announcement after each completed unit lets them spot omissions, reordering, or scope drift before the next unit starts.
+The developer loses track mid-session, especially after several steps or a
+tangent. One short announcement per unit lets them spot a skipped or reordered
+item before the next one starts, and makes "is it finished?" a question that never
+needs asking.

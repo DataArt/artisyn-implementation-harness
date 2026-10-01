@@ -1,7 +1,7 @@
 ---
 name: infra
-description: AWS CDK infrastructure specialist — owns apps/infra
-tools: Read, Edit, Write, Glob, Grep
+description: "AWS CDK infrastructure specialist — owns apps/infra"
+tools: "Read, Edit, Write, Glob, Grep"
 ---
 
 ## Role
@@ -32,3 +32,5 @@ Skip satellite review for mechanical steps (tag/naming-only change, comment upda
 - Never implement work outside `apps/infra/`
 - Never add features beyond what the current plan step specifies
 - Never hardcode secrets, account IDs, or the AWS region in source or documentation
+
+For role invocation and review handoffs, apply `.claude/harness-runtime/delegation.md`.

@@ -1,48 +1,13 @@
-# Pattern: Native Task Tracking (Design)
+# Task tracking
 
-Applies to the `design` router tracking its seven stages (Frame/Research/Evaluate/
-Solution/Review-Gate/Address-Feedback/Publish). Design has no per-step analog to
-`dev`'s Implement steps — this pattern covers stage-level tracking only.
+Track the work units supplied by the caller, their dependency order, status and
+completion evidence. Use the installed procedure at
+`.claude/skills/design/runtime/task-tracking.md` for the live tracking mechanism.
+Record the selected mechanism once in design/Report.md.
 
-## Protocol
-
-Before starting the first stage, inspect the tools already exposed in this session.
-A failed `ToolSearch` alone does not prove native Task tools are absent — check
-directly exposed tools first. State which tracker is active once, in `design/Report.md`.
-
-**With native `TaskCreate`/`TaskUpdate`/`TaskList`:** create one task per stage (reuse
-existing tasks that belong to this design session instead of duplicating them),
-chained to its predecessor by dependency so stages stay ordered. Mark a stage
-`in_progress` before starting it and `completed` only after verifying its completion
-evidence — never on a worker's self-report alone. A failed or blocked stage (e.g.
-Review pending out-of-band approval) stays `in_progress` with its dependents
-`pending`; record the state and next action in `design/Report.md` rather than inventing a
-native `failed` status. On resume, reconcile `TaskList` with `design/Report.md`: recreate
-missing tasks, rebuild dependencies, restore verified statuses, and reopen any stage
-invalidated since the last session — never create a duplicate chain while this
-session's tasks still exist.
-
-**Without native Task tools:** keep the same stages, order, and evidence in a
-`TodoWrite` checklist if it's exposed; enforce the dependency order yourself, since
-the checklist carries no native IDs or links. If neither tracker exists,
-`design/Report.md`'s own Phase tracker row already carries this information
-regardless of which tracker is active.
-
-## Report stays authoritative
-
-Tasks are the live-tracking layer for this session; `design/Report.md` is the
-durable, cross-session record — this matters more here than in most families,
-since a design session routinely spans the out-of-band human-approval wait between
-Review and Address Feedback/Publish, well past any single session's lifetime. Every
-task transition mirrors the corresponding Phase-tracker update — never let the two
-disagree. If a session ends mid-stage (including waiting on external approval), the
-next session resumes from `design/Report.md`, not from task state that may not have
-survived.
-
-## Why
-
-A markdown table alone gives no live signal of what's currently active, and native
-tasks alone don't survive a session boundary — least of all here, where the gap
-between stages can be days while a reviewer looks at the draft MR. Running both,
-with the report as the source of truth on resume, gets the live UX without losing
-the recovery guarantee.
+design/Report.md is authoritative across sessions and providers. Mark a unit in progress
+before starting, and complete only after inspecting its required evidence. A worker
+self-report is not completion. Record failures and leave dependent work pending.
+On resume, verify artifacts, reopen invalidated units, and reconcile/recreate native
+tracking without duplicating this run's existing tasks. Native task IDs are session
+metadata, never the durable identity of a workflow stage.

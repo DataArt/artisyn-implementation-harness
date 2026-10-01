@@ -122,16 +122,28 @@ destination collision. Preserve the source until the result is verified.
   pattern, rule, and workflow as well as entrypoints; multiple outputs may share a source.
 - `package-patch/REGISTRY.md`: portable bundles created in the canonical package. Columns: Bundle UUID, Folder, Date,
   Operation, Summary. Operation is `harvest`, `prepare`, `apply` (a current-source apply's self-packaged bundle), or `launch`. Incoming applications never overwrite this history.
-- `project-patch/APPLIED.md`: local application attempts. Columns: Bundle UUID, Date, Status,
-  Operation record, Summary. Valid statuses: pending, applied, partial, failed.
+- `project-patch/APPLIED.md`: local application attempts. Columns: Bundle UUID, Date,
+  Providers, Status, Operation record, Summary. Valid statuses: pending, applied, partial,
+  failed. Providers lists the installed providers the attempt actually deployed to, so the
+  same bundle applied to one provider now and another later stays two distinguishable rows
+  instead of one row that silently claims both.
 - `state/operations/<uuid>.json`: mutable local execution record with bundle UUID,
-  mode, status, per-file canonical/permanent pre/post hashes, decisions, verification,
-  and skipped/unresolved outcomes. Resume from it; portable bundles remain immutable.
+  mode, `providers`, status, per-file canonical/permanent pre/post hashes, decisions,
+  verification, and skipped/unresolved outcomes. `providers` is the resolved provider
+  scope: the deployment targets for `apply`, the provider whose installed tree was
+  observed for `harvest`, the selected providers for `launch`, and `[]` for `prepare`,
+  which touches no permanent file. Each mapped per-file result names its `provider`, or
+  `"shared"` when the output is one every selected provider reads rather than one
+  provider's own file; a `canonical-only` result uses `null`. Resume from it; portable
+  bundles stay immutable.
 - `state/index.json`: schema_version 2, per-canonical-path `recorded_sha256` and
   snapshot reference; per-mapping canonical base, rendered base, actual deployed hash,
   retained customization, and optional harvest receipt (observed permanent hash,
-  promoted canonical hash, excluded local changes). Explicit null denotes known absence;
-  missing entry denotes unknown history. Keep these meanings distinct.
+  promoted canonical hash, excluded local changes). A mapping entry is one permanent
+  output keyed by its path and carrying its `provider`; one canonical source installed
+  for two providers has two independent entries with their own baselines, and neither is
+  evidence about the other. Explicit null denotes known absence; missing entry denotes
+  unknown history. Keep these meanings distinct.
 - `state/objects/<sha256>`: exact local baseline bytes, keyed by SHA-256. Full files
   here are local synchronization baselines, not portable patch payloads. Keep prior
   objects needed for merge/resume; never copy this directory into sibling projects.
@@ -181,8 +193,8 @@ Dated reports live in `package:state/launch/reports/`. Preserve local launch his
 copy secret values into it. Revalidate historical answers before using them as plan knowns.
 
 Launch records an initial `launch` manifest before deployment with add entries for
-selected canonical sources, then records exact canonical/rendered/output baselines for
-verified outputs. Include selected canonical-only package support files in the baseline.
+selected canonical sources and its selected `providers`, then records exact
+canonical/rendered/output baselines for verified outputs, one entry per provider. Include selected canonical-only package support files in the baseline.
 This is the seed for future updates; never infer it from the most recent git HEAD.
 
 For existing projects without state, inventory current mappings, untracked additions,
@@ -216,3 +228,42 @@ changes independently of generated provider mechanics.
 Legacy bundles retain their original bytes and hashes. After validating a bundle,
 map a legacy canonical `adoptors/` path to `adaptors/` when resolving its destination;
 never rewrite its manifest or payload. Reconcile hash conflicts before applying.
+
+### Provider scope of an operation
+
+A project can have more than one provider installed at once, so every operation that
+reads or writes permanent files is provider-scoped and recorded that way. Resolve the
+scope from the recorded answers and what the manifest shows is actually installed —
+never from the execution host, and never from one provider's presence alone.
+
+| Operation | Provider scope                                                         |
+| --------- | ---------------------------------------------------------------------- |
+| `launch`  | The providers selected for installation                                |
+| `apply`   | The installed providers this run deploys to — empty if nothing deploys |
+| `harvest` | The single provider whose installed file was observed and generalized  |
+| `prepare` | None (`[]`) — canonical only, no permanent file read or written        |
+
+Provider-specific outputs — installed skills and their companions, role definitions,
+native settings and MCP configuration, and the root instruction file — name their own
+provider. A shared project output that every selected provider reads, such as an
+Engineering Guide article or an architecture doc, is `"shared"`: it deploys once no
+matter how many providers are installed, and a second provider's apply must not expect
+to deploy its own copy. Reserve `null` for an entry with no permanent output at all.
+
+An `apply` whose every change is `canonical-only` deploys no permanent file, so its scope
+is legitimately empty — that is a complete operation, not an unscoped one. Any mapped
+result, however, requires a non-empty scope containing its provider.
+
+Canonical writes stay provider-neutral: one canonical result serves every provider, and
+a portable bundle never records a provider. Scope lives in local state, not in payloads.
+
+Deployment, verification and completion are per provider. An operation that finished one
+provider's outputs and not another's is `partial` with the unfinished provider resumable,
+never `applied`. The same bundle applied to a second provider later is a new operation
+record and a new `APPLIED.md` row; the earlier row keeps its own provider list. A
+per-provider baseline, harvest receipt or retained customization is evidence about that
+provider's output only — never read one provider's state as the other's.
+
+A record without `providers`, or a mapping entry without `provider`, predates this
+contract: treat its scope as unknown and re-resolve it from the installed outputs rather
+than assuming every provider was covered.

@@ -1,0 +1,418 @@
+{
+  "schema_version": 2,
+  "id": "6678df37-6181-4971-ae10-72c729996d1a",
+  "mode": "apply",
+  "status": "applied",
+  "created_at": "2026-10-01T14:04:49Z",
+  "scope": "full canonical package, provider claude",
+  "package_version": "2.3.0",
+  "applies": [
+    {
+      "bundle": "fe0b575a-b784-4792-9cbb-d39b3cc902d4",
+      "operation": "prepare",
+      "package_version": "2.3.0",
+      "note": "2.3.0 dev skill 3.1.0 + lifecycle docs + doc principles"
+    }
+  ],
+  "providers": ["claude"],
+  "provider_scope_source": "canonical/manifest.json destinations present on disk: .claude/skills, .claude/agents, CLAUDE.md; no Codex outputs installed",
+  "canonical_writes": "none \u2014 bundle fe0b575a was prepared from this package's own canonical sources in the same session; checkpoints already current",
+  "baseline_provenance": "no stored rendered baselines; each target's old rendered base reconstructed from git HEAD canonical + this project's substitutions, compared against the deployed file",
+  "decisions": [
+    {
+      "item": "docs/Engineering Guide/Documentation/01 Principles.md",
+      "decision": "local doc is heavily customised (What/How sections, placement images, Wiring Principle); inserted only the new Manner section and acceptance-table row, kept every local section"
+    },
+    {
+      "item": ".claude/skills/dev/references/05-test.md",
+      "decision": "retained local customizations: no DB layer (migration mention dropped), project build/typecheck/lint targets named, cdk synth/deploy guard note"
+    },
+    {
+      "item": ".claude/skills/dev/references/04-implement.md",
+      "decision": "retained local commit-scope examples (infra, lambda-auth, docs-web)"
+    },
+    {
+      "item": ".claude/skills/dev/references/03-plan.md",
+      "decision": "retained local wording 'project/concern'"
+    },
+    {
+      "item": ".claude/skills/dev/references/06-document.md",
+      "decision": "local README-targets tweak superseded: the rewritten stage no longer carries that list"
+    },
+    {
+      "item": "docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
+      "decision": "earlier local hand-fix (approval pattern rows, plain paths) superseded by the new canonical pattern table"
+    },
+    {
+      "item": "prettier re-wrapping in SKILL.md, 01/02 references, plan.md, report.md, 00 Overview, 05 Documents Flow",
+      "decision": "rendering-only differences; new rendered output written and re-formatted with the project's prettier"
+    }
+  ],
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "operation": "update",
+      "before_sha256": "1959bf8ad05a73af634e533e6f22b1f230db4bcf8c3992469b82dfee804c6070",
+      "after_sha256": "02b2454da976c82d534a895b6493fa1cb8a072890ee988dced3cc233b3ee994c",
+      "status": "applied",
+      "provider": null,
+      "deployment": "canonical-only"
+    },
+    {
+      "path": "SKILL.md",
+      "operation": "update",
+      "before_sha256": "50af37a3b615fff1b69ccd14c345dfa75ef5b19d4d521a42e4862c3348103258",
+      "after_sha256": "7b938f8fd1b9586a93a46cd7841ae03a69d3aaf95a5c7107a1f22eb79e0b1ad5",
+      "status": "applied",
+      "provider": null,
+      "deployment": "canonical-only"
+    },
+    {
+      "path": "docs/Engineering Guide/Documentation/01 Principles.md",
+      "canonical": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "operation": "update",
+      "before_sha256": "f2aa747d2413197c4c0a431ad774a383f8d9a16a8db3fc71938355f3699af80e",
+      "after_sha256": "43c7df0809950d4f39babf273163e462883f10211f0f34c9aa4965cdfc758b66",
+      "status": "applied",
+      "provider": "shared",
+      "deployment": "mapped",
+      "retained_customization": "local doc is heavily customised (What/How sections, placement images, Wiring Principle); inserted only the new Manner section and acceptance-table row, kept every local section"
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "canonical": "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "operation": "update",
+      "before_sha256": "1a49c6c724ba37933fb4d8ebae8a2d0d76c96ca4d303bfe95fbdf8ac177c8e35",
+      "after_sha256": "aab1b543c263831060201d906bc91c62d685e22c0efda030208fdceacdcc0dbf",
+      "status": "applied",
+      "provider": "shared",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
+      "canonical": "canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
+      "operation": "update",
+      "before_sha256": "99abc8483e758e39c80aa7425f2da7d59779af112f1cb5915433bca649e42356",
+      "after_sha256": "b4b43383fd2adb78dcd9e563c755d4ce40a0d6badef2eb89d2d0a52c46c17707",
+      "status": "applied",
+      "provider": "shared",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "canonical": "canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "operation": "update",
+      "before_sha256": "0d19fc5f62b0847382733131ddf0f722509a9b8fe5053bcc48576f93b6cedd54",
+      "after_sha256": "b94b2c1c9cb1412f86f2b78ad5ef4abdcd348abddade12577947ade0e2b02769",
+      "status": "applied",
+      "provider": "shared",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": "canonical/skills/dev/INTENT.md",
+      "operation": "update",
+      "before_sha256": "5c0ce1050e7536b50e89a6d47001b230c7ea134c78366730e63a40fc5d96ae09",
+      "after_sha256": "27a6b227f09bed28788c0c201607008107b0bb2792f9bc9d5721c5997414acfa",
+      "status": "applied",
+      "provider": null,
+      "deployment": "canonical-only"
+    },
+    {
+      "path": ".claude/skills/dev/SKILL.md",
+      "canonical": "canonical/skills/dev/TEMPLATE.md",
+      "operation": "update",
+      "before_sha256": "67a0944aac02d84a8ad72d6033bfcd033491600d036d82bc821ff40814c1ddfc",
+      "after_sha256": "aaeb40fba1c633563ff648dc6f7214417acbf12d1a894f9c0311fd6f9f4183a5",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/announce-progress.md",
+      "canonical": "canonical/skills/dev/patterns/announce-progress.md",
+      "operation": "update",
+      "before_sha256": "6c663aae90e3b5bf25ecb7f8775ae39a1dd5687677a9a4e8057915232f08976a",
+      "after_sha256": "c55c992a99c1f5ec28ac33ae0181254b1960715820784b638a1a2d3789b6adcf",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/approval-sign-off.md",
+      "canonical": "canonical/skills/dev/patterns/approval-sign-off.md",
+      "operation": "update",
+      "before_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
+      "after_sha256": "41e5a1c3ceb16b709d28a7991aeca56c0beddd81972ce24c3fb68b433b7c219e",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/do-report-commit.md",
+      "canonical": "canonical/skills/dev/patterns/do-report-commit.md",
+      "operation": "update",
+      "before_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
+      "after_sha256": "79e9db5d54ddf5ecc34ca3931dbd4d9aa0722d1822d3667b079f6da32bae90eb",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/metrics.md",
+      "canonical": "canonical/skills/dev/patterns/metrics.md",
+      "operation": "update",
+      "before_sha256": "eb6bc96e360b0c2949f2f51be493e0de8dd232e32c183b44933e337e7bf9e36b",
+      "after_sha256": "59e330d6cb0d88011397e29008ad8ff711020d5c3a1ca04980029b1f9bced939",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/satellite-review.md",
+      "canonical": "canonical/skills/dev/patterns/satellite-review.md",
+      "operation": "update",
+      "before_sha256": "1ec57543926b1ae70d0f3055c669cc7490516792eef1bf3d06a2d0c87ab3ef82",
+      "after_sha256": "12f721aaa3601410d71dc6dbd9c22055cc1f57250be1b66a30404fe21d9b3da8",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/session-continuity.md",
+      "canonical": "canonical/skills/dev/patterns/session-continuity.md",
+      "operation": "update",
+      "before_sha256": "8a472332c5e7a0e656e652852e5f5c408ebedd51528e047344aca83fc3b7fc9c",
+      "after_sha256": "db6c508bf7131704a27ff00c59149dc743636ec8fc9d8153405e8de7d9cd07c8",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/write-confirm.md",
+      "canonical": "canonical/skills/dev/patterns/write-confirm.md",
+      "operation": "update",
+      "before_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
+      "after_sha256": "e5ea574909f7af3148acf5d676619a675019f6fb6652c9fa2347761e9258fdca",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/references/00-router.md",
+      "canonical": "canonical/skills/dev/references/00-router.md",
+      "operation": "update",
+      "before_sha256": "09693de8536e427b469bcf72a60f9f3105b5a2228cdee3cc6e0c308ae752c5cc",
+      "after_sha256": "c359100eca838f9c18dd0d306f295415e74960c9f297bf0cda5821deb971fb37",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/references/01-context-gathering.md",
+      "canonical": "canonical/skills/dev/references/01-context-gathering.md",
+      "operation": "update",
+      "before_sha256": "1f4d75214f00fd3f5f3e9b4789983a89a2085341e596daa77a269f0bb342e1f9",
+      "after_sha256": "bf318b12493bd7e682d6d2bf1fc9ac0b572811c7ce39581fc72a61766ffd0ce4",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/references/02-ceremony.md",
+      "canonical": "canonical/skills/dev/references/02-ceremony.md",
+      "operation": "update",
+      "before_sha256": "f8878f9ae227cfd053401b880860720b316b3d102f11a21b84fc10adadda0b02",
+      "after_sha256": "3da7f3ee083b7617fb0b731135ae2a6605fbc04ce4491e8dd14e67c639a1b1aa",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/references/03-plan.md",
+      "canonical": "canonical/skills/dev/references/03-plan.md",
+      "operation": "update",
+      "before_sha256": "e8c56ac8e05f46e6b2664a166c49642e6ff618c96293043ad317502b545c927e",
+      "after_sha256": "61e83d0b0c150423b268a79010c5dd31c5bb3c0b50d47783ffbabd3e55f2cb5b",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": "retained local wording 'project/concern'"
+    },
+    {
+      "path": ".claude/skills/dev/references/04-implement.md",
+      "canonical": "canonical/skills/dev/references/04-implement.md",
+      "operation": "update",
+      "before_sha256": "2a52ebd0d62a2c7e078d29c33edb4b5e3efb12de517ab25e453b3960ca88748d",
+      "after_sha256": "f0989c5da7087c857127b953d7a3f81c507c10117e3120703c6fc767163e243e",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": "retained local commit-scope examples (infra, lambda-auth, docs-web)"
+    },
+    {
+      "path": ".claude/skills/dev/references/05-test.md",
+      "canonical": "canonical/skills/dev/references/05-test.md",
+      "operation": "update",
+      "before_sha256": "cf6817d7f7258ef732d044d497e3fd9b20a1d0cb12df87ce67102e20c6737094",
+      "after_sha256": "55f39e4936dfbfb0ec99507acec22b468ae0dfb310c12faeca8b4928cdb50a4f",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": "retained local customizations: no DB layer (migration mention dropped), project build/typecheck/lint targets named, cdk synth/deploy guard note"
+    },
+    {
+      "path": ".claude/skills/dev/references/06-document.md",
+      "canonical": "canonical/skills/dev/references/06-document.md",
+      "operation": "update",
+      "before_sha256": "d637167f74cdfa3807a1ea8cbea13698c51c6519d10f66a59d189447c02ac3bf",
+      "after_sha256": "33541de02f345fb52241d3565d08ded3013d4c247f07ab96bbd81421ba4e4f47",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/scripts/constants.mjs",
+      "canonical": "canonical/skills/dev/scripts/constants.mjs",
+      "operation": "update",
+      "before_sha256": "8fff1b355b56d516d524854b48fb2bc2cc1f7e814683a6da1a91c0d4c3861253",
+      "after_sha256": "f146f7191dc328a1277d36c6394298b233e87a0aafe27855c14b0500b1d02af3",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/scripts/timing.mjs",
+      "canonical": "canonical/skills/dev/scripts/timing.mjs",
+      "operation": "update",
+      "before_sha256": "3fe648777db3099ef154f334e65e9297a55a46e658b60d86d167dad9838bc145",
+      "after_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/scripts/timing.test.mjs",
+      "canonical": "canonical/skills/dev/scripts/timing.test.mjs",
+      "operation": "update",
+      "before_sha256": "07dadfb5301d2c1be233984f390a23b0dad51582ee030cb9ca8b79dd420750fa",
+      "after_sha256": "7a2345f5e964afd98b103451deabc2f0a22b466a1ab4876f48301b022ae8decb",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/templates/plan.md",
+      "canonical": "canonical/skills/dev/templates/plan.md",
+      "operation": "update",
+      "before_sha256": "0de7fbd3db4234cb559b84c901b6cce11662510606045c0858d5558aefdc25f7",
+      "after_sha256": "1d010e7905f69b34fbc2a6b22bfcada7aeda630448c9a62ed021cc0e5f41a693",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/templates/report.md",
+      "canonical": "canonical/skills/dev/templates/report.md",
+      "operation": "update",
+      "before_sha256": "bd53e365ec49fff04e96e0653e050d9d2cc71efd42f7330ddf6d84a7e6aa0346",
+      "after_sha256": "da57d5bd51f1cf38fc9b355b053bcb504c4441ecae37ebaa90fb3c4a76c8daf1",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/templates/stat.json",
+      "canonical": "canonical/skills/dev/templates/stat.json",
+      "operation": "update",
+      "before_sha256": "772d817b5b9858c2d0844a281a22fa5f8b935d51d9bd0555e28c57a13a7e9235",
+      "after_sha256": "f6f0679edb987e0d8ce630a064987ed79e9657b964cc8d2e6982c6fa279a9f56",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/templates/stat.schema.json",
+      "canonical": "canonical/skills/dev/templates/stat.schema.json",
+      "operation": "update",
+      "before_sha256": "94989c3d5067adba8122ffaa7f6c126aad96e55d0f01266f589e2b70fa1ae106",
+      "after_sha256": "7a4a6ea46f6aebd560268c862faa673c95c6480a42502feb894504150a8d843b",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/interfaces/intent.md",
+      "canonical": "canonical/skills/dev/interfaces/intent.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "dbce01d8b97bdbde0ab4b29792818b6a160a6043d8c940d2c8bb276f9995e40c",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/patterns/phase-sign-off.md",
+      "canonical": "canonical/skills/dev/patterns/phase-sign-off.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "f152894caa8ea33a10a5dcfcaad4f5b3099bdd3b09c341ff4afe136f03a6a449",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/references/07-completion.md",
+      "canonical": "canonical/skills/dev/references/07-completion.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "0077a8cf2e517921db93f6775eca1868c1a1be6db58810cd368b05939920eb11",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped",
+      "retained_customization": null
+    },
+    {
+      "path": ".claude/skills/dev/templates/intent.md",
+      "canonical": "canonical/skills/dev/templates/intent.md",
+      "operation": "delete",
+      "before_sha256": "e64c232286f4bd04520ac0cf5460208bdf36d3670e535e16c03f82c31afa7e08",
+      "after_sha256": null,
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "mapped"
+    },
+    {
+      "path": "CLAUDE.md",
+      "operation": "local-deployment-action",
+      "before_sha256": "9deb59350e99da2b8d6f5a800d9eaca16568833c28b73f204c5946162e4d0e38",
+      "after_sha256": "9d5f4214d2c6aadeaa685a626a1525d4dd52ebe8f9df8741e4ee61dd124cbe61",
+      "status": "applied",
+      "provider": "claude",
+      "deployment": "root-instructions catalog edit: /dev row and Dev phases line gained Completion / /dev complete"
+    }
+  ]
+}

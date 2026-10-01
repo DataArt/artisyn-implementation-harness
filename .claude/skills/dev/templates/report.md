@@ -6,14 +6,14 @@ type: reference
 
 # <TICKET>: <Short Title> — Report
 
-| Field  | Value                                                                                       |
-| ------ | ------------------------------------------------------------------------------------------- |
-| Ticket | ND-XX                                                                                       |
-| Branch | `feat/ND-XX-slug`                                                                           |
-| PR     | —                                                                                           |
-| Author | _from `git config user.name`_                                                               |
-| Status | 🔄 In Progress                                                                              |
-| Phase  | 🎯 Context 🔄 · 🚀 Ceremony ⏳ · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ |
+| Field  | Value                                                                                                          |
+| ------ | -------------------------------------------------------------------------------------------------------------- |
+| Ticket | ND-XX                                                                                             |
+| Branch | — _(set by Ceremony, e.g. `feat/ND-XX-slug`)_                                                     |
+| PR     | —                                                                                                              |
+| Author | _from `git config user.name`_                                                                                  |
+| Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
+| Phase  | 🎯 Context 🔄 · 🚀 Ceremony ⏳ · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
 
 ## Progress
 
@@ -87,7 +87,7 @@ _Added for every step — a brief confirmation for smooth steps, detailed notes 
 <!--
 Type values: blocker · dependency · cleanup · security · performance · ux
 Tracker: fill in once a task is created (e.g. ND-XX), otherwise —
-Rows are added here by the Implement stage (references/04-implement.md Step 5) as debt is discovered.
+Rows are added here by the Implement stage (references/04-implement.md, tech debt while working on a step) as debt is discovered.
 -->
 
 ## Test Results
@@ -101,6 +101,17 @@ Written = new test cases in this change, not files/assertions. Passed/Failed/Ski
 exit status. Explicit 0 requires evidence; — is not measured. Evidence links runner
 output and the diff supporting Written. Historical failed runs remain in stat.checks.
 -->
+
+## Documentation
+
+| Doc / section | Tier | Action | Why | Done |
+| ------------- | ---- | ------ | --- | ---- |
+
+<!-- Written by the Document stage (references/06-document.md Step 3) before any doc
+is touched; Done is ticked as @docs-writer returns each row. Tier is one from
+Documentation/02 Structure.md. Action: new · updated · retired. Why points at the
+plan Solution, an implementation note or an RF row. Empty means no doc impact was
+identified, not that docs were skipped; say so in a line below the table. -->
 
 ## Efforts Spent
 

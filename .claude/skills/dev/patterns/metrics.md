@@ -22,7 +22,10 @@ adding narrow rules alongside it does not remove the broad permission.
 
 ## Initialize and resume
 
-Once Context creates the impl directory and report, run:
+Context creates the impl directory and the report skeleton as soon as the story
+name is known (right after the tracker fetch), then runs init and starts the stage
+**before** the heavy reading. Do not leave init for the end of Context: that is how
+the stage ends up with zero recorded time.
 
 ```sh
 node .claude/skills/dev/scripts/timing.mjs init --dir "$IMPL_DIR" --ticket "$TICKET" --author "$(git config user.name)"
@@ -36,6 +39,8 @@ header table — reuse it rather than asking again; omit if unavailable.
 The script rejects future creation timestamps. Repeated init preserves existing data
 and requires the same ticket. `templates/stat.json` illustrates the v2 shape; do not
 copy its null tracking timestamp in place of running init.
+
+Right after init, run `stage start --stage context`.
 
 At session resume, run `recover --dir "$IMPL_DIR"` **before** start, resume, or checkpoint.
 It closes interrupted work at its last checkpoint, leaving the session gap unclassified.
@@ -53,24 +58,30 @@ old records explicitly with preserved originals rather than recreating their his
 
 The commands below all use the same script and require `--dir "$IMPL_DIR"`:
 
-| Boundary                                  | Command arguments                                                                           |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------- |
-| Stage entry                               | `stage start --stage context` (or `ceremony`, `plan`, `implement`, `test`, `document`)      |
-| Add an approved plan step                 | `step add --id step-01 --title "Implement feature" --order 1 --plan-ref "1-plan.md#step-1"` |
-| Optional dependencies                     | Add `--depends-on step-01,step-02`; referenced steps must already exist                     |
-| Implementation step entry                 | `step start --id step-01 --activity implementation`                                         |
-| After long-running work / before yielding | `checkpoint`                                                                                |
-| Change activity / resume a wait           | `resume --activity verification`                                                            |
-| Before asking approval                    | `wait start --reason approval --detail "Awaiting plan approval"`                            |
-| Before asking for verification            | `wait start --reason user_input --detail "Awaiting step acceptance"`                        |
-| External blocker                          | `wait start --reason external_dependency --detail "Awaiting API access"`                    |
-| Environment blocker                       | `wait start --reason environment --detail "Build environment unavailable"`                  |
-| Revise a failed step                      | `step retry --id step-01 --reason verification_failure`                                     |
-| Verified step completion                  | `step complete --id step-01`                                                                |
-| Stage completion                          | `stage complete --stage implement`                                                          |
-| Revisit a stage                           | `stage retry --stage plan --reason scope_change`                                            |
-| Refresh report metrics                    | `report`                                                                                    |
-| Validate stored records                   | `validate`                                                                                  |
+| Boundary                                  | Command arguments                                                                                                              |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| Stage entry                               | `stage start --stage context` (or `ceremony`, `plan`, `implement`, `test`, `document`, `completion`)                           |
+| Add an approved plan step                 | `step add --id step-01 --title "Implement feature" --order 1 --plan-ref "1-plan.md#step-1"`                                    |
+| Optional dependencies                     | Add `--depends-on step-01,step-02`; referenced steps must already exist                                                        |
+| Implementation step entry                 | `step start --id step-01 --activity implementation`                                                                            |
+| After long-running work / before yielding | `checkpoint`                                                                                                                   |
+| Change activity / resume a wait           | `resume --activity verification`                                                                                               |
+| Before asking approval                    | `wait start --reason approval --detail "Awaiting plan approval"`                                                               |
+| Before asking for verification            | `wait start --reason user_input --detail "Awaiting step acceptance"`                                                           |
+| External blocker                          | `wait start --reason external_dependency --detail "Awaiting API access"`                                                       |
+| Environment blocker                       | `wait start --reason environment --detail "Build environment unavailable"`                                                     |
+| Revise a failed step                      | `step retry --id step-01 --reason verification_failure`                                                                        |
+| Verified step completion                  | `step complete --id step-01`                                                                                                   |
+| Stage completion                          | `stage complete --stage implement` — refused until a passed `acceptance` check named `<Stage> sign-off` exists in this attempt |
+| Revisit a stage                           | `stage retry --stage plan --reason scope_change`                                                                               |
+| Refresh report metrics                    | `report`                                                                                                                       |
+| Validate stored records                   | `validate`                                                                                                                     |
+
+A stage cannot complete without its sign-off on record: a `check record --kind
+acceptance --name "<Stage> sign-off" --result passed` in the current attempt, sourced
+`developer` with their words as evidence. A retry opens a new attempt and needs a new
+sign-off. This is the mechanical half of the phase sign-off; the honest half is not
+writing `--source developer` for words that were never said.
 
 Activities: `investigation`, `planning`, `implementation`, `verification`, `review`,
 `documentation`. Retry reasons: `verification_failure`, `review_feedback`,
@@ -87,11 +98,24 @@ at the last checkpoint, so sparse checkpoints only grow unclassified time; they 
 corrupt state. Tool execution and worker latency count as observed work wall time,
 not CPU time or human effort.
 
-At a stage approval boundary, record wait **before** yielding. On the reply, resume,
-complete the old stage, then start the next one. Do not prematurely complete the stage
-and then try to attach a wait to its closed attempt. Run report before hard stops;
-never write while waiting for the developer. Existing workflow permission gates still
-apply: recording a transition does not authorize the underlying action.
+## Where the calls go
+
+Each stage reference says exactly where its calls sit. The shape is always:
+
+- First action of the stage: `stage start --stage <stage>`.
+- Before any stop (phase sign-off, a question, a manual operation you must wait
+  on): `report`, then `wait start --reason <approval|user_input|...>`. Then stop.
+- On the reply: `stage complete --stage <stage>` if the phase is accepted (this
+  closes the wait at the reply time), or `resume --activity <activity>` if there is
+  more work in this stage.
+- Last action of the stage, when nothing is pending: `stage complete`, then the next
+  stage's `stage start`.
+
+Why this matters for wait time: an open **work** interval keeps extending on the
+next command. If you yield without `wait start`, the developer's whole reply time
+becomes work. The script cannot tell the difference; only the protocol can. Run
+report before any stop; never write while waiting. Recording a transition does not
+authorise the underlying action.
 
 ## Verification evidence
 
@@ -174,7 +198,7 @@ stays unavailable because this version does not allocate ticket usage to steps.
 
 ## Data contract and derived metrics
 
-`templates/stat.schema.json` specifies v2. Stages are the six lifecycle units; steps
+`templates/stat.schema.json` specifies v2. Stages are the seven lifecycle units; steps
 are stable approved implementation units. Each owns attempts with start/end, trigger,
 and outcome. Intervals reference a stage attempt and optionally a step attempt;
 only one orchestrator interval can be open and no intervals may overlap. `checks`
@@ -189,10 +213,11 @@ provisional until verification is finished. Retries preserve the original eviden
 
 Lead time requires known ticket creation and completion; cycle time requires observed
 start and completion. These stay null until their endpoints exist. Human effort is
-never inferred. Completion requires Document finished and no active or pending steps;
-full coverage also requires all six stages completed. Only run `complete` after all
-required ticket completion work (including tracker sync when applicable) is actually
-done, never merely because a direct stage ended. Reopening clears ticket completion
+never inferred. Completion requires the Completion stage finished and no active or pending steps;
+full coverage also requires all seven stages completed. Only run `complete` after the
+closure checks pass and the story is archived, never merely because a direct stage
+ended. A stat.json written before the Completion stage existed gains it as pending on
+the next mutation; nothing recorded changes. Reopening clears ticket completion
 while preserving prior attempt history. Archive stat.json with the impl directory.
 
 `report` updates only the generated marker block in `2-report.md`, preserving other

@@ -1,0 +1,932 @@
+{
+  "schema_version": 2,
+  "id": "59753801-94e1-43e1-ab58-50ac879dbb17",
+  "mode": "apply",
+  "status": "applied",
+  "created_at": "2026-10-01T09:38:45Z",
+  "scope": "full canonical package, provider claude",
+  "package_version": "2.1.2",
+  "applies": [
+    {
+      "bundle": "63cc5487-12a1-4dc8-9841-6752e0372404",
+      "operation": "prepare",
+      "package_version": "2.0.0",
+      "note": "81 mapped entries, never deployed in this project"
+    },
+    {
+      "bundle": "bef7be46-d4b4-43bb-a6db-c6056ab9b3c0",
+      "operation": "prepare",
+      "package_version": "2.1.1",
+      "note": "canonical-only; zero permanent outputs"
+    },
+    {
+      "bundle": "5f3c3011-6ff1-4596-a95e-71020ea0287a",
+      "operation": "prepare",
+      "package_version": "2.1.2",
+      "note": "canonical-only; zero permanent outputs"
+    }
+  ],
+  "canonical_writes": "none — all 164 recorded canonical paths verified byte-identical to their checkpoints; no repackaging needed",
+  "baseline_provenance": "no stored rendered/deployed baselines; each target's base reconstructed from its last-deploy git commit",
+  "decisions": [
+    {
+      "item": ".claude/skills/design/interfaces/INTENT.md",
+      "decision": "rename to interfaces/contract.md (byte-identical); remove old path after verifying destination"
+    },
+    {
+      "item": ".claude/skills/x-ray/references/claude-in-chrome-setup.md",
+      "decision": "delete — retired canonically in 2.0.0, replaced by x-ray/runtime/browser.md",
+      "authorized_by": "developer, this run"
+    },
+    {
+      "item": ".claude/skills/design/references/00-router.md",
+      "decision": "take canonical (restore 'Tracker transition +'); local edit predates the confirmed Jira/ND tracker (Q5)",
+      "authorized_by": "developer, this run"
+    },
+    {
+      "item": "docs/Engineering Guide/06 MCP Setup.md",
+      "decision": "retain local numbering; canonical '05 MCP Setup.md' maps to local '06 MCP Setup.md'"
+    },
+    {
+      "item": "scope",
+      "decision": "deploy everything: skills, agents, Engineering Guide docs, reconciled settings/.mcp.json, scoped CLAUDE.md catalog edits",
+      "authorized_by": "developer, this run"
+    }
+  ],
+  "files": [
+    {
+      "path": ".canonical-implementation-harness/registry.md",
+      "operation": "update",
+      "before_sha256": "e82a7dc43884fe24d9bcf2a7b190e741a5ce0d8858d455f75ec5cfdc266cd650",
+      "after_sha256": "151b4b502c381a931a85dfdf4c88b20ae51daee77315f07e5db002a8aac81125",
+      "status": "deployed",
+      "provider": null,
+      "deployment": "canonical-only"
+    },
+    {
+      "path": ".claude/agents/architect.md",
+      "operation": "update",
+      "before_sha256": "ae15f12ba13a3fed54589d538b8090610e6e35037b73dd269199a4016cef36cd",
+      "after_sha256": "a9262cdf694b8dceb3cc737512ff0c885fa9b0f4b73699c6fcb65b0cce9c6ad1",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/agents/auth.md",
+      "operation": "update",
+      "before_sha256": "cc1ab226f71d48974ca905826d526fc65ce4dd2c2cda7de1bfb1fcc62619d9be",
+      "after_sha256": "222830eb2cd14ad081319dcbd8bd58baadf79f2504a56083fe566d3664325972",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/agents/docs-writer.md",
+      "operation": "update",
+      "before_sha256": "66e8ce0aedad902cf9c3c3b1b765407fca09259aaea97470e058e14af150de2d",
+      "after_sha256": "3ef51442cd126d84a37fd2c51768d1e9fbae1abf243cffea0fcf13c7a4ef592c",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/agents/infra.md",
+      "operation": "update",
+      "before_sha256": "5db0bed20354695b311b0b7691d4342d2ad5da83ac6cd5856e4a070d93cc60c3",
+      "after_sha256": "4bea008d66e30a72d6ee606643c0244e027955f8b577a54e1f5fbd020bd9bc07",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/agents/onboarding.md",
+      "operation": "update",
+      "before_sha256": "18023815f6542075a90bffb0aadefdba1a61f0e4eb38bb4f696b563db5bf076e",
+      "after_sha256": "9cbb7197ba366bbde3ee8e3a77a099c0d43c29f447a5a551d18c983cf48568a7",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/agents/product-architect.md",
+      "operation": "update",
+      "before_sha256": "78ec44ce919b4ede0ab21d5e8cce90bd9c165fefbf94a7794fcc5ef8d9aa0bcd",
+      "after_sha256": "05879316fbcbd5cbb4b9ab0479bda8ce0bd00adadd71e45934de75ed9d24f3d3",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/agents/scrum-master.md",
+      "operation": "update",
+      "before_sha256": "e4f0bd3cb6732ff456f73b3c35dfb34144d204291825d220cb861c4e092a0ebc",
+      "after_sha256": "a9f342885149531c0312acf19d10ce37362c2565ce435ca8bdd1001f0b58db2c",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/agents/web.md",
+      "operation": "update",
+      "before_sha256": "78a83a31653a26984e574059e22214155336fdeefcf2ca665ca2cd87e11cd3c3",
+      "after_sha256": "6279de651c09240ab38d4b14c7d6a811cd755cc2d1e0c3503401b23ce41be012",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/harness-runtime/credentials.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/harness-runtime/delegation.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/SKILL.md",
+      "operation": "update",
+      "before_sha256": "79c3dad9741bf5d63d0dfbff87a992ccff32cf8c935c6f33c10be82e87820aed",
+      "after_sha256": "6f94ed83dd3338fe75365ab6cb8cab272ae6e2208f20674c0bb6647383c8957a",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/interfaces/INTENT.md",
+      "operation": "delete",
+      "before_sha256": "76e88abe059f0731932cae197d4b40098eec125615e9945c52e29528139e3f1f",
+      "after_sha256": null,
+      "status": "removed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/interfaces/contract.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "76e88abe059f0731932cae197d4b40098eec125615e9945c52e29528139e3f1f",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/patterns/compact-between-phases.md",
+      "operation": "update",
+      "before_sha256": "071f4f26c46dfe0df00cb4c24e94908af3e2384154e2c26ca8b3b1ac56a3c1ca",
+      "after_sha256": "ea364c2746a750fcf69b03a0f562e168adb77e6da027a9cdb9a26cc69d7d6abf",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/patterns/context-resolution.md",
+      "operation": "update",
+      "before_sha256": "290bbcbd31e400330cab230d6cc9e216e9e6d70401769d8d4afac3029f2ff709",
+      "after_sha256": "f92568622a00b2511a5ca0bb163b33173bb40e423ba65919747be6d425af12d0",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/patterns/docs-writer-authoring.md",
+      "operation": "update",
+      "before_sha256": "ed547de045d5172441a297165a5e6899755c1d265fb60e2955b16684a434d907",
+      "after_sha256": "3b824c85b37a31f52071cd95eb990f14aa97cbb3222bf32b1bc49f14444e66ab",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/patterns/metrics.md",
+      "operation": "update",
+      "before_sha256": "1644b649d404f698a3f3115e19ff1949ffacfaec68f14059fa32102838391946",
+      "after_sha256": "c1d55055f9989b6bea86eb9e8bba2a9849b1638f0b93f6d108b0069f87beb0a5",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/patterns/satellite-review.md",
+      "operation": "update",
+      "before_sha256": "fbd169c316bb7463ad4a3d2c29c7b25589dc3a191fb0a51207380420e9430a82",
+      "after_sha256": "8893dc2ed99341789e2d51fbdc16336e3e0f2fad1be945a15406c64bd899a2e7",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/patterns/task-tracking.md",
+      "operation": "update",
+      "before_sha256": "b5270fa0110236c331e64d4289a48bceed9e10123e8984db5436ba5cd418a460",
+      "after_sha256": "a226a9276cf8410d8258664445388d0f09f1867dade505ee7f1e9601af0026bc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/references/00-router.md",
+      "operation": "update",
+      "before_sha256": "0abc9aa065760448291ca63aefb0d51a2a926b88140c1fe4cf12016e40d3977e",
+      "after_sha256": "8199d89077d997e886e7281ef7c614b4fdce262b8a10a1541de62bcf61250548",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/references/01-frame.md",
+      "operation": "update",
+      "before_sha256": "d2a88c95d221c991ec0f1015fbe4452ee673b4ff9864daea2f37ae9a4a870eaa",
+      "after_sha256": "2e2e9cdb889e5ea10f98400aa9ec8ca917e2c0f07f546fc25a1d3d844cd4a401",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/references/02-research.md",
+      "operation": "update",
+      "before_sha256": "735c1fbcb691111a03563e29c95082dbbcc01532e44795809cff09a904297f56",
+      "after_sha256": "763d84cb1ef6ead1e9fdf611903fd9c4b2568e8d57f536e45138fa9c52afaff8",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/references/03-evaluate.md",
+      "operation": "update",
+      "before_sha256": "b0a9467625dc8c8c47140322fdcc3f44c9147d70ca08c6f72e14b642632e46db",
+      "after_sha256": "411bc16e1aef3dcd46312bcc67143deedcbe7a8b2761c978010bd9a83cb13cde",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/references/04-solution.md",
+      "operation": "update",
+      "before_sha256": "a444daf69df704d348c56f2a013c7804fab36234758285ed40c2b13c820a1005",
+      "after_sha256": "f1fd4dc682c680b5655d4b70278b756a79c67613f205b35c421cb85af23d1cf0",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/references/07-publish.md",
+      "operation": "update",
+      "before_sha256": "f18d89a3e1e0302e9826bd49a656ad0521752f14b88061c89019992898005cd8",
+      "after_sha256": "c1e5232cfed8acb8a262044e4047e82126c2de6797a003a25e71fe45f0f403ca",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/browser.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/context.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/credentials.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/delegation.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/interaction.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/planning.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/review.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/runtime/task-tracking.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/design/templates/report.md",
+      "operation": "update",
+      "before_sha256": "f90fe3c201be48fae20ec773144d639f5fd9b2650bdae3a12cc5c67cf1e6134a",
+      "after_sha256": "09d7f99644b61ce622b5a88102db3cbfa239dc62a06a063ddf764b3204ac422e",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/SKILL.md",
+      "operation": "update",
+      "before_sha256": "170c8d9573559a0b559f4698821e16ffc22d7e540bf4d8a378f668e5dbf388d0",
+      "after_sha256": "67a0944aac02d84a8ad72d6033bfcd033491600d036d82bc821ff40814c1ddfc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/patterns/satellite-review.md",
+      "operation": "update",
+      "before_sha256": "299dfa85347fbcc28744a95f73e3bc9425ccf9629934953a0fa6ff60a487d13d",
+      "after_sha256": "1ec57543926b1ae70d0f3055c669cc7490516792eef1bf3d06a2d0c87ab3ef82",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/patterns/task-tracking.md",
+      "operation": "update",
+      "before_sha256": "e517435f0ba3d2362db60f7773f2711de08da9befc676bcb4e59217a6684d0bb",
+      "after_sha256": "370497dbd3e59fff784a26f725d3fd5f42f2ef9827628973816f57571db1c444",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/references/00-router.md",
+      "operation": "update",
+      "before_sha256": "b1ffd719066cf26e568f72527feebd2b136219bfd487f869f6c23ff189366e8f",
+      "after_sha256": "09693de8536e427b469bcf72a60f9f3105b5a2228cdee3cc6e0c308ae752c5cc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/references/01-context-gathering.md",
+      "operation": "update",
+      "before_sha256": "bbee3e2e8b9acfe849016b73b1c3de3ccc33386e405a8780a043d0a795c9afa1",
+      "after_sha256": "1f4d75214f00fd3f5f3e9b4789983a89a2085341e596daa77a269f0bb342e1f9",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/references/03-plan.md",
+      "operation": "update",
+      "before_sha256": "d26f157d98a609bf55160b62cbb6a659dc7da1860e077a4a73ceed1a5c40e460",
+      "after_sha256": "e8c56ac8e05f46e6b2664a166c49642e6ff618c96293043ad317502b545c927e",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/references/04-implement.md",
+      "operation": "update",
+      "before_sha256": "c75268e976e67622abe9079ac1a989288036668846dcd5a4626e483b38dd5412",
+      "after_sha256": "2a52ebd0d62a2c7e078d29c33edb4b5e3efb12de517ab25e453b3960ca88748d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/references/05-test.md",
+      "operation": "update",
+      "before_sha256": "616310efc9593e092624ba2b0bb4cff3174e1591652cbcb31f832f5895d366f8",
+      "after_sha256": "cf6817d7f7258ef732d044d497e3fd9b20a1d0cb12df87ce67102e20c6737094",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/references/06-document.md",
+      "operation": "update",
+      "before_sha256": "edef0987b0c92033b4c4319764aef214745f8c9c51a4ba86137b74b5c05edc7a",
+      "after_sha256": "d637167f74cdfa3807a1ea8cbea13698c51c6519d10f66a59d189447c02ac3bf",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/browser.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/context.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/credentials.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/delegation.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/interaction.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/planning.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/review.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/runtime/task-tracking.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/dev/templates/plan.md",
+      "operation": "update",
+      "before_sha256": "b16260915a122c44a1c656af3a108a69851454771c5f0dc8b33b7d5c73d0984a",
+      "after_sha256": "0de7fbd3db4234cb559b84c901b6cce11662510606045c0858d5558aefdc25f7",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/interfaces/improvement.md",
+      "operation": "update",
+      "before_sha256": "3b63bbe6f301cce07ed87ac74354e3f91231a850716c3c9069126c1e637e3b99",
+      "after_sha256": "58a545bb9753e6f75cae9f4df47564a36ec91c0806255f359e32de524a977769",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/patterns/task-tracking.md",
+      "operation": "update",
+      "before_sha256": "fd5642099907f689522c4a5e98d6e5e2ee38acd3503b0c9c6c812d84e298ea33",
+      "after_sha256": "f79a1f19d8f1835962564679a3fe249084bb54aa81cf685a790b04d007e2504e",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/references/00-router.md",
+      "operation": "update",
+      "before_sha256": "33d8392da8bc5fbdcbee0b3b810eeb77f35bf42a8501e8a0f3f9c631c0b60192",
+      "after_sha256": "c5c5af7187d9856c2a0a21a00bfa7b9d690cf871c4fd96eab6a2a6e29c1813be",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/references/01-reflect.md",
+      "operation": "update",
+      "before_sha256": "2696c3724c89b5ed60ed4a8cf3766624e0c2693a7c59ade5245a65646a725d66",
+      "after_sha256": "f31314d83c1def6c8ed7f24a7f3f097c14cfc8e3326e5b72ff4fa8e1ee0484f5",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/browser.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/context.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/credentials.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/delegation.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/interaction.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/planning.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/review.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/evolve/runtime/task-tracking.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/SKILL.md",
+      "operation": "update",
+      "before_sha256": "b288f9257bddd462ee6d2be4962d711006c52d41b3d90c06e20f7022559b0220",
+      "after_sha256": "56a9834da0076e3bd88b453d0f1ae6ca68cc28d5d986e764013c2cdc3d268a3e",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/browser.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/context.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/credentials.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/delegation.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/interaction.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/planning.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/review.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/war/runtime/task-tracking.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/SKILL.md",
+      "operation": "update",
+      "before_sha256": "145499c015e2147206b884e3bd80132215dab409157520c6016d3d427accba12",
+      "after_sha256": "b2c018204e5e5ca2b4bdd4248d2daa52db39840be532651355cec4442816a362",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/report-template.md",
+      "operation": "update",
+      "before_sha256": "2869492a1609a4661eb28de4df069169e39082a17a96f418e6562a5a854660c4",
+      "after_sha256": "629d8708e85e2b9922883af860ba025ab274d761f03966ad3bed8b340a673ce8",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/browser.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/context.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/credentials.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/delegation.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/interaction.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/planning.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/review.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/where-we-are/runtime/task-tracking.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/SKILL.md",
+      "operation": "update",
+      "before_sha256": "b2dfa93cebf38d2b10e9f1ec9b64ecdb0b10bd7831af1c7781c89b2b88069447",
+      "after_sha256": "65fdf20273317f4f6bb2a1fc73a9faac41e5b2790b12b952e4665cbbb7e160b6",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/references/claude-in-chrome-setup.md",
+      "operation": "delete",
+      "before_sha256": "97f291242e393f0ece2b8ce5f459b7089028c10f14e2905b9e796eff5e305bd1",
+      "after_sha256": null,
+      "status": "removed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/browser.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/context.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/credentials.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/delegation.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/interaction.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/planning.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/review.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": ".claude/skills/x-ray/runtime/task-tracking.md",
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": "CLAUDE.md",
+      "operation": "update",
+      "before_sha256": "afe9c0319e1d37f4caf0e3a2f85f53a030cc25a5160a7d1a0e524b146e36c91f",
+      "after_sha256": "9deb59350e99da2b8d6f5a800d9eaca16568833c28b73f204c5946162e4d0e38",
+      "status": "deployed",
+      "provider": "claude"
+    },
+    {
+      "path": "docs/Engineering Guide/03 Engineer Role.md",
+      "operation": "update",
+      "before_sha256": "39fc1acdcd43348853ee17e7d18e8b2283bb3230ad5ea0860c4ed23270f55f79",
+      "after_sha256": "47337bc2310c87d61e1ed54074d363032d6a2a2d3b4df37797be8573a2a4965f",
+      "status": "deployed",
+      "provider": "shared"
+    },
+    {
+      "path": "docs/Engineering Guide/04 AI Coding Tool Compatibility.md",
+      "operation": "update",
+      "before_sha256": "88872a6bf08d2230b6fc12700d2c40d3a1d836847e903b175798dc5e571bd287",
+      "after_sha256": "e43418ee1ad02ee2c0cf1bad728a33a168178dd28659fb553121b553f3f9a9bd",
+      "status": "deployed",
+      "provider": "shared"
+    },
+    {
+      "path": "docs/Engineering Guide/Documentation/01 Principles.md",
+      "operation": "update",
+      "before_sha256": "0c5839e56eca8d03b6b1a857ad9bb6344d1b466b9c314d5f014f845daf9ca211",
+      "after_sha256": "f2aa747d2413197c4c0a431ad774a383f8d9a16a8db3fc71938355f3699af80e",
+      "status": "deployed",
+      "provider": "shared"
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "operation": "update",
+      "before_sha256": "fe74c06b43f13c9a60957ac2b66747402d3f10946c11e29c41fe7ac3268936b8",
+      "after_sha256": "1a49c6c724ba37933fb4d8ebae8a2d0d76c96ca4d303bfe95fbdf8ac177c8e35",
+      "status": "deployed",
+      "provider": "shared"
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
+      "operation": "update",
+      "before_sha256": "fec782d60b13ddde4f330f96618e8019a7230ebd117268b9bbc4e502bfd987fa",
+      "after_sha256": "99abc8483e758e39c80aa7425f2da7d59779af112f1cb5915433bca649e42356",
+      "status": "deployed",
+      "provider": "shared"
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md",
+      "operation": "update",
+      "before_sha256": "820e011000592a1a81fbbfe9ad469051335984404be573eb6e7918fb17f7f2ce",
+      "after_sha256": "fdbb96383bdf36183910e3cf4f8d636b4dbce17a2b84fbcb3e299aa6e271a756",
+      "status": "deployed",
+      "provider": "shared"
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md",
+      "operation": "update",
+      "before_sha256": "d882e3ab70c9bb5209ad5069237057a4beade61f5786f79c4b637f264c69fe82",
+      "after_sha256": "d882e3ab70c9bb5209ad5069237057a4beade61f5786f79c4b637f264c69fe82",
+      "status": "deployed",
+      "provider": "shared"
+    },
+    {
+      "path": "docs/Engineering Guide/Lifecycles/04 Architecture Lifecycle.md",
+      "operation": "update",
+      "before_sha256": "00b7b0f36f064a3f4606351f6f8cf7191298d6af6d20faa075bea0ba264dac03",
+      "after_sha256": "00b7b0f36f064a3f4606351f6f8cf7191298d6af6d20faa075bea0ba264dac03",
+      "status": "deployed",
+      "provider": "shared"
+    }
+  ],
+  "unresolved": [],
+  "completed_at": "2026-10-01T09:53:11Z",
+  "verification": {
+    "conflict_markers": "none in .claude/, docs/, CLAUDE.md",
+    "unresolved_tokens": "none; only intentional runtime syntax ({{VERSION}} x5 in war/where-we-are, {{action}} x3)",
+    "referenced_paths": "all in-repo `path` references resolve except two templated Stories/{folder}/... runtime paths",
+    "docs_gate": "yarn nx run site:build — passed (VitePress dead-link + Vue parse gate), after escaping canonical's unescaped <name> in the AI tool compatibility table",
+    "rename_destination": ".claude/skills/design/interfaces/contract.md verified byte-identical before removing interfaces/INTENT.md"
+  },
+  "retained_customizations": [
+    {
+      "path": "docs/Engineering Guide/06 MCP Setup.md",
+      "reason": "canonical's generic multi-provider template contradicts this project's verified .mcp.json (aws-mcp via mcp-proxy-for-aws, Atlassian Cloud API tokens); local doc kept, canonical not deployed"
+    },
+    {
+      "path": ".claude/settings.json",
+      "reason": "canonical claude env block already present verbatim; local permissions and PostToolUse hook preserved; no write needed"
+    },
+    {
+      "path": ".mcp.json",
+      "reason": "canonical mcp.json declares no servers; local three-server config preserved; no write needed"
+    },
+    {
+      "path": ".claude/agents/infra.md",
+      "reason": "canonical 'Known Pitfalls' container/ECS table remains omitted — no containers in this project (INTENT conditional)"
+    },
+    {
+      "path": ".claude/skills/design/*",
+      "reason": "Two-track runtime tokens {source docs} / {dest docs} / {resolved architect agent} deliberately left literal per design INTENT"
+    }
+  ],
+  "harvest_candidates": [
+    {
+      "source": ".claude/skills/x-ray/SKILL.md (pre-apply)",
+      "what": "the local 'code-review is user-invocable only' handoff block (one-line ready-to-run command, NOT RUN labelling rules) was replaced by canonical's runtime/review.md delegation",
+      "text_preserved_at": "package scratch: xray-dropped-2a.txt (see report)"
+    },
+    {
+      "source": "canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
+      "what": "names patterns/approvals.md, which no canonical dev skill ships (canonical still has approval-sign-off.md + approval-intelligent.md); deployed doc was reconciled to the real names"
+    },
+    {
+      "source": "canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md",
+      "what": "unescaped <name> in a markdown table breaks any VitePress/Vue-rendered docs site; deployed copy escapes them in backticks"
+    }
+  ],
+  "providers": ["claude"],
+  "provider_scope_source": "Q6 verified Claude Code only; .claude/{skills,agents}, CLAUDE.md, .claude/settings.json and .mcp.json are installed, while .codex/agents, .codex/config.toml and AGENTS.md are absent — .agents/skills holds only the harness-bootstrap discovery link, not an installed Codex harness",
+  "post_commit_formatting_note": "The repo prettier pre-commit hook reformatted 19 deployed outputs after this record was first written. The 12 under .claude/ were restored to the renderer-exact bytes and .claude/{agents,skills,harness-runtime} plus .agents/ were added to .prettierignore, so a deployed harness artifact is no longer reformatted into permanent phantom drift. The 7 Engineering Guide docs keep the project formatting (prettier re-pads tables once substitution changes their width) and their baselines were re-stamped to the committed bytes."
+}

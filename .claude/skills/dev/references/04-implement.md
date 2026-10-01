@@ -1,165 +1,152 @@
 # Implement stage
 
 Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage implement`.
+`--stage implement`. First action: `stage start --stage implement`.
 
-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage executes
-the approved `1-plan.md` one step at a time.
+Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+executes the approved `1-plan.md` one step at a time.
 
-Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
-and pause only for a concrete unresolved decision, required human verification, or a
-fixed sign-off gate (`patterns/approval-sign-off.md`).
+Two stops in this stage: the sign-off in Step 4 (`patterns/phase-sign-off.md`) and the
+commits by block in Step 6. Report sits between them.
+Each step ends with an intelligent checkpoint (Step 3), not a stop. Stop mid-phase
+only when a step genuinely needs the developer: a check only they can do, a guarded
+command, or a divergence from the plan.
 
-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+> 🔁 **After context compaction:** re-read this file and run metrics `recover`
+> before recording anything (`patterns/session-continuity.md`). Fresh vs. resume was
+> already decided by the router's entry check; do not redo completed work.
 
-## Step 1 — Find the plan
+## Step 1 — Read the plan
 
-The argument is either a ticket number (e.g. `ND-042`) or a direct path to a plan folder.
+`$IMPL_DIR` comes from the router's entry check. If `1-plan.md` is not in it, Plan has
+not run: say so and stop.
 
-- If a ticket number: look for `docs/Stories/*{TICKET}*/impl/1-plan.md` (use `*{TICKET}*` wildcard — never `[{TICKET}]*`, square brackets are glob metacharacters)
-- If a path: read `1-plan.md` inside that folder
-- If not found: tell the developer and stop
+Read the full `1-plan.md` first. Also open `2-report.md`; all notes, tech debt and
+status go there. **Never edit `1-plan.md`.**
 
-Read the full `1-plan.md` before doing anything. Also open `2-report.md` — this is where all notes, tech debt, and status will be written. **Never edit `1-plan.md`.**
-
-Read open and accepted deviations in `## Review Findings`. For legacy plans,
-import their exceptions once with source references; deduplicate against existing RF
-rows. Do not change the immutable plan or copy a second live table into the report.
+Read open and accepted deviations in `## Review Findings`. For legacy plans, import
+their exceptions once with source references and deduplicate against existing RF
+rows. Do not copy a second live table into the report.
 
 ## Step 2 — Advance phase and track steps
 
 Update the `Phase` row in `2-report.md`:
 
 ```
-🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳
+🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳
 ```
 
-Apply `.claude/skills/dev/patterns/task-tracking.md` with the plan's numbered steps
-as the unit list: one task per step, chained in plan order. This is in addition to
-the stage-level Implement task the router already created — these are the child
-units within it.
+Apply `.claude/skills/dev/patterns/task-tracking.md` with the plan's numbered
+steps as the unit list: one task per step, in plan order, as children of the
+stage-level Implement task the router created.
 
-Announce the plan and step count, then start within existing authorization.
+Announce the plan and step count, then start.
 
 ## Step 3 — Execute one step at a time
 
-Before starting each step, determine its layer from the step title and scope:
+Before each step, match its target paths against the Agents table in
+`CLAUDE.md` and the installed role definitions. Use the
+specialist that owns the component; there is no fixed frontend/backend/data list.
+Give it the full step from `1-plan.md` and the current `2-report.md`. Apply
+runtime/delegation.md; you own verification and the report.
 
-- **`site` / "Web" / "VitePress" / "docs-web" / frontend** → delegate to `@web`. Give it the full step description from `1-plan.md` plus the current `2-report.md` for context. `@web` handles the implementation; you coordinate verification and report updates.
-- **`lambda-auth` / "Auth" / "Lambda@Edge" / basic-auth** → delegate to `@auth`. Same handoff pattern.
-- **`infra` / "Infrastructure" / "CDK" / CloudFront / S3** → delegate to `@infra`. Same handoff pattern.
-- **cross-cutting config / root docs** → implement inline.
+If no specialist owns the scope, implement inline. Resolve ambiguous ownership
+before dispatch. For a cross-component step, give each owner a disjoint scope and
+coordinate shared contracts yourself.
 
-> **Scope discipline:** implement exactly what the step describes — no more, no less. Do not add features, refactors, or improvements beyond what the step specifies.
+> **Scope discipline:** implement exactly what the step says. No extra features,
+> refactors or improvements.
 
 For each step:
 
-1. Register the approved step with `step add` (stable ID, title, order, plan reference), then `step start --id <ID>` and `report` per `patterns/metrics.md`. Mark the step's task `in_progress` (per `patterns/task-tracking.md`). Announce which step you are starting (e.g. "Starting Step 2 — Web: dead-link gate config") and whether you are delegating or implementing inline
-2. Implement (or delegate). Worker agents run a satellite review after non-trivial steps before returning (see `.claude/skills/dev/patterns/satellite-review.md`). If a delegated worker already ran a check with real captured output as part of that review, treat it as existing evidence — do not blindly re-run the identical check yourself with no new information to gain. Re-run it yourself only for a concrete reason (the worker lacked the tool, the surface differs from the worker's sandbox, or the result looks suspect) — never as a reflexive duplicate of work already done and reported.
-3. When the step is done — including any satellite review — you may run a
-   non-guarded check yourself (build, typecheck, curl, `cdk synth`, etc.)
-   as a debugging aid to catch obvious breakage before presenting, subject to the
-   no-reflexive-duplicate rule above. This never substitutes for the verification
-   gate itself: verification is a **developer confirmation gate**, not something
-   self-certified because a command exited 0 in your sandbox. Your sandbox is not
-   the developer's machine — tool availability, versions, and network behavior can
-   differ, and a check that passed for you (or a worker) can still fail for them.
-   Report back the actual validation performed — the exact commands run (yours or a
-   worker's) and their real output/result, not a restated copy of the plan's
-   instructions.
+1. **Register and start.** `step add` (stable ID, title, order, plan reference),
+   then `step start --id <ID>`. Mark the step's task `in_progress`. Say which step
+   you are starting and whether you delegate or implement inline.
 
-   Then compose the sign-off ask from what this step actually became, not a
-   mechanical restatement of the plan's original verification text: drop an item the
-   plan listed but that no longer applies (scope narrowed in a reasonable,
-   already-noted way), add one the plan didn't anticipate (scope legitimately grew
-   within the step), and explicitly name any point where the implementation diverged
-   from the plan's description — never silently reconcile a real divergence by
-   presenting it as if it matched. This changes _what's worth asking_, not _how much_:
-   the ask must still let the developer meaningfully confirm everything this step
-   actually did, and dropping an item still requires it to be genuinely inapplicable,
-   not merely already run once by you or a worker — self-run evidence answers "did it
-   pass in a sandbox," never "should the developer still confirm it" (see the HARD
-   STOP below and `patterns/approval-sign-off.md`'s sign-off-gate completeness rule).
+2. **Implement (or delegate).** Workers run a satellite review after non-trivial
+   steps before returning (`.claude/skills/dev/patterns/satellite-review.md`).
+   When a worker returns, check the change actually landed (`git status`,
+   `git diff`); a self-report is not evidence.
 
-4. Close the work interval, record the verification wait and update the step metrics in
-   `2-report.md` before yielding. **Stop and wait for the developer to confirm the step
-   passes before continuing** — this stop happens regardless of how many checks you
-   already ran yourself. Self-running available checks answers whether they passed in
-   your sandbox; it never answers whether the developer signs off to proceed. A
-   delegated worker lacking a tool (e.g. no Bash access) is never a reason for you to
-   take the gate over yourself — hand back to the developer instead.
+3. **Verify.** Run the step's verification items from the plan yourself: the
+   commands, the curl, the file you inspect. Read the real output. For a check a
+   worker already ran with real captured output, use that result instead of
+   re-running blindly; re-run only for a reason (the worker lacked the tool, the
+   environment differs, the result looks off). Never run a guarded command; that
+   item goes to the developer in the checkpoint below. For a test-first step, the
+   expected result is red for the stated reason; later steps rerun the same suite
+   until green.
 
-> ⛔ **HARD STOP — do not edit any file, do not update `2-report.md`, do not start the next step until the developer explicitly confirms verification passed.** This applies even when every available check was already run and passed in your own sandbox — self-run checks are reported, not silently treated as the developer's sign-off. This is doubly true for a UI/UX-visible change: a developer who says they want to look at it themselves (locally, in a browser) cannot be signed off on their behalf by your own automated pass, however thorough — that pass is evidence to report, not a substitute for their eyes.
->
-> **Never record `check record --source developer` for a check you ran yourself, and never mark a step's Progress row ✅ Done or run `step complete` before the developer's actual reply exists in this conversation.** Fabricating that attribution — even with true-sounding evidence text — puts a false sign-off in the permanent record. If you catch yourself having already done this, correct it immediately (new event, new ID, re-source it honestly, reopen the step) rather than leaving it standing. See `patterns/metrics.md`'s `--source developer` rule for the full detail.
+   **Record the evidence** (`patterns/metrics.md`), separately from running it:
 
-On reply, use `resume`, record the actual verification outcome with `check record` and
-attributed evidence quoting or summarizing what the developer actually said — never
-invented text. If it failed, use `step retry --id <ID> --reason verification_failure`
-before revising; otherwise use `step complete --id <ID>` only after all current checks
-pass. For TDD, record the initial failing run truthfully, then implement and rerun the
-same named check within the step until green. Once verification passes, follow the
-do → report → commit pattern (`patterns/do-report-commit.md`) — **update `2-report.md`
-first, then present the commit message. In order:**
+   - A command you run → wrap it so the real exit status is stored:
+     `check --id step-NN-<kind>-run-01 --kind <build|test|lint|typecheck> --name "<what>" -- <command>`
+   - A result you observed without a command, or a worker's captured run →
+     `check record --source self|worker --result passed|failed --evidence "<what you saw>"`
+   - Never `--source developer` for anything the developer did not actually say in
+     this conversation.
 
-1. Update the step's row in the `## Progress` table of `2-report.md`:
+4. **Step checkpoint.** Intelligent-approval checkpoint
+   (`patterns/approval-intelligent.md`). Auto-approval conditions, all required:
 
-   - Set Status to `✅ Done`
-   - Add a short note in Notes (helps restore context if the session is interrupted)
-   - Leave Test and Docs columns empty — filled by later phases
+   - Every verification item in the plan for this step was something a command or
+     your own inspection could answer, and all of them passed
+   - The implementation matches the plan's description of the step; any narrowing
+     or growth of scope is small and already noted in the report
+   - Nothing in the step is UI/UX-visible in a way the developer would want to see
+     with their own eyes
+   - No guarded command and no credential or access you lack is needed to verify it
 
-2. Add a `### Step N — {title}` entry at the **bottom** of the `## Implementation Notes` section for **every** step:
+   All met → `step complete --id <ID>`, then do items 5 and 6 below, say in one line
+   that the step checkpoint passed and what you ran, and start the next step.
 
-   - First try: a one-liner is enough ("went as planned")
-   - Troubleshooting required: write a full incident record — initial error, each hypothesis tested and ruled out, root cause and fix. A terse note like "fixed and resolved" is **not acceptable** when there was a troubleshooting chain
-   - Always add at the bottom; notes must stay in ascending step order (1 → 2 → 3 …)
-   - When writing the **first** step note, remove the placeholder line (`_Added for every step…_`) before inserting `### Step 1`
+   Any condition fails or is uncertain → stop and ask the developer for exactly the
+   missing piece. Report what you ran and the real result; name the divergence or
+   the item that needs their eyes; give the precise action (what to open, what to
+   look at, which command to run). Do not ask a general "does it look good?".
+   Before stopping: update the step's Progress row and note, `report`, then
+   `wait start --reason user_input --detail "Step N: <what is needed>"`.
+   **Stop and wait.** On the reply, `resume --activity implementation` and record
+   their answer as an acceptance check with `--source developer` and their words as
+   evidence. Passed → `step complete`. Failed → `step retry --id <ID> --reason verification_failure`,
+   fix, verify again, come back to this checkpoint.
 
-3. Upsert the step's `## Step Metrics` row from `stat.json`, including observed time and available token evidence. Add the phase effort row with a link to that step; human time remains unreported unless supplied, and missing AI token usage is marked unavailable. Do not sum duplicate phase and step usage rows.
+5. **Report.** Follow `patterns/do-report-commit.md`: update `2-report.md` before any
+   commit message, in this order:
 
-4. Mark the step's task `completed` (per `patterns/task-tracking.md`), verifying the completion evidence above rather than a worker's self-report alone. Present the commit message and progress announcement (`.claude/skills/dev/patterns/announce-progress.md`):
+   - Progress row → `✅ Done`, a short note in Notes (what landed, anything unusual),
+     Test and Docs empty
+   - `### Step N — {title}` at the **bottom** of `## Implementation Notes`. One line
+     when it went as planned. A full incident record when it needed troubleshooting:
+     initial error, each hypothesis ruled out, root cause, fix. "Fixed and resolved"
+     is not acceptable after a troubleshooting chain. Remove the placeholder line
+     before inserting `### Step 1`.
+   - Keep notes in ascending step order.
+   - Mark the step's task `completed`.
 
-   > "Step N complete — `2-report.md` updated. Please commit with:
-   >
-   > ```
-   > <suggested conventional commit message>
-   > ```
-   >
-   > ✅ Done: <one-line summary>
-   > 🔜 Next in this phase: <remaining steps, numbered>
-   >
-   > Once committed, let me know and I'll start Step N+1."
+6. **Announce** (`patterns/announce-progress.md`): what landed, what verified it,
+   what is next. Commits are proposed once, by block, at the end of the phase
+   (Step 6); do not stop for one here.
 
-   **Commit message format (Conventional Commits):**
+> ⚠️ **Never commit yourself.** Do not run `git add` or `git commit`. Other local,
+> reversible git operations (`git mv` in Completion)
+> are fine. Follow the project's guarded-command rules for everything else.
 
-   - `{type}({scope}): {description}` — all lowercase, imperative mood, no period
-   - Types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `ci`, `build`
-   - Scope: the NX project name or layer (`infra`, `lambda-auth`, `docs-web`)
-   - No body unless breaking change — then add `BREAKING CHANGE: <what and why>` as a footer
-   - Examples: `feat(infra): add CloudFront distribution` · `feat(lambda-auth): add basic auth header validation`
+### While working on a step: external blockers
 
-5. **Stop and wait for the developer to confirm the commit is done before starting the next step.**
+If a step cannot finish because of an external dependency (IT request, missing
+permission, network policy, missing secret):
 
-> ⚠️ **Never commit yourself.** Do not run `git add` or `git commit`. This is
-> specifically about staging and committing — it does not forbid other local, reversible
-> git operations this stage or others already do directly (e.g. Document's `git mv`
-> for local archival). Follow the project's guarded-command rules for anything else.
+1. **Do not stop.** Continue with steps that do not depend on it
+2. Add a `## Tech Debt` row with type `blocker`: what is blocked and why, the exact
+   action required (command, request text, who to contact), what to do once resolved
+3. Note it under the step in `## Implementation Notes`
+4. Tell the developer: "Step N is blocked on `{reason}`. Logged in 2-report.md, continuing with unblocked steps."
 
-## Step 4 — Handle external blockers
+### While working on a step: tech debt
 
-If a step cannot be completed because of an external dependency (IT request, insufficient permissions, network policy, missing secret):
-
-1. **Do not stop** — continue with steps that are independent of the blocker
-2. Add a row to the `## Tech Debt` table with type `blocker`:
-   - What is blocked and why
-   - The exact action required (command to run, request text to send, who to contact)
-   - What to do once the blocker is resolved
-3. Log it in `## Implementation Notes` under the relevant step entry
-4. Tell the developer: "Step N is blocked on `{reason}`. I've logged it in 2-report.md and will continue with unblocked steps."
-
-## Step 5 — Capture tech debt during implementation
-
-If during any step you discover something that should be done but is out of scope: do not implement it. Add a row to the `## Tech Debt` table in `2-report.md` and mention it briefly to the developer: "Added TD-N to tech debt: `{title}`".
+If you find something that should be done but is out of scope, do not do it. Add a
+`## Tech Debt` row and mention it in one line: "Added TD-N to tech debt: `{title}`".
 
 | #    | Description           | Type     | Tracker | Finding    | Owner             | Next action        |
 | ---- | --------------------- | -------- | ------- | ---------- | ----------------- | ------------------ |
@@ -167,42 +154,74 @@ If during any step you discover something that should be done but is out of scop
 
 Valid types: `blocker` · `dependency` · `cleanup` · `security` · `performance` · `ux`
 
-## Step 6 — Handle failures
+### While working on a step: failures
 
-If the developer reports an error during verification:
+When a check fails or the developer reports an error:
 
 - Diagnose the root cause before changing anything
-- Fix only what is broken — do not refactor surrounding code
-- Re-present the same verification instructions after the fix
-- Do not move to the next step until the current one passes
+- Fix only what is broken; do not refactor around it
+- Re-run the same named check
+- Do not move to the next step until this one passes
 
-## Step 7 — Completion
+## Step 4 — Sign-off (rework if any)
 
-When all steps are verified, update `2-report.md`:
+When every step is complete, apply `patterns/phase-sign-off.md`. Present:
 
-1. **Phase row** — `🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ⏳ · 📝 Document ⏳`. Do not set Status to Complete — that is done at the end of the Document phase.
+- Each step in one line: what landed, what verified it (self / worker / developer),
+  the result
+- Steps that were auto-approved, and the one-line reason each
+- Any divergence from the plan, named explicitly
+- Anything the developer should look at themselves before Test (UI, a flow on
+  their machine) that did not already stop the phase, as a precise action
 
-2. **Progress table** — all rows should already reflect their final status. Do a final pass to confirm nothing is stale.
+> "All {N} steps implemented. {Summary above.} Good to move to Test?"
 
-3. **Delivery Summary** — add only if the ticket warrants a human-readable summary (significant feature, complex refactor, or something a reviewer would benefit from reading). Skip for small or mechanical changes:
+`report`, then `wait start --reason approval --detail "Awaiting implement sign-off"`.
+**Stop and wait.** No reply, no next step. On approval, record the acceptance check
+(`--name "Implement sign-off"`, `--source developer`, their words as evidence); without
+it `stage complete` is refused.
 
-   ```markdown
-   ## Delivery Summary
+Rework: `step retry --id <ID> --reason review_feedback` for the affected step, fix,
+re-verify through Step 3, present again.
 
-   <One short paragraph — what was built, what it enables, what changed for the user or system.>
-   ```
+## Step 5 — Report
 
-   Insert between the Progress table and Implementation Notes.
+Update `2-report.md`:
 
-4. **Tech Debt** — already populated during Steps 4–5. Add any final items discovered at wrap-up.
+1. **Progress table** — final pass, nothing stale
+2. **Delivery Summary** — only if the ticket deserves a human-readable summary
+   (significant feature, complex refactor, something a reviewer benefits from).
+   One short paragraph between the Progress table and Implementation Notes.
+3. **Tech Debt** — anything found at wrap-up. Flag debt that blocks acceptance
+   criteria; it cannot be silently deferred. Any authorised scope addition needs a
+   plan addendum and new progress rows; the original plan stays as is.
+4. **Efforts Spent** — one summary row if useful
+5. `Phase` row → `🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test 🔄 · 📝 Document ⏳ · 🏁 Completion ⏳`
 
-5. **TD triage** — flag debt that blocks acceptance criteria; it cannot be silently
-   deferred. Keep unrelated debt in the ledger for Document's combined decision review.
-   Any authorized scope addition needs an explicit plan addendum and new progress rows;
-   preserve the original approved plan.
+Then metrics `report`.
 
-6. **Efforts Spent** — per-step rows were already added during implementation. Add one final summary row if useful (total session note, unexpected complexity).
+## Step 6 — Commit, by block
 
-Then tell the developer: "All steps complete. `2-report.md` updated."
+One commit per step, or per logical block when several small steps belong together,
+in plan order, each with its files:
+
+> "Commits, in order:
+>
+> 1. `feat(infra): add CloudFront distribution` — `apps/infra/...`
+> 2. `feat(lambda-auth): add basic auth header validation` — `apps/lambda-auth/...`
+> 3. `docs({ticket-lowercase}): update implementation report` — `impl/2-report.md`, `impl/stat.json`
+>
+> Let me know when they're in."
+
+Conventional Commits: `{type}({scope}): {description}`, lowercase, imperative, no
+period. Types: `feat`, `fix`, `chore`, `refactor`, `docs`, `test`, `ci`, `build`.
+Scope: the NX project name or layer (`infra`, `lambda-auth`, `docs-web`). No body unless breaking. A commit
+that would need two types to be honest means the block is too broad; split it.
+
+This is a manual-operation sign-off (`patterns/approval-sign-off.md`): the developer
+runs the commit, you wait. `wait start --reason user_input --detail "Awaiting commit"`.
+**Stop and wait.** On the reply, check `git log`/`git status`: the commit exists and the
+worktree holds nothing from this phase. If not, say what is missing and wait again.
+Then `stage complete --stage implement`.
 
 🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Test).

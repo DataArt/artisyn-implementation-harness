@@ -1,0 +1,14 @@
+--- a/canonical/skills/dev/templates/stat.json
++++ b/canonical/skills/dev/templates/stat.json
+@@ -38,6 +38,11 @@
+       "id": "document",
+       "status": "pending",
+       "attempts": []
++    },
++    {
++      "id": "completion",
++      "status": "pending",
++      "attempts": []
+     }
+   ],
+   "steps": [],

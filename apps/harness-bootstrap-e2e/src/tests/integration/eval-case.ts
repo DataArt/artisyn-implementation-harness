@@ -32,7 +32,7 @@ export interface EvalCase {
 export async function runEvalCase(evalCase: EvalCase): Promise<EvalReport> {
   const start = performance.now();
   let graders: Record<string, 'pass' | 'fail'> = {};
-  let failures: string[] = [];
+  let failures: string[];
   let context: GradeContext | undefined;
   try {
     context = await evalCase.setup();

@@ -39,8 +39,8 @@
     },
     "Q7": {
       "question": "Commit format, branch naming, build/check commands, guarded commands",
-      "value": "Commit: `<type>(<scope>): <what changed>` (feat/fix/docs/refactor/test/chore). Branch: `<type>/short-description`. Package manager: yarn only (never npm/npx). Guarded commands (never run directly, present as instructions): `cdk deploy`, `yarn nx run infra:provision`, `git push`.",
-      "source": "CLAUDE.md, docs/Engineering Guide/01 Conventions.md",
+      "value": "Commit: `<type>(<scope>): <what changed>` (feat/fix/docs/refactor/test/chore). Branch: `<type>/short-description`. Package manager: yarn only (never npm/npx). Guarded commands (never run directly, present as instructions): `cdk deploy`, `yarn nx run infra:provision`, `git push`, `yarn nx run harness-bootstrap-e2e:agent-e2e`.",
+      "source": "CLAUDE.md, docs/Engineering Guide/01 Conventions.md; agent-e2e added as guarded 2026-10-01 (developer request)",
       "status": "verified"
     },
     "Q8": {

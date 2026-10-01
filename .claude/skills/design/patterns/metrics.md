@@ -64,7 +64,7 @@ activities are implementation and verification. Retry reasons: review_feedback,
 verification_failure, scope_change, reopened.
 
 Record waits and run report **before** every hard stop, including IDE review, commit
-confirmation, compaction approval, and the out-of-band MR review. On the reply,
+confirmation, and the out-of-band MR review. On the reply,
 resume work. Keep the current stage open through its boundary approval; then complete
 it and start the next stage. Direct-stage completion closes that stage only, not the
 whole design. Checkpoint after long delegated work, not after every tool call.

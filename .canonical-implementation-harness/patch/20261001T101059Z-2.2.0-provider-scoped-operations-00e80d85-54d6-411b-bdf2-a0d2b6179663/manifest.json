@@ -1,0 +1,103 @@
+{
+  "schema_version": 2,
+  "id": "00e80d85-54d6-411b-bdf2-a0d2b6179663",
+  "created_at": "2026-10-01T10:10:59Z",
+  "origin": "artisyn-harness (canonical source repo)",
+  "operation": "apply",
+  "summary": "Provider-scoped operation records (2.2.0): every operation that reads or writes permanent files records which providers it covered, so a project with Claude and Codex installed side by side can tell them apart. Adds a providers scope per operation, a provider/\"shared\" field per mapped result, a Providers column on APPLIED.md, per-provider index.json mapping entries, and per-provider deployment/verification/completion. Canonical writes and portable bundles stay provider-neutral.",
+  "package_version": "2.2.0",
+  "requires": ["5f3c3011-6ff1-4596-a95e-71020ea0287a"],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "66a0d7a692ffbdf1a4e9ad147fc9eafaf702480bdeba48718078a4e6ee999add",
+      "after_sha256": "1959bf8ad05a73af634e533e6f22b1f230db4bcf8c3992469b82dfee804c6070",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "56a7e4564cea2ab67e68298c42333df9280b10c6f254cb20f3001983f86b5b84",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "0d271e8d5d971f8d891bac862f473062e293e21e2a16e98870b5d1512c038abf",
+      "after_sha256": "50af37a3b615fff1b69ccd14c345dfa75ef5b19d4d521a42e4862c3348103258",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "4253b0a9cde5308a07a3c44eba606389b47af7e05b1a1ef17bc2541304d83b8b",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/03-patch.md",
+      "old_path": null,
+      "before_sha256": "d02f04818063f6141d18c1cfeae25e6d35bc9ac174b05339e213612cce4996e8",
+      "after_sha256": "b34228a8d96dc81ee07f2881a919f6f61f63e0459afe2ef823ee71730bcd38ab",
+      "payload": "diffs/references/patch/03-patch.md.patch",
+      "payload_sha256": "eedfbb1d0e1eefc0bd742822f2bc278d1ffeaf01c4f47a29e54ca8f87513f48d",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/04-patch-harvest.md",
+      "old_path": null,
+      "before_sha256": "bc4d697dd3b9d13c936d11b0d015f6766e30a111f62593c536af0d45229d1e50",
+      "after_sha256": "9916f8457e8931298acf650d9f728ea1edc82786af402bcd84facc61abf33374",
+      "payload": "diffs/references/patch/04-patch-harvest.md.patch",
+      "payload_sha256": "238883e93e440c27eb47ba3d248ae18e1e3e35994478462c623a5aaffef21916",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/05-patch-apply.md",
+      "old_path": null,
+      "before_sha256": "c3ae1f382189a075c3dd739ec2b8fd68a8ee4603003853aa052a19781dd2429c",
+      "after_sha256": "0d0f681fe6ac0642a11891cd1b3889aa49ad2c2872d58ee2b01ade4178192671",
+      "payload": "diffs/references/patch/05-patch-apply.md.patch",
+      "payload_sha256": "0c62f2c41e7b575ef6f53f372f489047272ba6053328df5df0d8d4d8261a4cac",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/06-patch-state.md",
+      "old_path": null,
+      "before_sha256": "6929dee0556fb54c5cab88dfd0227cc50f655a754aeef7fe0a74277f84855d2e",
+      "after_sha256": "9e53c236da6e2605a2327fe33ee3731a432c19cbee65e3eb9c3c542a92090c18",
+      "payload": "diffs/references/patch/06-patch-state.md.patch",
+      "payload_sha256": "9d46274608240fadf902f859f8cd66c4d32a6eacb02399514f2c5688532df1e7",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/07-patch-prepare.md",
+      "old_path": null,
+      "before_sha256": "24715d161bbe539d4662bad365897ae0d01ce57f5058e836ffa5ac7558b85dc5",
+      "after_sha256": "d8410af0d7eaad7cc1530156932e3c8dcc09ac19c61a6bf41d49b6f70fc02adf",
+      "payload": "diffs/references/patch/07-patch-prepare.md.patch",
+      "payload_sha256": "65010c8dbb83e739500404691c8d560d53b6672f6852e458b6a62af9c7f86cc7",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "reports/report.template.md",
+      "old_path": null,
+      "before_sha256": "e845d4c9ec87eff401a750121596efb519a0859d5b3004a3e72c5997012b5c1f",
+      "after_sha256": "63e901059b9f67d89c88a489e0c01c23ebc3520427da0e63701802dbe8c0af74",
+      "payload": "diffs/reports/report.template.md.patch",
+      "payload_sha256": "e794399f7568d5cd679dfde67a0a45d3b076b246f05d24e5ec5534749acee75f",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ],
+  "regenerated_at": "2026-10-01T10:13:32Z",
+  "regeneration_note": "Re-derived in place before this bundle was applied, transferred or committed: the new provider-scope grader, run against this repo's own records, showed that an apply whose changes are all canonical-only deploys nothing and so has a legitimately empty provider scope. Every hash below is recomputed from the real file; no payload was carried forward unverified."
+}

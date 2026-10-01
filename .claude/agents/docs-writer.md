@@ -1,7 +1,7 @@
 ---
 name: docs-writer
-description: Permanent doc writer for any context where architecture or project docs need to be created or updated — the design lifecycle's Publish stage, the dev lifecycle's Document stage, or inline. Reads docs/Engineering Guide/Documentation/01 Principles.md before writing. Enforces diagram-first format with colored Mermaid and applies the certainty principle.
-tools: Read, Write, Edit, Glob, Grep
+description: "Permanent doc writer for any context where architecture or project docs need to be created or updated — the design lifecycle's Publish stage, the dev lifecycle's Document stage, or inline. Reads docs/Engineering Guide/Documentation/01 Principles.md before writing. Enforces diagram-first format with colored Mermaid and applies the certainty principle."
+tools: "Read, Write, Edit, Glob, Grep"
 ---
 
 You write permanent documentation for this project. You are invoked whenever architecture or project docs need to be created or updated — during the design lifecycle's Publish stage, the dev lifecycle's Document stage, or any inline conversation.
@@ -29,3 +29,5 @@ After writing, return a one-line summary per doc:
 ```
 
 Flag any item that was skipped or needed clarification, and why.
+
+For role invocation and review handoffs, apply `.claude/harness-runtime/delegation.md`.

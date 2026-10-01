@@ -26,22 +26,25 @@ not rows copied from the source project.
 | design                    | skill | content   | `canonical/skills/design/TEMPLATE.md`                                      | `.claude/skills/design/SKILL.md`                                 |
 | war                       | skill | content   | `canonical/skills/war/TEMPLATE.md`                                         | `.claude/skills/war/SKILL.md`                                    |
 | where-we-are              | skill | content   | `canonical/skills/where-we-are/TEMPLATE.md`                                | `.claude/skills/where-we-are/SKILL.md`                           |
+| x-ray                     | skill | content   | `canonical/skills/x-ray/TEMPLATE.md`                                       | `.claude/skills/x-ray/SKILL.md`                                  |
 | architect                 | agent | content   | `canonical/agents/architect/TEMPLATE.md`                                   | `.claude/agents/architect.md`                                    |
+| product-architect         | agent | content   | `canonical/agents/product-architect/TEMPLATE.md`                           | `.claude/agents/product-architect.md`                            |
 | docs-writer               | agent | content   | `canonical/agents/docs-writer/TEMPLATE.md`                                 | `.claude/agents/docs-writer.md`                                  |
 | onboarding                | agent | content   | `canonical/agents/onboarding/TEMPLATE.md`                                  | `.claude/agents/onboarding.md`                                   |
 | scrum-master              | agent | content   | `canonical/agents/scrum-master/TEMPLATE.md`                                | `.claude/agents/scrum-master.md`                                 |
 | web                       | agent | content   | `canonical/agents/layer/TEMPLATE.md`                                       | `.claude/agents/web.md`                                          |
-| infra                     | agent | content   | `canonical/agents/layer/TEMPLATE.md`                                       | `.claude/agents/infra.md`                                        |
+| auth                      | agent | content   | `canonical/agents/layer/TEMPLATE.md`                                       | `.claude/agents/auth.md`                                         |
+| infra                     | agent | content   | `canonical/agents/infra/TEMPLATE.md`                                       | `.claude/agents/infra.md`                                        |
 | eg-conventions            | doc   | content   | `canonical/docs/Engineering Guide/01 Conventions.md`                       | `docs/Engineering Guide/01 Conventions.md`                       |
 | eg-engineer-role          | doc   | content   | `canonical/docs/Engineering Guide/03 Engineer Role.md`                     | `docs/Engineering Guide/03 Engineer Role.md`                     |
-| eg-ai-workflow            | doc   | content   | `canonical/docs/Engineering Guide/04 AI Workflow.md`                       | `docs/Engineering Guide/04 AI Workflow.md`                       |
-| eg-mcp-setup              | doc   | content   | `canonical/docs/Engineering Guide/05 MCP Setup.md`                         | `docs/Engineering Guide/05 MCP Setup.md`                         |
+| eg-ai-tool-compat         | doc   | content   | `canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md`      | `docs/Engineering Guide/04 AI Coding Tool Compatibility.md`      |
+| eg-mcp-setup              | doc   | content   | `canonical/docs/Engineering Guide/05 MCP Setup.md`                         | `docs/Engineering Guide/06 MCP Setup.md`                         |
 | eg-doc-principles         | doc   | content   | `canonical/docs/Engineering Guide/Documentation/01 Principles.md`          | `docs/Engineering Guide/Documentation/01 Principles.md`          |
 | eg-doc-structure          | doc   | content   | `canonical/docs/Engineering Guide/Documentation/02 Structure.md`           | `docs/Engineering Guide/Documentation/02 Structure.md`           |
 | eg-hld-interface          | doc   | content   | `canonical/docs/Engineering Guide/Documentation/03 HLD Intent.md`          | `docs/Engineering Guide/Documentation/03 HLD Intent.md`          |
 | eg-nfr-intent             | doc   | content   | `canonical/docs/Engineering Guide/Documentation/05 NFR Intent.md`          | `docs/Engineering Guide/Documentation/05 NFR Intent.md`          |
 | eg-lld-interface          | doc   | content   | `canonical/docs/Engineering Guide/Documentation/04 LLD Intent.md`          | `docs/Engineering Guide/Documentation/04 LLD Intent.md`          |
-| eg-lifecycles-overview    | doc   | content   | `canonical/docs/Engineering Guide/Lifecycles/00-overview.md`               | `docs/Engineering Guide/Lifecycles/00-overview.md`               |
+| eg-lifecycles-overview    | doc   | content   | `canonical/docs/Engineering Guide/Lifecycles/00 Overview.md`               | `docs/Engineering Guide/Lifecycles/00 Overview.md`               |
 | eg-dev-lifecycle          | doc   | content   | `canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md`          | `docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md`          |
 | eg-design-lifecycle       | doc   | content   | `canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md`       | `docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md`       |
 | eg-skill-lifecycle        | doc   | content   | `canonical/docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md`       | `docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md`       |

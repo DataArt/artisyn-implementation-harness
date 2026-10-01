@@ -1,0 +1,13 @@
+# Applied patch history
+
+Local application attempts recorded by `/harness-bootstrap patch apply`. Portable bundle
+history lives in `../../patch/REGISTRY.md`; this table is project-local. See
+`../../references/patch/06-patch-state.md`.
+
+| Bundle UUID                          | Date       | Providers          | Status  | Operation record                                             | Summary                                                                                                                                                                               |
+| ------------------------------------ | ---------- | ------------------ | ------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 63cc5487-12a1-4dc8-9841-6752e0372404 | 2026-10-01 | claude             | applied | `state/operations/59753801-94e1-43e1-ab58-50ac879dbb17.json` | 2.0.0 provider-agnostic refactor — 81 mapped entries deployed to the claude provider                                                                                                  |
+| bef7be46-d4b4-43bb-a6db-c6056ab9b3c0 | 2026-10-01 | — (canonical-only) | applied | `state/operations/59753801-94e1-43e1-ab58-50ac879dbb17.json` | 2.1.1 launch fixes — canonical-only, verified no-op for deployment                                                                                                                    |
+| 5f3c3011-6ff1-4596-a95e-71020ea0287a | 2026-10-01 | — (canonical-only) | applied | `state/operations/59753801-94e1-43e1-ab58-50ac879dbb17.json` | 2.1.2 check status vocabulary — canonical-only, verified no-op for deployment                                                                                                         |
+| 00e80d85-54d6-411b-bdf2-a0d2b6179663 | 2026-10-01 | — (canonical-only) | applied | `state/operations/f7e3fbd9-9d20-4ef8-b672-5b953b92af02.json` | 2.2.0 provider-scoped operation records — canonical-only; local deployment actions migrate APPLIED.md, operation records and index.json mappings to the new contract                  |
+| fe0b575a-b784-4792-9cbb-d39b3cc902d4 | 2026-10-01 | claude             | applied | `state/operations/6678df37-6181-4971-ae10-72c729996d1a.json` | 2.3.0 — dev skill 3.1.0 (approvals, Completion stage, timing, intent/plan, tests-first), lifecycle docs, doc Manner; 26 outputs updated, 3 added, 1 deleted, CLAUDE.md catalog edited |

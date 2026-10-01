@@ -1,0 +1,38 @@
+--- a/canonical/skills/dev/templates/stat.schema.json
++++ b/canonical/skills/dev/templates/stat.schema.json
+@@ -643,7 +643,7 @@
+       "type": "object",
+       "properties": {
+         "id": {
+-          "enum": ["context", "ceremony", "plan", "implement", "test", "document"]
++          "enum": ["context", "ceremony", "plan", "implement", "test", "document", "completion"]
+         },
+         "status": {
+           "enum": ["pending", "active", "waiting", "completed"]
+@@ -721,7 +721,7 @@
+               "minLength": 1
+             },
+             "stage_id": {
+-              "enum": ["context", "ceremony", "plan", "implement", "test", "document"]
++              "enum": ["context", "ceremony", "plan", "implement", "test", "document", "completion"]
+             },
+             "stage_attempt_id": {
+               "type": "string",
+@@ -806,7 +806,7 @@
+               "minLength": 1
+             },
+             "stage_id": {
+-              "enum": ["context", "ceremony", "plan", "implement", "test", "document"]
++              "enum": ["context", "ceremony", "plan", "implement", "test", "document", "completion"]
+             },
+             "stage_attempt_id": {
+               "type": "string",
+@@ -890,7 +890,7 @@
+           "minLength": 1
+         },
+         "stage_id": {
+-          "enum": ["context", "ceremony", "plan", "implement", "test", "document"]
++          "enum": ["context", "ceremony", "plan", "implement", "test", "document", "completion"]
+         },
+         "stage_attempt_id": {
+           "type": "string",

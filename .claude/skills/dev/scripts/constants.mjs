@@ -11,10 +11,11 @@ export const STAGES = Object.freeze([
   'implement',
   'test',
   'document',
+  'completion',
 ]);
 
 /** Stage whose completion gates ticket completion. */
-export const FINAL_STAGE = 'document';
+export const FINAL_STAGE = 'completion';
 
 /** File names this recorder owns inside the ticket directory. */
 export const FILES = Object.freeze({
@@ -49,6 +50,7 @@ export const ACTIVITIES_BY_STAGE = Object.freeze({
   implement: 'implementation',
   test: 'verification',
   document: 'documentation',
+  completion: 'documentation',
 });
 
 /** Allowed work-interval activities. */

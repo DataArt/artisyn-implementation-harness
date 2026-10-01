@@ -1,0 +1,10 @@
+--- a/reports/report.template.md
++++ b/reports/report.template.md
+@@ -71,6 +71,7 @@
+ ## Patch outcome
+ 
+ - Scope:
++- Providers: _(apply: deployed to; harvest: observed from; prepare: none)_
+ - Manifest UUID/path:
+ - Local operation record:
+ - Conflicts and decisions:

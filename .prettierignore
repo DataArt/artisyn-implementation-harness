@@ -9,3 +9,11 @@ dist
 .secrets.*
 .yarn
 CLAUDE.md
+
+# Deployed harness artifacts — byte-exact output of the bootstrap package's own
+# renderer (agent frontmatter is JSON-quoted by scripts/lib/agent-format.mjs).
+# Reformatting them here makes every `patch apply` see phantom local drift.
+.claude/agents/
+.claude/skills/
+.claude/harness-runtime/
+.agents/
