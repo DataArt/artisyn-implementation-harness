@@ -5,12 +5,13 @@
   "type": "module",
   "devDependencies": {
     "@types/diff": "^5.0.0",
-    "@types/node": "^20.0.0",
+    "@types/node": "^24",
     "diff": "^5.2.0",
-    "smol-toml": "1.6.1",
+    "smol-toml": "^1.9.0",
     "tsx": "^4.0.0",
     "typescript": "^5.0.0",
-    "vitest": "^2.0.0",
+    "vite": "^7",
+    "vitest": "^5",
     "yaml": "^2.7.0"
   }
 }

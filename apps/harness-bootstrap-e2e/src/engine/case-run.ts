@@ -75,7 +75,7 @@ export class CaseRun {
       );
 
     const failures: string[] = [];
-    let reports: StepReport[] = [];
+    let reports: StepReport[];
     try {
       const grade = initialGradeContext(this.definition, await this.createWorkspaces());
       const outcome = await new ScenarioRun(this.scenario, this.definition, grade).run();
