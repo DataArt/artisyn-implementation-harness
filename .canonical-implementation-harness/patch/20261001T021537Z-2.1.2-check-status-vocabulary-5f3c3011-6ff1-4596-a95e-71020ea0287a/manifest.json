@@ -1,0 +1,46 @@
+{
+  "schema_version": 2,
+  "id": "5f3c3011-6ff1-4596-a95e-71020ea0287a",
+  "created_at": "2026-10-01T02:15:37Z",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "Patch release 2.1.2: declare the partial-checkpoint check status a closed passed/pending/blocked set after the Codex greenfield e2e case recorded a coined passed_with_scope_limit status, and direct reviewer nuance into evidence.",
+  "package_version": "2.1.2",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "7ed983873fcc4bcda1f4392eea79ae9685d37839922f2376dc4c69cf73ff6424",
+      "after_sha256": "0d271e8d5d971f8d891bac862f473062e293e21e2a16e98870b5d1512c038abf",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "3b89a4ad0cf65c15c8aacce56851784d4c84e1a6afd7f48510dbdb054fb63c28",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "06e60b3f0b32b17e2a4a71c0efb3312a1c31ce50e4c4353151fb930249304213",
+      "after_sha256": "67d0907f1efc39d78d5fc74996e8997c9b052e98e95a9923a5d9f5a99ddc92ec",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "811af7fd72637397a4d936f2ff0ce1ecbdecb5be8c33bd4730569356e1aa0f7e",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/08-provider-launch.md",
+      "old_path": null,
+      "before_sha256": "842ad4ef769ab0a04fca1c8b217fccb82b9696565c584ffe79f0b73df15a8cb0",
+      "after_sha256": "5423af7fac64ae0a97686087d1f0f416e7884b0620ca0f164365ff8ca05aa9c8",
+      "payload": "diffs/references/launch/08-provider-launch.md.patch",
+      "payload_sha256": "a3a9a176fc4210230b3480dc4e639115657923ebe294b968145ccff6ed729c10",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

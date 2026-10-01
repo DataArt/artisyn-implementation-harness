@@ -1,0 +1,44 @@
+diff --git a/references/launch/08-provider-launch.md b/references/launch/08-provider-launch.md
+index bbbda1d..2493d6f 100644
+--- a/references/launch/08-provider-launch.md
++++ b/references/launch/08-provider-launch.md
+@@ -173,6 +173,39 @@ outputs, or failed local checks. Resume pending gates before final verification
+ closure. If an operation also records stage statuses, keep them consistent with the
+ report.
+ 
++### Check status vocabulary
++
++`status` is a closed set. Use exactly one of these values — do not coin a new
++one, and do not qualify it (`passed_with_scope_limit`, `partially_passed` and
++similar are rejected):
++
++| Status    | Meaning                                              |
++| --------- | ---------------------------------------------------- |
++| `passed`  | The gate ran and its outcome was accepted.           |
++| `pending` | The gate has not run yet and is still expected to.   |
++| `blocked` | The gate could not run, or ran and was not accepted. |
++
++`checks.local` must be `passed` with evidence — a partial checkpoint is for
++_external_ gates, never for unfinished local work. Each of
++`checks.independent_review` and `checks.mermaid` must carry one of the three
++statuses **and** non-empty `evidence`, and at least one of them must be
++`pending` or `blocked`; an operation where both already passed is a finished
++launch, not a checkpoint.
++
++Nuance belongs in `evidence`, not in the status. A reviewer who approves with
++a caveat is `passed` with the caveat spelled out:
++
++```json
++"independent_review": {
++  "status": "passed",
++  "evidence": "Reviewer GO after three iterations. Scope limit: accepted as a disposable fixture scaffold, not as a formal product HLD."
++}
++```
++
++A reviewer whose caveat means the work is _not_ accepted is `blocked`, with the
++reason as evidence. If the distinction is unclear, prefer `blocked`: it keeps
++the launch honestly in progress rather than closing it on a qualified approval.
++
+ ## Disposable bootstrap; permanent runtime
+ 
+ `runtimeSource` is a path relative to canonical/ used only during installation.

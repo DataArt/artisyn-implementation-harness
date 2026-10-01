@@ -1,0 +1,29 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 70bc382..1c56bb0 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,24 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 2.1.2
++
++Fix surfaced by the Codex greenfield e2e case after 2.1.1:
++
++- Declare the partial-checkpoint check `status` field a closed set of
++  `passed`/`pending`/`blocked`, and name the qualified variants that are rejected.
++  A run recorded `independent_review` as `passed_with_scope_limit` with real
++  evidence; the gate was genuinely satisfied but the grader rejected the coined
++  status, failing an otherwise complete launch on vocabulary alone.
++- State the rules the graders already enforced but the reference only implied:
++  `checks.local` must be `passed` with evidence, both external gates need a status
++  *and* non-empty evidence, and at least one must remain `pending`/`blocked` —
++  an operation where both passed is a finished launch, not a checkpoint.
++- Direct reviewer nuance into `evidence` rather than the status, with a worked
++  example, and add a tie-breaker: when it is unclear whether a caveated approval
++  counts as acceptance, record `blocked` so the launch stays honestly in progress
++  instead of closing on a qualified GO.
++
+ ## 2.1.1
+ 
+ Fixes surfaced by the Codex greenfield e2e case after 2.1.0:

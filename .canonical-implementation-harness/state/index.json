@@ -2,16 +2,16 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "06e60b3f0b32b17e2a4a71c0efb3312a1c31ce50e4c4353151fb930249304213",
-      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
+      "recorded_sha256": "67d0907f1efc39d78d5fc74996e8997c9b052e98e95a9923a5d9f5a99ddc92ec",
+      "snapshot": "bundle:5f3c3011-6ff1-4596-a95e-71020ea0287a"
     },
     "README.md": {
       "recorded_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "SKILL.md": {
-      "recorded_sha256": "7ed983873fcc4bcda1f4392eea79ae9685d37839922f2376dc4c69cf73ff6424",
-      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
+      "recorded_sha256": "0d271e8d5d971f8d891bac862f473062e293e21e2a16e98870b5d1512c038abf",
+      "snapshot": "bundle:5f3c3011-6ff1-4596-a95e-71020ea0287a"
     },
     "canonical/agents/architect/INTENT.md": {
       "recorded_sha256": "4bdd8fe331325845b278a12eb9f7c8ace3ce2b0fe88024a2f53ee095e73dd31c",
@@ -562,8 +562,8 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/launch/08-provider-launch.md": {
-      "recorded_sha256": "842ad4ef769ab0a04fca1c8b217fccb82b9696565c584ffe79f0b73df15a8cb0",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "5423af7fac64ae0a97686087d1f0f416e7884b0620ca0f164365ff8ca05aa9c8",
+      "snapshot": "bundle:5f3c3011-6ff1-4596-a95e-71020ea0287a"
     },
     "references/patch/03-patch.md": {
       "recorded_sha256": "d02f04818063f6141d18c1cfeae25e6d35bc9ac174b05339e213612cce4996e8",
