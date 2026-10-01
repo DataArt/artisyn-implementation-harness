@@ -2,13 +2,16 @@
 
 _The four lifecycles, how they interact, and when to use each one._
 
+Commands are written with a leading `/` — your provider's skill-invocation
+prefix. See `04 AI Coding Tool Compatibility.md` for the full provider mapping.
+
 ---
 
 ## The four lifecycles
 
 | Lifecycle        | Orchestrator            | Phases                                                                            |
 | ---------------- | ----------------------- | --------------------------------------------------------------------------------- |
-| **Dev**          | `/dev`                  | Plan → Implement → Test → Document                                                |
+| **Dev**          | `/dev`                  | Context → Ceremony → Plan → Implement → Test → Document                           |
 | **Design**       | `/design`               | Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
 | **Skill**        | — (no orchestrator)     | Reflect → Triage → Draft → Validate → Adopt                                       |
 | **Architecture** | — (standalone commands) | `/where-we-are` · `/war design` · `/war implementation`                           |
@@ -90,7 +93,7 @@ flowchart TB
 
 ---
 
-→ `01 Dev Lifecycle.md` — Plan → Implement → Test → Document  
+→ `01 Dev Lifecycle.md` — Context → Ceremony → Plan → Implement → Test → Document  
 → `02 Design Lifecycle.md` — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish  
 → `03 Evolve Lifecycle.md` — Reflect → Triage → Draft → Validate → Adopt
 → `04 Architecture Lifecycle.md` — `/where-we-are` · `/war design` · `/war implementation`  

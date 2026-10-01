@@ -102,9 +102,9 @@ If an approved `Architecture.md` is found, tell the developer:
 
 > "Found approved design for `{TICKET}` — reading `solution/Architecture.md` and the selected solution artifacts as the source of truth for intent and planning."
 
-Use the solution files as the primary spec input for Step 4. Developer free-form input supplements; it does not override the solution.
+Use the solution files as the primary spec input for Step 4. Developer free-form input and tracker ACs supplement; they do not override the solution.
 
-If no approved `solution/Architecture.md` exists — continue normally, intent will be derived from the developer's input alone.
+If no approved `solution/Architecture.md` exists — continue normally, intent will be derived from the tracker and developer input alone.
 
 ## Step 3.5 — Verify uncertain platform/framework conventions
 
@@ -146,6 +146,7 @@ summary to the developer and ask:
 > - **Ticket**: `<summary or 'not provided'>`
 > - **Approved design**: `<found / not found>`
 > - **HLD container(s)**: `<container name(s), or a flagged boundary concern>`
+> - **Confluence**: `<page titles or 'none found'>`
 > - **Developer input**: `<problem + thoughts or 'none'>`
 >
 > Does this capture the right scope? Anything missing, incorrect, or out of scope before I write it down?"

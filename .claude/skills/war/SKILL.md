@@ -1,7 +1,7 @@
 ---
 name: war
 metadata:
-  version: 1.0.0
+  version: 2.0.0
 description: Well-Architected Review (/war [design|implementation] [VERSION]). Prompts design vs implementation if ambiguous, then follows the matching reference exactly. @architect assesses against the configured AWS Well-Architected Framework pillars.
 ---
 

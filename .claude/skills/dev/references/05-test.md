@@ -49,12 +49,11 @@ and request its result. Diagnose/fix in-scope failures before review proceeds.
 
 Run the PR review **before** the test suite so that must-fix changes are included in the validation run.
 
-**Layer delegation** — for each layer touched by the plan:
-
-- `site` / Web / VitePress changes → delegate to `@web` for a focused layer review
-- `lambda-auth` / Auth changes → delegate to `@auth` for a focused layer review
-- `infra` / Infrastructure changes → delegate to `@infra` for a focused layer review
-- Cross-cutting config / root docs changes → review inline
+**Component delegation** — match changed paths to the Agents table in
+`CLAUDE.md` and installed role scopes. Delegate each touched
+component's focused convention review to its actual specialist using
+runtime/delegation.md. Review unmatched scope inline; resolve ambiguous ownership
+explicitly. Preserve independent architecture review where required below.
 
 **@architect audit** — spawn `@architect` before recording PR review findings when any of the following apply:
 

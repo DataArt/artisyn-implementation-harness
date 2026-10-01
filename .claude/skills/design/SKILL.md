@@ -1,7 +1,7 @@
 ---
 name: design
 metadata:
-  version: 3.4.0
+  version: 4.0.0
 description: >
   Full design lifecycle (/design {ticket}): Frame → Research → Evaluate → Solution
   → Review Gate → Address Feedback → Publish, or a single stage via
@@ -112,11 +112,11 @@ determines create-vs-reuse itself; this router never branches on that.
 
 This step is not optional background information — it is a required action, on every
 full-chain and every direct single-stage entry alike, resumed or fresh. Do not treat
-repeated system reminders about `TaskCreate`/`TaskUpdate`/`TaskList` availability as
+repeated system reminders about native progress-tool availability as
 informational only; they are the trigger to act on this step now, not later.
 
 Apply `.claude/skills/design/patterns/task-tracking.md` — it inspects existing state
-itself (`TaskList` or `design/Report.md`) and decides create vs. reuse; this router
+itself (the available tracker or `design/Report.md`) and decides create vs. reuse; this router
 never re-derives that logic per branch. For the full chain, the unit list is the
 seven stages (Frame, Research, Evaluate, Solution, Review Gate, Address Feedback,
 Publish), chained in that order. For a direct single-stage invocation, the unit list
@@ -177,13 +177,13 @@ Where `[status]` is: `🔄` (active) · `✅` (done) · `⏳` (pending)
 
 > Skip if Report.md phase tracker shows Frame ✅.
 
-Follow `references/01-frame.md` exactly — it also handles the branch checkout,
-once the title/slug is known.
+Follow `references/01-frame.md` exactly — it also handles the ticket's tracker
+transition and branch checkout,once the title/slug is known.
 
 Once commit is confirmed:
 
 1. **Announce** — **STOP** and emit a progress announcement (`.claude/skills/design/patterns/announce-progress.md`): `"📋 Remaining: Research → Evaluate → Solution → Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); **STOP** and wait
+2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
 3. **Resume** — `"Ready to move into Research? Type **yes** to continue, or **no** to stop and resume later with /design research {TICKET}."`
 
 ---
@@ -197,7 +197,7 @@ Follow `references/02-research.md` exactly.
 Once commit is confirmed:
 
 1. **Announce** — **STOP** and emit a progress announcement (`.claude/skills/design/patterns/announce-progress.md`): `"📋 Remaining: Evaluate → Solution → Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); **STOP** and wait
+2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
 3. **Resume** — `"Ready to move into Evaluate? Type **yes** to continue, or **no** to stop and resume later with /design evaluate {TICKET}."`
 
 ---
@@ -211,7 +211,7 @@ Follow `references/03-evaluate.md` exactly.
 Once commit is confirmed:
 
 1. **Announce** — **STOP** and emit a progress announcement (`.claude/skills/design/patterns/announce-progress.md`): `"📋 Remaining: Solution → Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); **STOP** and wait
+2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
 3. **Resume** — `"Ready to build the Solution? Type **yes** to continue, or **no** to stop and resume later with /design solution {TICKET}."`
 
 ---
@@ -225,7 +225,7 @@ Follow `references/04-solution.md` exactly.
 Once commit is confirmed:
 
 1. **Announce** — **STOP** and emit a progress announcement (`.claude/skills/design/patterns/announce-progress.md`): `"📋 Remaining: Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); **STOP** and wait
+2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
 3. **Resume** — `"Ready to open the Review gate (draft MR)? Type **yes** to continue, or **no** to stop and resume later with /design review-gate {TICKET}."`
 
 ---
@@ -242,7 +242,7 @@ On resume, Step 4 reports the outcome:
 
 - **Approved, no concerns:**
   1. **Announce** — **STOP** and emit a progress announcement (`.claude/skills/design/patterns/announce-progress.md`): `"📋 Remaining: Publish"`
-  2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); **STOP** and wait
+  2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
   3. **Resume** — `"Ready to Publish? Type **yes** to continue, or **no** to stop and resume later with /design publish {TICKET}."`
   4. Skip Phase 6 — go directly to Phase 7.
 - **Concerns raised** → proceed to Phase 6.
@@ -258,7 +258,7 @@ Follow `references/06-address-feedback.md` exactly — it identifies which phase
 Once re-approved:
 
 1. **Announce** — **STOP** and emit a progress announcement (`.claude/skills/design/patterns/announce-progress.md`): `"📋 Remaining: Publish"`
-2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); **STOP** and wait
+2. **Compact** — apply compact-between-phases pattern (`.claude/skills/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
 3. **Resume** — `"Ready to Publish? Type **yes** to continue, or **no** to stop and resume later with /design publish {TICKET}."`
 
 ---
@@ -267,4 +267,4 @@ Once re-approved:
 
 > Skip if Report.md phase tracker shows Publish ✅.
 
-Follow `references/07-publish.md` exactly — doc impact identification, doc updates, `{resolved architect agent}` review, then a single wrap-up stop (publish implementation tickets?), then ticket publication, archive, and close-out run straight through. This is the final phase; the design lifecycle is closed once it completes.
+Follow `references/07-publish.md` exactly — doc impact identification, doc updates, `{resolved architect agent}` review, then a single wrap-up stop (publish implementation tickets?), then ticket publication, archive, tracker sync, and close-out run straight through. This is the final phase; the design lifecycle is closed once it completes.

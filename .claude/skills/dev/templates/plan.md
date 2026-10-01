@@ -26,7 +26,7 @@ type: reference
 <!--
 Sprint contract — agreed before implementation starts.
 Each item must be checkable by the evaluator (dev-test) using tools, curl, or UI.
-Derived from developer input + intent. Do not change after plan is approved.
+Derived from tracker ACs + developer input. Do not change after plan is approved.
 -->
 
 - [ ] `<AC-1>` — <what to observe and where>

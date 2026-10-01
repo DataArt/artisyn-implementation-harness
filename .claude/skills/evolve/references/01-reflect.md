@@ -12,6 +12,6 @@ Read [the reflection interface](../interfaces/reflection.md). Capture the user's
 observation with its actual task evidence; distinguish reported experience from
 observed facts. One sentence is sufficient. Do not invent recurrence or solutions.
 
-Write .claude/reflections/{timestamp}-{slug}.md with a collision-free name. Preserve
+Write .harness/reflections/{timestamp}-{slug}.md with a collision-free name. Preserve
 existing reflections and their status. Report the path and relevant pending items;
 offer triage when useful, without requiring a minimum count. Stop after capture.

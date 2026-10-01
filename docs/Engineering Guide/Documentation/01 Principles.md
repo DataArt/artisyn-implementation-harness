@@ -24,7 +24,11 @@ A secondary reason: frontier AI models follow ~150–200 instructions reliably b
 
 **Progressive disclosure** — root context files point; they do not inline. A line that says "read X for Y" costs ~10–15 tokens and stays accurate indefinitely. Inlined content costs hundreds of tokens and drifts the moment the source is updated.
 
-**Length budget** — root context files (CLAUDE.md): 60–130 lines. Engineering Guide articles: under 150 lines. LLD container docs: under 120 lines. HLD container docs: under 80 lines. If a doc exceeds its budget, something is in the wrong place.
+**Length budget** — measured in prose lines only: Mermaid diagram blocks and tables never count against it, however long, since they carry information density prose can't match. Root context files (CLAUDE.md and equivalents): 60–130 lines. Engineering Guide articles: under 150 lines. LLD container docs: under 120 lines. HLD container docs: under 80 lines. When prose still doesn't fit and the remaining content is genuinely essential, split a focused companion document along the natural topic boundary and link it — do this readily, not as a last resort fought over line-by-line; never compress essential coverage into dense, unreadable prose to stay under budget.
+
+**Certainty principle** — architecture docs (HLD, LLD, NFR) state only settled outcomes. No unresolved comparisons or open questions, and no Gaps, open-question or TODO placeholder sections — including empty "no gaps" declarations. Keep uncertainty in the external run, design or review record (`Stories/<TICKET>/design/`). State approved targets separately from observed behavior; include rationale only when a decision source supports it. → See `docs/README.md`.
+
+**Contradictory evidence** — test material claims against counterexamples, not only supporting examples. Inspect conflicting code, configuration and decisions; narrow or correct claims when evidence differs. Record inspected scope, exceptions and resolution in the external review record. Absence of a counterexample in a sample is not proof of a universal rule.
 
 **Certainty principle** — architecture docs (HLD and LLD) state only settled outcomes. No comparisons, open questions, or rationale. Those belong in `Stories/<TICKET>/design/`. → See `docs/README.md`.
 
@@ -106,5 +110,40 @@ Never write as prose what can be a diagram. Never write as bullets what can be a
 | Directory / folder structure             | `flowchart TD` with labeled nodes       |
 
 ---
+
+## Authoring and acceptance
+
+Read this document and the applicable intent before drafting any generated document.
+Intents own semantic requirements; this file alone owns presentation and readability.
+After writing, reread the actual file against both before handing it to a reviewer.
+
+| Check              | Acceptance evidence in the external review record                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------- |
+| Reader utility     | Identify the reader's concrete question and the section/diagram that answers it                      |
+| Structure and flow | Architecture shows ownership, dependencies and important sequences, not just a file inventory        |
+| Readability        | Prefer diagrams for structure/flow and tables for contracts/inventories; prose connects them briefly |
+| Specificity        | Rules and behavior have project evidence; targets have decision evidence; no generic filler          |
+| Claim challenge    | Material claims were checked for contradictory evidence; exceptions and resolutions are recorded     |
+| Separation         | Repeated setup/deployment/context facts live once and are linked where needed                        |
+| Completeness       | Essential information survives length limits; reserve focused companion docs when needed             |
+| Consistency        | Names, links, current/target distinctions and related documents agree                                |
+
+A heading, line count or nonempty coverage field is not acceptance evidence. Record
+violations as actionable findings, correct them, and recheck before marking complete.
+Keep this review metadata outside published architecture. Document readiness does
+not imply measured system compliance. Render diagrams after the final writer edits.
+
+## How — doc-type cheat sheet
+
+| Doc type                           | Structure                                                             | Length target |
+| ---------------------------------- | --------------------------------------------------------------------- | ------------- |
+| Root context file (CLAUDE.md)      | WHY (2–3 sentences) → WHAT (rules + pointers) → HOW (skills / agents) | 60–130 lines  |
+| Engineering Guide article          | Problem → Steps → Notes                                               | < 150 lines   |
+| HLD container doc                  | Coverage keys in `03 HLD Intent.md`                                   | < 80 lines    |
+| LLD component doc                  | Coverage keys in `04 LLD Intent.md`                                   | < 120 lines   |
+| Convention skill                   | Rule → Why → How to apply                                             | < 40 lines    |
+| Orchestrator skill                 | Orchestration pattern + per-phase invariants                          | < 60 lines    |
+| App README                         | What → How to run locally → Links to HLD + LLD                        | < 60 lines    |
+| ADR (Architecture Decision Record) | Context → Decision → Consequences                                     | < 60 lines    |
 
 This document follows its own rules: it states why these principles exist, what they are, and how to apply them — nothing else.

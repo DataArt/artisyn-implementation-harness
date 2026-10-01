@@ -100,5 +100,5 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 _Filled in during Publish after implementation tickets are created._
 
-| Ticket | Summary |
-| ------ | ------- |
+| Ticket | Summary | Tracker |
+| ------ | ------- | ------- |

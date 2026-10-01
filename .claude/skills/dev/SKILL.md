@@ -1,7 +1,7 @@
 ---
 name: dev
 metadata:
-  version: 2.19.0
+  version: 3.0.0
 description: >
   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
   → Test → Document, or a single stage via
@@ -112,11 +112,11 @@ it delegates to determines create-vs-reuse itself; this router never branches on
 
 This step is not optional background information — it is a required action, on every
 full-chain and every direct single-stage entry alike, resumed or fresh. Do not treat
-repeated system reminders about `TaskCreate`/`TaskUpdate`/`TaskList` availability as
+repeated system reminders about native progress-tool availability as
 informational only; they are the trigger to act on this step now, not later.
 
 Apply `.claude/skills/dev/patterns/task-tracking.md` — it inspects existing state
-itself (`TaskList` or `2-report.md`) and decides create vs. reuse vs. reconcile; this
+itself (the available tracker or `2-report.md`) and decides create vs. reuse vs. reconcile; this
 router never re-derives that logic per branch. For the full chain, the unit list is
 the six stages (Context Gathering, Ceremony, Plan, Implement, Test, Document),
 chained in that order. For a direct single-stage invocation, the unit list is just

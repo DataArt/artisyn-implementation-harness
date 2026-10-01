@@ -12,7 +12,7 @@ See `docs/Engineering Guide/01 Conventions.md`.
 
 **Critical — violating either of these is a hard stop:**
 
-- **Guarded commands** — never run directly; present as instructions for the developer: `cdk deploy`, `yarn nx run infra:provision`, `git push`
+- **Guarded commands** — never run directly; present as instructions for the developer: `cdk deploy`, `yarn nx run infra:provision`, `git push`, `yarn nx run harness-bootstrap-e2e:agent-e2e` (spends real agent budget — the developer starts it)
 - **Region** — must never appear hardcoded in source or documentation anywhere; it is deployment configuration only
 
 Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: `<type>/short-description`. Package manager: `yarn` — never `npm` or `npx`.
@@ -40,13 +40,13 @@ Key constraint: basic auth password protection on all routes.
 
 | Skill                 | Purpose                                                                |
 | --------------------- | ---------------------------------------------------------------------- |
-| `/dev`                | Dev lifecycle orchestrator — Plan → Implement → Test → Document        |
+| `/dev`                | Dev lifecycle orchestrator — Context → Ceremony → Plan → Implement → Test → Document |
 | `/design`             | Design lifecycle orchestrator — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
 | `/evolve`             | Evolve lifecycle orchestrator — Reflect → Triage → Draft → Validate → Adopt |
 | `/war`                | Architecture lifecycle router (`design` / `implementation` / version)  |
 | `/where-we-are`       | Delivery gap report: Designed vs Implemented vs Documented             |
 | `/x-ray`               | Full-strength, project-aware code review — heavier reviewer pass, typically run by whoever approves the MR |
-| `/patch`              | Cross-project patch router (`prepare` / `apply`)                       |
+| `/harness-bootstrap`  | Harness install and cross-project patch router (`launch` / `patch harvest` / `patch prepare` / `patch apply`) |
 
 ## How
 
@@ -54,7 +54,7 @@ Key constraint: basic auth password protection on all routes.
 
 Orchestrators: `/dev` · `/design` · `/evolve` · `/war` · `/where-we-are`
 
-Dev phases: `/dev plan` → `/dev implement` → `/dev test` → `/dev document`
+Dev phases: `/dev context` → `/dev ceremony` → `/dev plan` → `/dev implement` → `/dev test` → `/dev document`
 
 Design phases: `/design frame` → `/design research` → `/design evaluate` → `/design solution` (WAF gate: `patterns/waf-review.md`) → `/design review-gate` → (`/design address-feedback`) → `/design publish`
 
@@ -64,7 +64,7 @@ Evolve phases: `/evolve reflect` → `/evolve triage` → `/evolve draft` → `/
 
 Architecture: `/where-we-are` · `/war design` · `/war implementation`
 
-Patch: `/patch prepare` · `/patch apply`
+Harness bootstrap: `/harness-bootstrap launch` · `/harness-bootstrap patch harvest` · `/harness-bootstrap patch prepare` · `/harness-bootstrap patch apply`
 
 ### Agents
 

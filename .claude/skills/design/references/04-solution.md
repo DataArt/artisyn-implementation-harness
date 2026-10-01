@@ -5,7 +5,7 @@ Apply `.claude/skills/design/patterns/metrics.md`; this stage's metrics unit is
 commands. When this reference is used only as a correction recipe within another
 active stage, retain that stage's metrics ownership.
 
-Read `../interfaces/INTENT.md` first. Select only the solution artifact interfaces
+Read `../interfaces/contract.md` first. Select only the solution artifact interfaces
 that apply to the framed problem, then read each selected interface. Interfaces are
 the sole authoring contract; do not copy a fixed solution template. Record selection and omissions
 in the design report. Apply Documentation Principles before drafting and recheck
@@ -87,7 +87,7 @@ and findings in `design/Report.md`, `design/00 Frame.md` and `design/02 Evaluate
 decision must be represented in Architecture.md; unresolved or rejected material
 options remain in Evaluate only.
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Architecture.md` to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Architecture.md` to `@docs-writer` using the selected delegation procedure.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Architecture.md`. Review in your IDE — any corrections?"
 
@@ -123,7 +123,7 @@ Using the selected `interfaces/design.md` contract:
 decision and its architectural consequence in `solution/Architecture.md` before accepting
 this file.
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Design.md` to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Design.md` to `@docs-writer` using the selected delegation procedure.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Design.md`. Review in your IDE — any corrections?"
 
@@ -142,7 +142,7 @@ Reflect each technology choice that changes a boundary, contract, operating mode
 quality attribute in `solution/Architecture.md`, with its consequence; keep version/detail
 inventory here.
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Stack.md` to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Stack.md` to `@docs-writer` using the selected delegation procedure.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Stack.md`. Review in your IDE — any corrections?"
 
@@ -171,7 +171,7 @@ Using the selected `interfaces/efforts.md` contract:
 
 - Draft the Effort Estimate table with `#`, `Description`, and an empty `Estimate` column
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Efforts.md` (with the empty estimate table) to `@docs-writer` rather than writing it directly.
+Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `solution/Efforts.md` (with the empty estimate table) to `@docs-writer` using the selected delegation procedure.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `solution/Efforts.md`. Fill in the `Estimate` column in your IDE, then confirm."
 

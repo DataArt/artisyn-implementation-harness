@@ -43,12 +43,16 @@ Announce the plan and step count, then start within existing authorization.
 
 ## Step 3 — Execute one step at a time
 
-Before starting each step, determine its layer from the step title and scope:
+Before each step, match its actual target paths and responsibilities against the
+Agents table in `CLAUDE.md` and the installed role definitions.
+Use the specialist instantiated from the canonical `layer` template for the owning
+component; there is no fixed frontend/backend/data routing list. Give it the full
+step from `1-plan.md` and current `2-report.md`. Apply runtime/delegation.md; the
+orchestrator owns verification and report updates.
 
-- **`site` / "Web" / "VitePress" / "docs-web" / frontend** → delegate to `@web`. Give it the full step description from `1-plan.md` plus the current `2-report.md` for context. `@web` handles the implementation; you coordinate verification and report updates.
-- **`lambda-auth` / "Auth" / "Lambda@Edge" / basic-auth** → delegate to `@auth`. Same handoff pattern.
-- **`infra` / "Infrastructure" / "CDK" / CloudFront / S3** → delegate to `@infra`. Same handoff pattern.
-- **cross-cutting config / root docs** → implement inline.
+If no specialist owns this scope, implement inline within authorization. Resolve
+overlapping/ambiguous ownership before dispatch. For a cross-component step, assign
+disjoint scopes to the relevant owners and coordinate shared contracts centrally.
 
 > **Scope discipline:** implement exactly what the step describes — no more, no less. Do not add features, refactors, or improvements beyond what the step specifies.
 

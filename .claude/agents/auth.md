@@ -1,7 +1,7 @@
 ---
 name: auth
-description: Lambda@Edge basic-auth handler specialist — owns apps/lambda-auth
-tools: Read, Edit, Write, Glob, Grep
+description: "Lambda@Edge basic-auth handler specialist — owns apps/lambda-auth"
+tools: "Read, Edit, Write, Glob, Grep"
 ---
 
 ## Role
@@ -34,3 +34,5 @@ Skip satellite review for mechanical steps (log message wording, comment/formatt
 - Never hardcode secrets or environment-specific values, including the AWS region
 - Never use `===`/`!==` (or any non-constant-time comparison) for credential comparison
 - Never log raw credential values, even in error paths
+
+For role invocation and review handoffs, apply `.claude/harness-runtime/delegation.md`.

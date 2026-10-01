@@ -55,7 +55,7 @@ See `.claude/skills/design/patterns/design-oq-triage.md` for the full protocol.
 
 ## Step 2b — Write the draft and review in the IDE
 
-By this point the matrix + tradeoffs are already the bulk of the draft content, and they are too large to review comfortably in the console. Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/02 Evaluate.md` (matrix + tradeoffs, recommendation section left as a placeholder, using `.claude/skills/design/templates/evaluate.md`) to `@docs-writer` rather than writing it directly, then point the developer to the file.
+By this point the matrix + tradeoffs are already the bulk of the draft content, and they are too large to review comfortably in the console. Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/02 Evaluate.md` (matrix + tradeoffs, recommendation section left as a placeholder, using `.claude/skills/design/templates/evaluate.md`) to `@docs-writer` using the selected delegation procedure, then point the developer to the file.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`):
 
@@ -83,7 +83,7 @@ Also list the **open questions** that must be resolved before implementation beg
 
 ## Step 4 — Fill the recommendation in 02 Evaluate.md
 
-`design/02 Evaluate.md` already exists from **Step 2b** (matrix + tradeoffs, confirmed). Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate filling the recommendation placeholder with the Step 3 recommendation + open questions to `@docs-writer` rather than editing it directly; do not rewrite the matrix/tradeoffs unless corrections were raised.
+`design/02 Evaluate.md` already exists from **Step 2b** (matrix + tradeoffs, confirmed). Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate filling the recommendation placeholder with the Step 3 recommendation + open questions to `@docs-writer` using the selected delegation procedure; do not rewrite the matrix/tradeoffs unless corrections were raised.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "Recommendation written to `design/02 Evaluate.md`. Review in your IDE — does the recommendation hold? Any corrections?"
 

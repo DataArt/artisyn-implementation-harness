@@ -197,11 +197,12 @@ Use the new impl path for every subsequent metrics command.
 
 For full-flow entry keep Document active and Status In Progress while required router
 Completion work remains. The router finalizes phase/status and metrics once it succeeds.
-For direct-stage entry finish only Document and record actual remaining lifecycle work.
-Archive only when the story as a whole satisfies the closure checks above.
+For direct-stage entry finish only Document, record actual remaining lifecycle work,
+and leave tracker completion to an authorized full-flow completion. Archive only when
+the story as a whole satisfies the closure checks above.
 
 ## Step 7 — Report back
 
 Report changed docs, verified finding resolutions, retained debt and its disposition,
-actual archive location (if moved), and any pending external actions. Return to
-Completion only for full-flow entry.
+actual archive location (if moved), and any pending external actions. Do not duplicate
+the router's tracker Done transition. Return to Completion only for full-flow entry.

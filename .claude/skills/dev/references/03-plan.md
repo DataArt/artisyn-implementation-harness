@@ -79,6 +79,7 @@ Every step ends with evidence-based verification. Run available authorized check
 
 The plan also needs an **`## Acceptance Criteria`** section — a flat checklist of checkable assertions derived from:
 
+- Tracker acceptance criteria (fetched during Context Gathering)
 - Developer-stated goals and "out of scope" boundaries
 - Any observable end states implied by the steps (e.g. endpoint returns 200, UI shows X, migration runs without error)
 
@@ -108,33 +109,19 @@ Other rules:
 - Inspect actual hooks and project targets. Do not assume Husky, lint or tests exist. Run relevant available checks; avoid repeating an unchanged successful check without a new reason.
 - **For plans that change how resources are connected — network topology, VNet subnets, service-to-service routing, container boundaries — add a Mermaid diagram of the target state at the top of the plan, above the numbered steps.** A single picture lets the reviewer validate the target state before reading the step details, and becomes the reference during implementation. Also applies to any plan where "what gets wired to what" is non-obvious from the step list alone.
 
-## Step 3 — Design and approve the plan in native Plan Mode
+## Step 3 — Design and approve the plan
 
-Call `EnterPlanMode`. Design decisions, exploration, and the developer-facing
-proposal all happen inside Plan Mode rather than through a manual write/confirm
-loop — Plan Mode's own explore → design → present → approve cycle replaces that here.
-This is a sign-off gate (`patterns/approval-sign-off.md`) and is never skipped or downgraded
-to a local draft, regardless of routine-work authorization elsewhere in the
-lifecycle — the plan itself always requires the developer's explicit sign-off before
-Implement.
+Apply `.claude/skills/dev/runtime/planning.md`. Explore and draft the plan using
+`templates/plan.md` and Step 2's content rules, without implementing it. Resolve
+approach choices through `.claude/skills/dev/runtime/interaction.md`.
 
-While in Plan Mode, the only file you may write is the plan file the system assigns
-(e.g. `~/.claude/plans/<slug>.md`) — every other write, including to the story
-folder, is blocked until Plan Mode is exited. Write the plan there using
-`templates/plan.md`'s structure and the content rules in Step 2. Use
-`AskUserQuestion` for any approach choice that needs developer input before the plan
-is complete.
-
-Call `ExitPlanMode` when the plan is ready. If the developer raises concerns, revise
-and call it again within the same Plan Mode session — do not exit and re-enter for
-each revision.
-
-**Once signed off** (Plan Mode has exited and normal write access is back): write the
-identical, approved content to `docs/Stories/[{TICKET}] {name}/impl/1-plan.md` — the
-folder and `2-report.md` already exist from Context Gathering. This is the
-authoritative project-relative copy that later stages read — the system's own plan
-file is session-scoped and not visible to `references/04-implement.md` or later.
-**Do not write any code.**
+This is an explicit sign-off gate (`patterns/approval-sign-off.md`), whether native
+Plan Mode is available or planning uses the procedure's fallback. Present the
+proposal and wait for approval; revise and re-present if the developer raises concerns.
+Respect active write restrictions. After approval, when writes are allowed, persist
+the identical approved content in `docs/Stories/[{TICKET}] {name}/impl/1-plan.md`.
+The project copy is authoritative for subsequent stages. If persistence is not yet
+allowed, keep this step pending. **Do not write implementation code.**
 
 ## Step 4 — Architecture audit _(optional — non-trivial plans only)_
 
@@ -151,7 +138,7 @@ When triggered, delegate to `@architect` following the satellite review protocol
 
 - **go** → proceed silently to Step 5
 - **reiterate** → present findings to the developer and ask:
-  1. **Rework** — revise the affected step(s); if the plan file needs structural changes, re-enter Plan Mode for the revision (its own approve cycle covers the sign-off). Otherwise, edit `1-plan.md` directly. This is an intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval conditions: the rework is a mechanical, single-purpose fix, and it changes no scope, acceptance criteria, or approach. All conditions met → auto-approve: record the finding, the fix, and "no scope/approach change" in the Step 4 record, then re-run the audit. Any condition fails or is uncertain (the change alters what a step does, adds/removes a step, or resolves the finding differently than intended) → this is a sign-off gate (`patterns/approval-sign-off.md`): present the exact diff of what changed and why (referencing the RF finding) and **stop and wait for the developer's sign-off** before re-running this audit. A `go` verdict from a re-audit does not substitute for either path — the developer (or the stated auto-approve conditions) signs off on the content, `@architect` only checks it against HLD.
+  1. **Rework** — revise the affected step(s); if the plan file needs structural changes, repeat the installed planning procedure for the revision (including explicit sign-off). Otherwise, edit `1-plan.md` directly. This is an intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval conditions: the rework is a mechanical, single-purpose fix, and it changes no scope, acceptance criteria, or approach. All conditions met → auto-approve: record the finding, the fix, and "no scope/approach change" in the Step 4 record, then re-run the audit. Any condition fails or is uncertain (the change alters what a step does, adds/removes a step, or resolves the finding differently than intended) → this is a sign-off gate (`patterns/approval-sign-off.md`): present the exact diff of what changed and why (referencing the RF finding) and **stop and wait for the developer's sign-off** before re-running this audit. A `go` verdict from a re-audit does not substitute for either path — the developer (or the stated auto-approve conditions) signs off on the content, `@architect` only checks it against HLD.
   2. **Justify** — record as an approved deviation (see below)
 
 Maximum 3 iterations. If still unresolved, present the stalemate to the developer and stop.
@@ -165,8 +152,8 @@ is verified in Document, unless explicitly accepted as a lasting exception.
 ## Step 5 — Final sign-off on the persisted plan
 
 This is a **second, distinct sign-off gate** (`patterns/approval-sign-off.md`) — separate
-from Step 3's Plan Mode approval and from any Step 4 rework sign-off. Step 3 approves
-the _drafted_ content inside Plan Mode; a Step 4 rework sign-off (if it happened)
+from Step 3's proposal approval and from any Step 4 rework sign-off. Step 3 approves
+the _drafted_ content through the installed planning procedure; a Step 4 rework sign-off (if it happened)
 only covers one diff against one finding. Neither is a look at the complete plan as
 it actually landed on disk, especially after rework — so once `impl/1-plan.md` is
 written (Step 3's initial write, plus any Step 4 revisions), apply

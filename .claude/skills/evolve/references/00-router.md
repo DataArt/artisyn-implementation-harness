@@ -1,7 +1,7 @@
 # Stage router
 
-| Entry                         | Load                       | Result                                         |
-| ----------------------------- | -------------------------- | ---------------------------------------------- |
+| Entry                                            | Load                       | Result                                         |
+| ------------------------------------------------ | -------------------------- | ---------------------------------------------- |
 | /evolve reflect <observation> | [Reflect](01-reflect.md)   | Persisted observation; stop                    |
 | /evolve triage [request]      | [Triage](02-triage.md)     | Inactive draft candidates or archive decisions |
 | /evolve validate <candidate>  | [Validate](04-validate.md) | Evidence and verdict                           |
