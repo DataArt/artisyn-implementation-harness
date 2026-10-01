@@ -26,24 +26,21 @@ Skip for mechanical steps: rename, dependency bump, config value with no structu
 4. If **reiterate**: return findings to the orchestrator for `patterns/review-gate.md` recording before fixes. The orchestrator owns the report, delegates in-scope fixes, and requests only unresolved human decisions. Repeat relevant review after fixes.
 5. **Maximum 3 iterations.** If still unresolved after 3, worker escalates to the orchestrator with a summary of the stalemate, for the orchestrator to present to the developer.
 
-## Handoff — present and approve
+## Handoff — report to the orchestrator
 
-A satellite `go` verdict, and a worker's own account of what it did, are both
-inputs to the orchestrator's sign-off gate — neither is a substitute for it, the
-same way a self-run check is not (`references/04-implement.md` Step 3,
-`patterns/approval-sign-off.md`).
+A satellite `go`, and the worker's own account of what it did, are both inputs to
+the orchestrator's step checkpoint (`references/04-implement.md` Step 3). Neither
+replaces it.
 
 1. Worker hands the orchestrator a structured summary: what changed (files
-   touched, brief rationale), what the worker itself verified and its actual
-   result, and the satellite's verdict. This is a report, not a completed step —
-   verify the claimed changes actually landed (`git status`/`git diff`, real
-   command output) rather than trusting the worker's self-report alone, per the
-   delegation-safety rule already applied elsewhere in this harness.
-2. The orchestrator then runs Implement Step 3's own gate in full: present every
-   verification item from the plan and **stop and wait for the developer's
-   sign-off**. A worker never presents to the developer directly, and a satellite
-   `go` never shortens or replaces this stop.
+   touched, brief rationale), what the worker itself verified and the real result,
+   and the satellite's verdict. This is a report, not a completed step. The
+   orchestrator checks the change actually landed (`git status`/`git diff`, real
+   command output) rather than trusting the self-report.
+2. The orchestrator then runs the step checkpoint itself: run the plan's
+   verification items, auto-approve when they qualify, or stop and ask the
+   developer when they don't. A worker never talks to the developer directly.
 
 ## Why
 
-Without a review loop, best-practice violations (hardcoded names, wrong security rules, removal policies, layer boundary breaches) surface only at PR review time — after deployment, requiring a dedicated refactor step. Without an explicit handoff step, a satellite `go` or a worker's own report can get silently treated as done, collapsing the same developer sign-off this harness requires everywhere else in the lifecycle.
+Without a review loop, best-practice violations (hardcoded names, wrong security rules, removal policies, layer boundary breaches) surface only at PR review time — after deployment, requiring a dedicated refactor step. Without an explicit handoff step, a satellite `go` or a worker's own report can get silently treated as done, skipping the orchestrator's own check of what actually landed.

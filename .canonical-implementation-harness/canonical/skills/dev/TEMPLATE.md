@@ -1,12 +1,12 @@
 ---
 name: dev
 metadata:
-  version: 3.0.0
+  version: 3.1.0
 description: >
   Full dev lifecycle ({{provider:invoke:dev}} {ticket}): Context Gathering → Ceremony → Plan → Implement
-  → Test → Document, or a single stage via
-  {{provider:invoke:dev}} context|ceremony|plan|implement|test|document {ticket}.
-  Trigger: "build {{PROJECT_KEY}}-XX", "implement {{PROJECT_KEY}}-XX", or starting a ticket from scratch.
+  → Test → Document → Completion, or a single stage via
+  {{provider:invoke:dev}} context|ceremony|plan|implement|test|document|complete {ticket}.
+  Trigger: "build {{PROJECT_KEY}}-XX", "implement {{PROJECT_KEY}}-XX", "finish {{PROJECT_KEY}}-XX", or starting a ticket from scratch.
 ---
 
 The developer wants to run the dev lifecycle for a ticket. Here is their input:
@@ -17,205 +17,181 @@ The developer wants to run the dev lifecycle for a ticket. Here is their input:
 
 ---
 
-A request to run the dev lifecycle authorizes context inspection, planning,
-reversible local edits within scope, relevant checks, report updates, and routine
-stage transitions. Existing authorization persists; do not ask again at each file,
-finding, step, or phase. Announce progress and continue.
+## How approvals work
 
-Apply `patterns/approval-sign-off.md` for the sign-off mechanism and
-`patterns/approval-intelligent.md` for the checkpoints that name it — never invent
-extra phase-boundary confirmations beyond what each stage reference names. Outside
-those named checkpoints, ask only when:
+A request to run the dev lifecycle authorises everything routine: reading context,
+planning, reversible local edits in scope, running non-guarded checks, updating the
+report, moving between stages. That authorisation holds for the whole ticket. Do not
+ask again per file, per finding, per step or per phase.
 
-- Material scope, acceptance criteria, architecture or security tradeoffs are not
-  already settled. Prepare the plan or proposed change first; combine related
-  choices once.
-- Accepting a real unresolved risk or deferring required work. Record the decision,
-  rationale and attribution; never treat silence as acceptance.
-- Verification requires human judgment, credentials or access unavailable to the
-  agent. Complete all available checks first and request the specific missing
-  check.
-- External mutations (tracker tasks, publishing, deployment, migrations),
-  destructive operations, or commits when not already authorized. Present exact
-  targets and prepared content/diffs before asking. Respect project
-  guarded-command rules.
+The developer should feel like they are reviewing a senior colleague's work, not
+approving every move of a junior one. So:
+
+- **Two stops per phase, both at its end.** The sign-off (`patterns/phase-sign-off.md`):
+  Context on the written intent, Ceremony on the branch, Plan, Implement, Test and
+  Document on their results. Then the commit: proposed, run by the developer, checked
+  in Git before the stage closes. Completion ends with one combined ask for external
+  actions.
+- **Inside a phase, keep going.** Steps use intelligent checkpoints
+  (`patterns/approval-intelligent.md`): run the checks yourself, auto-approve when
+  the content qualifies, and say in one line what you checked. Escalate only on
+  real doubt.
+- **Stop mid-phase only for** something only the developer can do or decide: a
+  check needing their eyes or their access, a guarded command, a material scope or
+  architecture choice, accepting a real risk, or an external mutation (tracker,
+  publish, deploy). Prepare the content first, combine related questions, ask once.
+- **Never invent extra gates.** If a stage reference does not name a stop, there is
+  no stop.
+
+Commits are always the developer's. Each phase ends by proposing the commit(s) and
+waiting for them; the next phase starts on a clean worktree.
 
 ## Route
 
 See [references/00-router.md](references/00-router.md) for what each stage
-reference produces. Parse `{{provider:input}}` into an optional leading stage word and the
-remaining ticket/free-form input:
+produces. Parse `{{provider:input}}` into an optional leading stage word and the
+rest:
 
-- `context {input}` → apply Stage tasks below for **Context Gathering** only, then
-  follow `references/01-context-gathering.md` exactly
-- `ceremony {input}` → apply Stage tasks below for **Ceremony** only, then follow
-  `references/02-ceremony.md` exactly
-- `plan {input}` → apply Stage tasks below for **Plan** only, then follow
-  `references/03-plan.md` exactly
-- `implement {input}` → apply Stage tasks below for **Implement** only, then follow
-  `references/04-implement.md` exactly
-- `test {input}` → apply Stage tasks below for **Test** only, then follow
-  `references/05-test.md` exactly
-- `document {input}` → apply Stage tasks below for **Document** only, then follow
-  `references/06-document.md` exactly
-- No stage word (bare ticket or free-form input) → run the **full chain**: Idempotency
-  check, then Phase 1 through Completion below
-- Unrecognized stage word: ask which stage was meant, or whether the full chain was
-  intended, before doing anything else
+- `context {input}` → Stage tasks for **Context Gathering** only, then `references/01-context-gathering.md`
+- `ceremony {input}` → Stage tasks for **Ceremony** only, then `references/02-ceremony.md`
+- `plan {input}` → Stage tasks for **Plan** only, then `references/03-plan.md`
+- `implement {input}` → Stage tasks for **Implement** only, then `references/04-implement.md`
+- `test {input}` → Stage tasks for **Test** only, then `references/05-test.md`
+- `document {input}` → Stage tasks for **Document** only, then `references/06-document.md`
+- `complete {input}` → Stage tasks for **Completion** only, then `references/07-completion.md`.
+  Use this for any story that reached Document but was never archived.
+- No stage word (bare ticket or free-form) → run the **full chain**: Entry check,
+  then Phase 1 through Phase 7 below
+- Unrecognised stage word → ask which stage was meant, or whether the full chain
+  was intended, before doing anything else
 
 **Compatibility:** `/dev-plan`, `/dev-implement`, `/dev-test`, `/dev-document` are
-retired — use `{{provider:invoke:dev}} context|ceremony|plan|implement|test|document {ticket}` instead.
+retired — use `{{provider:invoke:dev}} context|ceremony|plan|implement|test|document|complete {ticket}`.
 
-Ticket-tracker activity is entirely `@scrum-master`'s responsibility. Dev only ever
-asks it to act on a ticket by state name ("transition to In Progress", "transition
-to Done") — the actual transition IDs live in `@scrum-master`'s own definition, not
-here, so the two never drift out of sync.
+Ticket-tracker activity is entirely `@scrum-master`'s job. Dev only asks it to act
+on a ticket by state name ("transition to In Progress", "transition to Done"); the
+transition IDs live in `@scrum-master`'s own definition, so the two never drift.
 
 ---
 
-## Idempotency check _(full-chain entry only — a direct stage word above skips this)_
+## Entry check — every entry, full-chain or direct stage
 
-Before presenting any prompts, parse the ticket number from `{{provider:input}}` (`{{PROJECT_KEY}}-\d+`). If found:
+This is the one place that decides fresh vs. resume. Stage references do not repeat it.
 
-- Glob for `docs/Stories/*{TICKET}*/impl/2-report.md` (use `*{TICKET}*` wildcard — never `[{TICKET}]*`)
-- If the file exists, read it and extract the `Phase` row from the header table
+Parse the ticket number from `{{provider:input}}` (`{{PROJECT_KEY}}-\d+`). For free-form
+input with no ticket, search existing story folders for a matching local ID
+(`DEV-YYYYMMDD-XXXX`) and title; reuse it when found, otherwise generate a
+collision-checked one. A local ID does not imply a tracker record.
 
-If stale state is found, present:
+Then look for existing work:
 
-> "I found an existing report for `{TICKET}`. Current phase: `{phase-row}`.
->
-> Resume from where you left off, or restart from scratch? (**resume** / **restart**)"
+- Glob `docs/Stories/*{TICKET}*/impl/2-report.md` (use `*{TICKET}*` wildcard — never
+  `[{TICKET}]*`); include `docs/Stories/archive/`
+- If it exists, read the `Status` and `Phase` rows, and check which stage artifacts
+  exist (`0-intent.md`, `1-plan.md`, archive location)
 
-**Stop and wait.**
+Decide:
 
-- If **resume** — skip directly to the appropriate phase (e.g. if Phase shows
-  `🔨 Implement 🔄`, jump to Phase 4). Do not re-run earlier phases.
-- If **restart** — continue normally from Phase 1 below.
+- **No report** → fresh. Full chain starts at Phase 1; a direct stage word starts at
+  that stage (and Plan will write the missing intent first, see its Step 1).
+- **Status `✅ Complete`** → say so and stop. The ticket is finished.
+- **Report exists** → one question, same words everywhere:
 
-If no stale state is found — resolve the ticket/local ID (below), then continue to
-Phase 1.
+  > "I found existing work for `{TICKET}`: `{phase-row}`. {Artifacts found, one line.}
+  >
+  > **resume** where it left off, or **restart** {this stage / from scratch}?"
 
-For free-form input with no tracker ticket, first search existing story folders for a
-matching generated local ID (`DEV-YYYYMMDD-XXXX`) and title. Reuse that ID and
-folder when found. If none matches, generate a collision-checked local ID before
-creating the implementation folder; use it consistently in `0-intent.md`, reports,
-metrics and hand-off references. This is a local implementation identifier and does
-not imply a tracker record.
+  **Stop and wait.**
+  - **resume** — full chain: jump to the first stage not ✅ (e.g. `🔨 Implement 🔄`
+    → Phase 4; `📝 Document ✅ · 🏁 Completion ⏳` → Phase 7). Direct stage: enter it
+    and build on what is there; do not redo completed steps or re-ask given sign-offs.
+  - **restart** — full chain: from Phase 1. Direct stage: that stage from its first
+    step, overwriting its own artifact only (`0-intent.md` for Context, `1-plan.md`
+    for Plan); earlier stages' artifacts stay.
 
-Either way — resume, restart, or no stale state — apply **Stage tasks** below once the
-ticket/local ID is resolved, before the target phase's own work starts. The pattern
-it delegates to determines create-vs-reuse itself; this router never branches on that.
+The story folder found here is `$IMPL_DIR` (`docs/Stories/[{TICKET}] {name}/impl/`,
+or its `archive/` twin) for every stage and every metrics command from now on. Stages
+do not search for it again; a direct folder path given as input is used as is.
+
+Run metrics `recover --dir "$IMPL_DIR"` when a `stat.json` exists, before recording
+anything. Then apply **Stage tasks** below and go to the target phase.
 
 ---
 
 ## Stage tasks — apply once, every entry (mandatory)
 
-This step is not optional background information — it is a required action, on every
-full-chain and every direct single-stage entry alike, resumed or fresh. Do not treat
-repeated system reminders about native progress-tool availability as
-informational only; they are the trigger to act on this step now, not later.
+Do this on every entry, full-chain or single-stage, resumed or fresh. A system
+reminder about native progress tools is the cue to do it now.
 
-Apply `{{provider:skills_root}}/dev/patterns/task-tracking.md` — it inspects existing state
-itself (the available tracker or `2-report.md`) and decides create vs. reuse vs. reconcile; this
-router never re-derives that logic per branch. For the full chain, the unit list is
-the six stages (Context Gathering, Ceremony, Plan, Implement, Test, Document),
-chained in that order. For a direct single-stage invocation, the unit list is just
-that one stage. Mark a stage `in_progress` on entry and `completed` only once its
-phase-tracker banner (below) shows it done; a stage's own reference file (e.g.
-`references/04-implement.md`) separately tracks any child units it defines (plan
-steps, in Implement's case).
+Apply `{{provider:skills_root}}/dev/patterns/task-tracking.md`. It inspects existing
+state (the native tracker or `2-report.md`) and decides create vs. reuse vs.
+reconcile; this router does not. For the full chain the unit list is the seven stages
+(Context Gathering, Ceremony, Plan, Implement, Test, Document, Completion) in order.
+For a direct single-stage call it is that one stage. Mark a stage `in_progress` on
+entry and `completed` only when the phase banner shows it done. A stage reference
+tracks its own child units (plan steps, in Implement's case).
 
 ---
 
 ## Metrics
 
-Apply `patterns/metrics.md` throughout the lifecycle. Each ticket has `impl/stat.json`
-alongside `2-report.md`. Use `scripts/timing.mjs` with explicit `--dir` for all
-metric mutations and report refreshes; do not edit the JSON by hand. At session resume,
-run `recover` before recording new work. Stage and step boundaries record observed
-time and available runtime token evidence. Keep unknown measurements explicit.
+Apply `patterns/metrics.md` throughout. Each ticket has `impl/stat.json` beside
+`2-report.md`. Use `scripts/timing.mjs` with an explicit `--dir` for every metric
+change; never edit the JSON by hand. Each stage reference says where its `stage
+start`, `wait start`, `resume` and `stage complete` calls go; the phase sign-off
+pattern owns the sequence around every stop. The entry check runs `recover` on resume.
+Keep unknown measurements explicit.
 
 ---
 
 ## Phase tracker
 
-Display this banner whenever announcing a phase transition. Update the active phase indicator accordingly:
+Show this banner at every phase transition, with the active phase marked:
 
 ```
-🎯 Context [status] · 🚀 Ceremony [status] · 📋 Plan [status] · 🔨 Implement [status] · 🧪 Test [status] · 📝 Document [status]
+🎯 Context [status] · 🚀 Ceremony [status] · 📋 Plan [status] · 🔨 Implement [status] · 🧪 Test [status] · 📝 Document [status] · 🏁 Completion [status]
 ```
 
-Where `[status]` is one of: `🔄` (active) · `✅` (done) · `⏳` (pending)
-
-Example when entering Plan:
+`[status]` is `🔄` (active) · `✅` (done) · `⏳` (pending). Example when entering Plan:
 
 ```
-🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan 🔄 · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳
+🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan 🔄 · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳
 ```
 
 ---
 
 ## Phase 1 — Context Gathering
 
-Follow `references/01-context-gathering.md`. Announce the outcome and continue to the next
-stage within a full-flow request; direct-stage entry ends here. Apply
-`patterns/approval-sign-off.md` for unresolved decisions.
-
----
+Follow `references/01-context-gathering.md`. Ends with a phase sign-off on the
+intent. Announce the outcome and continue; direct-stage entry ends here.
 
 ## Phase 2 — Ceremony
 
-Follow `references/02-ceremony.md`. Announce the outcome and continue to the next
-stage within a full-flow request; direct-stage entry ends here. Apply
-`patterns/approval-sign-off.md` for unresolved decisions.
-
----
+Follow `references/02-ceremony.md`. Ends with a phase sign-off on the branch.
+Announce the outcome and continue; direct-stage entry ends here.
 
 ## Phase 3 — Plan
 
-Follow `references/03-plan.md`. Announce the outcome and continue to the next
-stage within a full-flow request; direct-stage entry ends here. Apply
-`patterns/approval-sign-off.md` for unresolved decisions.
-
----
+Follow `references/03-plan.md`. Ends with a phase sign-off. Announce the outcome
+and continue; direct-stage entry ends here.
 
 ## Phase 4 — Implement
 
-Follow `references/04-implement.md`. Announce the outcome and continue to the next
-stage within a full-flow request; direct-stage entry ends here. Apply
-`patterns/approval-sign-off.md` for unresolved decisions.
-
----
+Follow `references/04-implement.md`. Ends with a phase sign-off. Announce the
+outcome and continue; direct-stage entry ends here.
 
 ## Phase 5 — Test
 
-Follow `references/05-test.md`. Announce the outcome and continue to the next
-stage within a full-flow request; direct-stage entry ends here. Apply
-`patterns/approval-sign-off.md` for unresolved decisions.
-
----
+Follow `references/05-test.md`. Ends with a phase sign-off. Announce the outcome
+and continue; direct-stage entry ends here.
 
 ## Phase 6 — Document
 
-Follow `references/06-document.md`. Announce the outcome and continue to the next
-stage within a full-flow request; direct-stage entry ends here. Apply
-`patterns/approval-sign-off.md` for unresolved decisions.
+Follow `references/06-document.md`. Ends with a phase sign-off. Announce the
+outcome and continue; direct-stage entry ends here.
 
----
+## Phase 7 — Completion
 
-## Completion
-
-Prepare a suggested PR title and description from the delivered change and actual
-verification evidence. Present it with any remaining tracker/worklog actions in one
-completion summary. Use existing authorization; ask once for external actions still
-needing approval. Do not estimate human effort; request it only if a worklog is required.
-For local DEV IDs, skip tracker transitions and worklogs. Never create a tracker record
-merely to finish a local flow. Do not send messages without explicit authorization.
-
-The full-flow router owns tracker completion exactly once; Document does not duplicate
-it. If required sync fails, report the pending work and keep metrics unfinished.
-After required completion work succeeds, complete Document and run `complete`, then
-`report` with the current archived impl directory. Preserve stat.json during archival.
-Set the report Phase row to all six stages complete and Status to Complete only after
-required completion work succeeds. Report actual delivery, verification, open optional
-external work (if any), and artifact paths.
+Follow `references/07-completion.md`. It archives the story, finalises metrics,
+hands over the commit and PR text, offers the tracker and tech-debt actions once,
+and ends with a clear "this ticket is complete" message. There is nothing after it.

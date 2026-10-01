@@ -1,53 +1,46 @@
 # Plan stage
 
 Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage plan`.
+`--stage plan`. First action: `stage start --stage plan`.
 
-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage is
-dedicated to planning only — reading `0-intent.md` and the codebase, then writing and
-approving `1-plan.md`. It does not gather context or run tracker/branch ceremony;
-those already happened in Context Gathering and Ceremony.
+Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+is planning only: read `0-intent.md` and the codebase, write `1-plan.md`, get it
+signed off. Context and Ceremony already happened.
 
-Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
-and pause only for a concrete unresolved decision, required human verification, or a
-fixed sign-off gate (`patterns/approval-sign-off.md`).
+Two stops in this stage: the sign-off in Step 5 (`patterns/phase-sign-off.md`) and the
+commit in Step 7. Report sits between them.
+Everything before it is routine work.
 
-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+> 🔁 **After context compaction:** re-read this file and run metrics `recover`
+> before recording anything (`patterns/session-continuity.md`). Fresh vs. resume was
+> already decided by the router's entry check; do not redo completed work.
 
-## Step 0 — Idempotency check (direct stage invocation)
+## Step 1 — Intent first
 
-This check fires when the Plan stage is entered directly (`/dev plan {TICKET}`) —
-the router's own resume check already handled the bare `/dev {TICKET}` case before
-delegating here, so this only guards a deliberate re-plan request.
+The plan is derived from the intent, never written beside it. So the intent comes
+first, always:
 
-- Glob for `docs/Stories/*{TICKET}*/impl/1-plan.md` (use `*{TICKET}*` wildcard — never `[{TICKET}]*`)
-- If the file exists, read it and the `Phase` row of `2-report.md`
+- Read `impl/0-intent.md` in full. It says what and for whom; the plan says how.
+- **If `0-intent.md` is missing** (an old story, or a direct `/dev plan`
+  call that skipped Context), do not plan yet. Write the intent first, following
+  Context Gathering Steps 2–5, from the tracker, any approved design and what the
+  developer said. Only then continue here.
+- If it is thin (a one-line problem, no outcome, no boundaries), say so, fill the
+  gaps from the sources, and append what you found to the intent before planning.
+  Ask the developer only for what no source can answer.
 
-If stale state is found, present:
+Keep the intent open while drafting. Every part of the plan should point back to
+it: the Solution answers "what does better look like", each acceptance criterion
+checks an outcome or a boundary, each step serves the solution. A step that serves
+nothing in the intent is scope creep; an intent need that no step serves is a gap.
+Both are called out in the sign-off, not quietly resolved.
 
-> "I found an existing plan for `{TICKET}`:
->
-> - Plan: `docs/Stories/{folder}/impl/1-plan.md`
-> - Report current phase: `{phase-row}`
->
-> Start fresh (overwrite) or stop here and use `/dev implement {TICKET}` to resume? (**overwrite** / **stop**)"
+If the intent references an approved `solution/Architecture.md`, read the story's
+`design/Report.md` and the paths in its `selected_artifacts`. They are the primary
+spec; the intent and tracker ACs supplement, they do not override the solution.
 
-**Stop and wait.**
-
-- If **stop** — report the folder path and exit. Do not continue.
-- If **overwrite** — continue normally from Step 1 below.
-
-If no stale state is found — continue normally from Step 1.
-
-## Step 1 — Read intent and codebase
-
-Read `impl/0-intent.md` in full — it is the confirmed proto-spec from Context
-Gathering. If it references an approved `solution/Architecture.md`, read the story's `design/Report.md`
-and the paths listed in its `selected_artifacts` state — they remain the primary
-spec; 0-intent.md and tracker ACs supplement, they do not override the solution.
-
-Then read any context files or docs `0-intent.md` references, and any relevant
-existing code in the affected layers. Do not guess — read the actual files before
+Then read any context files or docs the intent references, and the relevant
+existing code in the affected layers. Do not guess; read the actual files before
 proposing anything.
 
 **Always read architecture docs before proposing any plan:**
@@ -67,7 +60,20 @@ Summarize relevant constraints and continue. Ask only about material missing con
 
 ## Step 2 — Plan content rules
 
-Every plan is broken into **numbered steps**. Each step must cover one logical layer or concern (e.g. data, backend, frontend are always separate steps). Each step must include:
+Use `templates/plan.md` as is; its structure is strict. Three parts, in order:
+`## Solution`, `## Acceptance Criteria` (and optional `## Dependencies`), `## Steps`.
+
+**Solution.** One short paragraph: the approach, why it fits the intent and the
+architecture, which HLD container(s) it touches, what is reused. Add a Mermaid
+diagram of the **target state** when the plan changes how things are wired together
+(network topology, service-to-service routing, container boundaries, data flow) or
+when "what talks to what" is not obvious from the steps. One picture lets the
+reviewer check the target before reading the steps, and is the reference during
+implementation. Drop the diagram block when it adds nothing. Planning decisions go
+here as one-liners; approved HLD deviations are RF rows in `2-report.md`, referenced
+by ID.
+
+**Steps.** Every plan is broken into **numbered steps**. Each step must cover one logical layer or concern (e.g. data, backend, frontend are always separate steps). Each step must include:
 
 1. **What changes** — files created or modified, with brief rationale
 2. **Verification instructions** — exact commands or UI actions that establish the step worked. Be specific:
@@ -77,123 +83,142 @@ Every plan is broken into **numbered steps**. Each step must cover one logical l
 
 Every step ends with evidence-based verification. Run available authorized checks; ask the developer only for checks requiring their access or judgment. Dependencies require passing verification, not a routine confirmation.
 
-The plan also needs an **`## Acceptance Criteria`** section — a flat checklist of checkable assertions derived from:
+**Acceptance Criteria.** A flat checklist of checkable assertions derived from:
 
+- The intent's outcome and out-of-scope boundaries
 - Tracker acceptance criteria (fetched during Context Gathering)
-- Developer-stated goals and "out of scope" boundaries
 - Any observable end states implied by the steps (e.g. endpoint returns 200, UI shows X, migration runs without error)
 
 Each item must be independently verifiable by the evaluator during the Test stage (curl, UI action, log output, or build result). No vague items like "works correctly". Write: `[ ] {AC-N} — <what to check and where>`.
 
-**Tests when applicable.** Decide whether new or updated tests add useful evidence
-for this change. Choose their type from the work's risks and the project's existing
-setup: unit, integration, end-to-end, contract, load/performance, infrastructure checks,
-or another relevant form. Do not force unit tests, TDD, a new framework, or a separate
-"write tests" Step 1. State the chosen strategy and why it fits; when no new tests make
-sense, record the reason and the verification used instead. Existing relevant checks
-still apply. Do not run load/live tests merely because tools exist; respect their target,
-cost and authorization boundaries.
+**Tests first, by default.** When the project has a test setup for the layers this
+plan touches, Step 1 writes the tests: one case per acceptance criterion that a test
+can express, in the project's existing framework and conventions. Pick the type from
+the work and the setup (unit, integration, end-to-end, contract, infra checks); do not
+add a framework. Step 1's verification is that the suite runs and the new cases are
+red for the expected reason; record that as a passed acceptance check (`--source self`,
+evidence: which cases, why red). Later steps turn them green and rerun the same suite
+as their own verification.
 
-When test-first work is useful, observe the intended red state, implement, then verify
-green within the same logical step. Preserve both outcomes; mark the step complete
-only after its latest required checks pass. Avoid a standalone red-only step that cannot
-satisfy the metrics completion gate.
+Skipping Step 1 needs a stated reason in the plan, for example: no test setup for
+this layer, a pure config or infra change better proven by a live check, or the
+change is a one-line fix already covered by an existing case. "Faster without" is
+not a reason. Existing relevant checks still apply either way. Do not run load or
+live tests merely because tools exist; respect their target, cost and authorisation
+boundaries.
 
 Other rules:
 
 - Never bundle verification into the next step — it belongs at the end of the current one
 - If a step depends on a previous step, say so explicitly
 - **One step = one NX project or one cross-cutting concern.** Never mix layers in a single step (e.g. Terraform infra changes alongside `app-db` script changes). If the step title can't map cleanly to one NX project name or one concern, split it. A commit message that would require two types to be honest is a reliable signal the step is too broad.
-- **Within that project/concern, split further along testable units when more than one exists.** A step that bundles data/schema definition, core logic, and wiring/integration into one verification block is still too broad even though it maps to a single project — favor several small steps, each independently verifiable (e.g. define the resource/type first, implement the behavior next, wire it into the caller last), over one step that only gets checked as a whole. A single genuinely atomic unit (e.g. provisioning one resource with no independent sub-behavior) stays one step — this is a decomposition floor, not a mandate to always split.
+- **Within that project/concern, split further along testable units when more than one exists.** A step that bundles data/schema definition, core logic, and wiring/integration into one verification block is still too broad even though it maps to a single NX project — favor several small steps, each independently verifiable (e.g. define the resource/type first, implement the behavior next, wire it into the caller last), over one step that only gets checked as a whole. A single genuinely atomic unit (e.g. provisioning one resource with no independent sub-behavior) stays one step — this is a decomposition floor, not a mandate to always split.
 - **Infra/config steps require at least one live operational verification item.** Static checks (grep, file inspection) are necessary but not sufficient. For any step that touches infrastructure or configuration, at least one verification item must prove the thing actually works — e.g. `terraform init` connects to the correct backend, `terraform plan` output matches expectations, CLI confirms an access policy exists, a health check or curl returns the expected response. Do not write a verification block that is grep-only for an infra step.
 - Inspect actual hooks and project targets. Do not assume Husky, lint or tests exist. Run relevant available checks; avoid repeating an unchanged successful check without a new reason.
-- **For plans that change how resources are connected — network topology, VNet subnets, service-to-service routing, container boundaries — add a Mermaid diagram of the target state at the top of the plan, above the numbered steps.** A single picture lets the reviewer validate the target state before reading the step details, and becomes the reference during implementation. Also applies to any plan where "what gets wired to what" is non-obvious from the step list alone.
 
-## Step 3 — Design and approve the plan
+## Step 3 — Draft and write the plan
 
-Apply `.claude/skills/dev/runtime/planning.md`. Explore and draft the plan using
-`templates/plan.md` and Step 2's content rules, without implementing it. Resolve
-approach choices through `.claude/skills/dev/runtime/interaction.md`.
+Apply `.claude/skills/dev/runtime/planning.md`. Draft in this order,
+each part from the intent:
 
-This is an explicit sign-off gate (`patterns/approval-sign-off.md`), whether native
-Plan Mode is available or planning uses the procedure's fallback. Present the
-proposal and wait for approval; revise and re-present if the developer raises concerns.
-Respect active write restrictions. After approval, when writes are allowed, persist
-the identical approved content in `docs/Stories/[{TICKET}] {name}/impl/1-plan.md`.
-The project copy is authoritative for subsequent stages. If persistence is not yet
-allowed, keep this step pending. **Do not write implementation code.**
+1. `## Solution` — the answer to the intent's "what does better look like", within
+   its constraints and the architecture read in Step 1. Diagram if wiring changes.
+2. `## Acceptance Criteria` — one per outcome and per out-of-scope boundary in the
+   intent, plus the tracker's own ACs. Each traceable to a line in the intent.
+3. `## Steps` — the smallest set that delivers the Solution, per Step 2's rules.
 
-## Step 4 — Architecture audit _(optional — non-trivial plans only)_
+Then check the plan against the intent once more: anything in the plan with no
+reason in the intent, anything in the intent with no step or AC. List both for the
+sign-off. Use `templates/plan.md` and Step 2's content rules. Resolve approach choices
+through `.claude/skills/dev/runtime/interaction.md`: ask only when two
+approaches are genuinely both reasonable and the choice changes scope, cost or
+architecture. Prepare the options first; combine related choices into one question.
 
-**Skip this step** for mechanical plans (single-layer rename, dependency bump, config value with no structural impact). Run it when the plan:
+If the host's native planning mode has its own approval step, that step is this
+phase's sign-off (Step 5) and nothing else; do not add another stop. If native mode
+is unavailable, plan in the normal way; do not claim native enforcement.
+
+When writes are allowed, persist the plan at
+`docs/Stories/[{TICKET}] {name}/impl/1-plan.md` (`patterns/write-confirm.md`). The
+project copy is authoritative for later stages. **Do not write implementation code.**
+
+## Step 4 — Architecture audit _(non-trivial plans only)_
+
+**Skip** for mechanical plans (single-layer rename, dependency bump, config value
+with no structural impact). Run it when the plan:
 
 - Introduces a new cross-layer integration, API contract, or module boundary
 - Adds or changes infrastructure, IAM policy, or cloud resources
 - Changes data flow between containers
 - Has steps that touch more than one NX project in a non-obvious way
 
-When triggered, delegate to `@architect` following the satellite review protocol (`.claude/skills/dev/patterns/satellite-review.md`). Prompt:
+Delegate to `@architect` following `.claude/skills/dev/patterns/satellite-review.md`:
 
 > "Read `docs/Target Architecture (HLD)/README.md` to find the active version. Review the following implementation plan against HLD container boundaries, data-flow direction, and NFRs. Check each step for: container boundary violations, wrong data-flow direction, NFR breaches, layer principle violations. Verdict: **go** or **reiterate** — one finding per line. Do not write or edit any files — return output only."
 
-- **go** → proceed silently to Step 5
-- **reiterate** → present findings to the developer and ask:
-  1. **Rework** — revise the affected step(s); if the plan file needs structural changes, repeat the installed planning procedure for the revision (including explicit sign-off). Otherwise, edit `1-plan.md` directly. This is an intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval conditions: the rework is a mechanical, single-purpose fix, and it changes no scope, acceptance criteria, or approach. All conditions met → auto-approve: record the finding, the fix, and "no scope/approach change" in the Step 4 record, then re-run the audit. Any condition fails or is uncertain (the change alters what a step does, adds/removes a step, or resolves the finding differently than intended) → this is a sign-off gate (`patterns/approval-sign-off.md`): present the exact diff of what changed and why (referencing the RF finding) and **stop and wait for the developer's sign-off** before re-running this audit. A `go` verdict from a re-audit does not substitute for either path — the developer (or the stated auto-approve conditions) signs off on the content, `@architect` only checks it against HLD.
-  2. **Justify** — record as an approved deviation (see below)
+- **go** → continue to Step 5
+- **reiterate** → record each finding in `2-report.md` (`patterns/review-gate.md`),
+  then for each one:
+  - If the fix is mechanical and changes no scope, acceptance criteria or approach,
+    apply it to `1-plan.md`, note "auto-applied, no scope change" in the RF row, and
+    re-run the audit. This is an intelligent-approval checkpoint
+    (`patterns/approval-intelligent.md`); the record in the RF row is the audit trail.
+  - Otherwise leave it open with the options (rework vs. justify as a deviation) and
+    carry it into the Step 5 sign-off. Do not stop separately for it.
 
-Maximum 3 iterations. If still unresolved, present the stalemate to the developer and stop.
+Maximum 3 audit rounds. If findings are still open after that, carry them into
+Step 5 as decisions for the developer.
 
-Record audit findings in `2-report.md` using `patterns/review-gate.md`, including
-approved exceptions as `deviation` rows with HLD references and attributed decisions.
-The plan may reference RF IDs and the approved constraints; do not create a second
-live deviations table. Planned exceptions remain open until their required resolution
-is verified in Document, unless explicitly accepted as a lasting exception.
+Approved exceptions are `deviation` rows with HLD references and attributed
+decisions. The plan may reference RF IDs; do not create a second deviations table.
+Planned exceptions stay open until their resolution is verified in Document, unless
+explicitly accepted as a lasting exception.
 
-## Step 5 — Final sign-off on the persisted plan
+## Step 5 — Sign-off (rework if any)
 
-This is a **second, distinct sign-off gate** (`patterns/approval-sign-off.md`) — separate
-from Step 3's proposal approval and from any Step 4 rework sign-off. Step 3 approves
-the _drafted_ content through the installed planning procedure; a Step 4 rework sign-off (if it happened)
-only covers one diff against one finding. Neither is a look at the complete plan as
-it actually landed on disk, especially after rework — so once `impl/1-plan.md` is
-written (Step 3's initial write, plus any Step 4 revisions), apply
-`patterns/write-confirm.md` to it: present the persisted file — in full if reasonably
-short, or a summary (step list, step count, Acceptance Criteria, and every Step 4
-rework/deviation entry called out explicitly) for a long plan — and ask:
+Apply `patterns/phase-sign-off.md`. Nothing is written to `2-report.md`
+yet. Show `1-plan.md` in full if short, or a summary for a long one: step list and
+count, Acceptance Criteria, every open or auto-applied audit finding called out, any
+open approach choice, and the intent check from Step 3 (scope creep or gaps, or
+"none").
 
-> "Plan finalized at `impl/1-plan.md` — {N} steps, {M} deviations recorded. Ready to
-> start Implement, or does anything need another look now that it's all in one place?"
-
-**Stop and wait for the developer's sign-off.** If they ask for changes, they are
-changes to an unapproved plan — treat them like any other Step 3/4 revision (edit,
-then re-present here) rather than writing them silently. `impl/1-plan.md` is
-immutable only once this sign-off is given.
-
-## Step 6 — Advance phase and report back
-
-Only after Step 5's sign-off, update the already-existing `2-report.md` (created in
-Context Gathering):
-
-- `Phase` row → `🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳`
-- Progress table — one row per plan step, all set to `⏳ Pending`, Notes/Test/Docs empty
-
-Committing the plan is a manual operation, same as Ceremony's branch checkout and
-Implement's per-step commits: never run `git add`/`git commit` yourself. This is a
-sign-off gate (`patterns/approval-sign-off.md`) — tell the developer the folder path and
-propose the exact command:
-
-> "Plan saved to `docs/Stories/[{TICKET}] {name}/impl/1-plan.md`.
+> "Plan ready at `docs/Stories/[{TICKET}] {name}/impl/1-plan.md` — {N} steps, {M} audit
+> findings ({auto-applied / open}). {Open decisions, if any.}
 >
-> Commit with:
->
-> ```
-> docs({ticket-lowercase}): add implementation plan for {short-name}
-> ```
->
-> Let me know once it's committed and I'll start Implement."
+> Good to go, or what should change?"
 
-**Stop and wait for the developer's sign-off** that they've committed it. Do not
-advance to Implement until they confirm.
+`report`, then `wait start --reason approval --detail "Awaiting plan sign-off"`.
+**Stop and wait.** No reply, no next step. On approval, record the acceptance check
+(`--name "Plan sign-off"`, `--source developer`, their words as evidence); without
+it `stage complete` is refused.
 
-🔁 Once confirmed, re-read `.claude/skills/dev/SKILL.md` and resume the router from
-the next stage (Implement).
+Rework: edit `1-plan.md`, re-run Step 4 if the change is structural, present again.
+Once approved, `1-plan.md` is immutable; new scope later is an addendum, never an
+edit.
+
+## Step 6 — Report
+
+Update `2-report.md`:
+
+- Progress table → one row per plan step, all `⏳ Pending`, Notes/Test/Docs empty
+- `Phase` row → `🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳`
+
+Then metrics `report`.
+
+## Step 7 — Commit
+
+Propose:
+
+```
+docs({ticket-lowercase}): add implementation plan for {short-name}
+```
+
+covering `impl/1-plan.md` and the report update.
+
+This is a manual-operation sign-off (`patterns/approval-sign-off.md`): the developer
+runs the commit, you wait. `wait start --reason user_input --detail "Awaiting commit"`.
+**Stop and wait.** On the reply, check `git log`/`git status`: the commit exists and the
+worktree holds nothing from this phase. If not, say what is missing and wait again.
+Then `stage complete --stage plan`. Tell the developer Implement starts with {N} steps and continue.
+
+🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Implement).

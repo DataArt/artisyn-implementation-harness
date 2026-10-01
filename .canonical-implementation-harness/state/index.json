@@ -2,16 +2,80 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "1959bf8ad05a73af634e533e6f22b1f230db4bcf8c3992469b82dfee804c6070",
-      "snapshot": "bundle:5f3c3011-6ff1-4596-a95e-71020ea0287a"
+      "recorded_sha256": "02b2454da976c82d534a895b6493fa1cb8a072890ee988dced3cc233b3ee994c",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "README.md": {
       "recorded_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "SKILL.md": {
-      "recorded_sha256": "50af37a3b615fff1b69ccd14c345dfa75ef5b19d4d521a42e4862c3348103258",
-      "snapshot": "bundle:5f3c3011-6ff1-4596-a95e-71020ea0287a"
+      "recorded_sha256": "7b938f8fd1b9586a93a46cd7841ae03a69d3aaf95a5c7107a1f22eb79e0b1ad5",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+    },
+    "canonical/adaptors/claude/browser.md": {
+      "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/context.md": {
+      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/credentials.md": {
+      "recorded_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/delegation.md": {
+      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/interaction.md": {
+      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/planning.md": {
+      "recorded_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/review.md": {
+      "recorded_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/claude/task-tracking.md": {
+      "recorded_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/browser.md": {
+      "recorded_sha256": "d21bb18d08213e9542563c2905b2943d6a54fabef91fd4fc8b0cc07a4e87cfe5",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/context.md": {
+      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/credentials.md": {
+      "recorded_sha256": "d89a348add3d897bdfa92fa2624aaaecb959c0c60c0fcb7311801f8ac2ed949d",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/delegation.md": {
+      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/interaction.md": {
+      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/planning.md": {
+      "recorded_sha256": "092ce683b3f842e3c82124248a72b3f8bdde481c01b8d180939d54438a03b881",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/review.md": {
+      "recorded_sha256": "b46a2ad5b6797d4a86c4e01226518824771551f0548395545bc53d664f17fbc7",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/adaptors/codex/task-tracking.md": {
+      "recorded_sha256": "1969af7d8ba7ddf91bac82c3af440ff57754065a8588e25c296ab4d1c8556811",
+      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/agents/architect/INTENT.md": {
       "recorded_sha256": "4bdd8fe331325845b278a12eb9f7c8ace3ce2b0fe88024a2f53ee095e73dd31c",
@@ -86,8 +150,8 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/docs/Engineering Guide/Documentation/01 Principles.md": {
-      "recorded_sha256": "cb2ee40cc95bf8c2cbd55fb44cd07a980bc372f3e7419da11b68ef271293ff37",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/docs/Engineering Guide/Documentation/02 Structure.md": {
       "recorded_sha256": "9c2bf93c76f234c8175e3c4f10d714442f420661301b1439207af602617a1d64",
@@ -106,12 +170,12 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md": {
-      "recorded_sha256": "7e0eae7b84cc11b7730079c660bce80869038605ec69ccb13f82648a67396d54",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "ebcf64f15253b35b3d68f8f8821aa73a289e46384fd4885a9aaa932d9d1428ab",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md": {
-      "recorded_sha256": "f3899e7ac96c28e2bcd6affa4d510e5a7cfb30cef94065df611256b0666b2455",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "b12289b05eeddb1ad35d0a79d02f6ef21c9c29a26da9c054ce10c2bf171d8179",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md": {
       "recorded_sha256": "d8a9fcbe6c0c5e9f19555e97647469041dc4b441b832aa455a922eacf3649ccc",
@@ -126,8 +190,8 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md": {
-      "recorded_sha256": "f95afcb4a4227877b8b4074f06b874a1e4a4ae11742decba87aff932068f3fc8",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "c3f3d52e5b2a013bdc3dcc22cd92a37b7c8cd708838afdd221efd6eb5b5ed2b4",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/manifest.json": {
       "recorded_sha256": "d8c2f2cfe9cd1bb3fa2f360fcbb9987c3728906e81655e102c718ff8564971a9",
@@ -310,84 +374,96 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/dev/INTENT.md": {
-      "recorded_sha256": "5c0ce1050e7536b50e89a6d47001b230c7ea134c78366730e63a40fc5d96ae09",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "27a6b227f09bed28788c0c201607008107b0bb2792f9bc9d5721c5997414acfa",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/TEMPLATE.md": {
-      "recorded_sha256": "81f17f43225c0f1d334f5c21f3060c7163798bde04833875e713c1c762fbc929",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "a6ae755a12568a7ff04a78470f583178dbc2edc32a44baa71c9dfe0398e74c21",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+    },
+    "canonical/skills/dev/interfaces/intent.md": {
+      "recorded_sha256": "dbce01d8b97bdbde0ab4b29792818b6a160a6043d8c940d2c8bb276f9995e40c",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/patterns/announce-progress.md": {
-      "recorded_sha256": "6c663aae90e3b5bf25ecb7f8775ae39a1dd5687677a9a4e8057915232f08976a",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "c55c992a99c1f5ec28ac33ae0181254b1960715820784b638a1a2d3789b6adcf",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/patterns/approval-intelligent.md": {
       "recorded_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/dev/patterns/approval-sign-off.md": {
-      "recorded_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "41e5a1c3ceb16b709d28a7991aeca56c0beddd81972ce24c3fb68b433b7c219e",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/patterns/do-report-commit.md": {
-      "recorded_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "79e9db5d54ddf5ecc34ca3931dbd4d9aa0722d1822d3667b079f6da32bae90eb",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/patterns/metrics.md": {
-      "recorded_sha256": "ba3bc7ad68a1059bef97929bde4598b61729349e82f93a5d745a21a0bb47f7ef",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "02984f212928c25b48f3c95bb5837d9bb6913c884443c1fdb8ee97af5836456e",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+    },
+    "canonical/skills/dev/patterns/phase-sign-off.md": {
+      "recorded_sha256": "41d3e3c7aa09478cc4a59d32e49598d52d4107824349abdea2e2b2f0aa8f1087",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/patterns/review-gate.md": {
       "recorded_sha256": "233d98827ba0f6f839310843ea23395f863b9ba620acc936f1eae0bdc4ddc784",
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/dev/patterns/satellite-review.md": {
-      "recorded_sha256": "cb56389b7a889c7d761471ba0b81c06fe277fc9635252b02a1f38fbc964d3352",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "76e6712baeec0630bfcf887047fe81814cb9bfcbdd48eb8d8871457877b18be8",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/patterns/session-continuity.md": {
-      "recorded_sha256": "30202994fa0242d70424cd9e1ac494b967942963d4849034fa0bceb10f6294f4",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "7e2a7c6e597127da093fc229e613b8d02283bd56ceb18f9c87dfd84015571f49",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/patterns/task-tracking.md": {
       "recorded_sha256": "b758a523c0d6b5498481b748c2179c673455ae1416ef2b4f641906624c960670",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/dev/patterns/write-confirm.md": {
-      "recorded_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "e5ea574909f7af3148acf5d676619a675019f6fb6652c9fa2347761e9258fdca",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/00-router.md": {
-      "recorded_sha256": "09693de8536e427b469bcf72a60f9f3105b5a2228cdee3cc6e0c308ae752c5cc",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "c359100eca838f9c18dd0d306f295415e74960c9f297bf0cda5821deb971fb37",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/01-context-gathering.md": {
-      "recorded_sha256": "5c12bb4e3d13ded7e0384c58c11eee890e13409310db0b1098d275f64f961322",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "156ac91ede1b920e73ecd8403d3ab8c3b82735d72402c6349da0ff05348997d0",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/02-ceremony.md": {
-      "recorded_sha256": "95d1279d600f3da7fce7e3453b950216036dfd5157aa23d8f0298cd185784ed3",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/03-plan.md": {
-      "recorded_sha256": "b3450a174aab5515a5135730b1ea5d532e61bcf6e1e90eb8f81ef343b00a3bdd",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "34c6560014d856f7dec378aa51a2f31c24adc5b6593d1dca1491efea44d26adc",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/04-implement.md": {
-      "recorded_sha256": "afe8b6639ce40c9c83a8838fa62394614b0e86aedaf223df6fb7a5bbbb97fa41",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "0b36bda3e2dbd483fc9fda6d71ec9361695c49d4a2207fa91887f4e70d918da8",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/05-test.md": {
-      "recorded_sha256": "9b4ea6a756b62fd5e1cf2f3df1d0090d068ea9ea181c90888b7196ad914a1911",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "270d1eff9068eeac537670b651e9c665843d020ef80b408508c677e65b73510a",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/06-document.md": {
-      "recorded_sha256": "af8105be02c03a87869f7fdb663dc708dc98d24c8474c19933dd1559d23540ae",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "2fd153a316f21e2cd8d1a19380bca03997267e836526c3f40a1ce08ad38bb322",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+    },
+    "canonical/skills/dev/references/07-completion.md": {
+      "recorded_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/scripts/constants.mjs": {
-      "recorded_sha256": "8fff1b355b56d516d524854b48fb2bc2cc1f7e814683a6da1a91c0d4c3861253",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "f146f7191dc328a1277d36c6394298b233e87a0aafe27855c14b0500b1d02af3",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/scripts/quality.mjs": {
       "recorded_sha256": "22056ce878baf70a6effda07fd3e39712308461df45193ebcb32b6228cf07de4",
@@ -398,36 +474,37 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/dev/scripts/timing.mjs": {
-      "recorded_sha256": "3fe648777db3099ef154f334e65e9297a55a46e658b60d86d167dad9838bc145",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/scripts/timing.test.mjs": {
-      "recorded_sha256": "07dadfb5301d2c1be233984f390a23b0dad51582ee030cb9ca8b79dd420750fa",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "7a2345f5e964afd98b103451deabc2f0a22b466a1ab4876f48301b022ae8decb",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/scripts/utils.mjs": {
       "recorded_sha256": "3d5ed3bb6cdfaee0ec34f29956cbe6512d95383319680514bf982948e1a520da",
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/dev/templates/intent.md": {
-      "recorded_sha256": "1f3e103d61001564f78af84f7273b7cdb7b19cf21ae2ac0cf453547b6f11c555",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": null,
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4",
+      "note": "deleted in 2.3.0; the intent is now interfaces/intent.md"
     },
     "canonical/skills/dev/templates/plan.md": {
-      "recorded_sha256": "3a86b8ff962887e62749a9a5aa4480da60512fe9d9ab3fdfd8683607240ddda8",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "05d1088a50a2ac950cd56778e924f4fc5a7817bd1af6f0431376951a24f3adb2",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/templates/report.md": {
-      "recorded_sha256": "fb6cd4ecce02866cd01dce04c10a9754281a594fc688d6adc55128ac4840a2b7",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "8041713d1ea0516a444194ac1dad4066854fdd8326e3b784a72b113e4cee02f3",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/templates/stat.json": {
-      "recorded_sha256": "772d817b5b9858c2d0844a281a22fa5f8b935d51d9bd0555e28c57a13a7e9235",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "f6f0679edb987e0d8ce630a064987ed79e9657b964cc8d2e6982c6fa279a9f56",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/templates/stat.schema.json": {
-      "recorded_sha256": "94989c3d5067adba8122ffaa7f6c126aad96e55d0f01266f589e2b70fa1ae106",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "7a4a6ea46f6aebd560268c862faa673c95c6480a42502feb894504150a8d843b",
+      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/evolve/INTENT.md": {
       "recorded_sha256": "daafa32917e1ac69d784e365e949e3676da13b07f6caaa1d03655e36d5563950",
@@ -591,70 +668,6 @@
     },
     "reports/report.template.md": {
       "recorded_sha256": "63e901059b9f67d89c88a489e0c01c23ebc3520427da0e63701802dbe8c0af74",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/browser.md": {
-      "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/context.md": {
-      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/credentials.md": {
-      "recorded_sha256": "a6901ab061a8a64b186be662e1be09e53e6fba91d2c6b96400dd901c83e0315d",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/delegation.md": {
-      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/interaction.md": {
-      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/planning.md": {
-      "recorded_sha256": "513679f6afe3d0575a0b43a48b242249a1b0199608859487e9209e480629364f",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/review.md": {
-      "recorded_sha256": "aed8b9e0c93c4ca309ceaa31f851838406ad80d03bd5cabe6c330b9c73e75740",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/claude/task-tracking.md": {
-      "recorded_sha256": "f9a9c1c384376eedaab5f8bbf1b5aefdb4a1293d3869f5fb2948c3c6215fb752",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/browser.md": {
-      "recorded_sha256": "d21bb18d08213e9542563c2905b2943d6a54fabef91fd4fc8b0cc07a4e87cfe5",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/context.md": {
-      "recorded_sha256": "066253e5e0dedf232ad842f82b86d6741e52f40c063bd0503ce7249e4667ef69",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/credentials.md": {
-      "recorded_sha256": "d89a348add3d897bdfa92fa2624aaaecb959c0c60c0fcb7311801f8ac2ed949d",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/delegation.md": {
-      "recorded_sha256": "ac26f76079b9f586915860c1f37f7c3c8643c346d68750a884ad45f80ddb1705",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/interaction.md": {
-      "recorded_sha256": "03a09bc8308f4a370c070b77042f68a6b1ec1d3662f0fcaf24f52752408ee612",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/planning.md": {
-      "recorded_sha256": "092ce683b3f842e3c82124248a72b3f8bdde481c01b8d180939d54438a03b881",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/review.md": {
-      "recorded_sha256": "b46a2ad5b6797d4a86c4e01226518824771551f0548395545bc53d664f17fbc7",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/adaptors/codex/task-tracking.md": {
-      "recorded_sha256": "1969af7d8ba7ddf91bac82c3af440ff57754065a8588e25c296ab4d1c8556811",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     }
   },
@@ -1133,18 +1146,26 @@
     },
     ".claude/skills/dev/SKILL.md": {
       "canonical_source": "canonical/skills/dev/TEMPLATE.md",
-      "canonical_sha256": "81f17f43225c0f1d334f5c21f3060c7163798bde04833875e713c1c762fbc929",
-      "deployed_sha256": "67a0944aac02d84a8ad72d6033bfcd033491600d036d82bc821ff40814c1ddfc",
+      "canonical_sha256": "a6ae755a12568a7ff04a78470f583178dbc2edc32a44baa71c9dfe0398e74c21",
+      "deployed_sha256": "aaeb40fba1c633563ff648dc6f7214417acbf12d1a894f9c0311fd6f9f4183a5",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
+      "provider": "claude"
+    },
+    ".claude/skills/dev/interfaces/intent.md": {
+      "canonical_source": "canonical/skills/dev/interfaces/intent.md",
+      "canonical_sha256": "dbce01d8b97bdbde0ab4b29792818b6a160a6043d8c940d2c8bb276f9995e40c",
+      "deployed_sha256": "dbce01d8b97bdbde0ab4b29792818b6a160a6043d8c940d2c8bb276f9995e40c",
+      "rendered_base": null,
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/patterns/announce-progress.md": {
       "canonical_source": "canonical/skills/dev/patterns/announce-progress.md",
-      "canonical_sha256": "6c663aae90e3b5bf25ecb7f8775ae39a1dd5687677a9a4e8057915232f08976a",
-      "deployed_sha256": "6c663aae90e3b5bf25ecb7f8775ae39a1dd5687677a9a4e8057915232f08976a",
+      "canonical_sha256": "c55c992a99c1f5ec28ac33ae0181254b1960715820784b638a1a2d3789b6adcf",
+      "deployed_sha256": "c55c992a99c1f5ec28ac33ae0181254b1960715820784b638a1a2d3789b6adcf",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/patterns/approval-intelligent.md": {
@@ -1157,26 +1178,34 @@
     },
     ".claude/skills/dev/patterns/approval-sign-off.md": {
       "canonical_source": "canonical/skills/dev/patterns/approval-sign-off.md",
-      "canonical_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
-      "deployed_sha256": "a025f38c227acbb178eb5d21e37d8b6a8b8fdbf226d5848f4b386527a5cff29d",
+      "canonical_sha256": "41e5a1c3ceb16b709d28a7991aeca56c0beddd81972ce24c3fb68b433b7c219e",
+      "deployed_sha256": "41e5a1c3ceb16b709d28a7991aeca56c0beddd81972ce24c3fb68b433b7c219e",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/patterns/do-report-commit.md": {
       "canonical_source": "canonical/skills/dev/patterns/do-report-commit.md",
-      "canonical_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
-      "deployed_sha256": "2d18ed6eedafc180e1c547488301f0665df6cd0c3c501ce3f7d3d5c1d7eee6e1",
+      "canonical_sha256": "79e9db5d54ddf5ecc34ca3931dbd4d9aa0722d1822d3667b079f6da32bae90eb",
+      "deployed_sha256": "79e9db5d54ddf5ecc34ca3931dbd4d9aa0722d1822d3667b079f6da32bae90eb",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/patterns/metrics.md": {
       "canonical_source": "canonical/skills/dev/patterns/metrics.md",
-      "canonical_sha256": "ba3bc7ad68a1059bef97929bde4598b61729349e82f93a5d745a21a0bb47f7ef",
-      "deployed_sha256": "eb6bc96e360b0c2949f2f51be493e0de8dd232e32c183b44933e337e7bf9e36b",
+      "canonical_sha256": "02984f212928c25b48f3c95bb5837d9bb6913c884443c1fdb8ee97af5836456e",
+      "deployed_sha256": "59e330d6cb0d88011397e29008ad8ff711020d5c3a1ca04980029b1f9bced939",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
+      "provider": "claude"
+    },
+    ".claude/skills/dev/patterns/phase-sign-off.md": {
+      "canonical_source": "canonical/skills/dev/patterns/phase-sign-off.md",
+      "canonical_sha256": "41d3e3c7aa09478cc4a59d32e49598d52d4107824349abdea2e2b2f0aa8f1087",
+      "deployed_sha256": "f152894caa8ea33a10a5dcfcaad4f5b3099bdd3b09c341ff4afe136f03a6a449",
+      "rendered_base": null,
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/patterns/review-gate.md": {
@@ -1189,18 +1218,18 @@
     },
     ".claude/skills/dev/patterns/satellite-review.md": {
       "canonical_source": "canonical/skills/dev/patterns/satellite-review.md",
-      "canonical_sha256": "cb56389b7a889c7d761471ba0b81c06fe277fc9635252b02a1f38fbc964d3352",
-      "deployed_sha256": "1ec57543926b1ae70d0f3055c669cc7490516792eef1bf3d06a2d0c87ab3ef82",
+      "canonical_sha256": "76e6712baeec0630bfcf887047fe81814cb9bfcbdd48eb8d8871457877b18be8",
+      "deployed_sha256": "12f721aaa3601410d71dc6dbd9c22055cc1f57250be1b66a30404fe21d9b3da8",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/patterns/session-continuity.md": {
       "canonical_source": "canonical/skills/dev/patterns/session-continuity.md",
-      "canonical_sha256": "30202994fa0242d70424cd9e1ac494b967942963d4849034fa0bceb10f6294f4",
-      "deployed_sha256": "8a472332c5e7a0e656e652852e5f5c408ebedd51528e047344aca83fc3b7fc9c",
+      "canonical_sha256": "7e2a7c6e597127da093fc229e613b8d02283bd56ceb18f9c87dfd84015571f49",
+      "deployed_sha256": "db6c508bf7131704a27ff00c59149dc743636ec8fc9d8153405e8de7d9cd07c8",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/patterns/task-tracking.md": {
@@ -1213,66 +1242,74 @@
     },
     ".claude/skills/dev/patterns/write-confirm.md": {
       "canonical_source": "canonical/skills/dev/patterns/write-confirm.md",
-      "canonical_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
-      "deployed_sha256": "3bfc5f8379265571635d16828adc1f5e322b81e4ed55c358ddd1c73cfacffb0a",
+      "canonical_sha256": "e5ea574909f7af3148acf5d676619a675019f6fb6652c9fa2347761e9258fdca",
+      "deployed_sha256": "e5ea574909f7af3148acf5d676619a675019f6fb6652c9fa2347761e9258fdca",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/00-router.md": {
       "canonical_source": "canonical/skills/dev/references/00-router.md",
-      "canonical_sha256": "09693de8536e427b469bcf72a60f9f3105b5a2228cdee3cc6e0c308ae752c5cc",
-      "deployed_sha256": "09693de8536e427b469bcf72a60f9f3105b5a2228cdee3cc6e0c308ae752c5cc",
+      "canonical_sha256": "c359100eca838f9c18dd0d306f295415e74960c9f297bf0cda5821deb971fb37",
+      "deployed_sha256": "c359100eca838f9c18dd0d306f295415e74960c9f297bf0cda5821deb971fb37",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/01-context-gathering.md": {
       "canonical_source": "canonical/skills/dev/references/01-context-gathering.md",
-      "canonical_sha256": "5c12bb4e3d13ded7e0384c58c11eee890e13409310db0b1098d275f64f961322",
-      "deployed_sha256": "1f4d75214f00fd3f5f3e9b4789983a89a2085341e596daa77a269f0bb342e1f9",
+      "canonical_sha256": "156ac91ede1b920e73ecd8403d3ab8c3b82735d72402c6349da0ff05348997d0",
+      "deployed_sha256": "bf318b12493bd7e682d6d2bf1fc9ac0b572811c7ce39581fc72a61766ffd0ce4",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/02-ceremony.md": {
       "canonical_source": "canonical/skills/dev/references/02-ceremony.md",
-      "canonical_sha256": "95d1279d600f3da7fce7e3453b950216036dfd5157aa23d8f0298cd185784ed3",
-      "deployed_sha256": "f8878f9ae227cfd053401b880860720b316b3d102f11a21b84fc10adadda0b02",
+      "canonical_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
+      "deployed_sha256": "3da7f3ee083b7617fb0b731135ae2a6605fbc04ce4491e8dd14e67c639a1b1aa",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/03-plan.md": {
       "canonical_source": "canonical/skills/dev/references/03-plan.md",
-      "canonical_sha256": "b3450a174aab5515a5135730b1ea5d532e61bcf6e1e90eb8f81ef343b00a3bdd",
-      "deployed_sha256": "e8c56ac8e05f46e6b2664a166c49642e6ff618c96293043ad317502b545c927e",
+      "canonical_sha256": "34c6560014d856f7dec378aa51a2f31c24adc5b6593d1dca1491efea44d26adc",
+      "deployed_sha256": "61e83d0b0c150423b268a79010c5dd31c5bb3c0b50d47783ffbabd3e55f2cb5b",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local wording 'project/concern'",
       "provider": "claude"
     },
     ".claude/skills/dev/references/04-implement.md": {
       "canonical_source": "canonical/skills/dev/references/04-implement.md",
-      "canonical_sha256": "afe8b6639ce40c9c83a8838fa62394614b0e86aedaf223df6fb7a5bbbb97fa41",
-      "deployed_sha256": "2a52ebd0d62a2c7e078d29c33edb4b5e3efb12de517ab25e453b3960ca88748d",
+      "canonical_sha256": "0b36bda3e2dbd483fc9fda6d71ec9361695c49d4a2207fa91887f4e70d918da8",
+      "deployed_sha256": "f0989c5da7087c857127b953d7a3f81c507c10117e3120703c6fc767163e243e",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local commit-scope examples (infra, lambda-auth, docs-web)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/05-test.md": {
       "canonical_source": "canonical/skills/dev/references/05-test.md",
-      "canonical_sha256": "9b4ea6a756b62fd5e1cf2f3df1d0090d068ea9ea181c90888b7196ad914a1911",
-      "deployed_sha256": "cf6817d7f7258ef732d044d497e3fd9b20a1d0cb12df87ce67102e20c6737094",
+      "canonical_sha256": "270d1eff9068eeac537670b651e9c665843d020ef80b408508c677e65b73510a",
+      "deployed_sha256": "55f39e4936dfbfb0ec99507acec22b468ae0dfb310c12faeca8b4928cdb50a4f",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local customizations: no DB layer (migration mention dropped), project build/typecheck/lint targets named, cdk synth/deploy guard note",
       "provider": "claude"
     },
     ".claude/skills/dev/references/06-document.md": {
       "canonical_source": "canonical/skills/dev/references/06-document.md",
-      "canonical_sha256": "af8105be02c03a87869f7fdb663dc708dc98d24c8474c19933dd1559d23540ae",
-      "deployed_sha256": "d637167f74cdfa3807a1ea8cbea13698c51c6519d10f66a59d189447c02ac3bf",
+      "canonical_sha256": "2fd153a316f21e2cd8d1a19380bca03997267e836526c3f40a1ce08ad38bb322",
+      "deployed_sha256": "33541de02f345fb52241d3565d08ded3013d4c247f07ab96bbd81421ba4e4f47",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
+      "provider": "claude"
+    },
+    ".claude/skills/dev/references/07-completion.md": {
+      "canonical_source": "canonical/skills/dev/references/07-completion.md",
+      "canonical_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
+      "deployed_sha256": "0077a8cf2e517921db93f6775eca1868c1a1be6db58810cd368b05939920eb11",
+      "rendered_base": null,
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/runtime/browser.md": {
@@ -1341,10 +1378,10 @@
     },
     ".claude/skills/dev/scripts/constants.mjs": {
       "canonical_source": "canonical/skills/dev/scripts/constants.mjs",
-      "canonical_sha256": "8fff1b355b56d516d524854b48fb2bc2cc1f7e814683a6da1a91c0d4c3861253",
-      "deployed_sha256": "8fff1b355b56d516d524854b48fb2bc2cc1f7e814683a6da1a91c0d4c3861253",
+      "canonical_sha256": "f146f7191dc328a1277d36c6394298b233e87a0aafe27855c14b0500b1d02af3",
+      "deployed_sha256": "f146f7191dc328a1277d36c6394298b233e87a0aafe27855c14b0500b1d02af3",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/scripts/quality.mjs": {
@@ -1365,18 +1402,18 @@
     },
     ".claude/skills/dev/scripts/timing.mjs": {
       "canonical_source": "canonical/skills/dev/scripts/timing.mjs",
-      "canonical_sha256": "3fe648777db3099ef154f334e65e9297a55a46e658b60d86d167dad9838bc145",
-      "deployed_sha256": "3fe648777db3099ef154f334e65e9297a55a46e658b60d86d167dad9838bc145",
+      "canonical_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "deployed_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/scripts/timing.test.mjs": {
       "canonical_source": "canonical/skills/dev/scripts/timing.test.mjs",
-      "canonical_sha256": "07dadfb5301d2c1be233984f390a23b0dad51582ee030cb9ca8b79dd420750fa",
-      "deployed_sha256": "07dadfb5301d2c1be233984f390a23b0dad51582ee030cb9ca8b79dd420750fa",
+      "canonical_sha256": "7a2345f5e964afd98b103451deabc2f0a22b466a1ab4876f48301b022ae8decb",
+      "deployed_sha256": "7a2345f5e964afd98b103451deabc2f0a22b466a1ab4876f48301b022ae8decb",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/scripts/utils.mjs": {
@@ -1387,44 +1424,36 @@
       "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
       "provider": "claude"
     },
-    ".claude/skills/dev/templates/intent.md": {
-      "canonical_source": "canonical/skills/dev/templates/intent.md",
-      "canonical_sha256": "1f3e103d61001564f78af84f7273b7cdb7b19cf21ae2ac0cf453547b6f11c555",
-      "deployed_sha256": "e64c232286f4bd04520ac0cf5460208bdf36d3670e535e16c03f82c31afa7e08",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
     ".claude/skills/dev/templates/plan.md": {
       "canonical_source": "canonical/skills/dev/templates/plan.md",
-      "canonical_sha256": "3a86b8ff962887e62749a9a5aa4480da60512fe9d9ab3fdfd8683607240ddda8",
-      "deployed_sha256": "0de7fbd3db4234cb559b84c901b6cce11662510606045c0858d5558aefdc25f7",
+      "canonical_sha256": "05d1088a50a2ac950cd56778e924f4fc5a7817bd1af6f0431376951a24f3adb2",
+      "deployed_sha256": "1d010e7905f69b34fbc2a6b22bfcada7aeda630448c9a62ed021cc0e5f41a693",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/templates/report.md": {
       "canonical_source": "canonical/skills/dev/templates/report.md",
-      "canonical_sha256": "fb6cd4ecce02866cd01dce04c10a9754281a594fc688d6adc55128ac4840a2b7",
-      "deployed_sha256": "bd53e365ec49fff04e96e0653e050d9d2cc71efd42f7330ddf6d84a7e6aa0346",
+      "canonical_sha256": "8041713d1ea0516a444194ac1dad4066854fdd8326e3b784a72b113e4cee02f3",
+      "deployed_sha256": "da57d5bd51f1cf38fc9b355b053bcb504c4441ecae37ebaa90fb3c4a76c8daf1",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/templates/stat.json": {
       "canonical_source": "canonical/skills/dev/templates/stat.json",
-      "canonical_sha256": "772d817b5b9858c2d0844a281a22fa5f8b935d51d9bd0555e28c57a13a7e9235",
-      "deployed_sha256": "772d817b5b9858c2d0844a281a22fa5f8b935d51d9bd0555e28c57a13a7e9235",
+      "canonical_sha256": "f6f0679edb987e0d8ce630a064987ed79e9657b964cc8d2e6982c6fa279a9f56",
+      "deployed_sha256": "f6f0679edb987e0d8ce630a064987ed79e9657b964cc8d2e6982c6fa279a9f56",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/dev/templates/stat.schema.json": {
       "canonical_source": "canonical/skills/dev/templates/stat.schema.json",
-      "canonical_sha256": "94989c3d5067adba8122ffaa7f6c126aad96e55d0f01266f589e2b70fa1ae106",
-      "deployed_sha256": "94989c3d5067adba8122ffaa7f6c126aad96e55d0f01266f589e2b70fa1ae106",
+      "canonical_sha256": "7a4a6ea46f6aebd560268c862faa673c95c6480a42502feb894504150a8d843b",
+      "deployed_sha256": "7a4a6ea46f6aebd560268c862faa673c95c6480a42502feb894504150a8d843b",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "claude"
     },
     ".claude/skills/evolve/SKILL.md": {
@@ -1880,15 +1909,15 @@
       "canonical_sha256": "821e0fa6653a1bf06f680ea5b36a3b54630e5fb99f11856abe7ccbc6428bb23c",
       "deployed_sha256": "d48a9f429a560628ccc6acdcf8d888104fa4d3a0ec87fe58d1b2a6678a8839b2",
       "rendered_base": null,
-      "note": "retained local customization — canonical not deployed (contradicts verified project MCP config)",
+      "note": "retained local customization \u2014 canonical not deployed (contradicts verified project MCP config)",
       "provider": "shared"
     },
     "docs/Engineering Guide/Documentation/01 Principles.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
-      "canonical_sha256": "cb2ee40cc95bf8c2cbd55fb44cd07a980bc372f3e7419da11b68ef271293ff37",
-      "deployed_sha256": "f2aa747d2413197c4c0a431ad774a383f8d9a16a8db3fc71938355f3699af80e",
+      "canonical_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
+      "deployed_sha256": "43c7df0809950d4f39babf273163e462883f10211f0f34c9aa4965cdfc758b66",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; deployed bytes are the project prettier formatting of the canonical copy (table padding shifts after token substitution)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: local doc is heavily customised (What/How sections, placement images, Wiring Principle); inserted only the new Manner section and acceptance-table row, kept every local section",
       "provider": "shared"
     },
     "docs/Engineering Guide/Documentation/02 Structure.md": {
@@ -1925,18 +1954,18 @@
     },
     "docs/Engineering Guide/Lifecycles/00 Overview.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md",
-      "canonical_sha256": "7e0eae7b84cc11b7730079c660bce80869038605ec69ccb13f82648a67396d54",
-      "deployed_sha256": "1a49c6c724ba37933fb4d8ebae8a2d0d76c96ca4d303bfe95fbdf8ac177c8e35",
+      "canonical_sha256": "ebcf64f15253b35b3d68f8f8821aa73a289e46384fd4885a9aaa932d9d1428ab",
+      "deployed_sha256": "aab1b543c263831060201d906bc91c62d685e22c0efda030208fdceacdcc0dbf",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; deployed bytes are the project prettier formatting of the canonical copy (table padding shifts after token substitution)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "shared"
     },
     "docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md",
-      "canonical_sha256": "f3899e7ac96c28e2bcd6affa4d510e5a7cfb30cef94065df611256b0666b2455",
-      "deployed_sha256": "99abc8483e758e39c80aa7425f2da7d59779af112f1cb5915433bca649e42356",
+      "canonical_sha256": "b12289b05eeddb1ad35d0a79d02f6ef21c9c29a26da9c054ce10c2bf171d8179",
+      "deployed_sha256": "b4b43383fd2adb78dcd9e563c755d4ce40a0d6badef2eb89d2d0a52c46c17707",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; deployed bytes are the project prettier formatting of the canonical copy (table padding shifts after token substitution)",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "shared"
     },
     "docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md": {
@@ -1965,10 +1994,10 @@
     },
     "docs/Engineering Guide/Lifecycles/05 Documents Flow.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
-      "canonical_sha256": "f95afcb4a4227877b8b4074f06b874a1e4a4ae11742decba87aff932068f3fc8",
-      "deployed_sha256": "0d19fc5f62b0847382733131ddf0f722509a9b8fe5053bcc48576f93b6cedd54",
+      "canonical_sha256": "c3f3d52e5b2a013bdc3dcc22cd92a37b7c8cd708838afdd221efd6eb5b5ed2b4",
+      "deployed_sha256": "b94b2c1c9cb1412f86f2b78ad5ef4abdcd348abddade12577947ade0e2b02769",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801",
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "shared"
     }
   }

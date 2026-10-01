@@ -28,7 +28,7 @@ Every permanent-doc writer — including the `docs-writer` agent — applies thi
 
 **Length budget** — measured in prose lines only: Mermaid diagram blocks and tables never count against it, however long, since they carry information density prose can't match. Root context files ({{ROOT_INSTRUCTIONS}} and equivalents): 60–130 lines. Engineering Guide articles: under 150 lines. LLD container docs: under 120 lines. HLD container docs: under 80 lines. When prose still doesn't fit and the remaining content is genuinely essential, split a focused companion document along the natural topic boundary and link it — do this readily, not as a last resort fought over line-by-line; never compress essential coverage into dense, unreadable prose to stay under budget.
 
-**Certainty principle** — architecture docs (HLD, LLD, NFR) state only settled outcomes. No unresolved comparisons or open questions, and no Gaps, open-question or TODO placeholder sections — including empty "no gaps" declarations. Keep uncertainty in the external run, design or review record (`Stories/<TICKET>/design/`). State approved targets separately from observed behavior; include rationale only when a decision source supports it. → See `docs/README.md`.
+**Certainty principle** — architecture docs (HLD, LLD, NFR) state only settled outcomes. No unresolved comparisons or open questions, and no Gaps, open-question or TODO placeholder sections — including empty "no gaps" declarations. Keep uncertainty in the external run, design or review record (`Stories/[TICKET] name/design/`). State approved targets separately from observed behavior; include rationale only when a decision source supports it. → See `docs/README.md`.
 
 **Contradictory evidence** — test material claims against counterexamples, not only supporting examples. Inspect conflicting code, configuration and decisions; narrow or correct claims when evidence differs. Record inspected scope, exceptions and resolution in the external review record. Absence of a counterexample in a sample is not proof of a universal rule.
 
@@ -39,6 +39,42 @@ Every permanent-doc writer — including the `docs-writer` agent — applies thi
 **Diagrams first** — port or create diagrams before writing prose. Every architecture doc needs at least one Mermaid diagram; add drill-down diagrams for complex sub-sections (deploy lifecycle, auth flow, data flow, topology). See Diagram and format standards below for ordering, coloring, and type selection.
 
 **Destination confirmation** — before writing, confirm the doc's tier against Documentation destination below; if the caller specifies a destination, trust it, but flag a destination that looks wrong before writing rather than after.
+
+---
+
+## Manner
+
+How the prose sounds, in every tier, every time. The principles above say what goes
+where; this says how it reads once it is there.
+
+**Technical.** Name the thing: the service, the file, the command, the port. "The
+Lambda@Edge handler checks the `Authorization` header" beats "a security layer
+validates access". No marketing, no adjectives doing the work of facts.
+
+**Simple words.** Short sentences, one idea each, active voice. Write the way you'd
+explain it to a colleague at the desk, not the way a spec sounds. If a reader needs
+to parse a sentence twice, split it.
+
+**Certain.** State what is. "The build runs on push to `main`." Not "the build
+should run", "is intended to run", "typically runs". If it is not certain, it is not
+settled, and settled is the entry ticket for a permanent doc (see the certainty
+principle). Hedges, qualifiers and "may/might/could" are a signal to go find out.
+
+**Lead with the core principle.** Every doc, and every major section, opens with
+the one rule or decision it exists to carry, in one sentence, before any detail.
+A reader who stops after the first line should leave with the point. Details,
+exceptions and history come after, never instead.
+
+**Concrete over abstract.** An example path, a real command, a measured number in a
+table. "Under 80 lines" beats "concise". A diagram of the actual flow beats a
+paragraph about "the flow".
+
+**No filler.** No preambles ("this document describes…"), no closing summaries that
+repeat the body, no "note that", no "it is important to". Delete the sentence; if
+nothing is lost, it was filler.
+
+A quick test before handing a doc over: read the first sentence of each section
+aloud. If it is a fact a reader can act on, the manner is right.
 
 ---
 
@@ -100,16 +136,17 @@ Read this document and the applicable intent before drafting any generated docum
 Intents own semantic requirements; this file alone owns presentation and readability.
 After writing, reread the actual file against both before handing it to a reviewer.
 
-| Check              | Acceptance evidence in the external review record                                                    |
-| ------------------ | ---------------------------------------------------------------------------------------------------- |
-| Reader utility     | Identify the reader's concrete question and the section/diagram that answers it                      |
-| Structure and flow | Architecture shows ownership, dependencies and important sequences, not just a file inventory        |
-| Readability        | Prefer diagrams for structure/flow and tables for contracts/inventories; prose connects them briefly |
-| Specificity        | Rules and behavior have project evidence; targets have decision evidence; no generic filler          |
-| Claim challenge    | Material claims were checked for contradictory evidence; exceptions and resolutions are recorded     |
-| Separation         | Repeated setup/deployment/context facts live once and are linked where needed                        |
-| Completeness       | Essential information survives length limits; reserve focused companion docs when needed             |
-| Consistency        | Names, links, current/target distinctions and related documents agree                                |
+| Check              | Acceptance evidence in the external review record                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------ |
+| Reader utility     | Identify the reader's concrete question and the section/diagram that answers it                        |
+| Structure and flow | Architecture shows ownership, dependencies and important sequences, not just a file inventory          |
+| Readability        | Prefer diagrams for structure/flow and tables for contracts/inventories; prose connects them briefly   |
+| Manner             | First sentence of each section is an actionable fact; wording is technical, simple, certain, no filler |
+| Specificity        | Rules and behavior have project evidence; targets have decision evidence; no generic filler            |
+| Claim challenge    | Material claims were checked for contradictory evidence; exceptions and resolutions are recorded       |
+| Separation         | Repeated setup/deployment/context facts live once and are linked where needed                          |
+| Completeness       | Essential information survives length limits; reserve focused companion docs when needed               |
+| Consistency        | Names, links, current/target distinctions and related documents agree                                  |
 
 A heading, line count or nonempty coverage field is not acceptance evidence. Record
 violations as actionable findings, correct them, and recheck before marking complete.

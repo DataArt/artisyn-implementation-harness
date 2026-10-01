@@ -1,160 +1,149 @@
 # Test stage
 
 Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage test`. Wrap authorized automated verification commands with
-`check --kind <kind> --name <name> -- <command>` to capture actual exit status.
+`--stage test`. First action: `stage start --stage test`. Wrap every command you run
+with `check --kind <kind> --name <name> -- <command>`.
 
-Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage runs
-the test suite and PR review for an implemented plan.
+Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+proves the implementation: it runs, it is reviewed, the acceptance criteria hold.
 
-Apply `patterns/approval-sign-off.md`: follow dependencies, continue routine authorized work,
-and pause only for a concrete unresolved decision, required human verification, or a
-fixed sign-off gate (`patterns/approval-sign-off.md`).
+Two stops in this stage: the sign-off in Step 5 (`patterns/phase-sign-off.md`) and the
+commit in Step 7. Steps 2, 3 and 4 are intelligent checkpoints
+(`patterns/approval-intelligent.md`): do it yourself, ask only for a guarded
+command, access you lack, or something only the developer can see.
 
-> 🔁 **Session continuity:** apply `.claude/skills/dev/patterns/session-continuity.md`.
+> 🔁 **After context compaction:** re-read this file and run metrics `recover`
+> before recording anything (`patterns/session-continuity.md`). Fresh vs. resume was
+> already decided by the router's entry check; do not redo completed work.
 
-## Step 1 — Find the implementation folder
+## Step 1 — Read
 
-The argument is a ticket number (e.g. `ND-042`) or a direct folder path.
+`$IMPL_DIR` comes from the router's entry check. If the `Phase` row does not show
+Implement ✅, say which stage is still open and stop.
 
-- If a ticket number: look for `docs/Stories/*{TICKET}*/impl/` (use `*{TICKET}*` wildcard — never `[{TICKET}]*`, square brackets are glob metacharacters)
-- Read `1-plan.md` to understand what was built and which layers were touched
-- Read `2-report.md` to understand what was already noted during implementation
-- If not found: tell the developer and stop
+Read `1-plan.md` (what was built, which layers, the acceptance criteria) and
+`2-report.md` (implementation notes, findings so far). Set the `Phase` row to
+`🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test 🔄 · 📝 Document ⏳ · 🏁 Completion ⏳`.
 
-## Step 2 — Advance phase to Test
+## Step 2 — Make it run
 
-Update the `Phase` row in `2-report.md`:
+In this order, using only targets the project actually has:
 
-```
-🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test 🔄 · 📝 Document ⏳
-```
+1. **Build** the changed scope: `yarn nx run infra:synth` for infra, `yarn nx run-many -t build -p site infra lambda-auth` (or the subset of `site`/`infra`/`lambda-auth` actually touched) for app code. `infra:synth` runs `cdk synth`, which is fine to run directly; only `cdk deploy` and `yarn nx run infra:provision` are guarded.
+2. **Prerequisites** the plan introduced, so the change can be exercised: queues, topics, blob containers, env
+   vars, infra diff (`yarn nx run infra:diff`).
+3. **Suites** for the affected projects and their dependents: typecheck, lint, unit,
+   integration (`yarn nx run site:typecheck`, `yarn nx run site:lint`, `yarn nx run lambda-auth:typecheck`, `yarn nx run lambda-auth:lint`, and the `*:test` targets that exist). The plan's Step 1 tests must be green now.
 
-## Step 3 — Build check
+Intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval
+conditions, all required:
 
-Run whichever check(s) actually make sense for what the plan touched — same scope
-rule as Step 7's verification gate; do not run one, then re-derive the other's
-answer independently. Most tickets touch one side and need only that check; a
-mixed-scope ticket (both infra and app code) may reasonably need both.
+- Everything above was runnable here: not guarded, no missing access, and every
+  environment action hits a local or disposable resource per the project's config,
+  with nothing destructive
+- All of it passed on the current worktree, with nothing unexpected in the output
 
-Inspect available project targets and run authorized checks for the changed scope:
-`yarn nx run infra:synth` for infra changes, `yarn nx run-many -t build -p site infra lambda-auth`
-(or the subset of `site`/`infra`/`lambda-auth` actually touched) for app code. Use the
-metrics wrapper. Never assume a test/lint suite or pre-commit hook exists. For guarded
-or inaccessible checks (`infra:synth` invokes `cdk synth`, which is fine to run directly —
-only `cdk deploy`/`yarn nx run infra:provision` are guarded), present the exact command
-and request its result. Diagnose/fix in-scope failures before review proceeds.
+All met → say in one line what ran and that it passed; continue. Otherwise:
 
-## Step 4 — PR Review
+- Failed → diagnose first (which file and line, stale test or real regression,
+  which rule, which missing variable), fix in scope, rerun the same check, re-check
+  the conditions.
+- Guarded, shared environment, or no access → give the developer the exact command
+  and its target, then `report` and a `wait start --reason user_input` naming the
+  command. **Stop and wait.** Record their result with `check record` sourced
+  `developer`, then re-check the conditions.
 
-Run the PR review **before** the test suite so that must-fix changes are included in the validation run.
+## Step 3 — Review
 
-**Component delegation** — match changed paths to the Agents table in
-`CLAUDE.md` and installed role scopes. Delegate each touched
-component's focused convention review to its actual specialist using
-runtime/delegation.md. Review unmatched scope inline; resolve ambiguous ownership
-explicitly. Preserve independent architecture review where required below.
+On a green build:
 
-**@architect audit** — spawn `@architect` before recording PR review findings when any of the following apply:
+1. **Component review**: delegate each touched component to its specialist from the
+   Agents table in `CLAUDE.md` (runtime/delegation.md); review
+   the rest inline.
+2. **Architecture audit**, only when the change moves infrastructure boundaries,
+   adds a cross-layer integration, or spans more than one container: spawn
+   `@architect` with the files from the plan, read-only, one finding per line against
+   HLD boundaries, data flow, NFRs and layer practices.
+3. **Record** every finding in `## Review Findings` (`patterns/review-gate.md`,
+   origin `pr-review`, stage `test`). Coverage and verdict in prose even with none.
+4. **Fix** in-scope regressions and routine convention findings, rerun the affected
+   checks from Step 2, record the evidence in the RF rows.
 
-- The plan changes infrastructure topology or boundaries (new resource type, new network path/exposure, new service, a removal-policy or IAM change) — not a routine like-for-like addition within an existing, already-reviewed pattern
-- The plan introduces a new cross-layer integration (e.g. new auth flow, new CloudFront behavior, new data-flow edge)
-- The plan contains non-trivial flows that span more than one container
+Intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval
+conditions, all required:
 
-Prompt template:
+- Every finding is `fixed` or ruled out with evidence; none is left `open`
+- No fix changed scope, a contract, or behaviour the plan did not describe
+- No `critical` or `high` finding was accepted or deferred, by anyone
+- The affected checks pass again
 
-> "Read `docs/Target Architecture (HLD)/README.md` to find the active version. Audit the following implementation against HLD container boundaries, data-flow direction, and NFRs (read `docs/Target Architecture (HLD)/README.md` to find the active version, then read `docs/Target Architecture (HLD)/{active-version}/Non-Functional Concerns/Requirements.md`). Also check layer-specific best practices (infrastructure: naming, removal policies, security rules, IAM least-privilege; auth: header/credential handling, no hardcoded secrets; web: VitePress build/link integrity, accessibility). Files to review: `<list from plan>`. One finding per line with BUG/DESIGN/IMPROVE code." **Do not write or edit any files — return output only.**
+All met → say in one line what was reviewed, how many findings, all closed; continue.
+Otherwise the remaining findings need the developer now, not at the sign-off,
+because the answer may change the code under test: present each open finding with
+its options (fix / accept with rationale / tech-debt with owner), then `report` and a
+`wait start --reason approval` naming the findings. **Stop and wait.** On the reply,
+`resume --activity review`, record each decision in its RF row with attribution,
+apply what was decided, rerun the affected checks, and re-check the conditions.
 
-Classify each finding using triage discipline before upserting it in Review Findings. Skip for purely mechanical or single-layer changes with no cross-cutting impact.
+If something structural changed, add `impl/architecture-notes.md` with a short
+description and a Mermaid diagram. If findings show a repeatable convention gap,
+say so once and suggest `/evolve reflect <one line>`.
 
-**Architecture note** — if anything structural changed (new module, new layer pattern, new cross-layer interaction), create `{story-folder}/impl/architecture-notes.md` with a brief description and a Mermaid diagram. Skip this file if nothing structural changed.
+## Step 4 — Prove the acceptance criteria
 
-Apply `patterns/review-gate.md`: upsert findings in `## Review Findings` with origin
-`pr-review` and stage `test` for first discoveries. Use impact severity independently
-of classification and required action. Reuse prior RF IDs for repeat findings; record
-PR coverage and verdict in prose even when no issues were found. Normal pending LLD
-updates belong in Documentation. Never add a separate PR Review findings table.
+For each AC in the plan: pass or fail, with evidence from Step 2, the plan's own
+verification instructions, or your own inspection (`check record --source self`).
 
-After updating the findings, check the findings for patterns worth encoding as skills:
+Intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-approval
+conditions, all required:
 
-- If there are any `bug`, `security`, `design` or `deviation` findings that represent a **repeatable mistake** (not a one-off typo) — something that a skill or rule could prevent in future — say:
+- Every AC could be checked here: a command, a response, a file, a log, nothing
+  that needs the developer's access, their machine, or their eyes
+- Every AC passed, with its evidence recorded
 
-  > "This review found `{X}` pattern findings that look like a repeatable convention gap. Consider running `/evolve reflect` with a short description so it can be encoded as a skill."
+All met → say in one line "N/N acceptance criteria pass" and continue. Otherwise:
 
-  Name the specific patterns briefly. Do not prompt this if all findings are `improve`-only or `No findings`.
+- An AC failed → it is a regression or a gap. Fix in scope and rerun, or if the fix
+  is out of scope, record it as `open` in Review Findings with the AC it blocks and
+  ask the developer now; a failing required AC never reaches the sign-off as a surprise.
+- An AC you cannot check yourself → give the developer the precise action (what to
+  open, what to look for, what command), then `report` and a `wait start --reason
+user_input` naming the ACs. **Stop and wait.** Record each answer with
+  `check record` sourced `developer`, then re-check the conditions.
 
-## Step 5 — Resolve PR review findings
+Then update `2-report.md`: the Test column per progress row (`✅` / `❌` with a note /
+`—`), and the Test Results table (`templates/report.md` says how to count).
 
-Apply `patterns/review-gate.md` and `patterns/do-report-commit.md`. Fix and verify
-in-scope regressions without per-fix approvals. Batch only the unresolved human
-decisions, and preserve actual resolution/verification evidence in the ledger.
+## Step 5 — Sign-off (rework if any)
 
-## Step 6 — Run checks matching the change
+Apply `patterns/phase-sign-off.md`. Present checks (what ran, result), review
+(verdict, findings and how each was closed), and ACs (each with its evidence, and
+who confirmed the manual ones).
 
-Run existing checks for affected projects and dependents where relevant. Infra-only
-changes use `yarn nx run infra:synth` and `yarn nx run infra:diff` where applicable; app
-changes use their actual build/typecheck/test/lint targets (`yarn nx run site:typecheck`,
-`yarn nx run site:lint`, `yarn nx run lambda-auth:typecheck`, `yarn nx run lambda-auth:lint`,
-etc.). Reuse successful checks on unchanged inputs; rerun affected checks after fixes.
-Do not invent missing targets or imply a skipped suite passed. Follow project
-guarded-command rules for live actions — never run `cdk deploy` or
-`yarn nx run infra:provision` directly, present them as instructions for the developer.
+> "Checks, review and acceptance criteria done. {Summary.} Good to move to Document,
+> or what should change?"
 
-Capture actual outcomes with the metrics wrapper, and preserve runner output as test
-case count evidence. A failed command is one failed run, not one failing test case.
+`report`, then `wait start --reason approval --detail "Awaiting test sign-off"`.
+**Stop and wait.** No reply, no next step. On approval, record the acceptance check
+(`--name "Test sign-off"`, `--source developer`, their words as evidence); without
+it `stage complete` is refused.
 
-## Step 7 — Failure triage
+Rework: fix, rerun the affected checks, present again.
 
-For any project that fails, do not just record `❌` — diagnose:
+## Step 6 — Report
 
-- **Type error** — identify the file and line; suggest the fix or flag as a blocker
-- **Failing assertion** — identify the test and what changed; determine if it's a stale test or a real regression
-- **Lint error** — identify the rule and file; most are auto-fixable with `yarn nx run {project}:lint --fix`
-- **Missing env / config** — identify the missing variable or misconfiguration
+Confirm Step 4's rows are current, set the `Phase` row to
+`🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document 🔄 · 🏁 Completion ⏳`,
+then metrics `report`.
 
-Record the diagnosis and fix in-scope failures. Ask only when the fix requires a new scope/risk decision or inaccessible verification.
+## Step 7 — Commit
 
-## Step 8 — Acceptance criteria validation
+One commit per review fix block (`fix(...)`, `test(...)`), then
+`docs({ticket-lowercase}): record test results and review`.
 
-Read the `## Acceptance Criteria` checklist from `1-plan.md`. For each item, determine whether it passed or failed based on:
-
-- The test/build output from Step 6
-- Any explicit verification instructions in the plan steps
-- Ask the developer to perform any manual checks that cannot be inferred from output alone
-
-Record each AC result and its evidence. Ask for specific required manual checks
-that cannot be performed with available access; do not ask a general "anything else?"
-question. Unresolved or failing required ACs block completion. Record optional test
-suggestions without turning them into a new approval gate.
-
-## Step 8b — Test evidence and coverage
-
-Update the existing Test Results table to the latest run for each non-overlapping
-project/suite scope. Record Written (new test cases from the diff), Passed, Failed,
-Skipped (latest runner counts), and Evidence. Unknown counts are `unavailable`, not
-zero. Modified tests are not newly written cases. Retain historic failures in metrics
-checks; do not sum suite reruns as additional cases. Note absent suites and skipped
-checks explicitly. No suite means no measured case count, unless zero new cases is
-independently verified from the diff.
-
-## Step 9 — Update `2-report.md`
-
-For each step row in the `## Progress` table, fill in the **Test** column:
-
-- `✅` — all applicable required checks passed for the changed scope
-- `❌` — one or more checks failed (add a brief note in the Notes column)
-- `—` — not applicable (e.g. infra-only step with no runnable tests)
-
-Update (do not append another copy of) `## Test Results` using
-`templates/report.md`. Check that numeric counts have evidence. Refresh metrics with
-`report`; its quality block counts findings, debt and cases without replacing timing.
-
-## Step 10 — Report back
-
-Tell the developer:
-
-- Overall pass/fail summary
-- Any failures diagnosed and their suggested resolution
-- PR review verdict and any must-fix items
+Manual-operation sign-off (`patterns/approval-sign-off.md`): `wait start --reason
+user_input --detail "Awaiting commit"`, **stop and wait**. On the reply, check
+`git log`/`git status`; if something is missing, say what and wait again. Then
+`stage complete --stage test`. Continue to Document.
 
 🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Document).

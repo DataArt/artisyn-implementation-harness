@@ -1,0 +1,55 @@
+--- a/canonical/skills/dev/scripts/timing.mjs
++++ b/canonical/skills/dev/scripts/timing.mjs
+@@ -711,9 +711,10 @@
+ }
+ 
+ /**
+- * Guard a completion: stages need their steps finished; steps need at least
+- * one check and passing latest results for every named check of the current
+- * attempt.
++ * Guard a completion: stages need their steps finished and a passed
++ * "<Stage> sign-off" acceptance check recorded in the current attempt (the
++ * developer's reply); steps need at least one check and passing latest results
++ * for every named check of the current attempt.
+  */
+ function ensureUnitCanComplete(unit, isStage) {
+   need(['active', 'waiting'].includes(unit.status), 'Unit has not started');
+@@ -722,6 +723,17 @@
+       !data.steps.some((s) => ['active', 'waiting'].includes(s.status)) &&
+         (unit.id !== 'implement' || data.steps.every((s) => s.status === 'completed')),
+       'Finish implementation steps first'
++    );
++    need(
++      data.checks.some(
++        (c) =>
++          c.stage_attempt_id === last(unit).id &&
++          !c.step &&
++          c.kind === 'acceptance' &&
++          c.result === 'passed' &&
++          /sign-off$/i.test(c.name)
++      ),
++      `Stage ${unit.id} needs a passed "<Stage> sign-off" acceptance check in this attempt (record the developer's reply first)`
+     );
+     return;
+   }
+@@ -781,7 +793,20 @@
+     return;
+   }
+   data = JSON.parse(fs.readFileSync(file, 'utf8'));
++  migrateStages(data);
+   validateState(data);
++}
++
++/**
++ * Forward-migrate a document written before a lifecycle stage existed: append the
++ * missing stage as pending, in lifecycle order. Nothing recorded is changed.
++ */
++function migrateStages(d) {
++  if (!Array.isArray(d.stages)) return;
++  const present = new Set(d.stages.map((s) => s.id));
++  for (const id of STAGES)
++    if (!present.has(id)) d.stages.push({ id, status: 'pending', attempts: [] });
++  d.stages.sort((a, b) => STAGES.indexOf(a.id) - STAGES.indexOf(b.id));
+ }
+ 
+ /** Move the open interval's checkpoint; a no-op when nothing is open. */

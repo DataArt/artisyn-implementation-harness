@@ -14,13 +14,13 @@ flowchart LR
         direction TB
         DESIGN["🎨 design/\n00 Frame · 01 Research\n02 Evaluate · Report.md"]:::design
         SOL["💡 solution/\nArchitecture · Design\nStack · Efforts"]:::solution
-        IMPL["📋 impl/\nintent.md · 1-plan.md · 2-report.md"]:::impl
+        IMPL["📋 impl/\n0-intent.md · 1-plan.md · 2-report.md · stat.json"]:::impl
         DESIGN --> SOL
     end
 
     subgraph PERMANENT ["  🏛️ Permanent docs/ — project context (accumulates over time)  "]
         direction TB
-        PCTX["🧠 docs/Harness/\nproduct-level docs"]:::pctx
+        PCTX["🧠 docs/Harness\nproduct-level docs"]:::pctx
         HLD["🗺️ Target Architecture (HLD)\naspirational design intent"]:::hld
         LLD["🔧 System Architecture (LLD)\ncurrent implementation detail"]:::lld
         EG["📖 Engineering Guide\noperational procedures"]:::eg
@@ -54,47 +54,47 @@ flowchart LR
 
 | Lifecycle phase                   | Produces                                                        | Lives in                                                                       | Mutability                                            |
 | --------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- |
-| `/dev context`                    | `intent.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Confirmed proto-spec — open questions may be appended |
-| `/dev plan`                       | `1-plan.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Immutable after approval                              |
-| `/dev context`                    | `2-report.md` (skeleton)                                        | `Stories/<TICKET>/impl/`                                                       | Living through the ticket                             |
+| `/dev context`                    | `0-intent.md`                                                   | `Stories/[TICKET] name/impl/`                                                  | Confirmed proto-spec — open questions may be appended |
+| `/dev plan`                       | `1-plan.md`                                                     | `Stories/[TICKET] name/impl/`                                                  | Immutable after approval                              |
+| `/dev context`                    | `2-report.md` (skeleton)                                        | `Stories/[TICKET] name/impl/`                                                  | Living through the ticket                             |
 | `/dev implement`                  | Code commits                                                    | Codebase                                                                       | —                                                     |
 | `/dev document`                   | LLD updates                                                     | `System Architecture (LLD)/`                                                   | Living                                                |
 | `/dev document`                   | Engineering Guide entries                                       | `Engineering Guide/`                                                           | Living                                                |
 | `/dev document`                   | App README updates                                              | `apps/*/README.md`                                                             | Living                                                |
 | `/dev document` (deviation path)  | Container or NFR updates within the active version              | `Target Architecture (HLD)/<active>/Containers/` or `Non-Functional Concerns/` | Living                                                |
-| `/design evaluate`                | Recommendation + WAF assessment                                 | `Stories/<TICKET>/design/02 Evaluate.md` + `Report.md`                         | Immutable in Story                                    |
-| `/design solution`                | Certainty artifacts                                             | `Stories/<TICKET>/solution/`                                                   | Immutable after Publish gate                          |
+| `/design evaluate`                | Recommendation + WAF assessment                                 | `Stories/[TICKET] name/design/02 Evaluate.md` + `Report.md`                    | Immutable in Story                                    |
+| `/design solution`                | Certainty artifacts                                             | `Stories/[TICKET] name/solution/`                                              | Immutable after Publish gate                          |
 | `/design publish` (Product track) | Product architecture content                                    | `docs/Harness/<resolved subfolder>`                                            | Living — accumulates over the product lifetime        |
 | `/design publish` (Project track) | Updates reviewed by `{resolved architect agent}` (max 2 passes) | `docs/Target Architecture (HLD)/<resolved subfolder>`                          | Living post-merge                                     |
-| `/dev document` (archive)         | Full Story folder                                               | `Stories/archive/`                                                             | Archived — no further edits                           |
+| `/dev complete` (archive)         | Full Story folder                                               | `Stories/archive/`                                                             | Archived — no further edits                           |
 | `/where-we-are` · `/war-*`        | Architecture audit snapshots                                    | `LLD/where-we-are/` or `HLD/WAR/<version>/`                                    | Append-only — see Architecture Lifecycle invariants   |
 
 ---
 
 ## Lifecycle of a doc
 
-**Creation** — delivery docs are born in `Stories/<TICKET>/` as working drafts. No doc goes directly to HLD, LLD, or the Engineering Guide without passing through a ticket.
+**Creation** — delivery docs are born in `Stories/[TICKET] name/` (ASCII folder names only) as working drafts. No doc goes directly to HLD, LLD, or the Engineering Guide without passing through a ticket.
 
-**Graduation** — content graduates at two points: during `/dev document` (implementation outcomes) and during `/design publish` (design outcomes). Only settled outcomes graduate — rationale, comparisons, and open questions stay in the Story. Where an implementation change lands (HLD vs LLD) is determined by the HLD/LLD placement matrix in `dev/references/06-document.md`: HLD hit → update the relevant HLD doc and record detail in the LLD; HLD miss → create a minimal new HLD entry and capture full detail in the LLD. Design graduation is track-routed, resolved once in Frame and recorded in `Report.md`'s `## Context` section: Product lands in `docs/Harness/`; Project lands in `Target Architecture (HLD)/`.
+**Graduation** — content graduates at two points: during `/dev document` (implementation outcomes) and during `/design publish` (design outcomes). Only settled outcomes graduate — rationale, comparisons, and open questions stay in the Story. Where an implementation change lands is decided by the tiers in `Documentation/02 Structure.md`; the Document stage records that decision per doc in the report's `## Documentation` table before `@docs-writer` writes anything. Design graduation is track-routed, resolved once in Frame and recorded in `Report.md`'s `## Context` section: Product lands in `docs/Harness/`; Project lands in `Target Architecture (HLD)/`.
 
 **Update** — permanent docs (HLD, LLD, Engineering Guide) are updated by subsequent tickets, not by reopening the original Story.
 
 **Supersession** — HLD is versioned. Creating a new version is a human and business decision — the lifecycle never creates one automatically. When the team decides to cut a new version, the old version folder is kept as history and the README router is updated to point to the new active version. In-progress deviations always land in the current active version.
 
-**Archival** — Stories are archived after doc consistency review, evidence-backed terminal resolutions in the single Review Findings ledger, and passing required acceptance/checks. Routine LLD lag is a doc-update task; deviation auditing compares implementation to HLD only. Archived stories are read-only references.
+**Archival** — `/dev complete` archives a story after doc consistency review, evidence-backed terminal resolutions in the single Review Findings ledger, and passing required acceptance/checks. The archived folder keeps its original ASCII name (`[TICKET] name`); done status lives in the report, not the folder name. Routine LLD lag is a doc-update task; deviation auditing compares implementation to HLD only. Archived stories are read-only references.
 
 ---
 
 ## What does NOT graduate
 
-| Content type                       | Stays in                                        |
-| ---------------------------------- | ----------------------------------------------- |
-| Rationale, trade-offs              | `Stories/<TICKET>/design/02 Evaluate.md`        |
-| Rejected alternatives              | `Stories/<TICKET>/design/02 Evaluate.md`        |
-| Open questions                     | `Stories/<TICKET>/design/02 Evaluate.md`        |
-| WAF assessment                     | `Stories/<TICKET>/design/Report.md` WAF section |
-| Implementation notes (2-report.md) | `Stories/<TICKET>/impl/2-report.md`             |
-| Exploration drafts                 | `Stories/<TICKET>/design/`                      |
+| Content type                       | Stays in                                             |
+| ---------------------------------- | ---------------------------------------------------- |
+| Rationale, trade-offs              | `Stories/[TICKET] name/design/02 Evaluate.md`        |
+| Rejected alternatives              | `Stories/[TICKET] name/design/02 Evaluate.md`        |
+| Open questions                     | `Stories/[TICKET] name/design/02 Evaluate.md`        |
+| WAF assessment                     | `Stories/[TICKET] name/design/Report.md` WAF section |
+| Implementation notes (2-report.md) | `Stories/[TICKET] name/impl/2-report.md`             |
+| Exploration drafts                 | `Stories/[TICKET] name/design/`                      |
 
 ## Harness improvement artifacts
 

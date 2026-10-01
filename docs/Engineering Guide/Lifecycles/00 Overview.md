@@ -11,12 +11,12 @@ prefix. See `04 AI Coding Tool Compatibility.md` for the full provider mapping.
 
 | Lifecycle        | Orchestrator            | Phases                                                                            |
 | ---------------- | ----------------------- | --------------------------------------------------------------------------------- |
-| **Dev**          | `/dev`                  | Context → Ceremony → Plan → Implement → Test → Document                           |
+| **Dev**          | `/dev`                  | Context → Ceremony → Plan → Implement → Test → Document → Completion              |
 | **Design**       | `/design`               | Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
 | **Skill**        | — (no orchestrator)     | Reflect → Triage → Draft → Validate → Adopt                                       |
 | **Architecture** | — (standalone commands) | `/where-we-are` · `/war design` · `/war implementation`                           |
 
-Each orchestrator runs its phases in order. Dev continues routine authorized work and pauses only for material decisions or required human actions; other lifecycles retain their own review gates. Individual phase commands (`/dev plan`, `/design frame`, etc.) run the requested stage or support resuming mid-flow.
+Each orchestrator runs its phases in order. Dev stops once per phase, at its end, for a sign-off; inside a phase it runs its own checks and keeps going. Other lifecycles retain their own review gates. Individual phase commands (`/dev plan`, `/design frame`, etc.) run the requested stage or support resuming mid-flow.
 
 ---
 
@@ -40,7 +40,7 @@ Each orchestrator runs its phases in order. Dev continues routine authorized wor
 
 - Follow each lifecycle's approval contract. Dev reuses existing authorization across routine phase transitions; unresolved material decisions still require human input.
 - No code is written until the plan is approved and the architecture audit passes.
-- Documentation is mandatory — tickets are not complete until `/dev document` has run.
+- Documentation is mandatory, and a ticket is complete only when `/dev complete` has archived the story and said so.
 - Architecture deviations approved at plan time are tracked through to the Document phase.
 - Reflections are not optional ceremony — they are how conventions accumulate.
 
@@ -61,7 +61,7 @@ flowchart TB
 
     subgraph DEV ["  🔨 Dev lifecycle  "]
         direction LR
-        V1["Plan\n+ arch audit"]:::dev --> V2["Implement\nstep-by-step"]:::dev --> V3["Test\n+ PR review"]:::dev --> V4["Document\n+ deviations"]:::dev
+        V1["Plan\n+ arch audit"]:::dev --> V2["Implement\nstep-by-step"]:::dev --> V3["Test\n+ PR review"]:::dev --> V4["Document\n+ deviations"]:::dev --> V5["Completion\narchive + PR"]:::dev
     end
 
     subgraph SKILL ["  💡 Evolve lifecycle  "]
@@ -93,7 +93,7 @@ flowchart TB
 
 ---
 
-→ `01 Dev Lifecycle.md` — Context → Ceremony → Plan → Implement → Test → Document  
+→ `01 Dev Lifecycle.md` — Context → Ceremony → Plan → Implement → Test → Document → Completion  
 → `02 Design Lifecycle.md` — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish  
 → `03 Evolve Lifecycle.md` — Reflect → Triage → Draft → Validate → Adopt
 → `04 Architecture Lifecycle.md` — `/where-we-are` · `/war design` · `/war implementation`  

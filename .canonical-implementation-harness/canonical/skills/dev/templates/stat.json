@@ -38,6 +38,11 @@
       "id": "document",
       "status": "pending",
       "attempts": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": []
     }
   ],
   "steps": [],

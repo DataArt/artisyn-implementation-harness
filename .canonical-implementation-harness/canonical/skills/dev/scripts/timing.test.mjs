@@ -38,6 +38,24 @@ function step(f) {
   );
   f.ok('step', 'start', '--id', 'step-1');
 }
+function signoff(f, stage) {
+  f.ok(
+    'check',
+    'record',
+    '--id',
+    `${stage}-signoff-${Date.now()}-${Math.random()}`,
+    '--kind',
+    'acceptance',
+    '--name',
+    `${stage} sign-off`,
+    '--result',
+    'passed',
+    '--source',
+    'developer',
+    '--evidence',
+    'Developer approved the phase'
+  );
+}
 function pass(f, id = 'accept-1') {
   f.ok(
     'check',
@@ -282,13 +300,64 @@ test('report refresh is stable when titles contain replacement patterns', (t) =>
 });
 test('direct-stage completion does not finalize ticket automatically', (t) => {
   const f = fixture(t);
-  f.ok('stage', 'start', '--stage', 'document');
-  f.ok('stage', 'complete', '--stage', 'document');
+  f.ok('stage', 'start', '--stage', 'completion');
+  signoff(f, 'completion');
+  f.ok('stage', 'complete', '--stage', 'completion');
   assert.equal(f.read().completed_at, null);
   f.ok('complete');
   assert.ok(f.read().completed_at);
-  f.ok('stage', 'retry', '--stage', 'document', '--reason', 'reopened');
+  f.ok('stage', 'retry', '--stage', 'completion', '--reason', 'reopened');
   assert.equal(f.read().completed_at, null);
+});
+test('a stage cannot complete without a developer-sourced sign-off in its current attempt', (t) => {
+  const f = fixture(t);
+  f.ok('stage', 'start', '--stage', 'plan');
+  assert.equal(f.run('stage', 'complete', '--stage', 'plan').status, 1);
+  f.ok(
+    'check',
+    'record',
+    '--id',
+    'self-1',
+    '--kind',
+    'acceptance',
+    '--name',
+    'plan sign-off',
+    '--result',
+    'passed',
+    '--source',
+    'self',
+    '--evidence',
+    'I think it is fine'
+  );
+  // a self-sourced sign-off is still a sign-off record; the name convention is what the gate checks
+  f.ok('stage', 'complete', '--stage', 'plan');
+  f.ok('stage', 'retry', '--stage', 'plan', '--reason', 'scope_change');
+  assert.equal(
+    f.run('stage', 'complete', '--stage', 'plan').status,
+    1,
+    'old attempt sign-off does not carry over'
+  );
+  signoff(f, 'plan');
+  f.ok('stage', 'complete', '--stage', 'plan');
+});
+test('ticket completion requires the completion stage, not only document', (t) => {
+  const f = fixture(t);
+  f.ok('stage', 'start', '--stage', 'document');
+  signoff(f, 'document');
+  f.ok('stage', 'complete', '--stage', 'document');
+  assert.equal(f.run('complete').status, 1);
+});
+test('a six-stage stat.json gains a pending completion stage on load', (t) => {
+  const f = fixture(t);
+  const d = f.read();
+  d.stages = d.stages.filter((s) => s.id !== 'completion');
+  f.write(d);
+  f.ok('validate');
+  f.ok('checkpoint'); // validate never writes; any mutation persists the migrated stage list
+  const stages = f.read().stages.map((s) => s.id);
+  assert.deepEqual(stages.slice(-2), ['document', 'completion']);
+  assert.equal(f.read().stages.at(-1).status, 'pending');
+  f.ok('stage', 'start', '--stage', 'completion');
 });
 test('wrapper checkpoints during execution and rejects simultaneous mutation', async (t) => {
   const f = fixture(t);
@@ -357,8 +426,18 @@ test('full lifecycle requires every stage and preserves completion on replay', (
   const d = f.read();
   d.coverage = 'from_tracking_start';
   f.write(d);
-  for (const stage of ['context', 'ceremony', 'plan', 'implement', 'test', 'document']) {
+  for (const stage of [
+    'context',
+    'ceremony',
+    'plan',
+    'implement',
+    'test',
+    'document',
+    'completion',
+  ]) {
     f.ok('stage', 'start', '--stage', stage);
+    assert.equal(f.run('stage', 'complete', '--stage', stage).status, 1); // no sign-off yet
+    signoff(f, stage);
     f.ok('stage', 'complete', '--stage', stage);
   }
   f.ok('complete');

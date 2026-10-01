@@ -1,19 +1,16 @@
 # Pattern: Session Continuity
 
-Applies to every dev-lifecycle stage reference (`references/01-context-gathering.md`,
-`references/02-ceremony.md`, `references/03-plan.md`, `references/04-implement.md`,
-`references/05-test.md`, `references/06-document.md`).
+Fresh vs. resume is decided once, by the entry check in
+`{{provider:skills_root}}/dev/SKILL.md`. This pattern only covers losing context
+mid-stage (compaction, a new session picking up an active stage).
 
-## On entry (top of each stage reference)
+When that happens:
 
-> 🔁 **Session continuity:** If this stage is resuming after context compaction,
-> re-read this full reference file before doing anything. The per-step protocol is
-> non-negotiable and must be followed even if `dev/SKILL.md` is no longer in context.
+1. Re-read the current stage reference in full. Its per-step protocol still applies
+   even if `dev/SKILL.md` is no longer in context.
+2. Run metrics `recover --dir "$IMPL_DIR"` before recording anything new.
+3. Read `2-report.md` to see what is already done. Do not redo completed steps, do
+   not re-ask a sign-off that was already given, and keep existing authorisation.
 
-## On exit
-
-For a full-flow request, re-read `{{provider:skills_root}}/dev/SKILL.md` and continue from the
-next stage. For direct-stage entry, return the stage result and stop. Preserve existing
-authorization and unresolved decisions across compaction; apply `patterns/approval-sign-off.md`
-and recover metrics before recording new work. Do not replay completed work or recreate
-approval gates just because the session resumed.
+On exit, for a full-flow request re-read `{{provider:skills_root}}/dev/SKILL.md` and
+continue from the next stage. For direct-stage entry, return the result and stop.

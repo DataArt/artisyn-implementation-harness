@@ -1,0 +1,30 @@
+--- a/canonical/skills/dev/patterns/do-report-commit.md
++++ b/canonical/skills/dev/patterns/do-report-commit.md
+@@ -1,14 +1,16 @@
+ # Do → Verify → Report → Commit
+ 
+-Complete the in-scope work, run relevant available checks, then update `2-report.md`
+-with actual progress, evidence and findings resolutions before any commit.
+-Apply `patterns/approval-sign-off.md`: pause for unavailable required verification or an
+-unauthorized commit, not for each local fix. A failed required check blocks completion.
++Do the in-scope work, verify it, update `2-report.md` with what actually happened,
++and only then suggest a commit. Never the other way round: the report is the
++recovery point, a commit is not.
+ 
+-Use logical commits. Outside a call site that names this pattern as part of a fixed
+-sign-off gate (e.g. Implement Step 3, Plan Step 6), provide a suggested Conventional
+-Commit and continue independent authorized work once it's developer-run. At a named
+-sign-off gate, that gate's explicit stop-and-wait governs instead: propose the exact
+-commit and wait for the developer's confirmation before continuing — do not proceed
+-on the strength of this paragraph. Do not claim a commit occurred until observed or
+-confirmed. Report state remains the recovery point even without a commit.
++Inside a phase (an Implement step, a review fix) this means: update the step's
++Progress row and note as soon as it is verified. At the end of the phase, the stage
++reference's Report step finalises `2-report.md` and its Commit step suggests the
++commits, as exact Conventional Commit messages, one per step or logical block; the
++developer runs them and the stage waits for that before closing. Never
++`git add`/`git commit` yourself. Do not claim a commit happened until you see it in
++Git or the developer says so.
++
++A failed required check blocks completion of the step. Pause for a check you
++cannot run (no access, guarded command), not for each local fix.

@@ -40,7 +40,7 @@ Key constraint: basic auth password protection on all routes.
 
 | Skill                 | Purpose                                                                |
 | --------------------- | ---------------------------------------------------------------------- |
-| `/dev`                | Dev lifecycle orchestrator — Context → Ceremony → Plan → Implement → Test → Document |
+| `/dev`                | Dev lifecycle orchestrator — Context → Ceremony → Plan → Implement → Test → Document → Completion |
 | `/design`             | Design lifecycle orchestrator — Frame → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish |
 | `/evolve`             | Evolve lifecycle orchestrator — Reflect → Triage → Draft → Validate → Adopt |
 | `/war`                | Architecture lifecycle router (`design` / `implementation` / version)  |
@@ -54,7 +54,7 @@ Key constraint: basic auth password protection on all routes.
 
 Orchestrators: `/dev` · `/design` · `/evolve` · `/war` · `/where-we-are`
 
-Dev phases: `/dev context` → `/dev ceremony` → `/dev plan` → `/dev implement` → `/dev test` → `/dev document`
+Dev phases: `/dev context` → `/dev ceremony` → `/dev plan` → `/dev implement` → `/dev test` → `/dev document` → `/dev complete`
 
 Design phases: `/design frame` → `/design research` → `/design evaluate` → `/design solution` (WAF gate: `patterns/waf-review.md`) → `/design review-gate` → (`/design address-feedback`) → `/design publish`
 
