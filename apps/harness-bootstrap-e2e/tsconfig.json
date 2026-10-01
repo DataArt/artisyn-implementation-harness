@@ -8,5 +8,5 @@
     "noEmit": true,
     "allowImportingTsExtensions": true
   },
-  "include": ["src", "fixtures/registry.ts"]
+  "include": ["src", "fixtures/_registry.ts"]
 }

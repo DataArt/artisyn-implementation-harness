@@ -138,7 +138,7 @@ it('does not accept a native call alone or an incomplete native snapshot for a l
 });
 it('reconstructs Claude tasks by ID and ignores failed updates', () => {
   const root = trackingWorkspace(launchReport().replace('update_plan', 'TaskCreate/TaskUpdate'));
-  const events: import('../../../agent-runners/types.ts').StreamEvent[] = [];
+  const events: import('../../../agent-runners/_types.ts').StreamEvent[] = [];
   for (let i = 1; i <= 14; i++) {
     events.push({
       type: 'assistant',

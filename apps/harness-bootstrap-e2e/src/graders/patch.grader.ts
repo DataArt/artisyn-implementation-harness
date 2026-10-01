@@ -1,32 +1,16 @@
-import crypto from 'node:crypto';
+import { result } from './grading.ts';
+import type { GradeResult, GraderBinding } from './_types.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { applyPatch } from 'diff';
-import type { GradeResult } from './filesystem.grader.ts';
-
-/** Schema version 2 patch bundle manifest, per
- * .canonical-implementation-harness/references/patch/06-patch-state.md.
- * Only the fields patch.grader inspects are typed here.
- */
-export interface PatchChange {
-  operation: 'add' | 'update' | 'rename' | 'copy' | 'delete';
-  path: string;
-  old_path: string | null;
-  before_sha256: string | null;
-  after_sha256: string | null;
-  payload?: string;
-  payload_sha256?: string;
-}
-
-export interface PatchManifest {
-  schema_version: number;
-  id: string;
-  operation: 'harvest' | 'prepare' | 'apply' | 'launch';
-  changes: PatchChange[];
-}
+import { sha256 } from '../utils/fs.ts';
+import type { PatchManifest } from './_types.ts';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const sha256 = (data: Buffer) => crypto.createHash('sha256').update(data).digest('hex');
+
+const MANIFEST_SCHEMA = 'patch/manifest-schema';
+const BUNDLE_HASHES = 'patch/bundle-hashes';
+const APPLY_RECONSTRUCTION = 'patch/apply-reconstruction';
 
 function fail(failures: string[], message: string) {
   failures.push(message);
@@ -75,7 +59,7 @@ export function gradePatchManifestSchema(manifest: PatchManifest): GradeResult {
         fail(failures, `${where}: unsupported operation ${change.operation}`);
     }
   }
-  return { grader: 'patch', pass: failures.length === 0, failures };
+  return result(MANIFEST_SCHEMA, failures);
 }
 
 /** Code grader: every payload's own bytes hash to `payload_sha256`, exactly
@@ -96,7 +80,7 @@ export function gradePatchBundleHashes(bundleDir: string, manifest: PatchManifes
     if (change.operation === 'add' && change.after_sha256 && sha256(bytes) !== change.after_sha256)
       fail(failures, `${change.path}: add payload bytes don't match after_sha256`);
   }
-  return { grader: 'patch', pass: failures.length === 0, failures };
+  return result(BUNDLE_HASHES, failures);
 }
 
 /** Code grader: applying an `update` diff to the declared `before` base must
@@ -127,5 +111,30 @@ export function gradePatchApplyReconstruction(
     if (change.after_sha256 && sha256(Buffer.from(applied)) !== change.after_sha256)
       fail(failures, `${change.path}: applied result doesn't match after_sha256`);
   }
-  return { grader: 'patch', pass: failures.length === 0, failures };
+  return result(APPLY_RECONSTRUCTION, failures);
 }
+
+/** The prepare step writes the bundle and manifest into the run context under
+ * these keys; the factories read them back so the scenario stays declarative.
+ */
+export const patchManifestSchema =
+  (manifestKey: string): GraderBinding =>
+  (c) =>
+    gradePatchManifestSchema(c.artifacts.get(manifestKey) as PatchManifest);
+
+export const patchBundleHashes =
+  (bundleKey: string, manifestKey: string): GraderBinding =>
+  (c) =>
+    gradePatchBundleHashes(
+      c.artifacts.get(bundleKey) as string,
+      c.artifacts.get(manifestKey) as PatchManifest
+    );
+
+export const patchApplyReconstruction =
+  (bundleKey: string, manifestKey: string, baseKey: string): GraderBinding =>
+  (c) =>
+    gradePatchApplyReconstruction(
+      c.artifacts.get(bundleKey) as string,
+      c.artifacts.get(manifestKey) as PatchManifest,
+      () => c.artifacts.get(baseKey) as Buffer
+    );

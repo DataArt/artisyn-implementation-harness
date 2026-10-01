@@ -1,8 +1,9 @@
-import { PROVIDERS } from '../testkit/providers.ts';
+import { PROVIDERS } from '../utils/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
-import type { SkillRunOptions, SkillRunResult, StreamEvent } from './types.ts';
+import type { SkillRunOptions, SkillRunResult, StreamEvent } from './_types.ts';
+import { DEFAULT_RUNNER_TIMEOUT_MS } from '../utils/constants.ts';
 
 /** Native Codex JSONL runner. The workspace-write sandbox confines fixture writes;
  * approval_policy=never makes an unavailable permission fail instead of hanging.
@@ -52,14 +53,11 @@ export function runCodexSkill(options: SkillRunOptions): Promise<SkillRunResult>
     const events: StreamEvent[] = [];
     let finalResult: unknown;
     let killTimer: ReturnType<typeof setTimeout> | undefined;
-    const timer = setTimeout(
-      () => {
-        timedOut = true;
-        child.kill('SIGTERM');
-        killTimer = setTimeout(() => child.kill('SIGKILL'), 5_000);
-      },
-      options.timeoutMs ?? 5 * 60_000
-    );
+    const timer = setTimeout(() => {
+      timedOut = true;
+      child.kill('SIGTERM');
+      killTimer = setTimeout(() => child.kill('SIGKILL'), 5_000);
+    }, options.timeoutMs ?? DEFAULT_RUNNER_TIMEOUT_MS);
     const consume = (line: string) => {
       if (!line.trim()) return;
       try {

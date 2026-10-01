@@ -1,4 +1,4 @@
-import { PROVIDERS } from '../../../testkit/providers.ts';
+import { PROVIDERS } from '../../../utils/providers.ts';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';

@@ -7,6 +7,7 @@
   "namedInputs": {
     "default": [
       "{projectRoot}/**",
+      "!{projectRoot}/runs/**",
       "{workspaceRoot}/.canonical-implementation-harness/scripts/**",
       "{workspaceRoot}/.canonical-implementation-harness/canonical/**",
       "{workspaceRoot}/.canonical-implementation-harness/SKILL.md",
@@ -25,7 +26,7 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "eslint src fixtures/registry.ts",
+        "command": "eslint src fixtures/_registry.ts",
         "cwd": "{projectRoot}"
       }
     },
@@ -44,6 +45,9 @@
         "default",
         {
           "env": "HB_E2E_KEEP_TMP"
+        },
+        {
+          "env": "HB_E2E_PERSIST_RUNS"
         }
       ],
       "options": {

@@ -1,0 +1,111 @@
+{
+  "run": "2026-10-01T01-38-31",
+  "startedAt": "2026-10-01T01:41:49.489Z",
+  "cases": [
+    {
+      "case": "boot-codex-from-scratch-greenfield",
+      "scenario": "bootstrap",
+      "fixture": "multi-container-project",
+      "configuration": "aws-dev",
+      "provider": "codex",
+      "host": "codex",
+      "passed": false,
+      "requiredGradersPassed": false,
+      "status": "failed",
+      "graders": {
+        "launch/agent-run": "pass",
+        "bootstrap/task-tracking": "fail",
+        "bootstrap/no-plan-mode": "pass",
+        "bootstrap/installed": "fail",
+        "bootstrap/state": "fail",
+        "bootstrap/references": "pass",
+        "bootstrap/cleanup": "pass",
+        "bootstrap/adaptation": "pass",
+        "bootstrap/docs-adoption/root-readme-budget": "fail",
+        "bootstrap/mcp-configuration": "fail",
+        "bootstrap/config": "fail",
+        "bootstrap/docs-adoption/app-readmes": "fail",
+        "bootstrap/docs-adoption/hld-containers": "fail",
+        "bootstrap/docs-adoption/docs-index": "fail",
+        "bootstrap/docs-adoption/container-agents": "fail",
+        "bootstrap/no-unresolved-placeholders": "pass"
+      },
+      "failures": [
+        "[bootstrap] [task-tracking] Missing durable launch report",
+        "[bootstrap] [installed] expected path to exist: .agents/skills/dev/SKILL.md",
+        "[bootstrap] [installed] expected path to exist: AGENTS.md",
+        "[bootstrap] [state] cannot identify primary launch run from report; run directories: []",
+        "[bootstrap] [docs-adoption/root-readme-budget] README.md is missing",
+        "[bootstrap] [mcp-configuration] codex config does not declare the selected aws-mcp AWS MCP server",
+        "[bootstrap] [config] Cannot read or parse .codex/config.toml: ENOENT: no such file or directory, open '/Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-38-31/fixture/.codex/config.toml'",
+        "[bootstrap] [docs-adoption/app-readmes] apps/fe/README.md is missing",
+        "[bootstrap] [docs-adoption/app-readmes] apps/be/README.md is missing",
+        "[bootstrap] [docs-adoption/app-readmes] apps/infra/README.md is missing",
+        "[bootstrap] [docs-adoption/app-readmes] apps/mobile/README.md is missing",
+        "[bootstrap] [docs-adoption/hld-containers] docs/Target Architecture (HLD)/README.md is missing",
+        "[bootstrap] [docs-adoption/docs-index] docs/README.md (thin index) is missing",
+        "[bootstrap] [docs-adoption/container-agents] no deployed agent for container \"fe\" at .codex/agents/fe.toml",
+        "[bootstrap] [docs-adoption/container-agents] no deployed agent for container \"be\" at .codex/agents/be.toml",
+        "[bootstrap] [docs-adoption/container-agents] no deployed agent for container \"infra\" at .codex/agents/infra.toml",
+        "[bootstrap] [docs-adoption/container-agents] no deployed agent for container \"mobile\" at .codex/agents/mobile.toml",
+        "[bootstrap] codex final response: Launch could not finish because the fixture workspace disappeared during the run. The shell can no longer enter it, and a file write confirms its parent directory is gone.\n\nBefore that happened, I recorded the confirmed answers, generated the launch plan, materialized the Codex files, and began adapting Stages A–C. **Documentation, independent review, rendering, and final verification remain incomplete.** I cannot finalize the launch report or call this a completed launch while the workspace is unavailable.",
+        "[bootstrap] Full codex transcript: /Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-38-31/fixture/.agents/skills/harness-bootstrap/state/launch/codex-launch-transcript-1790818711246.jsonl"
+      ],
+      "durationMs": 198403,
+      "steps": [
+        {
+          "step": "launch",
+          "status": "passed",
+          "graders": {
+            "agent-run": "pass"
+          },
+          "failures": [],
+          "durationMs": 198222
+        },
+        {
+          "step": "bootstrap",
+          "status": "failed",
+          "graders": {
+            "task-tracking": "fail",
+            "no-plan-mode": "pass",
+            "installed": "fail",
+            "state": "fail",
+            "references": "pass",
+            "cleanup": "pass",
+            "adaptation": "pass",
+            "docs-adoption/root-readme-budget": "fail",
+            "mcp-configuration": "fail",
+            "config": "fail",
+            "docs-adoption/app-readmes": "fail",
+            "docs-adoption/hld-containers": "fail",
+            "docs-adoption/docs-index": "fail",
+            "docs-adoption/container-agents": "fail",
+            "no-unresolved-placeholders": "pass"
+          },
+          "failures": [
+            "[task-tracking] Missing durable launch report",
+            "[installed] expected path to exist: .agents/skills/dev/SKILL.md",
+            "[installed] expected path to exist: AGENTS.md",
+            "[state] cannot identify primary launch run from report; run directories: []",
+            "[docs-adoption/root-readme-budget] README.md is missing",
+            "[mcp-configuration] codex config does not declare the selected aws-mcp AWS MCP server",
+            "[config] Cannot read or parse .codex/config.toml: ENOENT: no such file or directory, open '/Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-38-31/fixture/.codex/config.toml'",
+            "[docs-adoption/app-readmes] apps/fe/README.md is missing",
+            "[docs-adoption/app-readmes] apps/be/README.md is missing",
+            "[docs-adoption/app-readmes] apps/infra/README.md is missing",
+            "[docs-adoption/app-readmes] apps/mobile/README.md is missing",
+            "[docs-adoption/hld-containers] docs/Target Architecture (HLD)/README.md is missing",
+            "[docs-adoption/docs-index] docs/README.md (thin index) is missing",
+            "[docs-adoption/container-agents] no deployed agent for container \"fe\" at .codex/agents/fe.toml",
+            "[docs-adoption/container-agents] no deployed agent for container \"be\" at .codex/agents/be.toml",
+            "[docs-adoption/container-agents] no deployed agent for container \"infra\" at .codex/agents/infra.toml",
+            "[docs-adoption/container-agents] no deployed agent for container \"mobile\" at .codex/agents/mobile.toml",
+            "codex final response: Launch could not finish because the fixture workspace disappeared during the run. The shell can no longer enter it, and a file write confirms its parent directory is gone.\n\nBefore that happened, I recorded the confirmed answers, generated the launch plan, materialized the Codex files, and began adapting Stages A–C. **Documentation, independent review, rendering, and final verification remain incomplete.** I cannot finalize the launch report or call this a completed launch while the workspace is unavailable.",
+            "Full codex transcript: /Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-38-31/fixture/.agents/skills/harness-bootstrap/state/launch/codex-launch-transcript-1790818711246.jsonl"
+          ],
+          "durationMs": 18
+        }
+      ]
+    }
+  ]
+}

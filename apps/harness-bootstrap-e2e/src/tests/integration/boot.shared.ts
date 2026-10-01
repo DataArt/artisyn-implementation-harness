@@ -1,24 +1,54 @@
-import { PROVIDERS, PROVIDER_DETAILS } from '../../testkit/providers.ts';
-import { fixtures } from '../../../fixtures/registry.ts';
-import path from 'node:path';
-import type { EvalCase } from '../../testkit/eval-case.ts';
-import type { GradeResult } from '../../graders/filesystem.grader.ts';
-import { createFixture } from '../../testkit/fixture.ts';
+import { when } from '../../graders/grading.ts';
+import type { GradeContext } from '../../graders/_types.ts';
+import { PROVIDERS, PROVIDER_DETAILS } from '../../utils/providers.ts';
+import { fixtures } from '../../../fixtures/_registry.ts';
+import type { EvalCase } from './eval-case.ts';
+import { CANONICAL_AGENTS, CANONICAL_MANIFEST, CANONICAL_SKILLS } from '../../utils/constants.ts';
+import { createFixture, type Workspace } from '../../utils/fixture.ts';
 import {
   runStubbedLaunch,
   finalizeStubbedLaunch,
   type Provider,
-} from '../../testkit/build-launch.ts';
-import { gradeFilesystem } from '../../graders/filesystem.grader.ts';
-import { gradeLaunchState } from '../../graders/state.grader.ts';
-import { gradeReferencesResolve } from '../../graders/references.grader.ts';
+} from '../../utils/build-launch.ts';
 import {
-  gradeSkillProjectionConsistency,
-  gradeAgentProjectionConsistency,
-} from '../../graders/projection.grader.ts';
-import { gradeIntentCleanup } from '../../graders/cleanup.grader.ts';
-import { gradeCodexPlanToolConfigured } from '../../graders/config.grader.ts';
-import fs from 'node:fs';
+  agentProjectionConsistency,
+  codexPlanToolConfigured,
+  filesystemCheck,
+  intentCleanup,
+  launchState,
+  referencesResolve,
+  skillProjectionConsistency,
+} from '../../graders/_registry.ts';
+
+const WORKSPACE = 'workspace';
+export const LAUNCH_SKILLS = 'launchSkills';
+
+export function workspaceOf(context: GradeContext): Workspace {
+  return context.artifacts.get(WORKSPACE) as Workspace;
+}
+
+export async function stubbedLaunchContext(
+  id: string,
+  providers: Provider[]
+): Promise<GradeContext> {
+  const workspace = await createFixture(fixtures.nxMonorepo);
+  const artifacts = new Map<string, unknown>();
+  artifacts.set(WORKSPACE, workspace);
+  const launch = await runStubbedLaunch(workspace, providers, id.toLowerCase());
+  finalizeStubbedLaunch(launch);
+  artifacts.set(LAUNCH_SKILLS, launch.skills);
+  return {
+    workspaces: [workspace],
+    root: workspace.root,
+    packageRoot: workspace.packageRoot,
+    fixture: workspace.fixture,
+    containers: workspace.fixture.containers.map((container) => container.name),
+    providers,
+    provider: providers.length === 1 ? providers[0] : undefined,
+    runId: launch.runId,
+    artifacts,
+  };
+}
 
 /** Shared implementation for BOOT-001/002/003: bootstrap a fresh Nx-shaped
  * fixture for the given provider selection, then grade the result. BOOT-003
@@ -31,76 +61,23 @@ export function bootCase(id: string, name: string, providers: Provider[]): EvalC
     name,
     layer: 'integration',
     provider: providers.join('+'),
-    async run(): Promise<GradeResult[]> {
-      const workspace = await createFixture(fixtures.nxMonorepo);
-      try {
-        const result = await runStubbedLaunch(workspace, providers, id.toLowerCase());
-        finalizeStubbedLaunch(result);
-
-        const results: GradeResult[] = [];
-        results.push(
-          gradeFilesystem(workspace.packageRoot, {
-            exists: ['canonical/manifest.json', 'canonical/skills', 'canonical/agents'],
-          })
-        );
-        results.push(
-          gradeFilesystem(workspace.root, {
-            exists: providers.map((p) => PROVIDER_DETAILS[p].skills),
-          })
-        );
-        results.push(gradeLaunchState(workspace.packageRoot, result.runId, true));
-        if (providers.includes(PROVIDERS.codex))
-          results.push(gradeCodexPlanToolConfigured(workspace.root));
-        results.push(
-          gradeReferencesResolve(
-            workspace.root,
-            ['.claude', '.agents', '.codex'],
-            [workspace.packageRoot]
-          )
-        );
-        results.push(
-          gradeIntentCleanup(
-            workspace.root,
-            ['.claude', '.agents', '.codex'],
-            [workspace.packageRoot]
-          )
-        );
-        if (providers.length > 1) {
-          const manifest = JSON.parse(
-            fs.readFileSync(path.join(workspace.packageRoot, 'canonical/manifest.json'), 'utf8')
-          );
-          const invocationPrefixes = Object.fromEntries(
-            providers.map((p) => [p, manifest.providers[p].invocationPrefix])
-          ) as Partial<Record<Provider, string>>;
-          results.push(
-            gradeSkillProjectionConsistency(
-              workspace.root,
-              result.skills,
-              providers,
-              invocationPrefixes
-            )
-          );
-          const agents = fs
-            .readdirSync(path.join(workspace.packageRoot, 'canonical/agents'))
-            .flatMap((template) =>
-              template === 'layer'
-                ? workspace.fixture.containers.map((container) => ({ name: container.name }))
-                : [{ name: template }]
-            );
-          results.push(
-            gradeAgentProjectionConsistency(
-              workspace.root,
-              agents,
-              providers,
-              invocationPrefixes,
-              result.skills
-            )
-          );
-        }
-        return results;
-      } finally {
-        await workspace.cleanup();
-      }
-    },
+    setup: () => stubbedLaunchContext(id, providers),
+    graders: [
+      filesystemCheck('canonical', (c) => ({
+        base: c.packageRoot,
+        exists: [CANONICAL_MANIFEST, CANONICAL_SKILLS, CANONICAL_AGENTS],
+      })),
+      filesystemCheck('provider-skills', (c) => ({
+        base: c.root,
+        exists: c.providers.map((p) => PROVIDER_DETAILS[p].skills),
+      })),
+      launchState({ verified: true }),
+      when((c) => c.providers.includes(PROVIDERS.codex), codexPlanToolConfigured()),
+      referencesResolve(),
+      intentCleanup(),
+      when((c) => c.providers.length > 1, skillProjectionConsistency(LAUNCH_SKILLS)),
+      when((c) => c.providers.length > 1, agentProjectionConsistency(LAUNCH_SKILLS)),
+    ],
+    cleanup: (context) => workspaceOf(context).cleanup(),
   };
 }

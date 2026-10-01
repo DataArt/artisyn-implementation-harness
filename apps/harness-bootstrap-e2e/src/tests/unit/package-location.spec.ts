@@ -1,9 +1,9 @@
-import { PROVIDERS } from '../../testkit/providers.ts';
-import { fixtures } from '../../../fixtures/registry.ts';
+import { PROVIDERS } from '../../utils/providers.ts';
+import { fixtures } from '../../../fixtures/_registry.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { expect, it } from 'vitest';
-import { createFixture, installSkillPackage } from '../../testkit/fixture.ts';
+import { createFixture, installSkillPackage } from '../../utils/fixture.ts';
 
 it.each([
   [PROVIDERS.claude, '.claude/skills/harness-bootstrap'],

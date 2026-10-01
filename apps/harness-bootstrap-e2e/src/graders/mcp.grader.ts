@@ -1,8 +1,9 @@
-import { PROVIDERS } from '../testkit/providers.ts';
+import { requireProvider, result } from './grading.ts';
+import type { GradeResult, GraderBinding } from './_types.ts';
+import { PROVIDERS, PROVIDER_DETAILS } from '../utils/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { Provider } from '../testkit/build-launch.ts';
-import type { GradeResult } from './filesystem.grader.ts';
+import type { Provider } from '../utils/build-launch.ts';
 
 /** Confirm the selected provider has a real AWS MCP declaration, not just
  * setup prose. Credentials intentionally remain outside the fixture. */
@@ -14,7 +15,7 @@ export function gradeMcpConfigured(
   const configPath =
     provider === PROVIDERS.claude
       ? path.join(root, '.mcp.json')
-      : path.join(root, '.codex/config.toml');
+      : path.join(root, PROVIDER_DETAILS[PROVIDERS.codex].settings);
   let configured = false;
   if (fs.existsSync(configPath)) {
     const text = fs.readFileSync(configPath, 'utf8');
@@ -43,11 +44,15 @@ export function gradeMcpConfigured(
       );
     }
   }
-  return {
-    grader: 'mcp-configuration',
-    pass: configured,
-    failures: configured
+  return result(
+    'mcp-configuration',
+    configured
       ? []
-      : [`${provider} config does not declare the selected ${serverName} AWS MCP server`],
-  };
+      : [`${provider} config does not declare the selected ${serverName} AWS MCP server`]
+  );
 }
+
+export const mcpConfigured =
+  (serverName: string): GraderBinding =>
+  (c) =>
+    gradeMcpConfigured(c.root, requireProvider(c), serverName);

@@ -1,11 +1,12 @@
 import { PROVIDERS } from './providers.ts';
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 // @ts-expect-error -- plain ESM .mjs, no type declarations published
 import { buildPlan } from '../../../../.canonical-implementation-harness/scripts/plan-provider-launch.mjs';
 import { installSkillPackage, type Workspace } from './fixture.ts';
+import { hashFile } from './fs.ts';
+import { LAUNCH_RUNS_DIR, MATERIALIZATION_FILE } from './constants.ts';
 
 import type { Provider } from './providers.ts';
 export type { Provider } from './providers.ts';
@@ -18,8 +19,6 @@ export interface LaunchResult {
   planFile: string;
   skills: string[];
 }
-
-const sha256 = (data: Buffer) => crypto.createHash('sha256').update(data).digest('hex');
 
 function run(script: string, args: string[], workspace: Workspace) {
   const result = spawnSync(process.execPath, [script, ...args], { encoding: 'utf8' });
@@ -120,9 +119,9 @@ export function finalizeStubbedLaunch(result: LaunchResult): void {
   const { workspace, runId } = result;
   const receiptPath = path.join(
     workspace.packageRoot,
-    'state/launch/runs',
+    LAUNCH_RUNS_DIR,
     runId,
-    'materialization.json'
+    MATERIALIZATION_FILE
   );
   const receipt = JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
   const plan = result.plan as { derived_outputs?: Array<{ target: string }> };
@@ -150,7 +149,7 @@ export function finalizeStubbedLaunch(result: LaunchResult): void {
     );
     evidence.outputs.push({
       target: item.target,
-      sha256: sha256(fs.readFileSync(file)),
+      sha256: hashFile(file),
       status: 'verified',
       evidence: 'Synthetic adapted fixture',
     });

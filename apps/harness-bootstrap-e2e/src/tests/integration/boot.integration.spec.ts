@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { runEvalCase } from '../../testkit/eval-case.ts';
+import { runEvalCase } from './eval-case.ts';
 import { boot001Claude } from './boot-001-claude.test.ts';
 import { boot002Codex } from './boot-002-codex.test.ts';
 import { boot003Both } from './boot-003-both.test.ts';

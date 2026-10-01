@@ -1,9 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { fixtures } from '../../../fixtures/registry.ts';
-import { createFixture } from '../../testkit/fixture.ts';
-import { fixturesRoot } from '../../testkit/paths.ts';
+import { fixtures } from '../../../fixtures/_registry.ts';
+import { createFixture } from '../../utils/fixture.ts';
+import { fixturesRoot } from '../../utils/paths.ts';
 
 describe('fixture facts', () => {
   for (const fixture of Object.values(fixtures).filter((fixture) => fixture.populated)) {

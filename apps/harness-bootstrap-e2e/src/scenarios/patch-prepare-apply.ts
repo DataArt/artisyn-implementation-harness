@@ -1,34 +1,40 @@
-import { PROVIDERS, PROVIDER_DETAILS } from '../testkit/providers.ts';
-import { fixtures } from '../../fixtures/registry.ts';
-import crypto from 'node:crypto';
+import { result } from '../graders/grading.ts';
+import type { GradeContext, GraderBinding, PatchManifest } from '../graders/_types.ts';
+import { PROVIDERS, PROVIDER_DETAILS } from '../utils/providers.ts';
+import { fixtures } from '../../fixtures/_registry.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
-import type { GradeResult } from '../graders/filesystem.grader.ts';
-import { createFixture, type Workspace } from '../testkit/fixture.ts';
-import { runStubbedLaunch } from '../testkit/build-launch.ts';
-import { runClaudeSkill } from '../agent-runners/run-claude-skill.ts';
+import { hashFile, readJson } from '../utils/fs.ts';
+import { CANONICAL_SKILLS } from '../utils/constants.ts';
+import { runStubbedLaunch } from '../utils/build-launch.ts';
+import type { ScenarioDefinition, StepContext } from './_types.ts';
 import {
-  gradePatchManifestSchema,
-  gradePatchBundleHashes,
-  gradePatchApplyReconstruction,
-  type PatchManifest,
-} from '../graders/patch.grader.ts';
+  agentRunSucceeded,
+  patchManifestSchema,
+  patchBundleHashes,
+  patchApplyReconstruction,
+} from '../graders/_registry.ts';
 
-const CANONICAL_EDIT_TARGET = 'canonical/skills/where-we-are/TEMPLATE.md';
+const CANONICAL_EDIT_TARGET = `${CANONICAL_SKILLS}/where-we-are/TEMPLATE.md`;
 const CANONICAL_EDIT_MARKER =
   '\n<!-- patch-prepare-apply fixture edit: deterministic canonical change -->\n';
-const sha256 = (data: Buffer) => crypto.createHash('sha256').update(data).digest('hex');
+const PATCH_DIR = 'patch';
 
-function newestPatchBundle(packageRoot: string, before: Set<string>): string {
-  const patchDir = path.join(packageRoot, 'patch');
-  const after = fs.existsSync(patchDir) ? fs.readdirSync(patchDir) : [];
-  const created = after.filter((entry) => !before.has(entry));
-  if (created.length !== 1)
-    throw new Error(
-      `expected exactly one new bundle folder under patch/, found: ${JSON.stringify(created)}`
-    );
-  return path.join(patchDir, created[0]);
+/** Named artifact keys, so the steps and their graders agree on what's shared. */
+const BUNDLE_DIR = 'bundleDir';
+const MANIFEST = 'manifest';
+const ORIGINAL_CANONICAL = 'originalCanonical';
+const PROJECTION_BEFORE = 'projectionBefore';
+const BUNDLES_BEFORE = 'bundlesBefore';
+
+/** Project A prepares the bundle; project B receives it. */
+const sender = (c: GradeContext) => c.workspaces[0];
+const receiver = (c: GradeContext) => c.workspaces[1];
+
+function bundleFolders(packageRoot: string): Set<string> {
+  const patchDir = path.join(packageRoot, PATCH_DIR);
+  return new Set(fs.existsSync(patchDir) ? fs.readdirSync(patchDir) : []);
 }
 
 /** patch prepare's real (agent-driven) change detection naturally reaches for
@@ -40,9 +46,9 @@ function newestPatchBundle(packageRoot: string, before: Set<string>): string {
  */
 function initGitBaseline(root: string): void {
   const git = (args: string[]) => {
-    const result = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
-    if (result.status !== 0)
-      throw new Error(`git ${args.join(' ')} failed in ${root}:\n${result.stderr}`);
+    const outcome = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
+    if (outcome.status !== 0)
+      throw new Error(`git ${args.join(' ')} failed in ${root}:\n${outcome.stderr}`);
   };
   git(['init', '--quiet']);
   git(['add', '-A']);
@@ -66,10 +72,82 @@ function projectionSnapshot(root: string): Map<string, string> {
   if (!fs.existsSync(base)) return snapshot;
   for (const file of fs.readdirSync(base, { recursive: true } as never) as unknown as string[]) {
     const full = path.join(base, String(file));
-    if (fs.existsSync(full) && fs.statSync(full).isFile())
-      snapshot.set(full, sha256(fs.readFileSync(full)));
+    if (fs.existsSync(full) && fs.statSync(full).isFile()) snapshot.set(full, hashFile(full));
   }
   return snapshot;
+}
+
+/** prepare packages a canonical change; deploying it to the provider
+ * projections is `apply`'s job, in the receiving project.
+ */
+const prepareDoesNotDeploy = (): GraderBinding => (c) => {
+  const before = c.artifacts.get(PROJECTION_BEFORE) as Map<string, string>;
+  const after = projectionSnapshot(sender(c).root);
+  const deployed = [...before.entries()].some(([file, hash]) => after.get(file) !== hash);
+  return result(
+    'prepare-does-not-deploy',
+    deployed
+      ? ['patch prepare modified a provider projection — it must only package the canonical change']
+      : []
+  );
+};
+
+const applyUpdatesCanonical = (): GraderBinding => (c) => {
+  const applied = fs.readFileSync(
+    path.join(receiver(c).packageRoot, CANONICAL_EDIT_TARGET),
+    'utf8'
+  );
+  return result(
+    'apply-updates-canonical',
+    applied.includes(CANONICAL_EDIT_MARKER.trim())
+      ? []
+      : [`${CANONICAL_EDIT_TARGET} in project B does not contain the prepared change`]
+  );
+};
+
+/** Brings both projects to a realistic pre-patch state: a stubbed launch in
+ * each, a git baseline so uncommitted drift is visible, and one deterministic
+ * canonical edit in the sender for prepare to find. Also records the
+ * before-state the prepare graders compare against.
+ */
+async function seedProjects({ grade }: StepContext): Promise<void> {
+  for (const workspace of grade.workspaces) {
+    await runStubbedLaunch(workspace, [PROVIDERS.claude, PROVIDERS.codex], 'baseline');
+    initGitBaseline(workspace.root);
+  }
+  const editTarget = path.join(sender(grade).packageRoot, CANONICAL_EDIT_TARGET);
+  grade.artifacts.set(ORIGINAL_CANONICAL, fs.readFileSync(editTarget));
+  fs.appendFileSync(editTarget, CANONICAL_EDIT_MARKER);
+
+  grade.artifacts.set(PROJECTION_BEFORE, projectionSnapshot(sender(grade).root));
+  grade.artifacts.set(BUNDLES_BEFORE, bundleFolders(sender(grade).packageRoot));
+}
+
+/** Runs after the prepare agent: finds the bundle it produced and records it
+ * for the graders and the apply step.
+ */
+async function recordBundle({ grade }: StepContext): Promise<void> {
+  const before = grade.artifacts.get(BUNDLES_BEFORE) as Set<string>;
+  const created = [...bundleFolders(sender(grade).packageRoot)].filter(
+    (entry) => !before.has(entry)
+  );
+  if (created.length !== 1)
+    throw new Error(
+      `expected exactly one new bundle folder under ${PATCH_DIR}/, found: ${JSON.stringify(created)}`
+    );
+  const bundleDir = path.join(sender(grade).packageRoot, PATCH_DIR, created[0]);
+  grade.artifacts.set(BUNDLE_DIR, bundleDir);
+  grade.artifacts.set(MANIFEST, readJson<PatchManifest>(path.join(bundleDir, 'manifest.json')));
+}
+
+/** Copies the bundle into the receiving project and returns the path to hand
+ * the agent. Only the bundle crosses — that is the portability claim.
+ */
+function transferBundle(c: GradeContext): string {
+  const bundleDirA = c.artifacts.get(BUNDLE_DIR) as string;
+  const bundleDirB = path.join(receiver(c).packageRoot, PATCH_DIR, path.basename(bundleDirA));
+  if (!fs.existsSync(bundleDirB)) fs.cpSync(bundleDirA, bundleDirB, { recursive: true });
+  return path.relative(receiver(c).root, bundleDirB);
 }
 
 /** Real, expensive, agent-driven golden test: no script backs harvest/prepare/
@@ -77,99 +155,40 @@ function projectionSnapshot(root: string): Map<string, string> {
  * portability rather than just the bundle contract in isolation
  * (patch.grader.spec.ts covers that half deterministically).
  */
-export async function runPatchPrepareApply(): Promise<GradeResult[]> {
-  const results: GradeResult[] = [];
-  const projectA = await createFixture(fixtures.nxMonorepo);
-  const projectB = await createFixture(fixtures.nxMonorepo);
-  try {
-    await runStubbedLaunch(projectA, [PROVIDERS.claude, PROVIDERS.codex], 'baseline');
-    await runStubbedLaunch(projectB, [PROVIDERS.claude, PROVIDERS.codex], 'baseline');
-    initGitBaseline(projectA.root);
-    initGitBaseline(projectB.root);
+export const patchPrepareApplyScenario: ScenarioDefinition = {
+  id: 'patch-prepare-apply',
+  requires: { fixtures: [fixtures.nxMonorepo] },
+  workspaces: 2,
 
-    const editTarget = path.join(projectA.packageRoot, CANONICAL_EDIT_TARGET);
-    const originalCanonicalContent = fs.readFileSync(editTarget);
-    fs.appendFileSync(editTarget, CANONICAL_EDIT_MARKER);
-
-    const beforePrepare = new Set(
-      fs.existsSync(path.join(projectA.packageRoot, 'patch'))
-        ? fs.readdirSync(path.join(projectA.packageRoot, 'patch'))
-        : []
-    );
-    const projectionBefore = projectionSnapshot(projectA.root);
-
-    const prepare = await runClaudeSkill({
-      cwd: projectA.root,
-      prompt: `/harness-bootstrap patch prepare (package at ${path.relative(projectA.root, projectA.packageRoot)})`,
-    });
-    if (prepare.exitCode !== 0)
-      return [
-        {
-          grader: 'agent-run',
-          pass: false,
-          failures: [`patch prepare failed:\n${prepare.stderr}`],
-        },
-      ];
-
-    const bundleDirA = newestPatchBundle(projectA.packageRoot, beforePrepare);
-    const manifest: PatchManifest = JSON.parse(
-      fs.readFileSync(path.join(bundleDirA, 'manifest.json'), 'utf8')
-    );
-
-    results.push(gradePatchManifestSchema(manifest));
-    results.push(gradePatchBundleHashes(bundleDirA, manifest));
-    // Only correct while the bundle has a single `update` entry for our one
-    // deterministic edit. If the agent also records a companion/INTENT
-    // change alongside it, this needs a real path->base lookup instead.
-    results.push(
-      gradePatchApplyReconstruction(bundleDirA, manifest, () => originalCanonicalContent)
-    );
-
-    const projectionAfter = projectionSnapshot(projectA.root);
-    const deployedDuringPrepare = [...projectionBefore.entries()].some(
-      ([file, hash]) => projectionAfter.get(file) !== hash
-    );
-    results.push({
-      grader: 'prepare-does-not-deploy',
-      pass: !deployedDuringPrepare,
-      failures: deployedDuringPrepare
-        ? [
-            'patch prepare modified a provider projection — it must only package the canonical change',
-          ]
-        : [],
-    });
-
-    const bundleDirB = path.join(projectB.packageRoot, 'patch', path.basename(bundleDirA));
-    fs.cpSync(bundleDirA, bundleDirB, { recursive: true });
-
-    const apply = await runClaudeSkill({
-      cwd: projectB.root,
-      prompt: `/harness-bootstrap patch apply ${path.relative(projectB.root, bundleDirB)}`,
-    });
-    if (apply.exitCode !== 0)
-      return [
-        ...results,
-        { grader: 'agent-run', pass: false, failures: [`patch apply failed:\n${apply.stderr}`] },
-      ];
-
-    const appliedContent = fs.readFileSync(
-      path.join(projectB.packageRoot, CANONICAL_EDIT_TARGET),
-      'utf8'
-    );
-    const canonicalUpdated = appliedContent.includes(CANONICAL_EDIT_MARKER.trim());
-    results.push({
-      grader: 'apply-updates-canonical',
-      pass: canonicalUpdated,
-      failures: canonicalUpdated
-        ? []
-        : [`${CANONICAL_EDIT_TARGET} in project B does not contain the prepared change`],
-    });
-
-    return results;
-  } finally {
-    await projectA.cleanup();
-    await projectB.cleanup();
-  }
-}
-
-export type { Workspace };
+  steps: [
+    { id: 'seed', run: seedProjects },
+    {
+      id: 'prepare',
+      agent: {
+        host: () => PROVIDERS.claude,
+        prompt: (c) =>
+          `/harness-bootstrap patch prepare (package at ${path.relative(sender(c).root, sender(c).packageRoot)})`,
+      },
+      run: recordBundle,
+      graders: [
+        agentRunSucceeded(),
+        patchManifestSchema(MANIFEST),
+        patchBundleHashes(BUNDLE_DIR, MANIFEST),
+        // Only correct while the bundle has a single `update` entry for our one
+        // deterministic edit. If the agent also records a companion/INTENT
+        // change alongside it, this needs a real path->base lookup instead.
+        patchApplyReconstruction(BUNDLE_DIR, MANIFEST, ORIGINAL_CANONICAL),
+        prepareDoesNotDeploy(),
+      ],
+    },
+    {
+      id: 'apply',
+      agent: {
+        host: () => PROVIDERS.claude,
+        workspace: 1,
+        prompt: (c) => `/harness-bootstrap patch apply ${transferBundle(c)}`,
+      },
+      graders: [agentRunSucceeded(), applyUpdatesCanonical()],
+    },
+  ],
+};

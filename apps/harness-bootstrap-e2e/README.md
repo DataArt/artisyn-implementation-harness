@@ -38,32 +38,52 @@ yarn nx run harness-bootstrap-e2e:test --skip-nx-cache
 
 ```text
 fixtures/
-├── registry.ts                 Typed fixture facts and container definitions
+├── _registry.ts                Typed fixture facts and container definitions
 ├── nx-monorepo/                Deterministic launch and patch baseline
 ├── multi-container-project/    Four-container greenfield bootstrap fixture
 └── installed-harness/          Reserved, unpopulated feature-flow fixture
 src/
 ├── cases/                      Agent E2E specs directly in this directory
-│   └── registry.ts             Case IDs and paths; no test registration on import
-├── scenarios/
-│   ├── bootstrap.ts            Bootstrap scenario and input validation
-│   ├── boot-e2e.shared.ts      Host invocation and bootstrap grading
-│   ├── launch-prompt.ts        Automated bootstrap inputs
-│   ├── patch-prepare-apply.ts  Two-workspace patch workflow
+│   ├── _types.ts               CaseDefinition, CaseReport, StepReport, Outcome
+│   └── _registry.ts            Case IDs and paths; no test registration on import
+├── scenarios/                  Configuration: what to run and what to check
+│   ├── _types.ts               ScenarioDefinition, StepDefinition, AgentStep
+│   ├── _registry.ts            Every scenario, keyed by id
+│   ├── bootstrap.ts            Requirements, one agent step, the grader set
+│   ├── launch-prompt.ts        The bootstrap step's prompt
+│   ├── patch-prepare-apply.ts  Two-workspace patch workflow (seed/prepare/apply)
 │   └── feature-flows.ts        Pending design/dev scenarios
 ├── agent-runners/              Claude and Codex headless CLI adapters
-├── graders/                    Filesystem, transcript and receipt checks
-├── testkit/
+│   ├── _types.ts               SkillRunner, SkillRunOptions/Result, StreamEvent
+│   ├── _registry.ts            The runner for each provider
+│   ├── transcript.ts           finalAgentMessage
+│   └── run-claude-skill.ts, run-codex-skill.ts
+├── graders/                    Filesystem, transcript and receipt checks, by concern
+│   ├── _types.ts               GradeResult, GradeContext, GraderBinding, PatchManifest
+│   ├── _registry.ts            Single import surface: every binding a scenario can list
+│   ├── grading.ts              result(), when(), requireProvider()
+│   └── launch-report.ts        Report parsing and run-ID resolution
+├── engine/                     Execution — the only stateful layer
+│   ├── _types.ts               FoldedGrades, Diagnostics, ScenarioOutcome
+│   ├── case-run.ts             CaseRun: requirements, workspaces, CaseReport, runCase()
+│   ├── scenario-run.ts         ScenarioRun: step loop, blocking, scenario grading
+│   ├── step-run.ts             StepRun: agent invocation, step execution and grading
+│   ├── grade.ts                applyGraders, foldGrades, gradeReport
+│   ├── run-report.ts           Accumulates each case into the run's report.json
+│   └── diagnostics.ts          Transcript breadcrumbs for failing reports
+├── utils/                      Helpers the engine and scenarios lean on
+│   ├── constants.ts            Paths, filenames, regexes, timeouts
+│   ├── errors.ts  fs.ts  paths.ts
 │   ├── providers.ts            Provider type, constants and filesystem mappings
 │   ├── fixture.ts              Scratch workspace creation and package copying
 │   ├── build-launch.ts         Stubbed deterministic launch helpers
-│   ├── eval-case.ts            Integration EvalCase execution and reporting
-│   ├── scenario.ts             Agent E2E case/step execution and reporting
+│   ├── run-output.ts           Where a retained run's directory and fixtures go
 │   └── harness-assertions.ts   Fluent launch assertions
 └── tests/
-    ├── unit/                   Script, testkit and grader specs
+    ├── unit/                   Script, engine, utils and grader specs
     │   └── graders/
-    └── integration/            BOOT-001–005 definitions and aggregate spec
+    └── integration/            BOOT-001–005, plus eval-case.ts
+runs/                           Retained agent-e2e workspaces and reports (gitignored)
 ```
 
 Each layer has its own Vitest configuration:
@@ -75,7 +95,7 @@ unit tests. E2E execution uses Vitest directly through Nx; the former standalone
 
 ## Fixtures and providers
 
-`fixtures/registry.ts` defines each fixture's ID, path, project name, purpose,
+`fixtures/_registry.ts` defines each fixture's ID, path, project name, purpose,
 population state, existing harness/docs state, and containers with stack and
 source evidence. Cases pass the full definition to `createFixture()`; reports
 record its ID. Fixture facts describe the starting repository, while requested
@@ -94,7 +114,7 @@ host's skill directory and excludes package `state`. Consumer release-ZIP
 installation is a separate workflow. Scratch projects do not contain an
 `.canonical-implementation-harness/` authoring directory.
 
-`src/testkit/providers.ts` centralizes `PROVIDERS`, the shared `Provider` type,
+`src/utils/providers.ts` centralizes `PROVIDERS`, the shared `Provider` type,
 and `PROVIDER_DETAILS`: display names, skill and agent paths, instruction files,
 settings, extensions and invocation prefixes. Host and output provider are
 separate case fields: the host selects the CLI and bootstrap discovery path;
@@ -107,12 +127,51 @@ A case is the top-level runnable E2E unit. Its `CaseDefinition` selects a
 feature. Each descriptively named `src/cases/<id>.spec.ts` exports its definition
 and declares an ordinary Vitest test. Registry entries contain only IDs and paths.
 
-A scenario defines ordered steps plus optional setup and cleanup. `runCase()`
-shares an artifact map between steps and returns overall and per-step outcomes,
-grader results, failures and durations. Outcomes are `passed`, `failed` or
-`blocked`. A failed or blocked step blocks dependent steps; missing step
-implementations are blocked; an empty grader result fails. Setup and cleanup
-failures are included in the report. The patch step owns two isolated workspaces.
+**A scenario is configuration, not code.** It declares what it accepts
+(`requires`), how many scratch projects it needs (`workspaces`,
+`installPackage`), its ordered steps, and the graders to evaluate. There is
+deliberately no `setup`/`cleanup` hook: the engine creates and disposes the
+workspaces, and anything else a scenario needs to prepare is simply its first
+step — which is what the patch scenario's `seed` step is for.
+
+A step declares an agent invocation as config, arbitrary `run` code, or both;
+the agent goes first, so `run` sees its result on the context:
+
+```ts
+steps: [
+  {
+    id: 'launch',
+    agent: { prompt: (c) => buildScratchLaunchPrompt(...), timeoutMs: AGENT_RUN_TIMEOUT_MS },
+    graders: [agentRunSucceeded()],
+  },
+];
+```
+
+`StepRun` resolves the host's CLI adapter from `agent-runners/_registry.ts`,
+writes the transcript and records the result. A non-zero exit is **not** a
+throw — it is reported by `agentRunSucceeded()`, so a failed launch is a
+graded outcome like any other.
+
+Outcomes are `passed`, `failed` or `blocked`. A failed or blocked step blocks
+dependent steps; a step with neither `agent` nor `run` is blocked; a run that
+grades nothing fails; a case the scenario's `requires` rejects fails before
+any workspace is created.
+
+Execution mirrors that nesting, one class per level — definitions stay plain
+data, and these three are the only stateful pieces:
+
+| Class         | File                     | Owns                                                                        |
+| ------------- | ------------------------ | --------------------------------------------------------------------------- |
+| `CaseRun`     | `engine/case-run.ts`     | Requirement checks, workspace creation and disposal, the final `CaseReport` |
+| `ScenarioRun` | `engine/scenario-run.ts` | The step loop, blocking, and the scenario's own graders                     |
+| `StepRun`     | `engine/step-run.ts`     | One step's `StepContext`, its agent invocation, execution and graders       |
+
+Each step gets its own `StepContext`, but the `GradeContext` inside it is the
+run's single shared object: a step returns a patch, which is merged in, so
+later steps and the scenario's own graders see what earlier steps discovered.
+`context.workspaces` holds every scratch project, with `root`/`packageRoot`
+pointing at the first. `runCase()` in `engine/case-run.ts` is the entry point
+a spec calls.
 
 | Case IDs                                                                    | Scenario              | Implementation                                                                        |
 | --------------------------------------------------------------------------- | --------------------- | ------------------------------------------------------------------------------------- |
@@ -158,20 +217,63 @@ yarn vitest run --config vitest.agent-e2e.config.ts src/cases/boot-codex-from-sc
 Runners print live progress and preserve transcript diagnostics. Codex runs with
 workspace-write permissions and noninteractive approval policy, using the
 caller's CLI authentication. The runner passes `--model gpt-6-sol` by default;
-`HB_E2E_CODEX_MODEL` overrides this argument. Bootstrap allows up to 60 minutes
-for the CLI run; E2E Vitest timeouts are 65 minutes and spec files run serially.
+`HB_E2E_CODEX_MODEL` overrides this argument. Every timeout is declared in
+`utils/constants.ts`: `AGENT_RUN_TIMEOUT_MS` (60 minutes) budgets the launch
+CLI run, `DEFAULT_RUNNER_TIMEOUT_MS` (5 minutes) covers shorter turns such as
+patch prepare/apply, and `AGENT_E2E_TEST_TIMEOUT_MS` derives Vitest's limit
+from the first so the supervisor always outlasts the run it supervises. Spec
+files run serially.
 A failed child-agent dispatch does not itself stop the main CLI process; the
 runner waits for process completion and then grades the outputs.
 
 ## Graders and result interpretation
 
-Graders return `{ grader, pass, failures }`. Bootstrap checks task tracking,
-absence of plan mode, required files, launch state, references, INTENT cleanup,
-project/provider placeholder resolution, README budget, AWS MCP, Codex planning
-configuration, app architecture links, HLD container coverage, docs index and
-per-container agents. Claude bootstrap runs 14 checks; Codex adds the planning
-configuration check for 15. Integration also checks cross-provider projections;
-patch graders check schema, hashes and diff reconstruction.
+Graders return `{ grader, pass, failures }`. Each module in `src/graders/`
+exports a pure `grade*(…)` function taking explicit arguments — what the unit
+specs call — plus a curried factory returning a `GraderBinding`, which is what
+a scenario lists. A binding resolves its arguments from the run's
+`GradeContext` (workspace root, package root, provider, containers, run ID,
+launch transcript, step artifacts), so a scenario stays declarative:
+
+```ts
+import { launchState, hldCoversContainers, codexPlanToolConfigured } from '../graders/_registry.ts';
+
+graders: [
+  launchState({ verified: true }),
+  hldCoversContainers(),
+  when((c) => c.provider === PROVIDERS.codex, codexPlanToolConfigured()),
+];
+```
+
+Each folder keeps its own `_types.ts` and `_registry.ts` — underscored so they
+sort to the top of the directory. Types are declared in
+the folder that owns them (`graders/_types.ts` holds the whole grading
+contract, `scenarios/_types.ts` the authoring contract, `cases/_types.ts` the
+case and report shapes), and the registry is the single import surface for
+that folder's values. `src/graders/_registry.ts` therefore re-exports every
+binding from its concern module, so a scenario imports its checks from one
+path rather than a dozen. It carries only the binding factories — the pure
+`grade*` functions stay behind their own module, which is what the unit specs
+and `utils/harness-assertions.ts` import.
+
+`registries.spec.ts` guards all four against drift: it fails if a grader
+module declares a binding the registry does not re-export (or vice versa), if
+a scenario is defined but unregistered or keyed under the wrong id, if a
+provider has no runner, or if a case spec is missing from the case registry.
+
+A binding may return `null` for "not applicable here" — that's what `when()`
+produces — and the runner skips it rather than counting it either way.
+Graders attach to a step (evaluated after that step, gating the rest) or to
+the scenario (evaluated once every step has passed).
+
+Bootstrap checks task tracking, absence of plan mode, required files, launch
+state, references, INTENT cleanup, project/provider placeholder resolution,
+README budget, AWS MCP, Codex planning configuration, app architecture links,
+HLD container coverage, docs index and per-container agents. Claude bootstrap
+runs 14 checks; Codex adds the planning configuration check for 15. The
+`launch` step's `agent-run` gate is reported separately, and blocks all of
+them when the host CLI exits non-zero. Integration also checks cross-provider
+projections; patch graders check schema, hashes and diff reconstruction.
 
 The state grader accepts either finalized verification receipts or a documented
 partial Stage E checkpoint with current output hashes and local verification.
@@ -186,31 +288,55 @@ Read the dated launch report and operation record to distinguish it from a
 fully finalized launch. Report-template formatting, Stats and Efforts Spent
 sections are not currently enforced by the graders.
 
-All returned checks affect pass/fail, but the result map is keyed by grader name.
-Repeated names such as the five `docs-adoption` checks overwrite individual map
-entries; failures are still accumulated. `runCase()` returns its report to the
-spec; it does not write a separate JSON case report to disk.
+All returned checks affect pass/fail. The result map is keyed by grader name,
+so **grader IDs must be unique within a step** — `foldGrades()` throws on a
+repeat rather than letting a later check overwrite an earlier one. Checks that
+share a concern are namespaced (`docs-adoption/hld-containers`,
+`patch/bundle-hashes`, `projection/skills`). Both runners share this core, so
+the rule holds for `runCase()` and `runEvalCase()` alike. `runCase()` returns
+its report to the spec and, for a retained run, appends it to that run's
+`report.json` (see below).
 
 ## Retaining and inspecting outputs
 
-Normally workspaces live in the OS temporary directory and are cleaned up.
-Set `HB_E2E_KEEP_TMP=1` to retain them under the repository's gitignored `tmp/`:
+**Agent E2E runs are kept by default.** A live case costs real money and up to
+an hour, so throwing its workspace away on exit would be hostile. Each
+invocation writes to the gitignored `runs/<datetime>/`:
+
+```text
+runs/
+└── 2026-10-01T14-32-07/
+    ├── fixture/        the scratch project the agent worked in
+    └── report.json     every case executed in this invocation
+```
+
+A case that builds more than one project — `patch-prepare-apply`, which needs
+a sending and a receiving repo — gets `fixture/` and `fixture-2/`.
+`report.json` is rewritten after each case, so a run that is killed part-way
+still leaves the results that completed.
+
+Unit and integration still use a throwaway OS temporary directory and clean up
+after themselves; they create fixtures constantly and would otherwise bury
+`runs/` in noise. Set `HB_E2E_KEEP_TMP=1` to opt those layers into the same
+retained layout for a debugging session:
 
 ```sh
-HB_E2E_KEEP_TMP=1 yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
+yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
 HB_E2E_KEEP_TMP=1 yarn nx run harness-bootstrap-e2e:integration --skip-nx-cache
 ```
 
 For bootstrap, inspect these paths under the host's
-`.agents/skills/harness-bootstrap/` or `.claude/skills/harness-bootstrap/`:
+`.agents/skills/harness-bootstrap/` or `.claude/skills/harness-bootstrap/`
+inside `fixture/`:
 
-- `state/launch/<host>-transcript-*.jsonl`: full CLI stdout transcript, saved when the runner exits.
+- `state/launch/<host>-<step>-transcript-*.jsonl`: full CLI stdout transcript, one per agent step, saved when the runner exits.
 - `state/launch/reports/*-launch.md`: answers, stage progress and blockers.
 - `state/launch/runs/<run-id>/`: plan, materialization, optional verification and diagram evidence.
 - `state/operations/`: recorded output hashes, local checks and external gates.
 
-Each execution creates a fresh workspace. Retained workspaces accumulate until
-removed manually; select the newest directory when reviewing a rerun.
+Each execution creates a fresh workspace. Run directories accumulate until
+removed manually (`rm -rf apps/harness-bootstrap-e2e/runs`); the newest
+timestamp is the most recent run.
 
 ## Deterministic integration coverage
 
@@ -229,7 +355,7 @@ the agent's discovery and INTENT reasoning.
 ## Adding coverage
 
 1. Use unit or integration tests for behavior that can be proved deterministically.
-2. Keep reusable checks in `src/graders/` and pass/fail regression specs in `src/tests/unit/graders/`.
-3. Add fixture facts to `fixtures/registry.ts` and provider mappings to `src/testkit/providers.ts`.
-4. For live workflows, reuse or implement a scenario and create `src/cases/<id>.spec.ts` plus its registry entry. Use `it.todo` until the workflow exists.
+2. Keep reusable checks in `src/graders/`, grouped by concern, and pass/fail regression specs in `src/tests/unit/graders/`. Export both the pure `grade*` function and a `GraderBinding` factory, re-export the factory from `src/graders/_registry.ts`, and give the check a unique ID. Shared helpers and path/filename constants belong in `src/utils/`, not a second local copy.
+3. Add fixture facts to `fixtures/_registry.ts` and provider mappings to `src/utils/providers.ts`.
+4. For live workflows, reuse or implement a scenario and create `src/cases/<id>.spec.ts` plus its `_registry.ts` entry. Use `it.todo` until the workflow exists.
 5. List the selected case before a live run and inspect retained evidence when debugging.

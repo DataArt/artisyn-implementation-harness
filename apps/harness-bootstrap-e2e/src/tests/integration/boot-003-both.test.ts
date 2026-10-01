@@ -1,4 +1,4 @@
-import { PROVIDERS } from '../../testkit/providers.ts';
+import { PROVIDERS } from '../../utils/providers.ts';
 import { bootCase } from './boot.shared.ts';
 
 /** Primary CI smoke case: the only one that proves canonical->Claude and

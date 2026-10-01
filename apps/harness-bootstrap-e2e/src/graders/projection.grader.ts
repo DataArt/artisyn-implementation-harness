@@ -1,9 +1,15 @@
-import { PROVIDERS, PROVIDER_DETAILS } from '../testkit/providers.ts';
+import { result } from './grading.ts';
+import type { GradeContext, GradeResult, GraderBinding } from './_types.ts';
+import { PROVIDERS, PROVIDER_DETAILS } from '../utils/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parse as parseYaml } from 'yaml';
-import type { GradeResult } from './filesystem.grader.ts';
-import type { Provider } from '../testkit/build-launch.ts';
+import { readJson } from '../utils/fs.ts';
+import { CANONICAL_AGENTS, CANONICAL_MANIFEST } from '../utils/constants.ts';
+
+const SKILL_PROJECTION = 'projection/skills';
+const AGENT_PROJECTION = 'projection/agents';
+import type { Provider } from '../utils/build-launch.ts';
 // @ts-expect-error -- plain ESM .mjs, no type declarations published
 import { AGENT_WRITE_TOOLS } from '../../../../.canonical-implementation-harness/scripts/lib/constants.mjs';
 
@@ -95,7 +101,7 @@ export function gradeSkillProjectionConsistency(
       }
     }
   }
-  return { grader: 'projection', pass: failures.length === 0, failures };
+  return result(SKILL_PROJECTION, failures);
 }
 
 /** Same idea for agents: Claude Markdown frontmatter vs Codex TOML must carry
@@ -161,5 +167,48 @@ export function gradeAgentProjectionConsistency(
         );
     }
   }
-  return { grader: 'projection', pass: failures.length === 0, failures };
+  return result(AGENT_PROJECTION, failures);
 }
+
+/** Each provider's invocation prefix comes from the canonical manifest rather
+ * than the launch, so consistency is judged against the declared contract.
+ */
+function invocationPrefixes(c: GradeContext): Partial<Record<Provider, string>> {
+  const manifest = readJson<{ providers: Record<string, { invocationPrefix: string }> }>(
+    path.join(c.packageRoot, CANONICAL_MANIFEST)
+  );
+  return Object.fromEntries(
+    c.providers.map((p) => [p, manifest.providers[p].invocationPrefix])
+  ) as Partial<Record<Provider, string>>;
+}
+
+/** The `layer` agent template expands into one agent per discovered container. */
+function expectedAgents(c: GradeContext): Array<{ name: string }> {
+  return fs
+    .readdirSync(path.join(c.packageRoot, CANONICAL_AGENTS))
+    .flatMap((template) =>
+      template === 'layer' ? c.containers.map((name) => ({ name })) : [{ name: template }]
+    );
+}
+
+/** `skillsKey` names the artifact the launch step recorded its skill list under. */
+export const skillProjectionConsistency =
+  (skillsKey: string): GraderBinding =>
+  (c) =>
+    gradeSkillProjectionConsistency(
+      c.root,
+      c.artifacts.get(skillsKey) as string[],
+      c.providers,
+      invocationPrefixes(c)
+    );
+
+export const agentProjectionConsistency =
+  (skillsKey: string): GraderBinding =>
+  (c) =>
+    gradeAgentProjectionConsistency(
+      c.root,
+      expectedAgents(c),
+      c.providers,
+      invocationPrefixes(c),
+      c.artifacts.get(skillsKey) as string[]
+    );

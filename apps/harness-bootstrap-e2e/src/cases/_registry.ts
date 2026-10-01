@@ -1,5 +1,7 @@
+import type { CaseEntry } from './_types.ts';
+
 /** Case names and paths only; importing the registry never registers tests. */
-export const cases = [
+export const cases: CaseEntry[] = [
   {
     id: 'boot-claude-from-scratch-greenfield',
     path: 'src/cases/boot-claude-from-scratch-greenfield.spec.ts',

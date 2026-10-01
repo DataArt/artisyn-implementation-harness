@@ -1,0 +1,79 @@
+{
+  "run": "2026-10-01T01-48-46",
+  "startedAt": "2026-10-01T01:56:32.648Z",
+  "cases": [
+    {
+      "case": "boot-codex-from-scratch-greenfield",
+      "scenario": "bootstrap",
+      "fixture": "multi-container-project",
+      "configuration": "aws-dev",
+      "provider": "codex",
+      "host": "codex",
+      "passed": false,
+      "requiredGradersPassed": false,
+      "status": "failed",
+      "graders": {
+        "launch/agent-run": "pass",
+        "bootstrap/task-tracking": "pass",
+        "bootstrap/no-plan-mode": "pass",
+        "bootstrap/installed": "pass",
+        "bootstrap/state": "fail",
+        "bootstrap/references": "pass",
+        "bootstrap/cleanup": "pass",
+        "bootstrap/adaptation": "pass",
+        "bootstrap/docs-adoption/root-readme-budget": "pass",
+        "bootstrap/mcp-configuration": "pass",
+        "bootstrap/config": "pass",
+        "bootstrap/docs-adoption/app-readmes": "pass",
+        "bootstrap/docs-adoption/hld-containers": "pass",
+        "bootstrap/docs-adoption/docs-index": "pass",
+        "bootstrap/docs-adoption/container-agents": "pass",
+        "bootstrap/no-unresolved-placeholders": "pass"
+      },
+      "failures": [
+        "[bootstrap] [state] partial operation must record the independent review gate with evidence or a blocker",
+        "[bootstrap] codex final response: The launch is **in progress**, not complete. The Codex Dev skill, seven agents, AWS MCP configuration, Engineering Guide, and four app architecture scaffolds are installed. The Codex config retains `tools.update_plan.enabled = true`; 31 Dev companion tests pass, and internal links resolve.\n\n[The launch report](/Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-48-46/fixture/.agents/skills/harness-bootstrap/state/launch/reports/2026-10-01-014935-launch.md) records stages 1–11 complete and Stage E in progress. Its remaining **external blocker** is the Mermaid rendering gate: it found 10 diagrams, but the pinned CLI is unavailable from the offline npm cache and Docker has no running daemon. Visual review, final audit, and launch finalization therefore remain pending. The independent reviewer accepted the docs as fixture scaffolds, not as a product-ready HLD.\n\nOnce a pinned Mermaid CLI is available or Docker is running with a pinned renderer image, the gate can be rerun and the launch finalized.",
+        "[bootstrap] Full codex transcript: /Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-48-46/fixture/.agents/skills/harness-bootstrap/state/launch/codex-launch-transcript-1790819326543.jsonl"
+      ],
+      "durationMs": 466313,
+      "steps": [
+        {
+          "step": "launch",
+          "status": "passed",
+          "graders": {
+            "agent-run": "pass"
+          },
+          "failures": [],
+          "durationMs": 465915
+        },
+        {
+          "step": "bootstrap",
+          "status": "failed",
+          "graders": {
+            "task-tracking": "pass",
+            "no-plan-mode": "pass",
+            "installed": "pass",
+            "state": "fail",
+            "references": "pass",
+            "cleanup": "pass",
+            "adaptation": "pass",
+            "docs-adoption/root-readme-budget": "pass",
+            "mcp-configuration": "pass",
+            "config": "pass",
+            "docs-adoption/app-readmes": "pass",
+            "docs-adoption/hld-containers": "pass",
+            "docs-adoption/docs-index": "pass",
+            "docs-adoption/container-agents": "pass",
+            "no-unresolved-placeholders": "pass"
+          },
+          "failures": [
+            "[state] partial operation must record the independent review gate with evidence or a blocker",
+            "codex final response: The launch is **in progress**, not complete. The Codex Dev skill, seven agents, AWS MCP configuration, Engineering Guide, and four app architecture scaffolds are installed. The Codex config retains `tools.update_plan.enabled = true`; 31 Dev companion tests pass, and internal links resolve.\n\n[The launch report](/Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-48-46/fixture/.agents/skills/harness-bootstrap/state/launch/reports/2026-10-01-014935-launch.md) records stages 1–11 complete and Stage E in progress. Its remaining **external blocker** is the Mermaid rendering gate: it found 10 diagrams, but the pinned CLI is unavailable from the offline npm cache and Docker has no running daemon. Visual review, final audit, and launch finalization therefore remain pending. The independent reviewer accepted the docs as fixture scaffolds, not as a product-ready HLD.\n\nOnce a pinned Mermaid CLI is available or Docker is running with a pinned renderer image, the gate can be rerun and the launch finalized.",
+            "Full codex transcript: /Users/anton/projects/ADLC/artisyn-harness/apps/harness-bootstrap-e2e/runs/2026-10-01T01-48-46/fixture/.agents/skills/harness-bootstrap/state/launch/codex-launch-transcript-1790819326543.jsonl"
+          ],
+          "durationMs": 199
+        }
+      ]
+    }
+  ]
+}

@@ -1,8 +1,8 @@
-import { PROVIDERS, PROVIDER_DETAILS } from '../testkit/providers.ts';
-import { fixtures } from '../../fixtures/registry.ts';
+import { PROVIDERS, PROVIDER_DETAILS } from '../utils/providers.ts';
+import { fixtures } from '../../fixtures/_registry.ts';
 import { it } from 'vitest';
-import { type CaseDefinition } from '../testkit/scenario.ts';
-import { designDevScenario } from '../scenarios/feature-flows.ts';
+import type { CaseDefinition } from './_types.ts';
+import { designDevScenario } from '../scenarios/_registry.ts';
 
 export const designDevCodex: CaseDefinition = {
   id: 'design-dev-codex',

@@ -1,19 +1,13 @@
-import { PROVIDER_DETAILS } from '../testkit/providers.ts';
+import { requireProvider, result } from './grading.ts';
+import type { GradeResult, GraderBinding } from './_types.ts';
+import { PROVIDER_DETAILS } from '../utils/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
-import type { Provider } from '../testkit/build-launch.ts';
-import type { GradeResult } from './filesystem.grader.ts';
+import type { Provider } from '../utils/build-launch.ts';
+import { isUnder, walkFiles } from '../utils/fs.ts';
+import { projectPlaceholderPattern } from '../utils/constants.ts';
 
 const REUSABLE_RUNTIME_TOKENS = new Set(['{{VERSION}}']);
-
-function walkFiles(dir: string): string[] {
-  if (!fs.existsSync(dir)) return [];
-  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const full = path.join(dir, entry.name);
-    if (entry.isSymbolicLink()) return [];
-    return entry.isDirectory() ? walkFiles(full) : [full];
-  });
-}
 
 /** Catch project tokens left anywhere in installed skills or generated agents.
  * Lowercase/date/version tokens used by reusable future report templates are
@@ -36,10 +30,9 @@ export function gradeAdaptationsComplete(
     for (const file of walkFiles(path.join(root, relativeRoot))) outputs.add(file);
 
   for (const file of outputs) {
-    if (!fs.existsSync(file) || file === packagePath || file.startsWith(packagePath + path.sep))
-      continue;
+    if (!fs.existsSync(file) || isUnder(file, packagePath)) continue;
     const text = fs.readFileSync(file, 'utf8');
-    const tokens = [...new Set(text.match(/\{\{[A-Z][A-Z0-9_]*\}\}/g) ?? [])].filter(
+    const tokens = [...new Set(text.match(projectPlaceholderPattern()) ?? [])].filter(
       (token) => !REUSABLE_RUNTIME_TOKENS.has(token)
     );
     if (tokens.length)
@@ -58,5 +51,10 @@ export function gradeAdaptationsComplete(
         );
     }
   }
-  return { grader: 'adaptation', pass: failures.length === 0, failures };
+  return result('adaptation', failures);
 }
+
+export const adaptationsComplete =
+  ({ trackerSelected }: { trackerSelected: boolean }): GraderBinding =>
+  (c) =>
+    gradeAdaptationsComplete(c.root, requireProvider(c), c.packageRoot, trackerSelected);

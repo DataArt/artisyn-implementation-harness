@@ -1,8 +1,9 @@
-import { PROVIDERS, PROVIDER_DETAILS } from '../testkit/providers.ts';
-import { fixtures } from '../../fixtures/registry.ts';
+import { PROVIDERS, PROVIDER_DETAILS } from '../utils/providers.ts';
+import { fixtures } from '../../fixtures/_registry.ts';
 import { expect, it } from 'vitest';
-import { runCase, type CaseDefinition } from '../testkit/scenario.ts';
-import { bootstrapScenario } from '../scenarios/bootstrap.ts';
+import { runCase } from '../engine/case-run.ts';
+import type { CaseDefinition } from './_types.ts';
+import { bootstrapScenario } from '../scenarios/_registry.ts';
 
 export const bootCodexFromScratchGreenfield: CaseDefinition = {
   id: 'boot-codex-from-scratch-greenfield',

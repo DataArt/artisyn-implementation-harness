@@ -1,17 +1,12 @@
 import { PROVIDERS, PROVIDER_DETAILS } from './providers.ts';
 import type { Provider } from './providers.ts';
-import type { FixtureDefinition } from '../../fixtures/registry.ts';
+import type { FixtureDefinition } from '../../fixtures/_registry.ts';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { fixturesRoot, skillPackageRoot, workspaceRoot } from './paths.ts';
-
-/** Debug-only escape hatch: set HB_E2E_KEEP_TMP=1 to land scratch workspaces
- * under <repo>/tmp/ instead of the OS tmpdir, and skip cleanup, so a run's
- * output can be inspected afterward. Never enabled by default — every real
- * test still gets a private, auto-cleaned OS tmpdir.
- */
-const KEEP_TMP = process.env.HB_E2E_KEEP_TMP === '1';
+import { fixturesRoot, skillPackageRoot } from './paths.ts';
+import { nextFixtureDir, persistRuns } from './run-output.ts';
+import { CLEANUP_WORKSPACES } from './constants.ts';
 
 /** Default location; installSkillPackage resets this to the chosen host discovery root. */
 const PACKAGE_RELATIVE_PATH = `${PROVIDER_DETAILS[PROVIDERS.claude].skills}/harness-bootstrap`;
@@ -42,23 +37,26 @@ function registerCleanupHook() {
   });
 }
 
-/** Copies fixtures/<name> into a unique scratch tmpdir. Every test gets its
+/** Copies fixtures/<name> into a fresh scratch workspace. Every test gets its
  * own isolated filesystem state; nothing is ever run against the fixture
- * source directory itself.
+ * source directory itself. Persisted runs land under `runs/<datetime>/`;
+ * everything else gets an OS tmpdir, removed afterwards only when
+ * `CLEANUP_WORKSPACES` is on.
  */
 export async function createFixture(fixture: FixtureDefinition): Promise<Workspace> {
   if (!fixture.populated) throw new Error(`Fixture ${fixture.id} is not populated`);
   const source = path.join(fixturesRoot, fixture.path);
   if (!fs.existsSync(source)) throw new Error(`Unknown fixture: ${fixture.id}`);
-  const tmpBase = KEEP_TMP
-    ? (fs.mkdirSync(path.join(workspaceRoot, 'tmp'), { recursive: true }),
-      path.join(workspaceRoot, 'tmp'))
-    : os.tmpdir();
-  const root = fs.mkdtempSync(path.join(tmpBase, `hb-e2e-${fixture.id}-`));
+  const root = persistRuns
+    ? nextFixtureDir()
+    : fs.mkdtempSync(path.join(os.tmpdir(), `hb-e2e-${fixture.id}-`));
   fs.cpSync(source, root, { recursive: true });
   const packageRoot = path.join(root, PACKAGE_RELATIVE_PATH);
-  if (KEEP_TMP) {
-    console.log(`[HB_E2E_KEEP_TMP] kept workspace: ${root}`);
+  // A retained run keeps its project by definition; CLEANUP_WORKSPACES keeps
+  // the throwaway ones too. Either way the exit-hook backstop is skipped, or
+  // it would delete on the way out what the caller asked to keep.
+  if (persistRuns || !CLEANUP_WORKSPACES) {
+    console.log(`[hb-e2e] workspace kept: ${root}`);
     return { fixture, root, packageRoot, async cleanup() {} };
   }
   live.add(root);

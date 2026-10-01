@@ -9,11 +9,14 @@ import {
   gradeSkillProjectionConsistency,
   gradeAgentProjectionConsistency,
 } from '../graders/projection.grader.ts';
-
-// Only {{provider:*}} leftovers are always a bug — a plain {{TOKEN}} may be
-// an intentionally preserved project token (materialize-launch.mjs already
-// verifies those against each plan file's own preserve_tokens list).
-const UNRESOLVED_PROVIDER_TOKEN_RE = /\{\{provider:[a-z_]+(?::[a-z-]+)?\}\}/;
+import { gradeProviderPlaceholders } from '../graders/placeholders.grader.ts';
+import { readJson } from './fs.ts';
+import {
+  CANONICAL_AGENTS,
+  CANONICAL_MANIFEST,
+  CANONICAL_SKILLS,
+  PROVIDER_DIRS,
+} from './constants.ts';
 
 function throwOnFailure(label: string, failures: string[]): void {
   if (failures.length) throw new Error(`${label} failed:\n  ${failures.join('\n  ')}`);
@@ -30,7 +33,7 @@ export class HarnessExpectation {
     throwOnFailure(
       'toHaveCanonicalHarness',
       gradeFilesystem(this.result.workspace.packageRoot, {
-        exists: ['canonical/manifest.json', 'canonical/skills', 'canonical/agents'],
+        exists: [CANONICAL_MANIFEST, CANONICAL_SKILLS, CANONICAL_AGENTS],
       }).failures
     );
     return this;
@@ -66,39 +69,30 @@ export class HarnessExpectation {
   }
 
   toHaveNoUnresolvedPlaceholders(): this {
-    const failures: string[] = [];
-    const root = this.result.workspace.root;
-    const packageRoot = this.result.workspace.packageRoot;
-    for (const dir of ['.claude', '.agents', '.codex']) {
-      const base = path.join(root, dir);
-      if (!fs.existsSync(base)) continue;
-      for (const file of walk(base)) {
-        if (file === packageRoot || file.startsWith(packageRoot + path.sep)) continue;
-        if (UNRESOLVED_PROVIDER_TOKEN_RE.test(fs.readFileSync(file, 'utf8')))
-          failures.push(`unresolved {{provider:*}} placeholder in ${path.relative(root, file)}`);
-      }
-    }
-    throwOnFailure('toHaveNoUnresolvedPlaceholders', failures);
+    throwOnFailure(
+      'toHaveNoUnresolvedPlaceholders',
+      gradeProviderPlaceholders(this.result.workspace.root, PROVIDER_DIRS, [
+        this.result.workspace.packageRoot,
+      ]).failures
+    );
     return this;
   }
 
   toHaveValidReferences(): this {
     throwOnFailure(
       'toHaveValidReferences',
-      gradeReferencesResolve(
-        this.result.workspace.root,
-        ['.claude', '.agents', '.codex'],
-        [this.result.workspace.packageRoot]
-      ).failures
+      gradeReferencesResolve(this.result.workspace.root, PROVIDER_DIRS, [
+        this.result.workspace.packageRoot,
+      ]).failures
     );
     return this;
   }
 
   toHaveConsistentProjections(): this {
     const { workspace, skills, providers } = this.result;
-    const manifest = JSON.parse(
-      fs.readFileSync(path.join(workspace.packageRoot, 'canonical/manifest.json'), 'utf8')
-    );
+    const manifest = readJson<{
+      providers: Record<string, { invocationPrefix: string }>;
+    }>(path.join(workspace.packageRoot, CANONICAL_MANIFEST));
     const invocationPrefixes = Object.fromEntries(
       providers.map((p) => [p, manifest.providers[p].invocationPrefix])
     ) as Partial<Record<Provider, string>>;
@@ -108,7 +102,7 @@ export class HarnessExpectation {
         .failures
     );
     const agents = fs
-      .readdirSync(path.join(workspace.packageRoot, 'canonical/agents'))
+      .readdirSync(path.join(workspace.packageRoot, CANONICAL_AGENTS))
       .flatMap((template) =>
         template === 'layer'
           ? workspace.fixture.containers.map((container) => ({ name: container.name }))
@@ -121,14 +115,6 @@ export class HarnessExpectation {
     );
     return this;
   }
-}
-
-function walk(dir: string): string[] {
-  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const full = path.join(dir, entry.name);
-    if (entry.isSymbolicLink()) return [];
-    return entry.isDirectory() ? walk(full) : [full];
-  });
 }
 
 export function expectHarness(result: LaunchResult): HarnessExpectation {

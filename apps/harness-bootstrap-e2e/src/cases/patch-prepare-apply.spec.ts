@@ -1,17 +1,15 @@
-import { fixtures } from '../../fixtures/registry.ts';
+import { fixtures } from '../../fixtures/_registry.ts';
 import { expect, it } from 'vitest';
-import { runCase, type CaseDefinition } from '../testkit/scenario.ts';
-import { runPatchPrepareApply } from '../scenarios/patch-prepare-apply.ts';
+import { runCase } from '../engine/case-run.ts';
+import type { CaseDefinition } from './_types.ts';
+import { patchPrepareApplyScenario } from '../scenarios/_registry.ts';
 
 export const patchPrepareApply: CaseDefinition = {
   id: 'patch-prepare-apply',
   name: 'Patch prepare -> transfer -> apply across two projects',
   fixture: fixtures.nxMonorepo,
   configuration: 'stubbed-baseline',
-  scenario: {
-    id: 'patch-prepare-apply',
-    steps: [{ id: 'patch-prepare-apply', run: runPatchPrepareApply }],
-  },
+  scenario: patchPrepareApplyScenario,
 };
 
 it(`${patchPrepareApply.id} ${patchPrepareApply.name}`, async () => {

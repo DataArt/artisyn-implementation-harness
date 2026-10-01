@@ -8,8 +8,8 @@ import {
   gradePatchManifestSchema,
   gradePatchBundleHashes,
   gradePatchApplyReconstruction,
-  type PatchManifest,
 } from '../../../graders/patch.grader.ts';
+import type { PatchManifest } from '../../../graders/_types.ts';
 
 const sha256 = (data: Buffer) => crypto.createHash('sha256').update(data).digest('hex');
 

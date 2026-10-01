@@ -1,10 +1,5 @@
-import type { ContentBlock, StreamEvent } from '../agent-runners/types.ts';
-
-export interface ProgressItem {
-  text: string;
-  completed: boolean;
-  status?: string;
-}
+import type { ContentBlock, StreamEvent } from '../agent-runners/_types.ts';
+import type { ProgressItem } from './_types.ts';
 
 function items(value: unknown): ProgressItem[] | undefined {
   if (!Array.isArray(value)) return undefined;

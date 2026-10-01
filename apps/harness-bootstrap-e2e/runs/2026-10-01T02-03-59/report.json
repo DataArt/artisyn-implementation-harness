@@ -1,0 +1,71 @@
+{
+  "run": "2026-10-01T02-03-59",
+  "startedAt": "2026-10-01T02:11:07.991Z",
+  "cases": [
+    {
+      "case": "boot-codex-from-scratch-greenfield",
+      "scenario": "bootstrap",
+      "fixture": "multi-container-project",
+      "configuration": "aws-dev",
+      "provider": "codex",
+      "host": "codex",
+      "passed": true,
+      "requiredGradersPassed": true,
+      "status": "passed",
+      "graders": {
+        "launch/agent-run": "pass",
+        "bootstrap/task-tracking": "pass",
+        "bootstrap/no-plan-mode": "pass",
+        "bootstrap/installed": "pass",
+        "bootstrap/state": "pass",
+        "bootstrap/references": "pass",
+        "bootstrap/cleanup": "pass",
+        "bootstrap/adaptation": "pass",
+        "bootstrap/docs-adoption/root-readme-budget": "pass",
+        "bootstrap/mcp-configuration": "pass",
+        "bootstrap/config": "pass",
+        "bootstrap/docs-adoption/app-readmes": "pass",
+        "bootstrap/docs-adoption/hld-containers": "pass",
+        "bootstrap/docs-adoption/docs-index": "pass",
+        "bootstrap/docs-adoption/container-agents": "pass",
+        "bootstrap/no-unresolved-placeholders": "pass"
+      },
+      "failures": [],
+      "durationMs": 428319,
+      "steps": [
+        {
+          "step": "launch",
+          "status": "passed",
+          "graders": {
+            "agent-run": "pass"
+          },
+          "failures": [],
+          "durationMs": 427824
+        },
+        {
+          "step": "bootstrap",
+          "status": "passed",
+          "graders": {
+            "task-tracking": "pass",
+            "no-plan-mode": "pass",
+            "installed": "pass",
+            "state": "pass",
+            "references": "pass",
+            "cleanup": "pass",
+            "adaptation": "pass",
+            "docs-adoption/root-readme-budget": "pass",
+            "mcp-configuration": "pass",
+            "config": "pass",
+            "docs-adoption/app-readmes": "pass",
+            "docs-adoption/hld-containers": "pass",
+            "docs-adoption/docs-index": "pass",
+            "docs-adoption/container-agents": "pass",
+            "no-unresolved-placeholders": "pass"
+          },
+          "failures": [],
+          "durationMs": 228
+        }
+      ]
+    }
+  ]
+}

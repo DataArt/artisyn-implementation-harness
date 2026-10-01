@@ -1,4 +1,4 @@
-import { PROVIDERS } from '../../testkit/providers.ts';
+import { PROVIDERS } from '../../utils/providers.ts';
 /* eslint-disable @typescript-eslint/no-explicit-any -- faithful port of a plain-JS
  * regression test (see git history) exercising untyped plan/manifest/evidence
  * shapes; typing every literal here would add ceremony without catching

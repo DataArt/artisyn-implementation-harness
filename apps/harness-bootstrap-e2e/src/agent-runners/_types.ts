@@ -1,3 +1,8 @@
+/** Every headless host adapter presents the same call shape, so a scenario
+ * can pick one by provider rather than branching on it.
+ */
+export type SkillRunner = (options: SkillRunOptions) => Promise<SkillRunResult>;
+
 export interface SkillRunOptions {
   /** Working directory the CLI runs in — must be an isolated scratch
    * workspace, never a real project or the repo itself.

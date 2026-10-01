@@ -1,10 +1,10 @@
-import { PROVIDERS } from '../testkit/providers.ts';
+import { PROVIDERS } from '../utils/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawn } from 'node:child_process';
 
-import type { SkillRunOptions, SkillRunResult, StreamEvent } from './types.ts';
-export type { StreamEvent } from './types.ts';
+import type { SkillRunOptions, SkillRunResult, StreamEvent } from './_types.ts';
+import { DEFAULT_RUNNER_TIMEOUT_MS } from '../utils/constants.ts';
 
 /** A short, human-readable line for one stream-json event — not a full
  * transcript, just enough to prove the agent is doing something and roughly
@@ -51,7 +51,7 @@ export function runClaudeSkill(options: SkillRunOptions): Promise<SkillRunResult
       cwd: options.cwd,
       stdio: ['ignore', 'pipe', 'pipe'],
     });
-    const timeoutMs = options.timeoutMs ?? 5 * 60_000;
+    const timeoutMs = options.timeoutMs ?? DEFAULT_RUNNER_TIMEOUT_MS;
     const timer = setTimeout(() => child.kill('SIGTERM'), timeoutMs);
 
     let stdout = '';

@@ -1,6 +1,6 @@
-import { PROVIDER_DETAILS } from '../testkit/providers.ts';
-import type { FixtureDefinition } from '../../fixtures/registry.ts';
-import type { Provider } from '../testkit/build-launch.ts';
+import { PROVIDER_DETAILS } from '../utils/providers.ts';
+import type { FixtureDefinition } from '../../fixtures/_registry.ts';
+import type { Provider } from '../utils/build-launch.ts';
 
 /** Every answer launch's Q&A (references/launch/02-launch-questions.md, Q1-Q11)
  * would otherwise need to ask for, stated up front so a single non-interactive

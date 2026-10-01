@@ -17,6 +17,9 @@ dist/
 *.bak
 /tmp/
 
+# Retained agent-e2e runs: report.json is kept, the scratch workspaces are not
+/apps/harness-bootstrap-e2e/runs/*/fixture*/
+
 # CDK
 cdk.out/
 

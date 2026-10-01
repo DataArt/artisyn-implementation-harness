@@ -1,8 +1,23 @@
+import { result } from './grading.ts';
+import type { GradeResult, GraderBinding, Receipt } from './_types.ts';
 import fs from 'node:fs';
 import path from 'node:path';
-import { createHash } from 'node:crypto';
-import type { GradeResult } from './filesystem.grader.ts';
-import { findLaunchReport, gradeStageEReport, normalizeProgressStatus } from './launch-report.ts';
+import { hashFile, isUnder, readJson } from '../utils/fs.ts';
+import { errorMessage } from '../utils/errors.ts';
+import {
+  LAUNCH_OPERATION_FILE,
+  LAUNCH_RUNS_DIR,
+  MATERIALIZATION_FILE,
+  OPERATIONS_DIR,
+  VERIFICATION_FILE,
+} from '../utils/constants.ts';
+
+import {
+  findLaunchReport,
+  gradeStageEReport,
+  normalizeProgressStatus,
+  resolveLaunchRunId,
+} from './launch-report.ts';
 
 /** Exact-match: the materialization/verification receipts
  * materialize-launch.mjs / finalize-launch.mjs write under
@@ -17,11 +32,7 @@ export function gradeLaunchState(
     if (!/^[A-Za-z0-9_-]+$/.test(runId)) throw new Error('unsafe launch run ID');
     return gradeState(packageRoot, runId, expectVerified);
   } catch (error) {
-    return {
-      grader: 'state',
-      pass: false,
-      failures: [`invalid launch state: ${(error as Error).message}`],
-    };
+    return result('state', [`invalid launch state: ${(error as Error).message}`]);
   }
 }
 
@@ -29,9 +40,9 @@ export function gradeLaunchState(
 function verifyReceipt(packageRoot: string, runId: string): string[] {
   const failures: string[] = [];
   try {
-    const dir = path.join(packageRoot, 'state/launch/runs', runId);
-    const receipt = JSON.parse(fs.readFileSync(path.join(dir, 'materialization.json'), 'utf8'));
-    const verification = JSON.parse(fs.readFileSync(path.join(dir, 'verification.json'), 'utf8'));
+    const dir = path.join(packageRoot, LAUNCH_RUNS_DIR, runId);
+    const receipt = readJson<Receipt>(path.join(dir, MATERIALIZATION_FILE));
+    const verification = readJson<Receipt>(path.join(dir, VERIFICATION_FILE));
     if (
       receipt.run_id !== runId ||
       receipt.status !== 'materialized' ||
@@ -78,7 +89,7 @@ function verifyReceipt(packageRoot: string, runId: string): string[] {
         !output.evidence.trim()
       )
         failures.push(`${runId}: missing semantic evidence for ${output.target}`);
-      const currentHash = createHash('sha256').update(fs.readFileSync(target)).digest('hex');
+      const currentHash = hashFile(target);
       if (currentHash !== output.sha256)
         failures.push(`${runId}: launch output changed after verification: ${output.target}`);
     }
@@ -101,25 +112,21 @@ function checkedOutputPath(root: string, packageRoot: string, relative: unknown)
     target = path.join(target, part);
     if (fs.lstatSync(target).isSymbolicLink()) throw new Error(`symlink output path: ${relative}`);
   }
-  if (
-    target === path.resolve(packageRoot) ||
-    target.startsWith(path.resolve(packageRoot) + path.sep) ||
-    !fs.statSync(target).isFile()
-  )
+  if (isUnder(target, path.resolve(packageRoot)) || !fs.statSync(target).isFile())
     throw new Error(`invalid output file: ${relative}`);
   return target;
 }
 
 function gradeState(packageRoot: string, runId: string, expectVerified: boolean): GradeResult {
   const failures: string[] = [];
-  const runDir = path.join(packageRoot, 'state/launch/runs', runId);
-  const receiptPath = path.join(runDir, 'materialization.json');
+  const runDir = path.join(packageRoot, LAUNCH_RUNS_DIR, runId);
+  const receiptPath = path.join(runDir, MATERIALIZATION_FILE);
   if (!fs.existsSync(receiptPath)) {
     if (expectVerified) return gradeLinkedLaunchState(packageRoot, runId);
     failures.push(`missing materialization receipt: ${receiptPath}`);
     return { grader: 'state', pass: false, failures };
   }
-  const receipt = JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
+  const receipt = readJson<Receipt>(receiptPath);
   if (receipt.run_id !== runId)
     failures.push(`receipt run_id mismatch: expected ${runId}, got ${receipt.run_id}`);
   if (receipt.status !== 'materialized')
@@ -127,7 +134,7 @@ function gradeState(packageRoot: string, runId: string, expectVerified: boolean)
   if (!Array.isArray(receipt.files) || !receipt.files.length)
     failures.push('receipt recorded no materialized files');
 
-  const verificationPath = path.join(runDir, 'verification.json');
+  const verificationPath = path.join(runDir, VERIFICATION_FILE);
   const verified = fs.existsSync(verificationPath);
   if (expectVerified && !verified) {
     const partialFailures = gradeExternalGatePartialLaunch(packageRoot, runId, receipt);
@@ -158,10 +165,10 @@ function gradeExternalGatePartialLaunch(
 ): string[] {
   const failures: string[] = [];
   try {
-    const operationsDir = path.join(packageRoot, 'state/operations');
+    const operationsDir = path.join(packageRoot, OPERATIONS_DIR);
     const operations = (fs.existsSync(operationsDir) ? fs.readdirSync(operationsDir) : [])
       .filter((name) => name.endsWith('.json'))
-      .map((name) => JSON.parse(fs.readFileSync(path.join(operationsDir, name), 'utf8')))
+      .map((name) => readJson<Receipt>(path.join(operationsDir, name)))
       .filter((item) => item.mode === 'launch' && item.run_id === runId);
     if (operations.length !== 1) return [`no unique launch operation for partial run ${runId}`];
     const operation = operations[0];
@@ -274,7 +281,7 @@ function gradeExternalGatePartialLaunch(
       if (!checked || !/^[a-f0-9]{64}$/.test(digest ?? ''))
         failures.push(`partial output lacks local verification evidence: ${entry.target}`);
       const target = checkedOutputPath(root, packageRoot, entry.target);
-      if (createHash('sha256').update(fs.readFileSync(target)).digest('hex') !== digest)
+      if (hashFile(target) !== digest)
         failures.push(`partial launch output changed: ${entry.target}`);
     }
   } catch (error) {
@@ -312,9 +319,9 @@ function readCheckpointCheck(value: unknown): { status: string; evidence: string
 function gradeLinkedLaunchState(packageRoot: string, primaryRunId: string): GradeResult {
   const failures: string[] = [];
   const operationFiles: string[] = [];
-  const centralOperation = path.join(packageRoot, 'state/launch/operation.json');
+  const centralOperation = path.join(packageRoot, LAUNCH_OPERATION_FILE);
   if (fs.existsSync(centralOperation)) operationFiles.push(centralOperation);
-  const operationsDir = path.join(packageRoot, 'state/operations');
+  const operationsDir = path.join(packageRoot, OPERATIONS_DIR);
   if (fs.existsSync(operationsDir))
     operationFiles.push(
       ...fs
@@ -324,7 +331,7 @@ function gradeLinkedLaunchState(packageRoot: string, primaryRunId: string): Grad
     );
   const operations = operationFiles
     .map((file) => {
-      const operation = JSON.parse(fs.readFileSync(file, 'utf8'));
+      const operation = readJson<Receipt>(file);
       if (file === centralOperation && !operation.mode) operation.mode = 'launch';
       return operation;
     })
@@ -372,7 +379,7 @@ function gradeLinkedLaunchState(packageRoot: string, primaryRunId: string): Grad
     const receiptPath = receiptRelative.startsWith(packageRelativePath + '/')
       ? path.resolve(projectRoot, receiptRelative)
       : path.resolve(packageRoot, receiptRelative);
-    if (!receiptPath.startsWith(path.resolve(packageRoot) + path.sep)) {
+    if (!isUnder(receiptPath, path.resolve(packageRoot))) {
       failures.push(`unsafe stage receipt path: ${receiptRelative}`);
       continue;
     }
@@ -382,7 +389,7 @@ function gradeLinkedLaunchState(packageRoot: string, primaryRunId: string): Grad
       : stageId;
     const stage = stageSuffix.match(/^-?([ABC])(?:-|$)/i)?.[1]?.toUpperCase();
     if (!stage || !fs.existsSync(receiptPath)) continue;
-    const verificationPath = path.join(path.dirname(receiptPath), 'verification.json');
+    const verificationPath = path.join(path.dirname(receiptPath), VERIFICATION_FILE);
     if (!fs.existsSync(verificationPath)) continue;
     const receiptFailures = verifyReceipt(packageRoot, stageId);
     if (receiptFailures.length) failures.push(...receiptFailures);
@@ -410,10 +417,28 @@ function gradeLinkedLaunchState(packageRoot: string, primaryRunId: string): Grad
       failures.push(`launch output has no recorded hash: ${outputPath}`);
       continue;
     }
-    const currentHash = createHash('sha256').update(fs.readFileSync(target)).digest('hex');
+    const currentHash = hashFile(target);
     if (currentHash !== expectedHash)
       failures.push(`launch output changed after verification: ${outputPath}`);
   }
 
   return { grader: 'state', pass: failures.length === 0, failures };
 }
+
+/** A stubbed launch records its run ID on the context; a live one only
+ * leaves it in the report on disk, so resolve it here rather than making
+ * every scenario dig it out.
+ */
+export const launchState =
+  ({ verified }: { verified: boolean }): GraderBinding =>
+  (c) => {
+    let runId = c.runId;
+    if (!runId) {
+      try {
+        runId = resolveLaunchRunId(c.packageRoot);
+      } catch (error) {
+        return result('state', [errorMessage(error)]);
+      }
+    }
+    return gradeLaunchState(c.packageRoot, runId, verified);
+  };

@@ -1,4 +1,4 @@
-import type { ScenarioDefinition } from '../testkit/scenario.ts';
+import type { ScenarioDefinition } from './_types.ts';
 
 /** Stubs: no CLI calls or fake passing grades until the workflows are implemented. */
 export const designDevScenario: ScenarioDefinition = {
