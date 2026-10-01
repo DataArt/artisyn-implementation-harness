@@ -31,7 +31,7 @@ export async function stubbedLaunchContext(
   id: string,
   providers: Provider[]
 ): Promise<GradeContext> {
-  const workspace = await createFixture(fixtures.nxMonorepo);
+  const workspace = await createFixture(fixtures.nxMonorepo, id);
   const artifacts = new Map<string, unknown>();
   artifacts.set(WORKSPACE, workspace);
   const launch = await runStubbedLaunch(workspace, providers, id.toLowerCase());

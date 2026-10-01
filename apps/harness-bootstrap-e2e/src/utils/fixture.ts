@@ -39,16 +39,19 @@ function registerCleanupHook() {
 
 /** Copies fixtures/<name> into a fresh scratch workspace. Every test gets its
  * own isolated filesystem state; nothing is ever run against the fixture
- * source directory itself. Persisted runs land under `runs/<datetime>/`;
+ * source directory itself. Persisted runs land under `runs/<datetime>-<caseId>/`;
  * everything else gets an OS tmpdir, removed afterwards only when
  * `CLEANUP_WORKSPACES` is on.
  */
-export async function createFixture(fixture: FixtureDefinition): Promise<Workspace> {
+export async function createFixture(
+  fixture: FixtureDefinition,
+  caseId = 'run'
+): Promise<Workspace> {
   if (!fixture.populated) throw new Error(`Fixture ${fixture.id} is not populated`);
   const source = path.join(fixturesRoot, fixture.path);
   if (!fs.existsSync(source)) throw new Error(`Unknown fixture: ${fixture.id}`);
   const root = persistRuns
-    ? nextFixtureDir()
+    ? nextFixtureDir(caseId)
     : fs.mkdtempSync(path.join(os.tmpdir(), `hb-e2e-${fixture.id}-`));
   fs.cpSync(source, root, { recursive: true });
   const packageRoot = path.join(root, PACKAGE_RELATIVE_PATH);

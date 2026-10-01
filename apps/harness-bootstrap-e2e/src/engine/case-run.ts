@@ -99,7 +99,7 @@ export class CaseRun {
   private async createWorkspaces(): Promise<Workspace[]> {
     const { host, fixture } = this.definition;
     for (let index = 0; index < (this.scenario.workspaces ?? 0); index++) {
-      const workspace = await createFixture(fixture);
+      const workspace = await createFixture(fixture, this.definition.id);
       this.workspaces.push(workspace);
       if (this.scenario.installPackage) installSkillPackage(workspace, host ?? PROVIDERS.claude);
     }

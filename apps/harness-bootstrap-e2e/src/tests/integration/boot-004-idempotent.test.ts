@@ -34,7 +34,7 @@ const idempotency = (): GraderBinding => (c) => {
 };
 
 async function setup(): Promise<GradeContext> {
-  const workspace = await createFixture(fixtures.nxMonorepo);
+  const workspace = await createFixture(fixtures.nxMonorepo, 'BOOT-004');
   const artifacts = new Map<string, unknown>();
   artifacts.set(WORKSPACE, workspace);
 

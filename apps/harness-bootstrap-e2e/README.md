@@ -69,7 +69,7 @@ src/
 │   ├── scenario-run.ts         ScenarioRun: step loop, blocking, scenario grading
 │   ├── step-run.ts             StepRun: agent invocation, step execution and grading
 │   ├── grade.ts                applyGraders, foldGrades, gradeReport
-│   ├── run-report.ts           Accumulates each case into the run's report.json
+│   ├── run-report.ts           Writes each case's report.json
 │   └── diagnostics.ts          Transcript breadcrumbs for failing reports
 ├── utils/                      Helpers the engine and scenarios lean on
 │   ├── constants.ts            Paths, filenames, regexes, timeouts
@@ -77,13 +77,13 @@ src/
 │   ├── providers.ts            Provider type, constants and filesystem mappings
 │   ├── fixture.ts              Scratch workspace creation and package copying
 │   ├── build-launch.ts         Stubbed deterministic launch helpers
-│   ├── run-output.ts           Where a retained run's directory and fixtures go
+│   ├── run-output.ts           Per-case run directory, fixture dirs, report path
 │   └── harness-assertions.ts   Fluent launch assertions
 └── tests/
     ├── unit/                   Script, engine, utils and grader specs
     │   └── graders/
     └── integration/            BOOT-001–005, plus eval-case.ts
-runs/                           Retained agent-e2e workspaces and reports (gitignored)
+runs/                           Retained agent-e2e workspaces and reports, per case
 ```
 
 Each layer has its own Vitest configuration:
@@ -301,19 +301,21 @@ its report to the spec and, for a retained run, appends it to that run's
 
 **Agent E2E runs are kept by default.** A live case costs real money and up to
 an hour, so throwing its workspace away on exit would be hostile. Each
-invocation writes to the gitignored `runs/<datetime>/`:
+invocation writes one directory per case, named for when it ran and which
+case produced it:
 
 ```text
 runs/
-└── 2026-10-01T14-32-07/
+└── 2026-10-01T14-32-07-boot-claude-from-scratch-greenfield/
     ├── fixture/        the scratch project the agent worked in
-    └── report.json     every case executed in this invocation
+    └── report.json     that case's CaseReport
 ```
 
 A case that builds more than one project — `patch-prepare-apply`, which needs
-a sending and a receiving repo — gets `fixture/` and `fixture-2/`.
-`report.json` is rewritten after each case, so a run that is killed part-way
-still leaves the results that completed.
+a sending and a receiving repo — gets `fixture/` and `fixture-2/` side by side.
+Running several cases in one invocation produces one directory each, so they
+never overwrite one another's workspaces or results. `report.json` is written
+when the case finishes; `fixture*/` is gitignored, the report is not.
 
 Unit and integration still use a throwaway OS temporary directory and clean up
 after themselves; they create fixtures constantly and would otherwise bury

@@ -21,33 +21,47 @@ function timestamp(): string {
     .replaceAll(':', '-');
 }
 
-let resolvedRunDir: string | undefined;
-let fixtureCount = 0;
+function slug(value: string): string {
+  return value.replace(/[^A-Za-z0-9._-]+/g, '-').replace(/^-+|-+$/g, '') || 'run';
+}
 
-/** One directory per process, created on first use so a run that persists
- * nothing leaves nothing behind.
+interface RunDir {
+  path: string;
+  fixtures: number;
+}
+
+const dirs = new Map<string, RunDir>();
+
+/** One directory per case, named `<datetime>-<case-id>` so several runs are
+ * distinguishable at a glance. Created on first use, so a case that persists
+ * nothing leaves nothing behind, and memoized so every workspace and the
+ * report of one case land together.
  */
-export function runDir(): string {
-  if (!resolvedRunDir) {
-    resolvedRunDir = path.join(runsRoot, timestamp());
-    fs.mkdirSync(resolvedRunDir, { recursive: true });
+export function runDir(caseId: string): string {
+  let dir = dirs.get(caseId);
+  if (!dir) {
+    dir = { path: path.join(runsRoot, `${timestamp()}-${slug(caseId)}`), fixtures: 0 };
+    dirs.set(caseId, dir);
+    fs.mkdirSync(dir.path, { recursive: true });
   }
-  return resolvedRunDir;
+  return dir.path;
 }
 
 /** `fixture/` for the usual single-workspace case; `fixture-2/` and beyond
  * for a case like patch-prepare-apply that needs two projects at once.
  */
-export function nextFixtureDir(): string {
-  fixtureCount += 1;
-  const dir = path.join(runDir(), fixtureCount === 1 ? 'fixture' : `fixture-${fixtureCount}`);
+export function nextFixtureDir(caseId: string): string {
+  const base = runDir(caseId);
+  const entry = dirs.get(caseId)!;
+  entry.fixtures += 1;
+  const dir = path.join(base, entry.fixtures === 1 ? 'fixture' : `fixture-${entry.fixtures}`);
   fs.mkdirSync(dir, { recursive: true });
   return dir;
 }
 
-/** Where this run's results belong. Writing them is the engine's job — see
+/** Where a case's result belongs. Writing it is the engine's job — see
  * `engine/run-report.ts`.
  */
-export function reportFile(): string {
-  return path.join(runDir(), 'report.json');
+export function reportFile(caseId: string): string {
+  return path.join(runDir(caseId), 'report.json');
 }
