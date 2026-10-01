@@ -1,5 +1,5 @@
 diff --git a/CHANGELOG.md b/CHANGELOG.md
-index 70bc382..1c56bb0 100644
+index 70bc382..e47e9e4 100644
 --- a/CHANGELOG.md
 +++ b/CHANGELOG.md
 @@ -2,6 +2,24 @@
@@ -17,7 +17,7 @@ index 70bc382..1c56bb0 100644
 +  status, failing an otherwise complete launch on vocabulary alone.
 +- State the rules the graders already enforced but the reference only implied:
 +  `checks.local` must be `passed` with evidence, both external gates need a status
-+  *and* non-empty evidence, and at least one must remain `pending`/`blocked` —
++  _and_ non-empty evidence, and at least one must remain `pending`/`blocked` —
 +  an operation where both passed is a finished launch, not a checkpoint.
 +- Direct reviewer nuance into `evidence` rather than the status, with a worked
 +  example, and add a tie-breaker: when it is unclear whether a caveated approval

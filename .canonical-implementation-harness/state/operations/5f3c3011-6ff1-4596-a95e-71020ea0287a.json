@@ -19,9 +19,9 @@
       "path": "CHANGELOG.md",
       "operation": "update",
       "before_sha256": "06e60b3f0b32b17e2a4a71c0efb3312a1c31ce50e4c4353151fb930249304213",
-      "after_sha256": "67d0907f1efc39d78d5fc74996e8997c9b052e98e95a9923a5d9f5a99ddc92ec",
-      "payload_sha256": "811af7fd72637397a4d936f2ff0ce1ecbdecb5be8c33bd4730569356e1aa0f7e",
-      "verification": "payload hash validated; diff reconstructed to after_sha256"
+      "after_sha256": "66a0d7a692ffbdf1a4e9ad147fc9eafaf702480bdeba48718078a4e6ee999add",
+      "payload_sha256": "82f436a73cee5448dff1edd3af54502be4f0618a7b8ceb19fa6943b140051486",
+      "verification": "payload hash validated; diff reconstructed to after_sha256 (regenerated after the pre-commit prettier hook reformatted the file)"
     },
     {
       "path": "references/launch/08-provider-launch.md",

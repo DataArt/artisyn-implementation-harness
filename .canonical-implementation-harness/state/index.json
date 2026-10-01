@@ -2,7 +2,7 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "67d0907f1efc39d78d5fc74996e8997c9b052e98e95a9923a5d9f5a99ddc92ec",
+      "recorded_sha256": "66a0d7a692ffbdf1a4e9ad147fc9eafaf702480bdeba48718078a4e6ee999add",
       "snapshot": "bundle:5f3c3011-6ff1-4596-a95e-71020ea0287a"
     },
     "README.md": {
