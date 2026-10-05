@@ -38,6 +38,7 @@ export default withMermaid(
         { text: 'Adoption', link: '/Harness/04%20Adoption/00%20Adoption%20Path' },
         { text: 'Principles', link: '/Harness/05%20Principles/' },
         { text: 'Roadmap', link: '/Harness/06%20Roadmap/' },
+        { text: '🔒', link: '/Security%20Scan/' },
       ],
 
       sidebar: {
@@ -45,6 +46,7 @@ export default withMermaid(
         '/Target Architecture (HLD)/': scanSection(`Target Architecture (HLD)/${HLD_VERSION}`),
         '/System Architecture (LLD)/': scanSection('System Architecture (LLD)'),
         '/Engineering Guide/': scanSection('Engineering Guide'),
+        '/Security Scan/': [{ text: '🔒 Security Scan', items: scanSection('Security Scan') }],
         '/Harness/01 Explore/': [{ text: 'Explore', items: scanSection('Harness/01 Explore') }],
         '/Harness/02 Quick Start/': [
           { text: 'Quick Start', items: scanSection('Harness/02 Quick Start') },
