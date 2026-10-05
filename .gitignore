@@ -48,3 +48,4 @@ cdk.out/
 # Harness bootstrap portable toolkit (not deployed harness output)
 #/.canonical-implementation-harness/
 !/.canonical-implementation-harness/state/answers.json
+.claude/skills/internal-use-skill-plugin-security-review
