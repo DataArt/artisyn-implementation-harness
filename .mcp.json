@@ -12,13 +12,14 @@
       "command": "uvx",
       "args": ["mcp-atlassian"],
       "env": {
+        "JIRA_PERSONAL_TOKEN": "${JIRA_PERSONAL_TOKEN}",
+        "JIRA_SSL_VERIFY": "false",
+        "JIRA_AUTH_TYPE": "bearer",
+        "CONFLUENCE_PERSONAL_TOKEN": "${CONFLUENCE_PERSONAL_TOKEN}",
+        "CONFLUENCE_SSL_VERIFY": "false",
+        "CONFLUENCE_AUTH_TYPE": "bearer",
         "CONFLUENCE_URL": "${CONFLUENCE_URL}",
-        "CONFLUENCE_USERNAME": "${CONFLUENCE_USERNAME}",
-        "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}",
-        "CONFLUENCE_SPACES_FILTER": "${CONFLUENCE_SPACES_FILTER}",
         "JIRA_URL": "${JIRA_URL}",
-        "JIRA_USERNAME": "${JIRA_USERNAME}",
-        "JIRA_API_TOKEN": "${JIRA_API_TOKEN}",
         "JIRA_PROJECTS_FILTER": "${JIRA_PROJECTS_FILTER}"
       }
     },
