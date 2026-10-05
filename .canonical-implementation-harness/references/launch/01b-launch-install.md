@@ -127,12 +127,12 @@ Before building the plan, propose MCP servers into `canonical/mcp.json` from the
 same evidence already resolved for Q2/Q4/Q5 — never from a fixed list installed
 unconditionally, and never from a service merely mentioned in passing:
 
-| Evidence                                                                 | Proposed server                                                                  |
-| ------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| Q5 tracker is Jira/Confluence                                            | `atlassian` (`mcp-atlassian`, matches `Engineering Guide/05 MCP Setup.md`)           |
-| AWS evidence in Q2 (`aws-cdk-lib`, `aws-sdk`, `boto3`, Terraform AWS provider, `.aws/`) | `aws-mcp` (AWS MCP Server through `mcp-proxy-for-aws-cli`) |
-| Repository remote/`package.json.repository` points at GitHub             | `github` (`@modelcontextprotocol/server-github`)                                    |
-| Azure/GCP evidence in Q2                                                  | That provider's current official MCP server — confirm its published package name first; never fabricate one from memory |
+| Evidence                                                                                | Proposed server                                                                                                         |
+| --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Q5 tracker is Jira/Confluence                                                           | `atlassian` (`mcp-atlassian`, matches `Engineering Guide/05 MCP Setup.md`)                                              |
+| AWS evidence in Q2 (`aws-cdk-lib`, `aws-sdk`, `boto3`, Terraform AWS provider, `.aws/`) | `aws-mcp` (AWS MCP Server through `mcp-proxy-for-aws-cli`)                                                              |
+| Repository remote/`package.json.repository` points at GitHub                            | `github` (`@modelcontextprotocol/server-github`)                                                                        |
+| Azure/GCP evidence in Q2                                                                | That provider's current official MCP server — confirm its published package name first; never fabricate one from memory |
 
 Worked templates (verified, real server declarations — copy the shape, not
 necessarily the exact version pins):
@@ -142,8 +142,8 @@ necessarily the exact version pins):
   "command": "uvx",
   "args": [
     "mcp-proxy-for-aws-cli@latest",
-    "https://aws-mcp.us-east-1.api.aws/mcp",
-    "--metadata", "AWS_REGION=us-east-1"
+    "https://aws-mcp.${AWS_REGION}.api.aws/mcp",
+    "--metadata", "AWS_REGION=${AWS_REGION}"
   ]
 },
 "github": {
@@ -160,6 +160,10 @@ rather than being silently dropped. A server proposed here needs a
 this project actually selected — extend that doc's existing Atlassian-only
 content rather than replacing it. Record a proposal the evidence doesn't
 support as explicitly declined in the report, not silently omitted.
+
+`${AWS_REGION}` is deployment configuration, resolved from the developer's local AWS
+profile/environment — never substitute a literal region into this template or any
+generated config; it must never be hardcoded in source or documentation.
 
 Credentials remain local and are resolved through the developer's AWS credential
 chain by the proxy. Explain selected runtime/credentials.md in onboarding and the MCP

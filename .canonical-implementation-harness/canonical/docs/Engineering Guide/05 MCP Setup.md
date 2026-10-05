@@ -19,7 +19,7 @@ Uses [mcp-atlassian](https://github.com/sooperset/mcp-atlassian), run via `uvx` 
 install [uv](https://docs.astral.sh/uv/getting-started/installation/) first:
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+pipx install uv
 ```
 
 Generate a PAT for each service (bearer token auth, no expiry recommended for
@@ -61,7 +61,9 @@ Uses the AWS managed MCP Server through
 install [uv](https://docs.astral.sh/uv/getting-started/installation/) first (see
 command above if not already installed). The bootstrap configures the server in the
 selected provider's native MCP file; the server launches with
-`uvx mcp-proxy-for-aws-cli@latest https://aws-mcp.us-east-1.api.aws/mcp --metadata AWS_REGION=us-east-1`.
+`uvx mcp-proxy-for-aws-cli@latest https://aws-mcp.${AWS_REGION}.api.aws/mcp --metadata AWS_REGION=${AWS_REGION}`,
+where `${AWS_REGION}` is the project's confirmed AWS region — deployment
+configuration, resolved per project, never hardcoded here.
 
 No token is stored in the project config. The proxy uses the local AWS credential
 chain (for example, an AWS CLI profile, SSO session, environment credentials, or an
@@ -73,9 +75,10 @@ the environment used to launch the coding assistant:
 export AWS_PROFILE="<your-aws-profile>"
 ```
 
-The MCP declaration's `--metadata AWS_REGION=us-east-1` sets the default region for
-AWS operations. Change it to the project's confirmed region when needed. Never put
-credential values in MCP config, source control, launch answers, or reports.
+The MCP declaration's `--metadata AWS_REGION=${AWS_REGION}` sets the default region
+for AWS operations, resolved to the project's confirmed region at launch. Never put
+credential values — or a literal region — in MCP config, source control, launch
+answers, or reports.
 
 ## GitHub (`@modelcontextprotocol/server-github`)
 
