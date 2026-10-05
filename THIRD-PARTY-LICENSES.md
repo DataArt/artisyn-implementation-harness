@@ -59,7 +59,7 @@ dependency anywhere in the tree.
   manifest does. Flagging because it's the only non-permissive license in the tree.
 - **`case@1.6.3` — MIT OR GPL-3.0-or-later (dual-licensed).** We rely on the MIT option;
   no action needed.
-- _*`khroma@2.1.0` — MIT* (asterisk)._* `license-checker` marks a license "unofficial"
+- **`khroma@2.1.0` — MIT\* (asterisk).** `license-checker` marks a license "unofficial"
   when it's inferred from a license file rather than the package's own `license`
   field — `khroma`'s `package.json` has no `license` field at all. Opened its `license`
   file directly: it is the standard MIT text. The asterisk is a metadata gap in the
