@@ -1,0 +1,84 @@
+{
+  "schema_version": 2,
+  "bundle_id": "b102a291-6ae6-4a49-9e75-1f280fa3c613",
+  "mode": "prepare",
+  "status": "verified",
+  "created_at": "2026-10-07T10:53:14Z",
+  "notes": "Direct canonical edits: terminology registry (new 07 Terminology.md, Manner's one-term-per-concept rule, docs-writer TERMINOLOGY_REGISTRY substitution, launch D.0 seeding step) and quieter metrics CLIs (design-metrics.mjs / timing.mjs finishCommand() trimmed from the full metrics object to {command, ticket}). Bases for canonical/*, launch reference, and CHANGELOG.md taken from git HEAD, byte-matching their recorded canonical_sha256. SKILL.md's recorded checkpoint (bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4) predated an untracked direct commit (SKILL METADATA block, script-failure error-surfacing paragraph) with no intervening prepare/apply bundle; its base was taken from that recorded checkpoint's content (git commit 09acb508), reachable in package git history, per the patch-prepare Step 1 reachable-base rule — so its diff carries that prior untracked change forward along with this run's version bump. Deployment to installed outputs is the following patch apply.",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "02b2454da976c82d534a895b6493fa1cb8a072890ee988dced3cc233b3ee994c",
+      "after_sha256": "858a1914ae8c4d6ccadcdb112f841a957c075b4c538c647d4429b9e8ed613cd3",
+      "verification": "diff applied to recorded base; result hash verified"
+    },
+    {
+      "path": "SKILL.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "7b938f8fd1b9586a93a46cd7841ae03a69d3aaf95a5c7107a1f22eb79e0b1ad5",
+      "after_sha256": "35a85a75bdf1d8e5a9e0307ca81d5b5396cf32d7cedfd20142aeb7183f386ff3",
+      "verification": "diff applied to recorded base (git commit 09acb508); result hash verified"
+    },
+    {
+      "path": "canonical/agents/docs-writer/INTENT.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "d8abb53caa5b8987cdd587e71bf1af33002c6308ba2e3dae0b5cc2d2fd2af54a",
+      "after_sha256": "ce6d27cae7bca34d69d9ce4601a6ebe2e530d10330f9a8de4e9e9570114e5fe2",
+      "verification": "diff applied to recorded base with git HEAD; result hash verified"
+    },
+    {
+      "path": "canonical/agents/docs-writer/TEMPLATE.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "15903256d7807a825f661daf4d93e16d4c1dd2e2a1a1a8c56a876ca9665eadec",
+      "after_sha256": "7d02764f5715a9e152c1958484dc915e1e96f8d69d771f2747b8446ecfbe15b9",
+      "verification": "diff applied to recorded base with git HEAD; result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
+      "after_sha256": "1a0bb61a947307eda585be7a2735a6039ae564a856880dc3585030a4e7c0a9ad",
+      "verification": "diff applied to recorded base with git HEAD; result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Documentation/07 Terminology.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/scripts/design-metrics.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "8fbc6dd9d2a1a0892db2a099da3ad1f3e72c9cea435217b62cab27f21f7433d6",
+      "after_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
+      "verification": "diff applied to recorded base with git HEAD; result hash verified; node --test design-metrics.test.mjs passed (10/10)"
+    },
+    {
+      "path": "canonical/skills/dev/scripts/timing.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "after_sha256": "89e9189a8f4ddca11d19dbbf4ba817264afa59397cc743e379bef5b4c54c30aa",
+      "verification": "diff applied to recorded base with git HEAD; result hash verified; node --test timing.test.mjs passed (25/25)"
+    },
+    {
+      "path": "references/launch/01c-launch-docs.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "addca42fc8de2b8bb74cc60c83f4f7f62438e2ce4cc0c09bc596064995bd6e1b",
+      "after_sha256": "628cfe0729c26fe4067a7492b34db8e2f563be2d33b6fc6d74aab9252ba715c3",
+      "verification": "diff applied to recorded base with git HEAD; result hash verified"
+    }
+  ],
+  "providers": [],
+  "provider_scope_source": "prepare is provider-neutral — canonical only, no permanent file read or written"
+}

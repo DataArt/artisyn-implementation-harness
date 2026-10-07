@@ -2,16 +2,16 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "02b2454da976c82d534a895b6493fa1cb8a072890ee988dced3cc233b3ee994c",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "858a1914ae8c4d6ccadcdb112f841a957c075b4c538c647d4429b9e8ed613cd3",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "README.md": {
       "recorded_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "SKILL.md": {
-      "recorded_sha256": "7b938f8fd1b9586a93a46cd7841ae03a69d3aaf95a5c7107a1f22eb79e0b1ad5",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "35a85a75bdf1d8e5a9e0307ca81d5b5396cf32d7cedfd20142aeb7183f386ff3",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "canonical/adaptors/claude/browser.md": {
       "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
@@ -86,12 +86,12 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/agents/docs-writer/INTENT.md": {
-      "recorded_sha256": "d8abb53caa5b8987cdd587e71bf1af33002c6308ba2e3dae0b5cc2d2fd2af54a",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "ce6d27cae7bca34d69d9ce4601a6ebe2e530d10330f9a8de4e9e9570114e5fe2",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "canonical/agents/docs-writer/TEMPLATE.md": {
-      "recorded_sha256": "15903256d7807a825f661daf4d93e16d4c1dd2e2a1a1a8c56a876ca9665eadec",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "7d02764f5715a9e152c1958484dc915e1e96f8d69d771f2747b8446ecfbe15b9",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "canonical/agents/infra/INTENT.md": {
       "recorded_sha256": "0c9e73d8329326419ee03aa4592e2185a26e03649196ae2eefa3432953933bc4",
@@ -150,8 +150,8 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/docs/Engineering Guide/Documentation/01 Principles.md": {
-      "recorded_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "1a0bb61a947307eda585be7a2735a6039ae564a856880dc3585030a4e7c0a9ad",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "canonical/docs/Engineering Guide/Documentation/02 Structure.md": {
       "recorded_sha256": "9c2bf93c76f234c8175e3c4f10d714442f420661301b1439207af602617a1d64",
@@ -168,6 +168,10 @@
     "canonical/docs/Engineering Guide/Documentation/05 NFR Intent.md": {
       "recorded_sha256": "83147d62579441fddd9887aeff80a8c3c707fdfd06d69e86844f8738047c5eae",
       "snapshot": "git:HEAD (unchanged by this bundle)"
+    },
+    "canonical/docs/Engineering Guide/Documentation/07 Terminology.md": {
+      "recorded_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md": {
       "recorded_sha256": "ebcf64f15253b35b3d68f8f8821aa73a289e46384fd4885a9aaa932d9d1428ab",
@@ -338,8 +342,8 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/design/scripts/design-metrics.mjs": {
-      "recorded_sha256": "8fbc6dd9d2a1a0892db2a099da3ad1f3e72c9cea435217b62cab27f21f7433d6",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "canonical/skills/design/scripts/design-metrics.test.mjs": {
       "recorded_sha256": "16181c2b569d872292cc120a5a9249d95ba4bb468da8dc5ce00f6a6082ac4436",
@@ -474,8 +478,8 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/dev/scripts/timing.mjs": {
-      "recorded_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "89e9189a8f4ddca11d19dbbf4ba817264afa59397cc743e379bef5b4c54c30aa",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "canonical/skills/dev/scripts/timing.test.mjs": {
       "recorded_sha256": "7a2345f5e964afd98b103451deabc2f0a22b466a1ab4876f48301b022ae8decb",
@@ -627,8 +631,8 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/launch/01c-launch-docs.md": {
-      "recorded_sha256": "addca42fc8de2b8bb74cc60c83f4f7f62438e2ce4cc0c09bc596064995bd6e1b",
-      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
+      "recorded_sha256": "628cfe0729c26fe4067a7492b34db8e2f563be2d33b6fc6d74aab9252ba715c3",
+      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "references/launch/01d-launch-verify.md": {
       "recorded_sha256": "60e19f52fb49d00b1921e833a217212eeab5acd8e7e3278ba959133e05a2e4aa",
@@ -690,10 +694,10 @@
     },
     ".claude/agents/docs-writer.md": {
       "canonical_source": "canonical/agents/docs-writer/TEMPLATE.md",
-      "canonical_sha256": "15903256d7807a825f661daf4d93e16d4c1dd2e2a1a1a8c56a876ca9665eadec",
-      "deployed_sha256": "3ef51442cd126d84a37fd2c51768d1e9fbae1abf243cffea0fcf13c7a4ef592c",
+      "canonical_sha256": "7d02764f5715a9e152c1958484dc915e1e96f8d69d771f2747b8446ecfbe15b9",
+      "deployed_sha256": "f0c5b0635071557115a687a42e205b0e584898108754ab698aac93f7b80d44d8",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "updated by apply b102a291-6ae6-4a49-9e75-1f280fa3c613 (bundle b102a291): added TERMINOLOGY_REGISTRY substitution resolved to docs/Engineering Guide/Documentation/07 Terminology.md, clean render, no local customization beyond prior substitution/quoting style",
       "provider": "claude"
     },
     ".claude/agents/infra.md": {
@@ -1074,10 +1078,10 @@
     },
     ".claude/skills/design/scripts/design-metrics.mjs": {
       "canonical_source": "canonical/skills/design/scripts/design-metrics.mjs",
-      "canonical_sha256": "8fbc6dd9d2a1a0892db2a099da3ad1f3e72c9cea435217b62cab27f21f7433d6",
-      "deployed_sha256": "8fbc6dd9d2a1a0892db2a099da3ad1f3e72c9cea435217b62cab27f21f7433d6",
+      "canonical_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
+      "deployed_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
       "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "note": "updated by apply b102a291-6ae6-4a49-9e75-1f280fa3c613: finishCommand() prints {command, ticket} only, no longer the full metrics object; verbatim copy, no personalization; node --test design-metrics.test.mjs passed (10/10) against the deployed copy",
       "provider": "claude"
     },
     ".claude/skills/design/scripts/design-metrics.test.mjs": {
@@ -1402,10 +1406,10 @@
     },
     ".claude/skills/dev/scripts/timing.mjs": {
       "canonical_source": "canonical/skills/dev/scripts/timing.mjs",
-      "canonical_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
-      "deployed_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "canonical_sha256": "89e9189a8f4ddca11d19dbbf4ba817264afa59397cc743e379bef5b4c54c30aa",
+      "deployed_sha256": "89e9189a8f4ddca11d19dbbf4ba817264afa59397cc743e379bef5b4c54c30aa",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
+      "note": "updated by apply b102a291-6ae6-4a49-9e75-1f280fa3c613: finishCommand() prints {command, ticket} only, no longer the full metrics object; verbatim copy, no personalization; node --test timing.test.mjs passed (25/25) against the deployed copy",
       "provider": "claude"
     },
     ".claude/skills/dev/scripts/timing.test.mjs": {
@@ -1914,10 +1918,18 @@
     },
     "docs/Engineering Guide/Documentation/01 Principles.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
-      "canonical_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
-      "deployed_sha256": "43c7df0809950d4f39babf273163e462883f10211f0f34c9aa4965cdfc758b66",
+      "canonical_sha256": "1a0bb61a947307eda585be7a2735a6039ae564a856880dc3585030a4e7c0a9ad",
+      "deployed_sha256": "65a4b4880ef66ce7de5ea6804262ad530d7c582e4fa61f6061486c0ccd7a6c4c",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: local doc is heavily customised (What/How sections, placement images, Wiring Principle); inserted only the new Manner section and acceptance-table row, kept every local section",
+      "note": "updated by apply b102a291-6ae6-4a49-9e75-1f280fa3c613 (bundle b102a291); retained customization: local doc remains heavily customised (What/How sections, placement images, Wiring Principle); inserted only the new 'One term per concept' paragraph into the existing local Manner section, kept every local section and the prior fe0b575a retained-customization history",
+      "provider": "shared"
+    },
+    "docs/Engineering Guide/Documentation/07 Terminology.md": {
+      "canonical_source": "canonical/docs/Engineering Guide/Documentation/07 Terminology.md",
+      "canonical_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "deployed_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "rendered_base": null,
+      "note": "initial deployment by apply b102a291-6ae6-4a49-9e75-1f280fa3c613 (bundle b102a291); new file, verbatim copy, no personalization, empty registry table",
       "provider": "shared"
     },
     "docs/Engineering Guide/Documentation/02 Structure.md": {

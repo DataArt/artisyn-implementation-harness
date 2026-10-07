@@ -73,6 +73,13 @@ paragraph about "the flow".
 repeat the body, no "note that", no "it is important to". Delete the sentence; if
 nothing is lost, it was filler.
 
+**One term per concept.** Check `Documentation/07 Terminology.md` before naming a
+concept that already has an approved term there; use that term, not a synonym.
+Coining a new domain term that recurs across documents adds a row to the registry
+instead of staying implicit. This is the one constraint from ASD-STE100 (the
+aerospace controlled-language spec) worth keeping outside its own domain: consistent
+naming compounds across a growing doc set the way varied phrasing never does.
+
 A quick test before handing a doc over: read the first sentence of each section
 aloud. If it is a fact a reader can act on, the manner is right.
 

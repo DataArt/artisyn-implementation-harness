@@ -1,0 +1,28 @@
+--- a/references/launch/01c-launch-docs.md
++++ b/references/launch/01c-launch-docs.md
+@@ -5,6 +5,25 @@
+ Agents table. The orchestrator assigns each agent a non-overlapping evidence-backed
+ scope, then verifies the outputs and owns cross-component indexes and summaries.
+ 
++## D.0 — Seed the terminology registry
++
++Before D.2 starts, check `project:docs/Engineering Guide/Documentation/07 Terminology.md`. If it
++already has rows beyond the header — adoption of a project already using this
++harness — skip this step entirely; never overwrite an established registry.
++
++If it has no rows: scan the same evidence D.2 already reads — code identifiers, existing
++README/doc nouns, confirmed Q&A domain language (Q1, Q3, Q4) — for project-specific terms
++that recur and have more than one plausible name. Seed one row per term: `Term`, `Approved
++form`, `Forbidden synonyms` (leave empty if none observed yet), `Definition`, `Introduced
++in` (`launch`). Skip standard English, well-known industry terms, and one-off words —
++this is not a full glossary, only concepts at risk of drifting across the docs this launch
++is about to write. Reserve the write in `derived_outputs` per "Plan reconciliation for
++D.1–D.5 outputs" below before writing it.
++
++This seeds the registry `docs-writer` reads on every subsequent write (own INTENT); it does
++not require a separate agent dispatch — the orchestrator derives and writes this file directly,
++the same as System Overview and System Sizing in D.3.
++
+ ## D.2/D.3 — Layer/component documentation
+ 
+ Identify actual C4 containers and decompose each into cohesive implementation

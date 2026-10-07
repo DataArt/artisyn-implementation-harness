@@ -1,0 +1,30 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,27 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 2.4.0
++
++Terminology registry, and quieter metrics CLIs. Driven by two pieces of team feedback:
++wording consistency drifting across generated docs, and stats-gathering commands
++flooding the console with a full metrics dump on every call.
++
++- **Terminology registry.** New `docs/Engineering Guide/Documentation/07 Terminology.md`
++  — an approved-term table (`Term`, `Approved form`, `Forbidden synonyms`, `Definition`,
++  `Introduced in`). `01 Principles.md`'s Manner section gains "One term per concept",
++  pointing at the registry. `docs-writer` reads it via a new `{{TERMINOLOGY_REGISTRY}}`
++  substitution and appends a row whenever it coins a recurring project-specific term —
++  unconditionally, on every write, the same way it already applies Doc Principles.
++  Launch seeds an initial set from project evidence (code identifiers, README/doc nouns,
++  confirmed Q&A) the first time a project launches with an empty registry; an adoption
++  of an already-harnessed project with existing rows is left untouched.
++- **Quieter metrics CLIs.** `design-metrics.mjs`'s and `timing.mjs`'s `finishCommand()`
++  printed the entire `metrics` rollup object as JSON after every single `checkpoint`,
++  `stage start`, `wait start`, and `check record` call — nothing in either lifecycle's
++  skill references ever read that output. Trimmed to `{command, ticket}`; `stat.json`
++  persistence and the computed `metrics` rollup are unaffected.
++
+ ## 2.3.0
+ 
+ Dev skill 3.1.0: fewer approval gates, a Completion stage, honest timing, ASCII folder names.

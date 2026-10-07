@@ -1,0 +1,67 @@
+{
+  "schema_version": 2,
+  "bundle_id": "b102a291-6ae6-4a49-9e75-1f280fa3c613",
+  "mode": "apply",
+  "status": "applied",
+  "created_at": "2026-10-07T11:10:00Z",
+  "notes": "Deployed bundle b102a291 (release 2.4.0) to the claude provider, the only installed provider in this repo (no AGENTS.md, no .agents/agents, no .codex/ — .agents/skills/harness-bootstrap is this package's own discovery symlink, not a Codex install). CHANGELOG.md, SKILL.md, canonical/agents/docs-writer/INTENT.md, and references/launch/01c-launch-docs.md are canonical-only and deployed nothing permanent.",
+  "providers": ["claude"],
+  "files": [
+    {
+      "path": ".claude/agents/docs-writer.md",
+      "provider": "claude",
+      "operation": "update",
+      "canonical_before_sha256": "15903256d7807a825f661daf4d93e16d4c1dd2e2a1a1a8c56a876ca9665eadec",
+      "canonical_after_sha256": "7d02764f5715a9e152c1958484dc915e1e96f8d69d771f2747b8446ecfbe15b9",
+      "deployed_before_sha256": "3ef51442cd126d84a37fd2c51768d1e9fbae1abf243cffea0fcf13c7a4ef592c",
+      "deployed_after_sha256": "f0c5b0635071557115a687a42e205b0e584898108754ab698aac93f7b80d44d8",
+      "verification": "rendered with {{TERMINOLOGY_REGISTRY}}=docs/Engineering Guide/Documentation/07 Terminology.md added alongside existing DOC_PRINCIPLES_ARTICLE/DOC_STRUCTURE_ARTICLE substitutions; no local customization beyond prior substitution/quoting style, clean render"
+    },
+    {
+      "path": ".claude/skills/design/scripts/design-metrics.mjs",
+      "provider": "claude",
+      "operation": "update",
+      "canonical_before_sha256": "8fbc6dd9d2a1a0892db2a099da3ad1f3e72c9cea435217b62cab27f21f7433d6",
+      "canonical_after_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
+      "deployed_before_sha256": "8fbc6dd9d2a1a0892db2a099da3ad1f3e72c9cea435217b62cab27f21f7433d6",
+      "deployed_after_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
+      "verification": "verbatim copy (companion, no INTENT substitution); node --test design-metrics.test.mjs passed 10/10 against the deployed copy"
+    },
+    {
+      "path": ".claude/skills/dev/scripts/timing.mjs",
+      "provider": "claude",
+      "operation": "update",
+      "canonical_before_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "canonical_after_sha256": "89e9189a8f4ddca11d19dbbf4ba817264afa59397cc743e379bef5b4c54c30aa",
+      "deployed_before_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "deployed_after_sha256": "89e9189a8f4ddca11d19dbbf4ba817264afa59397cc743e379bef5b4c54c30aa",
+      "verification": "verbatim copy (companion, no INTENT substitution); node --test timing.test.mjs passed 25/25 against the deployed copy"
+    },
+    {
+      "path": "docs/Engineering Guide/Documentation/01 Principles.md",
+      "provider": "shared",
+      "operation": "update",
+      "canonical_before_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
+      "canonical_after_sha256": "1a0bb61a947307eda585be7a2735a6039ae564a856880dc3585030a4e7c0a9ad",
+      "deployed_before_sha256": "43c7df0809950d4f39babf273163e462883f10211f0f34c9aa4965cdfc758b66",
+      "deployed_after_sha256": "65a4b4880ef66ce7de5ea6804262ad530d7c582e4fa61f6061486c0ccd7a6c4c",
+      "verification": "retained customization preserved (What/How sections, placement images, Wiring Principle); inserted only the new 'One term per concept' paragraph into the existing local Manner section"
+    },
+    {
+      "path": "docs/Engineering Guide/Documentation/07 Terminology.md",
+      "provider": "shared",
+      "operation": "add",
+      "canonical_before_sha256": null,
+      "canonical_after_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "deployed_before_sha256": null,
+      "deployed_after_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "verification": "new file, verbatim copy, full payload hash verified"
+    }
+  ],
+  "canonical_only": [
+    "CHANGELOG.md",
+    "SKILL.md",
+    "canonical/agents/docs-writer/INTENT.md",
+    "references/launch/01c-launch-docs.md"
+  ]
+}

@@ -1,0 +1,34 @@
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -11,6 +11,21 @@
+ 
+ # Harness bootstrap
+ 
++# SKILL METADATA
++
++Owner: Anton Merkulov
++Backup Owner: None
++Team: Harness / Platform
++Created: 2026-09-15
++Last Reviewed: 2026-10-07
++Version: 2.4.0
++Purpose: Install the portable AI-dev harness, harvest project skill improvements into its canonical templates, package direct canonical edits into a portable bundle, or apply canonical updates to an existing project.
++Data Class: Internal
++External Connections: None — operates on local project files; any MCP servers it configures for other skills (e.g. Jira/Confluence, AWS) are declared per-project in the generated `.mcp.json`, not used by this skill itself
++Capabilities: Filesystem read/write scoped to the host project and this package's own directories (no access outside the repo); spawns one pinned local subprocess (`scripts/check-mermaid.mjs` renders via a configured, non-shell `spawnSync` call — no shell, no network-fetched code); may delegate single, disjoint-path stages to subagents per "Delegation safety" below. No credential handling, no network calls, and no push/deploy/commit of its own — those remain guarded commands presented to the developer to run.
++Input: A route word (`launch` / `patch harvest` / `patch prepare` / `patch apply`) plus project context gathered from the local repository
++Output: Installed or updated skill/agent/doc files under the target project, plus launch/patch reports and manifests under `package:state/`
++
+ [Process guide and diagrams](README.md)
+ 
+ The user request accompanying invocation selects the operation. This folder is the authoring source in this repository. Consumers install the released
+@@ -105,6 +120,9 @@
+ Show the proposed diff before writes; existing authorization covers clean changes.
+ Report actual outcomes and suggest a Conventional Commit. Follow the project's
+ guarded-command rules; do not push, deploy, or commit merely because patching ran.
++On a script failure (`scripts/*.mjs`), surface the failed check and the project-
++relative path it names — never a raw stack trace, a host/IP, or an absolute
++filesystem path outside the project.
+ 
+ ## Delegation safety
+ 

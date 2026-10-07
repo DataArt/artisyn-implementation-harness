@@ -904,9 +904,7 @@ function startWait() {
 function finishCommand() {
   if (noun !== 'validate') save();
   if (noun === 'report') report();
-  console.log(
-    JSON.stringify({ command: words.join(' '), ticket: data.ticket, metrics: data.metrics })
-  );
+  console.log(JSON.stringify({ command: words.join(' '), ticket: data.ticket }));
 }
 
 /** Entry point: lock, load, guard interrupted checks, dispatch, release. */

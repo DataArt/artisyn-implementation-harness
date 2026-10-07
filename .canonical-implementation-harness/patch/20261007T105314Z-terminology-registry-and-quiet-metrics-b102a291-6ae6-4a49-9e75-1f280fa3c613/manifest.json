@@ -1,0 +1,137 @@
+{
+  "schema_version": 2,
+  "id": "b102a291-6ae6-4a49-9e75-1f280fa3c613",
+  "created_at": "2026-10-07T10:53:14Z",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "Terminology registry (new 07 Terminology.md, Manner's \"one term per concept\" rule, docs-writer TERMINOLOGY_REGISTRY substitution, launch D.0 seeding step) and quieter metrics CLIs (design-metrics.mjs / timing.mjs no longer echo the full metrics object on every checkpoint/stage/wait/check call, only {command, ticket}). CHANGELOG.md gets the 2.4.0 entry and SKILL.md's Version/Last Reviewed header is bumped; SKILL.md's diff also carries forward an untracked drift (a SKILL METADATA block and a script-failure error-surfacing paragraph) added directly in a prior commit without its own checkpoint — its recorded canonical_sha256 predated that commit, and this is the first prepare run since.",
+  "package_version": "2.4.0",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "02b2454da976c82d534a895b6493fa1cb8a072890ee988dced3cc233b3ee994c",
+      "after_sha256": "858a1914ae8c4d6ccadcdb112f841a957c075b4c538c647d4429b9e8ed613cd3",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "a9791b749815de1f986b36c2cc00d781d4608dffcb592506d73f99307a4951fa",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "7b938f8fd1b9586a93a46cd7841ae03a69d3aaf95a5c7107a1f22eb79e0b1ad5",
+      "after_sha256": "35a85a75bdf1d8e5a9e0307ca81d5b5396cf32d7cedfd20142aeb7183f386ff3",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "2cc2e7454bc2cabc94c719dbbad35e7ee75c27fc206cd3eb023c0c6261af82f2",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/docs-writer/INTENT.md",
+      "old_path": null,
+      "before_sha256": "d8abb53caa5b8987cdd587e71bf1af33002c6308ba2e3dae0b5cc2d2fd2af54a",
+      "after_sha256": "ce6d27cae7bca34d69d9ce4601a6ebe2e530d10330f9a8de4e9e9570114e5fe2",
+      "payload": "diffs/canonical/agents/docs-writer/INTENT.md.patch",
+      "payload_sha256": "8fa3bad12c657f1febf8afcb31fded9b876ede7fddf6d4742f38a6b12e49e70c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/docs-writer/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "15903256d7807a825f661daf4d93e16d4c1dd2e2a1a1a8c56a876ca9665eadec",
+      "after_sha256": "7d02764f5715a9e152c1958484dc915e1e96f8d69d771f2747b8446ecfbe15b9",
+      "payload": "diffs/canonical/agents/docs-writer/TEMPLATE.md.patch",
+      "payload_sha256": "3b17a9b56b3e0cf1abf631e29b67e3195a4d13e765f943a30cbc847662cbadf0",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/docs-writer/INTENT.md",
+        "output_rule": ".claude/agents/docs-writer.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "old_path": null,
+      "before_sha256": "a924679566727723461dd9d2accd563baabb8738d674511438c2e7373c13cb32",
+      "after_sha256": "1a0bb61a947307eda585be7a2735a6039ae564a856880dc3585030a4e7c0a9ad",
+      "payload": "diffs/canonical/docs/Engineering Guide/Documentation/01 Principles.md.patch",
+      "payload_sha256": "f1b3a91921e441fb385bc9d5f55592f8bc471200e0d72441c8cb8cbf83749ce6",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Documentation/01 Principles.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/docs/Engineering Guide/Documentation/07 Terminology.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "payload": "files/canonical/docs/Engineering Guide/Documentation/07 Terminology.md",
+      "payload_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Documentation/07 Terminology.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/scripts/design-metrics.mjs",
+      "old_path": null,
+      "before_sha256": "8fbc6dd9d2a1a0892db2a099da3ad1f3e72c9cea435217b62cab27f21f7433d6",
+      "after_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
+      "payload": "diffs/canonical/skills/design/scripts/design-metrics.mjs.patch",
+      "payload_sha256": "61142fc9d40609443239c46860e48bb916f0b56f9aef7db4cd6e870bdbaa6ec3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/scripts/design-metrics.mjs",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/scripts/timing.mjs",
+      "old_path": null,
+      "before_sha256": "2563330f73cb9dcf8de1ac6d510aa8271ce7fd5236da3b3dcdbe3157cd5ecdb7",
+      "after_sha256": "89e9189a8f4ddca11d19dbbf4ba817264afa59397cc743e379bef5b4c54c30aa",
+      "payload": "diffs/canonical/skills/dev/scripts/timing.mjs.patch",
+      "payload_sha256": "987d4fc36f6db4e32fae1d0925ba56fa2c25a2f1e8c78585e626677ffc8ab923",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/scripts/timing.mjs",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01c-launch-docs.md",
+      "old_path": null,
+      "before_sha256": "addca42fc8de2b8bb74cc60c83f4f7f62438e2ce4cc0c09bc596064995bd6e1b",
+      "after_sha256": "628cfe0729c26fe4067a7492b34db8e2f563be2d33b6fc6d74aab9252ba715c3",
+      "payload": "diffs/references/launch/01c-launch-docs.md.patch",
+      "payload_sha256": "c0c40fffa1e407d39894c10abe43bfd3186ae4b3936ba197ec3075197426e43d",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}
