@@ -279,13 +279,16 @@
       "properties": {
         "id": {
           "enum": [
+            "context-gathering",
+            "ceremony",
             "frame",
             "research",
             "evaluate",
             "solution",
             "review-gate",
             "address-feedback",
-            "publish"
+            "publish",
+            "completion"
           ]
         },
         "status": {
@@ -364,13 +367,16 @@
             },
             "stage_id": {
               "enum": [
+                "context-gathering",
+                "ceremony",
                 "frame",
                 "research",
                 "evaluate",
                 "solution",
                 "review-gate",
                 "address-feedback",
-                "publish"
+                "publish",
+                "completion"
               ]
             },
             "stage_attempt_id": {
@@ -457,13 +463,16 @@
             },
             "stage_id": {
               "enum": [
+                "context-gathering",
+                "ceremony",
                 "frame",
                 "research",
                 "evaluate",
                 "solution",
                 "review-gate",
                 "address-feedback",
-                "publish"
+                "publish",
+                "completion"
               ]
             },
             "stage_attempt_id": {
@@ -549,13 +558,16 @@
         },
         "stage_id": {
           "enum": [
+            "context-gathering",
+            "ceremony",
             "frame",
             "research",
             "evaluate",
             "solution",
             "review-gate",
             "address-feedback",
-            "publish"
+            "publish",
+            "completion"
           ]
         },
         "stage_attempt_id": {

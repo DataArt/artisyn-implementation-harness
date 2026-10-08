@@ -1,0 +1,54 @@
+--- a/canonical/skills/design/templates/report.md
++++ b/canonical/skills/design/templates/report.md
+@@ -8,12 +8,12 @@
+ 
+ ## Context
+ 
+-_Resolved once in Frame. Every later phase reads these values instead of re-resolving them. Two-track deployments: see `patterns/context-resolution.md`. Single-track deployments: these are fixed values, filled in once._
++_Resolved once in Context Gathering. Every later phase reads these values instead of re-resolving them. Two-track deployments: see `patterns/context-resolution.md`. Single-track deployments: these are fixed values, filled in once._
+ 
+ ## State
+ 
+ ```yaml
+-current_stage: frame
++current_stage: context-gathering
+ completed_stages: []
+ selected_artifacts: []
+ next_action: ''
+@@ -43,11 +43,12 @@
+ 
+ ## Status
+ 
+-| Field  | Value                                                                                                                 |
+-| ------ | --------------------------------------------------------------------------------------------------------------------- |
+-| Ticket | <TICKET>                                                                                                              |
+-| Status | 🔄 In Progress                                                                                                        |
+-| Phase  | 📋 Frame 🔄 · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ |
++| Field  | Value                                                                                                                                                                               |
++| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
++| Ticket | <TICKET>                                                                                                                                                                            |
++| Branch | — _(set by Ceremony, e.g. `docs/{{PROJECT_KEY}}-XX-slug`)_                                                                                                                          |
++| Status | 🔄 In Progress                                                                                                                                                                      |
++| Phase  | 🎯 Context Gathering 🔄 · 🚀 Ceremony ⏳ · 📋 Frame ⏳ · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+ 
+ ---
+ 
+@@ -85,7 +86,8 @@
+ 
+ - Approver: —
+ - Draft MR: —
+-- Approved: —
++- Approved: — _(a date once approved, or `declined`)_
++- Decline reason: — _(filled in by Address Feedback only if declined)_
+ 
+ ---
+ 
+@@ -98,7 +100,7 @@
+ 
+ ## Implementation Tickets
+ 
+-_Filled in during Publish after implementation tickets are created._
++_Filled in during Completion after implementation tickets are created._
+ 
+ | Ticket | Summary | Tracker |
+ | ------ | ------- | ------- |

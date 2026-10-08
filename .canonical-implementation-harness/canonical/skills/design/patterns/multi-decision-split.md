@@ -10,7 +10,15 @@ Some design tickets bundle more than one independent decision under a single epi
 
 ## Detecting a multi-decision Frame
 
-While drafting `design/00 Frame.md`, check whether the Problem/Requirements imply two or more decisions that could each stand alone — each has its own option set, its own tradeoffs, and could in principle be approved or reiterated independently of the others. If so, apply this pattern from Research onward. Confirm the decision breakdown with the developer before starting Research.
+Frame (`references/03-frame.md`, Step 2) checks whether the Problem/Requirements
+imply two or more decisions that could each stand alone — each has its own
+option set, its own tradeoffs, and could in principle be approved or reiterated
+independently of the others. One decision or fewer needs no confirmation and
+no `## Decisions` section. Two or more get their own dedicated sign-off, right
+there in Step 2 — not folded into the main Frame sign-off (Step 3), and not
+deferred, reactively, until Research is already underway. From Research
+onward, every stage reads the confirmed breakdown from `design/00 Frame.md`
+and applies this pattern; none of them re-detect it.
 
 ## Default policy
 
@@ -22,7 +30,12 @@ While drafting `design/00 Frame.md`, check whether the Problem/Requirements impl
 | `solution/Architecture.md`                 | **Single, integrated file** — the converged system view, one System Context / Component Design / Flow set per decision (only where it adds value), not one file per decision |
 | `solution/Stack.md`, `solution/Efforts.md` | Single file — Efforts already spans all decisions as one WBS                                                                                                                 |
 
-Loop the Research → Evaluate → Design steps once per decision, using the same skill steps each time. Track each decision's OQs and assumptions separately in `design/Report.md`'s Assumptions table (note which decision each row belongs to).
+Loop the Research → Evaluate → Design content steps once per decision, using
+the same skill steps each time — see `references/00-decision-router.md` for
+exactly which steps loop and which close once (the stage's Sign-off → Report
+→ Commit never multiply with decision count). Track each decision's OQs and
+assumptions separately in `design/Report.md`'s Assumptions table (note which
+decision each row belongs to).
 
 ## Why
 

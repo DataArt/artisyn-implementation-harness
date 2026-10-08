@@ -1,15 +1,18 @@
-# Pattern: Session Continuity (Design)
+# Pattern: Session Continuity
 
-Applies to every design-lifecycle phase skill (`design-frame`, `design-research`, `design-evaluate`, `design-solution`, `design-review-gate`, `design-address-feedback`, `design-publish`).
+Fresh vs. resume is decided once, by the Resume Detection step in
+`.claude/skills/design/SKILL.md`. This pattern only covers losing
+context mid-stage (compaction, a new session picking up an active stage).
 
-## On entry (top of each skill)
+When that happens:
 
-> 🔁 **Session continuity:** If this skill is resuming after context compaction, re-read this full SKILL.md before doing anything. The per-step protocol is non-negotiable and must be followed even if the `/design` orchestrator is no longer in context.
+1. Re-read the current stage reference in full. Its per-step protocol still
+   applies even if `design/SKILL.md` is no longer in context.
+2. Run metrics `recover --dir "$DESIGN_DIR"` before recording anything new.
+3. Read `design/Report.md` to see what is already done. Do not redo completed
+   steps, do not re-ask a sign-off that was already given, and keep existing
+   authorisation.
 
-## On exit (end of each skill)
-
-When this phase is complete, re-read `.claude/skills/design/SKILL.md` and resume the orchestrator from the next phase. This makes the agent self-healing after compaction — the developer does not need to re-invoke `/design` manually.
-
-## Why
-
-Design sessions span multiple phases across multiple sessions. After context compaction, the `/design` orchestrator falls out of active context. Without an explicit re-read instruction, the agent correctly completes the current phase but loses the phase handoff protocol — it stops prompting for the next phase and no longer follows the stop-and-confirm rhythm between phases.
+On exit, for a full-chain request re-read `.claude/skills/design/SKILL.md`
+and continue from the next stage. For direct-stage entry, return the result and
+stop.

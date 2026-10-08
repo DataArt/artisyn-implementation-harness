@@ -1,0 +1,77 @@
+--- a/canonical/skills/design/scripts/design-metrics.mjs
++++ b/canonical/skills/design/scripts/design-metrics.mjs
+@@ -443,7 +443,11 @@
+   if (trigger !== 'initial') {
+     data.design_revision++;
+     const publish = data.stages.find((s) => s.id === 'publish');
+-    if (unit.id !== 'publish' && publish.status === 'completed') publish.status = 'pending';
++    const completion = data.stages.find((s) => s.id === 'completion');
++    if (unit.id !== 'publish' && unit.id !== 'completion' && publish.status === 'completed') {
++      publish.status = 'pending';
++      if (completion.status === 'completed') completion.status = 'pending';
++    }
+   }
+   data.started_at ??= now;
+   data.completed_at = null;
+@@ -651,13 +655,38 @@
+   interval('work', o.activity ?? ACTIVITIES_BY_STAGE[unit.id], now);
+ }
+ 
+-/**
+- * Complete a stage; repeating a completion is a no-op. Publish additionally
++/** Stages whose sign-off is a phase-sign-off.md stop, not the MR-approval fact. */
++const SIGN_OFF_GATED_STAGES = new Set([
++  'context-gathering',
++  'ceremony',
++  'frame',
++  'research',
++  'evaluate',
++  'solution',
++  'publish',
++  'completion',
++]);
++
++/**
++ * Complete a stage; repeating a completion is a no-op. Review Gate and
++ * Address Feedback are the MR-approval fact, not a phase sign-off, so they
++ * are exempt from the "<Stage> sign-off" check. Publish additionally
+  * requires current-revision approval.
+  */
+ function completeStage(unit, now) {
+   if (unit.status === 'completed') return;
+   need(['active', 'waiting'].includes(unit.status), 'Stage has not started');
++  if (SIGN_OFF_GATED_STAGES.has(unit.id))
++    need(
++      data.checks.some(
++        (c) =>
++          c.stage_attempt_id === last(unit).id &&
++          c.kind === 'acceptance' &&
++          c.result === 'passed' &&
++          /sign-off$/i.test(c.name)
++      ),
++      `Stage ${unit.id} needs a passed "<Stage> sign-off" acceptance check in this attempt (record the developer's reply first)`
++    );
+   if (unit.id === 'publish') need(designApproved(), 'Publish requires recorded Design approval');
+   close(now);
+   unit.status = 'completed';
+@@ -704,7 +733,20 @@
+     return;
+   }
+   data = JSON.parse(fs.readFileSync(file, 'utf8'));
++  migrateStages(data);
+   validate(data);
++}
++
++/**
++ * Forward-migrate a document written before a lifecycle stage existed: append
++ * the missing stage as pending, in lifecycle order. Nothing recorded is changed.
++ */
++function migrateStages(d) {
++  if (!Array.isArray(d.stages)) return;
++  const present = new Set(d.stages.map((s) => s.id));
++  for (const id of STAGES)
++    if (!present.has(id)) d.stages.push({ id, status: 'pending', attempts: [] });
++  d.stages.sort((a, b) => STAGES.indexOf(a.id) - STAGES.indexOf(b.id));
+ }
+ 
+ /** Move the open interval's checkpoint; a no-op when nothing is open. */

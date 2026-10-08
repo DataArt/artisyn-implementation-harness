@@ -8,12 +8,12 @@ type: reference
 
 ## Context
 
-_Resolved once in Frame. Every later phase reads these values instead of re-resolving them. Two-track deployment: see `patterns/context-resolution.md`._
+_Resolved once in Context Gathering. Every later phase reads these values instead of re-resolving them. Two-track deployments: see `patterns/context-resolution.md`. Single-track deployments: these are fixed values, filled in once._
 
 ## State
 
 ```yaml
-current_stage: frame
+current_stage: context-gathering
 completed_stages: []
 selected_artifacts: []
 next_action: ''
@@ -32,22 +32,23 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 Record every required or relevant context source actually read. Add conflicts and
 their resolution here; do not rely on conversation history for design provenance.
 
-| Field               | Value                                                                                  |
-| ------------------- | -------------------------------------------------------------------------------------- |
-| Track               | <Product / Project>                                                                    |
-| Source docs         | <{source docs}>                                                                        |
-| Dest docs           | <{dest docs}>                                                                          |
-| Subfolder           | <resolved subfolder/section>                                                           |
-| Architect agent     | <{resolved architect agent}>                                                           |
-| Implementation note | <resolved implementation note — where the resulting tickets are typically implemented> |
+| Field               | Value                                                                                                  |
+| ------------------- | ------------------------------------------------------------------------------------------------------ |
+| Track               | <Product / Project — Two-track only; omit this row for single-track deployments>                       |
+| Source docs         | <{source docs}>                                                                                 |
+| Dest docs           | <{dest docs}{subfolder}>                                                                      |
+| Subfolder           | <resolved subfolder/section>                                                                           |
+| Architect agent     | <{resolved architect agent}>                                                                           |
+| Implementation note | <resolved implementation note — where the resulting tickets are typically implemented; Two-track only> |
 
 ## Status
 
-| Field  | Value                                                                                                                 |
-| ------ | --------------------------------------------------------------------------------------------------------------------- |
-| Ticket | <TICKET>                                                                                                              |
-| Status | 🔄 In Progress                                                                                                        |
-| Phase  | 📋 Frame 🔄 · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ |
+| Field  | Value                                                                                                                                                                               |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ticket | <TICKET>                                                                                                                                                                            |
+| Branch | — _(set by Ceremony, e.g. `docs/ND-XX-slug`)_                                                                                                                          |
+| Status | 🔄 In Progress                                                                                                                                                                      |
+| Phase  | 🎯 Context Gathering 🔄 · 🚀 Ceremony ⏳ · 📋 Frame ⏳ · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -85,7 +86,8 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 - Approver: —
 - Draft MR: —
-- Approved: —
+- Approved: — _(a date once approved, or `declined`)_
+- Decline reason: — _(filled in by Address Feedback only if declined)_
 
 ---
 
@@ -98,7 +100,7 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Implementation Tickets
 
-_Filled in during Publish after implementation tickets are created._
+_Filled in during Completion after implementation tickets are created._
 
 | Ticket | Summary | Tracker |
 | ------ | ------- | ------- |

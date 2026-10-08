@@ -1,0 +1,24 @@
+--- a/canonical/skills/design/patterns/waf-review.md
++++ b/canonical/skills/design/patterns/waf-review.md
+@@ -64,11 +64,20 @@
+ 
+ ## Step 3 — Present findings
+ 
+-Present the full assessment in the console. Say:
++Present the full assessment in the console.
++
++**Default (no caller instruction says otherwise):** this is a sign-off gate
++(`patterns/approval-sign-off.md`). Say:
+ 
+ > "Review complete. Any corrections before I append to `design/Report.md`? (**yes** to save / **no** to discuss)"
+ 
+ **Stop and wait.** Apply corrections if requested.
++
++**When the calling stage reference explicitly says not to stop here** (it
++folds P1/failing findings into its own phase sign-off instead) — continue
++straight to Step 4 without presenting or asking. The findings and any P1
++items are the calling reference's responsibility to carry forward and name as
++a decision at its own sign-off; this pattern never silently drops them.
+ 
+ ## Step 4 — Append to Report.md
+ 

@@ -2,16 +2,16 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "858a1914ae8c4d6ccadcdb112f841a957c075b4c538c647d4429b9e8ed613cd3",
-      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
+      "recorded_sha256": "bd5d7424ec29fb87edc6521a7aa4450df212a02e6a404b83a84de02fa5f5f9d6",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "README.md": {
       "recorded_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "SKILL.md": {
-      "recorded_sha256": "35a85a75bdf1d8e5a9e0307ca81d5b5396cf32d7cedfd20142aeb7183f386ff3",
-      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
+      "recorded_sha256": "db8cfc05fc993769c8ce7045aadbadefb655d245163a002262429ef1749dc16a",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/adaptors/claude/browser.md": {
       "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
@@ -182,8 +182,8 @@
       "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md": {
-      "recorded_sha256": "d8a9fcbe6c0c5e9f19555e97647469041dc4b441b832aa455a922eacf3649ccc",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "a71a72e49f5042201fcfdb27e63a952a87a0b977838bfefa43f96c3ca21324a2",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md": {
       "recorded_sha256": "78123cd95a946e006ed90b0456de1c2bfc45df51b3c1b6b44c5ca449acd7c8b8",
@@ -210,12 +210,12 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/design/INTENT.md": {
-      "recorded_sha256": "06b703f24bcc46937cd2c2226e24359d5a13d0b0fb08177f07a642b1ed7e8019",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "32fa3251285d0421ac2c2671c17292f0e71f25d33a29aeab6c58d9bbeb301896",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/TEMPLATE.md": {
-      "recorded_sha256": "ece4ffa8c95da20f7686450ae0c604239a14424a11dceb93f46556c116cabb50",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "df47dce16cf1fbfac1965d3313254a19226ff0ee615c77a7d6e365f4772c35d8",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/interfaces/architecture.md": {
       "recorded_sha256": "9cf39916c24401ca61d5f64193e79c5dc9b26c3a2065845139a8221bb7ffbb1e",
@@ -238,116 +238,84 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/design/patterns/announce-progress.md": {
-      "recorded_sha256": "370b601cec68a9944a23977533cacb0d2c8667e334463914e5830fcdc2ed4721",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "819c43f4db20b0c78441f62c5bfba3bba74ee7da1b5880714cbb3bbb9a16041f",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/approval-intelligent.md": {
       "recorded_sha256": "ea4c59c138ba2ee3948f6d5886ec2c6ea6831461b8f9fd487ebe2e4ea319d7c2",
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/design/patterns/approval-sign-off.md": {
-      "recorded_sha256": "e8d88a443281da885b48c327ceda3b74541d88332c117723aec3387ea71277a0",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
-    },
-    "canonical/skills/design/patterns/compact-between-phases.md": {
-      "recorded_sha256": "f6ad0cc775bc1ad8b0e6a0922b9a80e28e6ca9d58cf6f6e84502d38a6902d704",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "de76f10d1317bff44b46d44b2e3e025ef35208b0a49e335a760925f9570f75e8",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/context-resolution.md": {
-      "recorded_sha256": "39b58821a98fc93f80d5478a56443fbe47e282885f98ac8dd258bd6a443bab75",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "cdd4cc4c38d71feffde7860b6cee79607bbdc566d883d2ead647c709a22813d1",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/design-architect-review.md": {
       "recorded_sha256": "5e7ffaee983df3c5a0159095f0f1d5831ee158d7f3e99340fd97d943a347da85",
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/design/patterns/design-oq-triage.md": {
-      "recorded_sha256": "d37ec3ffbfdbfd7d9b88b5e7ed29e134308a9ed71dcb5da539532271e7215e33",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "64334c6ad7b6efc1c551bd6ba7971239dde822c3d6ac1730fd60195ec7b3fbf4",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/design-quality-gate.md": {
       "recorded_sha256": "6adf8720c8deae6306f8a88d61f728ebf01b25e5dd0346745ca957ed99c4bcb6",
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/design/patterns/do-report-commit.md": {
-      "recorded_sha256": "85c64b56316e2ba4df9ae4e160cc975b4d76becbe40e42cc57dedf348862a0d9",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "d23350185d655d0669a3ce9ff2e89471d946d3bd498403094f6a2c1816cda51e",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/docs-writer-authoring.md": {
       "recorded_sha256": "0a95ffb63c91ef7e585e301c04468ae0a6e283e9fc9388cda026aa0b93eb991d",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/design/patterns/metrics.md": {
-      "recorded_sha256": "a5363f47d9e210fd4293ff07131d6fc57ee3ef53bb67fad39404e03586bf0174",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "ae9b4917d39de22c602a5fb524229fb8ee7765b621beff9404d4ac8b9ba7d223",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/multi-decision-split.md": {
-      "recorded_sha256": "69b6c9efb39b41c0f9515cb565b32ad5a28719db0df541b823d6af2d38ee719b",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "8803026c8128f9c4e39d3ef61b12201fecc45f8db2404b1d5d45e23bd3101bf7",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/satellite-review.md": {
       "recorded_sha256": "192d649bbb95d86a75a52b1233b2abcb84feaac27231d7b29cb1eecfc1b28bc8",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/design/patterns/session-continuity.md": {
-      "recorded_sha256": "60774609be6a944042edad7b8deb2ab0eb9cc585f1cadaed892bd1b0c7afa738",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "3a34bf72b14deb042f8c21aa618ac7a8817bd545b8caa22e2845eede9356a4b2",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/task-tracking.md": {
       "recorded_sha256": "db66a16369ebbcb890bd0e3c96403e96cdd5e8f9eede5a2346e307c7cc932f98",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/design/patterns/waf-review.md": {
-      "recorded_sha256": "00fa05925098ab95c4ba3e520f1697be61ba456e5c171abf35c4fb89821a5fa1",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "74e6385968887ea973fd97f1802ce7ea1535f88478665ee62e24bd184b7feb95",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/patterns/write-confirm.md": {
-      "recorded_sha256": "d69e33fed79e8f67c1cc5e06ac9455489b0b22f774c41024c958417518293e26",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "07fb32e905308834eef6c1eff84bb07543831ed28c935b4576b1745f263ee09b",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/00-router.md": {
-      "recorded_sha256": "a13ec410fd0fc3972a555e115c2aa6463042a0adb72c47e3d47eebf6134305e9",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
-    },
-    "canonical/skills/design/references/01-frame.md": {
-      "recorded_sha256": "ad5d217045b2cc7e818e118f9962d28d58f47a1337621f3510319ed2b63b0332",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/skills/design/references/02-research.md": {
-      "recorded_sha256": "ed48f92b82af0bc2409cd16007ca80fbe9a1f4cbf653d0f9260c272f853f69a4",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/skills/design/references/03-evaluate.md": {
-      "recorded_sha256": "657a3112f2a44296f9235943f3819b486da3f72320b85b631719123c68d45042",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/skills/design/references/04-solution.md": {
-      "recorded_sha256": "ac357a6bc93a8a5137cdaa259a4402af6b6c0c1f5a15e7581e8acc50182ecd25",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/skills/design/references/05-review-gate.md": {
-      "recorded_sha256": "faf8c8e17dcb06fa835cd7138f34fc7ef3289c429bd4e578177b2e2748f2f3bc",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/skills/design/references/06-address-feedback.md": {
-      "recorded_sha256": "037cc19db9fed9ff824ed80b544acd0dd9e263617a4e0aef80e4e29fbfcf4e94",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
-    },
-    "canonical/skills/design/references/07-publish.md": {
-      "recorded_sha256": "e1f6873229482e41453019352b9f54338ff81b3c5f0a88bafa6d2215147313c2",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "e5417dcd8ed02f1ecfde783e2e6fd82d268fbb93d94f9f3f44cc359af01ec963",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/scripts/constants.mjs": {
-      "recorded_sha256": "efe1b47bc54e9666031cf0bc1841054a346324c9cb9bc56f632e6553a01fe81c",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "72590a7f39e6220c2b73193b27d2cb80243231a39de1fce1ea726ca3491218c1",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/scripts/design-metrics.mjs": {
-      "recorded_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
-      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
+      "recorded_sha256": "bf96d175cd80b78fa8d3ee1a2c5258728f9eceba4093e8f091e7ef4cf6eb21e8",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/scripts/design-metrics.test.mjs": {
-      "recorded_sha256": "16181c2b569d872292cc120a5a9249d95ba4bb468da8dc5ce00f6a6082ac4436",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "b79723e615f37780a8cacd2c76bb34fa160500557e0a5397a5b7b628ab1722ca",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/scripts/utils.mjs": {
       "recorded_sha256": "a28b2b3af72be3cc1e7f99c2a3a20eac01e4286ff8c1ea7358354f78dda9edc6",
@@ -358,24 +326,24 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/design/templates/frame.md": {
-      "recorded_sha256": "9a91a8f9ee58f3e740e957e99281a2c1583dcd0e0ef716bb08dd50d0364f1d35",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "107a6208a2901fc427d12bb0a2269392bfc7eaf63227be28e2da010d624d3b88",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/templates/report.md": {
-      "recorded_sha256": "fb36289f29266e3ad57b677f5feb4d33f2174cbf16ea9c76fe928d7986685705",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "383398f2a3cd5d1857b1a7a5ee05bcc9076706ad785d234c90b7401248c34cba",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/templates/research.md": {
       "recorded_sha256": "984bdc3e2fb23aaa4eccec2b2c7605e18f27bdb452b42419947c8bbade013fa7",
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/skills/design/templates/stat.json": {
-      "recorded_sha256": "83a15e0b7d3df2db42c8d715523ce1c6803b49f0d6dc4abd6a7274998c7d216d",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "6cd313b973821ab16034c9c5f8d9b27069a2cbb802ceaff20b470865742826d1",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/templates/stat.schema.json": {
-      "recorded_sha256": "d68e7234a103ea239da6dd05e3ad1562ce041c67a1c1059fb9477d102161e24b",
-      "snapshot": "git:HEAD (unchanged by this bundle)"
+      "recorded_sha256": "9a1b35ef6ae295b32ba7f309475439f1710ef32d9a9eca2e829b62234444b4e6",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/dev/INTENT.md": {
       "recorded_sha256": "27a6b227f09bed28788c0c201607008107b0bb2792f9bc9d5721c5997414acfa",
@@ -438,8 +406,8 @@
       "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/01-context-gathering.md": {
-      "recorded_sha256": "156ac91ede1b920e73ecd8403d3ab8c3b82735d72402c6349da0ff05348997d0",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "8091a0b4566c50f1f955842f843a75b66904edc807a544e9fde06d88893b0fa1",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/dev/references/02-ceremony.md": {
       "recorded_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
@@ -673,6 +641,54 @@
     "reports/report.template.md": {
       "recorded_sha256": "63e901059b9f67d89c88a489e0c01c23ebc3520427da0e63701802dbe8c0af74",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+    },
+    "canonical/skills/design/patterns/phase-sign-off.md": {
+      "recorded_sha256": "ed166e1c68164889d748f1e4af2ea9fd08d3099338b7315800353ab81bfb654f",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/00-decision-router.md": {
+      "recorded_sha256": "9d71026318e69eb5821dfb5d3115e89973a42faed969459b4dba05bdf3afa61e",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/01-context-gathering.md": {
+      "recorded_sha256": "b7659885ec84f1839c467da12d0d1c032389d1a691cac2b5c39c734d867d4431",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/02-ceremony.md": {
+      "recorded_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/03-frame.md": {
+      "recorded_sha256": "cbbea6e3a8452d72bcc692b43b80dd8eac6e78e56119e04a27cf1c7e8ac2b63f",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/04-research.md": {
+      "recorded_sha256": "80d8423abea8a79638c49f94e0decb9104df4c71c0e08f103b0c413db8fb07fc",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/05-evaluate.md": {
+      "recorded_sha256": "86bf412561ca3642aa997e0e5dd2e49befed2a08e38d16fd8ca42e5803536b5d",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/06-solution.md": {
+      "recorded_sha256": "9718d155e8a17a86692a8462cfc1a275902c5060be0345dfcefa5fab4335c857",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/07-review-gate.md": {
+      "recorded_sha256": "8a9abd37b9efc5003f3157f80cf65490080f06a69b0f3dca4e5a9df838525f5c",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/08-address-feedback.md": {
+      "recorded_sha256": "1b2438ad80a2e456b2f3e471d202f9df857875bca3e23431e5bc54c87ba6f75a",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/09-publish.md": {
+      "recorded_sha256": "68ea40c71ab7dc0ef4aacfc41b1e7177bebd4cd09c94286259cba6a4b6593ca2",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+    },
+    "canonical/skills/design/references/10-completion.md": {
+      "recorded_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
+      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     }
   },
   "mappings": {
@@ -758,10 +774,10 @@
     },
     ".claude/skills/design/SKILL.md": {
       "canonical_source": "canonical/skills/design/TEMPLATE.md",
-      "canonical_sha256": "ece4ffa8c95da20f7686450ae0c604239a14424a11dceb93f46556c116cabb50",
-      "deployed_sha256": "6f94ed83dd3338fe75365ab6cb8cab272ae6e2208f20674c0bb6647383c8957a",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "df47dce16cf1fbfac1965d3313254a19226ff0ee615c77a7d6e365f4772c35d8",
+      "deployed_sha256": "01fcb1621a255b03f46e154daa860cfbd1d800c481ee7abb7179a190c99da40a",
+      "rendered_base": "01fcb1621a255b03f46e154daa860cfbd1d800c481ee7abb7179a190c99da40a",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/interfaces/architecture.md": {
@@ -806,10 +822,10 @@
     },
     ".claude/skills/design/patterns/announce-progress.md": {
       "canonical_source": "canonical/skills/design/patterns/announce-progress.md",
-      "canonical_sha256": "370b601cec68a9944a23977533cacb0d2c8667e334463914e5830fcdc2ed4721",
-      "deployed_sha256": "370b601cec68a9944a23977533cacb0d2c8667e334463914e5830fcdc2ed4721",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "819c43f4db20b0c78441f62c5bfba3bba74ee7da1b5880714cbb3bbb9a16041f",
+      "deployed_sha256": "819c43f4db20b0c78441f62c5bfba3bba74ee7da1b5880714cbb3bbb9a16041f",
+      "rendered_base": "819c43f4db20b0c78441f62c5bfba3bba74ee7da1b5880714cbb3bbb9a16041f",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/approval-intelligent.md": {
@@ -822,26 +838,18 @@
     },
     ".claude/skills/design/patterns/approval-sign-off.md": {
       "canonical_source": "canonical/skills/design/patterns/approval-sign-off.md",
-      "canonical_sha256": "e8d88a443281da885b48c327ceda3b74541d88332c117723aec3387ea71277a0",
-      "deployed_sha256": "e8d88a443281da885b48c327ceda3b74541d88332c117723aec3387ea71277a0",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/patterns/compact-between-phases.md": {
-      "canonical_source": "canonical/skills/design/patterns/compact-between-phases.md",
-      "canonical_sha256": "f6ad0cc775bc1ad8b0e6a0922b9a80e28e6ca9d58cf6f6e84502d38a6902d704",
-      "deployed_sha256": "ea364c2746a750fcf69b03a0f562e168adb77e6da027a9cdb9a26cc69d7d6abf",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "de76f10d1317bff44b46d44b2e3e025ef35208b0a49e335a760925f9570f75e8",
+      "deployed_sha256": "de76f10d1317bff44b46d44b2e3e025ef35208b0a49e335a760925f9570f75e8",
+      "rendered_base": "de76f10d1317bff44b46d44b2e3e025ef35208b0a49e335a760925f9570f75e8",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/context-resolution.md": {
       "canonical_source": "canonical/skills/design/patterns/context-resolution.md",
-      "canonical_sha256": "39b58821a98fc93f80d5478a56443fbe47e282885f98ac8dd258bd6a443bab75",
-      "deployed_sha256": "f92568622a00b2511a5ca0bb163b33173bb40e423ba65919747be6d425af12d0",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "cdd4cc4c38d71feffde7860b6cee79607bbdc566d883d2ead647c709a22813d1",
+      "deployed_sha256": "36c7c68dfe95438a5e00e81716e7689b9106237aa53f282b3445eaaa11ed66a1",
+      "rendered_base": "36c7c68dfe95438a5e00e81716e7689b9106237aa53f282b3445eaaa11ed66a1",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/design-architect-review.md": {
@@ -854,10 +862,10 @@
     },
     ".claude/skills/design/patterns/design-oq-triage.md": {
       "canonical_source": "canonical/skills/design/patterns/design-oq-triage.md",
-      "canonical_sha256": "d37ec3ffbfdbfd7d9b88b5e7ed29e134308a9ed71dcb5da539532271e7215e33",
-      "deployed_sha256": "d37ec3ffbfdbfd7d9b88b5e7ed29e134308a9ed71dcb5da539532271e7215e33",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "64334c6ad7b6efc1c551bd6ba7971239dde822c3d6ac1730fd60195ec7b3fbf4",
+      "deployed_sha256": "64334c6ad7b6efc1c551bd6ba7971239dde822c3d6ac1730fd60195ec7b3fbf4",
+      "rendered_base": "64334c6ad7b6efc1c551bd6ba7971239dde822c3d6ac1730fd60195ec7b3fbf4",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/design-quality-gate.md": {
@@ -870,10 +878,10 @@
     },
     ".claude/skills/design/patterns/do-report-commit.md": {
       "canonical_source": "canonical/skills/design/patterns/do-report-commit.md",
-      "canonical_sha256": "85c64b56316e2ba4df9ae4e160cc975b4d76becbe40e42cc57dedf348862a0d9",
-      "deployed_sha256": "85c64b56316e2ba4df9ae4e160cc975b4d76becbe40e42cc57dedf348862a0d9",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "d23350185d655d0669a3ce9ff2e89471d946d3bd498403094f6a2c1816cda51e",
+      "deployed_sha256": "d23350185d655d0669a3ce9ff2e89471d946d3bd498403094f6a2c1816cda51e",
+      "rendered_base": "d23350185d655d0669a3ce9ff2e89471d946d3bd498403094f6a2c1816cda51e",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/docs-writer-authoring.md": {
@@ -886,18 +894,18 @@
     },
     ".claude/skills/design/patterns/metrics.md": {
       "canonical_source": "canonical/skills/design/patterns/metrics.md",
-      "canonical_sha256": "a5363f47d9e210fd4293ff07131d6fc57ee3ef53bb67fad39404e03586bf0174",
-      "deployed_sha256": "c1d55055f9989b6bea86eb9e8bba2a9849b1638f0b93f6d108b0069f87beb0a5",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "ae9b4917d39de22c602a5fb524229fb8ee7765b621beff9404d4ac8b9ba7d223",
+      "deployed_sha256": "8b81c276a3c7af643af79e00cee1554216b7bc1b0d9edeb09d1e07f93a5dea73",
+      "rendered_base": "8b81c276a3c7af643af79e00cee1554216b7bc1b0d9edeb09d1e07f93a5dea73",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/multi-decision-split.md": {
       "canonical_source": "canonical/skills/design/patterns/multi-decision-split.md",
-      "canonical_sha256": "69b6c9efb39b41c0f9515cb565b32ad5a28719db0df541b823d6af2d38ee719b",
-      "deployed_sha256": "69b6c9efb39b41c0f9515cb565b32ad5a28719db0df541b823d6af2d38ee719b",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "8803026c8128f9c4e39d3ef61b12201fecc45f8db2404b1d5d45e23bd3101bf7",
+      "deployed_sha256": "8803026c8128f9c4e39d3ef61b12201fecc45f8db2404b1d5d45e23bd3101bf7",
+      "rendered_base": "8803026c8128f9c4e39d3ef61b12201fecc45f8db2404b1d5d45e23bd3101bf7",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/satellite-review.md": {
@@ -910,10 +918,10 @@
     },
     ".claude/skills/design/patterns/session-continuity.md": {
       "canonical_source": "canonical/skills/design/patterns/session-continuity.md",
-      "canonical_sha256": "60774609be6a944042edad7b8deb2ab0eb9cc585f1cadaed892bd1b0c7afa738",
-      "deployed_sha256": "b2506ce78ea44bfd3d131ddcf4a037a4b5685205b4b30597d712de14eb2152f8",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "3a34bf72b14deb042f8c21aa618ac7a8817bd545b8caa22e2845eede9356a4b2",
+      "deployed_sha256": "36bbc3e8733a23b495d888d2f9a6636e0ca933f75fd6881ec36c8ef61c0e5468",
+      "rendered_base": "36bbc3e8733a23b495d888d2f9a6636e0ca933f75fd6881ec36c8ef61c0e5468",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/task-tracking.md": {
@@ -926,82 +934,26 @@
     },
     ".claude/skills/design/patterns/waf-review.md": {
       "canonical_source": "canonical/skills/design/patterns/waf-review.md",
-      "canonical_sha256": "00fa05925098ab95c4ba3e520f1697be61ba456e5c171abf35c4fb89821a5fa1",
-      "deployed_sha256": "8c46e7e55804af091480e4a4ee306ce6ab3a4008875d5691ae8557d5ea0c0dfb",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "74e6385968887ea973fd97f1802ce7ea1535f88478665ee62e24bd184b7feb95",
+      "deployed_sha256": "d86ceea88816176e4e40132403b3f1a8ff2596693fd2676cba7358d871c92c77",
+      "rendered_base": "d86ceea88816176e4e40132403b3f1a8ff2596693fd2676cba7358d871c92c77",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/patterns/write-confirm.md": {
       "canonical_source": "canonical/skills/design/patterns/write-confirm.md",
-      "canonical_sha256": "d69e33fed79e8f67c1cc5e06ac9455489b0b22f774c41024c958417518293e26",
-      "deployed_sha256": "d69e33fed79e8f67c1cc5e06ac9455489b0b22f774c41024c958417518293e26",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "07fb32e905308834eef6c1eff84bb07543831ed28c935b4576b1745f263ee09b",
+      "deployed_sha256": "07fb32e905308834eef6c1eff84bb07543831ed28c935b4576b1745f263ee09b",
+      "rendered_base": "07fb32e905308834eef6c1eff84bb07543831ed28c935b4576b1745f263ee09b",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/references/00-router.md": {
       "canonical_source": "canonical/skills/design/references/00-router.md",
-      "canonical_sha256": "a13ec410fd0fc3972a555e115c2aa6463042a0adb72c47e3d47eebf6134305e9",
-      "deployed_sha256": "8199d89077d997e886e7281ef7c614b4fdce262b8a10a1541de62bcf61250548",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/references/01-frame.md": {
-      "canonical_source": "canonical/skills/design/references/01-frame.md",
-      "canonical_sha256": "ad5d217045b2cc7e818e118f9962d28d58f47a1337621f3510319ed2b63b0332",
-      "deployed_sha256": "2e2e9cdb889e5ea10f98400aa9ec8ca917e2c0f07f546fc25a1d3d844cd4a401",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/references/02-research.md": {
-      "canonical_source": "canonical/skills/design/references/02-research.md",
-      "canonical_sha256": "ed48f92b82af0bc2409cd16007ca80fbe9a1f4cbf653d0f9260c272f853f69a4",
-      "deployed_sha256": "763d84cb1ef6ead1e9fdf611903fd9c4b2568e8d57f536e45138fa9c52afaff8",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/references/03-evaluate.md": {
-      "canonical_source": "canonical/skills/design/references/03-evaluate.md",
-      "canonical_sha256": "657a3112f2a44296f9235943f3819b486da3f72320b85b631719123c68d45042",
-      "deployed_sha256": "411bc16e1aef3dcd46312bcc67143deedcbe7a8b2761c978010bd9a83cb13cde",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/references/04-solution.md": {
-      "canonical_source": "canonical/skills/design/references/04-solution.md",
-      "canonical_sha256": "ac357a6bc93a8a5137cdaa259a4402af6b6c0c1f5a15e7581e8acc50182ecd25",
-      "deployed_sha256": "f1fd4dc682c680b5655d4b70278b756a79c67613f205b35c421cb85af23d1cf0",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/references/05-review-gate.md": {
-      "canonical_source": "canonical/skills/design/references/05-review-gate.md",
-      "canonical_sha256": "faf8c8e17dcb06fa835cd7138f34fc7ef3289c429bd4e578177b2e2748f2f3bc",
-      "deployed_sha256": "b3adbd5a8398ad19a9ed77fdd8f82e0cc50ff307731ae96faf0e1bf5f0b0e95f",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/references/06-address-feedback.md": {
-      "canonical_source": "canonical/skills/design/references/06-address-feedback.md",
-      "canonical_sha256": "037cc19db9fed9ff824ed80b544acd0dd9e263617a4e0aef80e4e29fbfcf4e94",
-      "deployed_sha256": "de5843ea9155eea0e6c93fa78b76d3c2298eea848b707dc540f1582c37986dc6",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
-    },
-    ".claude/skills/design/references/07-publish.md": {
-      "canonical_source": "canonical/skills/design/references/07-publish.md",
-      "canonical_sha256": "e1f6873229482e41453019352b9f54338ff81b3c5f0a88bafa6d2215147313c2",
-      "deployed_sha256": "c1e5232cfed8acb8a262044e4047e82126c2de6797a003a25e71fe45f0f403ca",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "e5417dcd8ed02f1ecfde783e2e6fd82d268fbb93d94f9f3f44cc359af01ec963",
+      "deployed_sha256": "d95c1aebd30e84d7eb3dbe37e83726a736c1af2c9b7c22152919d2bc86b7d825",
+      "rendered_base": "d95c1aebd30e84d7eb3dbe37e83726a736c1af2c9b7c22152919d2bc86b7d825",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/runtime/browser.md": {
@@ -1070,26 +1022,26 @@
     },
     ".claude/skills/design/scripts/constants.mjs": {
       "canonical_source": "canonical/skills/design/scripts/constants.mjs",
-      "canonical_sha256": "efe1b47bc54e9666031cf0bc1841054a346324c9cb9bc56f632e6553a01fe81c",
-      "deployed_sha256": "efe1b47bc54e9666031cf0bc1841054a346324c9cb9bc56f632e6553a01fe81c",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "72590a7f39e6220c2b73193b27d2cb80243231a39de1fce1ea726ca3491218c1",
+      "deployed_sha256": "72590a7f39e6220c2b73193b27d2cb80243231a39de1fce1ea726ca3491218c1",
+      "rendered_base": "72590a7f39e6220c2b73193b27d2cb80243231a39de1fce1ea726ca3491218c1",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/scripts/design-metrics.mjs": {
       "canonical_source": "canonical/skills/design/scripts/design-metrics.mjs",
-      "canonical_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
-      "deployed_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
-      "rendered_base": null,
-      "note": "updated by apply b102a291-6ae6-4a49-9e75-1f280fa3c613: finishCommand() prints {command, ticket} only, no longer the full metrics object; verbatim copy, no personalization; node --test design-metrics.test.mjs passed (10/10) against the deployed copy",
+      "canonical_sha256": "bf96d175cd80b78fa8d3ee1a2c5258728f9eceba4093e8f091e7ef4cf6eb21e8",
+      "deployed_sha256": "bf96d175cd80b78fa8d3ee1a2c5258728f9eceba4093e8f091e7ef4cf6eb21e8",
+      "rendered_base": "bf96d175cd80b78fa8d3ee1a2c5258728f9eceba4093e8f091e7ef4cf6eb21e8",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/scripts/design-metrics.test.mjs": {
       "canonical_source": "canonical/skills/design/scripts/design-metrics.test.mjs",
-      "canonical_sha256": "16181c2b569d872292cc120a5a9249d95ba4bb468da8dc5ce00f6a6082ac4436",
-      "deployed_sha256": "16181c2b569d872292cc120a5a9249d95ba4bb468da8dc5ce00f6a6082ac4436",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "b79723e615f37780a8cacd2c76bb34fa160500557e0a5397a5b7b628ab1722ca",
+      "deployed_sha256": "b79723e615f37780a8cacd2c76bb34fa160500557e0a5397a5b7b628ab1722ca",
+      "rendered_base": "b79723e615f37780a8cacd2c76bb34fa160500557e0a5397a5b7b628ab1722ca",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/scripts/utils.mjs": {
@@ -1110,18 +1062,18 @@
     },
     ".claude/skills/design/templates/frame.md": {
       "canonical_source": "canonical/skills/design/templates/frame.md",
-      "canonical_sha256": "9a91a8f9ee58f3e740e957e99281a2c1583dcd0e0ef716bb08dd50d0364f1d35",
-      "deployed_sha256": "a4ff97a0696c3ceeb601ddb11279eeb5dd74a36d64f1ab0cbfe78c8166f27cbc",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "107a6208a2901fc427d12bb0a2269392bfc7eaf63227be28e2da010d624d3b88",
+      "deployed_sha256": "795864becc121d0f94794beb46bc5b66020188bd3bc500ea7bd57c4cc9811604",
+      "rendered_base": "795864becc121d0f94794beb46bc5b66020188bd3bc500ea7bd57c4cc9811604",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/templates/report.md": {
       "canonical_source": "canonical/skills/design/templates/report.md",
-      "canonical_sha256": "fb36289f29266e3ad57b677f5feb4d33f2174cbf16ea9c76fe928d7986685705",
-      "deployed_sha256": "09d7f99644b61ce622b5a88102db3cbfa239dc62a06a063ddf764b3204ac422e",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "383398f2a3cd5d1857b1a7a5ee05bcc9076706ad785d234c90b7401248c34cba",
+      "deployed_sha256": "233daab83d966290446d2a58ae84b3fa90a82f0a0686c1755c52d190fd8a1578",
+      "rendered_base": "233daab83d966290446d2a58ae84b3fa90a82f0a0686c1755c52d190fd8a1578",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/templates/research.md": {
@@ -1134,18 +1086,18 @@
     },
     ".claude/skills/design/templates/stat.json": {
       "canonical_source": "canonical/skills/design/templates/stat.json",
-      "canonical_sha256": "83a15e0b7d3df2db42c8d715523ce1c6803b49f0d6dc4abd6a7274998c7d216d",
-      "deployed_sha256": "83a15e0b7d3df2db42c8d715523ce1c6803b49f0d6dc4abd6a7274998c7d216d",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "6cd313b973821ab16034c9c5f8d9b27069a2cbb802ceaff20b470865742826d1",
+      "deployed_sha256": "6cd313b973821ab16034c9c5f8d9b27069a2cbb802ceaff20b470865742826d1",
+      "rendered_base": "6cd313b973821ab16034c9c5f8d9b27069a2cbb802ceaff20b470865742826d1",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/design/templates/stat.schema.json": {
       "canonical_source": "canonical/skills/design/templates/stat.schema.json",
-      "canonical_sha256": "d68e7234a103ea239da6dd05e3ad1562ce041c67a1c1059fb9477d102161e24b",
-      "deployed_sha256": "d68e7234a103ea239da6dd05e3ad1562ce041c67a1c1059fb9477d102161e24b",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
+      "canonical_sha256": "9a1b35ef6ae295b32ba7f309475439f1710ef32d9a9eca2e829b62234444b4e6",
+      "deployed_sha256": "9a1b35ef6ae295b32ba7f309475439f1710ef32d9a9eca2e829b62234444b4e6",
+      "rendered_base": "9a1b35ef6ae295b32ba7f309475439f1710ef32d9a9eca2e829b62234444b4e6",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/dev/SKILL.md": {
@@ -1262,10 +1214,10 @@
     },
     ".claude/skills/dev/references/01-context-gathering.md": {
       "canonical_source": "canonical/skills/dev/references/01-context-gathering.md",
-      "canonical_sha256": "156ac91ede1b920e73ecd8403d3ab8c3b82735d72402c6349da0ff05348997d0",
-      "deployed_sha256": "bf318b12493bd7e682d6d2bf1fc9ac0b572811c7ce39581fc72a61766ffd0ce4",
-      "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
+      "canonical_sha256": "8091a0b4566c50f1f955842f843a75b66904edc807a544e9fde06d88893b0fa1",
+      "deployed_sha256": "416d51e88665a52742ad63cb4ecc311e6a72ef8f24411ea928d19dceef608e67",
+      "rendered_base": "416d51e88665a52742ad63cb4ecc311e6a72ef8f24411ea928d19dceef608e67",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
       "provider": "claude"
     },
     ".claude/skills/dev/references/02-ceremony.md": {
@@ -1982,11 +1934,11 @@
     },
     "docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md",
-      "canonical_sha256": "d8a9fcbe6c0c5e9f19555e97647469041dc4b441b832aa455a922eacf3649ccc",
-      "deployed_sha256": "fdbb96383bdf36183910e3cf4f8d636b4dbce17a2b84fbcb3e299aa6e271a756",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; deployed bytes are the project prettier formatting of the canonical copy (table padding shifts after token substitution)",
-      "provider": "shared"
+      "canonical_sha256": "a71a72e49f5042201fcfdb27e63a952a87a0b977838bfefa43f96c3ca21324a2",
+      "deployed_sha256": "047d88bc6c70545cc68ece5638cd1ff535469f93032fe9181b62971a634afc20",
+      "rendered_base": "047d88bc6c70545cc68ece5638cd1ff535469f93032fe9181b62971a634afc20",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
     },
     "docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Lifecycles/03 Evolve Lifecycle.md",
@@ -2011,6 +1963,102 @@
       "rendered_base": null,
       "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
       "provider": "shared"
+    },
+    ".claude/skills/design/patterns/phase-sign-off.md": {
+      "canonical_source": "canonical/skills/design/patterns/phase-sign-off.md",
+      "canonical_sha256": "ed166e1c68164889d748f1e4af2ea9fd08d3099338b7315800353ab81bfb654f",
+      "deployed_sha256": "2b9e13f2e06c2b3f1919bf9a78ece9cc7bc81a5c2faee7fbaef713065a16ba50",
+      "rendered_base": "2b9e13f2e06c2b3f1919bf9a78ece9cc7bc81a5c2faee7fbaef713065a16ba50",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/00-decision-router.md": {
+      "canonical_source": "canonical/skills/design/references/00-decision-router.md",
+      "canonical_sha256": "9d71026318e69eb5821dfb5d3115e89973a42faed969459b4dba05bdf3afa61e",
+      "deployed_sha256": "a1cbf0579db8a66fda4ecb7e56b8e06bca796e27d412481d80876e9d001514aa",
+      "rendered_base": "a1cbf0579db8a66fda4ecb7e56b8e06bca796e27d412481d80876e9d001514aa",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/01-context-gathering.md": {
+      "canonical_source": "canonical/skills/design/references/01-context-gathering.md",
+      "canonical_sha256": "b7659885ec84f1839c467da12d0d1c032389d1a691cac2b5c39c734d867d4431",
+      "deployed_sha256": "ad0dad71c617cd3e562e6dce01dfb29fa39e289aa82f8c66fab44b0cee3e4f32",
+      "rendered_base": "ad0dad71c617cd3e562e6dce01dfb29fa39e289aa82f8c66fab44b0cee3e4f32",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/02-ceremony.md": {
+      "canonical_source": "canonical/skills/design/references/02-ceremony.md",
+      "canonical_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
+      "deployed_sha256": "a2843a72d6f6b6c7a2c051cc7e4f8d64767497ef1de36a2e368563e524295904",
+      "rendered_base": "a2843a72d6f6b6c7a2c051cc7e4f8d64767497ef1de36a2e368563e524295904",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/03-frame.md": {
+      "canonical_source": "canonical/skills/design/references/03-frame.md",
+      "canonical_sha256": "cbbea6e3a8452d72bcc692b43b80dd8eac6e78e56119e04a27cf1c7e8ac2b63f",
+      "deployed_sha256": "e46eb0da6db4084a296eb1884558ba3fd1a5629b3f6498c9536c049338dccf9e",
+      "rendered_base": "e46eb0da6db4084a296eb1884558ba3fd1a5629b3f6498c9536c049338dccf9e",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/04-research.md": {
+      "canonical_source": "canonical/skills/design/references/04-research.md",
+      "canonical_sha256": "80d8423abea8a79638c49f94e0decb9104df4c71c0e08f103b0c413db8fb07fc",
+      "deployed_sha256": "61d84d0ca1bc418c4ea4cdd3708a38e9998493abb23e02ec4a60e92a328d1576",
+      "rendered_base": "61d84d0ca1bc418c4ea4cdd3708a38e9998493abb23e02ec4a60e92a328d1576",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/05-evaluate.md": {
+      "canonical_source": "canonical/skills/design/references/05-evaluate.md",
+      "canonical_sha256": "86bf412561ca3642aa997e0e5dd2e49befed2a08e38d16fd8ca42e5803536b5d",
+      "deployed_sha256": "c64daf0981187d6c6c9f66ec59c3a27230d6377d6431f6ef206778740d31b959",
+      "rendered_base": "c64daf0981187d6c6c9f66ec59c3a27230d6377d6431f6ef206778740d31b959",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/06-solution.md": {
+      "canonical_source": "canonical/skills/design/references/06-solution.md",
+      "canonical_sha256": "9718d155e8a17a86692a8462cfc1a275902c5060be0345dfcefa5fab4335c857",
+      "deployed_sha256": "de518a8a67e4f5a49e60f8304e6baad8d6f7ee4cebbb891b213c60ca0c341c22",
+      "rendered_base": "de518a8a67e4f5a49e60f8304e6baad8d6f7ee4cebbb891b213c60ca0c341c22",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/07-review-gate.md": {
+      "canonical_source": "canonical/skills/design/references/07-review-gate.md",
+      "canonical_sha256": "8a9abd37b9efc5003f3157f80cf65490080f06a69b0f3dca4e5a9df838525f5c",
+      "deployed_sha256": "48641b93d22b8768e58d5b13a4ec7ca380070a6a0386b3e1da65715b5a3f0714",
+      "rendered_base": "48641b93d22b8768e58d5b13a4ec7ca380070a6a0386b3e1da65715b5a3f0714",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/08-address-feedback.md": {
+      "canonical_source": "canonical/skills/design/references/08-address-feedback.md",
+      "canonical_sha256": "1b2438ad80a2e456b2f3e471d202f9df857875bca3e23431e5bc54c87ba6f75a",
+      "deployed_sha256": "2f320e7eaa57f28e454cf035224a7d2d3a9a51dc215e64c310c03ee979888da4",
+      "rendered_base": "2f320e7eaa57f28e454cf035224a7d2d3a9a51dc215e64c310c03ee979888da4",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/09-publish.md": {
+      "canonical_source": "canonical/skills/design/references/09-publish.md",
+      "canonical_sha256": "68ea40c71ab7dc0ef4aacfc41b1e7177bebd4cd09c94286259cba6a4b6593ca2",
+      "deployed_sha256": "576565127127618d9bf7dc79eae5c4afdee4372e71bca578dd1d712f80452234",
+      "rendered_base": "576565127127618d9bf7dc79eae5c4afdee4372e71bca578dd1d712f80452234",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
+    },
+    ".claude/skills/design/references/10-completion.md": {
+      "canonical_source": "canonical/skills/design/references/10-completion.md",
+      "canonical_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
+      "deployed_sha256": "91daca4b2110f9700a74133af7cd3b611925566ae23a554f48838ab2dae81237",
+      "rendered_base": "91daca4b2110f9700a74133af7cd3b611925566ae23a554f48838ab2dae81237",
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
+      "provider": "claude"
     }
   }
 }

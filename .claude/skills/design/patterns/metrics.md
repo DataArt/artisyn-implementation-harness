@@ -5,18 +5,18 @@ CLI at `.claude/skills/design/scripts/design-metrics.mjs` for every mutation; ne
 hand-edit JSON, infer completion from artifacts, estimate tokens, or sum worker time.
 Node.js 22+ is required; there are no dependencies. Every command takes explicit
 `--dir "$DESIGN_DIR"`, where DESIGN_DIR is the current story's **design directory**
-(`docs/Stories/[{TICKET}] {name}/design/`). Working design artifacts and metrics
+(`{stories root}[{TICKET}] {name}/design/`). Working design artifacts and metrics
 files live there; settled solution artifacts remain in the sibling `solution/`
 directory.
 Dev uses a separate impl directory and recorder; the CLIs reject lifecycle mismatches.
 
 ## Initialization and recovery
 
-Once Frame creates the story's `design/` directory and `design/Report.md`:
+Once Context Gathering creates the story's `design/` directory and `design/Report.md`:
 
 ```sh
 node .claude/skills/design/scripts/design-metrics.mjs init --dir "$DESIGN_DIR" --ticket "$TICKET"
-node .claude/skills/design/scripts/design-metrics.mjs stage start --dir "$DESIGN_DIR" --stage frame
+node .claude/skills/design/scripts/design-metrics.mjs stage start --dir "$DESIGN_DIR" --stage context-gathering
 ```
 
 Use a stable story identifier for free-form designs without a tracker key. For direct
@@ -57,11 +57,12 @@ and include `--dir "$DESIGN_DIR"`:
 | Refresh generated report block               | `report`                                                                    |
 | Validate records                             | `validate`                                                                  |
 
-Stage IDs: `frame`, `research`, `evaluate`, `solution`, `review-gate`,
-`address-feedback`, `publish`. Default activities are planning, investigation,
-review, documentation, review, review, and documentation respectively. Other allowed
-activities are implementation and verification. Retry reasons: review_feedback,
-verification_failure, scope_change, reopened.
+Stage IDs: `context-gathering`, `ceremony`, `frame`, `research`, `evaluate`,
+`solution`, `review-gate`, `address-feedback`, `publish`, `completion`.
+Default activities are investigation, planning, planning, investigation,
+review, documentation, review, review, documentation, and documentation
+respectively. Other allowed activities are implementation and verification.
+Retry reasons: review_feedback, verification_failure, scope_change, reopened.
 
 Record waits and run report **before** every hard stop, including IDE review, commit
 confirmation, and the out-of-band MR review. On the reply,
@@ -106,18 +107,23 @@ is resolved, complete Review Gate and enter Publish.
 If concerns were raised, complete Review Gate once its outcome and transition are
 confirmed, then start Address Feedback. Its first attempt is automatically rework.
 Execute the agreed earlier-stage correction recipe within this metrics stage. Record
-an approval wait before asking for re-approval. On another concern, record a failed
-Design approval check, then `stage retry --stage address-feedback --reason review_feedback`.
-On approval, record a passed Design approval check before completing the stage.
+an approval wait before asking for re-approval. Three outcomes: another concern
+records a failed Design approval check, then
+`stage retry --stage address-feedback --reason review_feedback`; re-approval records
+a passed Design approval check before completing the stage, entering Publish; a
+**decline** records a failed Design approval check with the decline reason as
+evidence, completes Address Feedback without ever starting Publish, and enters
+Completion directly — there are no permanent docs to update.
 
 Every explicit design retry invalidates prior approval. Revisions after publication
-return Publish to pending while preserving its earlier attempts. Publish completion
-requires approval for the current revision and passing latest results for all named
-checks recorded in that revision, including on direct-stage entry. A direct
-Publish entry may record already-observed approval from the MR/Report with attribution;
-do not invent earlier stage execution. If a previously skipped feedback stage becomes
-necessary, retry Review Gate first: it restores Feedback to pending and retains skip
-history. Reopening work also clears design completion.
+return Publish, and in turn Completion, to pending while preserving their earlier
+attempts. Publish completion requires approval for the current revision and
+passing latest results for all named checks recorded in that revision, including
+on direct-stage entry. A direct Publish entry may record already-observed approval
+from the MR/Report with attribution; do not invent earlier stage execution. If a
+previously skipped feedback stage becomes necessary, retry Review Gate first: it
+restores Feedback to pending and retains skip history. Reopening work also clears
+design completion.
 
 ## Automated and other review checks
 
@@ -152,7 +158,7 @@ supported. Design and dev samples must be disjoint. Coverage remains partial whe
 samples are imported; per-stage tokens stay unavailable rather than allocating totals.
 
 `report` updates only its marker block in `design/Report.md`, preserving context, State, Gate,
-WAF findings, and human notes. It lists all seven stages, statuses, timing, attempts,
+WAF findings, and human notes. It lists all ten stages, statuses, timing, attempts,
 and failed checks. Totals include observed work/wait, open intervals, unclassified
 time, rework, blockers, approval waits, and token subtotals in stat.json.
 `wait_seconds_to_date` includes the currently open wait, so approval wait is visible before resume; `observed_wait_seconds` remains closed-only. First-pass
@@ -162,14 +168,15 @@ not inferred. `templates/stat.schema.json` defines the design profile of v2.
 
 ## Publish and completion
 
-Keep Publish active through permanent-doc updates, archive, commit confirmation,
-and required tracker sync. When archiving, move the `design/` directory, including
-`design/stat.json`, with the story and update DESIGN_DIR before further commands. Do
-not merge its metrics into impl.
-After all required design work succeeds, run `stage complete --stage publish`, then
-`complete`, then `report`. Full-flow completion requires all seven stages completed
+Publish owns only permanent-doc updates and its own commit; it does not finalize
+design completion. Completion owns archive, implementation-ticket publication,
+required tracker sync, and commit confirmation. When archiving, move the `design/`
+directory, including `design/stat.json`, with the story and update DESIGN_DIR
+before further commands. Do not merge its metrics into impl.
+After all required design work succeeds, run `stage complete --stage completion`, then
+`complete`, then `report`. Full-flow completion requires all ten stages completed
 or the authorized Feedback skip; partial runs leave unseen stages pending. A direct
-non-Publish invocation never finalizes design completion. Finalize before invoking
+non-Completion invocation never finalizes design completion. Finalize before invoking
 `/dev` so implementation time is not charged to design.
 
 The CLI is self-contained within this flow. `scripts/constants.mjs` owns lifecycle

@@ -99,7 +99,12 @@ Everything from here on is recorded as Context work.
 
 ## Step 3 — Check for approved design
 
-- Glob for `docs/Stories/*{TICKET}*/solution/Architecture.md` (use `*{TICKET}*` wildcard)
+- Glob for `docs/Stories/design/approved/*{TICKET}*/solution/Architecture.md`
+  and `docs/Stories/product-design/approved/*{TICKET}*/solution/Architecture.md`
+  (use `*{TICKET}*` wildcard) — an approved design lives under an `approved/`
+  subfolder of one of the two design-lifecycle roots (`design/` for a Project
+  design, `product-design/` for a Product design), never directly under the
+  root (still active) or its `declined/` subfolder
 - If found, read the story's `design/Report.md` and the paths in its
   `selected_artifacts`. Those approved files are the spec. Do not assume a fixed
   Architecture/Design/Stack/Efforts set.

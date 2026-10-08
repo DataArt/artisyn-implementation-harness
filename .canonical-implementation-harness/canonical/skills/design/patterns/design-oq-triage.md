@@ -10,30 +10,56 @@ Open questions (OQs) surfaced during Research fall into two tiers that determine
 
 ## Two Tiers
 
-| Tier                 | Label | Definition                                                                                                                            | When to resolve                                                |
-| -------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| **Viability**        | `(V)` | Would the answer disqualify one or more options from the matrix? (e.g. legal gate, hard network constraint, missing required feature) | **Before** the Evaluate matrix is built                        |
-| **Evaluation-input** | `(E)` | Affects cost modelling, sizing, or implementation detail — does not change which options are viable                                   | Defer to Evaluate Step 5b or capture as implementation tickets |
+| Tier                 | Label | Definition                                                                                                                            | When to resolve                                               |
+| -------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Viability**        | `(V)` | Would the answer disqualify one or more options from the matrix? (e.g. legal gate, hard network constraint, missing required feature) | **Before** the Evaluate matrix is built                       |
+| **Evaluation-input** | `(E)` | Affects cost modelling, sizing, or implementation detail — does not change which options are viable                                   | Defer to Evaluate Step 3 or capture as implementation tickets |
 
 ## Interaction format
 
-OQ triage must be an interactive Q&A loop — not a batch form:
+Propose a classification, not a question. For each OQ, state the agent's own
+best `(V)`/`(E)` call with a one-line reason, and present every OQ together —
+this is a draft to confirm, not a Q&A session:
 
-1. **Show the full list upfront** so the developer sees the scope.
-2. **Ask each OQ one at a time** — present the question, wait for the answer.
-3. **If the answer is ambiguous**, ask a clarifying follow-up before recording the classification and moving on.
-4. **Only proceed to the next OQ** once the current one is fully resolved (classification recorded + answer noted if `(V)`).
+1. **Classify every OQ up front**, reasoning from the option set and matrix
+   dimensions already in hand — most OQs' tier is evident without asking.
+2. **Present the full list in one message**, at the phase's sign-off
+   (`patterns/phase-sign-off.md`), alongside everything else the developer is
+   confirming that phase — not as a separate stop.
+3. **The developer corrects what's wrong** in their one reply; anything they
+   don't comment on is accepted as proposed.
 
-Do not dump all OQs in a table and ask the developer to classify them simultaneously. That is a form, not a triage session — it produces shallow answers and misses nuance.
+Do not turn this into a separate one-at-a-time interactive round — that was
+the old model, and it is exactly the per-step stop the lifecycle's gate
+reduction removed. If a specific OQ's classification is genuinely unclear
+even after reasoning about it, flag that one by name in the sign-off message
+rather than guessing silently — never invent a (V)/(E) call with no stated
+basis.
 
 ## Rules
 
-1. At the end of Research Step 3 (after options are approved), present the OQ list and ask the developer to classify each as `(V)` or `(E)` using the interactive loop above.
-2. Answer all `(V)` OQs before saving `design/01 Research.md`. If a `(V)` OQ cannot be answered now, either eliminate the affected option or mark it as conditional.
-3. At the start of Evaluate (Step 1b), re-read the OQ list. If any unresolved `(V)` OQs remain, surface and resolve before building the matrix.
-4. In Solution, re-check whether any `(V)` OQs from Evaluate are still open. If any remain unresolved and would block implementation, create a spike ticket for them in `Efforts.md`.
-5. Capture `(E)` OQs in `design/01 Research.md`'s Open Questions table with `(E)` prefix — they become Evaluate Step 5b inputs.
+1. After Research Step 2 (options returned), propose a `(V)`/`(E)` call for
+   every OQ (Step 3b) and present it at Step 5's sign-off alongside the
+   option set, per the interaction format above.
+2. Every `(V)` OQ needs a resolution recorded (or the affected option marked
+   conditional) before `design/01 Research.md`'s sign-off is approved.
+3. At the start of Evaluate (Step 1b), re-read the OQ list. If any unresolved
+   `(V)` OQs remain, this is an intelligent-approval checkpoint
+   (`patterns/approval-intelligent.md`) — auto-continue when none remain,
+   escalate by name when they do.
+4. In Solution, re-check whether any `(V)` OQs from Evaluate are still open.
+   If any remain unresolved and would block implementation, create a spike
+   ticket for them in `Efforts.md`.
+5. Capture `(E)` OQs in `design/01 Research.md`'s Open Questions table with
+   `(E)` prefix — they feed Evaluate Step 3's recommendation, which lists
+   open questions with a suggested owner for each.
 
 ## Why
 
-When many OQs surface during Research and the recommendation is written before viability-blocking OQs are resolved, the recommendation must be revised mid-Evaluate once the blockers surface. Tiering OQs at Research — enforcing that `(V)` OQs are resolved before the matrix is built, and triaging one-at-a-time rather than as a batch form — prevents this rework.
+When many OQs surface during Research and the recommendation is written
+before viability-blocking OQs are resolved, the recommendation must be
+revised mid-Evaluate once the blockers surface. Tiering OQs at Research —
+enforcing that `(V)` OQs are resolved before the matrix is built — prevents
+this rework. Proposing the classification instead of asking through it,
+folded into the phase sign-off, is what keeps this a confirmation instead of
+its own approval gate.

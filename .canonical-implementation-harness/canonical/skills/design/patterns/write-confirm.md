@@ -1,18 +1,23 @@
 # Pattern: Write-Confirm (Design)
 
-Applies whenever the agent writes or updates a design artifact and the developer must validate it before the next item begins.
+Applies whenever the agent writes or updates a design artifact that still
+needs review before the phase closes.
 
-## The loop
+## The announcement
 
-For each artifact:
+1. Write or update the file.
+2. Say: "File saved at `<path>`." — one line, no question.
 
-1. Write or update the file
-2. Say: "File saved at `<path>`. Review in your IDE — any corrections?"
-3. **STOP** — do not proceed to the next artifact
-4. Wait for explicit confirmation
-5. Apply any requested corrections and re-save; repeat from step 2
-6. Proceed only after the developer confirms the file is correct
+That is the whole pattern. It does not stop, and it does not wait. The actual
+review and confirmation happen once, at the phase's sign-off
+(`patterns/phase-sign-off.md`), where every artifact the stage produced is
+presented together. A caller drafting several artifacts in sequence applies
+this announcement after each one and keeps going — never stops between them.
 
 ## Why
 
-Writing multiple artifacts without confirmation checkpoints means errors in one file are carried silently into the next. Each design artifact builds on the previous one — a wrong assumption in `solution/Architecture.md` propagates into `solution/Design.md` and `solution/Stack.md` before anyone catches it.
+A stop after every file is the per-step gate the lifecycle moved away from:
+the developer reviewing a senior colleague's finished work in one pass, not
+approving each file as it's written. Confirmation still happens — just once,
+with everything to decide in the same message, not fragmented across N stops
+for N artifacts.

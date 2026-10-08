@@ -40,6 +40,20 @@ graph TD
 - [proposed] EC: ...
 - [proposed] EC: ...
 
+## Decisions _(omit if this is a single decision)_
+
+<Does the Problem bundle two or more choices that could each stand alone — each
+with its own option set, tradeoffs, and able to be approved or reiterated
+independently of the others (e.g. a security epic bundling a triage framework, a
+tooling stack, and a timing decision)? If so, list them; each becomes its own
+Research → Evaluate → Design loop (`patterns/multi-decision-split.md`). Confirmed
+with the developer at its own dedicated sign-off (Frame Step 2) — this section
+only exists when that sign-off ran.>
+
+| #   | Decision | Why it's independent |
+| --- | -------- | -------------------- |
+| 1   | ...      | ...                  |
+
 ## Boundaries
 
 **In scope:** <what this design covers>

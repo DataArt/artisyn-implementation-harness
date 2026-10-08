@@ -1,0 +1,348 @@
+{
+  "schema_version": 2,
+  "bundle_id": "991523ee-2a51-4f30-90f4-678ab0e95243",
+  "mode": "prepare",
+  "status": "verified",
+  "created_at": "2026-10-08T22:54:57Z",
+  "notes": "Direct canonical edits across a long design-skill refactor session: Release 3.0.0 (design skill 6.0.0): design's gate-density pass mirroring dev's earlier one, plus Context Gathering/Ceremony split, Product/Project Stories-root separation, universal {{DESIGN_ARCHITECT_AGENT}}/{{DESIGN_DOCS_ROOT}}/{{DESIGN_STORIES_ROOT}} runtime-token resolution, the new 00-decision-router.md (multi-decision loop control-flow + per-decision task tracking), docs-writer writing every document, and moving Review Gate's outcome-confirmation into Address Feedback's new Step 1 (single concern per stage) while giving Address Feedback a normal Sign-off -> Report -> Commit close. 42 files: 24 update, 10 add, 6 delete, 2 rename (one with content changes). Every changed path's recorded canonical_sha256 matched git HEAD exactly, so all bases were taken directly from git history (no stale checkpoints, no missing-baseline fallback needed). Deployment to installed outputs (.claude/skills/design/, .claude/skills/dev/references/01-context-gathering.md, docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md) is the following patch apply, same session.",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "858a1914ae8c4d6ccadcdb112f841a957c075b4c538c647d4429b9e8ed613cd3",
+      "after_sha256": "bd5d7424ec29fb87edc6521a7aa4450df212a02e6a404b83a84de02fa5f5f9d6",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "SKILL.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "35a85a75bdf1d8e5a9e0307ca81d5b5396cf32d7cedfd20142aeb7183f386ff3",
+      "after_sha256": "db8cfc05fc993769c8ce7045aadbadefb655d245163a002262429ef1749dc16a",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "d8a9fcbe6c0c5e9f19555e97647469041dc4b441b832aa455a922eacf3649ccc",
+      "after_sha256": "a71a72e49f5042201fcfdb27e63a952a87a0b977838bfefa43f96c3ca21324a2",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/INTENT.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "06b703f24bcc46937cd2c2226e24359d5a13d0b0fb08177f07a642b1ed7e8019",
+      "after_sha256": "32fa3251285d0421ac2c2671c17292f0e71f25d33a29aeab6c58d9bbeb301896",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/TEMPLATE.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "ece4ffa8c95da20f7686450ae0c604239a14424a11dceb93f46556c116cabb50",
+      "after_sha256": "df47dce16cf1fbfac1965d3313254a19226ff0ee615c77a7d6e365f4772c35d8",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/announce-progress.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "370b601cec68a9944a23977533cacb0d2c8667e334463914e5830fcdc2ed4721",
+      "after_sha256": "819c43f4db20b0c78441f62c5bfba3bba74ee7da1b5880714cbb3bbb9a16041f",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/approval-sign-off.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "e8d88a443281da885b48c327ceda3b74541d88332c117723aec3387ea71277a0",
+      "after_sha256": "de76f10d1317bff44b46d44b2e3e025ef35208b0a49e335a760925f9570f75e8",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/compact-between-phases.md",
+      "old_path": null,
+      "operation": "delete",
+      "before_sha256": "f6ad0cc775bc1ad8b0e6a0922b9a80e28e6ca9d58cf6f6e84502d38a6902d704",
+      "after_sha256": null,
+      "verification": "deletion recorded against recorded base (git HEAD); before hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/context-resolution.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "39b58821a98fc93f80d5478a56443fbe47e282885f98ac8dd258bd6a443bab75",
+      "after_sha256": "cdd4cc4c38d71feffde7860b6cee79607bbdc566d883d2ead647c709a22813d1",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/design-oq-triage.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "d37ec3ffbfdbfd7d9b88b5e7ed29e134308a9ed71dcb5da539532271e7215e33",
+      "after_sha256": "64334c6ad7b6efc1c551bd6ba7971239dde822c3d6ac1730fd60195ec7b3fbf4",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/do-report-commit.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "85c64b56316e2ba4df9ae4e160cc975b4d76becbe40e42cc57dedf348862a0d9",
+      "after_sha256": "d23350185d655d0669a3ce9ff2e89471d946d3bd498403094f6a2c1816cda51e",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/metrics.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "a5363f47d9e210fd4293ff07131d6fc57ee3ef53bb67fad39404e03586bf0174",
+      "after_sha256": "ae9b4917d39de22c602a5fb524229fb8ee7765b621beff9404d4ac8b9ba7d223",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/multi-decision-split.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "69b6c9efb39b41c0f9515cb565b32ad5a28719db0df541b823d6af2d38ee719b",
+      "after_sha256": "8803026c8128f9c4e39d3ef61b12201fecc45f8db2404b1d5d45e23bd3101bf7",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/phase-sign-off.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "ed166e1c68164889d748f1e4af2ea9fd08d3099338b7315800353ab81bfb654f",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/session-continuity.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "60774609be6a944042edad7b8deb2ab0eb9cc585f1cadaed892bd1b0c7afa738",
+      "after_sha256": "3a34bf72b14deb042f8c21aa618ac7a8817bd545b8caa22e2845eede9356a4b2",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/waf-review.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "00fa05925098ab95c4ba3e520f1697be61ba456e5c171abf35c4fb89821a5fa1",
+      "after_sha256": "74e6385968887ea973fd97f1802ce7ea1535f88478665ee62e24bd184b7feb95",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/patterns/write-confirm.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "d69e33fed79e8f67c1cc5e06ac9455489b0b22f774c41024c958417518293e26",
+      "after_sha256": "07fb32e905308834eef6c1eff84bb07543831ed28c935b4576b1745f263ee09b",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/00-decision-router.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "9d71026318e69eb5821dfb5d3115e89973a42faed969459b4dba05bdf3afa61e",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/00-router.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "a13ec410fd0fc3972a555e115c2aa6463042a0adb72c47e3d47eebf6134305e9",
+      "after_sha256": "e5417dcd8ed02f1ecfde783e2e6fd82d268fbb93d94f9f3f44cc359af01ec963",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/01-context-gathering.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "b7659885ec84f1839c467da12d0d1c032389d1a691cac2b5c39c734d867d4431",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/01-frame.md",
+      "old_path": null,
+      "operation": "delete",
+      "before_sha256": "ad5d217045b2cc7e818e118f9962d28d58f47a1337621f3510319ed2b63b0332",
+      "after_sha256": null,
+      "verification": "deletion recorded against recorded base (git HEAD); before hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/02-ceremony.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/02-research.md",
+      "old_path": null,
+      "operation": "delete",
+      "before_sha256": "ed48f92b82af0bc2409cd16007ca80fbe9a1f4cbf653d0f9260c272f853f69a4",
+      "after_sha256": null,
+      "verification": "deletion recorded against recorded base (git HEAD); before hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/03-evaluate.md",
+      "old_path": null,
+      "operation": "delete",
+      "before_sha256": "657a3112f2a44296f9235943f3819b486da3f72320b85b631719123c68d45042",
+      "after_sha256": null,
+      "verification": "deletion recorded against recorded base (git HEAD); before hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/03-frame.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "cbbea6e3a8452d72bcc692b43b80dd8eac6e78e56119e04a27cf1c7e8ac2b63f",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/04-research.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "80d8423abea8a79638c49f94e0decb9104df4c71c0e08f103b0c413db8fb07fc",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/05-evaluate.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "86bf412561ca3642aa997e0e5dd2e49befed2a08e38d16fd8ca42e5803536b5d",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/06-address-feedback.md",
+      "old_path": null,
+      "operation": "delete",
+      "before_sha256": "037cc19db9fed9ff824ed80b544acd0dd9e263617a4e0aef80e4e29fbfcf4e94",
+      "after_sha256": null,
+      "verification": "deletion recorded against recorded base (git HEAD); before hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/06-solution.md",
+      "old_path": "canonical/skills/design/references/04-solution.md",
+      "operation": "rename",
+      "before_sha256": "ac357a6bc93a8a5137cdaa259a4402af6b6c0c1f5a15e7581e8acc50182ecd25",
+      "after_sha256": "9718d155e8a17a86692a8462cfc1a275902c5060be0345dfcefa5fab4335c857",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/07-publish.md",
+      "old_path": null,
+      "operation": "delete",
+      "before_sha256": "e1f6873229482e41453019352b9f54338ff81b3c5f0a88bafa6d2215147313c2",
+      "after_sha256": null,
+      "verification": "deletion recorded against recorded base (git HEAD); before hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/07-review-gate.md",
+      "old_path": "canonical/skills/design/references/05-review-gate.md",
+      "operation": "rename",
+      "before_sha256": "faf8c8e17dcb06fa835cd7138f34fc7ef3289c429bd4e578177b2e2748f2f3bc",
+      "after_sha256": "8a9abd37b9efc5003f3157f80cf65490080f06a69b0f3dca4e5a9df838525f5c",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/08-address-feedback.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "1b2438ad80a2e456b2f3e471d202f9df857875bca3e23431e5bc54c87ba6f75a",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/09-publish.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "68ea40c71ab7dc0ef4aacfc41b1e7177bebd4cd09c94286259cba6a4b6593ca2",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/10-completion.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/skills/design/scripts/constants.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "efe1b47bc54e9666031cf0bc1841054a346324c9cb9bc56f632e6553a01fe81c",
+      "after_sha256": "72590a7f39e6220c2b73193b27d2cb80243231a39de1fce1ea726ca3491218c1",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/scripts/design-metrics.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "93a2028c23d40d64fdaf675c942af780dcc9ea950e59f7fa81437041e184d972",
+      "after_sha256": "bf96d175cd80b78fa8d3ee1a2c5258728f9eceba4093e8f091e7ef4cf6eb21e8",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/scripts/design-metrics.test.mjs",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "16181c2b569d872292cc120a5a9249d95ba4bb468da8dc5ce00f6a6082ac4436",
+      "after_sha256": "b79723e615f37780a8cacd2c76bb34fa160500557e0a5397a5b7b628ab1722ca",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/templates/frame.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "9a91a8f9ee58f3e740e957e99281a2c1583dcd0e0ef716bb08dd50d0364f1d35",
+      "after_sha256": "107a6208a2901fc427d12bb0a2269392bfc7eaf63227be28e2da010d624d3b88",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/templates/report.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "fb36289f29266e3ad57b677f5feb4d33f2174cbf16ea9c76fe928d7986685705",
+      "after_sha256": "383398f2a3cd5d1857b1a7a5ee05bcc9076706ad785d234c90b7401248c34cba",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/templates/stat.json",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "83a15e0b7d3df2db42c8d715523ce1c6803b49f0d6dc4abd6a7274998c7d216d",
+      "after_sha256": "6cd313b973821ab16034c9c5f8d9b27069a2cbb802ceaff20b470865742826d1",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/templates/stat.schema.json",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "d68e7234a103ea239da6dd05e3ad1562ce041c67a1c1059fb9477d102161e24b",
+      "after_sha256": "9a1b35ef6ae295b32ba7f309475439f1710ef32d9a9eca2e829b62234444b4e6",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "156ac91ede1b920e73ecd8403d3ab8c3b82735d72402c6349da0ff05348997d0",
+      "after_sha256": "8091a0b4566c50f1f955842f843a75b66904edc807a544e9fde06d88893b0fa1",
+      "verification": "diff applied to recorded base (git HEAD); result hash verified"
+    }
+  ],
+  "providers": [],
+  "provider_scope_source": "prepare is provider-neutral \u2014 canonical only, no permanent file read or written"
+}

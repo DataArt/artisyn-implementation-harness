@@ -1,0 +1,78 @@
+--- a/canonical/skills/design/references/05-review-gate.md
++++ b/canonical/skills/design/references/07-review-gate.md
+@@ -1,15 +1,17 @@
+ # Review Gate stage
+ 
+ Apply `{{provider:skills_root}}/design/patterns/metrics.md`; this stage's metrics unit is
+-`--stage review-gate`. Follow its initialization/recovery, entry, wait, check, and exit
+-commands. When this reference is used only as a correction recipe within another
+-active stage, retain that stage's metrics ownership.
++`--stage review-gate`. First action, at Step 1: `stage start --stage review-gate`.
++Follow the pattern's wait, check, and exit commands for everything after. When
++this reference is used only as a correction recipe within another active
++stage, retain that stage's metrics ownership.
+ 
+ Resume detection and stage tracking live in `{{provider:skills_root}}/design/SKILL.md`. This
+-stage has two entry points: **pre-gate** (Steps 1–3, open draft MR) and **post-gate**
+-(Step 4, run after the MR is approved or commented on out-of-band). The session
+-always ends at Step 3. Step 4 begins on the next `{{provider:invoke:design}} review-gate {TICKET}`
+-invocation.
++stage's only concern is getting the design into review: verify the artifacts are
++ready, suggest the draft MR, record it, and park. Confirming the outcome — has it
++been approved, are there concerns, was it declined — is Address Feedback's opening
++concern, not this stage's; the session always ends at Step 3, and the developer's
++next invocation is `{{provider:invoke:design}} address-feedback {TICKET}`.
+ 
+ > ⚠️ Follow every step in order. Do not skip, summarize, or improvise. If you are unsure, ask before deviating.
+ 
+@@ -20,7 +22,7 @@
+ 
+ ## Step 1 — Verify prerequisites
+ 
+-Find the design folder by globbing `docs/Stories/*{TICKET}*/**`.
++`$DESIGN_DIR` comes from the router's Resume Detection.
+ 
+ Verify all of the following exist:
+ 
+@@ -34,7 +36,7 @@
+ 
+ If any is missing, tell the developer which phase to complete first and stop.
+ 
+-Read `design/Report.md`. If the Gate section already has a Draft MR URL recorded, **the gate has been opened** — skip directly to Step 4.
++Read `design/Report.md`. If the Gate section already has a Draft MR URL recorded, **the gate has already been opened** — tell the developer to run `{{provider:invoke:design}} address-feedback {TICKET}` to confirm the outcome, and stop. Do not re-suggest or re-record the MR.
+ 
+ Review `solution/Architecture.md` as the canonical E2E solution. Confirm that every settled
+ decision and review correction in the report is represented there with its affected
+@@ -92,27 +94,14 @@
+ - Approved: pending
+ ```
+ 
+-Update phase tracker: `📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳`
++Update phase tracker: `🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳`
+ 
+ Tell the developer:
+ 
+-> "Design is pending approval from `{approver}`. Come back and run `{{provider:invoke:design}} review-gate {TICKET}` once the MR is approved or commented on."
++> "Design is pending approval from `{approver}`. Come back and run `{{provider:invoke:design}} address-feedback {TICKET}` once the MR is approved or commented on — that confirms the outcome and continues from there."
+ 
+-Before yielding, run `wait start --reason approval` with the approver/MR context, then `report`.
++Before yielding, run `wait start --reason approval` with the approver/MR context, then `report`. `stage complete --stage review-gate` is not called yet — that happens once Address Feedback's Step 1 reads the confirmed outcome, since Review Gate's own completion status depends on a fact only that step learns.
+ 
+-**Stop. Session ends here. Do not proceed to Step 4 automatically.**
++**Stop. Session ends here.**
+ 
+----
+-
+-## Step 4 — Confirm outcome
+-
+-Ask:
+-
+-> "Has the MR been approved? (**yes** / **concerns**)"
+-
+-This is a sign-off gate (`patterns/approval-sign-off.md`) — the actual MR approval state is an external fact only the developer can attest to. **Stop and wait.**
+-
+-- If **yes** → resume work, record a passed `Design approval` acceptance check with attributed evidence, and `stage skip --stage address-feedback --reason no_concerns --evidence <confirmation>` per the metrics pattern; then update the `Approved:` field in `design/Report.md`'s `## Gate` section to today's date. Update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ⏳`. Tell the developer: "Approved — run `{{provider:invoke:design}} publish {TICKET}` to continue."
+-- If **concerns** → resume work and record a failed `Design approval` check before completing Review Gate and entering Address Feedback; then update phase tracker: `... · 🔎 Review ✅ · 💬 Address Feedback 🔄 · 📤 Publish ⏳`. Tell the developer: "Concerns raised — run `{{provider:invoke:design}} address-feedback {TICKET}` to resolve them."
+-
+-🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage.
++🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage (Address Feedback).

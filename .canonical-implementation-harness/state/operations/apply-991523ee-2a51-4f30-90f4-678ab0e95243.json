@@ -1,0 +1,432 @@
+{
+  "schema_version": 2,
+  "bundle_id": "991523ee-2a51-4f30-90f4-678ab0e95243",
+  "mode": "apply",
+  "status": "applied",
+  "created_at": "2026-10-08T22:56:43Z",
+  "notes": "Current-source apply of prepare bundle 991523ee-2a51-4f30-90f4-678ab0e95243 to the claude provider only (the sole provider with design/dev actually installed in this project; .agents/skills/ only carries harness-bootstrap itself, so codex is out of scope). Personalized canonical content using this project's recorded answers: PROJECT_KEY=ND, two-track design (DESIGN_CONTEXT_STEP resolves to the context-resolution.md pattern invocation), PRODUCT_CONTEXT_DIR=Harness, AWS WAF 6 pillars, DOC_PRINCIPLES_ARTICLE=docs/Engineering Guide/Documentation/01 Principles.md. DESIGN_ARCHITECT_AGENT/DESIGN_DOCS_ROOT/DESIGN_STORIES_ROOT rendered to their literal runtime-token placeholders ({resolved architect agent}/{dest docs}|{source docs}/{stories root}), never to a fixed project value, per this release's own invariant. Found and fixed one bug during rendering: references/01-context-gathering.md misused {{DESIGN_LIFECYCLE_SCOPE_NOTE}} (a router-only callout token) as an inline cross-reference; corrected in canonical source to point at the router's SKILL.md callout instead, and the bundle was rebuilt after the fix (superseding an earlier, discarded bundle UUID 9579c507-a119-4163-a1fb-88f0d198e5c1 that was never recorded in REGISTRY.md or APPLIED.md). patch/REGISTRY.md and state/index.json already reflect this bundle from the prepare step; this record covers only the deployment half.",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "output": null,
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "canonical-only; no permanent output"
+    },
+    {
+      "path": "SKILL.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "output": null,
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "canonical-only; no permanent output"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": "docs/Engineering Guide/Lifecycles/02 Design Lifecycle.md",
+      "before_sha256": null,
+      "after_sha256": "774d94cbb4d000949b30f7620a67ebcbbbe663999186aecb8a44373a9e372c31",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/INTENT.md",
+      "operation": "update",
+      "provider": null,
+      "deployment": "canonical-only",
+      "output": null,
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "canonical-only; no permanent output"
+    },
+    {
+      "path": "canonical/skills/design/TEMPLATE.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/SKILL.md",
+      "before_sha256": null,
+      "after_sha256": "01fcb1621a255b03f46e154daa860cfbd1d800c481ee7abb7179a190c99da40a",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/announce-progress.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/announce-progress.md",
+      "before_sha256": null,
+      "after_sha256": "819c43f4db20b0c78441f62c5bfba3bba74ee7da1b5880714cbb3bbb9a16041f",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/approval-sign-off.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/approval-sign-off.md",
+      "before_sha256": null,
+      "after_sha256": "de76f10d1317bff44b46d44b2e3e025ef35208b0a49e335a760925f9570f75e8",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/compact-between-phases.md",
+      "operation": "delete",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/compact-between-phases.md",
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "installed file removed"
+    },
+    {
+      "path": "canonical/skills/design/patterns/context-resolution.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/context-resolution.md",
+      "before_sha256": null,
+      "after_sha256": "36c7c68dfe95438a5e00e81716e7689b9106237aa53f282b3445eaaa11ed66a1",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/design-oq-triage.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/design-oq-triage.md",
+      "before_sha256": null,
+      "after_sha256": "64334c6ad7b6efc1c551bd6ba7971239dde822c3d6ac1730fd60195ec7b3fbf4",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/do-report-commit.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/do-report-commit.md",
+      "before_sha256": null,
+      "after_sha256": "d23350185d655d0669a3ce9ff2e89471d946d3bd498403094f6a2c1816cda51e",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/metrics.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/metrics.md",
+      "before_sha256": null,
+      "after_sha256": "8b81c276a3c7af643af79e00cee1554216b7bc1b0d9edeb09d1e07f93a5dea73",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/multi-decision-split.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/multi-decision-split.md",
+      "before_sha256": null,
+      "after_sha256": "8803026c8128f9c4e39d3ef61b12201fecc45f8db2404b1d5d45e23bd3101bf7",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/phase-sign-off.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/phase-sign-off.md",
+      "before_sha256": null,
+      "after_sha256": "2b9e13f2e06c2b3f1919bf9a78ece9cc7bc81a5c2faee7fbaef713065a16ba50",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/session-continuity.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/session-continuity.md",
+      "before_sha256": null,
+      "after_sha256": "36bbc3e8733a23b495d888d2f9a6636e0ca933f75fd6881ec36c8ef61c0e5468",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/waf-review.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/waf-review.md",
+      "before_sha256": null,
+      "after_sha256": "d86ceea88816176e4e40132403b3f1a8ff2596693fd2676cba7358d871c92c77",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/patterns/write-confirm.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/patterns/write-confirm.md",
+      "before_sha256": null,
+      "after_sha256": "07fb32e905308834eef6c1eff84bb07543831ed28c935b4576b1745f263ee09b",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/00-decision-router.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/00-decision-router.md",
+      "before_sha256": null,
+      "after_sha256": "a1cbf0579db8a66fda4ecb7e56b8e06bca796e27d412481d80876e9d001514aa",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/00-router.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/00-router.md",
+      "before_sha256": null,
+      "after_sha256": "d95c1aebd30e84d7eb3dbe37e83726a736c1af2c9b7c22152919d2bc86b7d825",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/01-context-gathering.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/01-context-gathering.md",
+      "before_sha256": null,
+      "after_sha256": "ad0dad71c617cd3e562e6dce01dfb29fa39e289aa82f8c66fab44b0cee3e4f32",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/01-frame.md",
+      "operation": "delete",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/01-frame.md",
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "installed file removed"
+    },
+    {
+      "path": "canonical/skills/design/references/02-ceremony.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/02-ceremony.md",
+      "before_sha256": null,
+      "after_sha256": "a2843a72d6f6b6c7a2c051cc7e4f8d64767497ef1de36a2e368563e524295904",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/02-research.md",
+      "operation": "delete",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/02-research.md",
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "installed file removed"
+    },
+    {
+      "path": "canonical/skills/design/references/03-evaluate.md",
+      "operation": "delete",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/03-evaluate.md",
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "installed file removed"
+    },
+    {
+      "path": "canonical/skills/design/references/03-frame.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/03-frame.md",
+      "before_sha256": null,
+      "after_sha256": "e46eb0da6db4084a296eb1884558ba3fd1a5629b3f6498c9536c049338dccf9e",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/04-research.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/04-research.md",
+      "before_sha256": null,
+      "after_sha256": "61d84d0ca1bc418c4ea4cdd3708a38e9998493abb23e02ec4a60e92a328d1576",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/05-evaluate.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/05-evaluate.md",
+      "before_sha256": null,
+      "after_sha256": "c64daf0981187d6c6c9f66ec59c3a27230d6377d6431f6ef206778740d31b959",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/06-address-feedback.md",
+      "operation": "delete",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/06-address-feedback.md",
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "installed file removed"
+    },
+    {
+      "path": "canonical/skills/design/references/06-solution.md",
+      "operation": "rename",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/06-solution.md",
+      "before_sha256": null,
+      "after_sha256": "de518a8a67e4f5a49e60f8304e6baad8d6f7ee4cebbb891b213c60ca0c341c22",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/07-publish.md",
+      "operation": "delete",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/07-publish.md",
+      "before_sha256": null,
+      "after_sha256": null,
+      "verification": "installed file removed"
+    },
+    {
+      "path": "canonical/skills/design/references/07-review-gate.md",
+      "operation": "rename",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/07-review-gate.md",
+      "before_sha256": null,
+      "after_sha256": "48641b93d22b8768e58d5b13a4ec7ca380070a6a0386b3e1da65715b5a3f0714",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/08-address-feedback.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/08-address-feedback.md",
+      "before_sha256": null,
+      "after_sha256": "2f320e7eaa57f28e454cf035224a7d2d3a9a51dc215e64c310c03ee979888da4",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/09-publish.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/09-publish.md",
+      "before_sha256": null,
+      "after_sha256": "576565127127618d9bf7dc79eae5c4afdee4372e71bca578dd1d712f80452234",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/references/10-completion.md",
+      "operation": "add",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/references/10-completion.md",
+      "before_sha256": null,
+      "after_sha256": "91daca4b2110f9700a74133af7cd3b611925566ae23a554f48838ab2dae81237",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/scripts/constants.mjs",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/scripts/constants.mjs",
+      "before_sha256": null,
+      "after_sha256": "72590a7f39e6220c2b73193b27d2cb80243231a39de1fce1ea726ca3491218c1",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/scripts/design-metrics.mjs",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/scripts/design-metrics.mjs",
+      "before_sha256": null,
+      "after_sha256": "bf96d175cd80b78fa8d3ee1a2c5258728f9eceba4093e8f091e7ef4cf6eb21e8",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/scripts/design-metrics.test.mjs",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/scripts/design-metrics.test.mjs",
+      "before_sha256": null,
+      "after_sha256": "b79723e615f37780a8cacd2c76bb34fa160500557e0a5397a5b7b628ab1722ca",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/templates/frame.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/templates/frame.md",
+      "before_sha256": null,
+      "after_sha256": "795864becc121d0f94794beb46bc5b66020188bd3bc500ea7bd57c4cc9811604",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/templates/report.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/templates/report.md",
+      "before_sha256": null,
+      "after_sha256": "233daab83d966290446d2a58ae84b3fa90a82f0a0686c1755c52d190fd8a1578",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/templates/stat.json",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/templates/stat.json",
+      "before_sha256": null,
+      "after_sha256": "6cd313b973821ab16034c9c5f8d9b27069a2cbb802ceaff20b470865742826d1",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/design/templates/stat.schema.json",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/design/templates/stat.schema.json",
+      "before_sha256": null,
+      "after_sha256": "9a1b35ef6ae295b32ba7f309475439f1710ef32d9a9eca2e829b62234444b4e6",
+      "verification": "rendered output written and re-read; hash recorded"
+    },
+    {
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "operation": "update",
+      "provider": "claude",
+      "deployment": "mapped",
+      "output": ".claude/skills/dev/references/01-context-gathering.md",
+      "before_sha256": null,
+      "after_sha256": "416d51e88665a52742ad63cb4ecc311e6a72ef8f24411ea928d19dceef608e67",
+      "verification": "rendered output written and re-read; hash recorded"
+    }
+  ],
+  "providers": ["claude"],
+  "provider_scope_source": "installed providers with design/dev actually deployed (canonical/manifest.json destinations checked against .claude/ and .agents/ on disk)"
+}

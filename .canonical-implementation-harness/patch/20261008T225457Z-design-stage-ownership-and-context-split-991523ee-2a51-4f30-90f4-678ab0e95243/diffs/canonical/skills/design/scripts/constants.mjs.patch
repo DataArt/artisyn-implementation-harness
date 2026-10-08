@@ -1,0 +1,41 @@
+--- a/canonical/skills/design/scripts/constants.mjs
++++ b/canonical/skills/design/scripts/constants.mjs
+@@ -5,6 +5,8 @@
+ 
+ /** The lifecycle's stages, in flow order. */
+ export const STAGES = Object.freeze([
++  'context-gathering',
++  'ceremony',
+   'frame',
+   'research',
+   'evaluate',
+@@ -12,10 +14,11 @@
+   'review-gate',
+   'address-feedback',
+   'publish',
++  'completion',
+ ]);
+ 
+ /** Stage whose completion gates ticket completion. */
+-export const FINAL_STAGE = 'publish';
++export const FINAL_STAGE = 'completion';
+ 
+ /** File names this recorder owns inside the design directory. */
+ export const FILES = Object.freeze({
+@@ -38,6 +41,8 @@
+ 
+ /** Default work activity opened when each stage starts. */
+ export const ACTIVITIES_BY_STAGE = Object.freeze({
++  'context-gathering': 'investigation',
++  ceremony: 'planning',
+   frame: 'planning',
+   research: 'investigation',
+   evaluate: 'review',
+@@ -45,6 +50,7 @@
+   'review-gate': 'review',
+   'address-feedback': 'review',
+   publish: 'documentation',
++  completion: 'documentation',
+ });
+ 
+ /** Allowed work-interval activities. */

@@ -21,7 +21,7 @@ duplicating already-recorded items.
 
 ## Step 1 — Read architecture context
 
-Read relevant docs under `{dest docs}` (across its subfolders) for the
+Read relevant docs under `{source docs}` (across its subfolders) for the
 areas the design touches.
 
 ## Step 2 — Run the assessment
@@ -29,15 +29,13 @@ areas the design touches.
 ### Pillar definitions
 
 | Pillar                 | Key questions                                                                                                           |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | Operational Excellence | Can operations be run, monitored, and improved without excessive manual effort? Is deployment automated and observable? |
 | Security               | Is data protected in transit and at rest? Are credentials never hardcoded and access least-privilege?                   |
 | Reliability            | Does the design recover from failure? Are there single points of failure or unhandled dependencies?                     |
 | Performance Efficiency | Does the design meet expected latency/throughput needs efficiently?                                                     |
 | Cost Optimization      | Is spend proportional to value, with no unnecessary over-provisioning?                                                  |
 | Sustainability         | Does the design minimize wasted compute, storage, and network resources?                                                |
-
-Valid `--pillars=` values: `ops`, `security`, `reliability`, `performance`, `cost`, `sustainability`.
 
 ### RAG rating
 
@@ -73,11 +71,20 @@ human-approval gate, so treat any P1 here as blocking.
 
 ## Step 3 — Present findings
 
-Present the full assessment in the console. Say:
+Present the full assessment in the console.
+
+**Default (no caller instruction says otherwise):** this is a sign-off gate
+(`patterns/approval-sign-off.md`). Say:
 
 > "Review complete. Any corrections before I append to `design/Report.md`? (**yes** to save / **no** to discuss)"
 
 **Stop and wait.** Apply corrections if requested.
+
+**When the calling stage reference explicitly says not to stop here** (it
+folds P1/failing findings into its own phase sign-off instead) — continue
+straight to Step 4 without presenting or asking. The findings and any P1
+items are the calling reference's responsibility to carry forward and name as
+a decision at its own sign-off; this pattern never silently drops them.
 
 ## Step 4 — Append to Report.md
 

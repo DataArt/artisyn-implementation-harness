@@ -11,6 +11,16 @@
   "coverage": "from_tracking_start",
   "stages": [
     {
+      "id": "context-gathering",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "ceremony",
+      "status": "pending",
+      "attempts": []
+    },
+    {
       "id": "frame",
       "status": "pending",
       "attempts": []
@@ -42,6 +52,11 @@
     },
     {
       "id": "publish",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "completion",
       "status": "pending",
       "attempts": []
     }

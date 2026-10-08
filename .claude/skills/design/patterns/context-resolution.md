@@ -1,27 +1,56 @@
 ---
 name: Context Resolution
-description: Resolves which track (Product / Project) a design session belongs to. Applied exactly once, in Frame Step 4. Every other phase reads the result from design/Report.md's Context section instead of re-resolving it — no branching logic elsewhere in the lifecycle.
+description: Resolves which track (Product / Project) a design session belongs to. Applied exactly once, in Context Gathering Step 3. Every other phase reads the result from design/Report.md's Context section instead of re-resolving it — no branching logic elsewhere in the lifecycle.
 type: pattern
 ---
 
 > ⚠️ **Two-track deployments only.** Do not deploy this file for Project-scoped or Product-context-scoped deployments — this branch is selected during installation; single-track installs omit it.
 
-Ask the developer once, in Frame Step 4:
+Resolved once, in Context Gathering Step 3 — this is the only place these
+values are decided; no later phase re-derives them.
 
-> "Is this a **Product** design (cross-project product architecture — lands in `docs/Harness/`) or a **Project** design (this repo's own target architecture — lands in `docs/Target Architecture (HLD)/`)?"
+This is an intelligent-approval checkpoint (`patterns/approval-intelligent.md`).
+Auto-approval condition: the ticket, linked docs, or developer's own words
+name one track unambiguously — e.g. they reference a specific
+`Harness` doc or product-context terminology (Product), or
+they reference this repo's own containers, HLD, or NFR docs by name (Project)
+— and nothing in the input points the other way.
+
+Condition met → auto-approve: state the resolved track and why in one line
+(the specific reference that made it unambiguous), and continue.
+
+Condition fails or is uncertain (nothing names a track, or the input could
+plausibly be either) → this is a sign-off gate (`patterns/approval-sign-off.md`):
+
+> "Is this a **Product** design (cross-project product architecture — lands in `docs/Harness/`) or a **Project** design (this repo's own target architecture — lands in `docs/Target Architecture (HLD)/`)? {If the input leans one way: "My read: probably {track}, because {reason} — confirm or correct."}"
 
 **Stop and wait.**
 
-Look up the answer in the table below — this is the only place these values are decided. No later phase re-derives them.
+Either way, look up the resolved track in the table below.
 
-| Field                                  | Product                                                                                                                                                                              | Project                                                                                           |
-| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
-| Source docs                            | `docs/Harness/`                                                                                                                                                                      | `docs/Target Architecture (HLD)/`                                                                 |
-| Dest docs                              | `docs/Harness/{subfolder}`                                                                                                                                                           | `docs/Target Architecture (HLD)/{subfolder}`                                                      |
-| Architect agent (research/review)      | `@product-architect`                                                                                                                                                                 | `@architect`                                                                                      |
-| Writer agent                           | `@docs-writer`                                                                                                                                                                       | `@docs-writer`                                                                                    |
+| Field                                  | Product                                                                                                                                                                                                 | Project                                                                                                              |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Source docs                            | `docs/Harness/`                                                                                                                                                                         | `docs/Target Architecture (HLD)/`                                                                                    |
+| Dest docs                              | `docs/Harness/{subfolder}`                                                                                                                                                              | `docs/Target Architecture (HLD)/{subfolder}`                                                                         |
+| Stories root                           | `docs/Stories/product-design/`                                                                                                                                                                          | `docs/Stories/design/`                                                                                               |
+| Architect agent (research/review)      | `@product-architect`                                                                                                                                                                                    | `@architect`                                                                                                         |
+| Writer agent                           | `@docs-writer`                                                                                                                                                                                          | `@docs-writer`                                                                                                       |
 | Implementation note (Publish hand-off) | Most Product designs are implemented in the owning downstream platform repo(s) — offer `/dev` in this repo only if the implementation tickets genuinely target this repo's own code. | Project designs cover this repo's own containers — `/dev` in this repo is the expected next step. |
 
 **Subfolder is not enumerated here** — it can be any subfolder/section under the resolved Source/Dest docs path, at any depth (some product-context layers keep subfolders one level down; some target-architecture trees nest them under a version folder, e.g. `docs/Target Architecture (HLD)/v1/Containers/`). Glob recursively under the resolved Source docs path for existing subdirectories, list what exists, and ask the developer which one this design belongs to (or a new name if none fit).
 
-Write the resolved Track, Source docs, Dest docs, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md`. Every subsequent phase and satellite skill reads them from there — as `{resolved architect agent}`, `{source docs}` / `{dest docs}`.
+**Stories root separates where the two tracks physically live on disk**, same idea as Source/Dest docs but for `docs/Stories/`: a Product design's story folder, archive, and every path reference live under `docs/Stories/product-design/`; a Project design's live under `docs/Stories/design/`. The two never mix in the same parent folder, so a reader scanning `docs/Stories/` can tell which track a story belongs to without opening it.
+
+Write the resolved Track, Source docs, Dest docs, Stories root, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md`. Every subsequent phase and satellite skill reads them from there — as `{resolved architect agent}`, `{source docs}` / `{dest docs}` / `{stories root}`.
+
+**Then read the resolved Source docs path.** Once Track and Subfolder are
+settled, read the relevant docs under the resolved Source docs path for
+anything already established on this topic, and record each one in
+`design/Report.md`'s `## Evidence` table (`Source` / `Read at stage` =
+`context-gathering` / `Relevant decision or constraint` / `Reference/version`).
+This is the lifecycle's one context-reading pass for this ticket — Frame,
+Research, and every later phase read this table instead of re-reading the
+source docs themselves, and it's how session continuity recaps context after
+a new session picks the ticket back up. Which path this reads from is itself
+track-dependent, so the instruction lives here with the rest of the
+track-dependent resolution, not as a separately templated sentence elsewhere.

@@ -5,6 +5,8 @@ export const LIFECYCLE = 'design';
 
 /** The lifecycle's stages, in flow order. */
 export const STAGES = Object.freeze([
+  'context-gathering',
+  'ceremony',
   'frame',
   'research',
   'evaluate',
@@ -12,10 +14,11 @@ export const STAGES = Object.freeze([
   'review-gate',
   'address-feedback',
   'publish',
+  'completion',
 ]);
 
 /** Stage whose completion gates ticket completion. */
-export const FINAL_STAGE = 'publish';
+export const FINAL_STAGE = 'completion';
 
 /** File names this recorder owns inside the design directory. */
 export const FILES = Object.freeze({
@@ -38,6 +41,8 @@ export const LEGACY_REPORT_MARKERS = Object.freeze({
 
 /** Default work activity opened when each stage starts. */
 export const ACTIVITIES_BY_STAGE = Object.freeze({
+  'context-gathering': 'investigation',
+  ceremony: 'planning',
   frame: 'planning',
   research: 'investigation',
   evaluate: 'review',
@@ -45,6 +50,7 @@ export const ACTIVITIES_BY_STAGE = Object.freeze({
   'review-gate': 'review',
   'address-feedback': 'review',
   publish: 'documentation',
+  completion: 'documentation',
 });
 
 /** Allowed work-interval activities. */

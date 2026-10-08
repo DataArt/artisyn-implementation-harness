@@ -1,0 +1,43 @@
+--- a/canonical/skills/design/patterns/do-report-commit.md
++++ b/canonical/skills/design/patterns/do-report-commit.md
+@@ -1,21 +1,27 @@
+-# Pattern: Do → Report → Commit (Design)
++# Do → Report → Commit
+ 
+-Applies at the end of every design phase. The ordering is always the same.
++Applies at the end of every design stage, after `patterns/phase-sign-off.md`'s
++sign-off is approved. Report and Commit are routine — no sign-off, no wait, no
++stop on Report; Commit is its own stop because it is a manual operation.
+ 
+ ## Steps
+ 
+-1. **Do** — complete the phase work (write artifacts, run WAF, archive, create tickets)
+-2. **Report** — update `design/Report.md` before presenting the commit message:
+-   - Phase tracker: mark current phase `✅`, next phase `🔄`
+-   - Append an Efforts row (date, phase, one-line note)
+-3. **Commit** — present the suggested commit message; **STOP** and wait for the developer to confirm
++1. **Do** — the sign-off is already approved; the artifact is final.
++2. **Report** — update `design/Report.md`: Phase tracker (current phase `✅`,
++   next phase `🔄`), append an Efforts row (date, phase, one-line note). Then
++   metrics `report`.
++3. **Commit** — present the suggested commit message. This is a manual-operation
++   sign-off (`patterns/approval-sign-off.md`): the developer runs it, you wait.
++   `wait start --reason user_input`. **Stop and wait.** On the reply, check
++   `git log`/`git status`: the commit exists and the worktree holds nothing from
++   this phase. If not, say what is missing and wait again. Only then
++   `stage complete`.
+ 
+-> After commit is confirmed, control returns to the caller. Compact and announce are the caller's responsibility — do not add them here.
++After the commit is confirmed, announce the outcome and continue straight into
++the next phase — no separate "ready to continue?" question.
+ 
+ ## Invariant
+ 
+-`design/Report.md` must reflect the completed phase before any commit is presented. It is the recovery point — the next session reads it to know where to resume.
+-
+-## Why
+-
+-`design/Report.md` is the recovery point for the design session. If a commit is made before the tracker and Efforts table are updated, the next session has no reliable record of which phase completed and what was decided. Presenting the commit before reporting creates a window where code and report are out of sync.
++`design/Report.md` must reflect the completed phase before any commit is
++presented. It is the recovery point — the next session reads it to know where
++to resume.

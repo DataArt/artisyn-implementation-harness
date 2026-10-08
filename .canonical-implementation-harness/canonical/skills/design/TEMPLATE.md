@@ -1,11 +1,12 @@
 ---
 name: design
 metadata:
-  version: 4.0.0
+  version: 6.0.0
 description: >
-  Full design lifecycle ({{provider:invoke:design}} {ticket}): Frame → Research → Evaluate → Solution
-  → Review Gate → Address Feedback → Publish, or a single stage via
-  {{provider:invoke:design}} frame|research|evaluate|solution|review-gate|address-feedback|publish {ticket}.
+  Full design lifecycle ({{provider:invoke:design}} {ticket}): Context Gathering → Ceremony → Frame
+  → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish → Completion, or a
+  single stage via {{provider:invoke:design}}
+  context-gathering|ceremony|frame|research|evaluate|solution|review-gate|address-feedback|publish|complete {ticket}.
   Trigger: "design {{PROJECT_KEY}}-XX", "run the design for {{PROJECT_KEY}}-XX".
 ---
 
@@ -21,44 +22,83 @@ The developer wants to run the design workflow for a ticket. Here is their input
 
 {{DESIGN_LIFECYCLE_SCOPE_NOTE}}
 
+## How approvals work
+
+A request to run the design lifecycle authorises everything routine: context
+inspection, drafting, delegating to `{resolved architect agent}`/`@docs-writer`,
+reversible local writes in scope, running non-guarded checks, updating the
+report, moving between stages. That authorisation holds for the whole ticket.
+Do not ask again per file, per finding, per step, or per phase.
+
+The developer should feel like they are reviewing a senior colleague's work, not
+approving every move of a junior one. So:
+
+- **Two stops per phase, both at its end.** The sign-off
+  (`patterns/phase-sign-off.md`) and then the commit: proposed, run by the
+  developer, checked in Git before the stage closes. Review Gate and Address
+  Feedback are the exception — their stop waits on a real external fact (the
+  actual MR approval state), not an agent decision.
+- **Inside a phase, keep going.** Steps use intelligent checkpoints
+  (`patterns/approval-intelligent.md`): run the checks yourself, auto-approve
+  when the content qualifies, and say in one line what you checked. Escalate
+  only on real doubt.
+- **Stop mid-phase only for** something only the developer can do or decide: a
+  check needing their eyes or access, a guarded command (branch checkout), a
+  material scope or tradeoff choice not already settled, accepting a real risk
+  (an unresolved OQ marked conditional, a WAF P1 gap accepted rather than
+  fixed), or an external mutation (tracker, publishing) not already authorised.
+  Present exact targets and prepared content first, combine related questions,
+  ask once.
+- **Never invent extra gates.** If a stage reference does not name a stop,
+  there is no stop.
+
+Commits are always the developer's. Each phase ends by proposing the commit(s)
+and waiting for them; the next phase starts on a clean worktree.
+
 ## Route
 
 See [references/00-router.md](references/00-router.md) for what each stage
 reference produces. Parse `{{provider:input}}` into an optional leading stage word and the
 remaining ticket/free-form input:
 
+- `context-gathering {input}` → apply Stage tasks below for **Context Gathering**
+  only, then follow `references/01-context-gathering.md` exactly
+- `ceremony {input}` → apply Stage tasks below for **Ceremony** only, then follow
+  `references/02-ceremony.md` exactly
 - `frame {input}` → apply Stage tasks below for **Frame** only, then follow
-  `references/01-frame.md` exactly
+  `references/03-frame.md` exactly
 - `research {input}` → apply Stage tasks below for **Research** only, then follow
-  `references/02-research.md` exactly
+  `references/04-research.md` exactly
 - `evaluate {input}` → apply Stage tasks below for **Evaluate** only, then follow
-  `references/03-evaluate.md` exactly
+  `references/05-evaluate.md` exactly
 - `solution {input}` → apply Stage tasks below for **Solution** only, then follow
-  `references/04-solution.md` exactly
+  `references/06-solution.md` exactly
 - `review-gate {input}` → apply Stage tasks below for **Review Gate** only, then
-  follow `references/05-review-gate.md` exactly
+  follow `references/07-review-gate.md` exactly
 - `address-feedback {input}` → apply Stage tasks below for **Address Feedback**
-  only, then follow `references/06-address-feedback.md` exactly
+  only, then follow `references/08-address-feedback.md` exactly
 - `publish {input}` → apply Stage tasks below for **Publish** only, then follow
-  `references/07-publish.md` exactly
+  `references/09-publish.md` exactly
+- `complete {input}` → apply Stage tasks below for **Completion** only, then
+  follow `references/10-completion.md` exactly
 - No stage word (bare ticket or free-form input) → run the **full chain**: Resume
-  Detection, then Phase 1 through Completion below
+  Detection, then Phase 1 through Phase 10 below
 - Unrecognized stage word: ask which stage was meant, or whether the full chain was
   intended, before doing anything else
 
 **Compatibility:** `/design-frame`, `/design-research`, `/design-evaluate`,
 `/design-solution`, `/design-review-gate`, `/design-review`,
 `/design-address-feedback`, `/design-publish` are retired — use
-`{{provider:invoke:design}} frame|research|evaluate|solution|review-gate|address-feedback|publish {ticket}`
+`{{provider:invoke:design}} context-gathering|ceremony|frame|research|evaluate|solution|review-gate|address-feedback|publish|complete {ticket}`
 instead. `/design-review`'s WAF assessment is now `patterns/waf-review.md`, applied
-directly by Solution's Step 7b — there is no longer a standalone command for it.
+directly by Solution's Step 7 — there is no longer a standalone command for it.
 
 Ticket-tracker activity is entirely `@scrum-master`'s responsibility. Design only
 ever asks it to act on a ticket by state name ("transition to In Progress",
 "transition to Done") — the actual transition IDs live in `@scrum-master`'s own
-definition, not here. The tracker transition and branch checkout happen inside
-Frame (Step 3), once the ticket's title/slug is known — there is no separate
-Ceremony stage.
+definition, not here. The tracker transition and branch checkout happen in the
+dedicated Ceremony stage, after Context Gathering has resolved the ticket's
+title/slug.
 
 ---
 
@@ -71,7 +111,7 @@ folder whose title matches the request. If none exists, generate that stable loc
 ID (checking for a collision) before globbing and use it for the folder and all
 subsequent artifacts.
 
-Glob for `docs/Stories/*{TICKET}*/**` using a `*{TICKET}*` wildcard (never `[{TICKET}]*` — square brackets are glob metacharacters). The `/**` suffix is required because Glob matches files, not directories.
+Glob for `{{DESIGN_STORIES_ROOT}}*{TICKET}*/**` using a `*{TICKET}*` wildcard (never `[{TICKET}]*` — square brackets are glob metacharacters). The `/**` suffix is required because Glob matches files, not directories. Two-track deployments: the track isn't resolved yet at this point — glob both `docs/Stories/design/*{TICKET}*/**` and `docs/Stories/product-design/*{TICKET}*/**` (and their `approved/`/`declined/` archive subfolders) and take whichever one has a match; a ticket exists under exactly one root. Single-track deployments only have the one fixed root, so there's nothing to disambiguate.
 
 - No files found → fresh start; resolve the local/tracker ID, then go to Phase 1.
 - Files found → derive folder path from the first matched file, then continue to Step 2.
@@ -83,24 +123,32 @@ block are the authoritative resume point. Also verify artifacts on disk. For Sol
 use `selected_artifacts` from the state block; an artifact not selected is not evidence
 that the phase is incomplete.
 
-| Artifact on disk              | Phase done                                      |
-| ----------------------------- | ----------------------------------------------- |
-| `design/00 Frame.md`          | Frame ✅                                        |
-| `design/01 Research*.md`      | Research ✅                                     |
-| `design/02 Evaluate*.md`      | Evaluate ✅                                     |
-| Selected solution artifacts   | Solution ✅                                     |
-| Report.md Gate — Draft MR set | Review 🔄 (pending)                             |
-| Report.md Gate — Approved set | Review ✅ · Address Feedback ✅ (or ⏭️ skipped) |
+| Artifact on disk                                                | Phase done                                                        |
+| --------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `design/Report.md` exists, `## Context` filled in               | Context Gathering ✅                                              |
+| Report.md `Branch` row set                                      | Ceremony ✅                                                       |
+| `design/00 Frame.md`                                            | Frame ✅                                                          |
+| `design/01 Research*.md`                                        | Research ✅                                                       |
+| `design/02 Evaluate*.md`                                        | Evaluate ✅                                                       |
+| Selected solution artifacts                                     | Solution ✅                                                       |
+| Report.md Gate — Draft MR set                                   | Review 🔄 (pending)                                               |
+| Report.md Gate — Approved set (a date)                          | Review ✅ · Address Feedback ✅ (or ⏭️ skipped)                   |
+| Report.md Gate — Approved set to `declined`                     | Review ✅ · Address Feedback ❌ (declined) · Publish ⏭️ (skipped) |
+| `{{DESIGN_STORIES_ROOT}}{approved\|declined}/*{TICKET}*` folder | Completion ✅ (design lifecycle closed)                           |
 
 **Step 3 — Present status and confirm**
 
 > "Found existing design for `{TICKET}`:
 >
-> `📋 Frame [status] · 🔍 Research [status] · 🏗 Evaluate [status] · 📦 Solution [status] · 🔎 Review [status] · 💬 Address Feedback [status] · 📤 Publish [status]`
+> `🎯 Context Gathering [status] · 🚀 Ceremony [status] · 📋 Frame [status] · 🔍 Research [status] · 🏗 Evaluate [status] · 📦 Solution [status] · 🔎 Review [status] · 💬 Address Feedback [status] · 📤 Publish [status] · 🏁 Completion [status]`
 >
 > Resuming from **Phase N — {Name}**. Type **yes** to continue, or name a specific phase and step to jump to (e.g. 'Evaluate, Step 4')."
 
 Wait for confirmation before proceeding. If the developer names a specific phase or phase+step, jump directly to it — do not re-run earlier steps.
+
+On **resume**, the folder found here is `$DESIGN_DIR` — `{{DESIGN_STORIES_ROOT}}[{TICKET}] {name}/design/` or its `approved/`/`declined/` twin — for every stage and every metrics command from now on; `{{DESIGN_STORIES_ROOT}}` is whichever root Step 1's glob actually matched (Two-track checked both, so this is already settled). Stages do not search for it again; a direct folder path given as input is used as is. (`solution/` is the sibling directory at the same level as `design/`, not inside `$DESIGN_DIR`.)
+
+On a **fresh start**, no `$DESIGN_DIR` exists yet — there is nothing to find, and no `design/Report.md` to read it from. Context Gathering's Step 3 resolves `{{DESIGN_STORIES_ROOT}}` first; only then does Step 4 create the folder at that root and `design/Report.md` inside it, fixing `$DESIGN_DIR` for every later stage to read as given.
 
 Either way — fresh start or resume — apply **Stage tasks** below once the local/tracker
 ID is resolved, before the target phase's own work starts. The pattern it delegates to
@@ -118,46 +166,28 @@ informational only; they are the trigger to act on this step now, not later.
 Apply `{{provider:skills_root}}/design/patterns/task-tracking.md` — it inspects existing state
 itself (the available tracker or `design/Report.md`) and decides create vs. reuse; this router
 never re-derives that logic per branch. For the full chain, the unit list is the
-seven stages (Frame, Research, Evaluate, Solution, Review Gate, Address Feedback,
-Publish), chained in that order. For a direct single-stage invocation, the unit list
-is just that one stage. Mark a stage `in_progress` on entry and `completed` only once
-its phase-tracker banner (below) shows it done — design has no per-step child units
-to track underneath a stage the way `dev`'s Implement stage does.
+ten stages (Context Gathering, Ceremony, Frame, Research, Evaluate, Solution,
+Review Gate, Address Feedback, Publish, Completion), chained in that order. For a
+direct single-stage invocation, the unit list is just that one stage. Mark a stage
+`in_progress` on entry and `completed` only once its phase-tracker banner (below)
+shows it done. Research, Evaluate, and Solution track their own child units when
+`references/00-decision-router.md`'s loop is active (2+ confirmed decisions) — one
+task per decision, the same shape `dev`'s Implement stage uses for plan steps.
+Outside that loop, design has no per-step child units to track.
 
 ---
-
-## Approval boundaries
-
-A request to run the design lifecycle authorizes context inspection, drafting,
-delegating to `{resolved architect agent}`/`@docs-writer`, reversible local writes
-within scope, relevant checks, report updates, and routine stage transitions.
-Existing authorization persists; do not ask again at each file, finding, step, or
-phase. Announce progress and continue.
-
-Apply `patterns/approval-sign-off.md` for the sign-off mechanism and
-`patterns/approval-intelligent.md` for the specific steps that name themselves as
-using it instead. Outside those named checkpoints, ask only when:
-
-- Material scope, requirement, or tradeoff decisions are not already settled.
-  Prepare the draft or proposed content first; combine related choices once.
-- Accepting a real unresolved risk (an unresolved OQ marked conditional, a WAF P1
-  gap accepted rather than fixed) or deferring required work. Record the decision,
-  rationale, and attribution; never treat silence as acceptance.
-- Verification requires human judgment or access unavailable to the agent (the
-  actual MR approval state).
-- External mutations (tracker tasks, publishing, branch checkout, commits) or
-  destructive operations, when not already authorized. Present exact targets and
-  prepared content/diffs before asking. Respect project guarded-command rules.
 
 ## Metrics
 
 Apply `patterns/metrics.md` throughout the lifecycle, including direct-stage entry.
 Use `scripts/design-metrics.mjs` with explicit `--dir` pointing to the story's `design/`
-directory. Frame initializes `design/stat.json` beside `design/Report.md`; interrupted sessions
-run `recover` before new work. Record waits and refresh the report before each hard
-stop. Stages own timing; WBS implementation tasks are not design steps. Review Gate
-records actual approval evidence, Address Feedback records rework or an approved skip,
-and Publish finalizes metrics only after required completion work succeeds.
+directory. Context Gathering initializes `design/stat.json` beside `design/Report.md`;
+interrupted sessions run `recover` before new work. Record waits and refresh the
+report before each hard stop. Stages own timing; WBS implementation tasks are not
+design steps. Review Gate opens the draft MR and parks for approval; Address
+Feedback confirms the outcome and records the approval evidence, the rework,
+or the skip; Completion finalizes metrics only after required close-out work
+succeeds.
 
 ---
 
@@ -166,105 +196,153 @@ and Publish finalizes metrics only after required completion work succeeds.
 Display this banner at every phase transition:
 
 ```
-📋 Frame [status] · 🔍 Research [status] · 🏗 Evaluate [status] · 📦 Solution [status] · 🔎 Review [status] · 💬 Address Feedback [status] · 📤 Publish [status]
+🎯 Context Gathering [status] · 🚀 Ceremony [status] · 📋 Frame [status] · 🔍 Research [status] · 🏗 Evaluate [status] · 📦 Solution [status] · 🔎 Review [status] · 💬 Address Feedback [status] · 📤 Publish [status] · 🏁 Completion [status]
 ```
 
 Where `[status]` is: `🔄` (active) · `✅` (done) · `⏳` (pending)
 
 ---
 
-## Phase 1 — Frame
+## Phase 1 — Context Gathering
+
+> Skip if Report.md phase tracker shows Context Gathering ✅.
+
+Follow `references/01-context-gathering.md` exactly — it resolves the ticket,
+fetches tracker context, resolves the design context (track/subfolder), and
+creates the story folder and Report.md. Ends with a phase sign-off, then
+Report → Commit.
+
+Once commit is confirmed, emit a progress announcement
+(`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+`"📋 Remaining: Ceremony → Frame → Research → Evaluate → Solution → Review → Publish → Completion"`
+— then continue straight into Ceremony. Direct-stage entry ends here.
+
+---
+
+## Phase 2 — Ceremony
+
+> Skip if Report.md phase tracker shows Ceremony ✅.
+
+Follow `references/02-ceremony.md` exactly — it handles the ticket's tracker
+transition and branch checkout, once the title/slug is known from Context
+Gathering. Ends with a phase sign-off (the confirmed branch), then
+Report → Commit.
+
+Once commit is confirmed, emit a progress announcement
+(`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+`"📋 Remaining: Frame → Research → Evaluate → Solution → Review → Publish → Completion"`
+— then continue straight into Frame. Direct-stage entry ends here.
+
+---
+
+## Phase 3 — Frame
 
 > Skip if Report.md phase tracker shows Frame ✅.
 
-Follow `references/01-frame.md` exactly — it also handles the ticket's tracker
-transition and branch checkout, once the title/slug is known.
+Follow `references/03-frame.md` exactly. Ends with a phase sign-off, then
+Report → Commit.
 
-Once commit is confirmed:
-
-1. **Announce** — **STOP** and emit a progress announcement (`{{provider:skills_root}}/design/patterns/announce-progress.md`): `"📋 Remaining: Research → Evaluate → Solution → Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`{{provider:skills_root}}/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
-3. **Resume** — `"Ready to move into Research? Type **yes** to continue, or **no** to stop and resume later with {{provider:invoke:design}} research {TICKET}."`
+Once commit is confirmed, emit a progress announcement
+(`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+`"📋 Remaining: Research → Evaluate → Solution → Review → Publish → Completion"` — then
+continue straight into Research. Direct-stage entry ends here.
 
 ---
 
-## Phase 2 — Research
+## Phase 4 — Research
 
 > Skip if Report.md phase tracker shows Research ✅.
 
-Follow `references/02-research.md` exactly.
+Follow `references/04-research.md` exactly. Ends with a phase sign-off, then
+Report → Commit.
 
-Once commit is confirmed:
-
-1. **Announce** — **STOP** and emit a progress announcement (`{{provider:skills_root}}/design/patterns/announce-progress.md`): `"📋 Remaining: Evaluate → Solution → Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`{{provider:skills_root}}/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
-3. **Resume** — `"Ready to move into Evaluate? Type **yes** to continue, or **no** to stop and resume later with {{provider:invoke:design}} evaluate {TICKET}."`
+Once commit is confirmed, emit a progress announcement
+(`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+`"📋 Remaining: Evaluate → Solution → Review → Publish → Completion"` — then continue
+straight into Evaluate. Direct-stage entry ends here.
 
 ---
 
-## Phase 3 — Evaluate
+## Phase 5 — Evaluate
 
 > Skip if Report.md phase tracker shows Evaluate ✅.
 
-Follow `references/03-evaluate.md` exactly.
+Follow `references/05-evaluate.md` exactly. Ends with a phase sign-off, then
+Report → Commit.
 
-Once commit is confirmed:
-
-1. **Announce** — **STOP** and emit a progress announcement (`{{provider:skills_root}}/design/patterns/announce-progress.md`): `"📋 Remaining: Solution → Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`{{provider:skills_root}}/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
-3. **Resume** — `"Ready to build the Solution? Type **yes** to continue, or **no** to stop and resume later with {{provider:invoke:design}} solution {TICKET}."`
+Once commit is confirmed, emit a progress announcement
+(`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+`"📋 Remaining: Solution → Review → Publish → Completion"` — then continue straight into
+Solution. Direct-stage entry ends here.
 
 ---
 
-## Phase 4 — Solution
+## Phase 6 — Solution
 
 > Skip if Report.md phase tracker shows Solution ✅.
 
-Follow `references/04-solution.md` exactly.
+Follow `references/06-solution.md` exactly. Ends with a phase sign-off, then
+Report → Commit.
 
-Once commit is confirmed:
-
-1. **Announce** — **STOP** and emit a progress announcement (`{{provider:skills_root}}/design/patterns/announce-progress.md`): `"📋 Remaining: Review → Publish"`
-2. **Compact** — apply compact-between-phases pattern (`{{provider:skills_root}}/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
-3. **Resume** — `"Ready to open the Review gate (draft MR)? Type **yes** to continue, or **no** to stop and resume later with {{provider:invoke:design}} review-gate {TICKET}."`
+Once commit is confirmed, emit a progress announcement
+(`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+`"📋 Remaining: Review → Publish → Completion"` — then continue straight into
+opening the Review gate. Direct-stage entry ends here.
 
 ---
 
-## Phase 5 — Review
+## Phase 7 — Review
 
 > Skip if Report.md phase tracker shows Review ✅ (or Publish ✅).
 
-Follow `references/05-review-gate.md` exactly — it opens a draft MR, records the gate, and (on resume) reports whether the approver signed off or raised concerns.
+Follow `references/07-review-gate.md` exactly — it opens a draft MR, records the gate, and ends the session there. Confirming the outcome is Phase 8's opening concern, not this phase's.
 
-Once the draft MR is open, the session ends. `references/05-review-gate.md` resumes at its Step 4 on the next invocation, after out-of-band human approval.
-
-On resume, Step 4 reports the outcome:
-
-- **Approved, no concerns:**
-  1. **Announce** — **STOP** and emit a progress announcement (`{{provider:skills_root}}/design/patterns/announce-progress.md`): `"📋 Remaining: Publish"`
-  2. **Compact** — apply compact-between-phases pattern (`{{provider:skills_root}}/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
-  3. **Resume** — `"Ready to Publish? Type **yes** to continue, or **no** to stop and resume later with {{provider:invoke:design}} publish {TICKET}."`
-  4. Skip Phase 6 — go directly to Phase 7.
-- **Concerns raised** → proceed to Phase 6.
+Once the draft MR is open, the session ends. The next invocation is `{{provider:invoke:design}} address-feedback {TICKET}`, which continues at Phase 8.
 
 ---
 
-## Phase 6 — Address Feedback
+## Phase 8 — Address Feedback
 
-> Only runs if the approver raised concerns during Review. Skip if Report.md phase tracker shows Address Feedback ✅ or ⏭️ (skipped).
+> Runs on every post-gate resume, whether or not the approver raised concerns — its Step 1 is what confirms that. Skip if Report.md phase tracker shows Address Feedback ✅, ❌ (declined), or ⏭️ (skipped).
 
-Follow `references/06-address-feedback.md` exactly — it identifies which phase/step the concern traces to, suggests the named reiterate path, applies the fix in that phase, and loops until the MR is re-approved.
+Follow `references/08-address-feedback.md` exactly. Its Step 1 completes Review Gate and confirms the outcome:
 
-Once re-approved:
-
-1. **Announce** — **STOP** and emit a progress announcement (`{{provider:skills_root}}/design/patterns/announce-progress.md`): `"📋 Remaining: Publish"`
-2. **Compact** — apply compact-between-phases pattern (`{{provider:skills_root}}/design/patterns/compact-between-phases.md`); continue once the checkpoint is persisted
-3. **Resume** — `"Ready to Publish? Type **yes** to continue, or **no** to stop and resume later with {{provider:invoke:design}} publish {TICKET}."`
+- **Approved, no concerns:** Step 1 skips this stage and emits a progress announcement
+  (`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+  `"📋 Remaining: Publish → Completion"` — then continue straight into Publish.
+- **Declined:** Step 1 skips this stage, Publish, and routes to Completion directly.
+- **Concerns raised** → Step 1 starts this stage and continues into its Steps 2–3,
+  which identify which phase/step the concern traces to, suggest the named
+  reiterate path, apply the fix in that phase, and loop Steps 2–3 (via Step 3's
+  own re-check, the same question as Step 1) until an outcome resolves it:
+  - **Re-approved** → emit a progress announcement:
+    `"📋 Remaining: Publish → Completion"` — then continue straight into Publish.
+  - **Declined** → emit a progress announcement: `"📋 Remaining: Completion"` —
+    then continue straight into Completion, skipping Phase 9 entirely. There are
+    no permanent docs to update for a declined design.
 
 ---
 
-## Phase 7 — Publish
+## Phase 9 — Publish
 
-> Skip if Report.md phase tracker shows Publish ✅.
+> Skip if Report.md phase tracker shows Publish ✅ or ⏭️ (skipped — design was declined).
 
-Follow `references/07-publish.md` exactly — doc impact identification, doc updates, `{{DESIGN_ARCHITECT_AGENT}}` review, then a single wrap-up stop (publish implementation tickets?), then ticket publication, archive, tracker sync, and close-out run straight through. This is the final phase; the design lifecycle is closed once it completes.
+Follow `references/09-publish.md` exactly — doc impact identification, doc
+updates, `{{DESIGN_ARCHITECT_AGENT}}` review, then a phase sign-off, Report →
+Commit.
+
+Once commit is confirmed, emit a progress announcement
+(`{{provider:skills_root}}/design/patterns/announce-progress.md`):
+`"📋 Remaining: Completion"` — then continue straight into Completion.
+Direct-stage entry ends here.
+
+---
+
+## Phase 10 — Completion
+
+> Skip if Report.md phase tracker shows Completion ✅.
+
+Follow `references/10-completion.md` exactly — publish implementation
+tickets, archive, tracker sync, then a phase sign-off, Report, and the final
+commit + PR handover. This is the final phase; the design lifecycle is closed
+once it completes.

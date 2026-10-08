@@ -5,12 +5,18 @@ content, personally run a manual operation, or confirm an out-of-band decision,
 before the lifecycle proceeds. It blocks progress until an explicit reply; silence,
 a later unrelated message, or an automated notification is never a sign-off.
 
-A step that names itself a sign-off gate is a human checkpoint by design: that stop
-is unconditional, never skipped, downgraded to an announcement, or weakened by
-routine-work authorization — however small the change looks. Whether a given step
-requires a sign-off, and which kind, is a decision made at that step, not by this
-pattern; changing it is its own explicit edit, called out on its own, never a side
-effect of an unrelated change.
+The lifecycle uses sign-offs sparingly. The normal place is the end of a phase
+(`patterns/phase-sign-off.md`). Steps inside a phase use intelligent checkpoints
+(`patterns/approval-intelligent.md`) and keep going when the content qualifies —
+anything they would have asked about is carried into the phase sign-off instead.
+
+A step that still names itself a sign-off gate outside that shape — a manual
+operation, an external confirmation, a free-form input only the developer can
+supply — is a human checkpoint by design: that stop is unconditional, never
+skipped, downgraded to an announcement, or weakened by routine-work authorization
+— however small it looks. Whether a given step requires a sign-off, and which
+kind, is a decision made at that step, not by this pattern; changing it is its own
+explicit edit, called out on its own, never a side effect of an unrelated change.
 
 Three common shapes:
 
