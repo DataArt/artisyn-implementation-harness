@@ -56,12 +56,14 @@ workflow and the `CiReadRole`/`DeployRole` OIDC trust split.
 
 ## Branch Protection
 
-`main` branch protection and a `.github/CODEOWNERS` file are not yet configured in this repository.
-This matters beyond general hygiene: the `CiReadRole`/`DeployRole` OIDC split only prevents an
-unreviewed PR from reaching deploy-grade credentials — it assumes someone actually reviews the PR
-before merge. Until branch protection enforces that, the split's guarantee is weaker than it looks.
+`.github/CODEOWNERS` is configured, but the `main` branch protection _rule_ that actually enforces
+required reviews is not yet turned on in GitHub repo settings — a `CODEOWNERS` file with no
+protection rule requiring it is advisory only, not enforced. This matters beyond general hygiene:
+the `CiReadRole`/`DeployRole` OIDC split only prevents an unreviewed PR from reaching deploy-grade
+credentials — it assumes someone actually reviews and approves the PR before merge. Until the rule
+is enabled, that assumption isn't backed by anything.
 
-Recommended, once configured:
+Recommended, once configured (Settings → Branches → branch protection rule for `main`):
 
 | Branch | Restrictions                                                                                        |
 | ------ | --------------------------------------------------------------------------------------------------- |
