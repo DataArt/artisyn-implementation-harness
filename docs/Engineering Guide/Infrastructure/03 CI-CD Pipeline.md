@@ -9,8 +9,8 @@ _Automated quality gate (CI) and deployment (CD) via GitHub Actions and AWS OIDC
 CI runs on every pull request: audit, lint, typecheck, build.
 CD runs on merge to `main`: `nx affected --target=deploy` deploys only what changed.
 
-Both workflows authenticate to AWS using OIDC — the `CiStack` IAM deploy role issues short-lived
-credentials via STS. No access keys exist in GitHub.
+Both workflows authenticate to AWS using OIDC — `CiStack` issues short-lived credentials via STS
+from two separate IAM roles, one per workflow. No access keys exist in GitHub.
 
 ## Target state
 
@@ -25,7 +25,8 @@ flowchart TD
 
     PR["🔀 Pull Request\n(opened · sync · reopened)"]:::gh --> CI["ci.yml\nenvironment: dev"]:::action
     MERGE["✅ Merge to main"]:::gh --> CD["cd.yml\nenvironment: dev"]:::action
-    CI & CD -->|OIDC AssumeRole| ROLE["CiStack\nIAM Deploy Role"]:::iam
+    CI -->|OIDC AssumeRole\nevent_name=pull_request| READROLE["CiStack\nIAM CiReadRole"]:::iam
+    CD -->|OIDC AssumeRole\nref=refs/heads/main| ROLE["CiStack\nIAM DeployRole"]:::iam
 
     CI --> AUDIT["npm audit\n—severity moderate"]:::action
     CI --> LINT["nx affected:lint"]:::action
@@ -85,14 +86,22 @@ See [Guarded operations](#guarded-operations).
 
 ## OIDC authentication
 
-Both workflows run in `environment: dev`, which resolves `vars.*`. The `.github/actions/aws-auth`
-composite calls `aws-actions/configure-aws-credentials`:
+Both workflows run in `environment: dev`, which resolves `vars.*` — but `environment: dev` is
+identical on both workflows, so it cannot be used to tell a PR run from a post-merge run apart.
+Each workflow assumes a different role, scoped by a GitHub OIDC token claim that does vary by
+trigger. The `.github/actions/aws-auth` composite calls `aws-actions/configure-aws-credentials`:
 
-1. GitHub generates an OIDC token scoped to the repo and workflow run
+1. GitHub generates an OIDC token scoped to the repo, workflow run, triggering event, and ref
 2. STS validates against `CiStack`'s OIDC provider:
    - `aud = sts.amazonaws.com`
    - sub matches `repo:{githubOrg}@{githubOrgId}/{githubRepo}@{githubRepoId}:*` — numeric IDs required for repos created after June 2026
+   - `ci.yml` assumes `CiReadRole`, additionally gated on `event_name = pull_request`
+   - `cd.yml` assumes `DeployRole`, additionally gated on `ref = refs/heads/main`
 3. STS returns short-lived credentials valid for the job duration
+
+`CiReadRole` can only `ssm:GetParameter`. Only `DeployRole` can write to S3, CloudFront, or the
+auth Lambda — so an unreviewed PR run, even one editing `ci.yml` itself, can never reach
+deploy-grade credentials before merge.
 
 ---
 
@@ -126,12 +135,13 @@ No `$GITHUB_ENV` export step is needed in the workflow YAML.
 
 All values live in the `dev` GitHub Actions environment (Settings → Environments → dev → Variables):
 
-| Variable                    | Description                                                                              |
-| --------------------------- | ---------------------------------------------------------------------------------------- |
-| `IAM_ROLE_ARN`              | `CiStack` CloudFormation output — `arn:aws:iam::{account}:role/{org}-ci-docs-{loc}-role` |
-| `AWS_REGION`                | Deployment region — used for OIDC auth and SSM `GetParameter` calls                      |
-| `SITE_SSM_ENV_PARAM`        | SSM path for site config, e.g. `/{org}/dev/docs/site/env`                                |
-| `LAMBDA_AUTH_SSM_ENV_PARAM` | SSM path for lambda-auth config, e.g. `/{org}/dev/docs/lambda-auth/env`                  |
+| Variable                    | Description                                                                                      |
+| --------------------------- | ------------------------------------------------------------------------------------------------ |
+| `CI_ROLE_ARN`               | `CiStack` CloudFormation output (`CiRoleArn`) — SSM-read-only, used by `ci.yml`                  |
+| `DEPLOY_ROLE_ARN`           | `CiStack` CloudFormation output (`DeployRoleArn`) — S3/CloudFront/Lambda write, used by `cd.yml` |
+| `AWS_REGION`                | Deployment region — used for OIDC auth and SSM `GetParameter` calls                              |
+| `SITE_SSM_ENV_PARAM`        | SSM path for site config, e.g. `/{org}/dev/docs/site/env`                                        |
+| `LAMBDA_AUTH_SSM_ENV_PARAM` | SSM path for lambda-auth config, e.g. `/{org}/dev/docs/lambda-auth/env`                          |
 
 No bucket names, distribution IDs, or function names are stored as GitHub variables — those live in
 SSM and are fetched at runtime by each script.

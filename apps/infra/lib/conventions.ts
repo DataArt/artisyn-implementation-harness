@@ -18,6 +18,7 @@ export function naming({
     authSecret: `${org}/${env}/${wl}/lambda-auth`,
     ssmEnvParam: (app: string) => `/${org}/${env}/${wl}/${app}/env`,
     ciDeployRole: `${org}-ci-${wl}-${loc}-role`,
+    ciReadRole: `${org}-ci-${wl}-${loc}-read-role`,
   };
 }
 

@@ -32,21 +32,32 @@ export class CiStack extends cdk.Stack {
     const names = naming({ orgPrefix, environment, workload, locationShort });
 
     const oidcProvider = this.createOidcProvider(createOidcProvider);
+    const repoSub = `repo:${githubOrg}@${githubOrgId}/${githubRepo}@${githubRepoId}:*`;
+
+    const ciReadRole = this.createCiReadRole(
+      oidcProvider,
+      names,
+      environment,
+      workload,
+      orgPrefix,
+      repoSub
+    );
     const deployRole = this.createDeployRole(
       oidcProvider,
       names,
       environment,
       workload,
       orgPrefix,
-      githubOrg,
-      githubOrgId,
-      githubRepo,
-      githubRepoId
+      repoSub
     );
 
+    new cdk.CfnOutput(this, 'CiRoleArn', {
+      value: ciReadRole.roleArn,
+      description: 'Set as CI_ROLE_ARN GitHub Actions variable (ci.yml, pull_request runs)',
+    });
     new cdk.CfnOutput(this, 'DeployRoleArn', {
       value: deployRole.roleArn,
-      description: 'Set as IAM_ROLE_ARN GitHub Actions variable',
+      description: 'Set as DEPLOY_ROLE_ARN GitHub Actions variable (cd.yml, push-to-main runs)',
     });
   }
 
@@ -73,27 +84,59 @@ export class CiStack extends cdk.Stack {
     );
   }
 
+  // ci.yml runs on `pull_request` — untrusted, pre-review code. It only needs to read SSM
+  // config to build; it must never reach S3, CloudFront, or Lambda. GitHub's OIDC token
+  // carries `event_name` as a claim, so the trust policy can scope on it directly —
+  // `environment: dev` alone can't be used to tell ci.yml and cd.yml apart, since both
+  // workflows set it and it collapses `sub` to an identical value regardless of event.
+  private createCiReadRole(
+    oidcProvider: iam.IOpenIdConnectProvider,
+    names: ReturnType<typeof naming>,
+    environment: string,
+    workload: string,
+    orgPrefix: string,
+    repoSub: string
+  ): iam.Role {
+    return new iam.Role(this, 'CiReadRole', {
+      roleName: names.ciReadRole,
+      assumedBy: new iam.WebIdentityPrincipal(oidcProvider.openIdConnectProviderArn, {
+        StringEquals: {
+          'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
+          'token.actions.githubusercontent.com:event_name': 'pull_request',
+        },
+        StringLike: {
+          // Immutable subject claim — repos created after Jun 2026 include numeric org/repo IDs.
+          // Find these at https://api.github.com/repos/{org}/{repo}
+          'token.actions.githubusercontent.com:sub': repoSub,
+        },
+      }),
+      inlinePolicies: {
+        SsmRead: this.buildSsmPolicy(environment, workload, orgPrefix),
+      },
+    });
+  }
+
+  // cd.yml runs on `push` to `main` — only after a reviewed PR has merged. This is the
+  // only role allowed to write to S3, CloudFront, or the auth Lambda.
   private createDeployRole(
     oidcProvider: iam.IOpenIdConnectProvider,
     names: ReturnType<typeof naming>,
     environment: string,
     workload: string,
     orgPrefix: string,
-    githubOrg: string,
-    githubOrgId: string,
-    githubRepo: string,
-    githubRepoId: string
+    repoSub: string
   ): iam.Role {
     return new iam.Role(this, 'DeployRole', {
       roleName: names.ciDeployRole,
       assumedBy: new iam.WebIdentityPrincipal(oidcProvider.openIdConnectProviderArn, {
         StringEquals: {
           'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com',
+          'token.actions.githubusercontent.com:ref': 'refs/heads/main',
         },
         StringLike: {
           // Immutable subject claim — repos created after Jun 2026 include numeric org/repo IDs.
           // Find these at https://api.github.com/repos/{org}/{repo}
-          'token.actions.githubusercontent.com:sub': `repo:${githubOrg}@${githubOrgId}/${githubRepo}@${githubRepoId}:*`,
+          'token.actions.githubusercontent.com:sub': repoSub,
         },
       }),
       inlinePolicies: {

@@ -25,7 +25,7 @@ jobs:
 
       - uses: ./.github/actions/aws-auth
         with:
-          role-arn: ${{ vars.IAM_ROLE_ARN }}
+          role-arn: ${{ vars.DEPLOY_ROLE_ARN }}
           aws-region: ${{ vars.AWS_REGION }}
 
       - name: Deploy affected
