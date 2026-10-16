@@ -1,0 +1,8 @@
+.screenshot {
+  max-width: 720px;
+  margin: 1rem auto;
+}
+
+.screenshot img {
+  width: 100%;
+}

@@ -216,7 +216,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@artisyn-harness/docs-web@workspace:apps/docs-web"
   dependencies:
+    "@types/markdown-it-container": "npm:^4.0.1"
     "@types/node": "npm:^22.0.0"
+    markdown-it-container: "npm:^4.0.0"
     mermaid: "npm:^11.16.1"
     vitepress: "npm:^1.6.0"
     vitepress-plugin-mermaid: "npm:^2.0.17"
@@ -3028,6 +3030,25 @@ __metadata:
   version: 5.0.0
   resolution: "@types/linkify-it@npm:5.0.0"
   checksum: 10c0/7bbbf45b9dde17bf3f184fee585aef0e7342f6954f0377a24e4ff42ab5a85d5b806aaa5c8d16e2faf2a6b87b2d94467a196b7d2b85c9c7de2f0eaac5487aaab8
+  languageName: node
+  linkType: hard
+
+"@types/markdown-it-container@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "@types/markdown-it-container@npm:4.0.1"
+  dependencies:
+    "@types/markdown-it": "npm:>=14"
+  checksum: 10c0/790ca2c50143c27dc91b7f3d3c7a8208498efe612dd330acd6d33bf1e345b96ec4864c5781affdfd407c218b6ac278090f8b11e09021e9e8bcadaa68bbd17d74
+  languageName: node
+  linkType: hard
+
+"@types/markdown-it@npm:>=14":
+  version: 14.2.0
+  resolution: "@types/markdown-it@npm:14.2.0"
+  dependencies:
+    "@types/linkify-it": "npm:^5"
+    "@types/mdurl": "npm:^2"
+  checksum: 10c0/60ff1a0495ef303310744566342c49b4b3e76fbdca82c5ec28d88731fc934b0c63335d25bca6133903c877f2c41c59cdfddefb3626c6ee0780b9573ddf6aefe4
   languageName: node
   linkType: hard
 
@@ -6322,6 +6343,13 @@ __metadata:
   version: 8.11.1
   resolution: "mark.js@npm:8.11.1"
   checksum: 10c0/5e69e776db61abdd857b5cbb7070c8a3b1b0e5c12bf077fcd5a8c6f17b1f85ed65275aba5662b57136d1b9f82b54bb34d4ef4220f7703c9a7ab806ae1e208cff
+  languageName: node
+  linkType: hard
+
+"markdown-it-container@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "markdown-it-container@npm:4.0.0"
+  checksum: 10c0/768390a6e2c182996b4d0be8dd1a7279d266ca2f29936dd8265ef0954a97606bc3514802cc3576db59e119e241e61924a4a1e601a91480be1c12bef5e28797ae
   languageName: node
   linkType: hard
 

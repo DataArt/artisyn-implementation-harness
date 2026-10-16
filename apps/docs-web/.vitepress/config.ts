@@ -2,6 +2,7 @@ import { withMermaid } from 'vitepress-plugin-mermaid';
 import { defineConfig } from 'vitepress';
 import { scanSection } from './utils/sidebar';
 import { HLD_VERSION } from './utils/constants';
+import { registerContainers } from './utils/markdown-containers';
 
 export default withMermaid(
   defineConfig({
@@ -11,6 +12,15 @@ export default withMermaid(
 
     srcDir: '../../docs',
     srcExclude: ['Stories/**', 'Harness/package/**'],
+
+    // Raw HTML in markdown source is disabled — any <script>/<iframe>/event-handler
+    // attribute pasted into docs/ (e.g. from a workshop transcript) renders as inert
+    // text instead of executing in readers' browsers. Styled wrapper divs that used
+    // to rely on raw HTML passthrough now go through the custom container above.
+    markdown: {
+      html: false,
+      config: registerContainers,
+    },
 
     themeConfig: {
       search: {

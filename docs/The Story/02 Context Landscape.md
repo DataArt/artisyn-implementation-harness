@@ -33,20 +33,26 @@ tells you something different, and no single level is enough on its own.
 to take. This is strategic. It tells you where you are going and roughly how. It does not tell you
 anything about the road surface, the traffic, or the exit you need.
 
-<img src="/images/context/map-01-strategic.png" width="720" alt="Strategic view — full route"/>
+::: screenshot
+![Strategic view — full route](/images/context/map-01-strategic.png)
+:::
 
 **Zoom into the city.** You see the district, the arterial roads, the sequence of turns approaching
 the destination. This is tactical. You can now plan the approach — which side of the city to enter
 from, which interchange connects to the right road. You still cannot see whether the left lane is
 blocked or whether there is construction on the last stretch.
 
-<img src="/images/context/map-02-tactical.png" width="720" alt="Tactical view — city section"/>
+::: screenshot
+![Tactical view — city section](/images/context/map-02-tactical.png)
+:::
 
 **Zoom to the street.** Now you see the exact intersection, the one-way constraint, the building on
 the corner that confirms you are in the right place. This is operational. This is what you need
 _right now_ to make the correct move.
 
-<img src="/images/context/map-03-operational.png" width="720" alt="Operational view — the exact turn"/>
+::: screenshot
+![Operational view — the exact turn](/images/context/map-03-operational.png)
+:::
 
 All three levels are true. All three describe the same journey. But they answer completely different
 questions — and confusing one for another leads to confident wrong turns.
