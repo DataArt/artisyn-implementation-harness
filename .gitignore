@@ -49,3 +49,4 @@ cdk.out/
 #/.canonical-implementation-harness/
 !/.canonical-implementation-harness/state/answers.json
 .claude/skills/internal-use-skill-plugin-security-review
+.claude/skills/deck-design-corporate
