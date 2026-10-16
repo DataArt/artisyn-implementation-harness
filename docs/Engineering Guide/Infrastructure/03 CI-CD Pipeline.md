@@ -25,8 +25,10 @@ flowchart TD
 
     PR["🔀 Pull Request\n(opened · sync · reopened)"]:::gh --> CI["ci.yml\nenvironment: dev"]:::action
     MERGE["✅ Merge to main"]:::gh --> CD["cd.yml\nenvironment: dev"]:::action
+    MERGE --> REL["release.yml\nsemantic-release"]:::action
     CI -->|OIDC AssumeRole\nevent_name=pull_request| READROLE["CiStack\nIAM CiReadRole"]:::iam
     CD -->|OIDC AssumeRole\nref=refs/heads/main| ROLE["CiStack\nIAM DeployRole"]:::iam
+    REL --> TAG["vX.Y.Z tag + GitHub release\n+ CHANGELOG.md"]:::action
 
     CI --> AUDIT["npm audit\n—severity moderate"]:::action
     CI --> LINT["nx affected:lint"]:::action
@@ -158,3 +160,19 @@ and must be run manually by a developer with appropriate AWS credentials:
 The CD pipeline deploys app artefacts only (code + content). Infrastructure changes (stacks,
 CloudFront config, IAM) always go through a manual `infra:provision`. See `02 Deploy Lifecycle.md`
 for the full manual deploy sequence.
+
+---
+
+## Release workflow (`release.yml`)
+
+Trigger: `push` to `main` (same trigger as `cd.yml`, runs independently).
+
+`semantic-release` (`release.config.js`) analyzes Conventional Commit messages since the last
+release, computes the next `vX.Y.Z`, generates release notes, updates `CHANGELOG.md` and
+`package.json`'s `version`, commits both back to `main` as `chore(release): vX.Y.Z [skip ci]`, tags
+the commit, and publishes a GitHub release. `npmPublish` is disabled — nothing is pushed to a
+registry. Uses the default `GITHUB_TOKEN`, not the OIDC AWS roles — no AWS access needed.
+
+`[skip ci]` in the release commit message means it does not re-trigger `ci.yml`, `cd.yml`, or
+`release.yml` itself. See `../07%20Branching%20Strategy.md` for tag naming and the rollback caveat
+this introduces.

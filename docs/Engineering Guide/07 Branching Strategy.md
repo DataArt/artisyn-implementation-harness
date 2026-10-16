@@ -41,15 +41,16 @@ reasonable future addition, not a default.
   [`01 Conventions.md`](./01%20Conventions.md)
 - **Commits:** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) —
   `<type>(<scope>): <what>`, per the same conventions doc
-- **Tags:** none created today — see [Rollback Strategy](#rollback-strategy)
+- **Tags:** `vX.Y.Z` — created automatically by `semantic-release` on every merge to `main` (`.github/workflows/release.yml`), driven by Conventional Commits; never created by hand
 
 ## CI/CD by Branch
 
-| Trigger               | Runs                                                                                                 |
-| --------------------- | ---------------------------------------------------------------------------------------------------- |
-| `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, build for affected projects, using the SSM-read-only `CiReadRole` |
-| `main` merge          | `cd.yml` — `nx affected --target=deploy`, using the write-scoped `DeployRole`                        |
-| Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate, same deploy path                |
+| Trigger               | Runs                                                                                                                                                  |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, build for affected projects, using the SSM-read-only `CiReadRole`                                                  |
+| `main` merge          | `cd.yml` — `nx affected --target=deploy`, using the write-scoped `DeployRole`                                                                         |
+| `main` merge          | `release.yml` — `semantic-release` computes the next version from Conventional Commits, tags, and publishes a GitHub release and `CHANGELOG.md` entry |
+| Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate, same deploy path                                                                 |
 
 See [`Infrastructure/03 CI-CD Pipeline.md`](./Infrastructure/03%20CI-CD%20Pipeline.md) for the full
 workflow and the `CiReadRole`/`DeployRole` OIDC trust split.
@@ -74,9 +75,14 @@ don't require a check the pipeline doesn't produce.
 
 ## Rollback Strategy
 
-No release tagging or artifact-pinned rollback exists today. A bad deploy is rolled back by
-reverting the offending commit on `main` and letting `cd.yml` redeploy the reverted state — there is
-no mechanism to redeploy a previously built artifact without going through CI/CD again.
+`semantic-release` now tags every merge to `main` with `vX.Y.Z`, giving each release a traceable
+point in history and a generated `CHANGELOG.md` entry — but this does not by itself give tag-based
+deploy rollback. `cd.yml` deploys via `nx affected --base=HEAD~1 --head=HEAD`, which computes what
+changed in the single commit that triggered the run; checking out an old tag and re-running that
+command would only redeploy the diff of its last commit, not reliably reconstruct the tag's full
+state. In practice, a bad deploy is still rolled back by reverting the offending commit on `main`
+and letting `cd.yml` redeploy the reverted state. A true tag-pinned redeploy would need a dedicated
+"deploy this exact ref" path, not `cd.yml`'s diff-based one — not implemented today.
 
 ## Related
 
