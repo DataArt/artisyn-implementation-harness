@@ -135,6 +135,37 @@ test('reindex() computes mirrors-consistent and mirrors-gap, and skips a malform
   }
 });
 
+test('reindex() prunes a doc row (and its edges) once the file is deleted', async () => {
+  const dir = scratchDir();
+  try {
+    const story = writeDoc(dir, 'docs/Stories/[DEV-1] Example/impl/0-intent.md', '# Intent\n');
+    const hld = writeDoc(dir, 'docs/Target Architecture (HLD)/v1/Containers/Web.md', '# Web\n');
+    await build({ dir });
+    await index({ dir, doc: story });
+    await index({ dir, doc: hld });
+    await index({ dir, doc: story, edge: 'story-to-hld', to: hld });
+    const edgesBefore = (await query({ dir, relatedTo: story })).length;
+    assert.ok(edgesBefore >= 1, 'sanity: the edge was written before deletion');
+
+    fs.rmSync(story);
+    const result = await reindex({ dir });
+    assert.equal(result.pruned.length, 1);
+
+    const afterQuery = await query({
+      dir,
+      relatedTo: 'docs/Stories/[DEV-1] Example/impl/0-intent.md',
+    });
+    assert.deepEqual(afterQuery, [], 'pruned doc should have no remaining edges');
+    const hits = await search({ dir, term: 'Intent' });
+    assert.ok(
+      !hits.some((h) => h.path.endsWith('0-intent.md')),
+      'pruned doc should not be searchable'
+    );
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('sql.js opens and queries the exact .sqlite file node:sqlite wrote, with no conversion step', async () => {
   const dir = scratchDir();
   try {
@@ -180,6 +211,24 @@ test('the Mermaid artifact never emits a bare colon in an unquoted node referenc
       const to = line.split('-->')[1].trim();
       assert.doesNotMatch(to, /:/, `edge line's target is an unquoted colon reference: ${line}`);
     }
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('frontmatter purpose:/keywords: map to docs.purpose/docs.keywords, surfaced by search()', async () => {
+  const dir = scratchDir();
+  try {
+    const doc = writeDoc(
+      dir,
+      'docs/Described.md',
+      '---\npurpose: a doc about narwhals\nkeywords: [marine, tusked]\n---\n\n# Described\n'
+    );
+    await build({ dir });
+    await index({ dir, doc });
+    const hits = await search({ dir, term: 'narwhals' });
+    assert.ok(hits.some((h) => h.path.endsWith('Described.md')));
+    assert.ok((await search({ dir, term: 'tusked' })).length >= 1);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }

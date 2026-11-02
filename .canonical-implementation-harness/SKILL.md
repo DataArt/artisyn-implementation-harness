@@ -3,10 +3,12 @@ name: harness-bootstrap
 metadata:
   version: 3.1.0
 description: >
-  Install the portable AI-dev harness, harvest project skill improvements into its
-  canonical templates, package direct canonical edits into a portable bundle, or
-  apply canonical updates to an existing project.
-  Use /harness-bootstrap launch or /harness-bootstrap patch harvest|prepare|apply.
+  Install the portable AI-dev harness, rebuild its operational graph standalone,
+  harvest project skill improvements into its canonical templates, package direct
+  canonical edits into a portable bundle, or apply canonical updates to an existing
+  project.
+  Use /harness-bootstrap launch, /harness-bootstrap reindex-graph, or
+  /harness-bootstrap patch harvest|prepare|apply.
 ---
 
 # Harness bootstrap
@@ -19,11 +21,11 @@ Team: Harness / Platform
 Created: 2026-09-15
 Last Reviewed: 2026-11-02
 Version: 3.1.0
-Purpose: Install the portable AI-dev harness, harvest project skill improvements into its canonical templates, package direct canonical edits into a portable bundle, or apply canonical updates to an existing project.
+Purpose: Install the portable AI-dev harness, rebuild its operational graph standalone, harvest project skill improvements into its canonical templates, package direct canonical edits into a portable bundle, or apply canonical updates to an existing project.
 Data Class: Internal
 External Connections: None — operates on local project files; any MCP servers it configures for other skills (e.g. Jira/Confluence, AWS) are declared per-project in the generated `.mcp.json`, not used by this skill itself
 Capabilities: Filesystem read/write scoped to the host project and this package's own directories (no access outside the repo); spawns one pinned local subprocess (`scripts/check-mermaid.mjs` renders via a configured, non-shell `spawnSync` call — no shell, no network-fetched code); may delegate single, disjoint-path stages to subagents per "Delegation safety" below. No credential handling, no network calls, and no push/deploy/commit of its own — those remain guarded commands presented to the developer to run.
-Input: A route word (`launch` / `patch harvest` / `patch prepare` / `patch apply`) plus project context gathered from the local repository
+Input: A route word (`launch` / `reindex-graph` / `patch harvest` / `patch prepare` / `patch apply`) plus project context gathered from the local repository
 Output: Installed or updated skill/agent/doc files under the target project, plus launch/patch reports and manifests under `package:state/`
 
 [Process guide and diagrams](README.md)
@@ -51,6 +53,8 @@ host's native syntax (`/harness-bootstrap` in Claude, `$harness-bootstrap` in Co
 Parse command words, not substrings in file paths or bundle names:
 
 - `launch` (or no arguments): follow [Launch](references/launch/01-launch.md), including provider selection and launch-state setup.
+- `reindex-graph`: follow [Reindex graph](references/reindex-graph.md) — rebuild the
+  operational graph standalone, without a full launch run.
 - `patch harvest [scope]`: read [Patch Harvest](references/patch/04-patch-harvest.md).
 - `patch prepare [scope]`: read [Patch Prepare](references/patch/07-patch-prepare.md).
 - `patch apply [scope | bundle path]`: read [Patch Apply](references/patch/05-patch-apply.md).

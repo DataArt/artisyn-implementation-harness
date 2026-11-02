@@ -19,7 +19,7 @@ const CONTAINER_AGENTS = 'docs-adoption/container-agents';
 const DOCS_GRAPH = 'docs-adoption/docs-graph';
 
 /** The operational-graph package's deployed files, per
- * `01d-launch-verify.md`'s Cleanup copy — everything but the canonical-only
+ * `01d-launch-graph-verify.md`'s operational-graph stage copy — everything but the canonical-only
  * test file. */
 const DOCS_GRAPH_FILES = [
   'cli.mjs',
@@ -31,7 +31,7 @@ const DOCS_GRAPH_FILES = [
   'docs-operational-graph.sqlite',
 ];
 
-/** references/launch/01d-launch-verify.md: "Trim the root README to the
+/** references/launch/01d-launch-graph-verify.md: "Trim the root README to the
  * root-context budget ... purpose, local run instructions, docs links".
  * Exact wording varies (no fixed phrase to match), so this checks the two
  * objective properties that wording is a proxy for: short, and it actually
@@ -71,7 +71,7 @@ export function gradeAppReadmesLinkToArchitecture(root: string, containers: stri
   return result(APP_READMES, failures);
 }
 
-/** 01d-launch-verify.md's final audit: "HLD active-version pointers match
+/** 01d-launch-graph-verify.md's final audit: "HLD active-version pointers match
  * disk" — every discovered container should actually be documented, not a
  * subset. Searches the whole HLD tree (README + version folders), not just
  * the top-level README, since containers are typically listed per-version.
@@ -119,7 +119,7 @@ export function gradeContainerAgentsDeployed(
   return result(CONTAINER_AGENTS, failures);
 }
 
-/** `01d-launch-verify.md`'s Cleanup wiring: every operational-graph script
+/** `01d-launch-graph-verify.md`'s operational-graph stage: every operational-graph script
  * and the seed database land in `docs/.og/`, verbatim — but its canonical-only
  * test file (`cli.test.mjs`) never does, since it is tooling, not payload.
  */

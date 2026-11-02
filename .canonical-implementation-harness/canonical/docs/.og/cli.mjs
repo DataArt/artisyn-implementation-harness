@@ -57,23 +57,27 @@ export async function index({ dir, doc, id, edge, to }) {
 }
 
 /**
- * Assign IDs to every doc under `docs/` still missing one, then recompute the
- * derived mirrors-consistent/mirrors-gap edges. Idempotent: a second run
- * changes nothing.
+ * Assign IDs to every doc under `docs/` still missing one, prune rows for docs
+ * whose file was deleted since the last reindex (cascading their edges), then
+ * recompute the derived mirrors-consistent/mirrors-gap edges. Idempotent: a
+ * second run with nothing changed on disk changes nothing.
  * @param {{dir: string}} opts
- * @returns {Promise<{skipped: {path: string, reason: string}[]}>}
+ * @returns {Promise<{skipped: {path: string, reason: string}[], pruned: string[]}>}
  */
 export async function reindex({ dir }) {
   const { db, docs, edges } = openStore(dir);
   try {
-    for (const file of listMarkdownFiles(path.join(dir, 'docs'))) docs.assign(dir, file);
+    const found = listMarkdownFiles(path.join(dir, 'docs'));
+    for (const file of found) docs.assign(dir, file);
+    const pruned = docs.pruneExcept(new Set(found.map((file) => toPosixRelative(dir, file))));
+    edges.removeForDocs(pruned);
     const { edges: mirrorEdges, skipped } = computeMirrors(dir);
     for (const edge of mirrorEdges) {
       const from = docs.findByPath(edge.fromPath);
       if (!from) continue; // Not indexed (e.g. no docs/ tree yet) — nothing to relate.
       edges.write(from.id, edge.toPlaceholder, edge.edgeType, 1);
     }
-    return { skipped };
+    return { skipped, pruned };
   } finally {
     db.close();
   }
@@ -104,10 +108,11 @@ function renderMermaid(docs, edges) {
 }
 
 /**
- * Full (re)build: ensure the schema, reindex every doc and the derived mirrors
- * edges, then emit the generated Mermaid artifact. Rolls back on partial failure.
+ * Full (re)build: ensure the schema, reindex every doc (assign/prune, cascade
+ * edges) and the derived mirrors edges, then emit the generated Mermaid
+ * artifact. Rolls back on partial failure.
  * @param {{dir: string}} opts
- * @returns {Promise<{skipped: {path: string, reason: string}[]}>}
+ * @returns {Promise<{skipped: {path: string, reason: string}[], pruned: string[]}>}
  */
 export async function build({ dir }) {
   let result;

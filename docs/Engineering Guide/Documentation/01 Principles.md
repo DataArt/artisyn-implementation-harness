@@ -1,3 +1,9 @@
+---
+id: 34ee6f89
+purpose: Why these principles exist, what they are, and how every doc writer applies them
+keywords: [documentation, principles, docs-writer, style guide]
+---
+
 # Documentation Principles
 
 _Why these principles exist, what they are, and which structure fits which doc type._
@@ -33,6 +39,8 @@ A secondary reason: frontier AI models follow ~150–200 instructions reliably b
 **Certainty principle** — architecture docs (HLD and LLD) state only settled outcomes. No comparisons, open questions, or rationale. Those belong in `Stories/<TICKET>/design/`. → See `docs/README.md`.
 
 **Don't auto-generate root context** — CLAUDE.md and its equivalents are the highest-leverage files in the harness. Generate a scaffold from the bootstrap prompt, then edit by hand. Auto-generated root context is generic; hand-edited root context is precise.
+
+**Operational graph frontmatter** — every doc you write or update gets frontmatter `purpose:` (one line, what the doc is for) and `keywords:` (a short list), written from your own understanding of its actual content. Unlike `id` (assigned once by the operational graph tool, `docs/.og/`, and never reassigned), these two are editable: when the doc's content changed enough that an existing value no longer fits, update it; otherwise leave it. These feed the graph's `search()`; the tool itself never derives or writes them — it is deterministic, no model calls — so this is the one point in any lifecycle with enough content context to write them well.
 
 ---
 

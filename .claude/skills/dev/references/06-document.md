@@ -112,6 +112,16 @@ notes, RF decisions), and the settled outcomes to record. It applies the doc
 principles; you do not repeat them. Retired docs: it removes them and fixes
 references, including the docs-site navigation if the project has one.
 
+For each doc it writes or updates, `@docs-writer` also ensures frontmatter
+`purpose:` (one line, what the doc is for) and `keywords:` (a short list) are
+present and accurate — written from its own understanding of the doc's actual
+content. Unlike `id` (assigned once by the graph tool, never reassigned), these
+two are editable: when the doc's content changed enough that the existing value
+no longer fits, update it to match; otherwise leave it. These feed the
+operational graph's `search()`; the graph itself never derives or writes them
+(deterministic, no model calls in `cli.mjs`) — this is the one point in the
+lifecycle with full content context to write them well.
+
 Intelligent-approval checkpoint (`patterns/approval-intelligent.md`) on what comes back. Auto-approval conditions:
 
 - Every row in the list has a returned line, and the action matches (new / updated /

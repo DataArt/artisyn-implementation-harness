@@ -52,6 +52,13 @@ export class EdgesStore {
   all() {
     return /** @type {EdgeRow[]} */ (this.db.prepare('SELECT * FROM edges').all());
   }
+
+  /** Remove every edge touching any of `docIds` as either endpoint — cascades
+   * a `DocsStore.pruneExcept()` removal so a retired doc leaves no orphan edges. */
+  removeForDocs(docIds) {
+    for (const id of docIds)
+      this.db.prepare('DELETE FROM edges WHERE from_id = ? OR to_id = ?').run(id, id);
+  }
 }
 
 /** @returns {string[]} Every `<hldRoot>/<version>/Containers/*.md` file, across all versions. */

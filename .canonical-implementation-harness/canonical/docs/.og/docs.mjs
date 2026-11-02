@@ -65,6 +65,18 @@ export class DocsStore {
   }
 
   /**
+   * Remove every doc row whose path is not in `existingPaths` — a doc whose
+   * file was deleted/retired on disk. The caller cascades edge removal.
+   * @param {Set<string>} existingPaths Every doc path found on this reindex.
+   * @returns {string[]} IDs of the removed rows.
+   */
+  pruneExcept(existingPaths) {
+    const stale = this.all().filter((row) => !existingPaths.has(row.path));
+    for (const row of stale) this.db.prepare('DELETE FROM docs WHERE id = ?').run(row.id);
+    return stale.map((row) => row.id);
+  }
+
+  /**
    * Assign/confirm a doc's ID and upsert its row. Additive-only frontmatter
    * write, idempotent (a doc with an existing ID is never reassigned), and
    * collision-checked via an explicit override or a content hash.
@@ -94,7 +106,8 @@ export class DocsStore {
         `INSERT INTO docs (id, tier, path, title, purpose, keywords, updated_at)
          VALUES (?, ?, ?, ?, ?, ?, ?)
          ON CONFLICT(path) DO UPDATE SET id = excluded.id, tier = excluded.tier,
-           title = excluded.title, updated_at = excluded.updated_at`
+           title = excluded.title, purpose = excluded.purpose,
+           keywords = excluded.keywords, updated_at = excluded.updated_at`
       )
       .run(
         docId,

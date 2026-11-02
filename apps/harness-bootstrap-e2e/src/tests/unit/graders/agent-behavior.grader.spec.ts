@@ -3,6 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { afterEach, expect, it } from 'vitest';
 import { gradeTaskTrackingUsed } from '../../../graders/agent-behavior.grader.ts';
+import { LAUNCH_STAGE_COUNT } from '../../../utils/constants.ts';
 
 const roots: string[] = [];
 afterEach(() => {
@@ -36,14 +37,14 @@ it('accepts accurate in-progress report tracking even when launch gates block co
   fs.mkdirSync(dir, { recursive: true });
   const file = path.join(dir, '20260929-launch.md');
   const rows = Array.from(
-    { length: 14 },
+    { length: LAUNCH_STAGE_COUNT },
     (_, i) => `| ${i + 1} | Stage | Complete | evidence |`
   ).join('\n');
   fs.writeFileSync(file, `## Progress\n${rows}\n\n## Answers\n`);
   expect(gradeTaskTrackingUsed([], root).pass).toBe(false);
   fs.writeFileSync(file, `Tracker: report\n## Progress\n${rows}\n\n## Answers\n`);
   expect(gradeTaskTrackingUsed([], root).pass).toBe(true);
-  const inProgressRows = Array.from({ length: 14 }, (_, i) => {
+  const inProgressRows = Array.from({ length: LAUNCH_STAGE_COUNT }, (_, i) => {
     const stage = i + 1;
     const status = stage <= 11 ? '✅ Complete' : stage === 12 ? '🔄 In progress' : '⏳ Pending';
     return `| ${stage} | Stage | ${status} | evidence |`;
@@ -56,14 +57,14 @@ it('accepts accurate in-progress report tracking even when launch gates block co
   fs.writeFileSync(file, `Tracker: report\n## Progress\n${staleRows}\n\n## Answers\n`);
   expect(gradeTaskTrackingUsed([], root).pass).toBe(false);
   const completeRows = Array.from(
-    { length: 14 },
+    { length: LAUNCH_STAGE_COUNT },
     (_, i) => `| ${i + 1} | Stage | ✅ Complete | evidence |`
   ).join('\n');
   fs.writeFileSync(file, `Tracker: report\n## Progress\n${completeRows}\n\n## Answers\n`);
   expect(gradeTaskTrackingUsed([], root).pass).toBe(true);
   fs.writeFileSync(
     file,
-    `Tracker: report\n## Progress\n${rows.replace('| 14 |', '| 13 |')}\n\n## Answers\n`
+    `Tracker: report\n## Progress\n${rows.replace(`| ${LAUNCH_STAGE_COUNT} |`, `| ${LAUNCH_STAGE_COUNT - 1} |`)}\n\n## Answers\n`
   );
   expect(gradeTaskTrackingUsed([], root).pass).toBe(false);
 });
@@ -72,7 +73,7 @@ function launchReport(completed = 3): string {
   return (
     'Tracker: update_plan\nRun ID / native Task IDs: `run`\n## Progress\n' +
     Array.from(
-      { length: 14 },
+      { length: LAUNCH_STAGE_COUNT },
       (_, i) =>
         `| ${i + 1} | Stage | ${i < completed ? 'Complete' : i === completed ? 'In progress' : 'Pending'} | evidence |`
     ).join('\n')
@@ -92,7 +93,7 @@ it('requires report and final Codex snapshot to agree, even after an earlier mat
     type: 'item.updated',
     item: {
       type: 'todo_list',
-      items: Array.from({ length: 14 }, (_, i) => ({
+      items: Array.from({ length: LAUNCH_STAGE_COUNT }, (_, i) => ({
         text: `[harness-bootstrap run] Stage ${i + 1}`,
         completed: i < completed,
       })),
@@ -139,7 +140,7 @@ it('does not accept a native call alone or an incomplete native snapshot for a l
 it('reconstructs Claude tasks by ID and ignores failed updates', () => {
   const root = trackingWorkspace(launchReport().replace('update_plan', 'TaskCreate/TaskUpdate'));
   const events: import('../../../agent-runners/_types.ts').StreamEvent[] = [];
-  for (let i = 1; i <= 14; i++) {
+  for (let i = 1; i <= LAUNCH_STAGE_COUNT; i++) {
     events.push({
       type: 'assistant',
       message: {

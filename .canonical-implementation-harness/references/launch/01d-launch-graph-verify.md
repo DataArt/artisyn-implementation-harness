@@ -1,6 +1,21 @@
-# Launch stages 13–14 — cleanup, audit, and close
+# Launch stages 13–15 — operational graph, cleanup, audit, and close
 
 Stage sequence and tracking live in [01-launch.md](01-launch.md).
+
+## Materialize operational graph
+
+Copy `package:canonical/docs/.og/cli.mjs`, `constants.mjs`, `schema.mjs`, `utils.mjs`,
+`docs.mjs`, `edges.mjs`, and `docs-operational-graph.sqlite` verbatim into
+`project:docs/.og/` — never `cli.test.mjs`, which is canonical-only tooling, not
+deployed payload. No token substitution: this is code and a binary database file,
+not prose. Then run `node docs/.og/cli.mjs build --dir <project root>`; silent on
+success, a non-zero exit plus diagnostic on failure.
+
+**Completion evidence:** every listed file exists at `project:docs/.og/` (and
+`cli.test.mjs` does not), `build()`'s exit code is recorded, and (on success)
+`docs/.og/docs-operational-graph.sqlite` and `docs/.og/graph.mmd` exist. Runs
+before Cleanup specifically so these files are in scope for Final audit's
+hash/baseline recording below.
 
 ## Cleanup
 
@@ -25,15 +40,6 @@ and required coverage. Correct findings before satellite review and rendering. F
 sizing, apply HLD Intent's capacity exercise; for missing NFR targets, collect sourced
 proposals and confirm them in Q&A before declaring the specification ready. Worker
 coverage claims alone never substitute for inspecting the generated files.
-
-Copy `package:canonical/docs/.og/cli.mjs`, `constants.mjs`, `schema.mjs`, `utils.mjs`,
-`docs.mjs`, `edges.mjs`, and `docs-operational-graph.sqlite` verbatim into
-`project:docs/.og/` — never `cli.test.mjs`, which is canonical-only tooling, not
-deployed payload. No token substitution: this is code and a
-binary database file, not prose. Then run `node docs/.og/cli.mjs build --dir <project
-root>`; silent on success, a non-zero exit plus diagnostic on failure. Placed here, in
-Cleanup, so the new files are in scope for Final audit's hash/baseline recording below —
-never inserted later, in Close.
 
 ## Final audit
 
