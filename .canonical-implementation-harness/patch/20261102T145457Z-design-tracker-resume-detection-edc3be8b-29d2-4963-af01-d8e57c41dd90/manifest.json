@@ -1,0 +1,51 @@
+{
+  "schema_version": 2,
+  "id": "edc3be8b-29d2-4963-af01-d8e57c41dd90",
+  "created_at": "2026-11-02T14:54:57Z",
+  "origin": "artisyn-harness",
+  "operation": "harvest",
+  "summary": "Design skill: create the task tracker at Resume Detection (Step 1 for a fresh start, right after Step 2's artifact table for a resume), not after the Step 3 confirmation prompt. Harvested from a direct canonical edit, itself adopted from an /evolve candidate (.harness/evolve/20261102T140000Z-design-stage-tasks-first-action/) triaged out of a reflection: the tracker was previously created only after a developer noticed it was missing.",
+  "package_version": "3.1.0",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "df47dce16cf1fbfac1965d3313254a19226ff0ee615c77a7d6e365f4772c35d8",
+      "after_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
+      "payload": "diffs/canonical/skills/design/TEMPLATE.md.patch",
+      "payload_sha256": "32504bbfde4250ce1691d6488aeddbe563d365f1af0c87c0d0cf6d753c87ea8e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/SKILL.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "db8cfc05fc993769c8ce7045aadbadefb655d245163a002262429ef1749dc16a",
+      "after_sha256": "e07c25001787579f298cc47630c69dbb3caa6196c34b899e5fb63dc61ba1f140",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "c15f213ef4e320b5248d07c493ec3afc8f6348f281e3315ec487242ed1992886",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "bd5d7424ec29fb87edc6521a7aa4450df212a02e6a404b83a84de02fa5f5f9d6",
+      "after_sha256": "77ece40504c5c325628419a56cd8c062d8f9fea11bcf272e056b50074879f9b3",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "a206d58fd2c6b32dec20730fd2e5c155ec5cff49f710302f555df9132ffe2290",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

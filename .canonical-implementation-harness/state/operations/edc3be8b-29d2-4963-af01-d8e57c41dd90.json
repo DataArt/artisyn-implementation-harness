@@ -1,0 +1,45 @@
+{
+  "bundle": "edc3be8b-29d2-4963-af01-d8e57c41dd90",
+  "mode": "harvest",
+  "providers": ["claude"],
+  "status": "harvested",
+  "created_at": "2026-11-02T14:54:57Z",
+  "files": [
+    {
+      "provider": "claude",
+      "canonical_path": "canonical/skills/design/TEMPLATE.md",
+      "permanent_path": ".claude/skills/design/SKILL.md",
+      "canonical_before_sha256": "df47dce16cf1fbfac1965d3313254a19226ff0ee615c77a7d6e365f4772c35d8",
+      "canonical_after_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
+      "permanent_observed_sha256": "46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e",
+      "excluded_local_only_changes": [],
+      "result": "harvested"
+    },
+    {
+      "provider": null,
+      "canonical_path": "SKILL.md",
+      "permanent_path": null,
+      "canonical_before_sha256": "db8cfc05fc993769c8ce7045aadbadefb655d245163a002262429ef1749dc16a",
+      "canonical_after_sha256": "e07c25001787579f298cc47630c69dbb3caa6196c34b899e5fb63dc61ba1f140",
+      "result": "harvested",
+      "note": "canonical-only package entrypoint version bump 3.0.0 -> 3.1.0"
+    },
+    {
+      "provider": null,
+      "canonical_path": "CHANGELOG.md",
+      "permanent_path": null,
+      "canonical_before_sha256": "bd5d7424ec29fb87edc6521a7aa4450df212a02e6a404b83a84de02fa5f5f9d6",
+      "canonical_after_sha256": "77ece40504c5c325628419a56cd8c062d8f9fea11bcf272e056b50074879f9b3",
+      "result": "harvested",
+      "note": "canonical-only changelog entry"
+    }
+  ],
+  "decisions": [
+    "Harvested from .claude/skills/design/SKILL.md, which was itself edited directly earlier the same session via /evolve adopt (candidate .harness/evolve/20261102T140000Z-design-stage-tasks-first-action/). Canonical TEMPLATE.md had not drifted since its last recorded baseline (current hash matched state/index.json's canonical_sha256 exactly), so this is a clean generalization with no reconciliation of concurrent canonical changes needed.",
+    "Generalized by porting the identical prose edits into TEMPLATE.md's matching sections; no project-specific values needed placeholder substitution since the new prose only references patterns/task-tracking.md (already-relative, no provider-specific path) and contains no ticket/service/org-specific strings.",
+    "Minor version bump (6.0.0 -> 6.1.0 for the design skill TEMPLATE.md; 3.0.0 -> 3.1.0 for the harness-bootstrap package) per patterns/skill-authoring.md's 'compatible new behavior' rule.",
+    "deployed_sha256/rendered_base in state/index.json updated to the already-identical live file hash, since this project deploys this canonical source to itself with no further placeholder substitution differing from the generalized text."
+  ],
+  "verification": "Diffed .claude/skills/design/SKILL.md against the updated TEMPLATE.md after the harvest edit: the only remaining differences are the pre-existing, already-documented {{PLACEHOLDER}} substitutions (provider invoke syntax, PROJECT_KEY, DESIGN_STORIES_ROOT, DESIGN_ARCHITECT_AGENT, DESIGN_LIFECYCLE_SCOPE_NOTE, provider:skills_root) — identical set and count to the pre-harvest diff, confirming no new divergence was introduced.",
+  "skipped_or_unresolved": []
+}

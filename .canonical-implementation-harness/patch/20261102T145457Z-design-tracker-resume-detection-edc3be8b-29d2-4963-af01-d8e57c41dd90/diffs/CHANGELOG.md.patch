@@ -1,0 +1,27 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,24 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 3.1.0
++
++Design skill 6.1.0: harvested from a direct canonical edit, itself adopted from
++an `/evolve` candidate triaged out of a reflection — the task tracker was being
++created only after a developer noticed it was missing and asked for it, well
++after Context Gathering had already reached sign-off.
++
++- **Tracker creation moved into Resume Detection itself.** At Step 1 for a
++  fresh start (no `Report.md` to read yet), or right after Step 2's artifact
++  table for a resume (so initial stage statuses reflect what the table already
++  shows, instead of marking everything freshly pending) — in both cases ahead
++  of Step 3's confirmation prompt and before any phase work. The old
++  instruction deferred this to "once Resume Detection... apply Stage tasks
++  below," which ran after the confirmation prompt and made the gap easy to
++  miss on a fresh start.
++- Compatible, additive change — no command, placeholder, or workflow-step
++  change; `patterns/task-tracking.md`'s own create-vs-reuse logic is untouched.
++
+ ## 3.0.0
+ 
+ Design skill 6.0.0: the same gate-density pass the dev skill got in 2.3.0, applied
