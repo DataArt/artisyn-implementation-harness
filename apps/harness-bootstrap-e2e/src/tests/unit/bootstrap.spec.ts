@@ -91,11 +91,11 @@ it('records one distinct report entry per check, with Codex adding its plan-tool
   const claude = gradersOf(await bootstrap(PROVIDERS.claude, PROVIDERS.claude), 'bootstrap');
   const codex = gradersOf(await bootstrap(PROVIDERS.codex, PROVIDERS.codex), 'bootstrap');
 
-  expect(claude).toHaveLength(14);
-  expect(new Set(claude).size).toBe(14);
+  expect(claude).toHaveLength(15);
+  expect(new Set(claude).size).toBe(15);
   expect(claude).not.toContain('config');
   expect(codex).toEqual([...claude.slice(0, 9), 'config', ...claude.slice(9)]);
-  expect(codex).toHaveLength(15);
+  expect(codex).toHaveLength(16);
 });
 
 it('cleans up when the runner throws', async () => {

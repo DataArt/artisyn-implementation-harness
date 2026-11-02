@@ -26,6 +26,15 @@ sizing, apply HLD Intent's capacity exercise; for missing NFR targets, collect s
 proposals and confirm them in Q&A before declaring the specification ready. Worker
 coverage claims alone never substitute for inspecting the generated files.
 
+Copy `package:canonical/docs/.og/cli.mjs`, `constants.mjs`, `schema.mjs`, `utils.mjs`,
+`docs.mjs`, `edges.mjs`, and `docs-operational-graph.sqlite` verbatim into
+`project:docs/.og/` — never `cli.test.mjs`, which is canonical-only tooling, not
+deployed payload. No token substitution: this is code and a
+binary database file, not prose. Then run `node docs/.og/cli.mjs build --dir <project
+root>`; silent on success, a non-zero exit plus diagnostic on failure. Placed here, in
+Cleanup, so the new files are in scope for Final audit's hash/baseline recording below —
+never inserted later, in Close.
+
 ## Final audit
 
 Before marking complete, audit actual outputs against the selected plan:

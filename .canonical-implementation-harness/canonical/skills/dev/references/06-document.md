@@ -123,6 +123,19 @@ the flags from the sources you have, or ask the developer the precise question
 (`report`, `wait start --reason user_input`, **Stop and wait**), then re-delegate the
 affected rows.
 
+For each row marked done (new or updated — this doc just graduated), call
+`node docs/.og/cli.mjs index --dir . --doc <source-path> --edge <type> --to
+<destination-path>` automatically — edge direction is source-first, matching the
+edge-type names (`impl-to-hld` etc.): `<source-path>` is this ticket's `1-plan.md`
+or `2-report.md`, whichever is the source of the change; `<destination-path>` is
+the HLD/LLD/Engineering Guide/README doc that just graduated (the row marked done
+above); `<type>` is the matching graduation edge
+(`impl-to-hld`/`impl-to-lld`/`impl-to-engineering-guide`/`impl-to-readme`). `--to`'s
+target must already be indexed (it errors otherwise); if the destination doc is
+new, index it with a plain `index --doc <destination-path>` call first, then this
+one. Non-blocking: on failure, report it in one line and continue — never stop
+the stage for this.
+
 ## Step 5 — Consistency review and closure
 
 Ask `@architect`, read-only, to check the written docs against each other, the HLD

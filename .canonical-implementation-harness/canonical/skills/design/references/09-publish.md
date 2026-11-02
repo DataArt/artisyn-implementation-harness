@@ -93,6 +93,18 @@ Once `@docs-writer` completes, note the summary (one line per doc) and continue
 straight to Step 4 — the developer reviews it, with the architect's verdict,
 at Step 5's single sign-off, not here.
 
+For each doc written, call
+`node docs/.og/cli.mjs index --dir . --doc <source-path> --edge <type> --to
+<destination-path>` automatically — edge direction is source-first, matching the
+edge-type names: `<source-path>` is `solution/Architecture.md` (the Story's
+settled solution), `<destination-path>` is the doc just written (the
+HLD/Product-track file from Step 3's list above); `<type>` is `story-to-hld` for a
+Project-track publish, `story-to-product` for a Product-track publish. `--to`'s
+target must already be indexed (it errors otherwise); if the destination doc is
+new, index it with a plain `index --doc <destination-path>` call first, then this
+one. Non-blocking: on failure, report it in one line and continue — never stop
+the stage for this.
+
 ---
 
 ## Step 4 — `{{DESIGN_ARCHITECT_AGENT}}` reviews doc changes

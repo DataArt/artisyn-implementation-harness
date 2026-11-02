@@ -62,6 +62,14 @@ to paste the summary/description/ECs manually if nothing else is available.
 
 {{DESIGN_CONTEXT_STEP}}
 
+Before reading sources by hand, attempt `node docs/.og/cli.mjs search --term
+<text>` (or `query --related-to <doc>`) against `docs/.og/docs-operational-graph.sqlite` to
+surface docs already related to this ticket. Required (not best-effort): when
+the graph is missing, stale, or the call errors, fall back to grep/glob over
+`docs/` for the same information. Either way, never let this block the stage —
+and fold anything the graph (or its fallback) surfaces into Step 4's Evidence
+table like any other source.
+
 This identifies, among other fields, the **Stories root** — `{{DESIGN_STORIES_ROOT}}`
 — which decides where Step 4 creates the story folder — and the **Architect
 agent** — `{{DESIGN_ARCHITECT_AGENT}}` — that Research, Solution, and Publish

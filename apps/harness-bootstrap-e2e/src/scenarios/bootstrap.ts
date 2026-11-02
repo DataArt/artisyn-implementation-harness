@@ -9,6 +9,7 @@ import {
   appReadmesLinkToArchitecture,
   codexPlanToolConfigured,
   containerAgentsDeployed,
+  docsGraphAdopted,
   docsIndexExists,
   filesystemCheck,
   hldCoversContainers,
@@ -70,6 +71,7 @@ export const bootstrapScenario: ScenarioDefinition = {
     hldCoversContainers(),
     docsIndexExists(),
     containerAgentsDeployed(),
+    docsGraphAdopted(),
     noUnresolvedProviderPlaceholders((c) => [PROVIDER_DETAILS[requireProvider(c)].skills]),
   ],
 };

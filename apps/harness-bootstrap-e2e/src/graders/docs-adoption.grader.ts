@@ -16,6 +16,20 @@ const APP_READMES = 'docs-adoption/app-readmes';
 const HLD_CONTAINERS = 'docs-adoption/hld-containers';
 const DOCS_INDEX = 'docs-adoption/docs-index';
 const CONTAINER_AGENTS = 'docs-adoption/container-agents';
+const DOCS_GRAPH = 'docs-adoption/docs-graph';
+
+/** The operational-graph package's deployed files, per
+ * `01d-launch-verify.md`'s Cleanup copy — everything but the canonical-only
+ * test file. */
+const DOCS_GRAPH_FILES = [
+  'cli.mjs',
+  'constants.mjs',
+  'schema.mjs',
+  'utils.mjs',
+  'docs.mjs',
+  'edges.mjs',
+  'docs-operational-graph.sqlite',
+];
 
 /** references/launch/01d-launch-verify.md: "Trim the root README to the
  * root-context budget ... purpose, local run instructions, docs links".
@@ -105,6 +119,20 @@ export function gradeContainerAgentsDeployed(
   return result(CONTAINER_AGENTS, failures);
 }
 
+/** `01d-launch-verify.md`'s Cleanup wiring: every operational-graph script
+ * and the seed database land in `docs/.og/`, verbatim — but its canonical-only
+ * test file (`cli.test.mjs`) never does, since it is tooling, not payload.
+ */
+export function gradeDocsGraphAdopted(root: string): GradeResult {
+  const ogDir = path.join(root, 'docs/.og');
+  const failures = DOCS_GRAPH_FILES.filter((file) => !fs.existsSync(path.join(ogDir, file))).map(
+    (file) => `docs/.og/${file} is missing`
+  );
+  if (fs.existsSync(path.join(ogDir, 'cli.test.mjs')))
+    failures.push('docs/.og/cli.test.mjs should not be deployed — it is canonical-only tooling');
+  return result(DOCS_GRAPH, failures);
+}
+
 export const rootReadmeBudget = (): GraderBinding => (c) => gradeRootReadmeBudget(c.root);
 
 export const appReadmesLinkToArchitecture = (): GraderBinding => (c) =>
@@ -117,3 +145,5 @@ export const docsIndexExists = (): GraderBinding => (c) => gradeDocsIndexExists(
 
 export const containerAgentsDeployed = (): GraderBinding => (c) =>
   gradeContainerAgentsDeployed(c.root, requireProvider(c), c.containers);
+
+export const docsGraphAdopted = (): GraderBinding => (c) => gradeDocsGraphAdopted(c.root);

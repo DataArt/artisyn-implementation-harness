@@ -54,9 +54,17 @@
     },
     {
       "id": "implement",
-      "status": "pending",
-      "attempts": [],
-      "flags": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+          "started_at": "2026-11-02T16:18:59.739Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": ["failed_check"]
     },
     {
       "id": "test",
@@ -77,7 +85,188 @@
       "flags": []
     }
   ],
-  "steps": [],
+  "steps": [
+    {
+      "id": "step-01",
+      "title": "Tests: canonical operational-graph module",
+      "order": 1,
+      "plan_ref": "1-plan.md#step-1",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "45df580e-058c-43d0-9643-1080a760f156",
+          "started_at": "2026-11-02T16:19:20.609Z",
+          "ended_at": "2026-11-02T16:21:36.948Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": ["failed_check"]
+    },
+    {
+      "id": "step-02",
+      "title": "Canonical script: module layout, CLI dispatch, SQLite schema + CRUD",
+      "order": 2,
+      "plan_ref": "1-plan.md#step-2",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "ea4c70d2-dafe-40d7-b209-d5bde95fafd0",
+          "started_at": "2026-11-02T16:26:52.860Z",
+          "ended_at": "2026-11-02T16:27:02.138Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-03",
+      "title": "ID generation + frontmatter + index()/reindex()",
+      "order": 3,
+      "plan_ref": "1-plan.md#step-3",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "f78f8fe0-648e-424d-8392-64672bf591b0",
+          "started_at": "2026-11-02T16:27:09.146Z",
+          "ended_at": "2026-11-02T16:27:09.253Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-04",
+      "title": "Edge computation + build()/query()/search()",
+      "order": 4,
+      "plan_ref": "1-plan.md#step-4",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "40c97af6-3326-42ab-8310-3149ea613e7f",
+          "started_at": "2026-11-02T16:27:16.053Z",
+          "ended_at": "2026-11-02T16:27:16.161Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-05",
+      "title": "Cross-runtime compatibility + generated Mermaid artifact",
+      "order": 5,
+      "plan_ref": "1-plan.md#step-5",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "7424c96e-7779-4dfb-b438-0e4e1b2c216f",
+          "started_at": "2026-11-02T16:27:48.982Z",
+          "ended_at": "2026-11-02T16:27:49.108Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-06",
+      "title": "Canonical launch wiring: proactive og build at Cleanup",
+      "order": 6,
+      "plan_ref": "1-plan.md#step-6",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "c794163a-0b7c-4a85-8a32-a3adabe6f492",
+          "started_at": "2026-11-02T16:29:20.115Z",
+          "ended_at": "2026-11-02T16:29:20.228Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-07",
+      "title": "Canonical dev/design wiring: Context/Research read path",
+      "order": 7,
+      "plan_ref": "1-plan.md#step-7",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "ab57c2ba-9a56-4b07-b845-5e59291d2168",
+          "started_at": "2026-11-02T16:30:13.118Z",
+          "ended_at": "2026-11-02T16:30:13.243Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-08",
+      "title": "Canonical dev/design wiring: Document/Publish write path",
+      "order": 8,
+      "plan_ref": "1-plan.md#step-8",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "76951d21-dea2-44cc-8c1a-b1f82af3557a",
+          "started_at": "2026-11-02T16:31:03.457Z",
+          "ended_at": "2026-11-02T16:31:03.568Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-09",
+      "title": "harness-bootstrap-e2e: og-adoption grader",
+      "order": 9,
+      "plan_ref": "1-plan.md#step-9",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "d88afd77-75ab-47d1-8a92-1bebe0296eb4",
+          "started_at": "2026-11-02T16:33:34.346Z",
+          "ended_at": "2026-11-02T16:33:34.475Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-10",
+      "title": "Validate: run /harness-bootstrap launch against this repo",
+      "order": 10,
+      "plan_ref": "1-plan.md#step-10",
+      "depends_on": ["step-09"],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "d80d4f27-fa51-4ffb-a8e7-fa441bdf3088",
+          "started_at": "2026-11-02T16:34:18.322Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": []
+    }
+  ],
   "intervals": [
     {
       "id": "8531fd21-2104-4703-8b1a-0277460df0c6",
@@ -146,6 +335,228 @@
       "started_at": "2026-11-02T15:29:31.378Z",
       "ended_at": "2026-11-02T16:17:09.798Z",
       "last_observed_at": "2026-11-02T16:17:09.798Z"
+    },
+    {
+      "id": "33380591-7d06-46c7-833d-0857b29ba429",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:18:59.739Z",
+      "ended_at": "2026-11-02T16:19:20.609Z",
+      "last_observed_at": "2026-11-02T16:19:20.609Z"
+    },
+    {
+      "id": "0414a38f-70c9-4020-a486-3532b89eee59",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:19:20.609Z",
+      "ended_at": "2026-11-02T16:21:01.365Z",
+      "last_observed_at": "2026-11-02T16:21:01.365Z"
+    },
+    {
+      "id": "fbdae88b-c5a0-4288-af3b-bab8bbaadb17",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-02T16:21:01.365Z",
+      "ended_at": "2026-11-02T16:21:01.449Z",
+      "last_observed_at": "2026-11-02T16:21:01.449Z"
+    },
+    {
+      "id": "48df5047-7bc8-4481-bd6b-a4474a680460",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:21:01.449Z",
+      "ended_at": "2026-11-02T16:21:30.949Z",
+      "last_observed_at": "2026-11-02T16:21:30.949Z"
+    },
+    {
+      "id": "54e8d1d7-cbb7-4a31-ab61-9f9106a133c1",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-02T16:21:30.949Z",
+      "ended_at": "2026-11-02T16:21:31.087Z",
+      "last_observed_at": "2026-11-02T16:21:31.087Z"
+    },
+    {
+      "id": "3a27eee8-ed41-412f-ba70-d897d9fa4938",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:21:31.087Z",
+      "ended_at": "2026-11-02T16:21:36.948Z",
+      "last_observed_at": "2026-11-02T16:21:36.948Z"
+    },
+    {
+      "id": "f6ada2af-9af3-4529-ba00-2a2636fdad33",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "ea4c70d2-dafe-40d7-b209-d5bde95fafd0"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:26:52.860Z",
+      "ended_at": "2026-11-02T16:27:02.138Z",
+      "last_observed_at": "2026-11-02T16:27:02.138Z"
+    },
+    {
+      "id": "b1a17f10-198b-4cee-90f8-c8637cb6a213",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "f78f8fe0-648e-424d-8392-64672bf591b0"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:27:09.146Z",
+      "ended_at": "2026-11-02T16:27:09.253Z",
+      "last_observed_at": "2026-11-02T16:27:09.253Z"
+    },
+    {
+      "id": "b1b395e1-5530-4a57-82c4-0f90f11e3676",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "40c97af6-3326-42ab-8310-3149ea613e7f"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:27:16.053Z",
+      "ended_at": "2026-11-02T16:27:16.161Z",
+      "last_observed_at": "2026-11-02T16:27:16.161Z"
+    },
+    {
+      "id": "d45b8a80-d7cb-4cac-ad9e-a4ef548d7cf6",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "7424c96e-7779-4dfb-b438-0e4e1b2c216f"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:27:48.982Z",
+      "ended_at": "2026-11-02T16:27:49.108Z",
+      "last_observed_at": "2026-11-02T16:27:49.108Z"
+    },
+    {
+      "id": "2174ca9d-ee90-48ef-8fe7-4309ce69bff4",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "c794163a-0b7c-4a85-8a32-a3adabe6f492"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:29:20.115Z",
+      "ended_at": "2026-11-02T16:29:20.228Z",
+      "last_observed_at": "2026-11-02T16:29:20.228Z"
+    },
+    {
+      "id": "f3a5217d-f877-4e3e-82b8-a5688ede0289",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-07",
+        "attempt_id": "ab57c2ba-9a56-4b07-b845-5e59291d2168"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:30:13.118Z",
+      "ended_at": "2026-11-02T16:30:13.243Z",
+      "last_observed_at": "2026-11-02T16:30:13.243Z"
+    },
+    {
+      "id": "f317de00-ed4c-41e3-bd0e-9e6ff402d454",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-08",
+        "attempt_id": "76951d21-dea2-44cc-8c1a-b1f82af3557a"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:31:03.457Z",
+      "ended_at": "2026-11-02T16:31:03.568Z",
+      "last_observed_at": "2026-11-02T16:31:03.568Z"
+    },
+    {
+      "id": "29f53082-2b24-41e8-aa13-f12cc3efda46",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "d88afd77-75ab-47d1-8a92-1bebe0296eb4"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:33:34.346Z",
+      "ended_at": "2026-11-02T16:33:34.475Z",
+      "last_observed_at": "2026-11-02T16:33:34.475Z"
+    },
+    {
+      "id": "4eed0645-b2ba-4a87-86a4-b4f7632adc70",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "d80d4f27-fa51-4ffb-a8e7-fa441bdf3088"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T16:34:18.322Z",
+      "ended_at": "2026-11-02T16:34:18.389Z",
+      "last_observed_at": "2026-11-02T16:34:18.389Z"
+    },
+    {
+      "id": "42c91dd1-3ce2-4638-9637-1ced38c96668",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "d80d4f27-fa51-4ffb-a8e7-fa441bdf3088"
+      },
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Step 10: awaiting developer's /harness-bootstrap launch run in a separate session",
+      "started_at": "2026-11-02T16:34:18.389Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-02T16:34:18.389Z"
     }
   ],
   "checks": [
@@ -193,66 +604,281 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "0cfff473-13e0-4ab7-97e4-79b1ad69f369",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "name": "Step 1: suite runs, fails for expected reason (module not implemented)",
+      "kind": "test",
+      "started_at": "2026-11-02T16:21:01.365Z",
+      "ended_at": "2026-11-02T16:21:01.449Z",
+      "result": "failed",
+      "evidence_ref": "Command exit recorded for Step 1: suite runs, fails for expected reason (module not implemented)",
+      "source": "command",
+      "exit_code": 1,
+      "signal": null,
+      "last_observed_at": "2026-11-02T16:21:01.449Z"
+    },
+    {
+      "id": "7927515c-7f4d-499b-9d1a-f8294eaba050",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "name": "Step 1: tests red for expected reason",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:21:11.183Z",
+      "ended_at": "2026-11-02T16:21:11.183Z",
+      "result": "passed",
+      "evidence_ref": "node --test cli.test.mjs: all 10 cases fail/error at import (ERR_MODULE_NOT_FOUND: cli.mjs, constants.mjs do not exist yet) — the expected reason per plan Step 1",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "4c8b4c28-74c4-45b3-b43c-8b7c89c46389",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "45df580e-058c-43d0-9643-1080a760f156"
+      },
+      "name": "Step 1: suite runs, fails for expected reason (module not implemented)",
+      "kind": "test",
+      "started_at": "2026-11-02T16:21:30.949Z",
+      "ended_at": "2026-11-02T16:21:31.087Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for Step 1: suite runs, fails for expected reason (module not implemented)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-02T16:21:31.087Z"
+    },
+    {
+      "id": "9a3a75d9-8745-47f6-8e32-671cb3752211",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": null,
+      "name": "Step 2: schema+CRUD cases pass; CLI --help works",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:26:47.223Z",
+      "ended_at": "2026-11-02T16:26:47.223Z",
+      "result": "passed",
+      "evidence_ref": "node --test cli.test.mjs: 15/15 pass; node cli.mjs --help prints usage (exit 0); yarn eslint clean",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "36f9a385-3e08-4428-af69-44c60c123dbd",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "ea4c70d2-dafe-40d7-b209-d5bde95fafd0"
+      },
+      "name": "Step 2: schema+CRUD cases pass; CLI --help works",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:27:02.069Z",
+      "ended_at": "2026-11-02T16:27:02.069Z",
+      "result": "passed",
+      "evidence_ref": "node --test cli.test.mjs: 15/15 pass; node cli.mjs --help prints usage (exit 0); yarn eslint clean",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "24818d91-335f-482c-a9b3-8f9997f46d2b",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "f78f8fe0-648e-424d-8392-64672bf591b0"
+      },
+      "name": "Step 3: ID assignment additive/idempotent/collision-safe",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:27:09.198Z",
+      "ended_at": "2026-11-02T16:27:09.198Z",
+      "result": "passed",
+      "evidence_ref": "node --test cli.test.mjs: 'index() assigns IDs additively, idempotently, and collision-safe' and the dup-id rejection case pass",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "16260451-e3d8-403a-84db-02bc3441ce38",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "40c97af6-3326-42ab-8310-3149ea613e7f"
+      },
+      "name": "Step 4: edges+mirrors+malformed-skip pass; build/query live sanity",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:27:16.105Z",
+      "ended_at": "2026-11-02T16:27:16.105Z",
+      "result": "passed",
+      "evidence_ref": "node --test cli.test.mjs: edge/mirror/malformed-skip cases pass; manual build()+query() against this repo's real docs/ tree (see Step 10) will provide the live sanity check",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "c2c0b296-8f57-4d9e-bb65-b07542f4b515",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "7424c96e-7779-4dfb-b438-0e4e1b2c216f"
+      },
+      "name": "Step 5: full suite green, including sql.js cross-runtime read and Mermaid artifact",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:27:49.044Z",
+      "ended_at": "2026-11-02T16:27:49.044Z",
+      "result": "passed",
+      "evidence_ref": "node --test cli.test.mjs: 15/15 pass (all Step 1 cases now pass, including the sql.js cross-runtime read and Mermaid artifact case)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "0019f85d-b3e5-4764-84bc-e0d09a6ac169",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "c794163a-0b7c-4a85-8a32-a3adabe6f492"
+      },
+      "name": "Step 6: scratch build() assigns IDs additively, idempotent on rerun",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:29:20.170Z",
+      "ended_at": "2026-11-02T16:29:20.170Z",
+      "result": "passed",
+      "evidence_ref": "ran cli.mjs build against a scratch copy of this repo's real docs/ tree twice; docs/README.md got 'id: 9f7cbce1' assigned additively on first run; md5 of all .md files identical before/after the second run (no-op)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "9f1499cd-b6a2-47d2-8f79-bf767b3f609d",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-07",
+        "attempt_id": "ab57c2ba-9a56-4b07-b845-5e59291d2168"
+      },
+      "name": "Step 7: read-path fallback unconditional, CLI subcommands match",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:30:13.180Z",
+      "ended_at": "2026-11-02T16:30:13.180Z",
+      "result": "passed",
+      "evidence_ref": "traced dev/01-context-gathering.md Step 3.7, design/03-frame.md Step 1, design/04-research.md Step 2: all three use the unconditional 'required (not best-effort)' grep/glob fallback and reference query/search, matching cli.mjs's actual CLI surface",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "336bb724-9708-4d50-8f0e-8e865666d724",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-08",
+        "attempt_id": "76951d21-dea2-44cc-8c1a-b1f82af3557a"
+      },
+      "name": "Step 8: index() writes graduation edge; unwritable target gives diagnostic not throw",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:31:03.511Z",
+      "ended_at": "2026-11-02T16:31:03.511Z",
+      "result": "passed",
+      "evidence_ref": "ran cli.mjs index --edge impl-to-hld against a fixture: ID+edge written, query() confirms; against an unindexed --to target: clean diagnostic (exit 1, 'target is not indexed'), not an uncaught throw",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "f4be19c3-3710-4a2c-865d-9998f16d87ec",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "d88afd77-75ab-47d1-8a92-1bebe0296eb4"
+      },
+      "name": "Step 9: new grader cases pass; existing docs-adoption cases unaffected",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:33:34.403Z",
+      "ended_at": "2026-11-02T16:33:34.403Z",
+      "result": "passed",
+      "evidence_ref": "yarn nx run harness-bootstrap-e2e:unit: 138/138 pass (3 new gradeDocsGraphAdopted cases + updated scenario-grader-count assertion 14->15/15->16); typecheck and lint clean",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T16:17:09.807Z",
+    "as_of": "2026-11-02T17:11:08.511Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 766.333,
+    "observed_work_seconds": 933.7059999999999,
     "observed_wait_seconds": 3493.309,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "unclassified_seconds": 19.43600000000015,
+    "open_wait_seconds": 2210.122,
+    "unclassified_seconds": 880.645,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 3493.309,
-    "failed_checks": 0,
-    "first_pass_verification_rate": null,
+    "failed_checks": 1,
+    "first_pass_verification_rate": 0.8888888888888888,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T16:17:09.751Z",
+    "as_of": "2026-11-02T17:11:08.509Z",
     "source": "2-report.md",
-    "source_sha256": "c9b83ad1ce60ddcdf9074164545457876f92466c5a76bd5bce700b975b0ee1af",
+    "source_sha256": "bdc59c301ad7694ba901bb19485af70e63e241bdd5483948ee54e6b5cbfc97c7",
     "findings": {
-      "total": 5,
+      "total": 11,
       "by_kind": {
-        "deviation": 2,
-        "bug": 1,
+        "deviation": 4,
+        "bug": 3,
         "design": 0,
-        "improve": 0,
+        "improve": 1,
         "security": 0,
         "performance": 0,
-        "docs": 2
+        "docs": 3
       },
       "by_severity": {
         "critical": 0,
-        "high": 0,
-        "medium": 1,
-        "low": 4,
+        "high": 1,
+        "medium": 3,
+        "low": 7,
         "info": 0
       },
       "by_classification": {
-        "introduced": 2,
-        "pre-existing": 0,
+        "introduced": 5,
+        "pre-existing": 1,
         "ruled-out": 1,
-        "advisory": 2
+        "advisory": 4
       },
       "by_resolution": {
-        "open": 2,
-        "fixed": 2,
-        "accepted": 1,
+        "open": 4,
+        "fixed": 5,
+        "accepted": 2,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
-        "contradiction": 1,
-        "extension": 1,
+        "contradiction": 2,
+        "extension": 2,
         "omission": 0
       },
       "pr_review": {
@@ -288,11 +914,11 @@
       "scopes": 0
     },
     "test_runs": {
-      "recorded": 0,
-      "failed": 0,
+      "recorded": 2,
+      "failed": 1,
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": ["RF-002: open", "RF-005: open"]
+    "closure_issues": ["RF-002: open", "RF-005: open", "RF-010: open", "RF-011: open"]
   }
 }
