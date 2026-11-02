@@ -5,6 +5,11 @@ Tests for the `harness-bootstrap` authoring package in
 contracts; agent E2E cases exercise the skill through real Claude or Codex CLI
 sessions in disposable projects.
 
+## Links
+
+→ `docs/Target Architecture (HLD)/v1/Containers/Harness Bootstrap E2E.md` — HLD for this container (responsibilities, technology, boundary contracts)
+→ `docs/System Architecture (LLD)/Harness Bootstrap E2E/00. Overview.md` — LLD: fixtures, cases/scenarios, engine, agent-runners, graders
+
 ## Test layers and CI
 
 | Layer       | Nx target     | Coverage                                                                                           | Live agents | Nx caching |

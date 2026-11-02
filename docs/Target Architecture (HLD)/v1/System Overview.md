@@ -1,3 +1,7 @@
+---
+id: 77376e1f
+---
+
 # System Overview
 
 ## Purpose
@@ -6,12 +10,15 @@ ADLC Discovery Tool is a password-protected static documentation site delivering
 
 ## Containers
 
-| Container      | Responsibility                                                                                                              | Stack                |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------- |
-| Web            | Static documentation site rendered from Markdown via VitePress                                                              | VitePress 1.x · Vite |
-| Auth           | Lambda@Edge handler enforcing basic auth password gate on every CloudFront request                                          | Node.js · TypeScript |
-| Infrastructure | CloudFront distribution, S3 origin, Lambda@Edge association, IAM roles; GitHub OIDC provider and CI deploy role (`CiStack`) | AWS CDK · TypeScript |
-| Discuss        | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                                | giscus (external)    |
+| Container             | Responsibility                                                                                                              | Stack                    |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| Web                   | Static documentation site rendered from Markdown via VitePress                                                              | VitePress 1.x · Vite     |
+| Auth                  | Lambda@Edge handler enforcing basic auth password gate on every CloudFront request                                          | Node.js · TypeScript     |
+| Infrastructure        | CloudFront distribution, S3 origin, Lambda@Edge association, IAM roles; GitHub OIDC provider and CI deploy role (`CiStack`) | AWS CDK · TypeScript     |
+| Discuss               | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                                | giscus (external)        |
+| Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration coverage plus live agent E2E runs    | Vitest · Nx · TypeScript |
+
+Harness Bootstrap E2E is dev/CI tooling, not a runtime participant in the browser-facing request flow below — it tests the `harness-bootstrap` skill against disposable fixture workspaces and has no presence in the deployed site. Its deterministic layers run inside `ci.yml`; its agent E2E layer runs only from a developer's own environment. See `Containers/Harness Bootstrap E2E.md`.
 
 ## System diagram
 
