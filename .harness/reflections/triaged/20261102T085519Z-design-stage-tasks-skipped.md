@@ -1,7 +1,8 @@
 ---
-status: pending-triage
+status: adopted
 timestamp: 2026-11-02T08:55:19Z
 ticket: DESIGN-20261102-Q5MU
+candidate: .harness/evolve/20261102T140000Z-design-stage-tasks-first-action/
 ---
 
 ## Observation
