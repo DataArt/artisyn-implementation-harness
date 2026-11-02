@@ -16,10 +16,10 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: evaluate
-completed_stages: ['context-gathering', 'ceremony', 'frame', 'research']
+current_stage: solution
+completed_stages: ['context-gathering', 'ceremony', 'frame', 'research', 'evaluate']
 selected_artifacts: []
-next_action: 'Evaluate — one Evaluate doc per confirmed decision, via @product-architect'
+next_action: 'Solution — certainty artifacts per confirmed decision, via @product-architect'
 context_fingerprint: ''
 ```
 
@@ -41,7 +41,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261102-Q5MU                                                                                                                                                                |
 | Branch | `docs/design-20261102-q5mu-deterministic-docs-knowledge-graph`                                                                                                                      |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -51,20 +51,20 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 38m 38s · Wait to date: 13m 18s (closed 13m 18s + current 0s) · Unclassified: 2h 55m 37s
+Observed work: 3h 38m 17s · Wait to date: 35m 3s (closed 22m 19s + current 12m 43s) · Unclassified: 4m 47s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-02T08:52:17.886Z | 2026-11-02T08:52:58.605Z | 41s         | 6s      | 35s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-02T08:56:33.297Z | 2026-11-02T09:04:35.468Z | 8m 2s       | 8m 2s   | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (completed)             | 2026-11-02T09:04:44.931Z | 2026-11-02T09:28:27.445Z | 23m 43s     | 21m 32s | 2m 10s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (active)             | 2026-11-02T09:28:41.207Z | unavailable              | unavailable | 8m 58s  | 10m 32s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work      | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | --------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-02T08:52:17.886Z | 2026-11-02T08:52:58.605Z | 41s         | 6s        | 35s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-02T08:56:33.297Z | 2026-11-02T09:04:35.468Z | 8m 2s       | 8m 2s     | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-02T09:04:44.931Z | 2026-11-02T09:28:27.445Z | 23m 43s     | 21m 32s   | 2m 10s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (completed)          | 2026-11-02T09:28:41.207Z | 2026-11-02T12:48:55.785Z | 3h 20m 15s  | 3h 0m 41s | 19m 34s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (waiting)            | 2026-11-02T12:49:44.883Z | unavailable              | unavailable | 7m 56s    | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (pending)            | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -118,6 +118,127 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 <!-- Append dated blocks here. Each block added by Evaluate or the waf-review pattern. -->
 
+### WAF — Evaluate — 2026-11-02
+
+_Six decisions, one closing WAF assessment each (recommended option only)._
+
+#### Decision 1 — Graph storage format
+
+_Recommended option: C — SQLite via `node:sqlite`._
+
+| Pillar                 | Rating | Headline                                                                                    |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟡     | Binary artifact opaque to PR diff; experimental-API risk scoped to one internal script      |
+| Security               | 🟢     | Local file only, no network/credential surface                                              |
+| Reliability            | 🟢     | Schema constraints (uniqueness/FK) give structural guarantees other options lack            |
+| Performance Efficiency | 🟢     | More than sufficient at stated scope; query power unneeded but available                    |
+| Cost Optimization      | 🟢     | Zero license cost, zero new npm dependency to audit                                         |
+| Sustainability         | 🟡     | No dependency-maintenance burden, but binary format assumes a Node-based consumer toolchain |
+
+**P1 items (resolve before implementation):**
+
+- Pin/document the Node version floor (`>=24`) and add a CI check that fails loudly on `node:sqlite` behavior drift.
+
+Full elaboration: `design/02 Evaluate - Graph storage format.md`
+
+#### Decision 2 — Graph structure and topology
+
+_Recommended option: 3 — tier-typed nodes + derived mirror edge._
+
+| Pillar                 | Rating | Headline                                                                                                      |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟢     | Deterministic, re-derivable build; mirror edges need zero manual authoring                                    |
+| Security               | 🟢     | No credentials/PII surface; mirror layer only reads file/folder names                                         |
+| Reliability            | 🟡     | False-positive gap risk if name-matching lacks normalization rules                                            |
+| Performance Efficiency | 🟢     | Doc-level granularity keeps cardinality low                                                                   |
+| Cost Optimization      | 🟢     | No new always-on infra; selected over Option 4 partly on cost grounds                                         |
+| Sustainability         | 🟡     | Mirror half is self-sustaining; authored half depends on Decision 5's edges being correctly emitted over time |
+
+**P1 items (resolve before implementation):**
+
+- Resolve name-matching normalization rules and gap-ownership (OQ-2) before trusting `mirrors-gap` signals downstream.
+
+Full elaboration: `design/02 Evaluate - Graph structure and topology.md`
+
+#### Decision 3 — Representation / infra footprint
+
+_Recommended option: B — build-time script, hybrid shape (agent + CI invokable)._
+
+| Pillar                 | Rating | Headline                                                                                     |
+| ---------------------- | ------ | -------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟢     | Single artifact for both invocation paths; build failure is a visible standard CI signal     |
+| Security               | 🟢     | No new standing surface, no new auth story                                                   |
+| Reliability            | 🟡     | Freshness between builds bound to deploy cadence; agent-invoked leg's failure modes unscoped |
+| Performance Efficiency | 🟡     | Doc-tree scan cost at build time unmeasured                                                  |
+| Cost Optimization      | 🟢     | Zero incremental infra cost, rides existing CI/build compute                                 |
+| Sustainability         | 🟢     | No standing infrastructure, no idle resource consumption                                     |
+
+**P1 items (resolve before implementation):**
+
+- Resolve whether build-cadence freshness alone is sufficient, or whether a lifecycle step needs same-session-fresh graph guarantees (OQ-1), before Solution finalizes invocation responsibilities.
+
+Full elaboration: `design/02 Evaluate - Representation infra footprint.md`
+
+#### Decision 4 — Visualization surface
+
+_Recommended option: D — both surfaces, shared data source (IDE rendering mechanism explicitly unresolved)._
+
+| Pillar                 | Rating | Headline                                                                                           |
+| ---------------------- | ------ | -------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟡     | Two render paths can drift/fail independently; IDE-side freshness mechanism unresolved             |
+| Security               | 🟢     | No new runtime surface; new JS library's supply-chain posture not yet vetted                       |
+| Reliability            | 🟡     | Cross-editor fidelity (VS Code vs. JetBrains) unverified; rendering mechanism itself still open    |
+| Performance Efficiency | 🟡     | Mermaid's scaling ceiling unverified against this doc tree's actual/projected size                 |
+| Cost Optimization      | 🟢     | No new always-on infra; stays within existing static-site + CI footprint                           |
+| Sustainability         | 🟡     | Right structural shape, but long-term maintainability hinges on the still-unresolved IDE mechanism |
+
+**P1 items (resolve before implementation):**
+
+- Resolve doc-tree node/edge count (OQ-2 in that file) before finalizing the IDE emitter's format — determines whether Mermaid is viable at scale.
+- IDE-rendering-mechanism spike must include a cross-editor fidelity check as an explicit acceptance criterion.
+
+Full elaboration: `design/02 Evaluate - Visualization surface.md`
+
+#### Decision 5 — Harness lifecycle impact
+
+_Recommended option: B (revised) — required read (Context Gathering/Research, unchanged) AND required write (Document/Publish), but tool-automated via the same zero-dep script from Decisions 3/6, not manually authored._
+
+| Pillar                 | Rating | Headline                                                                                                                                                  |
+| ---------------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟡     | Fallback behavior for missing/stale graph not yet specified                                                                                               |
+| Security               | 🟢     | No new credential/access-control surface                                                                                                                  |
+| Reliability            | 🟡     | Automating the write dissolves the original mandatory-write reliability risk, but the script's own failure/retry behavior is now the open question (OQ-5) |
+| Performance Efficiency | 🟢     | Expected to be cheaper than today's full re-read/grep pattern                                                                                             |
+| Cost Optimization      | 🟢     | No mandatory _manual_ tooling spend forced onto every ticket — the write is automated, not a new human task                                               |
+| Sustainability         | 🟢     | Reuses existing phase prompts; Evolve touchpoint (OQ-2 in that file) still open                                                                           |
+
+**P1 items (resolve before implementation):**
+
+- Specify the exact fallback contract for Context/Research when the graph is absent or stale, before Solution is finalized.
+- Define the automated script's failure/retry behavior during `/dev document`/`/design publish` (OQ-5) — without it, a required-but-automated write could still silently block phase completion in an edge case.
+
+Full elaboration: `design/02 Evaluate - Harness lifecycle impact.md`
+
+#### Decision 6 — Harness bootstrap impact
+
+_Recommended option: B+ (revised) — bootstrap script runs proactively at `launch` (not deferred to first later use), assigning a deterministic, collision-safe frontmatter ID to any doc missing one and building the initial graph in the same pass; runs silently, no confirmation prompt._
+
+| Pillar                 | Rating | Headline                                                                                                                                  |
+| ---------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟢     | Self-contained, deterministically regenerable; now runs proactively at launch rather than silently on first later use                     |
+| Security               | 🟡     | Shipping an executable script is a (small) new execution surface; no stated review/provenance step                                        |
+| Reliability            | 🟢     | Additive-only, idempotent ID assignment (skips docs that already have one) addresses the original Option D collision/retry risks directly |
+| Performance Efficiency | 🟢     | Lightest-footprint mechanism among all four options considered                                                                            |
+| Cost Optimization      | 🟢     | Zero marginal/ongoing cost; reused across every bootstrapped project                                                                      |
+| Sustainability         | 🟡     | Long-term script ownership/versioning across bootstrap-package releases unresolved                                                        |
+
+**P1 items (resolve before implementation):**
+
+- Confirm who owns script versioning across bootstrap-package releases before Publish finalizes this decision — the one gap that could undercut its sustainability claim.
+- Specify the exact deterministic ID generation scheme that guarantees no collisions (OQ-5) — the collision-safety claim this revision rests on is otherwise unverified.
+
+Full elaboration: `design/02 Evaluate - Harness bootstrap impact.md`
+
 ---
 
 ## Gate
@@ -131,12 +252,13 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date       | Phase             | Notes                                                                                                                                                                                                                                                                                                                                                          |
-| ---------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-02 | Context Gathering | Task tracking: native Claude Task tools (TaskCreate/TaskUpdate), tasks #1–#10, one per lifecycle stage.                                                                                                                                                                                                                                                        |
-| 2026-11-02 | Ceremony          | No tracker ticket (local design ID) — Step 1 tracker transition skipped. Branch checked out and confirmed by developer.                                                                                                                                                                                                                                        |
-| 2026-11-02 | Frame             | 5 known requirements, 4 proposed requirements accepted. 6 independent decisions confirmed: storage, structure/topology, infra footprint, visualization, lifecycle impact, bootstrap impact.                                                                                                                                                                    |
-| 2026-11-02 | Research          | @product-architect returned 27 options across 6 decisions (5/4/5/4/5/4); 35 OQs triaged (16 V-tier resolved, 19 E-tier deferred); developer confirmed set complete after reworking Decision 2's topology to ground it in the real tier model (`Documentation/02 Structure.md`, `Lifecycles/05 Documents Flow.md`) and adding SQLite sub-options to Decision 1. |
+| Date       | Phase             | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-02 | Context Gathering | Task tracking: native Claude Task tools (TaskCreate/TaskUpdate), tasks #1–#10, one per lifecycle stage.                                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-11-02 | Ceremony          | No tracker ticket (local design ID) — Step 1 tracker transition skipped. Branch checked out and confirmed by developer.                                                                                                                                                                                                                                                                                                                                                                               |
+| 2026-11-02 | Frame             | 5 known requirements, 4 proposed requirements accepted. 6 independent decisions confirmed: storage, structure/topology, infra footprint, visualization, lifecycle impact, bootstrap impact.                                                                                                                                                                                                                                                                                                           |
+| 2026-11-02 | Research          | @product-architect returned 27 options across 6 decisions (5/4/5/4/5/4); 35 OQs triaged (16 V-tier resolved, 19 E-tier deferred); developer confirmed set complete after reworking Decision 2's topology to ground it in the real tier model (`Documentation/02 Structure.md`, `Lifecycles/05 Documents Flow.md`) and adding SQLite sub-options to Decision 1.                                                                                                                                        |
+| 2026-11-02 | Evaluate          | Recommended: D1 SQLite/`node:sqlite`, D2 Option 3 (tier-typed + mirror edge), D3 Option B (hybrid agent+CI script), D4 Option D (both surfaces, IDE mechanism open), D5 Option B revised (required read+automated write), D6 Option B+ revised (proactive launch-time index + collision-safe ID auto-assignment). WAF: all 6 green-to-amber, no red; 9 P1 items. Developer-driven revisions merged automated-write/ID-autoassignment into D5/D6 after reviewing why C/D were originally disqualified. |
 
 ---
 

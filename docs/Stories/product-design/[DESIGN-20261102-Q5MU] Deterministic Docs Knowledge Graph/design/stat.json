@@ -51,21 +51,29 @@
     },
     {
       "id": "research",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
           "started_at": "2026-11-02T09:28:41.207Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T12:48:55.785Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "evaluate",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+          "started_at": "2026-11-02T12:49:44.883Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "solution",
@@ -207,8 +215,43 @@
       "reason": "user_input",
       "detail": "Awaiting Research commit",
       "started_at": "2026-11-02T12:39:54.160Z",
+      "ended_at": "2026-11-02T12:48:55.785Z",
+      "last_observed_at": "2026-11-02T12:48:55.785Z"
+    },
+    {
+      "id": "5f43d2d6-32ee-4187-8f34-2ae6dab02347",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T12:49:44.883Z",
+      "ended_at": "2026-11-02T12:57:41.279Z",
+      "last_observed_at": "2026-11-02T12:57:41.279Z"
+    },
+    {
+      "id": "45a0aa87-8dad-4f29-abf7-b22680817136",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off",
+      "started_at": "2026-11-02T12:57:41.279Z",
+      "ended_at": "2026-11-02T13:10:27.609Z",
+      "last_observed_at": "2026-11-02T13:10:27.609Z"
+    },
+    {
+      "id": "88efe592-53ed-4d74-bfc9-6bac199f874e",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Evaluate commit",
+      "started_at": "2026-11-02T13:10:27.609Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-02T12:39:54.160Z"
+      "last_observed_at": "2026-11-02T13:10:27.609Z"
     }
   ],
   "checks": [
@@ -291,22 +334,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "evaluate-signoff",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "design_revision": 0,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T13:10:01.621Z",
+      "ended_at": "2026-11-02T13:10:01.621Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue (after revising Decisions 5 and 6 to merge automated writes/ID-assignment)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T12:39:54.161Z",
+    "as_of": "2026-11-02T13:10:27.609Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 12620.669999999998,
-    "observed_wait_seconds": 797.6870000000001,
+    "observed_work_seconds": 13097.065999999999,
+    "observed_wait_seconds": 2105.6420000000003,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 797.6880000000001,
-    "unclassified_seconds": 237.95500000000172,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 2105.6420000000003,
+    "unclassified_seconds": 287.05300000000125,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 760.3030000000001,
+    "approval_wait_seconds": 1526.6330000000003,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
