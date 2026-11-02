@@ -472,24 +472,64 @@ notes", never a blind overwrite.
 > Run: `yarn nx run site:serve`, open any doc page
 > Expected: both edge-tab handles and the focus-mode toggle render and collapse/restore their panels
 
-### Step 15 — Interactive node-link graph view (Cytoscape.js)
+### Step 15 — Interactive node-link graph view (Cytoscape.js), revised
 
 **Changes:** `03 Visualization Model.md`'s own data-access pattern calls for
 "render graph from query results" → "interactive graph" — Step 12's table
 satisfies the file list but not that intent; it never queries or draws the
 `edges` table at all. Adds a real node-link rendering using
-[Cytoscape.js](https://js.cytoscape.org/#notation/graph-model):
+[Cytoscape.js](https://js.cytoscape.org/#notation/graph-model), refined per
+developer direction after reviewing three reference projects
+([tokyo-railways](https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/tokyo-railways),
+[wineandcheesemap](https://github.com/cytoscape/wineandcheesemap),
+[cytoscape.js-avsdf](https://github.com/iVis-at-Bilkent/cytoscape.js-avsdf)):
 
-- `apps/docs-web/package.json` — `cytoscape` as a runtime dependency
-- `apps/docs-web/.vitepress/theme/graphExplorer.data.ts` — extend the build-time
-  query to also select every row from `edges` (currently `docs` only)
-- `apps/docs-web/.vitepress/theme/GraphExplorer.vue` — extend the live sql.js
-  query the same way; render a Cytoscape canvas above the existing table (not a
-  replacement — the table stays as the always-available, dependency-light
-  fallback), nodes colored by tier (`TIER_COLORS`), one visual style per
-  `edge_type` (dashed for `derived=1`, solid for authored); same
-  fetch/WASM-failure fallback behavior as the table (skip the canvas, keep the
-  table) rather than a blank canvas
+- **Layout** — `avsdf` (circular, edge-crossing-minimizing): with ~660 edges
+  (503 automatic `keyword-match` + 156 hand-written `references` + a handful
+  of `mirrors-*`, per Step 13's live count), a force-directed layout (cose/
+  cola) would be slow and visually tangled; avsdf's circular arrangement
+  groups densely-connected docs together and stays readable at this edge
+  count — directly one of the three referenced approaches.
+- **Styling** — wineandcheesemap's pattern: a plain-text Cytoscape stylesheet
+  (attribute selectors, not a JS style array) with one rule per tier
+  (`node[tier = "HLD"]` etc., reusing `TIER_COLORS`) and one per `edge_type`
+  category (dashed + low-opacity for the high-volume `keyword-match`, solid
+  for authored `references`/graduation types, distinct color for
+  `mirrors-*`) — so the 503 automatic edges don't visually drown the 156
+  hand-curated ones.
+- **Performance** — tokyo-railways' affordances at this node/edge count:
+  `min-zoomed-font-size` (labels only render once zoomed in enough) and
+  `motionBlur: true`.
+- **Filtering** — a checkbox panel above the canvas: one checkbox per tier
+  (including "Other"), one per edge-type group (`keyword-match` /
+  `references` / graduation / `mirrors-*`) — unchecking a tier hides its
+  nodes (cytoscape `display: none` class) and any edge touching only hidden
+  nodes, in both the canvas and the static table's row filter; unchecking an
+  edge-type group only affects the canvas (the table has no edge column).
+  Directly answers "turn off Stories, maybe other filtering."
+- **File layout** — a `GraphExplorer/` folder (developer-requested
+  decomposition, HTML/CSS/JS separated via Vue's SFC `src` imports rather
+  than one file mixing all three):
+  - `GraphExplorer/GraphExplorer.vue` — shell: `<template src="./template.html">`,
+    `<script src="./script.ts">`, `<style src="./style.css" scoped>`
+  - `GraphExplorer/template.html` — markup: filter panel, canvas container,
+    fallback table
+  - `GraphExplorer/script.ts` — component logic: live sql.js query (now
+    selecting `edges` too), cytoscape init/layout/style application, filter
+    state and its handlers
+  - `GraphExplorer/style.css` — the component's own CSS (filter panel, canvas
+    sizing, table), moved out of the old single-file `GraphExplorer.vue`
+  - `GraphExplorer/cytoscapeStyle.ts` — the Cytoscape stylesheet string
+  - `GraphExplorer/graphExplorer.data.ts` — moved into the folder; build-time
+    query extended to also select every row from `edges` (currently
+    `docs`-only)
+  - `apps/docs-web/.vitepress/theme/Layout.vue` — update the import path to
+    `./GraphExplorer/GraphExplorer.vue`
+- `apps/docs-web/package.json` — `cytoscape` and `cytoscape-avsdf` (+ its
+  `avsdf-base` peer) as runtime dependencies
+
+Same fetch/WASM-failure fallback behavior as before: skip the canvas, keep the
+table — never a blank page.
 
 **Verification:**
 
@@ -497,11 +537,72 @@ satisfies the file list but not that intent; it never queries or draws the
 > Expected: both pass
 > Run: `yarn nx run site:build`
 > Expected: succeeds; `site:serve`, open the Graph Explorer page
-> Expected: an interactive graph renders above the table — pan/zoom work, nodes are colored by tier, edges are visible
+> Expected: an interactive graph renders above the table in the avsdf circular
+> layout — pan/zoom work, nodes are colored by tier, edges are visibly styled
+> by type; unchecking a tier in the filter panel hides its nodes/edges in both
+> the canvas and the table; unchecking an edge-type group hides only canvas edges
 > Then: block the `.sqlite` request in devtools and reload
-> Expected: the canvas doesn't render (no error), the static table still does
+> Expected: the canvas doesn't render (no error), the static table (with its
+> own tier filter) still does
 
-### Step 16 — Package and release this ticket's canonical changes
+### Step 16 — Concentric tier-ring layout for Graph Explorer (developer-authorized, after Step 15; revised per RF-037)
+
+**Changes:** replaces Step 15's `avsdf` layout with cytoscape's built-in
+`concentric` layout, inspired by the
+[cytoscape.js concentric-layout demo](https://github.com/cytoscape/cytoscape.js/tree/master/documentation/demos/concentric-layout),
+ringed by doc tier instead of node degree — a fixed semantic hierarchy rather
+than a density-driven arrangement:
+
+- **Ring order (center → edge):** `Product` (0) → `HLD` (1) → `LLD` (2) →
+  `EngineeringGuide` (3) → `Story` (4) → `AppReadme`/untiered `Other` (5, own
+  outermost ring — confirmed with the developer rather than folding into
+  `Story`'s ring).
+- `apps/docs-web/.vitepress/theme/GraphExplorer/cytoscapeStyle.ts` — add a
+  `TIER_RING` map and `tierRing()` helper next to `TIER_COLORS`/`tierColor()`.
+- `apps/docs-web/.vitepress/theme/GraphExplorer/script.ts` — drop the
+  `cytoscape-avsdf` import/registration; set `layout: { name: 'concentric',
+concentric: (node) => maxRing - tierRing(node.data('tier')), levelWidth: ()
+=> 1, minNodeSpacing: 32 }`. cytoscape's `concentric` places the _highest_
+  returned value in the center, so the ring number must be inverted
+  (`maxRing - tierRing(...)`) for `Product` to land in the middle.
+  `levelWidth: () => 1` keeps nodes split into exactly one level per tier.
+  **No `equidistant`** (RF-037: cytoscape's own `concentric.mjs` source warns
+  `equidistant: true` "may cause bounding box overflow" — it forces every
+  ring's gap to match the largest gap any one ring needs, and the outermost
+  `Other`/`AppReadme` ring's size blew every other ring's gap out with it,
+  clipping the canvas). Default per-level minimum gap
+  (`maxNodeSize + minNodeSpacing`) already guarantees rings never collide.
+- `apps/docs-web/.vitepress/theme/GraphExplorer/cytoscapeStyle.ts` (RF-037)
+  — replace the tier-colored `text-outline-*` label style (illegible against
+  colored node fills when zoomed in) with a `text-background-*` plate;
+  `buildCytoscapeStyle()` takes the label text/background colors as
+  parameters, read live from this site's `--vp-c-text-1`/`--vp-c-bg-soft`
+  VitePress theme tokens (dark-mode aware) rather than hardcoded.
+- `apps/docs-web/.vitepress/theme/GraphExplorer/docUrl.ts` (new, RF-037) —
+  resolves a doc's repo-root-relative `path` to its VitePress route
+  (`docs/` prefix stripped, `.md`→`.html`, percent-encoded, `withBase()`), or
+  `null` for a path outside `docs/` (e.g. `AppReadme`'s `apps/*/README.md`,
+  which has no route). Wired to node tap (`window.open`) and the fallback
+  table's title link, so every node/row that has a page can be opened from
+  the graph.
+- `apps/docs-web/package.json` / `shims-vue.d.ts` — remove the now-unused
+  `cytoscape-avsdf`/`avsdf-base` dependency and its type declaration.
+
+Everything else (filters, edge styling, fallback table structure, live
+sql.js query) is unchanged.
+
+**Verification:**
+
+> Run: `yarn install` (lockfile prune), `yarn nx run site:typecheck`,
+> `yarn nx run site:lint`
+> Expected: all clean
+> Run: `yarn nx run site:build`
+> Expected: succeeds
+> Then (developer, needs a real browser): open the Graph Explorer page
+> Expected: nodes render in concentric rings by tier, `Product` docs centered,
+> `AppReadme`/`Other` on the outermost ring; filtering/pan/zoom still work
+
+### Step 17 — Package and release this ticket's canonical changes
 
 Deliberately last (per developer instruction) — everything else in the ticket,
 including Steps 14/15's unrelated app-level additions, lands before this runs, so

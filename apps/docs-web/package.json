@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
+    "cytoscape": "^3.34.0",
     "sql.js": "^1.11.0"
   },
   "devDependencies": {

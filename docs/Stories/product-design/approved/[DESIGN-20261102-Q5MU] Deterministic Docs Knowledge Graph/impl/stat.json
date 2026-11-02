@@ -283,6 +283,24 @@
         }
       ],
       "flags": []
+    },
+    {
+      "id": "step-17",
+      "title": "Concentric tier-ring layout for GraphExplorer",
+      "order": 17,
+      "plan_ref": "addendum, RF-036",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "212cd7ed-0d4c-4406-876a-d1f0df824d40",
+          "started_at": "2026-11-02T21:58:42.252Z",
+          "ended_at": "2026-11-02T22:02:07.647Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
     }
   ],
   "intervals": [
@@ -589,6 +607,48 @@
       "started_at": "2026-11-02T19:20:41.266Z",
       "ended_at": "2026-11-02T19:23:51.068Z",
       "last_observed_at": "2026-11-02T19:23:51.068Z"
+    },
+    {
+      "id": "b901f261-6e8f-496b-8673-5e3c36d43399",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-17",
+        "attempt_id": "212cd7ed-0d4c-4406-876a-d1f0df824d40"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T21:58:42.252Z",
+      "ended_at": "2026-11-02T22:01:52.935Z",
+      "last_observed_at": "2026-11-02T22:01:52.935Z"
+    },
+    {
+      "id": "25694677-4c2f-4c35-b8e0-7544c8450fa5",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-17",
+        "attempt_id": "212cd7ed-0d4c-4406-876a-d1f0df824d40"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-02T22:01:52.935Z",
+      "ended_at": "2026-11-02T22:02:07.553Z",
+      "last_observed_at": "2026-11-02T22:02:07.553Z"
+    },
+    {
+      "id": "2626a342-0b16-4a54-9dbe-11410d97bbff",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-17",
+        "attempt_id": "212cd7ed-0d4c-4406-876a-d1f0df824d40"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T22:02:07.553Z",
+      "ended_at": "2026-11-02T22:02:07.647Z",
+      "last_observed_at": "2026-11-02T22:02:07.647Z"
     }
   ],
   "checks": [
@@ -887,36 +947,85 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "step-17-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-17",
+        "attempt_id": "212cd7ed-0d4c-4406-876a-d1f0df824d40"
+      },
+      "name": "site:build after concentric layout",
+      "kind": "build",
+      "started_at": "2026-11-02T22:01:52.935Z",
+      "ended_at": "2026-11-02T22:02:07.553Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site:build after concentric layout",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-02T22:02:07.553Z"
+    },
+    {
+      "id": "86f4ab88-3436-436d-a3bb-d391c03e2a1e",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": null,
+      "name": "dependency cleanup verification",
+      "kind": "build",
+      "started_at": "2026-11-02T22:02:16.477Z",
+      "ended_at": "2026-11-02T22:02:16.477Z",
+      "result": "passed",
+      "evidence_ref": "yarn install pruned cytoscape-avsdf/avsdf-base from yarn.lock; yarn nx run site:typecheck and site:lint both clean",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "b109245d-deae-4b70-bc26-6c94fdd746b3",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": null,
+      "name": "RF-037 refinement verification",
+      "kind": "build",
+      "started_at": "2026-11-02T22:17:42.735Z",
+      "ended_at": "2026-11-02T22:17:42.735Z",
+      "result": "passed",
+      "evidence_ref": "yarn nx run site:typecheck/site:lint/site:build all clean after equidistant removal, label-background fix, and docUrl click-to-navigate; not visually verified, no Chrome extension connection this session",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T21:20:08.490Z",
+    "as_of": "2026-11-02T22:17:42.744Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1123.5079999999998,
+    "observed_work_seconds": 1328.9029999999998,
     "observed_wait_seconds": 13459.673999999999,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 7874.578999999998,
+    "unclassified_seconds": 11123.438000000002,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 3493.309,
     "failed_checks": 1,
-    "first_pass_verification_rate": 0.9090909090909091,
+    "first_pass_verification_rate": 0.9166666666666666,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T21:20:08.484Z",
+    "as_of": "2026-11-02T21:34:42.410Z",
     "source": "2-report.md",
-    "source_sha256": "53372e5ca0be36e5dc998d17d6a98367e48a06ecf53b8d92fa5f790e542723e2",
+    "source_sha256": "7bddb17d0bab02a25852336b1dc04f41bc71fd9e1c54d6ac1f7b85b59c90159e",
     "findings": {
-      "total": 34,
+      "total": 35,
       "by_kind": {
-        "deviation": 16,
+        "deviation": 17,
         "bug": 10,
         "design": 0,
         "improve": 1,
@@ -928,25 +1037,25 @@
         "critical": 0,
         "high": 2,
         "medium": 8,
-        "low": 24,
+        "low": 25,
         "info": 0
       },
       "by_classification": {
         "introduced": 12,
         "pre-existing": 1,
         "ruled-out": 1,
-        "advisory": 20
+        "advisory": 21
       },
       "by_resolution": {
         "open": 4,
         "fixed": 16,
-        "accepted": 14,
+        "accepted": 15,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
         "contradiction": 2,
-        "extension": 14,
+        "extension": 15,
         "omission": 0
       },
       "pr_review": {

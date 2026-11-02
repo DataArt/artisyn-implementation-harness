@@ -23,3 +23,10 @@ declare module '*.wasm?url' {
   const url: string;
   export default url;
 }
+
+// GraphExplorer.vue is assembled from `<template src>`/`<script src>`/
+// `<style src>` (see GraphExplorer/GraphExplorer.vue's own comment) — a
+// plain `<script src="./script.ts">` block, not `<script setup>`, so its
+// file exports Options-API-shaped `{ setup() {...} }` component options
+// rather than a default-exported component directly; `*.vue`'s shim above
+// still covers the outer `.vue` import site correctly.
