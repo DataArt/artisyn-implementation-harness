@@ -38,21 +38,29 @@
     },
     {
       "id": "frame",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
           "started_at": "2026-11-02T09:04:44.931Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T09:28:27.445Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "research",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+          "started_at": "2026-11-02T09:28:41.207Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "evaluate",
@@ -153,8 +161,54 @@
       "reason": "user_input",
       "detail": "Awaiting Frame commit",
       "started_at": "2026-11-02T09:27:50.061Z",
+      "ended_at": "2026-11-02T09:28:27.445Z",
+      "last_observed_at": "2026-11-02T09:28:27.445Z"
+    },
+    {
+      "id": "7535cf9b-18fa-44eb-aea6-62f8a5247f4e",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-02T09:28:41.207Z",
+      "ended_at": "2026-11-02T09:37:39.656Z",
+      "last_observed_at": "2026-11-02T09:37:39.656Z"
+    },
+    {
+      "id": "36ee5373-f573-4cd7-bdf8-caa78b247f15",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting research sign-off",
+      "started_at": "2026-11-02T09:37:39.656Z",
+      "ended_at": "2026-11-02T09:48:11.726Z",
+      "last_observed_at": "2026-11-02T09:48:11.726Z"
+    },
+    {
+      "id": "52604bb5-e6ab-4793-bd89-ec19a68ef5b3",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T09:48:11.726Z",
+      "ended_at": "2026-11-02T12:39:54.160Z",
+      "last_observed_at": "2026-11-02T12:39:54.160Z"
+    },
+    {
+      "id": "5d0b1bf2-e593-4be2-9710-24e7dd58b150",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Research commit",
+      "started_at": "2026-11-02T12:39:54.160Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-02T09:27:50.061Z"
+      "last_observed_at": "2026-11-02T12:39:54.160Z"
     }
   ],
   "checks": [
@@ -221,22 +275,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "research-signoff",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "design_revision": 0,
+      "name": "Research sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T12:39:14.308Z",
+      "ended_at": "2026-11-02T12:39:14.308Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue (after Decision 2 rework, SQLite sub-options addition, and Mermaid reserved-keyword fix)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T09:27:50.061Z",
+    "as_of": "2026-11-02T12:39:54.161Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1779.787,
-    "observed_wait_seconds": 128.233,
+    "observed_work_seconds": 12620.669999999998,
+    "observed_wait_seconds": 797.6870000000001,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "wait_seconds_to_date": 128.233,
-    "unclassified_seconds": 224.19300000000015,
+    "open_wait_seconds": 0.001,
+    "wait_seconds_to_date": 797.6880000000001,
+    "unclassified_seconds": 237.95500000000172,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 128.233,
+    "approval_wait_seconds": 760.3030000000001,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
