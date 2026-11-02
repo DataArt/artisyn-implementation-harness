@@ -26,22 +26,30 @@
     },
     {
       "id": "ceremony",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "38e09502-cb44-4682-be7c-b2c364970182",
           "started_at": "2026-11-02T15:17:08.011Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T15:19:57.038Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "plan",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "016623eb-9cc6-4179-8fee-051bf23b23ab",
+          "started_at": "2026-11-02T15:20:08.511Z",
+          "ended_at": "2026-11-02T16:17:09.798Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     },
     {
@@ -113,8 +121,31 @@
       "kind": "work",
       "activity": "planning",
       "started_at": "2026-11-02T15:17:08.011Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-02T15:17:08.011Z"
+      "ended_at": "2026-11-02T15:19:57.038Z",
+      "last_observed_at": "2026-11-02T15:19:57.038Z"
+    },
+    {
+      "id": "f0776b66-fa67-4af6-b2df-5023e0654bd3",
+      "stage_id": "plan",
+      "stage_attempt_id": "016623eb-9cc6-4179-8fee-051bf23b23ab",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-02T15:20:08.511Z",
+      "ended_at": "2026-11-02T15:29:31.378Z",
+      "last_observed_at": "2026-11-02T15:29:31.378Z"
+    },
+    {
+      "id": "0aa10ac8-e1ee-41a0-8339-6cec576cb3ce",
+      "stage_id": "plan",
+      "stage_attempt_id": "016623eb-9cc6-4179-8fee-051bf23b23ab",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting plan sign-off",
+      "started_at": "2026-11-02T15:29:31.378Z",
+      "ended_at": "2026-11-02T16:17:09.798Z",
+      "last_observed_at": "2026-11-02T16:17:09.798Z"
     }
   ],
   "checks": [
@@ -147,21 +178,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "c34e525d-84e8-4b29-b5a0-1bf3bff7d71d",
+      "stage_id": "plan",
+      "stage_attempt_id": "016623eb-9cc6-4179-8fee-051bf23b23ab",
+      "step": null,
+      "name": "Plan sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T16:16:42.998Z",
+      "ended_at": "2026-11-02T16:16:42.998Z",
+      "result": "passed",
+      "evidence_ref": "good to go",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T15:19:19.930Z",
+    "as_of": "2026-11-02T16:17:09.807Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 34.439,
-    "observed_wait_seconds": 634.889,
+    "observed_work_seconds": 766.333,
+    "observed_wait_seconds": 3493.309,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 139.87300000000005,
+    "unclassified_seconds": 19.43600000000015,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 634.889,
+    "approval_wait_seconds": 3493.309,
     "failed_checks": 0,
     "first_pass_verification_rate": null,
     "human_reported_seconds": null,
@@ -170,43 +216,43 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T15:19:19.929Z",
+    "as_of": "2026-11-02T16:17:09.751Z",
     "source": "2-report.md",
-    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "source_sha256": "c9b83ad1ce60ddcdf9074164545457876f92466c5a76bd5bce700b975b0ee1af",
     "findings": {
-      "total": 0,
+      "total": 5,
       "by_kind": {
-        "deviation": 0,
-        "bug": 0,
+        "deviation": 2,
+        "bug": 1,
         "design": 0,
         "improve": 0,
         "security": 0,
         "performance": 0,
-        "docs": 0
+        "docs": 2
       },
       "by_severity": {
         "critical": 0,
         "high": 0,
-        "medium": 0,
-        "low": 0,
+        "medium": 1,
+        "low": 4,
         "info": 0
       },
       "by_classification": {
-        "introduced": 0,
+        "introduced": 2,
         "pre-existing": 0,
-        "ruled-out": 0,
-        "advisory": 0
+        "ruled-out": 1,
+        "advisory": 2
       },
       "by_resolution": {
-        "open": 0,
-        "fixed": 0,
-        "accepted": 0,
+        "open": 2,
+        "fixed": 2,
+        "accepted": 1,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
-        "contradiction": 0,
-        "extension": 0,
+        "contradiction": 1,
+        "extension": 1,
         "omission": 0
       },
       "pr_review": {
@@ -247,6 +293,6 @@
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": []
+    "closure_issues": ["RF-002: open", "RF-005: open"]
   }
 }

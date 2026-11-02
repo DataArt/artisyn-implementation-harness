@@ -28,7 +28,7 @@ notices by hand.
 
 ## What does better look like?
 
-A deterministic, file-based knowledge graph (`docs/kb/docs-graph.sqlite`, built by
+A deterministic, file-based knowledge graph (`docs/.kb/docs-graph.sqlite`, built by
 one new script `docs-graph.mjs`) that:
 
 - Assigns every doc a stable, collision-safe ID (idempotent, additive-only).
@@ -100,7 +100,7 @@ and both representations reflect it.
   to grep/glob when the graph is missing, stale, or unavailable.
 - `/harness-bootstrap launch` must stay silent on success and exit non-zero with a
   diagnostic on failure — no new confirmation prompt.
-- `docs/kb/docs-graph.sqlite` and `docs-graph.mjs` must not be hardcoded to a region
+- `docs/.kb/docs-graph.sqlite` and `docs-graph.mjs` must not be hardcoded to a region
   or introduce a guarded command in their own operation (per `CLAUDE.md`'s hard
   stops); none of the design artifacts suggest either risk, but it is called out
   here as a build-time constraint.
@@ -110,10 +110,27 @@ and both representations reflect it.
 
 ## What is still open?
 
-None. The design was fully evaluated and confirmed (6 decisions, WAF-reviewed,
-developer sign-off recorded in `design/Report.md`'s Evaluate and Solution rows).
-`solution/Efforts.md` states explicitly that the implementation-time spikes
-(deterministic ID generation scheme, fallback/failure-mode specifics, IDE rendering
-mechanism) are "resolved pragmatically inline during the run, then checked against
-reality in step 11 — not researched ahead of time." Those inline decisions belong
-to Plan/Implement, not to this intent.
+None at sign-off. The design was fully evaluated and confirmed (6 decisions,
+WAF-reviewed, developer sign-off recorded in `design/Report.md`'s Evaluate and
+Solution rows). `solution/Efforts.md` states explicitly that the implementation-time
+spikes (deterministic ID generation scheme, fallback/failure-mode specifics, IDE
+rendering mechanism) are "resolved pragmatically inline during the run, then checked
+against reality in step 11 — not researched ahead of time." Those inline decisions
+belong to Plan/Implement, not to this intent.
+
+**Appended during Plan rework (2026-11-02):** `solution/Architecture.md`'s "no new
+container, no new infra" framing and its "Packaging into `docs/Harness/package/` ...
+out of scope" note (above) both remain true, but the design did not account for the
+fact that a real cross-project packaging mechanism already exists at
+`.canonical-implementation-harness/canonical/` (confirmed via `.claude/skills/harness-bootstrap`'s
+symlink to it) — a different path than the `docs/Harness/package/` the design
+assumed didn't exist yet. The developer's direction: build `docs-graph.mjs` and its
+tests as portable canonical package content under `canonical/docs/.kb/`, wire
+`/harness-bootstrap launch`'s stage sequence and the dev/design skills at their
+canonical source (`canonical/skills/dev|design/`), and validate propagation into
+this repo's own live `.claude/skills/` and `docs/.kb/` by actually running
+`/harness-bootstrap launch` against this repo, before wiring the VitePress page to
+the artifact that run produces. This does not change the intent's problem, outcome,
+or affected-container boundaries — it corrects _where_ the implementation lives so
+it is reusable by every project this harness bootstraps into, per this repo's own
+stated purpose of being the harness's canonical source (`CLAUDE.md` "Why").
