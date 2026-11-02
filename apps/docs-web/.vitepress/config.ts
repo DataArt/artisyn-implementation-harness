@@ -48,6 +48,7 @@ export default withMermaid(
         { text: 'Adoption', link: '/Harness/04%20Adoption/00%20Adoption%20Path' },
         { text: 'Principles', link: '/Harness/05%20Principles/' },
         { text: 'Roadmap', link: '/Harness/06%20Roadmap/' },
+        { text: 'Knowledge Graph', link: '/Harness/07%20Knowledge%20Graph/' },
         { text: '🔒', link: '/Security%20Scan/' },
       ],
 
@@ -69,6 +70,9 @@ export default withMermaid(
           { text: 'Principles', items: scanSection('Harness/05 Principles') },
         ],
         '/Harness/06 Roadmap/': [{ text: 'Roadmap', items: scanSection('Harness/06 Roadmap') }],
+        '/Harness/07 Knowledge Graph/': [
+          { text: 'Knowledge Graph', items: scanSection('Harness/07 Knowledge Graph') },
+        ],
         '/Harness/': [],
       },
     },

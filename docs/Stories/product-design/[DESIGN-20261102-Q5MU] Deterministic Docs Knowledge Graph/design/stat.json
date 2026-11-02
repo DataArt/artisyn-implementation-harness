@@ -118,8 +118,16 @@
     },
     {
       "id": "publish",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+          "started_at": "2026-11-02T13:55:57.645Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "completion",
@@ -347,6 +355,29 @@
       "started_at": "2026-11-02T13:54:55.105Z",
       "ended_at": "2026-11-02T13:54:55.194Z",
       "last_observed_at": "2026-11-02T13:54:55.194Z"
+    },
+    {
+      "id": "124a9f0c-8b61-4101-a31d-5bb043897f0d",
+      "stage_id": "publish",
+      "stage_attempt_id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-02T13:55:57.645Z",
+      "ended_at": "2026-11-02T14:35:07.594Z",
+      "last_observed_at": "2026-11-02T14:35:07.594Z"
+    },
+    {
+      "id": "48605ead-2398-4624-9104-222b699ec13a",
+      "stage_id": "publish",
+      "stage_attempt_id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Publish commit",
+      "started_at": "2026-11-02T14:35:07.594Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-02T14:35:07.594Z"
     }
   ],
   "checks": [
@@ -477,19 +508,35 @@
       "source": "developer confirmation",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "publish-signoff",
+      "stage_id": "publish",
+      "stage_attempt_id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+      "step": null,
+      "design_revision": 1,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T14:34:27.339Z",
+      "ended_at": "2026-11-02T14:34:27.339Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue (after keywords field, table conversions, from/to and ID-type clarifications, worked example added, and 2 rounds of architect-review corrections)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T13:55:12.348Z",
+    "as_of": "2026-11-02T14:35:07.594Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 14196.837999999998,
+    "observed_work_seconds": 16546.786999999997,
     "observed_wait_seconds": 3563.878,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 3563.878,
-    "unclassified_seconds": 413.7840000000019,
+    "unclassified_seconds": 459.0810000000024,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 2740.427,

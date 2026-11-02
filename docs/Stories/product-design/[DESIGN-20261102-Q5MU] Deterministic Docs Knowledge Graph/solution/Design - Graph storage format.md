@@ -10,7 +10,7 @@ browser against the same bytes, no export step between them.
 flowchart TD
     subgraph FILE ["🗄️ docs/kb/docs-graph.sqlite"]
         direction TB
-        DOCS["docs\nid (PK, unique)\ntier\npath\ntitle\npurpose\nupdated_at"]:::table
+        DOCS["docs\nid (PK, unique)\ntier\npath\ntitle\npurpose\nkeywords\nupdated_at"]:::table
         REL["relations\nfrom_id (FK → docs.id)\nto_id (FK → docs.id)\nedge_type\nderived (0|1)\nUNIQUE(from_id, to_id, edge_type)"]:::table
         DOCS --- REL
     end
@@ -27,24 +27,50 @@ flowchart TD
     classDef browser fill:#0E7490,stroke:#0c4a6e,color:#fff
 ```
 
-`docs`: `id` (TEXT, primary key, unique), `tier` (TEXT, one of
-`HLD`/`LLD`/`EngineeringGuide`/`Story`/`Product`/`AppReadme`), `path` (TEXT,
-relative repo path), `title` (TEXT, the doc's human-readable title — frontmatter
-`title:` if present, else the doc's first `# ` heading), `purpose` (TEXT,
-nullable — frontmatter `description:`/`summary:` if present, else null; this is
-the one field allowed to be absent, consistent with graceful degradation for
-docs that don't carry a description yet), `updated_at` (TEXT, ISO timestamp of
-the last index run that touched the row).
+| Column       | Type           | Description                                                                                                                                                                                    |
+| ------------ | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`         | TEXT           | Primary key, unique.                                                                                                                                                                           |
+| `tier`       | TEXT           | One of `HLD`/`LLD`/`EngineeringGuide`/`Story`/`Product`/`AppReadme`.                                                                                                                           |
+| `path`       | TEXT           | Relative repo path.                                                                                                                                                                            |
+| `title`      | TEXT           | The doc's human-readable title — frontmatter `title:` if present, else the doc's first `# ` heading.                                                                                           |
+| `purpose`    | TEXT, nullable | Frontmatter `description:`/`summary:` if present, else null; one of two fields allowed to be absent, consistent with graceful degradation for docs that don't carry a description yet.         |
+| `keywords`   | TEXT, nullable | A list of search keywords from frontmatter `keywords:` if present, else null; the other field allowed to be absent, no fallback derivation. Broadens `search()` beyond title/purpose matching. |
+| `updated_at` | TEXT           | ISO timestamp of the last index run that touched the row.                                                                                                                                      |
 
-`relations`: `from_id` and `to_id` (TEXT, foreign keys into `docs.id`),
-`edge_type` (TEXT, one of the seven types in `solution/Architecture.md`'s node and
-edge model), `derived` (INTEGER, `0` for the six authored graduation edges, `1`
-for the computed `mirrors-consistent`/`mirrors-gap` edge). `derived` lets a
-consumer tell an edge someone wrote from an edge the build computed.
+| Column      | Type    | Description                                                                                                                                                                           |
+| ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `from_id`   | TEXT    | Foreign key into `docs.id`.                                                                                                                                                           |
+| `to_id`     | TEXT    | Foreign key into `docs.id`.                                                                                                                                                           |
+| `edge_type` | TEXT    | One of the seven types in `solution/Architecture.md`'s node and edge model.                                                                                                           |
+| `derived`   | INTEGER | `0` for the six authored graduation edges, `1` for the computed `mirrors-consistent`/`mirrors-gap` edge — lets a consumer tell an edge someone wrote from an edge the build computed. |
 
-Composite uniqueness on `(from_id, to_id, edge_type)` — the same edge between the
-same two docs is never recorded twice; a second write to an existing edge is an
-upsert, not an insert.
+Composite uniqueness on `(from_id, to_id, edge_type)` — the same edge between the same two docs is never recorded twice; a second write to an existing edge is an upsert, not an insert.
+
+### Why an edge list, not a parent column
+
+`relations` is an edge list, not a `parent_id` column on `docs`. A single doc can have multiple outgoing edges of different types in the same build — for example, one Story producing a `document-arch-deviation` edge to an HLD doc, a `document-component-detail` edge to an LLD doc, and a `document-operational-steps` edge to an Engineering Guide doc, all at once. A `parent_id` field allows only one parent per doc and cannot represent this, nor the derived `mirrors-consistent`/`mirrors-gap` edge, which relates two already-existing docs to each other rather than expressing a parent-child creation relation.
+
+## Example
+
+Sample `docs` rows:
+
+| id                | tier             | path                                             | title         |
+| ----------------- | ---------------- | ------------------------------------------------ | ------------- |
+| `s-20261102-a1b2` | Story            | `Stories/[ND-42] Example/design/`                | Example Story |
+| `hld-web`         | HLD              | `Target Architecture (HLD)/v1/Containers/Web.md` | Web           |
+| `lld-web`         | LLD              | `System Architecture (LLD)/Web/00. Overview.md`  | Web Overview  |
+| `eg-deploy`       | EngineeringGuide | `Engineering Guide/12 Deploy.md`                 | Deploy        |
+
+Sample `relations` rows:
+
+| from_id           | to_id       | edge_type                    | derived |
+| ----------------- | ----------- | ---------------------------- | ------- |
+| `s-20261102-a1b2` | `hld-web`   | `document-arch-deviation`    | 0       |
+| `s-20261102-a1b2` | `lld-web`   | `document-component-detail`  | 0       |
+| `s-20261102-a1b2` | `eg-deploy` | `document-operational-steps` | 0       |
+| `hld-web`         | `lld-web`   | `mirrors-consistent`         | 1       |
+
+One Story produces three authored edges to three different destination tiers in the same build; the fourth row is the derived mirror edge between the HLD and LLD docs, computed from their matching names, unrelated to the Story.
 
 ## Access pattern
 
@@ -67,6 +93,10 @@ algorithm is an implementation obligation tracked as a spike in
 `solution/Efforts.md`; this design fixes only the shape (a stable, immutable,
 frontmatter-resident string), not the generation scheme.
 
+### Why a string ID, not an auto-increment integer
+
+`id` is a stable string stored in the doc's own frontmatter, not a database-internal auto-increment integer. Two reasons: (1) the proposed EC requires the graph be deterministically regenerable from frontmatter alone — an auto-increment integer's value depends on insertion order, so a from-scratch rebuild could reassign different integers each time, breaking stability; (2) the ID must be readable directly from the doc file, without querying the database first, so another doc or a human can reference it. An internal SQLite rowid may still be used underneath for storage/index efficiency, with the frontmatter string kept as a separate unique-indexed column — that's an implementation detail for whoever builds the script, not a constraint this design fixes.
+
 ## Frontmatter format
 
 Every indexed doc carries this frontmatter block (YAML, at the top of the file):
@@ -76,12 +106,16 @@ Every indexed doc carries this frontmatter block (YAML, at the top of the file):
 id: <unique-string>
 title: <string>
 description: <string>
+keywords: [<string>, ...]
 ---
 ```
 
-- `id` — required once a doc is indexed (absent before that — see Research's graceful-degradation proposed EC). Assigned once, by `docs-graph.mjs`, never hand-authored and never reassigned. Maps directly to the `docs.id` column.
-- `title` — optional. If present, maps directly to `docs.title`. If absent, `docs-graph.mjs` derives it from the doc's first `# ` heading at index time; the derived value is stored in `docs.title`, not written back into the doc's frontmatter.
-- `description` — optional. If present, maps directly to `docs.purpose`. If absent, `docs.purpose` is left `NULL` — no fallback derivation, since a doc's purpose can't be reliably inferred the way a title can from its first heading.
+| Key           | Required?                                                                                                                                                                            | Maps to         | Fallback if absent                                                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `id`          | Required once a doc is indexed (absent before that — see Research's graceful-degradation proposed EC); assigned once, by `docs-graph.mjs`, never hand-authored and never reassigned. | `docs.id`       | None — must exist once indexed.                                                                                                                                        |
+| `title`       | Optional.                                                                                                                                                                            | `docs.title`    | `docs-graph.mjs` derives it from the doc's first `# ` heading at index time; the derived value is stored in `docs.title`, not written back into the doc's frontmatter. |
+| `description` | Optional.                                                                                                                                                                            | `docs.purpose`  | Left `NULL` — no fallback derivation, since a doc's purpose can't be reliably inferred the way a title can from its first heading.                                     |
+| `keywords`    | Optional.                                                                                                                                                                            | `docs.keywords` | Left `NULL` — no fallback derivation, same treatment as `description`.                                                                                                 |
 
 No other frontmatter key is read or written by this design. Existing frontmatter keys a doc already carries (for any other purpose) are left untouched — `docs-graph.mjs` only ever adds `id` (if missing) and reads `title`/`description` if present; it never removes or rewrites an existing key.
 
@@ -113,8 +147,9 @@ sequenceDiagram
    missing, per the bootstrap and graduation triggers in
    `solution/Architecture.md`.
 3. Upserts `docs` rows by `id` — extracting `title` (frontmatter `title:`,
-   falling back to the doc's first `# ` heading) and `purpose` (frontmatter
-   `description:`, left null if absent) during the same scan —
+   falling back to the doc's first `# ` heading), `purpose` (frontmatter
+   `description:`, left null if absent), and `keywords` (frontmatter
+   `keywords:`, left null if absent) during the same scan —
    refreshing `updated_at`.
 4. Computes the seven edge types: six from the named graduation actions already
    recorded against each doc, one (`mirrors-consistent`/`mirrors-gap`) from
