@@ -16,10 +16,10 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: ceremony
-completed_stages: ['context-gathering']
+current_stage: frame
+completed_stages: ['context-gathering', 'ceremony']
 selected_artifacts: []
-next_action: 'Ceremony — tracker transition and branch checkout'
+next_action: 'Frame — problem statement and decisions'
 context_fingerprint: ''
 ```
 
@@ -37,9 +37,9 @@ context_fingerprint: ''
 | Field  | Value                                                                                                                                                                               |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ticket | DESIGN-20261102-Q5MU                                                                                                                                                                |
-| Branch | — _(set by Ceremony, e.g. `docs/design-20261102-q5mu-slug`)_                                                                                                                        |
+| Branch | `docs/design-20261102-q5mu-deterministic-docs-knowledge-graph`                                                                                                                      |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony 🔄 · 📋 Frame ⏳ · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame 🔄 · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -49,12 +49,12 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 6s · Wait to date: 35s (closed 35s + current 0s) · Unclassified: 10s
+Observed work: 6s · Wait to date: 35s (closed 35s + current 0s) · Unclassified: 5m 54s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ---- | ---- | ------------ | ------------- | ------------------- | -------- | ------------- |
 | context-gathering (completed) | 2026-11-02T08:52:17.886Z | 2026-11-02T08:52:58.605Z | 41s         | 6s   | 35s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| ceremony (active)             | 2026-11-02T08:56:33.297Z | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | frame (pending)               | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | research (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -94,9 +94,10 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date       | Phase             | Notes                                                                                                   |
-| ---------- | ----------------- | ------------------------------------------------------------------------------------------------------- |
-| 2026-11-02 | Context Gathering | Task tracking: native Claude Task tools (TaskCreate/TaskUpdate), tasks #1–#10, one per lifecycle stage. |
+| Date       | Phase             | Notes                                                                                                                   |
+| ---------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-02 | Context Gathering | Task tracking: native Claude Task tools (TaskCreate/TaskUpdate), tasks #1–#10, one per lifecycle stage.                 |
+| 2026-11-02 | Ceremony          | No tracker ticket (local design ID) — Step 1 tracker transition skipped. Branch checked out and confirmed by developer. |
 
 ---
 

@@ -25,8 +25,16 @@
     },
     {
       "id": "ceremony",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "208ee43b-469d-48bf-96e4-a8d37e6a6d7d",
+          "started_at": "2026-11-02T08:56:33.297Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "frame",
@@ -93,6 +101,17 @@
       "started_at": "2026-11-02T08:52:23.433Z",
       "ended_at": "2026-11-02T08:52:58.605Z",
       "last_observed_at": "2026-11-02T08:52:58.605Z"
+    },
+    {
+      "id": "ca480218-e22c-4260-8c6f-24258d3b3e4e",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "208ee43b-469d-48bf-96e4-a8d37e6a6d7d",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-02T08:56:33.297Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-02T08:56:33.297Z"
     }
   ],
   "checks": [
@@ -111,11 +130,27 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "ceremony-signoff",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "208ee43b-469d-48bf-96e4-a8d37e6a6d7d",
+      "step": null,
+      "design_revision": 0,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T08:58:38.255Z",
+      "ended_at": "2026-11-02T08:58:38.255Z",
+      "result": "passed",
+      "evidence_ref": "Branch confirmed: docs/design-20261102-q5mu-deterministic-docs-knowledge-graph",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T08:53:09.018Z",
+    "as_of": "2026-11-02T08:58:52.456Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
     "observed_work_seconds": 5.547,
@@ -123,7 +158,7 @@
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 35.172,
-    "unclassified_seconds": 10.451000000000008,
+    "unclassified_seconds": 353.889,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 35.172,
