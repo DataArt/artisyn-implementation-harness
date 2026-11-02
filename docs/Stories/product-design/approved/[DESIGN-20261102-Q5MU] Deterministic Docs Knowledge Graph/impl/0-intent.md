@@ -1,3 +1,7 @@
+---
+id: 9ce77df8
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Intent
 
 - **Ticket**: `DESIGN-20261102-Q5MU` — a local design ID, not a Jira issue. Confirmed

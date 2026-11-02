@@ -1,3 +1,7 @@
+---
+id: 54ac361d
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Graph structure and topology
 
 _Produced by the 🏗 Evaluate phase. This is the judgment artifact. WAF assessment lives in `design/Report.md`._

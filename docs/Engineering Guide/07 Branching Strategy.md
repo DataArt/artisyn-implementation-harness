@@ -1,3 +1,7 @@
+---
+id: 358e59f3
+---
+
 # Branching Strategy
 
 The branching workflow is **trunk-based**, aligned with this project's actual CI/CD automation

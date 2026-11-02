@@ -1,3 +1,7 @@
+---
+id: 8d8b58f1
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Visualization surface
 
 _Produced by the 🔍 Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._

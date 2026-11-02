@@ -1,3 +1,7 @@
+---
+id: bb0cd4fc
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Graph storage format
 
 _Produced by the 🏗 Evaluate phase. This is the judgment artifact. WAF assessment lives in `design/Report.md`._

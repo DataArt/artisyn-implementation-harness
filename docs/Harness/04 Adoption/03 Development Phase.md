@@ -1,3 +1,7 @@
+---
+id: 40f26a2f
+---
+
 # Development Phase
 
 _How the harness governs day-to-day delivery — keeping AI output consistent, traceable, and aligned with the approved design across every session and every team member._

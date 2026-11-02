@@ -1,3 +1,7 @@
+---
+id: 9a5ad494
+---
+
 # Knowledge Graph
 
 The harness maintains a deterministic knowledge graph over the repo's doc tiers (HLD, LLD, Engineering Guide, Stories, Product), built from a unique frontmatter ID per doc and a relation table derived from the six named graduation actions already defined in `docs/Harness/03 Lifecycles/05 Documents Flow.md`. One script, one SQLite file, no new always-on infrastructure.

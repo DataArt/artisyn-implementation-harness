@@ -1,3 +1,7 @@
+---
+id: 79bf09c2
+---
+
 # System Sizing
 
 _Engagement-scoped site serving a small internal team. No formal capacity targets defined._

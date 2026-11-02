@@ -1,3 +1,7 @@
+---
+id: 3d33ec18
+---
+
 # ADLC-001: NX Tooling Setup
 
 | Field   | Value                            |

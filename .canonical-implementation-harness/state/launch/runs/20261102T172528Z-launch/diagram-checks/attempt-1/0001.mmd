@@ -1,0 +1,58 @@
+flowchart TD
+    subgraph FIX ["  fixtures/  "]
+        REG["📋 _registry.ts\nFixtureDefinition records"]:::fixture
+        NXM["📁 nx-monorepo\nlaunch/patch baseline"]:::fixture
+        MCP["📁 multi-container-project\ngreenfield (fe/be/infra/mobile)"]:::fixture
+        INST["📁 installed-harness\nreserved, unpopulated"]:::fixture
+    end
+
+    subgraph CASES ["  cases/ + scenarios/  "]
+        CDEF["📝 CaseDefinition\nfixture · configuration · host · provider"]:::spec
+        SDEF["📝 ScenarioDefinition\nworkspaces · steps · graders"]:::spec
+    end
+
+    subgraph ENGINE ["  engine/ — the only stateful layer  "]
+        CR["⚙️ CaseRun\ncreates workspaces, disposes after"]:::engine
+        SR["⚙️ ScenarioRun\nsteps in order, blocks on first non-pass"]:::engine
+        STR["⚙️ StepRun\nagent invocation + grading"]:::engine
+    end
+
+    subgraph RUNNER ["  agent-runners/  "]
+        CLI["🤖 run-claude-skill.ts / run-codex-skill.ts\nSkillRunner(options) → SkillRunResult"]:::runner
+    end
+
+    subgraph GRADERS ["  graders/ — by concern  "]
+        G1["✅ filesystem · placeholders · references · cleanup"]:::grader
+        G2["✅ state (launch receipts)"]:::grader
+        G3["✅ mcp · config · adaptation"]:::grader
+        G4["✅ agent-behavior (transcript-derived)"]:::grader
+        G5["✅ docs-adoption (README links, HLD coverage, docs graph)"]:::grader
+        G6["✅ projection (cross-provider consistency)"]:::grader
+        G7["✅ patch (manifest/bundle/reconstruction)"]:::grader
+    end
+
+    REP["📄 run-report.ts\nruns/<case>/report.json"]:::report
+
+    REG --> NXM & MCP & INST
+    CDEF -->|"declares"| SDEF
+    CDEF --> CR
+    CR -->|"createFixture() per scenario.workspaces"| FIX
+    CR -->|"hands off to"| SR
+    SR -->|"one StepRun per step"| STR
+    STR -->|"agent step"| CLI
+    STR -->|"run step / scenario graders"| GRADERS
+    SR -->|"scenario.graders as final pseudo-step"| GRADERS
+    CR --> REP
+
+    classDef fixture fill:#CFFAFE,stroke:#0891B2,color:#164e63
+    classDef spec    fill:#F1F5F9,stroke:#64748B,color:#1e293b
+    classDef engine  fill:#DBEAFE,stroke:#2563EB,color:#1e3a8a
+    classDef runner  fill:#EDE9FE,stroke:#7C3AED,color:#4c1d95
+    classDef grader  fill:#FEF3C7,stroke:#D97706,color:#78350f
+    classDef report  fill:#D1FAE5,stroke:#059669,color:#064e3b
+
+    style FIX     fill:#ECFEFF,stroke:#0891B2,color:#164e63
+    style CASES   fill:#F8FAFC,stroke:#64748B,color:#1e293b
+    style ENGINE  fill:#EFF6FF,stroke:#2563EB,color:#1e3a8a
+    style RUNNER  fill:#F5F3FF,stroke:#7C3AED,color:#4c1d95
+    style GRADERS fill:#FFFBEB,stroke:#D97706,color:#78350f

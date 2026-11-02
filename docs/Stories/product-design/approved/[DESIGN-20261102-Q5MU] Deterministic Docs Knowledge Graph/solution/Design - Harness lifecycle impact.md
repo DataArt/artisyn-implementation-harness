@@ -1,3 +1,7 @@
+---
+id: 3ab7c368
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Harness lifecycle impact
 
 Context Gathering/Research gain a required `DocsGraph.query()`/`.search()` attempt

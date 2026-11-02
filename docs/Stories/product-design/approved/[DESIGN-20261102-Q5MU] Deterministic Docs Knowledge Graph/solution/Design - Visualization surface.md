@@ -1,3 +1,7 @@
+---
+id: 11023f2a
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Visualization surface
 
 A VitePress page under `apps/docs-web/` fetches `docs-graph.sqlite` as a static

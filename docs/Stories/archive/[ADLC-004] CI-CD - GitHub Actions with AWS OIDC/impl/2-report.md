@@ -1,3 +1,7 @@
+---
+id: bc2b50bf
+---
+
 # ADLC-004: CI/CD — GitHub Actions with AWS OIDC — Report
 
 | Field  | Value                                                      |

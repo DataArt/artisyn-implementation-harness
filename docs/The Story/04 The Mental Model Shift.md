@@ -1,3 +1,7 @@
+---
+id: 6e3381d0
+---
+
 # The Mental Model Shift
 
 > **Code used to be the artifact. Now the context is.**

@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "run_id": "20261102T171746Z-launch",
+  "knowns": {
+    "PROJECT_PURPOSE": {
+      "value": "Canonical source of the Artisyn Harness — AI-first engineering lifecycle system (skills, agents, conventions) running this platform's own development, bootstrapped into other projects via docs/Harness/package/. Also ships the ADLC Discovery Tool docs site.",
+      "source": "CLAUDE.md",
+      "status": "verified"
+    },
+    "STACK": {
+      "value": "Node.js >=24, TypeScript, yarn 4 (Berry) workspaces, Nx monorepo; VitePress 1.x/Vite for docs; AWS CDK for infra; AWS Lambda@Edge for auth; CloudFront + S3 runtime targets.",
+      "source": "package.json, CLAUDE.md, apps/*/package.json",
+      "status": "verified"
+    },
+    "CONTAINER_LIST": {
+      "value": "Web (apps/docs-web), Auth (apps/lambda-auth), Infrastructure (apps/infra), Discuss (client-side giscus, no infra)",
+      "source": "CLAUDE.md architecture table; docs/Target Architecture (HLD)/v1/Containers/*; docs/System Architecture (LLD)/*",
+      "status": "verified"
+    },
+    "TRACKER": {
+      "value": "Jira, project key ND, https://support.dataart.com",
+      "source": "CLAUDE.md",
+      "status": "confirmed"
+    },
+    "PROVIDER": {
+      "value": "Claude Code only; root instruction file CLAUDE.md",
+      "source": "docs/Engineering Guide/01 Conventions.md; absence of AGENTS.md; .agents/skills/ contains only the harness-bootstrap package's own Codex adaptor payload",
+      "status": "verified"
+    },
+    "CONVENTIONS": {
+      "value": "Commit `<type>(<scope>): <what changed>`; branch `<type>/short-description`; yarn only; guarded commands: cdk deploy, yarn nx run infra:provision, git push, yarn nx run harness-bootstrap-e2e:agent-e2e",
+      "source": "CLAUDE.md, docs/Engineering Guide/01 Conventions.md",
+      "status": "verified"
+    },
+    "LIFECYCLES": {
+      "value": "Dev, Design (two-track: project-scoped + product-context docs/Harness/), Evolve, Architecture all enabled",
+      "source": "CLAUDE.md skills table",
+      "status": "verified"
+    },
+    "WAF": {
+      "value": "AWS Well-Architected Framework, standard 6 pillars",
+      "source": "CLAUDE.md /war description, apps/infra (AWS CDK)",
+      "status": "confirmed"
+    }
+  },
+  "files": [],
+  "derived_outputs": [],
+  "verification": {
+    "method": "Spot-checked canonical source SHA-256 against state/index.json recorded hashes for canonical/manifest.json, canonical/adaptors/claude/task-tracking.md, canonical/skills/dev/TEMPLATE.md, canonical/agents/architect/TEMPLATE.md — all match (no canonical drift since the 20261102T145457Z patch-harvest). Cross-checked manifest.json's runtimeFiles (8 entries) against installed .claude/harness-runtime/ (2 present: credentials.md, delegation.md) and confirmed via grep that only those 2 are referenced by any installed skill/agent — the other 6 are intentionally not materialized for this project, not a gap.",
+    "conclusion": "No file-level drift between canonical and installed/personalized targets. This run's A-D.1 stages are a verification pass with no writes required; existing docs content is preserved as-is per developer instruction."
+  }
+}

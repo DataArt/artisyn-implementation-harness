@@ -1,3 +1,7 @@
+---
+id: fa0456f5
+---
+
 # Design Lifecycle — Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish
 
 _Produces an approved architectural design before implementation begins._

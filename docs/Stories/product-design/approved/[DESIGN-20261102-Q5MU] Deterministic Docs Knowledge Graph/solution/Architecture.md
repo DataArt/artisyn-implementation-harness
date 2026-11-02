@@ -1,3 +1,7 @@
+---
+id: 1a00df21
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Architecture
 
 A deterministic knowledge graph over the repo's doc tiers (HLD, LLD, Engineering

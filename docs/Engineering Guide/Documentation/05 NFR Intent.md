@@ -1,3 +1,7 @@
+---
+id: afdcc32a
+---
+
 # NFR Intent
 
 An NFR pillar document states approved non-functional requirements, applicable

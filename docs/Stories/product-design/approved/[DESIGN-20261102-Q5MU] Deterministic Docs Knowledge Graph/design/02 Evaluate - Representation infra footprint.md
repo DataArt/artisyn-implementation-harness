@@ -1,3 +1,7 @@
+---
+id: c2aebeb1
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Representation / infra footprint
 
 _Produced by the 🏗 Evaluate phase. This is the judgment artifact. WAF assessment lives in `design/Report.md`._

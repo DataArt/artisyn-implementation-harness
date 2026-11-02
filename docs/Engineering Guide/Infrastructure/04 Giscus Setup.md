@@ -1,3 +1,7 @@
+---
+id: b54f7afc
+---
+
 # Giscus Setup
 
 _Manual runbook for wiring up or reconfiguring the comments widget._

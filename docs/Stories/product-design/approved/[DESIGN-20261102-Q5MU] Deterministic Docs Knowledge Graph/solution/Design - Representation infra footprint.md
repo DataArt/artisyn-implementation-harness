@@ -1,3 +1,7 @@
+---
+id: 03fd1f93
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Representation / infra footprint
 
 One module, `docs-graph.mjs`, exposes four methods — `build()`, `index()`/`reindex()`,

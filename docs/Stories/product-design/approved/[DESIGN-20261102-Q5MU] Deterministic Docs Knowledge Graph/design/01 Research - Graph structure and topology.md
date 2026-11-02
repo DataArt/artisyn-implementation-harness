@@ -1,3 +1,7 @@
+---
+id: 09302318
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph structure and topology
 
 _Produced by the 🔍 Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._

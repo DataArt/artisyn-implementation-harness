@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph REG ["  fixtures/_registry.ts  "]
+        NXM["nxMonorepo\npopulated: true\n1 container: sample-app"]:::fixture
+        MCP["multiContainerProject\npopulated: true\n4 containers: fe/be/infra/mobile"]:::fixture
+        INST["installedHarness\npopulated: false\n0 containers"]:::fixture
+    end
+
+    subgraph UTIL ["  src/utils/fixture.ts  "]
+        CF["createFixture()"]:::engine
+        ISP["installSkillPackage()"]:::engine
+        WS["Workspace\nroot · packageRoot · cleanup()"]:::spec
+    end
+
+    SRC[("fixtures/&lt;id&gt;/\ncheck<br/>ed-in source")]:::pkg
+    SCR[("OS tmpdir or runs/&lt;case&gt;/\ndisposable scratch copy")]:::report
+
+    NXM & MCP & INST -.->|"FixtureDefinition"| CF
+    CF -->|"fs.cpSync(source, root)"| SCR
+    SRC -.->|"read-only source"| CF
+    CF --> WS
+    WS --> ISP
+    ISP -->|"copies skillPackageRoot\n(skips state/)"| SCR
+
+    classDef fixture fill:#CFFAFE,stroke:#0891B2,color:#164e63
+    classDef engine  fill:#DBEAFE,stroke:#2563EB,color:#1e3a8a
+    classDef spec    fill:#F1F5F9,stroke:#64748B,color:#1e293b
+    classDef pkg     fill:#FCE7F3,stroke:#DB2777,color:#831843
+    classDef report  fill:#D1FAE5,stroke:#059669,color:#064e3b
+
+    style REG  fill:#ECFEFF,stroke:#0891B2,color:#164e63
+    style UTIL fill:#EFF6FF,stroke:#2563EB,color:#1e3a8a

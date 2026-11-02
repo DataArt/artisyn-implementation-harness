@@ -1,3 +1,7 @@
+---
+id: 9359b9ee
+---
+
 # From Broken Handoffs to Governed AI
 
 > This page tells the story. [Target Agentic SDLC Setup](/The%20Story/05%20Target%20Agentic%20SDLC%20Setup.md) is the mechanics — which context layer feeds which phase, concretely.

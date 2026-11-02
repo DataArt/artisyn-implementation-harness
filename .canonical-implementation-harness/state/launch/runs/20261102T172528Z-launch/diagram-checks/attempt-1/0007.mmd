@@ -1,0 +1,33 @@
+flowchart TD
+    REG["_registry.ts\nsingle import surface — GraderBinding factory per check"]:::engine
+    TYPES["_types.ts\nGradeContext · GradeResult · GraderBinding\nPatchManifest · Receipt"]:::spec
+    HELP["grading.ts\nresult() · requireProvider() · when()"]:::spec
+
+    subgraph STATE ["  state.grader.ts  "]
+        LS["launchState({verified})\ngradeLaunchState() / gradeLinkedLaunchState()"]:::grader
+    end
+    subgraph DOCS ["  docs-adoption.grader.ts  "]
+        DA["rootReadmeBudget · appReadmesLinkToArchitecture\nhldCoversContainers · docsIndexExists\ncontainerAgentsDeployed · docsGraphAdopted"]:::grader
+    end
+    subgraph BEHAV ["  agent-behavior.grader.ts  "]
+        AB["taskTrackingUsed · noPlanModeDuringAutomatedRun\nagentRunSucceeded"]:::grader
+    end
+    subgraph PATCH ["  patch.grader.ts  "]
+        PT["patchManifestSchema · patchBundleHashes\npatchApplyReconstruction · patchProviderScope"]:::grader
+    end
+
+    GC["GradeContext\n(from engine)"]:::engine
+
+    GC -->|"read by every binding"| LS & DA & AB & PT
+    LS & DA & AB & PT --> REG
+    REG -.->|"imported by"| TYPES
+    REG -.-> HELP
+
+    classDef engine fill:#DBEAFE,stroke:#2563EB,color:#1e3a8a
+    classDef spec   fill:#F1F5F9,stroke:#64748B,color:#1e293b
+    classDef grader fill:#FEF3C7,stroke:#D97706,color:#78350f
+
+    style STATE fill:#FFFBEB,stroke:#D97706,color:#78350f
+    style DOCS  fill:#FFFBEB,stroke:#D97706,color:#78350f
+    style BEHAV fill:#FFFBEB,stroke:#D97706,color:#78350f
+    style PATCH fill:#FFFBEB,stroke:#D97706,color:#78350f

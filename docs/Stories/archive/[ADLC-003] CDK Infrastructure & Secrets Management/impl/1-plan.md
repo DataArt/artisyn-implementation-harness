@@ -1,3 +1,7 @@
+---
+id: b92bbe27
+---
+
 # ADLC-003: CDK Infrastructure & Secrets Management
 
 | Field   | Value                     |

@@ -1,3 +1,7 @@
+---
+id: 64576e6c
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Representation / infra footprint
 
 _Produced by the 🔍 Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._

@@ -1,3 +1,7 @@
+---
+id: 99394f45
+---
+
 # Getting Started
 
 _First-time setup and daily commands for the ADLC Discovery Tool monorepo._

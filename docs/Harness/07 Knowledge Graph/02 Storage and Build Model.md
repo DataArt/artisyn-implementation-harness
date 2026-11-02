@@ -1,3 +1,7 @@
+---
+id: 92155727
+---
+
 # Storage and Build Model
 
 The graph is one SQLite file, `docs/kb/docs-graph.sqlite`, with two tables — `docs` and `relations`. The same file is read and written from the build/agent tooling and queried directly by the browser, with no export or conversion step between them.

@@ -1,3 +1,7 @@
+---
+id: f84dc7bb
+---
+
 # Discuss Container
 
 Client-side comments widget (giscus, GitHub Discussions-backed) embedded on VitePress documentation pages. No infrastructure or compute of our own — giscus and GitHub host and operate everything behind this integration.

@@ -1,3 +1,7 @@
+---
+id: 513a062e
+---
+
 # DESIGN-20261102-Q5MU — Deterministic Docs Knowledge Graph
 
 ## Problem

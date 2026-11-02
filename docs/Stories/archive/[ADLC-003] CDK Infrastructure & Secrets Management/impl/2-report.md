@@ -1,3 +1,7 @@
+---
+id: eb18aac0
+---
+
 # ADLC-003: CDK Infrastructure & Secrets Management — Report
 
 | Field  | Value                                                      |

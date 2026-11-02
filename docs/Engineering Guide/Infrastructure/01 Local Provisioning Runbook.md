@@ -1,3 +1,7 @@
+---
+id: 1d0a3678
+---
+
 # Local Provisioning Runbook
 
 _Step-by-step sequence for provisioning a fresh environment and deploying all apps from a local workstation._

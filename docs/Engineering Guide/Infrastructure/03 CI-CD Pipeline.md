@@ -1,3 +1,7 @@
+---
+id: 3c13bbe6
+---
+
 # CI/CD Pipeline
 
 _Automated quality gate (CI) and deployment (CD) via GitHub Actions and AWS OIDC — no long-lived credentials._

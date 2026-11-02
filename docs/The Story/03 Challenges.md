@@ -1,3 +1,7 @@
+---
+id: a66414a0
+---
+
 # The Challenges — Diagnoses and Answers
 
 Think about onboarding a new engineer. You would give them:

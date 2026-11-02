@@ -1,3 +1,7 @@
+---
+id: 9bf56f85
+---
+
 # Visualization Model
 
 An IDE-side representation and a docs-site graph page are both required — neither is optional, and neither is a separate export or derived copy. Both share the one SQLite data file as their single source of truth.

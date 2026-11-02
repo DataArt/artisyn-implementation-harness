@@ -1,3 +1,7 @@
+---
+id: 112687ab
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph storage format
 
 Two tables — `docs` and `relations` — persisted in one file, `docs/kb/docs-graph.sqlite`,

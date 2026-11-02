@@ -1,3 +1,7 @@
+---
+id: 7201b88e
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Harness bootstrap impact
 
 `/harness-bootstrap launch` calls `DocsGraph.build()` as its last step: it assigns

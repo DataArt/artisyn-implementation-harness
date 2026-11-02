@@ -1,3 +1,7 @@
+---
+id: 63ee2919
+---
+
 # Deploy Lifecycle
 
 _Full sequence from code change to live site — infrastructure, auth handler, and site content._

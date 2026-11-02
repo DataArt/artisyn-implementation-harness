@@ -1,3 +1,7 @@
+---
+id: d8a46ea4
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Harness bootstrap impact
 
 _Produced by the 🔍 Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._

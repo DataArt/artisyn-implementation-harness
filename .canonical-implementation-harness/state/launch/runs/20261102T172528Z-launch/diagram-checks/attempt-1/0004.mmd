@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant CR as CaseRun
+    participant SR as ScenarioRun
+    participant STR as StepRun
+    participant GRD as GradeContext
+    participant RR as run-report.ts
+
+    CR->>CR: requirementMismatches()
+    alt mismatch found
+        CR-->>RR: buildReport([], ["does not accept this case: ..."])
+    else accepted
+        CR->>GRD: initialGradeContext() — workspaces, fixture, provider/host, empty artifacts
+        CR->>CR: createWorkspaces() via createFixture() + installSkillPackage()
+        CR->>SR: new ScenarioRun(scenario, definition, grade).run()
+        loop each step in order
+            SR->>STR: new StepRun(step, definition, grade).run()
+            STR->>GRD: absorb(agent result) then absorb(run() patch)
+            STR->>STR: gradeReport(step.graders, grade)
+            STR-->>SR: StepReport (passed / failed / blocked)
+            alt status != passed
+                SR->>SR: blockedBy = step.id
+            end
+        end
+        SR->>SR: gradeScenario() — scenario.graders as final pseudo-step
+        SR-->>CR: ScenarioOutcome { reports, failures }
+        CR->>CR: disposeWorkspaces() in finally
+        CR->>CR: buildReport() — two safety nets
+        CR->>RR: recordCaseReport(CaseReport)
+    end

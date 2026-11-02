@@ -1,3 +1,7 @@
+---
+id: 35a74665
+---
+
 # ADLC-001: NX Tooling Setup — Report
 
 | Field  | Value                                                      |

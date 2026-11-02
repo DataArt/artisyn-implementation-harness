@@ -1,3 +1,7 @@
+---
+id: 37a67413
+---
+
 # Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document
 
 The dev skill delivers an authorized ticket or local change through planning,

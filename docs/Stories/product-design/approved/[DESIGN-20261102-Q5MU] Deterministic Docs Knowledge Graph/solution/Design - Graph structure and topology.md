@@ -1,3 +1,7 @@
+---
+id: 3633996d
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph structure and topology
 
 Six node types, seven edge types: six authored graduation edges written automatically

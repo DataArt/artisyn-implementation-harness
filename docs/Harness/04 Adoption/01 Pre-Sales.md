@@ -1,3 +1,7 @@
+---
+id: ad9f962f
+---
+
 # SA Pre-Sales Playbook
 
 _How Solution Architects use the harness to compress discovery and de-risk delivery from day one._

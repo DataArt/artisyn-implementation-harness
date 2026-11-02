@@ -1,3 +1,7 @@
+---
+id: 79b72c69
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph storage format
 
 _Produced by the 🔍 Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._

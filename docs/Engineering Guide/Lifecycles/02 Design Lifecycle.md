@@ -1,3 +1,7 @@
+---
+id: 88115664
+---
+
 # Design Lifecycle — Context Gathering → Ceremony → Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish → Completion
 
 _Produces an approved architectural design before implementation begins._

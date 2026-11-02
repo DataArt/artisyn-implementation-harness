@@ -1,3 +1,7 @@
+---
+id: 377ba75d
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Plan
 
 | Field   | Value                                                             |
@@ -397,3 +401,61 @@ packaging root).
 
 Run required verification before dependent steps; request human verification only
 when needed (Step 10 is inherently the developer's own run, in a separate session).
+
+## Addendum (post-approval, authorized by the developer during Implement — see RF-020/RF-021)
+
+### Step 13 — Standalone `reindex-graph` route in `harness-bootstrap`
+
+**Changes:**
+
+- `.canonical-implementation-harness/SKILL.md` — new route `reindex-graph`,
+  frontmatter description, Input line
+- `.canonical-implementation-harness/references/reindex-graph.md` — new reference:
+  precondition (`docs/.og/cli.mjs` must already exist — refreshes, never installs),
+  procedure (`node docs/.og/cli.mjs build --dir <project root>`, report real
+  `skipped`/`pruned` counts), completion evidence
+- `.canonical-implementation-harness/references/00-overview.md` — new table row
+- `apps/harness-bootstrap-e2e/src/scenarios/reindex-graph.ts` — new scenario,
+  separate from `bootstrapScenario`: seeds a workspace with the operational-graph
+  package already materialized (simulating launch's own Materialize stage, done
+  deterministically in test setup) and one unindexed doc, runs
+  `/harness-bootstrap reindex-graph` as a real agent step, verifies the doc got an
+  ID and the db was rebuilt
+- `apps/harness-bootstrap-e2e/src/graders/reindex-graph.grader.ts` (or equivalent)
+  — the two checks above, plus unit coverage
+- `apps/harness-bootstrap-e2e/src/scenarios/_registry.ts` — register the new scenario
+
+**Verification:**
+
+> Run: `yarn nx run harness-bootstrap-e2e:unit`
+> Expected: new grader unit cases pass; existing cases unaffected
+> Run the new scenario's case (live agent, guarded — the developer runs it)
+> Expected: the agent follows `reindex-graph.md`'s procedure; the seeded unindexed
+> doc gets an ID; `docs-operational-graph.sqlite`'s bytes change; no copy step runs
+> (only `build()`, since the precondition files already exist)
+
+### Step 14 — Package and release this ticket's canonical changes
+
+**Changes:** none — this step runs existing `harness-bootstrap` operations against
+the canonical edits Steps 1–13 made directly (no story-side files).
+
+**Verification (all developer-run, guarded — same pattern as Step 10):**
+
+> In a separate session, the developer runs, in order:
+>
+> 1. `/harness-bootstrap patch prepare` — bundles this ticket's direct canonical
+>    edits (the operational-graph package, launch/skill wiring, `reindex-graph`,
+>    Documentation Principles) into a portable bundle
+> 2. `/harness-bootstrap patch apply` — personalizes the bundle into this repo's
+>    own permanent files, reconciling with the already-run `/harness-bootstrap
+launch` from Step 10
+> 3. `yarn release:harness-bootstrap` — cuts the versioned ZIP other projects'
+>    `/harness-bootstrap launch` installs from (`releases/harness-bootstrap/`,
+>    per `CLAUDE.md`'s Why)
+>    Expected: `patch prepare` produces one bundle covering exactly this ticket's
+>    canonical diff; `patch apply` reports no conflicts against the Step 10 launch
+>    state; the release script produces a new versioned archive
+
+Run required verification before dependent steps; request human verification only
+when needed (Steps 10 and 14 are inherently the developer's own runs, in a
+separate session).

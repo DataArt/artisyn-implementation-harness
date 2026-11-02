@@ -1,3 +1,7 @@
+---
+id: ac73bb4d
+---
+
 # Adoption Path
 
 _From first client conversation to a continuously improving delivery platform._

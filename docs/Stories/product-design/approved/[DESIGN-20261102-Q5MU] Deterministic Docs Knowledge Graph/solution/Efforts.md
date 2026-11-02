@@ -1,3 +1,7 @@
+---
+id: 78c316e8
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Efforts
 
 ## WBS — single unit

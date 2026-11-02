@@ -1,0 +1,30 @@
+flowchart LR
+    TYPE["SkillRunner\n(options: SkillRunOptions) => Promise&lt;SkillRunResult&gt;"]:::spec
+
+    subgraph CLAUDE ["  run-claude-skill.ts  "]
+        RC["runClaudeSkill()\nspawn('claude', ['-p', prompt,\n'--output-format', 'stream-json', ...])"]:::runner
+    end
+
+    subgraph CODEX ["  run-codex-skill.ts  "]
+        RX["runCodexSkill()\nspawn('codex', ['exec', '--json',\n'--sandbox', 'workspace-write', ...])"]:::runner
+    end
+
+    REG["_registry.ts\nrunners: Record&lt;Provider, SkillRunner&gt;"]:::engine
+    STR["engine/StepRun.launchAgent()"]:::engine
+    RES["SkillRunResult\nexitCode · stdout/stderr · durationMs\njson? · events[] · transcriptPath?"]:::report
+
+    TYPE -.->|"implemented by"| RC
+    TYPE -.->|"implemented by"| RX
+    RC --> REG
+    RX --> REG
+    STR -->|"runners[host](options)"| REG
+    RC --> RES
+    RX --> RES
+
+    classDef spec   fill:#F1F5F9,stroke:#64748B,color:#1e293b
+    classDef runner fill:#EDE9FE,stroke:#7C3AED,color:#4c1d95
+    classDef engine fill:#DBEAFE,stroke:#2563EB,color:#1e3a8a
+    classDef report fill:#D1FAE5,stroke:#059669,color:#064e3b
+
+    style CLAUDE fill:#F5F3FF,stroke:#7C3AED,color:#4c1d95
+    style CODEX  fill:#F5F3FF,stroke:#7C3AED,color:#4c1d95

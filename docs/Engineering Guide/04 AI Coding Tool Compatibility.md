@@ -1,3 +1,7 @@
+---
+id: 48960fc2
+---
+
 # AI Coding Tool Compatibility
 
 The bootstrap package installs a project-specific harness for Claude, Codex, or both.

@@ -1,3 +1,7 @@
+---
+id: e66451d4
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Stack
 
 Scope: technologies added or changed by this design only. No other dependency in

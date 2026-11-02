@@ -1,3 +1,7 @@
+---
+id: 16606e23
+---
+
 # Documents Flow
 
 _How documentation is born, refined, and graduates to its permanent home._

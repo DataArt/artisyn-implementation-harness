@@ -1,3 +1,7 @@
+---
+id: 1cca243f
+---
+
 # ADLC-000: Giscus Comments for VitePress — Report
 
 | Field  | Value                                                      |

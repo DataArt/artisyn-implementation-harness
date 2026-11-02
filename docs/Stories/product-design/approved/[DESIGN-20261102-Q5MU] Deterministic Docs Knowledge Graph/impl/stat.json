@@ -54,7 +54,7 @@
     },
     {
       "id": "implement",
-      "status": "waiting",
+      "status": "active",
       "attempts": [
         {
           "id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
@@ -254,11 +254,29 @@
       "order": 10,
       "plan_ref": "1-plan.md#step-10",
       "depends_on": ["step-09"],
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "d80d4f27-fa51-4ffb-a8e7-fa441bdf3088",
           "started_at": "2026-11-02T16:34:18.322Z",
+          "ended_at": "2026-11-02T19:20:24.754Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-13",
+      "title": "Standalone reindex-graph route in harness-bootstrap",
+      "order": 13,
+      "plan_ref": "1-plan.md#step-13",
+      "depends_on": ["step-09"],
+      "status": "active",
+      "attempts": [
+        {
+          "id": "e6cf5426-ef4d-4e22-b543-437dada72c07",
+          "started_at": "2026-11-02T19:20:41.266Z",
           "ended_at": null,
           "trigger": "initial",
           "outcome": null
@@ -555,8 +573,22 @@
       "reason": "user_input",
       "detail": "Step 10: awaiting developer's /harness-bootstrap launch run in a separate session",
       "started_at": "2026-11-02T16:34:18.389Z",
+      "ended_at": "2026-11-02T19:20:24.754Z",
+      "last_observed_at": "2026-11-02T19:20:24.754Z"
+    },
+    {
+      "id": "d21cf05a-113d-4375-ab96-5e7ccdba32e6",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-13",
+        "attempt_id": "e6cf5426-ef4d-4e22-b543-437dada72c07"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-02T19:20:41.266Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-02T16:34:18.389Z"
+      "last_observed_at": "2026-11-02T19:20:41.266Z"
     }
   ],
   "checks": [
@@ -819,66 +851,84 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "5885019e-327d-432a-9767-094785ee9af3",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "d80d4f27-fa51-4ffb-a8e7-fa441bdf3088"
+      },
+      "name": "Step 10: launch materialized and validated",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T19:20:24.705Z",
+      "ended_at": "2026-11-02T19:20:24.705Z",
+      "result": "passed",
+      "evidence_ref": "developer ran /harness-bootstrap launch against this repo in a separate session; confirmed docs/.og/ materialized matching canonical, 115 docs indexed, 5 mirrors-consistent edges, pre-existing IDs preserved, new Harness Bootstrap E2E docs assigned fresh IDs, zero skipped/pruned; independently re-verified by the assistant",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T17:11:08.511Z",
+    "as_of": "2026-11-02T19:21:06.765Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
     "observed_work_seconds": 933.7059999999999,
-    "observed_wait_seconds": 3493.309,
+    "observed_wait_seconds": 13459.673999999999,
     "open_work_seconds": 0,
-    "open_wait_seconds": 2210.122,
-    "unclassified_seconds": 880.645,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 922.6560000000009,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 3493.309,
     "failed_checks": 1,
-    "first_pass_verification_rate": 0.8888888888888888,
+    "first_pass_verification_rate": 0.9,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T17:11:08.509Z",
+    "as_of": "2026-11-02T19:21:06.761Z",
     "source": "2-report.md",
-    "source_sha256": "bdc59c301ad7694ba901bb19485af70e63e241bdd5483948ee54e6b5cbfc97c7",
+    "source_sha256": "287f411ba0c9301732baba058dee3c353cf36d823deea88a5c8702b179fcb252",
     "findings": {
-      "total": 11,
+      "total": 21,
       "by_kind": {
-        "deviation": 4,
-        "bug": 3,
+        "deviation": 8,
+        "bug": 6,
         "design": 0,
         "improve": 1,
         "security": 0,
         "performance": 0,
-        "docs": 3
+        "docs": 6
       },
       "by_severity": {
         "critical": 0,
         "high": 1,
-        "medium": 3,
-        "low": 7,
+        "medium": 6,
+        "low": 14,
         "info": 0
       },
       "by_classification": {
-        "introduced": 5,
+        "introduced": 8,
         "pre-existing": 1,
         "ruled-out": 1,
-        "advisory": 4
+        "advisory": 11
       },
       "by_resolution": {
         "open": 4,
-        "fixed": 5,
-        "accepted": 2,
+        "fixed": 11,
+        "accepted": 6,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
         "contradiction": 2,
-        "extension": 2,
+        "extension": 6,
         "omission": 0
       },
       "pr_review": {

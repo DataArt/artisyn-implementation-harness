@@ -1,3 +1,7 @@
+---
+id: ec3e9fe7
+---
+
 # Architecture Lifecycle — Audit Commands
 
 _Periodic health checks that surface gaps between design, implementation, and documentation._

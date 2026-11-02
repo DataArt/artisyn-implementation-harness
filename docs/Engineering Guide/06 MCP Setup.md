@@ -1,3 +1,7 @@
+---
+id: b21edcd0
+---
+
 # MCP Setup
 
 _Connect Claude Code to AWS, GitHub, and Atlassian via Model Context Protocol._

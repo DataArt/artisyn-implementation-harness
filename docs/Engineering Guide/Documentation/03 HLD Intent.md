@@ -1,3 +1,7 @@
+---
+id: 7176f666
+---
+
 # HLD Intent
 
 An HLD container document states the confirmed architecture at container resolution.

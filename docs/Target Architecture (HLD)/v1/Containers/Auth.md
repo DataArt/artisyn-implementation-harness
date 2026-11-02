@@ -1,3 +1,7 @@
+---
+id: a905bf2a
+---
+
 # Auth Container
 
 Lambda@Edge handler enforcing basic auth password protection on every CloudFront request.

@@ -1,3 +1,7 @@
+---
+id: 7b4734f1
+---
+
 # Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document → Completion
 
 _Delivers a ticket or local change from request to documented, merged code._

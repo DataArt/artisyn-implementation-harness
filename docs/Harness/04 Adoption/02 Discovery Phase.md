@@ -1,3 +1,7 @@
+---
+id: ec02f7b8
+---
+
 # Discovery Phase
 
 _How the harness compresses client discovery and produces a working project skeleton instead of a Word document._

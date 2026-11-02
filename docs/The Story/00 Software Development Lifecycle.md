@@ -1,3 +1,7 @@
+---
+id: 901b861b
+---
+
 # Software Development Lifecycle
 
 The why behind DataArt's platform: the industry-wide story, and what ADLC — the engagement telling this story — does about it.

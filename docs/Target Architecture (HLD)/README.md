@@ -1,3 +1,7 @@
+---
+id: efcac6df
+---
+
 # Target Architecture (HLD)
 
 This folder contains the system's design intent — what we are building toward.

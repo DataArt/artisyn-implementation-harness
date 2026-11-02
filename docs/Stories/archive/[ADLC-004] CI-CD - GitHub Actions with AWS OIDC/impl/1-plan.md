@@ -1,3 +1,7 @@
+---
+id: 13f2018f
+---
+
 # ADLC-004: CI/CD — GitHub Actions with AWS OIDC
 
 | Field   | Value                 |

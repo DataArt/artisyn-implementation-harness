@@ -1,3 +1,7 @@
+---
+id: 25c349bd
+---
+
 # Documentation Structure
 
 _The three-tier model: what each tier is for and what lives where._

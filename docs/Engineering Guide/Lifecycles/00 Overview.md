@@ -1,3 +1,7 @@
+---
+id: ae3ceb7b
+---
+
 # Harness Bootstrap — Lifecycle Overview
 
 _The four lifecycles, how they interact, and when to use each one._

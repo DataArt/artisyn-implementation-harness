@@ -1,3 +1,7 @@
+---
+id: 04bbbf49
+---
+
 # Ops Model
 
 The knowledge graph is additive tooling: one script (`docs-graph.mjs`) plus one SQLite file (`docs/kb/docs-graph.sqlite`), consumed by the existing docs site build. No new container joins the architecture, and the existing browser-to-hosting data flow is unchanged — the graph page ships as part of the same static build output.

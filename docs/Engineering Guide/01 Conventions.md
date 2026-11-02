@@ -1,3 +1,7 @@
+---
+id: 028f0622
+---
+
 # Conventions
 
 _Portable conventions that apply regardless of which AI tool is used._

@@ -1,3 +1,7 @@
+---
+id: 8f03ef24
+---
+
 # The Context Landscape
 
 > The story of how to build mature product context: which layers already exist somewhere in every organisation, and the one layer that has to be built deliberately because nobody owns it by default.

@@ -1,3 +1,7 @@
+---
+id: 6a3f0e7a
+---
+
 # Design Report — DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph
 
 ## Context

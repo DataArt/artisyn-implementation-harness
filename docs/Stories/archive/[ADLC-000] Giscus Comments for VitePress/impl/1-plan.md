@@ -1,3 +1,7 @@
+---
+id: 6f169669
+---
+
 # ADLC-000: Giscus Comments for VitePress
 
 | Field   | Value                            |

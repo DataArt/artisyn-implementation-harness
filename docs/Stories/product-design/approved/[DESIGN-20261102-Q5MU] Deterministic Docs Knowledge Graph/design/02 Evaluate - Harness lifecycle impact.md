@@ -1,3 +1,7 @@
+---
+id: 973fed9c
+---
+
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Harness lifecycle impact
 
 _Produced by the 🏗 Evaluate phase. This is the judgment artifact. WAF assessment lives in `design/Report.md`._

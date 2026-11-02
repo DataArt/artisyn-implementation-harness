@@ -1,3 +1,7 @@
+---
+id: 39a766bc
+---
+
 # Architecture Notes — ADLC-000 Giscus Comments
 
 ## What changed structurally

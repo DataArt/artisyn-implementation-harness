@@ -1,3 +1,7 @@
+---
+id: 40cf72dd
+---
+
 # Security Review: harness-bootstrap
 
 _DataArt InfoSec · internal-use-skill-plugin-security-review v1.0.0 (scan mode) · [Internal use]_
