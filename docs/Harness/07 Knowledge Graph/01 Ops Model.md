@@ -1,12 +1,12 @@
 ---
 id: 04bbbf49
 purpose: Describe the knowledge graph's system context and how lifecycle skills wire into it
-keywords: [knowledge graph, ops model, system context, docs-graph]
+keywords: [knowledge graph, ops model, system context, operational-graph]
 ---
 
 # Ops Model
 
-The knowledge graph is additive tooling: one script (`docs-graph.mjs`) plus one SQLite file (`docs/kb/docs-graph.sqlite`), consumed by the existing docs site build. No new container joins the architecture, and the existing browser-to-hosting data flow is unchanged — the graph page ships as part of the same static build output.
+The knowledge graph is additive tooling: a CLI entry (`cli.mjs`) plus its satellite modules (`constants.mjs`, `utils.mjs`, `docs.mjs`, `edges.mjs`, `schema.mjs`) and one SQLite file (`docs/.og/docs-operational-graph.sqlite`), consumed by the existing docs site build. No new container joins the architecture, and the existing browser-to-hosting data flow is unchanged — the graph page ships as part of the same static build output.
 
 ## System context
 
@@ -21,8 +21,8 @@ flowchart TD
         PUB["📤 /dev document\n/design publish"]:::skill
     end
 
-    SCRIPT["📜 docs-graph.mjs\nbuild · index · query · search"]:::tool
-    DB[("🗄️ docs/kb/docs-graph.sqlite\ndocs + relations")]:::store
+    SCRIPT["📜 cli.mjs + satellites\nbuild · index · query · search"]:::tool
+    DB[("🗄️ docs/.og/\ndocs-operational-graph.sqlite\ndocs + edges")]:::store
 
     subgraph DOCS ["🏛️ Permanent docs/"]
         direction LR
@@ -82,13 +82,15 @@ flowchart LR
         N6["AppReadme"]:::readme
     end
 
-    N4 -->|"publish-product"| N5
-    N4 -->|"publish-project"| N1
-    N4 -->|"document-arch-deviation"| N1
-    N4 -->|"document-component-detail"| N2
-    N4 -->|"document-operational-steps"| N3
-    N4 -->|"document-env-vars"| N6
-    N1 -.->|"mirrors-consistent / mirrors-gap\n(computed, not authored)"| N2
+    N4 -->|"story-to-product"| N5
+    N4 -->|"story-to-hld"| N1
+    N4 -->|"impl-to-hld"| N1
+    N4 -->|"impl-to-lld"| N2
+    N4 -->|"impl-to-engineering-guide"| N3
+    N4 -->|"impl-to-readme"| N6
+    N1 -.->|"references\n(scan-authored)"| N3
+    N1 -.->|"mirrors-consistent / mirrors-gap\n(derived)"| N2
+    N2 -.->|"keyword-match\n(derived)"| N3
 
     classDef hld   fill:#1D4ED8,stroke:#1e3a8a,color:#fff
     classDef lld   fill:#0E7490,stroke:#0c4a6e,color:#fff
@@ -100,18 +102,26 @@ flowchart LR
 
 A Story's `design/`, `solution/`, `impl/` subfolders are attributes of its single `Story` node, not separate sub-nodes. Each project bootstrapping the harness instantiates its own `Product` tier under its own name; this repo's instance is `docs/Harness/`.
 
-The six solid edges are the named graduation actions from `03 Lifecycles/05 Documents Flow.md`, each authored as a Story-to-destination-tier edge. The seventh edge, `mirrors-consistent`/`mirrors-gap`, is computed — not authored — by diffing HLD container file names (`Target Architecture (HLD)/<Version>/Containers/<Name>.md`) against LLD folder names (`System Architecture (LLD)/<Name>/`), per the naming convention in `docs/Engineering Guide/Documentation/02 Structure.md`. HLD version supersession is not modeled as a graph edge — the existing folder-per-version/README-router convention already covers it.
+Ten edge types exist in total, in three families, per `docs/.og/constants.mjs`:
+
+- **`EDGE_TYPES`** (6 types, `derived=0`): `story-to-product`, `story-to-hld`, `impl-to-hld`, `impl-to-lld`, `impl-to-engineering-guide`, `impl-to-readme` — the named graduation actions from `03 Lifecycles/05 Documents Flow.md`, each authored as a Story-to-destination-tier edge by `index()`'s `--edge` flag.
+- **`SCAN_EDGE_TYPES`** (1 type, `derived=0`): `references` — a generic content cross-reference, authored by `reindex-graph.md`'s intelligent scan when a doc's content names another doc it references, not a graduation event.
+- **`DERIVED_EDGE_TYPES`** (3 types, `derived=1`): `mirrors-consistent`/`mirrors-gap`, computed by diffing HLD container file names (`Target Architecture (HLD)/<Version>/Containers/<Name>.md`) against LLD folder names (`System Architecture (LLD)/<Name>/`), per the naming convention in `docs/Engineering Guide/Documentation/02 Structure.md`; and `keyword-match`, computed from shared `keywords:` frontmatter tokens between any two docs. Neither pair is ever authored.
+
+HLD version supersession is not modeled as a graph edge — the existing folder-per-version/README-router convention already covers it.
+
+The docs-site Graph Explorer groups these ten types into four visual/filter buckets (`cytoscapeStyle.ts`'s `edgeGroup()`): `keyword-match` (automatic, by far the largest group — roughly 503 of this repo's ~660 edges, so it gets the most recessive styling), `references` (scan-authored content links), `graduation` (the six `EDGE_TYPES`), and `mirrors` (the `mirrors-*` pair). See `03 Visualization Model.md`.
 
 ## Graph type
 
-Nodes are typed — each is one of the six types above. Edges are typed and directed — each of the seven types above has a defined source-tier → destination-tier meaning. A `derived` flag on each edge distinguishes the six authored edges (written by a lifecycle action) from the one computed edge (`mirrors-consistent`/`mirrors-gap`, derived from file/folder naming, never authored). Cycles are permitted — edges are typed relationship statements, not a dependency or control-flow order, so nothing in this design enforces acyclicity.
+Nodes are typed — each is one of the six types above. Edges are typed and directed — each of the ten types above has a defined source-tier → destination-tier meaning, except `references` and `keyword-match`, which may connect any two tiers. A `derived` flag on each edge distinguishes the seven authored edges (the six graduation types plus `references`, written by a lifecycle action or the intelligent scan) from the three computed edges (`mirrors-consistent`, `mirrors-gap`, `keyword-match`, never authored). Cycles are permitted — edges are typed relationship statements, not a dependency or control-flow order, so nothing in this design enforces acyclicity.
 
 ## Settled interfaces
 
-| Component                   | Settled interface                                                          |
-| --------------------------- | -------------------------------------------------------------------------- |
-| `docs-graph.mjs`            | The script. Ships inside `docs/Harness/package/` once that package exists. |
-| `docs/kb/docs-graph.sqlite` | The data file. Sole producer and consumer is `docs-graph.mjs`.             |
+| Component                                | Settled interface                                                                                                                                                                                                                                                |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cli.mjs` (+ satellites)                 | The script. Ships from the canonical shipping root `.canonical-implementation-harness/canonical/docs/.og/`, deployed into a project's `docs/.og/` by `/harness-bootstrap launch`'s Materialize stage or the standalone `/harness-bootstrap reindex-graph` route. |
+| `docs/.og/docs-operational-graph.sqlite` | The data file. Sole producer and consumer is `cli.mjs`.                                                                                                                                                                                                          |
 
 ## Lifecycle wiring
 
@@ -125,14 +135,14 @@ Context Gathering and Research query the graph first, with a required fallback t
 sequenceDiagram
     actor Dev as Developer/Agent
     participant Phase as /dev context · /design frame/research
-    participant Script as docs-graph.mjs
-    participant DB as docs-graph.sqlite
+    participant Script as cli.mjs
+    participant DB as docs-operational-graph.sqlite
     participant Fallback as grep/glob pattern
 
     Dev->>Phase: start context gathering
     Phase->>Script: query()/search() by related edges
     alt graph available and current
-        Script->>DB: read docs + relations
+        Script->>DB: read docs + edges
         DB-->>Script: related docs by edge
         Script-->>Phase: related docs surfaced
         Phase-->>Dev: context already in hand
@@ -148,20 +158,20 @@ sequenceDiagram
 sequenceDiagram
     actor Dev as Developer/Agent
     participant Pub as /design publish
-    participant Script as docs-graph.mjs
+    participant Script as cli.mjs
     participant Tier as Destination tier doc
-    participant DB as docs-graph.sqlite
+    participant DB as docs-operational-graph.sqlite
 
     Dev->>Pub: complete publish
     Pub->>Tier: write published doc
     Pub->>Script: assign ID (if missing) + write graduation edge
-    Script->>DB: update docs + relations
+    Script->>DB: update docs + edges
     DB-->>Pub: graph updated as side effect of publish completing
 ```
 
 ## Bootstrap wiring
 
-The script ships inside `docs/Harness/package/` once that package exists. `/harness-bootstrap launch` runs it proactively: it assigns deterministic, collision-safe frontmatter IDs to any doc missing one and builds the initial graph in the same pass, silently on success.
+The script ships from the canonical shipping root `.canonical-implementation-harness/canonical/docs/.og/`. `/harness-bootstrap launch`'s Materialize stage deploys it into the project's `docs/.og/` and runs it proactively: it assigns deterministic, collision-safe frontmatter IDs to any doc missing one and builds the initial graph in the same pass, silently on success. The standalone `/harness-bootstrap reindex-graph` route deploys and runs the same script on demand, without a full launch.
 
 `/harness-bootstrap launch` invokes the same script to seed the graph for an existing doc tree:
 
@@ -169,9 +179,9 @@ The script ships inside `docs/Harness/package/` once that package exists. `/harn
 sequenceDiagram
     actor Dev as Developer/Agent
     participant Boot as /harness-bootstrap launch
-    participant Script as docs-graph.mjs
+    participant Script as cli.mjs
     participant Docs as Existing docs/
-    participant DB as docs-graph.sqlite
+    participant DB as docs-operational-graph.sqlite
 
     Dev->>Boot: launch bootstrap
     Boot->>Script: run build

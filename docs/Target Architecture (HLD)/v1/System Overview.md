@@ -72,6 +72,7 @@ _Response path (401 challenge and cached asset delivery) is shown in `Containers
 - All infrastructure is code (AWS CDK) — nothing provisioned manually
 - Region is deployment configuration — never hardcoded in source or documentation
 - Content is static — no server-side rendering, no database, no runtime compute we operate beyond edge auth (excludes third-party client-side widgets that call external services directly from the browser, e.g. giscus)
+- Carve-out: `docs/.og/docs-operational-graph.sqlite` is a build-time-produced, read-only SQLite file queried in-browser via `sql.js` (WASM) — a first-party query engine over first-party static data, not server-side compute we operate
 
 ## Tooling
 

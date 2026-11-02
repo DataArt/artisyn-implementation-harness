@@ -14,7 +14,7 @@ An IDE-side representation and a docs-site graph page are both required — neit
 sequenceDiagram
     actor Browser as Browser
     participant Page as Docs-site graph page
-    participant Asset as docs-graph.sqlite (shared data file)
+    participant Asset as docs-operational-graph.sqlite (shared data file)
 
     Browser->>Page: navigate to graph page
     Page->>Asset: fetch shared data file
@@ -42,4 +42,4 @@ The populated graph colors nodes by tier, reusing the palette already establishe
 
 ## Compatibility rule
 
-The docs-site page's data-access layer depends only on the stable `docs`/`relations` schema and the `(from_id, to_id, edge_type)` composite-uniqueness contract defined in `02 Storage and Build Model.md`. Additive schema changes do not break this page.
+The docs-site page's data-access layer depends only on the stable `docs`/`edges` schema and the `(from_id, to_id, edge_type)` composite-uniqueness contract defined in `02 Storage and Build Model.md`. Additive schema changes do not break this page.

@@ -68,22 +68,30 @@
     },
     {
       "id": "test",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "7e6babaf-2bdf-40b8-a2f5-1340df56fdd4",
           "started_at": "2026-11-02T22:49:52.430Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T23:14:36.875Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "ec73cf8f-f6ff-4e5a-b403-4e0865864fa0",
+          "started_at": "2026-11-02T23:14:43.330Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -777,8 +785,31 @@
       "reason": "approval",
       "detail": "Awaiting test sign-off",
       "started_at": "2026-11-02T23:03:42.003Z",
+      "ended_at": "2026-11-02T23:14:36.875Z",
+      "last_observed_at": "2026-11-02T23:14:36.875Z"
+    },
+    {
+      "id": "bdae1b65-8cae-47a0-bd25-ad64ffc331fe",
+      "stage_id": "document",
+      "stage_attempt_id": "ec73cf8f-f6ff-4e5a-b403-4e0865864fa0",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-02T23:14:43.330Z",
+      "ended_at": "2026-11-02T23:32:50.119Z",
+      "last_observed_at": "2026-11-02T23:32:50.119Z"
+    },
+    {
+      "id": "5af1eb7c-515c-4ec8-b7b5-0e6e56ae9cc4",
+      "stage_id": "document",
+      "stage_attempt_id": "ec73cf8f-f6ff-4e5a-b403-4e0865864fa0",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting document sign-off",
+      "started_at": "2026-11-02T23:32:50.119Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-02T23:07:01.852Z"
+      "last_observed_at": "2026-11-02T23:32:50.119Z"
     }
   ],
   "checks": [
@@ -1360,21 +1391,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "bde087eb-4ea4-4195-8794-1935bc233d89",
+      "stage_id": "document",
+      "stage_attempt_id": "ec73cf8f-f6ff-4e5a-b403-4e0865864fa0",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T23:34:59.762Z",
+      "ended_at": "2026-11-02T23:34:59.762Z",
+      "result": "passed",
+      "evidence_ref": "User: 'do a patch prepare apply release under 3.2.0 version.... and the lets move to completion'",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T23:09:47.034Z",
+    "as_of": "2026-11-02T23:35:20.591Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 2158.4759999999997,
-    "observed_wait_seconds": 13459.673999999999,
+    "observed_work_seconds": 3245.2649999999994,
+    "observed_wait_seconds": 14114.545999999998,
     "open_work_seconds": 0,
-    "open_wait_seconds": 365.031,
-    "unclassified_seconds": 13053.124000000002,
+    "open_wait_seconds": 150.472,
+    "unclassified_seconds": 13059.579000000003,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 3493.309,
+    "approval_wait_seconds": 4148.1810000000005,
     "failed_checks": 1,
     "first_pass_verification_rate": 0.9166666666666666,
     "human_reported_seconds": null,
@@ -1383,43 +1429,43 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T23:09:47.023Z",
+    "as_of": "2026-11-02T23:35:20.582Z",
     "source": "2-report.md",
-    "source_sha256": "da65f675038a29011db11c86e839a3537993c4fa525d0d3bcbeb110401c69930",
+    "source_sha256": "4cefff56092483b423344b026d0d21ba111d30ee0572d8e19f088a805254c990",
     "findings": {
-      "total": 41,
+      "total": 47,
       "by_kind": {
-        "deviation": 18,
-        "bug": 13,
+        "deviation": 21,
+        "bug": 14,
         "design": 0,
         "improve": 2,
         "security": 0,
         "performance": 0,
-        "docs": 8
+        "docs": 10
       },
       "by_severity": {
         "critical": 0,
-        "high": 3,
-        "medium": 11,
-        "low": 27,
+        "high": 4,
+        "medium": 14,
+        "low": 29,
         "info": 0
       },
       "by_classification": {
-        "introduced": 15,
-        "pre-existing": 3,
+        "introduced": 19,
+        "pre-existing": 5,
         "ruled-out": 1,
         "advisory": 22
       },
       "by_resolution": {
         "open": 4,
-        "fixed": 19,
-        "accepted": 18,
+        "fixed": 21,
+        "accepted": 22,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
-        "contradiction": 2,
-        "extension": 16,
+        "contradiction": 3,
+        "extension": 18,
         "omission": 0
       },
       "pr_review": {
@@ -1443,9 +1489,9 @@
       }
     },
     "tech_debt": {
-      "total": 8,
+      "total": 9,
       "ticketed": 0,
-      "unticketed": 8
+      "unticketed": 9
     },
     "tests": {
       "written": 29,

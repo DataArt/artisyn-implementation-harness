@@ -1,21 +1,21 @@
 ---
 id: 92155727
 purpose: Describe the knowledge graph's SQLite schema and the single-file build model
-keywords: [knowledge graph, storage model, SQLite schema, docs-graph.sqlite]
+keywords: [knowledge graph, storage model, SQLite schema, docs-operational-graph.sqlite]
 ---
 
 # Storage and Build Model
 
-The graph is one SQLite file, `docs/kb/docs-graph.sqlite`, with two tables — `docs` and `relations`. The same file is read and written from the build/agent tooling and queried directly by the browser, with no export or conversion step between them.
+The graph is one SQLite file, `docs/.og/docs-operational-graph.sqlite`, with two tables — `docs` and `edges`. The same file is read and written from the build/agent tooling and queried directly by the browser, with no export or conversion step between them.
 
 ## Schema
 
 ```mermaid
 flowchart TD
-    subgraph FILE ["🗄️ docs/kb/docs-graph.sqlite"]
+    subgraph FILE ["🗄️ docs/.og/docs-operational-graph.sqlite"]
         direction TB
         DOCS["docs\nid (PK, unique)\ntier\npath\ntitle\npurpose\nkeywords\nupdated_at"]:::table
-        REL["relations\nfrom_id (FK → docs.id)\nto_id (FK → docs.id)\nedge_type\nderived (0|1)\nUNIQUE(from_id, to_id, edge_type)"]:::table
+        REL["edges\nfrom_id (FK → docs.id)\nto_id (FK → docs.id)\nedge_type\nderived (0|1)\nUNIQUE(from_id, to_id, edge_type)"]:::table
         DOCS --- REL
     end
 
@@ -43,18 +43,18 @@ flowchart TD
 
 One row per indexed doc.
 
-| Column      | Description                                                                                                           |
-| ----------- | --------------------------------------------------------------------------------------------------------------------- |
-| `from_id`   | Foreign key into `docs.id`.                                                                                           |
-| `to_id`     | Foreign key into `docs.id`.                                                                                           |
-| `edge_type` | One of the seven types in `01 Ops Model.md`'s node and edge model.                                                    |
-| `derived`   | Flag distinguishing the six authored graduation edges from the one computed edge, `mirrors-consistent`/`mirrors-gap`. |
+| Column      | Description                                                                                                                                                                 |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `from_id`   | Foreign key into `docs.id`.                                                                                                                                                 |
+| `to_id`     | Foreign key into `docs.id`.                                                                                                                                                 |
+| `edge_type` | One of the ten types in `01 Ops Model.md`'s node and edge model.                                                                                                            |
+| `derived`   | Flag distinguishing the seven authored edges (six graduation types plus `references`) from the three computed edges (`mirrors-consistent`, `mirrors-gap`, `keyword-match`). |
 
-One row per typed edge between two doc IDs. Composite uniqueness on `(from_id, to_id, edge_type)` — the same edge between the same two docs is never recorded twice; a repeat write upserts rather than duplicating.
+One row per typed edge between two doc IDs, in the `edges` table. Composite uniqueness on `(from_id, to_id, edge_type)` — the same edge between the same two docs is never recorded twice; a repeat write upserts rather than duplicating.
 
 ### Why an edge list, not a single parent reference
 
-The relation store is an edge list, not a single parent reference per doc. A doc can have multiple outgoing edges of different types in the same build — for example, one Story doc producing edges to an HLD doc, an LLD doc, and an Engineering Guide doc, all at once, each a different edge type. A single parent reference allows only one parent per doc and cannot represent this, nor the derived mirror edge, which relates two already-existing docs to each other rather than expressing a parent-child relation.
+The `edges` table is an edge list, not a single parent reference per doc. A doc can have multiple outgoing edges of different types in the same build — for example, one Story doc producing edges to an HLD doc, an LLD doc, and an Engineering Guide doc, all at once, each a different edge type. A single parent reference allows only one parent per doc and cannot represent this, nor the derived mirror edge, which relates two already-existing docs to each other rather than expressing a parent-child relation.
 
 ### Example
 
@@ -67,14 +67,14 @@ Sample `docs` rows:
 | `lld-web`         | LLD              | `System Architecture (LLD)/Web/00. Overview.md`  | Web Overview  |
 | `eg-deploy`       | EngineeringGuide | `Engineering Guide/12 Deploy.md`                 | Deploy        |
 
-Sample `relations` rows:
+Sample `edges` rows:
 
-| from_id           | to_id       | edge_type                    | derived |
-| ----------------- | ----------- | ---------------------------- | ------- |
-| `s-20261102-a1b2` | `hld-web`   | `document-arch-deviation`    | 0       |
-| `s-20261102-a1b2` | `lld-web`   | `document-component-detail`  | 0       |
-| `s-20261102-a1b2` | `eg-deploy` | `document-operational-steps` | 0       |
-| `hld-web`         | `lld-web`   | `mirrors-consistent`         | 1       |
+| from_id           | to_id       | edge_type                   | derived |
+| ----------------- | ----------- | --------------------------- | ------- |
+| `s-20261102-a1b2` | `hld-web`   | `story-to-hld`              | 0       |
+| `s-20261102-a1b2` | `lld-web`   | `impl-to-lld`               | 0       |
+| `s-20261102-a1b2` | `eg-deploy` | `impl-to-engineering-guide` | 0       |
+| `hld-web`         | `lld-web`   | `mirrors-consistent`        | 1       |
 
 One Story produces three authored edges to three different destination tiers in the same build; the fourth row is the derived mirror edge between the HLD and LLD docs, computed from their matching names, unrelated to the Story.
 
@@ -86,17 +86,17 @@ Every indexed doc carries this frontmatter block:
 ---
 id: <unique-string>
 title: <string>
-description: <string>
+purpose: <string>
 keywords: [<string>, ...]
 ---
 ```
 
-| Key           | Required?                                                                                | Maps to         | Fallback if absent                                        |
-| ------------- | ---------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------------- |
-| `id`          | Required once a doc is indexed. Assigned once, never hand-authored and never reassigned. | `docs.id`       | None — must exist once indexed.                           |
-| `title`       | Optional.                                                                                | `docs.title`    | Falls back to the doc's first `# ` heading at index time. |
-| `description` | Optional.                                                                                | `docs.purpose`  | Left blank.                                               |
-| `keywords`    | Optional.                                                                                | `docs.keywords` | Left blank, same treatment as `description`.              |
+| Key        | Required?                                                                                | Maps to         | Fallback if absent                                        |
+| ---------- | ---------------------------------------------------------------------------------------- | --------------- | --------------------------------------------------------- |
+| `id`       | Required once a doc is indexed. Assigned once, never hand-authored and never reassigned. | `docs.id`       | None — must exist once indexed.                           |
+| `title`    | Optional.                                                                                | `docs.title`    | Falls back to the doc's first `# ` heading at index time. |
+| `purpose`  | Optional, editable (updates on content change, unlike `id`).                             | `docs.purpose`  | Left blank.                                               |
+| `keywords` | Optional, editable, same treatment as `purpose`.                                         | `docs.keywords` | Left blank.                                               |
 
 ### Why a stable string identity, not an internal counter
 
@@ -104,7 +104,7 @@ Each doc's ID is a stable string stored in the doc's own frontmatter, not an int
 
 ## Build mechanism
 
-A single script module is the one producer of `docs-graph.sqlite`. It is invoked two ways, both calling the identical module — there is no second script and no new standing infrastructure.
+A single script module is the one producer of `docs-operational-graph.sqlite`. It is invoked two ways, both calling the identical module — there is no second script and no new standing infrastructure.
 
 ```mermaid
 flowchart TD
@@ -119,7 +119,7 @@ flowchart TD
     end
 
     MODULE["📜 Graph build/index/query module"]:::module
-    DB[("🗄️ docs/kb/docs-graph.sqlite")]:::store
+    DB[("🗄️ docs/.og/docs-operational-graph.sqlite")]:::store
 
     HOOK -->|"invokes"| MODULE
     SKILL -->|"invokes"| MODULE
