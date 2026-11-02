@@ -11,7 +11,7 @@ export default withMermaid(
     head: [['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }]],
 
     srcDir: '../../docs',
-    srcExclude: ['Stories/**', 'Harness/package/**'],
+    srcExclude: ['Stories/**'],
 
     // Raw HTML in markdown source is disabled — any <script>/<iframe>/event-handler
     // attribute pasted into docs/ (e.g. from a workshop transcript) renders as inert

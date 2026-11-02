@@ -1,8 +1,12 @@
+---
+id: bb22babb
+---
+
 # Harness
 
 _Known:_ the Artisyn Harness is a structured workflow system layered on an AI coding assistant. Instead of prompting the assistant ad-hoc, work runs through specialised, lifecycle-aware agents governed by encoded conventions (skills) and feedback loops (reflections → skill library). It gives three things: **repeatability** (the same lifecycle steps run every ticket), **convergence** (conventions discovered on one ticket become skills inherited by the next), and **architecture coherence** (planning is audited against target architecture before code is written).
 
-This repo is the harness's canonical source — it runs its own development through the harness, and the harness itself is portable: `docs/Harness/package/` is the self-contained package that instantiates it in a new project (copy the folder, point an AI assistant at `01 Bootstrap.md`).
+This repo is the harness's canonical source — it runs its own development through the harness, and the harness itself is portable: `.canonical-implementation-harness/` is the self-contained package that instantiates it in a new project, released as a versioned ZIP under `releases/harness-bootstrap/` and installed by pointing an AI assistant at `/harness-bootstrap launch`.
 
 _Placeholder:_ a fuller narrative (why it exists, what problem it solves, how it compares to prompting ad-hoc) belongs here — see `docs/The Story/` for the longer-form version of that argument in the meantime.
 
@@ -20,4 +24,4 @@ _Placeholder:_ a fuller narrative (why it exists, what problem it solves, how it
 
 ## The package
 
-`docs/Harness/package/` is not rendered in this site — its `{{PLACEHOLDER}}` template syntax collides with Vue's `{{ }}` interpolation, so it's excluded from the build (`srcExclude` in `apps/docs-web/.vitepress/config.ts`). Browse it on GitHub or in a checkout; [Explore](<./01 Explore/index.md>) is meant to eventually surface it here in a site-safe form.
+`.canonical-implementation-harness/` lives outside `docs/`, so it's naturally not part of this VitePress site. Browse it on GitHub or in a checkout; [Explore](<./01 Explore/index.md>) is meant to eventually surface it here in a site-safe form.
