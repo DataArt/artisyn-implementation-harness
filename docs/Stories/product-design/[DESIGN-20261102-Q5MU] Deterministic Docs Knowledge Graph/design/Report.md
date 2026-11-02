@@ -16,10 +16,10 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: frame
-completed_stages: ['context-gathering', 'ceremony']
+current_stage: research
+completed_stages: ['context-gathering', 'ceremony', 'frame']
 selected_artifacts: []
-next_action: 'Frame — problem statement and decisions'
+next_action: 'Research — one Research doc per confirmed decision, via @product-architect'
 context_fingerprint: ''
 ```
 
@@ -39,7 +39,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261102-Q5MU                                                                                                                                                                |
 | Branch | `docs/design-20261102-q5mu-deterministic-docs-knowledge-graph`                                                                                                                      |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame 🔄 · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research 🔄 · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -49,20 +49,20 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 6s · Wait to date: 35s (closed 35s + current 0s) · Unclassified: 5m 54s
+Observed work: 29m 40s · Wait to date: 2m 6s (closed 35s + current 1m 30s) · Unclassified: 3m 44s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ---- | ---- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-02T08:52:17.886Z | 2026-11-02T08:52:58.605Z | 41s         | 6s   | 35s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (active)             | 2026-11-02T08:56:33.297Z | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (pending)               | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| research (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ---- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-02T08:52:17.886Z | 2026-11-02T08:52:58.605Z | 41s         | 6s      | 35s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-02T08:56:33.297Z | 2026-11-02T09:04:35.468Z | 8m 2s       | 8m 2s   | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (waiting)               | 2026-11-02T09:04:44.931Z | unavailable              | unavailable | 21m 32s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -94,10 +94,11 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date       | Phase             | Notes                                                                                                                   |
-| ---------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-02 | Context Gathering | Task tracking: native Claude Task tools (TaskCreate/TaskUpdate), tasks #1–#10, one per lifecycle stage.                 |
-| 2026-11-02 | Ceremony          | No tracker ticket (local design ID) — Step 1 tracker transition skipped. Branch checked out and confirmed by developer. |
+| Date       | Phase             | Notes                                                                                                                                                                                       |
+| ---------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-02 | Context Gathering | Task tracking: native Claude Task tools (TaskCreate/TaskUpdate), tasks #1–#10, one per lifecycle stage.                                                                                     |
+| 2026-11-02 | Ceremony          | No tracker ticket (local design ID) — Step 1 tracker transition skipped. Branch checked out and confirmed by developer.                                                                     |
+| 2026-11-02 | Frame             | 5 known requirements, 4 proposed requirements accepted. 6 independent decisions confirmed: storage, structure/topology, infra footprint, visualization, lifecycle impact, bootstrap impact. |
 
 ---
 

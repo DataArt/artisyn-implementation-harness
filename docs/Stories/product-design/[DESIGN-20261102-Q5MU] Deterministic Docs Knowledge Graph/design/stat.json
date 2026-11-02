@@ -25,21 +25,29 @@
     },
     {
       "id": "ceremony",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "208ee43b-469d-48bf-96e4-a8d37e6a6d7d",
           "started_at": "2026-11-02T08:56:33.297Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T09:04:35.468Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "frame",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+          "started_at": "2026-11-02T09:04:44.931Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "research",
@@ -110,8 +118,43 @@
       "kind": "work",
       "activity": "planning",
       "started_at": "2026-11-02T08:56:33.297Z",
+      "ended_at": "2026-11-02T09:04:35.468Z",
+      "last_observed_at": "2026-11-02T09:04:35.468Z"
+    },
+    {
+      "id": "b2409eb2-6d98-4706-a86c-f289248d808d",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-02T09:04:44.931Z",
+      "ended_at": "2026-11-02T09:26:17.000Z",
+      "last_observed_at": "2026-11-02T09:26:17.000Z"
+    },
+    {
+      "id": "17c4b98f-acef-4296-80a6-7c85eea0c6b1",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting frame sign-off",
+      "started_at": "2026-11-02T09:26:17.000Z",
+      "ended_at": "2026-11-02T09:27:50.061Z",
+      "last_observed_at": "2026-11-02T09:27:50.061Z"
+    },
+    {
+      "id": "92e19a08-2bbd-4ad0-a58a-84b8777b2ba7",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Frame commit",
+      "started_at": "2026-11-02T09:27:50.061Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-02T08:56:33.297Z"
+      "last_observed_at": "2026-11-02T09:27:50.061Z"
     }
   ],
   "checks": [
@@ -146,22 +189,54 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "frame-decisions-signoff",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame decisions sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T09:26:13.760Z",
+      "ended_at": "2026-11-02T09:26:13.760Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed all six decisions as listed in 00 Frame.md",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "frame-signoff",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T09:27:29.203Z",
+      "ended_at": "2026-11-02T09:27:29.203Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T08:58:52.456Z",
+    "as_of": "2026-11-02T09:27:50.061Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 5.547,
-    "observed_wait_seconds": 35.172,
+    "observed_work_seconds": 1779.787,
+    "observed_wait_seconds": 128.233,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 35.172,
-    "unclassified_seconds": 353.889,
+    "wait_seconds_to_date": 128.233,
+    "unclassified_seconds": 224.19300000000015,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 35.172,
+    "approval_wait_seconds": 128.233,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
