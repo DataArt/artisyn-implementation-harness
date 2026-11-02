@@ -13,3 +13,4 @@ The harness maintains a deterministic knowledge graph over the repo's doc tiers 
 | [01 Ops Model](<./01 Ops Model.md>)                             | Node/edge model, system context, and lifecycle wiring                          |
 | [02 Storage and Build Model](<./02 Storage and Build Model.md>) | SQLite schema, frontmatter format, and the one-module build mechanism          |
 | [03 Visualization Model](<./03 Visualization Model.md>)         | IDE-side and docs-site graph surfaces, shared data source, data-access pattern |
+| [04 Graph Explorer](<./04 Graph Explorer.md>)                   | Live, interactive table of every indexed doc, grouped by tier                  |

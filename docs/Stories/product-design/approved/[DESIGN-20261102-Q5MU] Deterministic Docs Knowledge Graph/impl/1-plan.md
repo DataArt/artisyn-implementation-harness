@@ -449,10 +449,67 @@ when needed (Step 10 is inherently the developer's own run, in a separate sessio
 > change; no copy step runs (only the build+scan, since the precondition files
 > already exist)
 
-### Step 14 — Package and release this ticket's canonical changes
+### Step 14 — Apply the collapsible-sidebars patch bundle (developer-authorized, unrelated prior work)
+
+**Changes:** none authored here — applies an already-prepared external bundle:
+`/Users/anton/projects/collinson/ADLC workshops/.patch/0027-2026-10-30-docs-web-collapsible-sidebars`.
+Its manifest lists: updates to `apps/docs-web/.vitepress/config.ts`, `theme/Layout.vue`,
+`theme/custom.css`; new `theme/SidebarToggles.vue`, `theme/SidebarFocusToggle.vue`,
+`theme/useSidebarCollapse.ts`. No new dependencies per the bundle's own manifest.
+
+Two of those three "updated" files were also touched by Steps 11/12 in this same
+session (`config.ts` gained a `buildEnd` hook; `Layout.vue` gained the
+`GraphExplorer` slot injection) — merge by hand per the bundle's own "Apply
+notes", never a blind overwrite.
+
+**Verification:**
+
+> Run: `yarn nx run site:typecheck` and `yarn nx run site:lint`
+> Expected: both pass after the merge
+> Run: `yarn nx run site:build`
+> Expected: succeeds; Step 11's `buildEnd` graph-db copy and Step 12's
+> `GraphExplorer` injection both still work (re-check the rendered HTML)
+> Run: `yarn nx run site:serve`, open any doc page
+> Expected: both edge-tab handles and the focus-mode toggle render and collapse/restore their panels
+
+### Step 15 — Interactive node-link graph view (Cytoscape.js)
+
+**Changes:** `03 Visualization Model.md`'s own data-access pattern calls for
+"render graph from query results" → "interactive graph" — Step 12's table
+satisfies the file list but not that intent; it never queries or draws the
+`edges` table at all. Adds a real node-link rendering using
+[Cytoscape.js](https://js.cytoscape.org/#notation/graph-model):
+
+- `apps/docs-web/package.json` — `cytoscape` as a runtime dependency
+- `apps/docs-web/.vitepress/theme/graphExplorer.data.ts` — extend the build-time
+  query to also select every row from `edges` (currently `docs` only)
+- `apps/docs-web/.vitepress/theme/GraphExplorer.vue` — extend the live sql.js
+  query the same way; render a Cytoscape canvas above the existing table (not a
+  replacement — the table stays as the always-available, dependency-light
+  fallback), nodes colored by tier (`TIER_COLORS`), one visual style per
+  `edge_type` (dashed for `derived=1`, solid for authored); same
+  fetch/WASM-failure fallback behavior as the table (skip the canvas, keep the
+  table) rather than a blank canvas
+
+**Verification:**
+
+> Run: `yarn nx run site:typecheck` and `yarn nx run site:lint`
+> Expected: both pass
+> Run: `yarn nx run site:build`
+> Expected: succeeds; `site:serve`, open the Graph Explorer page
+> Expected: an interactive graph renders above the table — pan/zoom work, nodes are colored by tier, edges are visible
+> Then: block the `.sqlite` request in devtools and reload
+> Expected: the canvas doesn't render (no error), the static table still does
+
+### Step 16 — Package and release this ticket's canonical changes
+
+Deliberately last (per developer instruction) — everything else in the ticket,
+including Steps 14/15's unrelated app-level additions, lands before this runs, so
+the released package reflects the ticket's final state in one pass.
 
 **Changes:** none — this step runs existing `harness-bootstrap` operations against
-the canonical edits Steps 1–13 made directly (no story-side files).
+the canonical edits Steps 1–13 made directly (no story-side files; Steps 14/15 are
+`apps/docs-web`-only and touch no canonical source).
 
 **Verification (all developer-run, guarded — same pattern as Step 10):**
 
@@ -472,5 +529,5 @@ launch` from Step 10
 >    state; the release script produces a new versioned archive
 
 Run required verification before dependent steps; request human verification only
-when needed (Steps 10 and 14 are inherently the developer's own runs, in a
+when needed (Steps 10 and 16 are inherently the developer's own runs, in a
 separate session).

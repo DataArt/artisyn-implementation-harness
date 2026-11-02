@@ -891,14 +891,14 @@
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T20:47:48.019Z",
+    "as_of": "2026-11-02T21:20:08.490Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
     "observed_work_seconds": 1123.5079999999998,
     "observed_wait_seconds": 13459.673999999999,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 5934.108,
+    "unclassified_seconds": 7874.578999999998,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 3493.309,
@@ -910,14 +910,14 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T20:47:48.013Z",
+    "as_of": "2026-11-02T21:20:08.484Z",
     "source": "2-report.md",
-    "source_sha256": "cccc75606597584f8a372743d0b613fbb2621abc1f55138d5ee4af245f9eef13",
+    "source_sha256": "53372e5ca0be36e5dc998d17d6a98367e48a06ecf53b8d92fa5f790e542723e2",
     "findings": {
-      "total": 27,
+      "total": 34,
       "by_kind": {
-        "deviation": 12,
-        "bug": 7,
+        "deviation": 16,
+        "bug": 10,
         "design": 0,
         "improve": 1,
         "security": 0,
@@ -926,27 +926,27 @@
       },
       "by_severity": {
         "critical": 0,
-        "high": 1,
-        "medium": 7,
-        "low": 19,
+        "high": 2,
+        "medium": 8,
+        "low": 24,
         "info": 0
       },
       "by_classification": {
-        "introduced": 9,
+        "introduced": 12,
         "pre-existing": 1,
         "ruled-out": 1,
-        "advisory": 16
+        "advisory": 20
       },
       "by_resolution": {
         "open": 4,
-        "fixed": 13,
-        "accepted": 10,
+        "fixed": 16,
+        "accepted": 14,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
         "contradiction": 2,
-        "extension": 10,
+        "extension": 14,
         "omission": 0
       },
       "pr_review": {

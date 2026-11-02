@@ -256,6 +256,7 @@ __metadata:
     "@types/node": "npm:^22.0.0"
     markdown-it-container: "npm:^4.0.0"
     mermaid: "npm:^11.16.1"
+    sql.js: "npm:^1.11.0"
     vitepress: "npm:^1.6.0"
     vitepress-plugin-mermaid: "npm:^2.0.17"
   languageName: unknown

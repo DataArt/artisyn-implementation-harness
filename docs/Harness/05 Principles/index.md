@@ -1,6 +1,6 @@
 ---
 id: 679f8464
-purpose: State the beliefs the harness is built on: repeatability, convergence, and architecture coherence
+purpose: 'State the beliefs the harness is built on: repeatability, convergence, and architecture coherence'
 keywords: [principles, repeatability, convergence, architecture coherence]
 ---
 

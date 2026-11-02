@@ -1,0 +1,131 @@
+/* Collapsible left/right sidebars (SidebarToggles.vue), desktop only — on
+   mobile both panels are already off-canvas drawers, so collapsing them
+   would just hide the only way to open the drawer. */
+
+/* LEFT sidebar: VitePress's own CSS reads --vp-sidebar-width for BOTH the
+   sidebar panel's width and the content area's padding-left (VPSidebar.vue,
+   VPContent.vue), so zeroing this one variable collapses the panel and
+   hands the content its freed width in one move — no extra layout math. */
+@media (min-width: 960px) {
+  html.sidebar-collapsed {
+    --vp-sidebar-width: 0px;
+  }
+
+  /* VPSidebar.vue's own rule ships `transition: opacity 0.5s, transform
+     0.25s ease` for its mobile off-canvas slide-in — override it to `none`
+     here so the desktop collapse/expand is an instant hide, not a fade. */
+  html.sidebar-collapsed .VPSidebar,
+  .VPSidebar {
+    transition: none;
+  }
+
+  html.sidebar-collapsed .VPSidebar {
+    opacity: 0;
+    pointer-events: none;
+    /* VPSidebar.vue's base rule (unconditional, not just the >=1440 block)
+       ships `padding: 32px 32px 96px` — with box-sizing: border-box, a
+       width of 0 still renders at 32px because the box can't be smaller
+       than its own horizontal padding. Zero both sides so it truly
+       collapses, not just at this breakpoint but at every one >=960px. */
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* VPNavBar.vue's own `.title` has no overflow rule, so at width:0 the site
+     title/logo anchor still renders at its natural (unshrunk) width and
+     visually overflows across the search box instead of disappearing. The
+     sidebar panel itself avoids this because VPSidebar.vue sets its own
+     overflow-x: hidden — the nav title needs the same treatment here. */
+  html.sidebar-collapsed .VPNavBar.has-sidebar .title {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: none;
+  }
+
+  html.sidebar-collapsed .VPNavBar.has-sidebar .content {
+    padding-left: 24px;
+  }
+}
+
+/* At >=1440px, VitePress's OWN rules for .VPSidebar, .VPContent.has-sidebar,
+   and VPNavBar's .title/.content/.divider all add a *second* term on top of
+   --vp-sidebar-width — a centering gutter, `(100vw - layout-max-width) / 2`,
+   that grows with viewport width and does NOT disappear just because we
+   zero the sidebar-width variable. Left uncorrected, a collapsed sidebar
+   still reserves that gutter (visibly worse the wider the window), instead
+   of truly collapsing to 0. Override each one directly for this breakpoint
+   when collapsed, dropping the centering term entirely. */
+@media (min-width: 1440px) {
+  html.sidebar-collapsed .VPSidebar {
+    /* padding is already zeroed by the >=960px rule above; this breakpoint's
+       own width formula (a centering term + sidebar-width) still needs an
+       explicit override since --vp-sidebar-width: 0 alone isn't enough. */
+    width: 0;
+  }
+
+  html.sidebar-collapsed .VPContent.has-sidebar {
+    /* VPContent.vue's own rule is Vue-scoped (needs !important, see the
+       content-container rule below); it ALSO adds a centering padding-right
+       at this breakpoint that has nothing to do with the sidebar — left
+       uncorrected, the content stays ~200px short of the right edge on wide
+       screens even with the sidebar fully gone. Zero, not a flat 32px:
+       .VPDoc's own padding (48px 32px 0) already contributes 32px on both
+       sides, so this needs to match the left side's 0 to stay symmetric. */
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  html.sidebar-collapsed .VPNavBar.has-sidebar .title {
+    padding-left: 0;
+    width: 0;
+  }
+
+  html.sidebar-collapsed .VPNavBar.has-sidebar .content {
+    padding-left: 24px;
+    padding-right: 32px;
+  }
+
+  html.sidebar-collapsed .VPNavBar.has-sidebar .divider {
+    padding-left: 0;
+  }
+}
+
+/* RIGHT aside (the "On this page" outline) has no such variable — its width
+   is fixed px values in VPDoc.vue — so hide it directly and relax the prose
+   column's own cap so the content actually spreads into the reclaimed space
+   instead of just re-centring. This repo has no pre-existing
+   `--vp-layout-max-width` override, so the fallback (1600px) applies. */
+@media (min-width: 1280px) {
+  html.aside-collapsed .VPDoc .aside {
+    display: none !important;
+  }
+
+  html.aside-collapsed .VPDoc.has-aside .content-container {
+    max-width: var(--vp-layout-max-width, 1600px) !important;
+  }
+}
+
+/* SidebarFocusToggle.vue ships via the nav-bar-content-after slot, which in
+   VPNavBar.vue's own template lands after social links/extra — DOM order,
+   not where it visually belongs. Reorder it (flexbox `order`, content-body
+   is a flex row) to sit right after the appearance/theme switch, in the
+   same "view controls" cluster, ahead of the social icons. The divider line
+   between appearance and social-links is a ::before on .social-links itself
+   (DOM-adjacency selector), so it travels with social-links and still lands
+   in the right place after this reorder. */
+@media (min-width: 960px) {
+  .content-body > .focus-toggle {
+    order: 1;
+  }
+
+  .content-body > .social-links {
+    order: 2;
+  }
+
+  .content-body > .extra {
+    order: 2;
+  }
+}

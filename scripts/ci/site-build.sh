@@ -17,6 +17,7 @@ load_env() {
 }
 
 build() {
+  node docs/.og/cli.mjs build --dir "$(pwd)"
   (cd apps/docs-web && ../../node_modules/.bin/vitepress build)
 }
 
