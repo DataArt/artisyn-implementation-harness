@@ -3,7 +3,7 @@
   "canonical": {
     "CHANGELOG.md": {
       "recorded_sha256": "318e2238cf4418e37d04a7bcc80b4cf7d7d7641324b9980f7291092ceaed63f3",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "README.md": {
       "recorded_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
@@ -11,7 +11,7 @@
     },
     "SKILL.md": {
       "recorded_sha256": "8433bc945e4f7e141ab90c7ee0eb08083bb8f0f3fdc586bce4240eb38ffdd163",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/adaptors/claude/browser.md": {
       "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
@@ -151,7 +151,7 @@
     },
     "canonical/docs/Engineering Guide/Documentation/01 Principles.md": {
       "recorded_sha256": "6bf8b7d0e952e899438d4bdde0b617036c6fa6fda2393294c8d70f28c02a8b7b",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/Engineering Guide/Documentation/02 Structure.md": {
       "recorded_sha256": "9c2bf93c76f234c8175e3c4f10d714442f420661301b1439207af602617a1d64",
@@ -407,7 +407,7 @@
     },
     "canonical/skills/dev/references/01-context-gathering.md": {
       "recorded_sha256": "17c4b0fa3f5931630fe7fdd25baf2536114cb84475e1773eda22fe56292872cd",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/skills/dev/references/02-ceremony.md": {
       "recorded_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
@@ -427,7 +427,7 @@
     },
     "canonical/skills/dev/references/06-document.md": {
       "recorded_sha256": "ce193713256b4579472de96bfc02d9030fee1596ab426ce92a72cffb2927a131",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/skills/dev/references/07-completion.md": {
       "recorded_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
@@ -584,11 +584,11 @@
     },
     "references/00-overview.md": {
       "recorded_sha256": "04a9f916fb9b13dcb8e5fd629cf7e27450754b052b8765ef5452d0c68dc17022",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "references/launch/01-launch.md": {
       "recorded_sha256": "6b99b01ff0dd8ab86a29eb8ec2658ff7a261d1a627fb1aaa597354b555312f52",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "references/launch/01a-launch-plan.md": {
       "recorded_sha256": "8feb672456f79eb1431c22dc760494297a0e17ee8ad4e27606a04e65e0f453bc",
@@ -648,7 +648,7 @@
     },
     "canonical/skills/design/references/01-context-gathering.md": {
       "recorded_sha256": "68c45759e38f94312dee1a33ea5f7d025d17a9e5617f37ebc1ffffdfa4909c67",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/skills/design/references/02-ceremony.md": {
       "recorded_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
@@ -659,8 +659,8 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/04-research.md": {
-      "recorded_sha256": "54f5cb572d8c14c798bd6a804ae1091cb08393313270c2abe8d0ca71e74ddde9",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "recorded_sha256": "55abc61c751e815dd6ee5e48040945a0a3b91a54158e796f99fd5e86e29e8afe",
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/skills/design/references/05-evaluate.md": {
       "recorded_sha256": "86bf412561ca3642aa997e0e5dd2e49befed2a08e38d16fd8ca42e5803536b5d",
@@ -679,8 +679,8 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/09-publish.md": {
-      "recorded_sha256": "a44b59e3163077f148dc653b8cfca926f9ef862c987b27dfba036bcd3078304f",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "recorded_sha256": "e5a332404dcc2b7cdf3da2124fdbc317da19c9d3623f56be26ebb238c6cd4e7e",
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/skills/design/references/10-completion.md": {
       "recorded_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
@@ -688,43 +688,43 @@
     },
     "references/launch/01d-launch-graph-verify.md": {
       "recorded_sha256": "f93d60b8e59f59ad40522037f86abbbf7843d30d239a82eb8621be019d8699b6",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "references/reindex-graph.md": {
       "recorded_sha256": "d4f6bca572310544b84b364d0242e72efa105e32175dc4470a3e7426c3f5e2be",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/cli.mjs": {
-      "recorded_sha256": "af648ac2bcc050cb97bc1e944f03a43072d27d709bc237ffe57d878db18d10dd",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "recorded_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/cli.test.mjs": {
       "recorded_sha256": "e62b1c59417c3a3b5d26ea97d4aa3d85141fa6a18864c48c0f12f1c02595d3a3",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/constants.mjs": {
       "recorded_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/docs-operational-graph.sqlite": {
       "recorded_sha256": "beacdb32a3498541ebf541c507b1364131c68814bf92ffa201313cb7d43756bc",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/docs.mjs": {
       "recorded_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/edges.mjs": {
       "recorded_sha256": "900b0dd5fb624d86b3aefdeada953123132912307c8eea50ecb18af1402e9934",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/schema.mjs": {
       "recorded_sha256": "81734aa303ff1755d818076317e6717f5524498d7cf8a687f1634492c6a0d5e8",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/utils.mjs": {
       "recorded_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
-      "snapshot": "bundle:f71b3e6b-b94e-4c11-abe0-f9725ea148cb"
+      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     }
   },
   "mappings": {
@@ -1260,7 +1260,7 @@
       "canonical_sha256": "17c4b0fa3f5931630fe7fdd25baf2536114cb84475e1773eda22fe56292872cd",
       "deployed_sha256": "9418dd590198d4074ff35e4d70e53b91982add1e013ff5435d9241f04475dad0",
       "rendered_base": null,
-      "note": "deployed by apply 876f8c52-76df-4b56-8c85-38df21053362 (bundle f71b3e6b-b94e-4c11-abe0-f9725ea148cb); surgical insert (Step 3.7) preserving existing {{provider:skills_root}}/{{PROJECT_KEY}} renders",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/02-ceremony.md": {
@@ -1300,7 +1300,7 @@
       "canonical_sha256": "ce193713256b4579472de96bfc02d9030fee1596ab426ce92a72cffb2927a131",
       "deployed_sha256": "be061c0a92c37aedede374d646782731abc8e587bb24d49787334b63aa7d8c90",
       "rendered_base": null,
-      "note": "deployed by apply 876f8c52-76df-4b56-8c85-38df21053362 (bundle f71b3e6b-b94e-4c11-abe0-f9725ea148cb); surgical inserts: index() write-path call (Step 3's own graduation list) + doc-impact-list graph query (implementation can diverge from plan)",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/07-completion.md": {
@@ -2028,7 +2028,7 @@
       "canonical_sha256": "68c45759e38f94312dee1a33ea5f7d025d17a9e5617f37ebc1ffffdfa4909c67",
       "deployed_sha256": "26b2593c968397abbdd076ada45329c33481c7fc58f481ebc24f2a5ec50bd437",
       "rendered_base": null,
-      "note": "deployed by apply 876f8c52-76df-4b56-8c85-38df21053362 (bundle f71b3e6b-b94e-4c11-abe0-f9725ea148cb); surgical insert (query-first read path). Pre-existing unrelated local corruption noted separately (a second {{DESIGN_CONTEXT_STEP}} occurrence mis-rendered) -- not touched, not caused by this apply",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     ".claude/skills/design/references/02-ceremony.md": {
@@ -2049,10 +2049,10 @@
     },
     ".claude/skills/design/references/04-research.md": {
       "canonical_source": "canonical/skills/design/references/04-research.md",
-      "canonical_sha256": "54f5cb572d8c14c798bd6a804ae1091cb08393313270c2abe8d0ca71e74ddde9",
-      "deployed_sha256": "2ef1409d9617e2f98312c841604f1599d9f372d6427b5ddd42b3890b80047689",
+      "canonical_sha256": "55abc61c751e815dd6ee5e48040945a0a3b91a54158e796f99fd5e86e29e8afe",
+      "deployed_sha256": "69baa1792cd4d4a4701af2919455ecf42a3ab9128c0ee1cdf0f527a6f0b03f47",
       "rendered_base": null,
-      "note": "deployed by apply 876f8c52-76df-4b56-8c85-38df21053362 (bundle f71b3e6b-b94e-4c11-abe0-f9725ea148cb); surgical insert (query-first bullet)",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     ".claude/skills/design/references/05-evaluate.md": {
@@ -2089,10 +2089,10 @@
     },
     ".claude/skills/design/references/09-publish.md": {
       "canonical_source": "canonical/skills/design/references/09-publish.md",
-      "canonical_sha256": "a44b59e3163077f148dc653b8cfca926f9ef862c987b27dfba036bcd3078304f",
-      "deployed_sha256": "de592adc90234a3b56aa88dbf0bbe405f1dedea556fb4a4cc6f23ca1f08d2b7c",
+      "canonical_sha256": "e5a332404dcc2b7cdf3da2124fdbc317da19c9d3623f56be26ebb238c6cd4e7e",
+      "deployed_sha256": "eda0efada95f9d9052db39ddd8f8057197369977388c58dda8ff28619fba419f",
       "rendered_base": null,
-      "note": "deployed by apply 876f8c52-76df-4b56-8c85-38df21053362 (bundle f71b3e6b-b94e-4c11-abe0-f9725ea148cb); surgical inserts: index() write-path call (Step 3) + doc-impact-identification graph query (Step 2, implementation can diverge from plan)",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     ".claude/skills/design/references/10-completion.md": {
@@ -2105,10 +2105,10 @@
     },
     "docs/.og/cli.mjs": {
       "canonical_source": "canonical/docs/.og/cli.mjs",
-      "canonical_sha256": "af648ac2bcc050cb97bc1e944f03a43072d27d709bc237ffe57d878db18d10dd",
-      "deployed_sha256": "af648ac2bcc050cb97bc1e944f03a43072d27d709bc237ffe57d878db18d10dd",
+      "canonical_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
+      "deployed_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
       "rendered_base": null,
-      "note": "verified already deployed (byte-identical), no write needed -- apply 876f8c52-76df-4b56-8c85-38df21053362",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     "docs/.og/constants.mjs": {
@@ -2116,7 +2116,7 @@
       "canonical_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
       "deployed_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
       "rendered_base": null,
-      "note": "verified already deployed (byte-identical), no write needed -- apply 876f8c52-76df-4b56-8c85-38df21053362",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     "docs/.og/docs.mjs": {
@@ -2124,7 +2124,7 @@
       "canonical_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
       "deployed_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
       "rendered_base": null,
-      "note": "verified already deployed (byte-identical), no write needed -- apply 876f8c52-76df-4b56-8c85-38df21053362",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     "docs/.og/edges.mjs": {
@@ -2132,7 +2132,7 @@
       "canonical_sha256": "900b0dd5fb624d86b3aefdeada953123132912307c8eea50ecb18af1402e9934",
       "deployed_sha256": "900b0dd5fb624d86b3aefdeada953123132912307c8eea50ecb18af1402e9934",
       "rendered_base": null,
-      "note": "verified already deployed (byte-identical), no write needed -- apply 876f8c52-76df-4b56-8c85-38df21053362",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     "docs/.og/schema.mjs": {
@@ -2140,7 +2140,7 @@
       "canonical_sha256": "81734aa303ff1755d818076317e6717f5524498d7cf8a687f1634492c6a0d5e8",
       "deployed_sha256": "81734aa303ff1755d818076317e6717f5524498d7cf8a687f1634492c6a0d5e8",
       "rendered_base": null,
-      "note": "verified already deployed (byte-identical), no write needed -- apply 876f8c52-76df-4b56-8c85-38df21053362",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     },
     "docs/.og/utils.mjs": {
@@ -2148,7 +2148,7 @@
       "canonical_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
       "deployed_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
       "rendered_base": null,
-      "note": "verified already deployed (byte-identical), no write needed -- apply 876f8c52-76df-4b56-8c85-38df21053362",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
       "provider": "claude"
     }
   }

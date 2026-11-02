@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
@@ -28,11 +29,21 @@ const DB_FILE = path.resolve(dirname, '../../../../../docs/.og/docs-operational-
 // Build-time query, read directly from the same sqlite `site-build.sh` keeps
 // current via `cli.mjs build` before this runs. This is the fallback render
 // GraphExplorer falls back to when the client-side live query (fetch +
-// sql.js) fails — never a blank or broken page.
+// sql.js) fails — never a blank or broken page. The db itself can be absent
+// (a fresh bootstrap before `/harness-bootstrap launch`/`reindex-graph` has
+// ever run) — that must not fail the whole VitePress build, only leave this
+// one loader's data empty; GraphExplorer's own live sql.js query is already
+// built to recover from an empty/failed fetch.
 export default defineLoader({
   watch: [DB_FILE],
   load(): GraphExplorerData {
-    const db = new DatabaseSync(DB_FILE, { readOnly: true });
+    if (!fs.existsSync(DB_FILE)) return { docs: [], edges: [] };
+    let db: DatabaseSync;
+    try {
+      db = new DatabaseSync(DB_FILE, { readOnly: true });
+    } catch {
+      return { docs: [], edges: [] };
+    }
     try {
       const docs = db
         .prepare('SELECT id, tier, path, title FROM docs ORDER BY tier, title')
@@ -41,6 +52,8 @@ export default defineLoader({
         .prepare('SELECT from_id, to_id, edge_type, derived FROM edges')
         .all() as unknown as GraphEdge[];
       return { docs, edges };
+    } catch {
+      return { docs: [], edges: [] };
     } finally {
       db.close();
     }

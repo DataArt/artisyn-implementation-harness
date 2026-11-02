@@ -20,7 +20,7 @@
     </label>
   </fieldset>
 
-  <div ref="canvasEl" class="graph-explorer-canvas"></div>
+  <div ref="canvasEl" class="graph-explorer-canvas" role="img" aria-label="Docs knowledge graph — see the table below for an accessible listing of the same data"></div>
 
   <table v-for="[tier, rows] in grouped" :key="tier" class="graph-explorer-table">
     <caption :style="{ color: tierColor(tier) }">{{ tier }}</caption>

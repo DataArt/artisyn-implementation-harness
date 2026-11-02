@@ -41,14 +41,20 @@ re-ask here.
 
 ## Step 2 — Delegate to `{resolved architect agent}` for options research
 
+Before delegating, attempt yourself: `node docs/.og/cli.mjs search --term
+<text>` (or `query --related-to <doc>`) against
+`docs/.og/docs-operational-graph.sqlite` to surface related docs. Required
+(not best-effort): when the graph is missing, stale, or the call errors, fall
+back to grep/glob over `{source docs}` for the same information — either
+way, never let this block research. This runs here, not inside the
+delegation below: `{resolved architect agent}` can resolve to a read-only
+agent with no shell access (`@product-architect` on the Product track), so
+the query must be the orchestrator's own step, with whatever it surfaces
+folded into the delegation's context.
+
 Delegate to `{resolved architect agent}` with **explicit constraints**:
 
-- First attempt `node docs/.og/cli.mjs search --term <text>` (or `query
---related-to <doc>`) against `docs/.og/docs-operational-graph.sqlite` to surface related docs.
-  Required (not best-effort): when the graph is missing, stale, or the call
-  errors, fall back to grep/glob over `{source docs}` for the same
-  information — either way, never let this block research.
-- Read relevant context docs under `{source docs}`
+- Read relevant context docs under `{source docs}`, plus whatever the graph query above surfaced
 - Produce **3 to 5 distinct options** — include at least one "do nothing / minimal change" option if valid, and at least one industry-standard approach
 - For each option: description, pros, cons, unknowns/risks, at least one industry reference or precedent, and a **colored Mermaid diagram** illustrating the approach (use `classDef` with fill/stroke/color — no default-grey diagrams)
 - **Do not make a recommendation** — that is Evaluate's job

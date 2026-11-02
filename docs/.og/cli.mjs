@@ -32,6 +32,10 @@ function openStore(dir) {
 /**
  * Assign/confirm a doc's ID via `DocsStore.assign()` and, when `--edge` is
  * given, write the authored (derived=0) graduation edge via `EdgesStore.write()`.
+ * Note: `assign()` runs before the `--edge`/`--to` validation, so a call that
+ * throws (e.g. `--to` target not indexed) can still have assigned `doc`'s ID
+ * as a side effect — harmless, since assignment is additive-only/idempotent
+ * and safe to retry, but the call is not all-or-nothing.
  * @param {{dir: string, doc: string, id?: string, edge?: string, to?: string}} opts
  */
 export async function index({ dir, doc, id, edge, to }) {
@@ -89,6 +93,15 @@ export async function unedge({ dir, doc, edge, to }) {
  * and keyword-match (shared `keywords:` tokens — from the stored column, no
  * content read). Idempotent: a second run with nothing changed on disk
  * changes nothing.
+ *
+ * Deliberately not wrapped in a single SQLite transaction: each step below
+ * (assign, prune, mirrors, keyword-match) is its own auto-committing write.
+ * An interruption mid-run can leave a transient inconsistency (e.g.
+ * keyword-match edges cleared but not yet recomputed), but every step is
+ * idempotent and fully recomputed from current state, so the next successful
+ * `reindex()`/`build()` self-heals it — a half-measure transaction wrapping
+ * only some of these steps (and not `build()`'s separate Mermaid-artifact
+ * write) would add complexity without closing that same window anyway.
  * @param {{dir: string}} opts
  * @returns {Promise<{skipped: {path: string, reason: string}[], pruned: string[]}>}
  */
