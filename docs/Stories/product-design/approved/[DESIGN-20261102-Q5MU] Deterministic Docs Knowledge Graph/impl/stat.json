@@ -1,0 +1,207 @@
+{
+  "schema_version": 2,
+  "lifecycle": "dev",
+  "ticket": "DESIGN-20261102-Q5MU",
+  "author": "Anton Merkulov",
+  "tracking_started_at": "2026-11-02T15:05:50.729Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-02T15:05:50.769Z",
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context",
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "0cce2413-a645-4707-a696-a1f6edae6e92",
+          "started_at": "2026-11-02T15:05:50.769Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "ceremony",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "plan",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "implement",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "test",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "document",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "8531fd21-2104-4703-8b1a-0277460df0c6",
+      "stage_id": "context",
+      "stage_attempt_id": "0cce2413-a645-4707-a696-a1f6edae6e92",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-02T15:05:50.769Z",
+      "ended_at": "2026-11-02T15:06:25.161Z",
+      "last_observed_at": "2026-11-02T15:06:25.161Z"
+    },
+    {
+      "id": "7ddff104-a4a4-4377-b7d8-302bb5b7b478",
+      "stage_id": "context",
+      "stage_attempt_id": "0cce2413-a645-4707-a696-a1f6edae6e92",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context sign-off",
+      "started_at": "2026-11-02T15:06:25.161Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-02T15:06:25.161Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "context-signoff-01",
+      "stage_id": "context",
+      "stage_attempt_id": "0cce2413-a645-4707-a696-a1f6edae6e92",
+      "step": null,
+      "name": "Context sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T15:15:56.797Z",
+      "ended_at": "2026-11-02T15:15:56.797Z",
+      "result": "passed",
+      "evidence_ref": "go ahead",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-02T15:16:03.111Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 34.392,
+    "observed_wait_seconds": 0,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 577.95,
+    "unclassified_seconds": 0.03999999999984993,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 0,
+    "failed_checks": 0,
+    "first_pass_verification_rate": null,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  },
+  "quality": {
+    "version": 1,
+    "as_of": "2026-11-02T15:16:03.110Z",
+    "source": "2-report.md",
+    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "findings": {
+      "total": 0,
+      "by_kind": {
+        "deviation": 0,
+        "bug": 0,
+        "design": 0,
+        "improve": 0,
+        "security": 0,
+        "performance": 0,
+        "docs": 0
+      },
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "by_classification": {
+        "introduced": 0,
+        "pre-existing": 0,
+        "ruled-out": 0,
+        "advisory": 0
+      },
+      "by_resolution": {
+        "open": 0,
+        "fixed": 0,
+        "accepted": 0,
+        "tech-debt": 0,
+        "doc-updated": 0
+      },
+      "deviations_by_type": {
+        "contradiction": 0,
+        "extension": 0,
+        "omission": 0
+      },
+      "pr_review": {
+        "total": 0,
+        "by_kind": {
+          "deviation": 0,
+          "bug": 0,
+          "design": 0,
+          "improve": 0,
+          "security": 0,
+          "performance": 0,
+          "docs": 0
+        },
+        "by_severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        }
+      }
+    },
+    "tech_debt": {
+      "total": 0,
+      "ticketed": 0,
+      "unticketed": 0
+    },
+    "tests": {
+      "written": null,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "scopes": 0
+    },
+    "test_runs": {
+      "recorded": 0,
+      "failed": 0,
+      "errors": 0,
+      "interrupted": 0
+    },
+    "closure_issues": []
+  }
+}
