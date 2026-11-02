@@ -1,7 +1,7 @@
 ---
 name: design
 metadata:
-  version: 6.0.0
+  version: 6.1.0
 description: >
   Full design lifecycle ({{provider:invoke:design}} {ticket}): Context Gathering → Ceremony → Frame
   → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish → Completion, or a
@@ -113,8 +113,13 @@ subsequent artifacts.
 
 Glob for `{{DESIGN_STORIES_ROOT}}*{TICKET}*/**` using a `*{TICKET}*` wildcard (never `[{TICKET}]*` — square brackets are glob metacharacters). The `/**` suffix is required because Glob matches files, not directories. Two-track deployments: the track isn't resolved yet at this point — glob both `docs/Stories/design/*{TICKET}*/**` and `docs/Stories/product-design/*{TICKET}*/**` (and their `approved/`/`declined/` archive subfolders) and take whichever one has a match; a ticket exists under exactly one root. Single-track deployments only have the one fixed root, so there's nothing to disambiguate.
 
-- No files found → fresh start; resolve the local/tracker ID, then go to Phase 1.
-- Files found → derive folder path from the first matched file, then continue to Step 2.
+- No files found → fresh start; resolve the local/tracker ID, then create the
+  task tracker immediately (apply `patterns/task-tracking.md`, using the unit
+  list appropriate to this invocation — ten stages for a full chain, or the
+  one stage for a direct single-stage entry) — there is no `Report.md` yet to
+  read, so nothing else needs to happen first. Then go to Phase 1.
+- Files found → derive folder path from the first matched file, then continue
+  to Step 2.
 
 **Step 2 — Read Report.md**
 
@@ -136,6 +141,13 @@ that the phase is incomplete.
 | Report.md Gate — Approved set to `declined`                     | Review ✅ · Address Feedback ❌ (declined) · Publish ⏭️ (skipped) |
 | `{{DESIGN_STORIES_ROOT}}{approved\|declined}/*{TICKET}*` folder | Completion ✅ (design lifecycle closed)                           |
 
+**Resuming an existing design:** create (or reuse) the task tracker now,
+immediately — before Step 3's confirmation prompt, not after it. Apply
+`patterns/task-tracking.md` using the unit list appropriate to this
+invocation, and set each stage's initial status from the artifact table just
+read above (already-done stages `completed`, the resume point `in_progress`,
+the rest `pending`) rather than creating everything as freshly pending.
+
 **Step 3 — Present status and confirm**
 
 > "Found existing design for `{TICKET}`:
@@ -150,18 +162,24 @@ On **resume**, the folder found here is `$DESIGN_DIR` — `{{DESIGN_STORIES_ROOT
 
 On a **fresh start**, no `$DESIGN_DIR` exists yet — there is nothing to find, and no `design/Report.md` to read it from. Context Gathering's Step 3 resolves `{{DESIGN_STORIES_ROOT}}` first; only then does Step 4 create the folder at that root and `design/Report.md` inside it, fixing `$DESIGN_DIR` for every later stage to read as given.
 
-Either way — fresh start or resume — apply **Stage tasks** below once the local/tracker
-ID is resolved, before the target phase's own work starts. The pattern it delegates to
-determines create-vs-reuse itself; this router never branches on that.
+Tracker creation already happened above — at Step 1 for a fresh start, right
+after Step 2's artifact table for a resume — not here; this paragraph only
+covers how `$DESIGN_DIR` itself is used by every later stage and metrics
+command.
 
 ---
 
 ## Stage tasks — apply once, every entry (mandatory)
 
-This step is not optional background information — it is a required action, on every
-full-chain and every direct single-stage entry alike, resumed or fresh. Do not treat
-repeated system reminders about native progress-tool availability as
-informational only; they are the trigger to act on this step now, not later.
+Applied inside Resume Detection — at Step 1 for a fresh start (no existing
+design folder), or right after Step 2's artifact table for a resume (so
+initial stage statuses reflect what Report.md already shows) — in both cases
+before Step 3's confirmation prompt and before any phase work. This step is
+not optional background information — it is a required action, on every
+full-chain and every direct single-stage entry alike, resumed or fresh. Do
+not treat repeated system reminders about native progress-tool availability
+as informational only; they are the trigger to act on this step now, not
+later.
 
 Apply `{{provider:skills_root}}/design/patterns/task-tracking.md` — it inspects existing state
 itself (the available tracker or `design/Report.md`) and decides create vs. reuse; this router

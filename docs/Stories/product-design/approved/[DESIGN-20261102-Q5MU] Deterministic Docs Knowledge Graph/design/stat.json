@@ -1,0 +1,596 @@
+{
+  "schema_version": 2,
+  "lifecycle": "design",
+  "design_revision": 1,
+  "ticket": "DESIGN-20261102-Q5MU",
+  "tracking_started_at": "2026-11-02T08:52:17.848Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-02T08:52:17.886Z",
+  "completed_at": "2026-11-02T14:39:43.460Z",
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context-gathering",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "14a661e7-6668-4488-802b-981c3ecdb5a8",
+          "started_at": "2026-11-02T08:52:17.886Z",
+          "ended_at": "2026-11-02T08:52:58.605Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "ceremony",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "208ee43b-469d-48bf-96e4-a8d37e6a6d7d",
+          "started_at": "2026-11-02T08:56:33.297Z",
+          "ended_at": "2026-11-02T09:04:35.468Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "frame",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+          "started_at": "2026-11-02T09:04:44.931Z",
+          "ended_at": "2026-11-02T09:28:27.445Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+          "started_at": "2026-11-02T09:28:41.207Z",
+          "ended_at": "2026-11-02T12:48:55.785Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "evaluate",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+          "started_at": "2026-11-02T12:49:44.883Z",
+          "ended_at": "2026-11-02T13:13:15.819Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "solution",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "8f4666ac-4383-436d-8662-2ecb5effc90e",
+          "started_at": "2026-11-02T13:14:06.247Z",
+          "ended_at": "2026-11-02T13:47:55.599Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "review-gate",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "b51c84cd-57df-4b56-afb8-da4a9ff17211",
+          "started_at": "2026-11-02T13:48:04.503Z",
+          "ended_at": "2026-11-02T13:54:04.860Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        },
+        {
+          "id": "4fa51066-d1bf-41d1-8f99-781cd8d89133",
+          "started_at": "2026-11-02T13:54:55.105Z",
+          "ended_at": "2026-11-02T13:54:55.194Z",
+          "trigger": "reopened",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "address-feedback",
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "Confirmed MR approval, no concerns raised",
+      "skipped_at": "2026-11-02T13:54:55.237Z"
+    },
+    {
+      "id": "publish",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+          "started_at": "2026-11-02T13:55:57.645Z",
+          "ended_at": "2026-11-02T14:36:15.845Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "completion",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+          "started_at": "2026-11-02T14:36:32.260Z",
+          "ended_at": "2026-11-02T14:39:43.413Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "08cf6953-8565-4230-8a6c-3bd64d6535ad",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "14a661e7-6668-4488-802b-981c3ecdb5a8",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-02T08:52:17.886Z",
+      "ended_at": "2026-11-02T08:52:23.433Z",
+      "last_observed_at": "2026-11-02T08:52:23.433Z"
+    },
+    {
+      "id": "2223a90c-332c-438b-bf08-345096b870cb",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "14a661e7-6668-4488-802b-981c3ecdb5a8",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context-gathering sign-off",
+      "started_at": "2026-11-02T08:52:23.433Z",
+      "ended_at": "2026-11-02T08:52:58.605Z",
+      "last_observed_at": "2026-11-02T08:52:58.605Z"
+    },
+    {
+      "id": "ca480218-e22c-4260-8c6f-24258d3b3e4e",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "208ee43b-469d-48bf-96e4-a8d37e6a6d7d",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-02T08:56:33.297Z",
+      "ended_at": "2026-11-02T09:04:35.468Z",
+      "last_observed_at": "2026-11-02T09:04:35.468Z"
+    },
+    {
+      "id": "b2409eb2-6d98-4706-a86c-f289248d808d",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-02T09:04:44.931Z",
+      "ended_at": "2026-11-02T09:26:17.000Z",
+      "last_observed_at": "2026-11-02T09:26:17.000Z"
+    },
+    {
+      "id": "17c4b98f-acef-4296-80a6-7c85eea0c6b1",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting frame sign-off",
+      "started_at": "2026-11-02T09:26:17.000Z",
+      "ended_at": "2026-11-02T09:27:50.061Z",
+      "last_observed_at": "2026-11-02T09:27:50.061Z"
+    },
+    {
+      "id": "92e19a08-2bbd-4ad0-a58a-84b8777b2ba7",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Frame commit",
+      "started_at": "2026-11-02T09:27:50.061Z",
+      "ended_at": "2026-11-02T09:28:27.445Z",
+      "last_observed_at": "2026-11-02T09:28:27.445Z"
+    },
+    {
+      "id": "7535cf9b-18fa-44eb-aea6-62f8a5247f4e",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-02T09:28:41.207Z",
+      "ended_at": "2026-11-02T09:37:39.656Z",
+      "last_observed_at": "2026-11-02T09:37:39.656Z"
+    },
+    {
+      "id": "36ee5373-f573-4cd7-bdf8-caa78b247f15",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting research sign-off",
+      "started_at": "2026-11-02T09:37:39.656Z",
+      "ended_at": "2026-11-02T09:48:11.726Z",
+      "last_observed_at": "2026-11-02T09:48:11.726Z"
+    },
+    {
+      "id": "52604bb5-e6ab-4793-bd89-ec19a68ef5b3",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T09:48:11.726Z",
+      "ended_at": "2026-11-02T12:39:54.160Z",
+      "last_observed_at": "2026-11-02T12:39:54.160Z"
+    },
+    {
+      "id": "5d0b1bf2-e593-4be2-9710-24e7dd58b150",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Research commit",
+      "started_at": "2026-11-02T12:39:54.160Z",
+      "ended_at": "2026-11-02T12:48:55.785Z",
+      "last_observed_at": "2026-11-02T12:48:55.785Z"
+    },
+    {
+      "id": "5f43d2d6-32ee-4187-8f34-2ae6dab02347",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T12:49:44.883Z",
+      "ended_at": "2026-11-02T12:57:41.279Z",
+      "last_observed_at": "2026-11-02T12:57:41.279Z"
+    },
+    {
+      "id": "45a0aa87-8dad-4f29-abf7-b22680817136",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off",
+      "started_at": "2026-11-02T12:57:41.279Z",
+      "ended_at": "2026-11-02T13:10:27.609Z",
+      "last_observed_at": "2026-11-02T13:10:27.609Z"
+    },
+    {
+      "id": "88efe592-53ed-4d74-bfc9-6bac199f874e",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Evaluate commit",
+      "started_at": "2026-11-02T13:10:27.609Z",
+      "ended_at": "2026-11-02T13:13:15.819Z",
+      "last_observed_at": "2026-11-02T13:13:15.819Z"
+    },
+    {
+      "id": "533ae0df-dc29-4dea-afb5-1a5402b6b17e",
+      "stage_id": "solution",
+      "stage_attempt_id": "8f4666ac-4383-436d-8662-2ecb5effc90e",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-02T13:14:06.247Z",
+      "ended_at": "2026-11-02T13:28:14.503Z",
+      "last_observed_at": "2026-11-02T13:28:14.503Z"
+    },
+    {
+      "id": "3c5f4fb7-d454-4d19-9cd8-ec6d1c45eee6",
+      "stage_id": "solution",
+      "stage_attempt_id": "8f4666ac-4383-436d-8662-2ecb5effc90e",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting solution sign-off",
+      "started_at": "2026-11-02T13:28:14.503Z",
+      "ended_at": "2026-11-02T13:46:39.367Z",
+      "last_observed_at": "2026-11-02T13:46:39.367Z"
+    },
+    {
+      "id": "50edde90-710e-4f11-8e0f-71c9c67a46b7",
+      "stage_id": "solution",
+      "stage_attempt_id": "8f4666ac-4383-436d-8662-2ecb5effc90e",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Solution commit",
+      "started_at": "2026-11-02T13:46:39.367Z",
+      "ended_at": "2026-11-02T13:47:55.599Z",
+      "last_observed_at": "2026-11-02T13:47:55.599Z"
+    },
+    {
+      "id": "1a96531f-dc6f-4e86-a488-8fb0ccfa51c2",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "b51c84cd-57df-4b56-afb8-da4a9ff17211",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T13:48:04.503Z",
+      "ended_at": "2026-11-02T13:52:15.930Z",
+      "last_observed_at": "2026-11-02T13:52:15.930Z"
+    },
+    {
+      "id": "2f9c7c84-cb54-40b7-a616-a0b3d35a2d53",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "b51c84cd-57df-4b56-afb8-da4a9ff17211",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting MR approval/outcome: approver Anton Merkulov, MR https://github.com/DataArt/artisyn-harness/pull/9",
+      "started_at": "2026-11-02T13:52:15.930Z",
+      "ended_at": "2026-11-02T13:54:04.860Z",
+      "last_observed_at": "2026-11-02T13:54:04.860Z"
+    },
+    {
+      "id": "9d5b1b86-14cb-4923-828c-669c596e9b56",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "4fa51066-d1bf-41d1-8f99-781cd8d89133",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T13:54:55.105Z",
+      "ended_at": "2026-11-02T13:54:55.194Z",
+      "last_observed_at": "2026-11-02T13:54:55.194Z"
+    },
+    {
+      "id": "124a9f0c-8b61-4101-a31d-5bb043897f0d",
+      "stage_id": "publish",
+      "stage_attempt_id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-02T13:55:57.645Z",
+      "ended_at": "2026-11-02T14:35:07.594Z",
+      "last_observed_at": "2026-11-02T14:35:07.594Z"
+    },
+    {
+      "id": "48605ead-2398-4624-9104-222b699ec13a",
+      "stage_id": "publish",
+      "stage_attempt_id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Publish commit",
+      "started_at": "2026-11-02T14:35:07.594Z",
+      "ended_at": "2026-11-02T14:36:15.845Z",
+      "last_observed_at": "2026-11-02T14:36:15.845Z"
+    },
+    {
+      "id": "301f3302-d342-45b7-877f-46409a69c0e7",
+      "stage_id": "completion",
+      "stage_attempt_id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-02T14:36:32.260Z",
+      "ended_at": "2026-11-02T14:37:53.938Z",
+      "last_observed_at": "2026-11-02T14:37:53.938Z"
+    },
+    {
+      "id": "45606f93-be4c-40c0-8407-b45d38d13f43",
+      "stage_id": "completion",
+      "stage_attempt_id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting completion sign-off",
+      "started_at": "2026-11-02T14:37:53.938Z",
+      "ended_at": "2026-11-02T14:39:43.413Z",
+      "last_observed_at": "2026-11-02T14:39:43.413Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "context-gathering-signoff",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "14a661e7-6668-4488-802b-981c3ecdb5a8",
+      "step": null,
+      "design_revision": 0,
+      "name": "Context Gathering sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T08:52:58.553Z",
+      "ended_at": "2026-11-02T08:52:58.553Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: yes, good to go",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "ceremony-signoff",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "208ee43b-469d-48bf-96e4-a8d37e6a6d7d",
+      "step": null,
+      "design_revision": 0,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T08:58:38.255Z",
+      "ended_at": "2026-11-02T08:58:38.255Z",
+      "result": "passed",
+      "evidence_ref": "Branch confirmed: docs/design-20261102-q5mu-deterministic-docs-knowledge-graph",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "frame-decisions-signoff",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame decisions sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T09:26:13.760Z",
+      "ended_at": "2026-11-02T09:26:13.760Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed all six decisions as listed in 00 Frame.md",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "frame-signoff",
+      "stage_id": "frame",
+      "stage_attempt_id": "10fea305-ce4e-4db4-9f8a-57095cb286e5",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T09:27:29.203Z",
+      "ended_at": "2026-11-02T09:27:29.203Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "research-signoff",
+      "stage_id": "research",
+      "stage_attempt_id": "3ea92369-2f21-4aa5-b4fd-0d1368f4fd99",
+      "step": null,
+      "design_revision": 0,
+      "name": "Research sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T12:39:14.308Z",
+      "ended_at": "2026-11-02T12:39:14.308Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue (after Decision 2 rework, SQLite sub-options addition, and Mermaid reserved-keyword fix)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "evaluate-signoff",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "568b275a-fc43-4bf3-bd1f-65835fb6fd9c",
+      "step": null,
+      "design_revision": 0,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T13:10:01.621Z",
+      "ended_at": "2026-11-02T13:10:01.621Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue (after revising Decisions 5 and 6 to merge automated writes/ID-assignment)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-signoff",
+      "stage_id": "solution",
+      "stage_attempt_id": "8f4666ac-4383-436d-8662-2ecb5effc90e",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T13:46:10.914Z",
+      "ended_at": "2026-11-02T13:46:10.914Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed good to go; Efforts.md simplified to single implementable ticket per developer request; Estimate filled in (3h)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "gate-round-01",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "4fa51066-d1bf-41d1-8f99-781cd8d89133",
+      "step": null,
+      "design_revision": 1,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T13:54:55.148Z",
+      "ended_at": "2026-11-02T13:54:55.148Z",
+      "result": "passed",
+      "evidence_ref": "PR https://github.com/DataArt/artisyn-harness/pull/9 approved by Anton Merkulov, no concerns",
+      "source": "developer confirmation",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "publish-signoff",
+      "stage_id": "publish",
+      "stage_attempt_id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
+      "step": null,
+      "design_revision": 1,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T14:34:27.339Z",
+      "ended_at": "2026-11-02T14:34:27.339Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue (after keywords field, table conversions, from/to and ID-type clarifications, worked example added, and 2 rounds of architect-review corrections)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "completion-signoff",
+      "stage_id": "completion",
+      "stage_attempt_id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+      "step": null,
+      "design_revision": 1,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T14:39:32.134Z",
+      "ended_at": "2026-11-02T14:39:32.134Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-02T14:39:43.467Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": 20845.574,
+    "observed_work_seconds": 16628.464999999997,
+    "observed_wait_seconds": 3741.6040000000003,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 3741.6040000000003,
+    "unclassified_seconds": 475.5430000000042,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 2849.902,
+    "failed_checks": 0,
+    "first_pass_verification_rate": 1,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  }
+}

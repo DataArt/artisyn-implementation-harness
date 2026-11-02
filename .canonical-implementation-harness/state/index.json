@@ -214,8 +214,8 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/TEMPLATE.md": {
-      "recorded_sha256": "df47dce16cf1fbfac1965d3313254a19226ff0ee615c77a7d6e365f4772c35d8",
-      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+      "recorded_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
+      "snapshot": "bundle:edc3be8b-29d2-4963-af01-d8e57c41dd90"
     },
     "canonical/skills/design/interfaces/architecture.md": {
       "recorded_sha256": "9cf39916c24401ca61d5f64193e79c5dc9b26c3a2065845139a8221bb7ffbb1e",
@@ -774,11 +774,18 @@
     },
     ".claude/skills/design/SKILL.md": {
       "canonical_source": "canonical/skills/design/TEMPLATE.md",
-      "canonical_sha256": "df47dce16cf1fbfac1965d3313254a19226ff0ee615c77a7d6e365f4772c35d8",
-      "deployed_sha256": "01fcb1621a255b03f46e154daa860cfbd1d800c481ee7abb7179a190c99da40a",
-      "rendered_base": "01fcb1621a255b03f46e154daa860cfbd1d800c481ee7abb7179a190c99da40a",
-      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
-      "provider": "claude"
+      "canonical_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
+      "deployed_sha256": "46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e",
+      "rendered_base": "46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e",
+      "note": "harvest receipt from bundle edc3be8b-29d2-4963-af01-d8e57c41dd90; deployed_sha256/rendered_base updated to match the already-identical live file (no placeholder substitution differs for this project's own dogfood deployment of this change)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e",
+        "promoted_canonical_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
+        "excluded_local_only_changes": [],
+        "bundle": "edc3be8b-29d2-4963-af01-d8e57c41dd90",
+        "observed_at": "2026-11-02T14:54:57Z"
+      }
     },
     ".claude/skills/design/interfaces/architecture.md": {
       "canonical_source": "canonical/skills/design/interfaces/architecture.md",

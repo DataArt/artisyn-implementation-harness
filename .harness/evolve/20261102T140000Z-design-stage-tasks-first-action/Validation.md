@@ -1,0 +1,44 @@
+# Validation plan — design: tracker creation is Resume Detection's first action
+
+Candidate: `20261102T140000Z-design-stage-tasks-first-action`
+Baseline hash: `01fcb1621a255b03f46e154daa860cfbd1d800c481ee7abb7179a190c99da40a`
+Candidate hash: `46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e`
+(revised once during this Validate pass — see note below)
+
+Method for all scenarios: manual behavioral walkthrough of the candidate
+`SKILL.md` text against representative inputs — this is not a runtime test
+(no automated behavioral harness exists for `/design` yet, a separate known
+gap tracked in `docs/Harness/06 Roadmap/01 Harness Roadmap.md` §5.2).
+
+## Acceptance criteria under test
+
+See `Report.md`'s Acceptance criteria (1–4).
+
+## Scenario table
+
+| #   | Category                               | Input / context                                                                            | Expected behavior                                                                                                                                | Method                                                                                                              | Actual outcome                                                                                                                                                                                                                                                                                                                                                                              | Evidence                                                                        | Result                    |
+| --- | -------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------- |
+| 1   | Positive (intended use)                | Fresh full-chain `/design` entry, free-form input, no existing tracker                     | Tracker (10 tasks, chained in order) exists before the Step 3 confirmation prompt is shown                                                       | Behavioral walkthrough                                                                                              | Step 1's "No files found" branch now creates the tracker inline, immediately, before Phase 1 — Step 3 doesn't even apply on a fresh start (no existing design to confirm resuming)                                                                                                                                                                                                          | Candidate lines ~116–121                                                        | pass                      |
+| 2   | Positive (intended use)                | Fresh direct-stage entry, e.g. `/design frame {ticket}`, no existing tracker               | Single-stage task exists before that stage's own Step 1 begins                                                                                   | Behavioral walkthrough                                                                                              | Same Step 1 branch applies regardless of full-chain vs. direct-stage entry; unit list is resolved by the Stage-tasks section's own rule ("direct single-stage invocation... unit list is just that one stage")                                                                                                                                                                              | Candidate lines ~116–121, ~190                                                  | pass                      |
+| 3   | Regression (existing behavior at risk) | Resumed design — tracker already exists from an earlier session                            | No duplicate tasks created; stage statuses reflect what Report.md already shows, not all-pending                                                 | Behavioral walkthrough                                                                                              | **First draft failed this scenario**: it created the tracker before Step 2 read Report.md, so a resumed design in a new session would get a tracker with no knowledge of already-completed stages. Revised: tracker creation for the resume path moved to immediately after Step 2's artifact table, explicitly instructed to set initial statuses from that table. Re-walked: now correct. | Candidate: new "Resuming an existing design" paragraph after the artifact table | pass (after one revision) |
+| 4   | Regression (existing behavior at risk) | Research/Evaluate/Solution stage with 2+ confirmed decisions (decision-router loop active) | Per-decision child tasks still created under the stage-level task, same shape as before                                                          | Behavioral walkthrough; confirmed `references/00-decision-router.md` is untouched by this candidate                 | `00-decision-router.md`'s own "Tracking each decision as a task" section is a separate file, not modified                                                                                                                                                                                                                                                                                   | grep confirms the candidate only changes `SKILL.md`                             | pass                      |
+| 5   | Non-trigger / negative check           | Single-decision design (decision-router loop not active)                                   | No per-decision child tasks are invented; only the one stage-level task exists, same as baseline                                                 | Behavioral walkthrough                                                                                              | Unaffected — same reasoning as #4                                                                                                                                                                                                                                                                                                                                                           | —                                                                               | pass                      |
+| 6   | Structural check                       | Candidate `SKILL.md`                                                                       | Frontmatter unchanged (name/version/description), no broken references to `references/*.md` or `patterns/*.md`, no new caller-wiring requirement | Diff against baseline frontmatter; grep all `references/*.md`/`patterns/*.md` mentions and confirm each file exists | Frontmatter byte-identical to baseline; all 19 referenced pattern/reference files exist on disk                                                                                                                                                                                                                                                                                             | `diff`/`grep` output this session                                               | pass                      |
+
+## Tool/runtime limitations
+
+None anticipated — this is a prose/instruction-file change with no executable
+code path; "execution" here means a behavioral walkthrough (tracing the
+candidate's instructions against representative inputs), not running a test
+suite, since `/design` has no automated behavioral test harness yet (a
+separate, already-known gap — see `docs/Harness/06 Roadmap/01 Harness Roadmap.md`
+§5.2).
+
+## Verdict
+
+**Pass** — all 6 scenarios pass against the revised candidate
+(`46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e`). One
+failure was found and fixed during this same Validate pass (scenario 3, the
+resume-path ordering bug); re-walked clean afterward. Eligible for Adopt.
+Limitation: all evidence is a manual behavioral walkthrough, not an automated
+test run — no regression suite exists for `/design` to execute instead.
