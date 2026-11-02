@@ -1,0 +1,43 @@
+<div class="graph-explorer">
+  <p v-if="loadFailed" class="graph-explorer-note">
+    Live query unavailable — showing the graph as of the last site build.
+  </p>
+
+  <fieldset class="graph-explorer-filters">
+    <legend>Tiers</legend>
+    <label v-for="tier in tiers" :key="tier" class="graph-explorer-filter">
+      <input type="checkbox" v-model="tierEnabled[tier]" />
+      <span class="graph-explorer-filter-swatch" :style="{ backgroundColor: tierColor(tier) }"></span>
+      {{ tier }}
+    </label>
+  </fieldset>
+
+  <fieldset class="graph-explorer-filters">
+    <legend>Edges</legend>
+    <label v-for="group in edgeGroups" :key="group" class="graph-explorer-filter">
+      <input type="checkbox" v-model="edgeGroupEnabled[group]" />
+      {{ edgeGroupLabels[group] }}
+    </label>
+  </fieldset>
+
+  <div ref="canvasEl" class="graph-explorer-canvas"></div>
+
+  <table v-for="[tier, rows] in grouped" :key="tier" class="graph-explorer-table">
+    <caption :style="{ color: tierColor(tier) }">{{ tier }}</caption>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Path</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="doc in rows" :key="doc.id">
+        <td>
+          <a v-if="docUrl(doc.path)" :href="docUrl(doc.path)" target="_blank" rel="noopener">{{ doc.title ?? doc.path }}</a>
+          <template v-else>{{ doc.title ?? doc.path }}</template>
+        </td>
+        <td><code>{{ doc.path }}</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

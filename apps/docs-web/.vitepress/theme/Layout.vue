@@ -3,7 +3,7 @@ import DefaultTheme from 'vitepress/theme';
 import { useRoute } from 'vitepress';
 import { computed } from 'vue';
 import GiscusComments from './GiscusComments.vue';
-import GraphExplorer from './GraphExplorer.vue';
+import GraphExplorer from './GraphExplorer/GraphExplorer.vue';
 import SidebarToggles from './SidebarToggles.vue';
 import SidebarFocusToggle from './SidebarFocusToggle.vue';
 

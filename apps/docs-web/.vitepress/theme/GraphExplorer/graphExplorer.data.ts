@@ -10,16 +10,24 @@ export interface GraphDoc {
   title: string | null;
 }
 
+export interface GraphEdge {
+  from_id: string;
+  to_id: string;
+  edge_type: string;
+  derived: number;
+}
+
 export interface GraphExplorerData {
   docs: GraphDoc[];
+  edges: GraphEdge[];
 }
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const DB_FILE = path.resolve(dirname, '../../../../docs/.og/docs-operational-graph.sqlite');
+const DB_FILE = path.resolve(dirname, '../../../../../docs/.og/docs-operational-graph.sqlite');
 
 // Build-time query, read directly from the same sqlite `site-build.sh` keeps
 // current via `cli.mjs build` before this runs. This is the fallback render
-// GraphExplorer.vue falls back to when the client-side live query (fetch +
+// GraphExplorer falls back to when the client-side live query (fetch +
 // sql.js) fails — never a blank or broken page.
 export default defineLoader({
   watch: [DB_FILE],
@@ -29,9 +37,20 @@ export default defineLoader({
       const docs = db
         .prepare('SELECT id, tier, path, title FROM docs ORDER BY tier, title')
         .all() as unknown as GraphDoc[];
-      return { docs };
+      const edges = db
+        .prepare('SELECT from_id, to_id, edge_type, derived FROM edges')
+        .all() as unknown as GraphEdge[];
+      return { docs, edges };
     } finally {
       db.close();
     }
   },
 });
+
+// VitePress's Vite plugin rewrites this module at load time to export a
+// `data` const (the `load()` result above) — a virtual transform `tsc`
+// can't see. This ambient declaration is type-only (erased, never
+// implemented here) so consumers can `import { data } from
+// './graphExplorer.data'` and have it typecheck, matching VitePress's own
+// documented pattern for typed data loaders.
+export declare const data: GraphExplorerData;
