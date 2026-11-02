@@ -3,11 +3,11 @@
 | Field  | Value                                                                                                          |
 | ------ | -------------------------------------------------------------------------------------------------------------- |
 | Ticket | DESIGN-20261102-Q5MU                                                                                           |
-| Branch | — _(set by Ceremony)_                                                                                          |
+| Branch | `feat/dev-20261102-q5mu-deterministic-docs-knowledge-graph`                                                    |
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
 | Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony 🔄 · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan 🔄 · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
 
 ## Progress
 
@@ -26,17 +26,17 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 34s · Wait: 0s · Unclassified: 0s
+Observed work: 34s · Wait: 10m 35s · Unclassified: 2m 20s
 
-| Stage      | Started (UTC)            | Completed (UTC) | Elapsed     | Work | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| ---------- | ------------------------ | --------------- | ----------- | ---- | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| context    | 2026-11-02T15:05:50.769Z | unavailable     | unavailable | 34s  | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| ceremony   | unavailable              | unavailable     | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| plan       | unavailable              | unavailable     | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| implement  | unavailable              | unavailable     | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| test       | unavailable              | unavailable     | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| document   | unavailable              | unavailable     | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| completion | unavailable              | unavailable     | unavailable | 0s   | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| ---------- | ------------------------ | ------------------------ | ----------- | ---- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| context    | 2026-11-02T15:05:50.769Z | 2026-11-02T15:17:00.097Z | 11m 9s      | 34s  | 10m 35s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| ceremony   | 2026-11-02T15:17:08.011Z | unavailable              | unavailable | 0s   | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| plan       | unavailable              | unavailable              | unavailable | 0s   | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| implement  | unavailable              | unavailable              | unavailable | 0s   | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| test       | unavailable              | unavailable              | unavailable | 0s   | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| document   | unavailable              | unavailable              | unavailable | 0s   | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| completion | unavailable              | unavailable              | unavailable | 0s   | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 
 Quality (recorded inventory): findings 0 · open 0 · PR findings 0 · critical 0 · debt 0 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
@@ -47,7 +47,7 @@ Quality (recorded inventory): findings 0 · open 0 · PR findings 0 · critical 
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 34s · Wait: 0s · Unclassified: 0s
+Observed work: 34s · Wait: 10m 35s · Unclassified: 2m 20s
 
 | Step | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks | Flags |
 | ---- | ------------- | --------------- | ------- | ---- | ---- | ------------ | ------------- | -------- | -------- | ------------- | ----- |

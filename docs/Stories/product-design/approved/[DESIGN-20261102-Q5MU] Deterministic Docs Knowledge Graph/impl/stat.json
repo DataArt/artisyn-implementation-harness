@@ -12,22 +12,30 @@
   "stages": [
     {
       "id": "context",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "0cce2413-a645-4707-a696-a1f6edae6e92",
           "started_at": "2026-11-02T15:05:50.769Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T15:17:00.097Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "ceremony",
-      "status": "pending",
-      "attempts": [],
+      "status": "active",
+      "attempts": [
+        {
+          "id": "38e09502-cb44-4682-be7c-b2c364970182",
+          "started_at": "2026-11-02T15:17:08.011Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -83,8 +91,30 @@
       "reason": "approval",
       "detail": "Awaiting context sign-off",
       "started_at": "2026-11-02T15:06:25.161Z",
+      "ended_at": "2026-11-02T15:17:00.050Z",
+      "last_observed_at": "2026-11-02T15:17:00.050Z"
+    },
+    {
+      "id": "de6bc7b0-f33a-4d04-8a2f-2486023e4737",
+      "stage_id": "context",
+      "stage_attempt_id": "0cce2413-a645-4707-a696-a1f6edae6e92",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-02T15:17:00.050Z",
+      "ended_at": "2026-11-02T15:17:00.097Z",
+      "last_observed_at": "2026-11-02T15:17:00.097Z"
+    },
+    {
+      "id": "4d4bb24f-3d90-4fb2-862b-0b68b8a8b264",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "38e09502-cb44-4682-be7c-b2c364970182",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-02T15:17:08.011Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-02T15:06:25.161Z"
+      "last_observed_at": "2026-11-02T15:17:08.011Z"
     }
   ],
   "checks": [
@@ -102,21 +132,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "ceremony-signoff-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "38e09502-cb44-4682-be7c-b2c364970182",
+      "step": null,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T15:18:55.861Z",
+      "ended_at": "2026-11-02T15:18:55.861Z",
+      "result": "passed",
+      "evidence_ref": "checked out feat/dev-20261102-q5mu-deterministic-docs-knowledge-graph",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T15:16:03.111Z",
+    "as_of": "2026-11-02T15:19:19.930Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 34.392,
-    "observed_wait_seconds": 0,
+    "observed_work_seconds": 34.439,
+    "observed_wait_seconds": 634.889,
     "open_work_seconds": 0,
-    "open_wait_seconds": 577.95,
-    "unclassified_seconds": 0.03999999999984993,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 139.87300000000005,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 0,
+    "approval_wait_seconds": 634.889,
     "failed_checks": 0,
     "first_pass_verification_rate": null,
     "human_reported_seconds": null,
@@ -125,7 +170,7 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T15:16:03.110Z",
+    "as_of": "2026-11-02T15:19:19.929Z",
     "source": "2-report.md",
     "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
     "findings": {
