@@ -16,10 +16,20 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: review-gate
-completed_stages: ['context-gathering', 'ceremony', 'frame', 'research', 'evaluate', 'solution']
+current_stage: publish
+completed_stages:
+  [
+    'context-gathering',
+    'ceremony',
+    'frame',
+    'research',
+    'evaluate',
+    'solution',
+    'review-gate',
+    'address-feedback (skipped)',
+  ]
 selected_artifacts: ['architecture', 'design', 'stack', 'efforts']
-next_action: 'Review Gate — open draft MR'
+next_action: 'Publish — doc impact identification and updates, via @docs-writer'
 context_fingerprint: ''
 ```
 
@@ -36,12 +46,12 @@ context_fingerprint: ''
 
 ## Status
 
-| Field  | Value                                                                                                                                                                               |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ticket | DESIGN-20261102-Q5MU                                                                                                                                                                |
-| Branch | `docs/design-20261102-q5mu-deterministic-docs-knowledge-graph`                                                                                                                      |
-| Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Field  | Value                                                                                                                                                                                         |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ticket | DESIGN-20261102-Q5MU                                                                                                                                                                          |
+| Branch | `docs/design-20261102-q5mu-deterministic-docs-knowledge-graph`                                                                                                                                |
+| Status | 🔄 In Progress                                                                                                                                                                                |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -51,7 +61,7 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 3h 52m 25s · Wait to date: 56m 15s (closed 37m 54s + current 18m 21s) · Unclassified: 5m 37s
+Observed work: 3h 56m 37s · Wait to date: 59m 24s (closed 59m 24s + current 0s) · Unclassified: 6m 54s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work      | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | --------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -60,9 +70,9 @@ Observed work: 3h 52m 25s · Wait to date: 56m 15s (closed 37m 54s + current 18m
 | frame (completed)             | 2026-11-02T09:04:44.931Z | 2026-11-02T09:28:27.445Z | 23m 43s     | 21m 32s   | 2m 10s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | research (completed)          | 2026-11-02T09:28:41.207Z | 2026-11-02T12:48:55.785Z | 3h 20m 15s  | 3h 0m 41s | 19m 34s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | evaluate (completed)          | 2026-11-02T12:49:44.883Z | 2026-11-02T13:13:15.819Z | 23m 31s     | 7m 56s    | 15m 35s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (waiting)            | 2026-11-02T13:14:06.247Z | unavailable              | unavailable | 14m 8s    | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| solution (completed)          | 2026-11-02T13:14:06.247Z | 2026-11-02T13:47:55.599Z | 33m 49s     | 14m 8s    | 19m 41s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| review-gate (completed)       | 2026-11-02T13:48:04.503Z | 2026-11-02T13:54:55.194Z | 6m 51s      | 4m 12s    | 1m 49s  | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
+| address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | publish (pending)             | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | completion (pending)          | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
@@ -271,9 +281,9 @@ Overall: pass, with the Mermaid-CLI limitation recorded as a known gap (no CLI i
 
 ## Gate
 
-- Approver: —
-- Draft MR: —
-- Approved: — _(a date once approved, or `declined`)_
+- Approver: Anton Merkulov
+- Draft MR: https://github.com/DataArt/artisyn-harness/pull/9
+- Approved: 2026-11-02
 - Decline reason: — _(filled in by Address Feedback only if declined)_
 
 ---

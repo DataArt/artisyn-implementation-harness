@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lifecycle": "design",
-  "design_revision": 0,
+  "design_revision": 1,
   "ticket": "DESIGN-20261102-Q5MU",
   "tracking_started_at": "2026-11-02T08:52:17.848Z",
   "ticket_created_at": null,
@@ -77,26 +77,44 @@
     },
     {
       "id": "solution",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "8f4666ac-4383-436d-8662-2ecb5effc90e",
           "started_at": "2026-11-02T13:14:06.247Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T13:47:55.599Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "b51c84cd-57df-4b56-afb8-da4a9ff17211",
+          "started_at": "2026-11-02T13:48:04.503Z",
+          "ended_at": "2026-11-02T13:54:04.860Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        },
+        {
+          "id": "4fa51066-d1bf-41d1-8f99-781cd8d89133",
+          "started_at": "2026-11-02T13:54:55.105Z",
+          "ended_at": "2026-11-02T13:54:55.194Z",
+          "trigger": "reopened",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "address-feedback",
-      "status": "pending",
-      "attempts": []
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "Confirmed MR approval, no concerns raised",
+      "skipped_at": "2026-11-02T13:54:55.237Z"
     },
     {
       "id": "publish",
@@ -293,8 +311,42 @@
       "reason": "user_input",
       "detail": "Awaiting Solution commit",
       "started_at": "2026-11-02T13:46:39.367Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-02T13:46:39.367Z"
+      "ended_at": "2026-11-02T13:47:55.599Z",
+      "last_observed_at": "2026-11-02T13:47:55.599Z"
+    },
+    {
+      "id": "1a96531f-dc6f-4e86-a488-8fb0ccfa51c2",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "b51c84cd-57df-4b56-afb8-da4a9ff17211",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T13:48:04.503Z",
+      "ended_at": "2026-11-02T13:52:15.930Z",
+      "last_observed_at": "2026-11-02T13:52:15.930Z"
+    },
+    {
+      "id": "2f9c7c84-cb54-40b7-a616-a0b3d35a2d53",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "b51c84cd-57df-4b56-afb8-da4a9ff17211",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting MR approval/outcome: approver Anton Merkulov, MR https://github.com/DataArt/artisyn-harness/pull/9",
+      "started_at": "2026-11-02T13:52:15.930Z",
+      "ended_at": "2026-11-02T13:54:04.860Z",
+      "last_observed_at": "2026-11-02T13:54:04.860Z"
+    },
+    {
+      "id": "9d5b1b86-14cb-4923-828c-669c596e9b56",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "4fa51066-d1bf-41d1-8f99-781cd8d89133",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-02T13:54:55.105Z",
+      "ended_at": "2026-11-02T13:54:55.194Z",
+      "last_observed_at": "2026-11-02T13:54:55.194Z"
     }
   ],
   "checks": [
@@ -409,22 +461,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "gate-round-01",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "4fa51066-d1bf-41d1-8f99-781cd8d89133",
+      "step": null,
+      "design_revision": 1,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T13:54:55.148Z",
+      "ended_at": "2026-11-02T13:54:55.148Z",
+      "result": "passed",
+      "evidence_ref": "PR https://github.com/DataArt/artisyn-harness/pull/9 approved by Anton Merkulov, no concerns",
+      "source": "developer confirmation",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T13:46:39.368Z",
+    "as_of": "2026-11-02T13:55:12.348Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 13945.321999999998,
-    "observed_wait_seconds": 3378.7160000000003,
+    "observed_work_seconds": 14196.837999999998,
+    "observed_wait_seconds": 3563.878,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 3378.7170000000006,
-    "unclassified_seconds": 337.4810000000018,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 3563.878,
+    "unclassified_seconds": 413.7840000000019,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 2631.4970000000003,
+    "approval_wait_seconds": 2740.427,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
