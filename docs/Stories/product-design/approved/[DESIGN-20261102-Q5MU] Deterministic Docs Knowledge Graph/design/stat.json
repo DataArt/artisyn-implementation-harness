@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-02T08:52:17.886Z",
-  "completed_at": null,
+  "completed_at": "2026-11-02T14:39:43.460Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -118,21 +118,29 @@
     },
     {
       "id": "publish",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "23da47c7-daf3-4e05-87ca-9154e8d0ef47",
           "started_at": "2026-11-02T13:55:57.645Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T14:36:15.845Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+          "started_at": "2026-11-02T14:36:32.260Z",
+          "ended_at": "2026-11-02T14:39:43.413Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     }
   ],
   "steps": [],
@@ -376,8 +384,31 @@
       "reason": "user_input",
       "detail": "Awaiting Publish commit",
       "started_at": "2026-11-02T14:35:07.594Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-02T14:35:07.594Z"
+      "ended_at": "2026-11-02T14:36:15.845Z",
+      "last_observed_at": "2026-11-02T14:36:15.845Z"
+    },
+    {
+      "id": "301f3302-d342-45b7-877f-46409a69c0e7",
+      "stage_id": "completion",
+      "stage_attempt_id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-02T14:36:32.260Z",
+      "ended_at": "2026-11-02T14:37:53.938Z",
+      "last_observed_at": "2026-11-02T14:37:53.938Z"
+    },
+    {
+      "id": "45606f93-be4c-40c0-8407-b45d38d13f43",
+      "stage_id": "completion",
+      "stage_attempt_id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting completion sign-off",
+      "started_at": "2026-11-02T14:37:53.938Z",
+      "ended_at": "2026-11-02T14:39:43.413Z",
+      "last_observed_at": "2026-11-02T14:39:43.413Z"
     }
   ],
   "checks": [
@@ -524,22 +555,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "completion-signoff",
+      "stage_id": "completion",
+      "stage_attempt_id": "8d4db305-eb45-487c-b1d7-7d95605030ad",
+      "step": null,
+      "design_revision": 1,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T14:39:32.134Z",
+      "ended_at": "2026-11-02T14:39:32.134Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed: good to go, continue",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T14:35:07.594Z",
+    "as_of": "2026-11-02T14:39:43.467Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 16546.786999999997,
-    "observed_wait_seconds": 3563.878,
+    "cycle_time_seconds": 20845.574,
+    "observed_work_seconds": 16628.464999999997,
+    "observed_wait_seconds": 3741.6040000000003,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 3563.878,
-    "unclassified_seconds": 459.0810000000024,
+    "wait_seconds_to_date": 3741.6040000000003,
+    "unclassified_seconds": 475.5430000000042,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 2740.427,
+    "approval_wait_seconds": 2849.902,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,

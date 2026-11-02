@@ -47,12 +47,12 @@ context_fingerprint: ''
 
 ## Status
 
-| Field  | Value                                                                                                                                                                                         |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ticket | DESIGN-20261102-Q5MU                                                                                                                                                                          |
-| Branch | `docs/design-20261102-q5mu-deterministic-docs-knowledge-graph`                                                                                                                                |
-| Status | 🔄 In Progress                                                                                                                                                                                |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ✅ · 🏁 Completion 🔄 |
+| Field  | Value                                                                                                                                                                               |
+| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ticket | DESIGN-20261102-Q5MU                                                                                                                                                                |
+| Branch | `docs/design-20261102-q5mu-deterministic-docs-knowledge-graph`                                                                                                                      |
+| Status | ✅ Complete                                                                                                                                                                         |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ✅ · 📤 Publish ✅ · 🏁 Completion ✅ |
 
 ---
 
@@ -62,7 +62,7 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 3h 56m 37s · Wait to date: 59m 24s (closed 59m 24s + current 0s) · Unclassified: 46m 49s
+Observed work: 4h 37m 8s · Wait to date: 1h 2m 22s (closed 1h 0m 32s + current 1m 49s) · Unclassified: 7m 55s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work      | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | --------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -74,8 +74,8 @@ Observed work: 3h 56m 37s · Wait to date: 59m 24s (closed 59m 24s + current 0s)
 | solution (completed)          | 2026-11-02T13:14:06.247Z | 2026-11-02T13:47:55.599Z | 33m 49s     | 14m 8s    | 19m 41s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (completed)       | 2026-11-02T13:48:04.503Z | 2026-11-02T13:54:55.194Z | 6m 51s      | 4m 12s    | 1m 49s  | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (active)              | 2026-11-02T13:55:57.645Z | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s        | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (completed)           | 2026-11-02T13:55:57.645Z | 2026-11-02T14:36:15.845Z | 40m 18s     | 39m 10s   | 1m 8s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (waiting)          | 2026-11-02T14:36:32.260Z | unavailable              | unavailable | 1m 22s    | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -300,12 +300,15 @@ Overall: pass, with the Mermaid-CLI limitation recorded as a known gap (no CLI i
 | 2026-11-02 | Evaluate          | Recommended: D1 SQLite/`node:sqlite`, D2 Option 3 (tier-typed + mirror edge), D3 Option B (hybrid agent+CI script), D4 Option D (both surfaces, IDE mechanism open), D5 Option B revised (required read+automated write), D6 Option B+ revised (proactive launch-time index + collision-safe ID auto-assignment). WAF: all 6 green-to-amber, no red; 9 P1 items. Developer-driven revisions merged automated-write/ID-autoassignment into D5/D6 after reviewing why C/D were originally disqualified.                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | 2026-11-02 | Solution          | Selected artifacts written: `Architecture.md` (6-decision integrated record), 6× `Design - {Decision}.md`, `Stack.md`, `Efforts.md`. Architect review: 2 iterations, 3 mechanical findings auto-applied, clean on re-review. WAF (solution target): 🟡🟢🟡🟡🟢🟢, 0 P1. Quality gate: pass (Mermaid CLI unavailable, syntax inspection used). Developer requests: added `title`/`purpose` columns + frontmatter format spec to storage schema; genericized `docs/Harness/` → `docs/Product/` placeholder in illustrative examples (kept real citations/this design's own Publish destination unchanged); simplified `Efforts.md` from a 14-item WBS to a single implementable ticket with 11 ordered build steps, estimated at 3h, ending in a `/harness-bootstrap launch` validation run.                                                                                                                                                                |
 | 2026-11-02 | Publish           | Updated `docs/Harness/07 Knowledge Graph/` (new section: `index.md`, `01 Ops Model.md`, `02 Storage and Build Model.md`, `03 Visualization Model.md`) + `docs/Harness/index.md` Sections row + VitePress nav (auto-scanned, no edit needed). All 6 decisions represented across the 3 content pages. Skipped `06 Roadmap/01 Harness Roadmap.md` cross-reference per developer call. Architect review: 4 rounds (CI-label fix; CloudFront/S3/Web-container/VitePress leaks; ungrounded "Graph type" framing trimmed to developer-confirmed facts; final clean pass), clean OK each time after corrections. Developer additions during Publish: `keywords` schema field, prose→table conversions, from/to-vs-parent_id and string-ID-vs-integer clarifications, worked example section — added to both the solution doc and the published doc, re-reviewed clean. Fixed one real Mermaid bug (invalid `classDef`/`class` inside a `sequenceDiagram` block). |
+| 2026-11-02 | Completion        | Implementation ticket not published to Jira — developer chose `/dev` directly in this repo, consistent with the Implementation note. Archived to `docs/Stories/product-design/approved/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph`; no relative links needed fixing (no `../` references in any moved file). No tracker sync — this design was never tied to a real Jira ticket (local `DESIGN-` ID). Observed work: 4h 35m 47s.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 
 ---
 
 ## Implementation Tickets
 
 _Filled in during Completion after implementation tickets are created._
+
+Not published to a tracker — developer chose to implement directly via `/dev` in this repo, consistent with this design's Implementation note (this repo is the harness's own canonical source). Single combined implementation unit: `solution/Efforts.md` (11 ordered build steps, ending in a `/harness-bootstrap launch` validation run, estimated at 3h).
 
 | Ticket | Summary | Tracker |
 | ------ | ------- | ------- |
