@@ -73,6 +73,16 @@ From the plan, the report, the audit and the structure article, list every doc o
 section this change touches. One row each, with the tier from the structure article
 and the action:
 
+Also query the graph for each doc actually touched by implementation, not just
+the plan's original scope — implementation can diverge from the plan, and a
+plan-only read misses impact the graph already knows about. Attempt `node
+docs/.og/cli.mjs query --related-to <doc> --dir .` (or `search --term <text>`)
+against `docs/.og/docs-operational-graph.sqlite` for each touched doc. Required
+(not best-effort): when the graph is missing, stale, or the call errors, fall
+back to grep/glob over `docs/` for the same information. Either way, never let
+this block the stage — fold anything it surfaces into the table below like any
+other source.
+
 | Doc / section                                                         | Tier       | Action  | Why                                |
 | --------------------------------------------------------------------- | ---------- | ------- | ---------------------------------- |
 | `<app root>/README.md` → Env vars                                     | App README | updated | new `<VAR>` read at startup        |

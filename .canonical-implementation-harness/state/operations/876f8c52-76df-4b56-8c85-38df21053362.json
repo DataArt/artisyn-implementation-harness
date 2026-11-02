@@ -1,0 +1,52 @@
+{
+  "schema_version": 2,
+  "id": "876f8c52-76df-4b56-8c85-38df21053362",
+  "mode": "apply",
+  "status": "applied",
+  "created_at": "2026-11-02T22:48:00Z",
+  "scope": "DESIGN-20261102-Q5MU canonical edits, provider claude",
+  "package_version": "3.2.0",
+  "applies": [
+    {
+      "bundle": "f71b3e6b-b94e-4c11-abe0-f9725ea148cb",
+      "operation": "prepare",
+      "package_version": "3.2.0",
+      "note": "Deterministic docs operational graph: docs/.og/ module, reindex-graph route, dev/design lifecycle read-path + doc-impact-identification wiring, 01d-launch-graph-verify.md rename, Principles.md frontmatter rule"
+    }
+  ],
+  "providers": ["claude"],
+  "provider_scope_source": "canonical/manifest.json destinations present on disk: .claude/skills, .claude/agents; no .codex/other provider outputs installed",
+  "canonical_writes": "none beyond this bundle's own prepare step (SKILL.md version bump, CHANGELOG.md entry) -- already recorded in bundle f71b3e6b",
+  "baseline_provenance": "each mapped output's current content read directly from disk; canonical diff applied as a surgical insert at the matching location, preserving every existing substitution already rendered in the live file -- never a blind re-render/overwrite",
+  "decisions": [
+    {
+      "item": "docs/Engineering Guide/Documentation/01 Principles.md",
+      "decision": "this ticket's own \"Operational graph frontmatter\" bullet (plus a quoting-rule sentence canonical itself still lacks) was already mirrored directly into this live file during Implement (RF-018/RF-029) -- verified already present, no write made. The file has large unrelated structural drift from canonical predating this ticket (same pattern a prior apply, 6678df37, already documented for this exact file) -- not reconciled here"
+    },
+    {
+      "item": "canonical/skills/design/TEMPLATE.md",
+      "decision": "excluded -- not touched by this ticket, pre-existing checkpoint-integrity problem unrelated to this ticket, flagged to the developer separately, not fixed here"
+    },
+    {
+      "item": "canonical/agents/docs-writer/INTENT.md, canonical/docs/Engineering Guide/05 MCP Setup.md, canonical/docs/Engineering Guide/Documentation/07 Terminology.md",
+      "decision": "excluded -- pre-existing drift from 2026-10-06/07, not touched by this ticket's commits"
+    },
+    {
+      "item": "docs/.og/{cli,constants,docs,edges,schema,utils}.mjs",
+      "decision": "already byte-identical to canonical (deployed during an earlier live reindex-graph/launch validation run) -- verified, no write needed"
+    },
+    {
+      "item": "docs/.og/docs-operational-graph.sqlite",
+      "decision": "project's indexed db intentionally diverged from the canonical seed -- correct per the mapping's own rule; not touched"
+    },
+    {
+      "item": ".claude/skills/design/references/01-context-gathering.md",
+      "decision": "found and left alone a pre-existing, unrelated rendering bug (duplicated {{DESIGN_CONTEXT_STEP}} full-sentence substitution breaking a sentence) while inserting this ticket's own content next to it; flagged to the developer, not fixed here"
+    }
+  ],
+  "verification": [
+    "docs/.og/*.mjs sync verified via diff -q against canonical, all byte-identical",
+    "all 7 mapped file inserts (across both prepare rounds) verified by direct diff against the bundle's exact canonical diff hunks after insertion",
+    "redo folds in dev/references/06-document.md Step 3 and design/references/09-publish.md Step 2 doc-impact graph queries, requested by the developer after reviewing the first apply"
+  ]
+}

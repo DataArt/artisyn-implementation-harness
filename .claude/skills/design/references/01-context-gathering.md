@@ -62,6 +62,14 @@ to paste the summary/description/ECs manually if nothing else is available.
 
 Apply `.claude/skills/design/patterns/context-resolution.md` — resolve which track this is (Product or Project), then which subfolder within it, and write the resolved Track, Source docs, Dest docs, Stories root, Subfolder, Architect agent, and Implementation note into the `## Context` section of `design/Report.md` (created in this same step, at the resolved Stories root). The pattern also reads the resolved Source docs path and records into Evidence — see its own final paragraph.
 
+Before reading sources by hand, attempt `node docs/.og/cli.mjs search --term
+<text>` (or `query --related-to <doc>`) against `docs/.og/docs-operational-graph.sqlite` to
+surface docs already related to this ticket. Required (not best-effort): when
+the graph is missing, stale, or the call errors, fall back to grep/glob over
+`docs/` for the same information. Either way, never let this block the stage —
+and fold anything the graph (or its fallback) surfaces into Step 4's Evidence
+table like any other source.
+
 This identifies, among other fields, the **Stories root** — `{stories root}`
 — which decides where Step 4 creates the story folder — and the **Architect
 agent** — `{resolved architect agent}` — that Research, Solution, and Publish

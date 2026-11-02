@@ -1,0 +1,171 @@
+{
+  "schema_version": 2,
+  "bundle_id": "f71b3e6b-b94e-4c11-abe0-f9725ea148cb",
+  "mode": "prepare",
+  "status": "verified",
+  "created_at": "2026-11-02T22:42:51Z",
+  "providers": [],
+  "notes": "DESIGN-20261102-Q5MU direct canonical edits, packaged standalone before deployment. Redo of an earlier same-session bundle (220800d9-d2f7-42e7-9ac5-9671ea0d872e, discarded before release/application -- deleted from patch/, REGISTRY.md, APPLIED.md, and state/operations/ -- so no superseded-before-use bundle pollutes history) to fold in two developer-requested additions discovered during review: dev/references/06-document.md's Step 3 doc-impact list and design/references/09-publish.md's Step 2 doc-impact identification now also query the operational graph for docs related to what was ACTUALLY touched by implementation, not just the plan's original static scope (implementation can diverge from plan). Same package version 3.2.0 (never released). Bases: canonical/skills/{dev,design}/references/*.md, canonical/docs/Engineering Guide/Documentation/01 Principles.md, references/00-overview.md, references/launch/01-launch.md, and the references/launch/01d-launch-verify.md->01d-launch-graph-verify.md rename were all diffed from git merge-base aac5f67 (the ticket's branch point), byte-matching their recorded canonical_sha256 at that commit. SKILL.md and CHANGELOG.md diffed from bundle edc3be8b-29d2-4963-af01-d8e57c41dd90's verified after_sha256 (git commit 8f8dfff) -- an unrelated, already-applied harvest (design-tracker-resume-detection, merged to main independently of this ticket); edc3be8b added to requires. The 8 new canonical/docs/.og/* files are first-time adds. Excluded, unrelated to this ticket (confirmed via git log --oneline main..HEAD -- .canonical-implementation-harness/, only commits 09b6bf9/9437a1f/1fd154a/3ce5199 touch the package): canonical/skills/design/TEMPLATE.md (additionally has a genuine pre-existing checkpoint-integrity problem -- its recorded after_sha256 in bundle edc3be8b does not match any content it has ever actually had in git history; flagged separately, not fixed here), canonical/agents/docs-writer/INTENT.md, canonical/docs/Engineering Guide/05 MCP Setup.md, canonical/docs/Engineering Guide/Documentation/07 Terminology.md.",
+  "files": [
+    {
+      "path": "SKILL.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "e07c25001787579f298cc47630c69dbb3caa6196c34b899e5fb63dc61ba1f140",
+      "after_sha256": "8433bc945e4f7e141ab90c7ee0eb08083bb8f0f3fdc586bce4240eb38ffdd163",
+      "verification": "diff applied to recorded base (git commit 8f8dfff, bundle:edc3be8b-29d2-4963-af01-d8e57c41dd90's verified after_sha256); result hash verified"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "77ece40504c5c325628419a56cd8c062d8f9fea11bcf272e056b50074879f9b3",
+      "after_sha256": "318e2238cf4418e37d04a7bcc80b4cf7d7d7641324b9980f7291092ceaed63f3",
+      "verification": "diff applied to recorded base (git commit 8f8dfff, bundle:edc3be8b-29d2-4963-af01-d8e57c41dd90's verified after_sha256); result hash verified"
+    },
+    {
+      "path": "references/00-overview.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "53c748f8f06eea41506ebb95a1ea9b8a05ff03541c21395a50f6539245477c54",
+      "after_sha256": "04a9f916fb9b13dcb8e5fd629cf7e27450754b052b8765ef5452d0c68dc17022",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "references/launch/01-launch.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "9be316dc3a0649f87fef0a84a0f2c608ea1f85fd5607daeccda531df58b0dfd8",
+      "after_sha256": "6b99b01ff0dd8ab86a29eb8ec2658ff7a261d1a627fb1aaa597354b555312f52",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "1a0bb61a947307eda585be7a2735a6039ae564a856880dc3585030a4e7c0a9ad",
+      "after_sha256": "6bf8b7d0e952e899438d4bdde0b617036c6fa6fda2393294c8d70f28c02a8b7b",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/01-context-gathering.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "b7659885ec84f1839c467da12d0d1c032389d1a691cac2b5c39c734d867d4431",
+      "after_sha256": "68c45759e38f94312dee1a33ea5f7d025d17a9e5617f37ebc1ffffdfa4909c67",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/04-research.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "80d8423abea8a79638c49f94e0decb9104df4c71c0e08f103b0c413db8fb07fc",
+      "after_sha256": "54f5cb572d8c14c798bd6a804ae1091cb08393313270c2abe8d0ca71e74ddde9",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "canonical/skills/design/references/09-publish.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "68ea40c71ab7dc0ef4aacfc41b1e7177bebd4cd09c94286259cba6a4b6593ca2",
+      "after_sha256": "a44b59e3163077f148dc653b8cfca926f9ef862c987b27dfba036bcd3078304f",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "8091a0b4566c50f1f955842f843a75b66904edc807a544e9fde06d88893b0fa1",
+      "after_sha256": "17c4b0fa3f5931630fe7fdd25baf2536114cb84475e1773eda22fe56292872cd",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "canonical/skills/dev/references/06-document.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "2fd153a316f21e2cd8d1a19380bca03997267e836526c3f40a1ce08ad38bb322",
+      "after_sha256": "ce193713256b4579472de96bfc02d9030fee1596ab426ce92a72cffb2927a131",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "references/launch/01d-launch-graph-verify.md",
+      "old_path": "references/launch/01d-launch-verify.md",
+      "operation": "rename",
+      "before_sha256": "60e19f52fb49d00b1921e833a217212eeab5acd8e7e3278ba959133e05a2e4aa",
+      "after_sha256": "f93d60b8e59f59ad40522037f86abbbf7843d30d239a82eb8621be019d8699b6",
+      "verification": "diff applied to recorded base with git merge-base aac5f67; result hash verified"
+    },
+    {
+      "path": "references/reindex-graph.md",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "d4f6bca572310544b84b364d0242e72efa105e32175dc4470a3e7426c3f5e2be",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/cli.mjs",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "af648ac2bcc050cb97bc1e944f03a43072d27d709bc237ffe57d878db18d10dd",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/cli.test.mjs",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "e62b1c59417c3a3b5d26ea97d4aa3d85141fa6a18864c48c0f12f1c02595d3a3",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/constants.mjs",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/docs-operational-graph.sqlite",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "beacdb32a3498541ebf541c507b1364131c68814bf92ffa201313cb7d43756bc",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/docs.mjs",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/edges.mjs",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "900b0dd5fb624d86b3aefdeada953123132912307c8eea50ecb18af1402e9934",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/schema.mjs",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "81734aa303ff1755d818076317e6717f5524498d7cf8a687f1634492c6a0d5e8",
+      "verification": "full file payload hash verified"
+    },
+    {
+      "path": "canonical/docs/.og/utils.mjs",
+      "old_path": null,
+      "operation": "add",
+      "before_sha256": null,
+      "after_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
+      "verification": "full file payload hash verified"
+    }
+  ]
+}

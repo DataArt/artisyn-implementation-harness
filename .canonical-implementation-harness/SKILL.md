@@ -1,7 +1,7 @@
 ---
 name: harness-bootstrap
 metadata:
-  version: 3.1.0
+  version: 3.2.0
 description: >
   Install the portable AI-dev harness, rebuild its operational graph standalone,
   harvest project skill improvements into its canonical templates, package direct
@@ -20,7 +20,7 @@ Backup Owner: None
 Team: Harness / Platform
 Created: 2026-09-15
 Last Reviewed: 2026-11-02
-Version: 3.1.0
+Version: 3.2.0
 Purpose: Install the portable AI-dev harness, rebuild its operational graph standalone, harvest project skill improvements into its canonical templates, package direct canonical edits into a portable bundle, or apply canonical updates to an existing project.
 Data Class: Internal
 External Connections: None — operates on local project files; any MCP servers it configures for other skills (e.g. Jira/Confluence, AWS) are declared per-project in the generated `.mcp.json`, not used by this skill itself

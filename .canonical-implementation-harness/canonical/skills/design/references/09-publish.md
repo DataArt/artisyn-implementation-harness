@@ -33,6 +33,12 @@ Delegate to `{{DESIGN_ARCHITECT_AGENT}}` (read-only — no file writes):
   set of solution filenames.
 - Read `design/Report.md` WAF section (P1 items)
 - Read the relevant docs under `{{DESIGN_DOCS_ROOT}}` for the subfolder(s) this design touches
+- Also query the graph: `node docs/.og/cli.mjs search --term <text>` (or `query
+--related-to <doc>`) against `docs/.og/docs-operational-graph.sqlite` for docs
+  related to this design beyond what `design/Report.md` already names. Required
+  (not best-effort): when the graph is missing, stale, or the call errors, fall
+  back to grep/glob over `{{DESIGN_DOCS_ROOT}}` for the same information — either
+  way, never let this block the stage
 - Return: a list of specific `{{DESIGN_DOCS_ROOT}}` docs that need creating or updating, with the exact section and what settled decision to add or change — no rationale, no rejected options, no open questions (Certainty principle)
 - **Do not write or edit any files — return output only**
 

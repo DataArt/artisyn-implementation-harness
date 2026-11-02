@@ -54,14 +54,14 @@
     },
     {
       "id": "implement",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
           "started_at": "2026-11-02T16:18:59.739Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T22:47:40.454Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
@@ -996,18 +996,48 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "c7b822ac-4d49-4501-82c8-49d5e8568f34",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": null,
+      "name": "RF-038 doc-impact graph query wiring",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T22:46:57.232Z",
+      "ended_at": "2026-11-02T22:46:57.232Z",
+      "result": "passed",
+      "evidence_ref": "dev/06-document.md Step 3 and design/09-publish.md Step 2 both verified by direct diff against canonical after surgical insertion; redeployed via patch prepare/apply bundle f71b3e6b",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "9b0e3669-4a78-4072-9331-87da3ffca552",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": null,
+      "name": "Implement sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T22:47:40.372Z",
+      "ended_at": "2026-11-02T22:47:40.372Z",
+      "result": "passed",
+      "evidence_ref": "User: 'lets do those changes and run Test stage and then redo patch prepare-> apply -> release in same version 3.2.0' -- directed moving to Test with step 17 (release) still open as a developer-run guarded action",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T22:17:42.744Z",
+    "as_of": "2026-11-02T22:47:40.466Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
     "observed_work_seconds": 1328.9029999999998,
     "observed_wait_seconds": 13459.673999999999,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 11123.438000000002,
+    "unclassified_seconds": 12921.160000000003,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 3493.309,
