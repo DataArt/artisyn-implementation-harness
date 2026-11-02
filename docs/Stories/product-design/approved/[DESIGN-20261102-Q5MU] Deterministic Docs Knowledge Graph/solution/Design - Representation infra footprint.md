@@ -1,5 +1,7 @@
 ---
 id: 03fd1f93
+purpose: Specifies the single-module, dual-invocation-context design for running the docs graph script with no new infra
+keywords: [design, infra-footprint, docs-graph, invocation-contexts]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Representation / infra footprint

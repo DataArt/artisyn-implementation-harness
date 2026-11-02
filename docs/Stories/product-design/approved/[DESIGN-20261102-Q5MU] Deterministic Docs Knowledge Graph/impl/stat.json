@@ -272,14 +272,14 @@
       "order": 13,
       "plan_ref": "1-plan.md#step-13",
       "depends_on": ["step-09"],
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "e6cf5426-ef4d-4e22-b543-437dada72c07",
           "started_at": "2026-11-02T19:20:41.266Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T19:23:51.068Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
@@ -587,8 +587,8 @@
       "kind": "work",
       "activity": "implementation",
       "started_at": "2026-11-02T19:20:41.266Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-02T19:20:41.266Z"
+      "ended_at": "2026-11-02T19:23:51.068Z",
+      "last_observed_at": "2026-11-02T19:23:51.068Z"
     }
   ],
   "checks": [
@@ -869,66 +869,84 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "f996d09f-9e13-434b-a844-60b066069f9e",
+      "stage_id": "implement",
+      "stage_attempt_id": "c204b1cb-740f-45f9-9132-a16ecd890f7d",
+      "step": {
+        "id": "step-13",
+        "attempt_id": "e6cf5426-ef4d-4e22-b543-437dada72c07"
+      },
+      "name": "Step 13: skill route + reference + e2e scenario/case wired, deterministic checks pass",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T19:23:51.006Z",
+      "ended_at": "2026-11-02T19:23:51.006Z",
+      "result": "passed",
+      "evidence_ref": "SKILL.md route + references/reindex-graph.md + 00-overview.md row added; reindex-graph.ts scenario + grader + case spec + registry entries added; harness-bootstrap-e2e typecheck/lint/unit all pass (138/138); live agent-e2e run is guarded, developer's own call",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T19:21:06.765Z",
+    "as_of": "2026-11-02T20:47:48.019Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 933.7059999999999,
+    "observed_work_seconds": 1123.5079999999998,
     "observed_wait_seconds": 13459.673999999999,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 922.6560000000009,
+    "unclassified_seconds": 5934.108,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 3493.309,
     "failed_checks": 1,
-    "first_pass_verification_rate": 0.9,
+    "first_pass_verification_rate": 0.9090909090909091,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T19:21:06.761Z",
+    "as_of": "2026-11-02T20:47:48.013Z",
     "source": "2-report.md",
-    "source_sha256": "287f411ba0c9301732baba058dee3c353cf36d823deea88a5c8702b179fcb252",
+    "source_sha256": "cccc75606597584f8a372743d0b613fbb2621abc1f55138d5ee4af245f9eef13",
     "findings": {
-      "total": 21,
+      "total": 27,
       "by_kind": {
-        "deviation": 8,
-        "bug": 6,
+        "deviation": 12,
+        "bug": 7,
         "design": 0,
         "improve": 1,
         "security": 0,
         "performance": 0,
-        "docs": 6
+        "docs": 7
       },
       "by_severity": {
         "critical": 0,
         "high": 1,
-        "medium": 6,
-        "low": 14,
+        "medium": 7,
+        "low": 19,
         "info": 0
       },
       "by_classification": {
-        "introduced": 8,
+        "introduced": 9,
         "pre-existing": 1,
         "ruled-out": 1,
-        "advisory": 11
+        "advisory": 16
       },
       "by_resolution": {
         "open": 4,
-        "fixed": 11,
-        "accepted": 6,
+        "fixed": 13,
+        "accepted": 10,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
         "contradiction": 2,
-        "extension": 6,
+        "extension": 10,
         "omission": 0
       },
       "pr_review": {

@@ -1,5 +1,7 @@
 ---
 id: ac73bb4d
+purpose: Map the end-to-end adoption path from first client conversation to continuous improvement
+keywords: [adoption path, pre-sales, discovery, development, operate, improve]
 ---
 
 # Adoption Path

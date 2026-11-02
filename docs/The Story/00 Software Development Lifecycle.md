@@ -1,5 +1,7 @@
 ---
 id: 901b861b
+purpose: Explains the industry-wide SDLC story and what the ADLC engagement does about it
+keywords: [sdlc, story, adlc]
 ---
 
 # Software Development Lifecycle

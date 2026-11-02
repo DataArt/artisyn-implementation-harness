@@ -1,5 +1,7 @@
 ---
 id: bb22babb
+purpose: Landing page for the Harness product-context docs area, orienting readers to what the Artisyn Harness is and where its sections live
+keywords: [harness, overview, navigation, index]
 ---
 
 # Harness

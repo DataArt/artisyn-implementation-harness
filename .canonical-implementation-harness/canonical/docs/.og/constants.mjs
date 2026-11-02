@@ -18,10 +18,29 @@ export const EDGE_TYPES = Object.freeze([
   'impl-to-readme',
 ]);
 
-/** Computed (derived=1) edges, written only by build()/reindex()'s own HLD/LLD diff. */
-export const DERIVED_EDGE_TYPES = Object.freeze(['mirrors-consistent', 'mirrors-gap']);
+/** A doc pair sharing at least this many normalized `keywords:` tokens gets a
+ * `keyword-match` edge — computed from the stored column, no content re-read. */
+export const KEYWORD_MATCH_MIN_SHARED = 1;
 
-export const ALL_EDGE_TYPES = Object.freeze([...EDGE_TYPES, ...DERIVED_EDGE_TYPES]);
+/** Computed (derived=1) edges, written only by build()/reindex()'s own HLD/LLD
+ * diff or keyword-overlap comparison — never by reading a doc's full content. */
+export const DERIVED_EDGE_TYPES = Object.freeze([
+  'mirrors-consistent',
+  'mirrors-gap',
+  'keyword-match',
+]);
+
+/** A generic, grounded content cross-reference between two docs — written
+ * (derived=0, same as the six graduation types) by `reindex-graph.md`'s
+ * intelligent scan when a doc's actual content names another doc it
+ * implements/references, not a graduation event. Never fabricates Story
+ * provenance; see that reference's Step 2. */
+export const SCAN_EDGE_TYPES = Object.freeze(['references']);
+
+/** Every edge type `index()`'s `--edge` flag accepts. */
+export const AUTHORED_EDGE_TYPES = Object.freeze([...EDGE_TYPES, ...SCAN_EDGE_TYPES]);
+
+export const ALL_EDGE_TYPES = Object.freeze([...AUTHORED_EDGE_TYPES, ...DERIVED_EDGE_TYPES]);
 
 /** Doc tiers, keyed the same way as `solution/Architecture.md`'s classDef colors. */
 export const TIER_COLORS = Object.freeze({

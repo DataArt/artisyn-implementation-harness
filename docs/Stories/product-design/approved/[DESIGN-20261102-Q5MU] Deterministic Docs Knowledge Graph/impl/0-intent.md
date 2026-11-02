@@ -1,5 +1,7 @@
 ---
 id: 9ce77df8
+purpose: States the problem, target outcome, scope and constraints for implementing the deterministic docs knowledge graph
+keywords: [intent, docs-graph, dev-lifecycle]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Intent

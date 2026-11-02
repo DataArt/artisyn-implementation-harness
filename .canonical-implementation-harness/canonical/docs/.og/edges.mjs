@@ -4,8 +4,8 @@
 // per docs/Engineering Guide/Documentation/02 Structure.md.
 import fs from 'node:fs';
 import path from 'node:path';
-import { toPosixRelative } from './utils.mjs';
-import { HLD_ROOT, LLD_ROOT, VALID_NAME } from './constants.mjs';
+import { toPosixRelative, parseKeywords } from './utils.mjs';
+import { HLD_ROOT, LLD_ROOT, VALID_NAME, KEYWORD_MATCH_MIN_SHARED } from './constants.mjs';
 
 /**
  * @typedef {Object} EdgeRow
@@ -17,6 +17,7 @@ import { HLD_ROOT, LLD_ROOT, VALID_NAME } from './constants.mjs';
 
 /**
  * Interface: `write` is the one insert path (idempotent — `INSERT OR IGNORE`);
+ * `remove` retracts a specific edge (the review/stale-edge-cleanup path);
  * `queryFrom`/`all` are the two read paths.
  */
 export class EdgesStore {
@@ -35,6 +36,14 @@ export class EdgesStore {
         'INSERT OR IGNORE INTO edges (from_id, to_id, edge_type, derived) VALUES (?, ?, ?, ?)'
       )
       .run(fromId, toId, edgeType, derived);
+  }
+
+  /** Retract one specific edge — the reviewer decided it's stale or doesn't
+   * hold up; a no-op if it's already gone. */
+  remove(fromId, toId, edgeType) {
+    this.db
+      .prepare('DELETE FROM edges WHERE from_id = ? AND to_id = ? AND edge_type = ?')
+      .run(fromId, toId, edgeType);
   }
 
   /** @returns {EdgeRow[]} */
@@ -58,6 +67,13 @@ export class EdgesStore {
   removeForDocs(docIds) {
     for (const id of docIds)
       this.db.prepare('DELETE FROM edges WHERE from_id = ? OR to_id = ?').run(id, id);
+  }
+
+  /** Remove every edge of one type — used to clear a fully-recomputed derived
+   * type (`keyword-match`) before writing its fresh set, so a doc whose
+   * keywords changed doesn't keep a stale match around. */
+  removeAllOfType(edgeType) {
+    this.db.prepare('DELETE FROM edges WHERE edge_type = ?').run(edgeType);
   }
 }
 
@@ -114,4 +130,29 @@ export function computeMirrors(dir) {
     else edges.push(result.edge);
   }
   return { edges, skipped };
+}
+
+/**
+ * Every doc pair sharing at least `KEYWORD_MATCH_MIN_SHARED` normalized
+ * `keywords:` tokens — computed from the stored column alone, never by
+ * reading a doc's file content (that's the whole point: no LLM call, no
+ * re-read, just a comparison over data `2a`'s one pass already wrote).
+ * @param {import('./docs.mjs').DocRow[]} docs
+ * @returns {{fromId: string, toId: string}[]} One row per matching pair
+ *   (`fromId` < `toId` lexicographically — undirected, stored once).
+ */
+export function computeKeywordMatches(docs) {
+  const tokenized = docs
+    .map((doc) => ({ id: doc.id, tokens: new Set(parseKeywords(doc.keywords)) }))
+    .filter((doc) => doc.tokens.size > 0);
+  const matches = [];
+  for (let i = 0; i < tokenized.length; i++) {
+    for (let j = i + 1; j < tokenized.length; j++) {
+      const shared = [...tokenized[i].tokens].filter((token) => tokenized[j].tokens.has(token));
+      if (shared.length < KEYWORD_MATCH_MIN_SHARED) continue;
+      const [fromId, toId] = [tokenized[i].id, tokenized[j].id].sort();
+      matches.push({ fromId, toId });
+    }
+  }
+  return matches;
 }

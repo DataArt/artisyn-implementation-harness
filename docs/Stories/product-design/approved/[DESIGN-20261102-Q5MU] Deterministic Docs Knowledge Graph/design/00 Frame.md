@@ -1,5 +1,7 @@
 ---
 id: 513a062e
+purpose: Frame the problem of implicit doc relationships across HLD/LLD/Engineering Guide/Stories/Product tiers that this design solves with a deterministic docs knowledge graph
+keywords: [design-q5mu, knowledge-graph, frame, docs]
 ---
 
 # DESIGN-20261102-Q5MU — Deterministic Docs Knowledge Graph

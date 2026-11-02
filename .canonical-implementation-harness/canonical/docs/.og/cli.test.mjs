@@ -5,8 +5,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { build, index, reindex, query, search } from './cli.mjs';
-import { DB_FILE, TIER_COLORS, EDGE_TYPES } from './constants.mjs';
+import { build, index, reindex, query, search, list, unedge } from './cli.mjs';
+import { DB_FILE, EDGE_TYPES, SCAN_EDGE_TYPES } from './constants.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const cliPath = path.join(here, 'cli.mjs');
@@ -111,6 +111,60 @@ test('index() rejects an edge type outside the six named types', async () => {
   }
 });
 
+test('index() accepts the "references" scan-edge type, written derived=0, outside the six graduation types', async () => {
+  const dir = scratchDir();
+  try {
+    const a = writeDoc(dir, 'docs/A.md', '# A\n\nSee [B](./B.md).\n');
+    const b = writeDoc(dir, 'docs/B.md', '# B\n');
+    await build({ dir });
+    await index({ dir, doc: a });
+    await index({ dir, doc: b });
+    await index({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b });
+    const edges = await query({ dir, relatedTo: a, edge: SCAN_EDGE_TYPES[0] });
+    assert.equal(edges.length, 1);
+    assert.equal(edges[0].derived, 0);
+    assert.ok(
+      !EDGE_TYPES.includes(SCAN_EDGE_TYPES[0]),
+      'sanity: not one of the six graduation types'
+    );
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('unedge() retracts a specific edge — the review/stale-edge-cleanup path', async () => {
+  const dir = scratchDir();
+  try {
+    const a = writeDoc(dir, 'docs/A.md', '# A\n');
+    const b = writeDoc(dir, 'docs/B.md', '# B\n');
+    await build({ dir });
+    await index({ dir, doc: a });
+    await index({ dir, doc: b });
+    await index({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b });
+    assert.equal((await query({ dir, relatedTo: a, edge: SCAN_EDGE_TYPES[0] })).length, 1);
+
+    await unedge({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b });
+    assert.equal((await query({ dir, relatedTo: a, edge: SCAN_EDGE_TYPES[0] })).length, 0);
+
+    // Retracting an already-gone edge is a no-op, not an error.
+    await unedge({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b });
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('unedge() rejects an unindexed --doc or --to', async () => {
+  const dir = scratchDir();
+  try {
+    const a = writeDoc(dir, 'docs/A.md', '# A\n');
+    await build({ dir }); // indexes A.md; B.md doesn't exist yet, so it stays unindexed
+    const b = writeDoc(dir, 'docs/B.md', '# B\n');
+    await assert.rejects(() => unedge({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b }));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('reindex() computes mirrors-consistent and mirrors-gap, and skips a malformed name without aborting', async () => {
   const dir = scratchDir();
   try {
@@ -130,6 +184,52 @@ test('reindex() computes mirrors-consistent and mirrors-gap, and skips a malform
       edge: 'mirrors-gap',
     });
     assert.ok(authEdges.length >= 1, 'Auth has no LLD folder — a known mirrors-gap');
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('reindex() computes keyword-match edges from the stored keywords column alone — no content read', async () => {
+  const dir = scratchDir();
+  try {
+    const a = writeDoc(dir, 'docs/A.md', '---\nkeywords: [marine, tusked]\n---\n\n# A\n');
+    const b = writeDoc(dir, 'docs/B.md', '---\nkeywords: [Marine, finned]\n---\n\n# B\n');
+    const c = writeDoc(dir, 'docs/C.md', '---\nkeywords: [desert]\n---\n\n# C\n');
+    await build({ dir });
+    await index({ dir, doc: a });
+    await index({ dir, doc: b });
+    await index({ dir, doc: c });
+    await reindex({ dir });
+    const abEdges = await query({ dir, relatedTo: a, edge: 'keyword-match' });
+    assert.equal(abEdges.length, 1, 'A and B share "marine" (case-insensitive)');
+    assert.equal(abEdges[0].derived, 1);
+    assert.ok(
+      !(await query({ dir, relatedTo: c })).some((e) => e.edge_type === 'keyword-match'),
+      'C shares no keywords with anything'
+    );
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('reindex() clears stale keyword-match edges when keywords no longer overlap', async () => {
+  const dir = scratchDir();
+  try {
+    const a = writeDoc(dir, 'docs/A.md', '---\nkeywords: [marine]\n---\n\n# A\n');
+    const b = writeDoc(dir, 'docs/B.md', '---\nkeywords: [marine]\n---\n\n# B\n');
+    await build({ dir });
+    await index({ dir, doc: a });
+    await index({ dir, doc: b });
+    await reindex({ dir });
+    assert.equal((await query({ dir, relatedTo: a, edge: 'keyword-match' })).length, 1);
+
+    fs.writeFileSync(a, fs.readFileSync(a, 'utf8').replace('marine', 'desert'));
+    await reindex({ dir });
+    assert.equal(
+      (await query({ dir, relatedTo: a, edge: 'keyword-match' })).length,
+      0,
+      'stale match should be cleared once keywords diverge'
+    );
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
@@ -185,32 +285,50 @@ test('sql.js opens and queries the exact .sqlite file node:sqlite wrote, with no
   }
 });
 
-test('build() emits a generated Mermaid artifact using the Architecture.md tier classDef colors', async () => {
+test('build() emits a tier-rooted Mermaid mindmap grouping docs by tier branch', async () => {
   const dir = scratchDir();
   try {
     graduationFixture(dir);
     await build({ dir });
     const artifact = fs.readFileSync(path.join(dir, 'docs/.og/graph.mmd'), 'utf8');
-    assert.match(artifact, /flowchart/);
-    for (const color of Object.values(TIER_COLORS)) assert.ok(artifact.includes(color));
+    assert.match(artifact, /^mindmap/);
+    assert.match(artifact, /root\(\("Operational Graph"\)\)/);
+    assert.match(artifact, /^\s{4}HLD$/m, 'HLD tier branch should be its own mindmap line');
+    assert.match(artifact, /^\s{4}Story$/m, 'Story tier branch should be its own mindmap line');
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
 });
 
-test('the Mermaid artifact never emits a bare colon in an unquoted node reference (mirrors-gap placeholder)', async () => {
+test('the mindmap never emits classDef or inline :::class — mindmap has no classDef grammar and a bare classDef line parses as a bogus rootless node', async () => {
   const dir = scratchDir();
   try {
-    graduationFixture(dir); // includes an Auth mirrors-gap: placeholder `lld-folder:Auth`
+    graduationFixture(dir);
     await build({ dir });
     const artifact = fs.readFileSync(path.join(dir, 'docs/.og/graph.mmd'), 'utf8');
-    for (const line of artifact.split('\n')) {
-      if (!line.includes('-->')) continue; // edge lines only; node declarations quote their label already
-      const [nodes] = line.split('--');
-      assert.doesNotMatch(nodes, /:/, `edge line references an unquoted colon: ${line}`);
-      const to = line.split('-->')[1].trim();
-      assert.doesNotMatch(to, /:/, `edge line's target is an unquoted colon reference: ${line}`);
-    }
+    assert.doesNotMatch(artifact, /classDef/);
+    assert.doesNotMatch(
+      artifact,
+      /:::[A-Za-z]/,
+      'flowchart-style inline :::class is invalid mindmap syntax'
+    );
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('the mindmap quotes node text so an embedded quote cannot break the diagram', async () => {
+  const dir = scratchDir();
+  try {
+    writeDoc(dir, 'docs/Quoted.md', '# A "quoted" title\n');
+    await build({ dir });
+    const artifact = fs.readFileSync(path.join(dir, 'docs/.og/graph.mmd'), 'utf8');
+    assert.doesNotMatch(
+      artifact,
+      /A "quoted" title/,
+      'an unescaped quote would split the node text'
+    );
+    assert.match(artifact, /#quot;quoted#quot;/);
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
@@ -229,6 +347,58 @@ test('frontmatter purpose:/keywords: map to docs.purpose/docs.keywords, surfaced
     const hits = await search({ dir, term: 'narwhals' });
     assert.ok(hits.some((h) => h.path.endsWith('Described.md')));
     assert.ok((await search({ dir, term: 'tusked' })).length >= 1);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('list({missing}) finds docs lacking purpose/keywords — a pure query, never writes', async () => {
+  const dir = scratchDir();
+  try {
+    const bare = writeDoc(dir, 'docs/Bare.md', '# Bare\n');
+    const described = writeDoc(
+      dir,
+      'docs/Described.md',
+      '---\npurpose: has one\nkeywords: [a]\n---\n\n# Described\n'
+    );
+    await build({ dir });
+    await index({ dir, doc: bare });
+    await index({ dir, doc: described });
+
+    const missingBoth = await list({ dir, missing: 'purpose,keywords' });
+    assert.ok(missingBoth.some((row) => row.path.endsWith('Bare.md')));
+    assert.ok(!missingBoth.some((row) => row.path.endsWith('Described.md')));
+
+    const before = fs.readFileSync(bare, 'utf8');
+    await list({ dir, missing: 'purpose' });
+    assert.equal(fs.readFileSync(bare, 'utf8'), before, 'list() must never write to a doc');
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('list() rejects an unknown --missing field', async () => {
+  const dir = scratchDir();
+  try {
+    await build({ dir });
+    await assert.rejects(() => list({ dir, missing: 'description' }));
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('list() with no --missing returns every indexed doc', async () => {
+  const dir = scratchDir();
+  try {
+    const a = writeDoc(dir, 'docs/A.md', '# A\n');
+    const b = writeDoc(dir, 'docs/B.md', '---\npurpose: has one\nkeywords: [x]\n---\n\n# B\n');
+    await build({ dir });
+    await index({ dir, doc: a });
+    await index({ dir, doc: b });
+    const all = await list({ dir });
+    assert.equal(all.length, 2);
+    assert.ok(all.some((row) => row.path.endsWith('A.md')));
+    assert.ok(all.some((row) => row.path.endsWith('B.md')));
   } finally {
     fs.rmSync(dir, { recursive: true, force: true });
   }
@@ -253,6 +423,11 @@ for (const [name, args] of [
   ['reindex', ['reindex', '--dir', '.']],
   ['query', ['query', '--dir', '.', '--related-to', 'x']],
   ['search', ['search', '--dir', '.', '--term', 'x']],
+  ['list', ['list', '--dir', '.', '--missing', 'purpose,keywords']],
+  [
+    'unedge',
+    ['unedge', '--dir', '.', '--doc', 'docs/x.md', '--edge', 'references', '--to', 'docs/y.md'],
+  ],
 ]) {
   test(`CLI subcommand "${name}" parses its flags and dispatches`, () => {
     const dir = scratchDir();

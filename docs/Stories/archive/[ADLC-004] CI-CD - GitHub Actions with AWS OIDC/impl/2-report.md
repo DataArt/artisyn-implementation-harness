@@ -1,5 +1,7 @@
 ---
 id: bc2b50bf
+purpose: Completion report recording progress and fixes for the GitHub Actions CI/CD pipeline with AWS OIDC
+keywords: [adlc-004, ci-cd, oidc, report, github-actions]
 ---
 
 # ADLC-004: CI/CD — GitHub Actions with AWS OIDC — Report

@@ -65,6 +65,19 @@ export class DocsStore {
   }
 
   /**
+   * Docs still missing one or more of the given fields — the deterministic
+   * half of a "fill these in" pass. Never writes anything; purely a query
+   * so a caller (an agent, not this script) knows which docs to read and
+   * write `purpose:`/`keywords:` for.
+   * @param {('purpose'|'keywords')[]} fields
+   * @returns {DocRow[]}
+   */
+  missing(fields) {
+    const clause = fields.map((field) => `${field} IS NULL`).join(' OR ');
+    return /** @type {DocRow[]} */ (this.db.prepare(`SELECT * FROM docs WHERE ${clause}`).all());
+  }
+
+  /**
    * Remove every doc row whose path is not in `existingPaths` — a doc whose
    * file was deleted/retired on disk. The caller cascades edge removal.
    * @param {Set<string>} existingPaths Every doc path found on this reindex.

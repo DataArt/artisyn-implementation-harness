@@ -1,5 +1,7 @@
 ---
 id: 973fed9c
+purpose: Evaluate options for wiring the docs knowledge graph into dev/design lifecycle phases and recommend one
+keywords: [evaluate, lifecycle-impact, docs-graph, WAF]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Harness lifecycle impact

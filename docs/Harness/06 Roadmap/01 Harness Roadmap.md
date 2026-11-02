@@ -1,5 +1,7 @@
 ---
 id: 1ff56a70
+purpose: Track how the bootstrap evolves from a copied git template into a distributable, composable platform
+keywords: [roadmap, registry distribution, harness-bootstrap, gaps]
 ---
 
 # Harness Roadmap

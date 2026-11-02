@@ -1,5 +1,7 @@
 ---
 id: efcac6df
+purpose: Lists HLD versions and points to the active version's design
+keywords: [hld, versions, index]
 ---
 
 # Target Architecture (HLD)

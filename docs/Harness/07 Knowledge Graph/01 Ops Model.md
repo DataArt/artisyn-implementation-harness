@@ -1,5 +1,7 @@
 ---
 id: 04bbbf49
+purpose: Describe the knowledge graph's system context and how lifecycle skills wire into it
+keywords: [knowledge graph, ops model, system context, docs-graph]
 ---
 
 # Ops Model

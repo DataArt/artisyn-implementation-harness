@@ -1,5 +1,7 @@
 ---
 id: bb0cd4fc
+purpose: Evaluate graph storage format options against requirements and record the tradeoff judgment
+keywords: [design-q5mu, knowledge-graph, evaluate, storage-format]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Graph storage format

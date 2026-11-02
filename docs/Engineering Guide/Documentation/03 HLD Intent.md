@@ -1,5 +1,7 @@
 ---
 id: 7176f666
+purpose: Required C4 container abstraction and the five semantic coverage keys an HLD container doc must satisfy
+keywords: [HLD intent, C4 container, coverage keys, system sizing, certainty principle]
 ---
 
 # HLD Intent

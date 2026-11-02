@@ -1,5 +1,7 @@
 ---
 id: 6e3381d0
+purpose: Explains the mindset shift from code-as-artifact to context-as-artifact that adopting the harness requires
+keywords: [mental-model, story, context-as-artifact]
 ---
 
 # The Mental Model Shift

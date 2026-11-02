@@ -1,5 +1,7 @@
 ---
 id: ca3a865c
+purpose: Design intent for the Harness Bootstrap E2E container — the test harness validating the harness-bootstrap skill
+keywords: [harness-bootstrap-e2e, testing, hld]
 ---
 
 # Harness Bootstrap E2E Container

@@ -1,5 +1,7 @@
 ---
 id: 11023f2a
+purpose: Specifies the client-side sql.js-backed VitePress graph page and its fallback, deferring the IDE-side mechanism
+keywords: [design, visualization, docs-graph, sql.js, VitePress]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Visualization surface

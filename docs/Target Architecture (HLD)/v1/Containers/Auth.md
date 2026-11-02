@@ -1,5 +1,7 @@
 ---
 id: a905bf2a
+purpose: Design intent for the Auth container — Lambda@Edge basic auth enforcement
+keywords: [auth, lambda-edge, basic-auth, hld]
 ---
 
 # Auth Container

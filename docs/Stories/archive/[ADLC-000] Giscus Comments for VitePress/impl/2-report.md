@@ -1,5 +1,7 @@
 ---
 id: 1cca243f
+purpose: Completion report recording progress and verification for the giscus comments widget rollout
+keywords: [adlc-000, giscus, report, comments, vitepress]
 ---
 
 # ADLC-000: Giscus Comments for VitePress — Report

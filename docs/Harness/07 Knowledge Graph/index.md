@@ -1,5 +1,7 @@
 ---
 id: 9a5ad494
+purpose: Navigation index introducing the deterministic knowledge graph over the repo's doc tiers
+keywords: [knowledge graph, navigation index, deterministic graph]
 ---
 
 # Knowledge Graph

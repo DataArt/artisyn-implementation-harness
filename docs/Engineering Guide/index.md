@@ -1,5 +1,7 @@
 ---
 id: ca1e020e
+purpose: Landing page and navigation index for the Engineering Guide's conventions, documentation, lifecycles, and infrastructure sections
+keywords: [engineering guide, index, navigation]
 ---
 
 # Engineering Guide

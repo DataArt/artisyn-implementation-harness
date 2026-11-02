@@ -1,5 +1,7 @@
 ---
 id: 2f617a4e
+purpose: Design intent for the Web container — the VitePress static documentation site
+keywords: [web, vitepress, hld]
 ---
 
 # Web Container

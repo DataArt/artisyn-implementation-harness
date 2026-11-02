@@ -1,5 +1,7 @@
 ---
 id: 6a3f0e7a
+purpose: Design-lifecycle run record (state, evidence, metrics, WAF, gate) for the Deterministic Docs Knowledge Graph ticket
+keywords: [design-report, docs-graph, lifecycle-tracking]
 ---
 
 # Design Report — DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph

@@ -1,5 +1,7 @@
 ---
 id: 6f169669
+purpose: Implementation plan for adding giscus (GitHub Discussions-backed) comments to the VitePress docs site
+keywords: [adlc-000, giscus, plan, comments, vitepress]
 ---
 
 # ADLC-000: Giscus Comments for VitePress

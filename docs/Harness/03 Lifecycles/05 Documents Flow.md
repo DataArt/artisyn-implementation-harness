@@ -1,5 +1,7 @@
 ---
 id: 16606e23
+purpose: Show how documentation moves from ticket-scoped working files to its permanent home
+keywords: [documents flow, Stories, permanent docs, graduation pipeline]
 ---
 
 # Documents Flow

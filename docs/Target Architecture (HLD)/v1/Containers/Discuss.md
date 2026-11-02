@@ -1,5 +1,7 @@
 ---
 id: f84dc7bb
+purpose: Design intent for the Discuss container — giscus-based comments widget with no infra of its own
+keywords: [discuss, giscus, github-discussions, hld]
 ---
 
 # Discuss Container

@@ -1,5 +1,7 @@
 ---
 id: e4071c85
+purpose: Navigation index for the Roadmap section's pages
+keywords: [roadmap, navigation index]
 ---
 
 # Roadmap

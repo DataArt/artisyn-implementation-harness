@@ -100,3 +100,23 @@ export function listMarkdownFiles(root) {
 export function toPosixRelative(dir, file) {
   return path.relative(dir, file).split(path.sep).join('/');
 }
+
+/**
+ * Parse a frontmatter `keywords:` value into normalized tokens — accepts
+ * either YAML flow-sequence style (`[a, b]`) or a bare comma list (`a, b`),
+ * since `readFrontmatter()` stores the raw string as written, unparsed.
+ * @param {string|null} raw
+ * @returns {string[]} Lowercased, trimmed, deduplicated; empty if `raw` is null/empty.
+ */
+export function parseKeywords(raw) {
+  if (!raw) return [];
+  const stripped = raw.trim().replace(/^\[/, '').replace(/\]$/, '');
+  return [
+    ...new Set(
+      stripped
+        .split(',')
+        .map((word) => word.trim().toLowerCase())
+        .filter(Boolean)
+    ),
+  ];
+}

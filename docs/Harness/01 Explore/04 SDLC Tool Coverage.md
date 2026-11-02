@@ -1,6 +1,8 @@
 ---
 id: fceb8241
 aside: false
+purpose: Map nine tools and their capability-depth ratings onto the six SDLC stages
+keywords: [SDLC stages, tool coverage, capability depth, maturity labels]
 ---
 
 # Tools Across the Six SDLC Stages

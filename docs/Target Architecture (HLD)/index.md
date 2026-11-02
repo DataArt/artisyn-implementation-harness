@@ -1,5 +1,7 @@
 ---
 id: f803c04f
+purpose: Entry point to the Target Architecture (HLD) directory — navigation to system overview, sizing, containers, and NFRs
+keywords: [hld, index, navigation, containers]
 ---
 
 # Target Architecture (HLD)

@@ -1,5 +1,7 @@
 ---
 id: d8a46ea4
+purpose: Research options for how graph indexing is seeded when the harness bootstraps into a new project
+keywords: [design-q5mu, knowledge-graph, research, harness-bootstrap]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Harness bootstrap impact

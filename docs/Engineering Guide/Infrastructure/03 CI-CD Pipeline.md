@@ -1,5 +1,7 @@
 ---
 id: 3c13bbe6
+purpose: How the CI quality gate and CD deployment pipeline work via GitHub Actions and AWS OIDC
+keywords: [CI/CD, GitHub Actions, OIDC, nx affected, semantic-release, guarded operations]
 ---
 
 # CI/CD Pipeline

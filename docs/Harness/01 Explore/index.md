@@ -1,5 +1,7 @@
 ---
 id: 44f2c457
+purpose: Navigation hub for the Explore section's research and source-level analysis pages
+keywords: [explore, navigation, research index, package catalog]
 ---
 
 # Explore

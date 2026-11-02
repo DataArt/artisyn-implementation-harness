@@ -1,5 +1,7 @@
 ---
 id: 02582028
+purpose: Principles for how environment configuration and secrets flow from source to runtime across the three config tiers
+keywords: [configuration, secrets, SSM Parameter Store, Secrets Manager, env files]
 ---
 
 # Configuration & Secrets

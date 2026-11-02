@@ -1,5 +1,7 @@
 ---
 id: 0bdddd42
+purpose: Research options for how /dev, /design, and /evolve lifecycle phases read and write graph edges
+keywords: [design-q5mu, knowledge-graph, research, lifecycle]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Harness lifecycle impact

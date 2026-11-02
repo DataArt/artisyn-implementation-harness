@@ -1,5 +1,7 @@
 ---
 id: 9f7cbce1
+purpose: Root navigation index pointing readers to each documentation area of the repo
+keywords: [docs, index, navigation, root]
 ---
 
 # Documentation Index

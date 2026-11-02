@@ -4,17 +4,14 @@ Stage sequence and tracking live in [01-launch.md](01-launch.md).
 
 ## Materialize operational graph
 
-Copy `package:canonical/docs/.og/cli.mjs`, `constants.mjs`, `schema.mjs`, `utils.mjs`,
-`docs.mjs`, `edges.mjs`, and `docs-operational-graph.sqlite` verbatim into
-`project:docs/.og/` — never `cli.test.mjs`, which is canonical-only tooling, not
-deployed payload. No token substitution: this is code and a binary database file,
-not prose. Then run `node docs/.og/cli.mjs build --dir <project root>`; silent on
-success, a non-zero exit plus diagnostic on failure.
+Follow [Reindex graph](../reindex-graph.md) in full, every launch run — deploy,
+build, and (on a first install only) the intelligent scan are entirely that
+reference's job, including deciding for itself whether this is a first install or
+a refresh. Nothing is restated here.
 
-**Completion evidence:** every listed file exists at `project:docs/.og/` (and
-`cli.test.mjs` does not), `build()`'s exit code is recorded, and (on success)
-`docs/.og/docs-operational-graph.sqlite` and `docs/.og/graph.mmd` exist. Runs
-before Cleanup specifically so these files are in scope for Final audit's
+**Completion evidence:** whatever [Reindex graph](../reindex-graph.md)'s own
+completion evidence requires for the step(s) that ran. Runs before Cleanup
+specifically so `project:docs/.og/`'s files are in scope for Final audit's
 hash/baseline recording below.
 
 ## Cleanup

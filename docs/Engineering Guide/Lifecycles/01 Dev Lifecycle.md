@@ -1,5 +1,7 @@
 ---
 id: 7b4734f1
+purpose: The Dev lifecycle's seven stages, invariants, patterns, and approval model for delivering a ticket
+keywords: [dev lifecycle, plan, implement, test, document, completion, review findings ledger]
 ---
 
 # Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document → Completion

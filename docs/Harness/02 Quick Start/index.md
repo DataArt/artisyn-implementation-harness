@@ -1,5 +1,7 @@
 ---
 id: 32b4135e
+purpose: Entry point explaining how to bring the harness bootstrap into a new project
+keywords: [quick start, bootstrap, onboarding, harness-bootstrap launch]
 ---
 
 # Quick Start

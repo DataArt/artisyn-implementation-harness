@@ -1,5 +1,7 @@
 ---
 id: 9359b9ee
+purpose: Tells the three-act story of broken handoffs, unwired AI, and the governed human/AI balance
+keywords: [story, handoffs, governance, ai-assisted]
 ---
 
 # From Broken Handoffs to Governed AI

@@ -1,5 +1,7 @@
 ---
 id: 8f03ef24
+purpose: Describes the layers of product context and the project-context gap no one owns by default
+keywords: [context, story, project-context]
 ---
 
 # The Context Landscape

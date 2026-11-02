@@ -1,5 +1,7 @@
 ---
 id: 09302318
+purpose: Research options for what node and edge types the docs knowledge graph models, grounded in Documents Flow and the doc-tier structure
+keywords: [design-q5mu, knowledge-graph, research, topology]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph structure and topology

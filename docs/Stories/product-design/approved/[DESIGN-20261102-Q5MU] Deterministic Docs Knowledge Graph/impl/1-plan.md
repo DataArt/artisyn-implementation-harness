@@ -1,5 +1,7 @@
 ---
 id: 377ba75d
+purpose: Ordered build plan and acceptance criteria for implementing the docs operational graph (docs/.og/) across canonical skills, launch, and the Web build
+keywords: [plan, docs-graph, operational-graph, acceptance-criteria]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Plan
@@ -404,35 +406,48 @@ when needed (Step 10 is inherently the developer's own run, in a separate sessio
 
 ## Addendum (post-approval, authorized by the developer during Implement — see RF-020/RF-021)
 
-### Step 13 — Standalone `reindex-graph` route in `harness-bootstrap`
+### Step 13 — Standalone `reindex-graph` route in `harness-bootstrap` (revised per RF-022)
 
 **Changes:**
 
 - `.canonical-implementation-harness/SKILL.md` — new route `reindex-graph`,
   frontmatter description, Input line
-- `.canonical-implementation-harness/references/reindex-graph.md` — new reference:
-  precondition (`docs/.og/cli.mjs` must already exist — refreshes, never installs),
-  procedure (`node docs/.og/cli.mjs build --dir <project root>`, report real
-  `skipped`/`pruned` counts), completion evidence
+- `.canonical-implementation-harness/canonical/docs/.og/docs.mjs` — `DocsStore.missing(fields)`,
+  a pure query (no writes) for docs lacking `purpose`/`keywords`
+- `.canonical-implementation-harness/canonical/docs/.og/cli.mjs` — new `list` export +
+  CLI subcommand wrapping it; `renderMermaid()` rewritten from a `flowchart` to a
+  tier-rooted `mindmap` (edges aren't drawn — `mindmap` is a tree, not a graph)
+- `.canonical-implementation-harness/references/reindex-graph.md` — new reference, two
+  steps: (1) deterministic build (`node docs/.og/cli.mjs build`, report real
+  `skipped`/`pruned`); (2) intelligent scan — `list --missing purpose,keywords`, then
+  the agent reads each returned doc and writes `purpose:`/`keywords:` per
+  Documentation Principles, never fabricating graduation edges (pre-existing docs
+  have no stored Story/ticket provenance to recover)
+- `.canonical-implementation-harness/references/launch/01d-launch-graph-verify.md` —
+  Materialize stage now delegates to this reference: first install runs both steps,
+  a refresh runs Step 1 only
 - `.canonical-implementation-harness/references/00-overview.md` — new table row
 - `apps/harness-bootstrap-e2e/src/scenarios/reindex-graph.ts` — new scenario,
   separate from `bootstrapScenario`: seeds a workspace with the operational-graph
   package already materialized (simulating launch's own Materialize stage, done
-  deterministically in test setup) and one unindexed doc, runs
+  deterministically in test setup) and one doc with no ID/purpose/keywords, runs
   `/harness-bootstrap reindex-graph` as a real agent step, verifies the doc got an
-  ID and the db was rebuilt
-- `apps/harness-bootstrap-e2e/src/graders/reindex-graph.grader.ts` (or equivalent)
-  — the two checks above, plus unit coverage
-- `apps/harness-bootstrap-e2e/src/scenarios/_registry.ts` — register the new scenario
+  ID, the db was rebuilt, and `purpose:`/`keywords:` were actually written
+- `apps/harness-bootstrap-e2e/src/cases/reindex-graph.spec.ts` +
+  `cases/_registry.ts`/`scenarios/_registry.ts` — register the new scenario/case
 
 **Verification:**
 
+> Run: `node --test .canonical-implementation-harness/canonical/docs/.og/cli.test.mjs`
+> Expected: all cases pass, including `list()`'s missing-field query/validation and
+> the mindmap's tier-branch/quote-escaping cases
 > Run: `yarn nx run harness-bootstrap-e2e:unit`
-> Expected: new grader unit cases pass; existing cases unaffected
+> Expected: new scenario typechecks/lints; existing cases unaffected
 > Run the new scenario's case (live agent, guarded — the developer runs it)
-> Expected: the agent follows `reindex-graph.md`'s procedure; the seeded unindexed
-> doc gets an ID; `docs-operational-graph.sqlite`'s bytes change; no copy step runs
-> (only `build()`, since the precondition files already exist)
+> Expected: the agent runs both `reindex-graph.md` steps; the seeded doc gets an ID
+> _and_ `purpose:`/`keywords:` frontmatter; `docs-operational-graph.sqlite`'s bytes
+> change; no copy step runs (only the build+scan, since the precondition files
+> already exist)
 
 ### Step 14 — Package and release this ticket's canonical changes
 

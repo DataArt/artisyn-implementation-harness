@@ -1,5 +1,7 @@
 ---
 id: 5e11d8e8
+purpose: How the Evolve lifecycle captures friction and requests and turns them into validated harness improvements
+keywords: [evolve lifecycle, reflect, triage, validate, adopt, harness improvement]
 ---
 
 # Evolve Lifecycle

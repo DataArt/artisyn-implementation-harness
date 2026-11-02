@@ -1,5 +1,7 @@
 ---
 id: 8d8b58f1
+purpose: Research options for where and how the docs knowledge graph is surfaced to a human, in the IDE and/or the VitePress site
+keywords: [design-q5mu, knowledge-graph, research, visualization]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Visualization surface

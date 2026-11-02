@@ -1,5 +1,7 @@
 ---
 id: 54ac361d
+purpose: Evaluate graph structure and topology options against requirements and record the tradeoff judgment
+keywords: [design-q5mu, knowledge-graph, evaluate, topology]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Graph structure and topology

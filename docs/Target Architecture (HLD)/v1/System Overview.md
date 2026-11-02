@@ -1,5 +1,7 @@
 ---
 id: 77376e1f
+purpose: Purpose, containers, and data flow for the ADLC Discovery Tool platform
+keywords: [system-overview, containers, data-flow, hld]
 ---
 
 # System Overview

@@ -1,6 +1,8 @@
 ---
 id: 96b8a360
 aside: false
+purpose: Source-level audit of Artisyn's entry points, agents, and scripts, with evidence and implementation gaps
+keywords: [capability audit, functional inventory, source evidence, implementation gaps]
 ---
 
 # Artisyn Capability Audit

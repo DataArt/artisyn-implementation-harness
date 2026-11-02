@@ -1,9 +1,11 @@
 import type { ScenarioDefinition } from './_types.ts';
 import { bootstrapScenario } from './bootstrap.ts';
+import { reindexGraphScenario } from './reindex-graph.ts';
 import { patchPrepareApplyScenario } from './patch-prepare-apply.ts';
 import { designDevScenario, devOnlyScenario } from './feature-flows.ts';
 
 export { bootstrapScenario } from './bootstrap.ts';
+export { reindexGraphScenario } from './reindex-graph.ts';
 export { patchPrepareApplyScenario } from './patch-prepare-apply.ts';
 export { designDevScenario, devOnlyScenario } from './feature-flows.ts';
 
@@ -12,6 +14,7 @@ export { designDevScenario, devOnlyScenario } from './feature-flows.ts';
  */
 export const scenarios = {
   [bootstrapScenario.id]: bootstrapScenario,
+  [reindexGraphScenario.id]: reindexGraphScenario,
   [patchPrepareApplyScenario.id]: patchPrepareApplyScenario,
   [designDevScenario.id]: designDevScenario,
   [devOnlyScenario.id]: devOnlyScenario,

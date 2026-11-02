@@ -1,5 +1,7 @@
 ---
 id: 92155727
+purpose: Describe the knowledge graph's SQLite schema and the single-file build model
+keywords: [knowledge graph, storage model, SQLite schema, docs-graph.sqlite]
 ---
 
 # Storage and Build Model

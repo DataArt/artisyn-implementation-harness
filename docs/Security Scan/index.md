@@ -1,5 +1,7 @@
 ---
 id: dfec40a4
+purpose: Index of dated security scan reports against this repo's own skills, agents, and MCP configuration
+keywords: [security-scan, index, infosec, timeline]
 ---
 
 # Security Scan

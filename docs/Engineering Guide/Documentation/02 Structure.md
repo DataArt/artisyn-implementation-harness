@@ -1,5 +1,7 @@
 ---
 id: 25c349bd
+purpose: The three-tier documentation model — what each tier is for, its folder layout, and what lives where
+keywords: [documentation structure, HLD, LLD, Engineering Guide, Stories, tiers]
 ---
 
 # Documentation Structure

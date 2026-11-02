@@ -1,5 +1,7 @@
 ---
 id: 13f2018f
+purpose: Implementation plan for the GitHub Actions CI/CD pipeline authenticated to AWS via OIDC
+keywords: [adlc-004, ci-cd, oidc, plan, github-actions]
 ---
 
 # ADLC-004: CI/CD — GitHub Actions with AWS OIDC

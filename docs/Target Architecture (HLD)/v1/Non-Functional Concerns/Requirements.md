@@ -1,5 +1,7 @@
 ---
 id: decb4cf3
+purpose: Non-functional requirements governing the platform's containers, CI/CD pipeline, and actors
+keywords: [nfr, requirements, security, performance]
 ---
 
 # Non-Functional Requirements

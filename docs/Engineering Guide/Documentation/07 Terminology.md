@@ -1,5 +1,7 @@
 ---
 id: 7914ab7f
+purpose: The approved term registry for project concepts that have more than one plausible name
+keywords: [terminology, registry, one term per concept, docs-writer]
 ---
 
 # Terminology

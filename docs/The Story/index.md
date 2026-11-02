@@ -1,5 +1,7 @@
 ---
 id: d000e20f
+purpose: Entry point to The Story section — navigation to the why behind the platform
+keywords: [story, index, navigation]
 ---
 
 # The Story

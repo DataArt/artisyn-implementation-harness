@@ -1,5 +1,7 @@
 ---
 id: aac87096
+purpose: Evaluate harness bootstrap-time graph seeding options against requirements and record the tradeoff judgment and recommendation
+keywords: [design-q5mu, knowledge-graph, evaluate, harness-bootstrap]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Harness bootstrap impact

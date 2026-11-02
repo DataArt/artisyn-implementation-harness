@@ -1,5 +1,7 @@
 ---
 id: 79bf09c2
+purpose: Capacity dimensions and targets for the engagement-scoped site
+keywords: [sizing, capacity, nfr]
 ---
 
 # System Sizing

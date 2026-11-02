@@ -1,5 +1,7 @@
 ---
 id: 99394f45
+purpose: First-time workspace setup and the daily NX commands used to run and check this monorepo
+keywords: [getting started, nx, yarn, workspace setup, local dev commands]
 ---
 
 # Getting Started

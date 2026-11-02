@@ -1,5 +1,7 @@
 ---
 id: 21927675
+purpose: Index of LLD container folders, mirroring the HLD container list
+keywords: [lld, index, containers]
 ---
 
 # System Architecture (LLD)

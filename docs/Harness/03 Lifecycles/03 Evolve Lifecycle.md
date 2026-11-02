@@ -1,5 +1,7 @@
 ---
 id: f3714908
+purpose: Describe how the evolve lifecycle improves harness skills, agents, and conventions from observed friction
+keywords: [evolve lifecycle, reflect, triage, draft, validate, adopt]
 ---
 
 # Evolve Lifecycle

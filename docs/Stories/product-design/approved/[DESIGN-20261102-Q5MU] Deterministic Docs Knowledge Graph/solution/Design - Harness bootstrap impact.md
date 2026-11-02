@@ -1,5 +1,7 @@
 ---
 id: 7201b88e
+purpose: Specifies how /harness-bootstrap launch proactively assigns doc IDs and builds the initial docs graph
+keywords: [design, bootstrap-impact, docs-graph, launch]
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Harness bootstrap impact

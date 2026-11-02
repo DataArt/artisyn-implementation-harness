@@ -1,5 +1,7 @@
 ---
 id: 309f72ad
+purpose: How the engineer and the AI assistant divide ownership and responsibility during delivery
+keywords: [engineer role, AI pairing, division of responsibility, dev lifecycle]
 ---
 
 # Engineer Role
