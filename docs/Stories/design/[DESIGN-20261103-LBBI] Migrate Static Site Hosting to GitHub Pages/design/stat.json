@@ -25,21 +25,29 @@
     },
     {
       "id": "ceremony",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "b13e092b-bcbe-4e41-9c71-cfce11be17f2",
           "started_at": "2026-11-03T13:21:14.302Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T13:23:32.117Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "frame",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "64827c2c-9cf2-4f6b-8c76-54fb4defa4ff",
+          "started_at": "2026-11-03T13:23:32.158Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "research",
@@ -122,8 +130,31 @@
       "reason": "user_input",
       "detail": "Awaiting ceremony commit",
       "started_at": "2026-11-03T13:22:20.542Z",
+      "ended_at": "2026-11-03T13:23:32.117Z",
+      "last_observed_at": "2026-11-03T13:23:32.117Z"
+    },
+    {
+      "id": "91574b3a-321f-4144-b056-cd9176e25348",
+      "stage_id": "frame",
+      "stage_attempt_id": "64827c2c-9cf2-4f6b-8c76-54fb4defa4ff",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-03T13:23:32.158Z",
+      "ended_at": "2026-11-03T13:30:42.467Z",
+      "last_observed_at": "2026-11-03T13:30:42.467Z"
+    },
+    {
+      "id": "98b33b8a-047d-4ed0-9a3e-53dae9d40428",
+      "stage_id": "frame",
+      "stage_attempt_id": "64827c2c-9cf2-4f6b-8c76-54fb4defa4ff",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting frame commit",
+      "started_at": "2026-11-03T13:30:42.467Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T13:22:20.542Z"
+      "last_observed_at": "2026-11-03T13:30:42.467Z"
     }
   ],
   "checks": [
@@ -158,19 +189,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "frame-sign-off-01",
+      "stage_id": "frame",
+      "stage_attempt_id": "64827c2c-9cf2-4f6b-8c76-54fb4defa4ff",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T13:30:15.352Z",
+      "ended_at": "2026-11-03T13:30:15.352Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed Frame content (after Problem-section rework removing client/engagement framing)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T13:22:20.543Z",
+    "as_of": "2026-11-03T13:30:42.468Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 76.68599999999999,
-    "observed_wait_seconds": 882.813,
+    "observed_work_seconds": 506.995,
+    "observed_wait_seconds": 954.388,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 882.814,
-    "unclassified_seconds": 0.09699999999995634,
+    "wait_seconds_to_date": 954.389,
+    "unclassified_seconds": 0.13799999999989632,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 882.813,
