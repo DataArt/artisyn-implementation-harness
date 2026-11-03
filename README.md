@@ -8,19 +8,17 @@ This repo is the harness's canonical source — it runs its own development thro
 
 ## Repository structure
 
-| Path                                 | Purpose                                                               |
-| ------------------------------------ | --------------------------------------------------------------------- |
-| `docs/`                              | All documentation — see `docs/README.md` for the full index           |
-| `docs/Harness/`                      | The harness itself — portable package, plus its own guide             |
-| `docs/Target Architecture (HLD)/`    | Architecture design for this platform                                 |
-| `docs/Engineering Guide/`            | Conventions, AI workflow, and development guide                       |
-| `apps/docs-web/`                     | VitePress documentation site                                          |
-| `apps/lambda-auth/`                  | Lambda@Edge basic auth handler                                        |
-| `apps/infra/`                        | AWS CDK infrastructure                                                |
-| `apps/harness-bootstrap-e2e/`        | Test harness validating the `harness-bootstrap` skill itself          |
-| `.canonical-implementation-harness/` | The harness-bootstrap skill's canonical source, released as a ZIP     |
-| `.claude/`                           | Engineering harness — skills, agents, templates                       |
-| `scripts/`                           | Deterministic automation — bootstrap, CI, local env/secrets push-pull |
+| Path                                 | Purpose                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------- |
+| `docs/`                              | All documentation — see `docs/README.md` for the full index               |
+| `docs/Harness/`                      | The harness itself — portable package, plus its own guide                 |
+| `docs/Target Architecture (HLD)/`    | Architecture design for this platform                                     |
+| `docs/Engineering Guide/`            | Conventions, AI workflow, and development guide                           |
+| `apps/docs-web/`                     | VitePress documentation site, deployed to GitHub Pages via GitHub Actions |
+| `apps/harness-bootstrap-e2e/`        | Test harness validating the `harness-bootstrap` skill itself              |
+| `.canonical-implementation-harness/` | The harness-bootstrap skill's canonical source, released as a ZIP         |
+| `.claude/`                           | Engineering harness — skills, agents, templates                           |
+| `scripts/`                           | Deterministic automation — bootstrap, CI                                  |
 
 ## Local setup
 
@@ -59,7 +57,7 @@ Once oriented:
 | Command                  | When to use                                                       |
 | ------------------------ | ----------------------------------------------------------------- |
 | `/design ND-XXX <topic>` | Start a new design session (target architecture, recommendations) |
-| `/dev ND-XXX <task>`     | Implement a ticket (site changes, auth, infra)                    |
+| `/dev ND-XXX <task>`     | Implement a ticket (site changes)                                 |
 | `/where-we-are`          | Delivery gap report                                               |
 
 ## Contributing

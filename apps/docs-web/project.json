@@ -61,82 +61,32 @@
     "deploy": {
       "executor": "nx:run-commands",
       "cache": false,
-      "dependsOn": ["build"],
       "options": {
-        "command": "bash scripts/ci/site-deploy.sh"
-      },
-      "configurations": {
-        "dev": { "envFile": "apps/docs-web/.env.dev" },
-        "ci": {},
-        "prod": { "envFile": "apps/docs-web/.env.prod" }
+        "command": "echo \"deploy retired — see solution/Architecture.md in docs/Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/\" && exit 0"
       }
     },
     "env-push": {
-      "configurations": {
-        "dev": {
-          "env": {
-            "ENV_PARAM_NAME": "/artisyn-harness/dev/docs/site/env",
-
-            "ENV_SOURCE_FILE": "apps/docs-web/.env.dev"
-          }
-        },
-        "prod": {
-          "env": {
-            "ENV_PARAM_NAME": "/artisyn-harness/prod/docs/site/env",
-
-            "ENV_SOURCE_FILE": "apps/docs-web/.env.prod"
-          }
-        }
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo \"env-push retired — see solution/Architecture.md in docs/Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/\" && exit 0"
       }
     },
     "env-pull": {
-      "configurations": {
-        "dev": {
-          "env": {
-            "ENV_PARAM_NAME": "/artisyn-harness/dev/docs/site/env",
-
-            "ENV_TARGET_FILE": "apps/docs-web/.env.dev",
-            "ENV_BASE_ENV": "apps/docs-web/.env.example"
-          }
-        },
-        "prod": {
-          "env": {
-            "ENV_PARAM_NAME": "/artisyn-harness/prod/docs/site/env",
-
-            "ENV_TARGET_FILE": "apps/docs-web/.env.prod",
-            "ENV_BASE_ENV": "apps/docs-web/.env.example"
-          }
-        }
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo \"env-pull retired — see solution/Architecture.md in docs/Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/\" && exit 0"
       }
     },
     "sm-push": {
-      "configurations": {
-        "dev": {
-          "envFile": "apps/docs-web/.env.dev",
-          "env": { "SM_SOURCE_FILE": "apps/docs-web/.secrets.dev" }
-        },
-        "prod": {
-          "envFile": "apps/docs-web/.env.prod",
-          "env": { "SM_SOURCE_FILE": "apps/docs-web/.secrets.prod" }
-        }
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo \"sm-push retired — see solution/Architecture.md in docs/Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/\" && exit 0"
       }
     },
     "sm-pull": {
-      "configurations": {
-        "dev": {
-          "envFile": "apps/docs-web/.env.dev",
-          "env": {
-            "SM_TARGET_FILE": "apps/docs-web/.secrets.dev",
-            "SM_BASE_ENV": "apps/docs-web/.secrets.example"
-          }
-        },
-        "prod": {
-          "envFile": "apps/docs-web/.env.prod",
-          "env": {
-            "SM_TARGET_FILE": "apps/docs-web/.secrets.prod",
-            "SM_BASE_ENV": "apps/docs-web/.secrets.example"
-          }
-        }
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "echo \"sm-pull retired — see solution/Architecture.md in docs/Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/\" && exit 0"
       }
     }
   }

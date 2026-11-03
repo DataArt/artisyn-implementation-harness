@@ -16,26 +16,20 @@ _First-time setup and daily commands for the ADLC Discovery Tool monorepo._
 flowchart TB
     classDef app fill:#4A90D9,stroke:#2C5F8A,color:#fff
     classDef content fill:#7BC67E,stroke:#4A8C4D,color:#fff
-    classDef tool fill:#F5A623,stroke:#B87A1A,color:#fff
 
     root["@artisyn-harness/root\n(workspace root)"]
 
     root --> site["site\napps/docs-web"]
-    root --> auth["lambda-auth\napps/lambda-auth"]
-    root --> infra["infra\napps/infra"]
     root --> docs["docs\ndocs/"]
 
-    class site,auth app
-    class infra tool
+    class site app
     class docs content
 ```
 
-| NX project    | Path               | Stack        | Purpose                        |
-| ------------- | ------------------ | ------------ | ------------------------------ |
-| `site`        | `apps/docs-web`    | VitePress    | Documentation site             |
-| `lambda-auth` | `apps/lambda-auth` | Node.js · TS | CloudFront auth handler        |
-| `infra`       | `apps/infra`       | AWS CDK · TS | CDN, S3, edge wiring           |
-| `docs`        | `docs/`            | Markdown     | Content library (implicit dep) |
+| NX project | Path            | Stack     | Purpose                        |
+| ---------- | --------------- | --------- | ------------------------------ |
+| `site`     | `apps/docs-web` | VitePress | Documentation site             |
+| `docs`     | `docs/`         | Markdown  | Content library (implicit dep) |
 
 ---
 
@@ -69,18 +63,7 @@ yarn nx run site:serve
 
 # Docs site — production build
 yarn nx run site:build
-
-# Auth handler — compile + bundle
-yarn nx run lambda-auth:build
-
-# Infra — synthesise CloudFormation (CDK)
-yarn nx run infra:synth --configuration=dev
-
-# Infra — diff against deployed stack (CDK)
-yarn nx run infra:diff --configuration=dev
 ```
-
-> ⚠️ `infra:provision` is a **guarded command** — do not run directly. Follow the deployment runbook.
 
 ---
 
@@ -92,7 +75,6 @@ yarn format:check       # check formatting without writing
 yarn lint               # ESLint across the workspace
 
 yarn nx run site:typecheck          # TypeScript check — docs site
-yarn nx run lambda-auth:typecheck   # TypeScript check — auth handler
 ```
 
 ---

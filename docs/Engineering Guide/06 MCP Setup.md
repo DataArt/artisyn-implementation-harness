@@ -62,7 +62,7 @@ A valid JSON response with your `Account` and `Arn` confirms the AWS MCP server 
 
 ## 2. Add your credentials to `.claude/settings.local.json`
 
-Store MCP credentials only in this per-developer file's `env` block. Do not create an MCP `.env` file or add tokens to application `.env.<env>` files (those are a separate, unrelated build-config mechanism — see `Infrastructure/00 Configuration & Secrets.md`). Verify `.claude/settings.local.json` is gitignored. Merge the block below into your existing file; preserve any other keys already there (permissions, hooks, `enabledMcpjsonServers`).
+Store MCP credentials only in this per-developer file's `env` block. Do not create an MCP `.env` file or add tokens to application `.env.<env>` files — those are a separate, unrelated build-config mechanism. Verify `.claude/settings.local.json` is gitignored. Merge the block below into your existing file; preserve any other keys already there (permissions, hooks, `enabledMcpjsonServers`).
 
 ```jsonc
 {

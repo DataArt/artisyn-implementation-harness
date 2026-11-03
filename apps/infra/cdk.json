@@ -1,6 +1,0 @@
-{
-  "app": "../../node_modules/.bin/tsx bin/app.ts",
-  "context": {
-    "@aws-cdk/core:defaultCrossStackReferences": "strong"
-  }
-}

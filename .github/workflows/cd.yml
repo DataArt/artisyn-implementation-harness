@@ -5,17 +5,12 @@ on:
     branches: [main]
 
 permissions:
-  id-token: write
   contents: read
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: dev
-    env:
-      AWS_REGION: ${{ vars.AWS_REGION }}
-      SITE_SSM_ENV_PARAM: ${{ vars.SITE_SSM_ENV_PARAM }}
-      LAMBDA_AUTH_SSM_ENV_PARAM: ${{ vars.LAMBDA_AUTH_SSM_ENV_PARAM }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -23,10 +18,5 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - uses: ./.github/actions/aws-auth
-        with:
-          role-arn: ${{ vars.DEPLOY_ROLE_ARN }}
-          aws-region: ${{ vars.AWS_REGION }}
-
       - name: Deploy affected
-        run: yarn nx affected --target=deploy --configuration=ci --base=HEAD~1 --head=HEAD
+        run: echo "CD deploy retired pending GitHub Pages cutover — see solution/Architecture.md" && exit 0
