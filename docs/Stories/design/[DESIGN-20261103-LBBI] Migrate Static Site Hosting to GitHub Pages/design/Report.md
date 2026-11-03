@@ -22,10 +22,10 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: evaluate
-completed_stages: ['context-gathering', 'ceremony', 'frame', 'research']
-selected_artifacts: []
-next_action: 'Evaluate — commit'
+current_stage: solution
+completed_stages: ['context-gathering', 'ceremony', 'frame', 'research', 'evaluate']
+selected_artifacts: ['architecture', 'design', 'stack', 'efforts']
+next_action: 'Solution — commit'
 context_fingerprint: ''
 ```
 
@@ -50,7 +50,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261103-LBBI                                                                                                                                                                |
 | Branch | `docs/design-20261103-lbbi-github-pages-migration`                                                                                                                                  |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -60,7 +60,7 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 20m 14s · Wait to date: 18m 30s (closed 18m 30s + current 0s) · Unclassified: 10m 23s
+Observed work: 30m 38s · Wait to date: 20m 31s (closed 20m 31s + current 0s) · Unclassified: 51m 49s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -68,8 +68,8 @@ Observed work: 20m 14s · Wait to date: 18m 30s (closed 18m 30s + current 0s) ·
 | ceremony (completed)          | 2026-11-03T13:21:14.302Z | 2026-11-03T13:23:32.117Z | 2m 18s      | 1m 6s   | 1m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | frame (completed)             | 2026-11-03T13:23:32.158Z | 2026-11-03T13:31:55.870Z | 8m 24s      | 7m 10s  | 1m 13s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | research (completed)          | 2026-11-03T13:31:55.912Z | 2026-11-03T13:45:05.007Z | 13m 9s      | 11m 47s | 1m 22s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (active)             | 2026-11-03T13:45:05.047Z | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| evaluate (completed)          | 2026-11-03T13:45:05.047Z | 2026-11-03T13:57:29.981Z | 12m 25s     | 10m 23s | 2m 2s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (active)             | 2026-11-03T13:57:30.030Z | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -123,6 +123,32 @@ _Recommended option: Option B — GitHub Pages, project site._
 
 Full elaboration: `design/02 Evaluate.md`
 
+### WAF — Solution — 2026-11-03
+
+_Chosen approach: GitHub Pages, project site (`solution/Architecture.md`)._
+
+| Pillar                 | Rating   | Headline                                                                                                                                                                                                                                                                                                                                                      |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟢 Green | Deploy fully automated, concurrency-protected (`group: "pages"`); explicit, ordered decommission plan.                                                                                                                                                                                                                                                        |
+| Security               | 🟢 Green | Both Evaluate-stage P1s are now concretely scheduled and owned: the pre-publish content/secrets review gates the visibility flip (Efforts #1), and `RemovalPolicy.RETAIN` resources get an explicit forced delete (Efforts #10). The meta-tag CSP limitation and the NFR-6 (Discuss read-gating) consequence are both accepted and documented, not open gaps. |
+| Reliability            | 🟢 Green | Transitional dual-deploy window (AWS and GitHub Pages running as independent jobs) keeps the live site served by AWS until the new path is verified — a rollback safety net that didn't exist as an explicit design before this review pass.                                                                                                                  |
+| Performance Efficiency | 🟢 Green | Unchanged from the Evaluate assessment — no new concern surfaced at Solution detail level.                                                                                                                                                                                                                                                                    |
+| Cost Optimization      | 🟢 Green | Decommission is now concrete (forced secret deletion, explicit bucket teardown) — no silent AWS cost leakage after cutover.                                                                                                                                                                                                                                   |
+| Sustainability         | 🟢 Green | Unchanged from the Evaluate assessment.                                                                                                                                                                                                                                                                                                                       |
+
+**P1 items:** none. Both P1s carried from the Evaluate-stage WAF assessment are resolved in this solution — see Security above.
+
+**Quality gate (`patterns/design-quality-gate.md`): PASS.**
+
+- Every framed EC/NFR constraint maps to a decision in `solution/Architecture.md`'s Decision Register or is explicitly unaffected (NFR-3, NFR-5, NFR-7 unchanged by this migration).
+- Every material concern from the Solution-stage preliminary scan resolves into a selected artifact (`Architecture.md`/`Design.md`/`Stack.md`/`Efforts.md`) — none left unaddressed.
+- Solution artifacts contain settled decisions only — verified by direct read of `solution/Architecture.md`; no rationale, rejected options, or open-question placeholders found (rationale correctly stays in `design/02 Evaluate.md`).
+- `solution/Architecture.md` confirmed as the canonical E2E record; `Design.md`/`Stack.md`/`Efforts.md` add detail only, introduce no conflicting decision.
+- All 6 Mermaid diagrams across the four solution artifacts were extracted and manually syntax-checked (the repo's `mmdc` CLI is non-functional in this environment — missing `puppeteer` dependency — so this was a syntax-oriented inspection per the quality gate's own fallback instruction, not a rendered check). All 6 passed: balanced brackets/quotes, valid flowchart/subgraph/classDef syntax.
+- No relative markdown links found in the four solution artifacts (file references use inline code spans, not link syntax) — nothing to validate.
+
+Full elaboration: `solution/Architecture.md`, `solution/Design.md`, `solution/Stack.md`, `solution/Efforts.md`
+
 ---
 
 ## Gate
@@ -136,11 +162,12 @@ Full elaboration: `design/02 Evaluate.md`
 
 ## Efforts
 
-| Date       | Phase    | Notes                                                                                                                                                                                                                                                              |
-| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 2026-11-03 | Frame    | 3 known requirements, 5 proposed requirements accepted                                                                                                                                                                                                             |
-| 2026-11-03 | Research | @architect returned 5 options (Minimal AWS, GitHub Pages project site, GitHub Pages custom domain, Cloudflare Pages, Netlify); developer confirmed set complete; resolved 3 of 3 Viability OQs (meta-tag CSP OK, NFR-9 retired, GitHub-native only — D/E excluded) |
-| 2026-11-03 | Evaluate | Recommended Option B — GitHub Pages, project site; WAF: 5 Green, 1 Amber (Security); 2 P1 items (pre-publish content/secrets review owner, RETAIN-resource decommission)                                                                                           |
+| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                   |
+| ---------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-03 | Frame    | 3 known requirements, 5 proposed requirements accepted                                                                                                                                                                                                                                  |
+| 2026-11-03 | Research | @architect returned 5 options (Minimal AWS, GitHub Pages project site, GitHub Pages custom domain, Cloudflare Pages, Netlify); developer confirmed set complete; resolved 3 of 3 Viability OQs (meta-tag CSP OK, NFR-9 retired, GitHub-native only — D/E excluded)                      |
+| 2026-11-03 | Evaluate | Recommended Option B — GitHub Pages, project site; WAF: 5 Green, 1 Amber (Security); 2 P1 items (pre-publish content/secrets review owner, RETAIN-resource decommission)                                                                                                                |
+| 2026-11-03 | Solution | Selected artifacts written (Architecture/Design/Stack/Efforts); architect review found 5 mechanical gaps, all auto-applied; WAF: 6/6 Green, 0 P1 items; quality gate: pass; WBS consolidated to 6 items (infra retirement split out as its own step) with developer estimates, total 8h |
 
 ---
 

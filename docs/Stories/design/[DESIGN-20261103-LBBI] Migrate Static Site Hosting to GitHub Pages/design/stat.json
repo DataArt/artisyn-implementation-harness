@@ -64,21 +64,29 @@
     },
     {
       "id": "evaluate",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "145d09e0-accd-4fb8-9ab5-374da3a55da8",
           "started_at": "2026-11-03T13:45:05.047Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T13:57:29.981Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "solution",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "036e0136-f3e0-4f74-96cf-4ddb835a465d",
+          "started_at": "2026-11-03T13:57:30.030Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "review-gate",
@@ -215,8 +223,31 @@
       "reason": "user_input",
       "detail": "Awaiting evaluate commit",
       "started_at": "2026-11-03T13:55:28.370Z",
+      "ended_at": "2026-11-03T13:57:29.981Z",
+      "last_observed_at": "2026-11-03T13:57:29.981Z"
+    },
+    {
+      "id": "a686002f-3867-4be5-8a9f-7a9b071b2a77",
+      "stage_id": "solution",
+      "stage_attempt_id": "036e0136-f3e0-4f74-96cf-4ddb835a465d",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-03T13:57:30.030Z",
+      "ended_at": "2026-11-03T14:49:18.672Z",
+      "last_observed_at": "2026-11-03T14:49:18.672Z"
+    },
+    {
+      "id": "fa7054b5-abe9-49ed-9ba0-e5ca92fced49",
+      "stage_id": "solution",
+      "stage_attempt_id": "036e0136-f3e0-4f74-96cf-4ddb835a465d",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting solution commit",
+      "started_at": "2026-11-03T14:49:18.672Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T13:55:28.370Z"
+      "last_observed_at": "2026-11-03T14:49:18.672Z"
     }
   ],
   "checks": [
@@ -299,19 +330,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "solution-sign-off-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "036e0136-f3e0-4f74-96cf-4ddb835a465d",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T14:48:47.569Z",
+      "ended_at": "2026-11-03T14:48:47.569Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed Architecture/Design/Stack/Efforts, light-colored diagrams, WBS consolidated to 6 items with infra retirement as its own step, estimates filled in (total 8h)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T13:55:28.370Z",
+    "as_of": "2026-11-03T14:49:18.672Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1837.6860000000001,
-    "observed_wait_seconds": 1109.518,
+    "observed_work_seconds": 4946.3279999999995,
+    "observed_wait_seconds": 1231.1290000000001,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 1109.518,
-    "unclassified_seconds": 0.2199999999997999,
+    "wait_seconds_to_date": 1231.1290000000001,
+    "unclassified_seconds": 0.26900000000000546,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 882.813,
