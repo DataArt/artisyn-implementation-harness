@@ -24,15 +24,11 @@ Navigation index for this repository's documentation.
 
 ---
 
-## The Story
-
-→ [The Story — Overview](The%20Story/index.md) — why DataArt's platform exists: the story, the common challenges, and the target agentic SDLC setup they add up to
-
----
-
 ## Harness
 
 The AI harness that powers this repo — lifecycles, skills, agents, and the portable bootstrap package.
 
 → [Harness — Overview](Harness/index.md)
+→ [The Story — Overview](<Harness/00 The Story/index.md>) — why DataArt's platform exists: the story, the common challenges, and the target agentic SDLC setup they add up to
+→ [Security Scan — Overview](<Harness/08 Security Scan/index.md>) — dated InfoSec security-scan reports against this repo's own skills, agents, and MCP configuration
 → Package source: `.canonical-implementation-harness/` (browse on GitHub — excluded from the built site, see the Harness overview for why)

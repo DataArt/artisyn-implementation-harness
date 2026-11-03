@@ -1,11 +1,11 @@
 ---
 id: 0b3e3361
-purpose: Site homepage introducing the Artisyn Harness and linking to the Harness and Story sections
+purpose: Site homepage introducing the Artisyn Implementation Harness and linking to the Harness and Story sections
 keywords: [home, index, landing]
 layout: home
 
 hero:
-  name: Artisyn Harness
+  name: Artisyn Implementation Harness
   text: 'AI-first engineering lifecycle'
   tagline: >
     A structured workflow system layered on an AI coding assistant —
@@ -19,7 +19,7 @@ hero:
       link: /Harness/
     - theme: alt
       text: Read the Story
-      link: /The%20Story/
+      link: /Harness/00%20The%20Story/
     - theme: alt
       text: Target Architecture
       link: /Target Architecture (HLD)/
@@ -33,7 +33,7 @@ features:
       Why AI-assisted delivery breaks down industry-wide — context that
       never gets kept, diagnosed against ten concrete failure patterns —
       and the human/AI balance and mindset shift ADLC wires in to fix it.
-    link: /The%20Story/
+    link: /Harness/00%20The%20Story/
   - title: Harness
     details: >
       The AI harness itself — the portable package of skills, agents, and

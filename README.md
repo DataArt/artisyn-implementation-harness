@@ -1,6 +1,10 @@
-# Contributing
+# Artisyn Implementation Harness
 
-_Local development, repository structure, and onboarding for anyone working in this repo._
+DataArt's AI-first engineering lifecycle system — a structured workflow layered on an AI coding assistant. Instead of prompting the assistant ad-hoc, work runs through specialised, lifecycle-aware agents governed by encoded conventions (skills) and feedback loops (reflections → skill library). It gives three things: **repeatability** (the same lifecycle steps run every ticket), **convergence** (conventions discovered on one ticket become skills inherited by the next), and **architecture coherence** (planning is audited against target architecture before code is written).
+
+This repo is the harness's canonical source — it runs its own development through the harness, and the harness itself is portable: `.canonical-implementation-harness/` is the self-contained package that instantiates it in a new project.
+
+→ See [docs/Harness](docs/Harness/index.md) for the harness's own self-description, or [The Story](<docs/Harness/00 The Story/index.md>) for why it exists.
 
 ## Repository structure
 
@@ -57,3 +61,7 @@ Once oriented:
 | `/design ND-XXX <topic>` | Start a new design session (target architecture, recommendations) |
 | `/dev ND-XXX <task>`     | Implement a ticket (site changes, auth, infra)                    |
 | `/where-we-are`          | Delivery gap report                                               |
+
+## Contributing
+
+Want to propose a change? See [`CONTRIBUTING.md`](CONTRIBUTING.md) for branching, commit format, and the PR process. Found a security issue? See [`SECURITY.md`](SECURITY.md).

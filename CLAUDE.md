@@ -1,8 +1,8 @@
-# Artisyn Harness
+# Artisyn Implementation Harness
 
 ## Why
 
-This repo is the canonical source of the Artisyn Harness — an AI-first engineering lifecycle system (skills, agents, and conventions) that runs this platform's own development and can be bootstrapped into other projects via `.canonical-implementation-harness/` (released as a versioned ZIP under `releases/harness-bootstrap/`, installed with `/harness-bootstrap launch`). The harness tracks design work, engineering decisions, and skill patterns from design through publication.
+This repo is the canonical source of the Artisyn Implementation Harness — an AI-first engineering lifecycle system (skills, agents, and conventions) that runs this platform's own development and can be bootstrapped into other projects via `.canonical-implementation-harness/` (released as a versioned ZIP under `releases/harness-bootstrap/`, installed with `/harness-bootstrap launch`). The harness tracks design work, engineering decisions, and skill patterns from design through publication.
 
 ## What
 

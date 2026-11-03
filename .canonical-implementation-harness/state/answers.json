@@ -3,7 +3,7 @@
   "answers": {
     "Q1": {
       "question": "Project purpose and why it exists",
-      "value": "Canonical source of the Artisyn Harness — an AI-first engineering lifecycle system (skills, agents, conventions) that runs this platform's own development and is bootstrapped into other projects via docs/Harness/package/. Also ships the ADLC Discovery Tool docs site itself.",
+      "value": "Canonical source of the Artisyn Implementation Harness — an AI-first engineering lifecycle system (skills, agents, conventions) that runs this platform's own development and is bootstrapped into other projects via docs/Harness/package/. Also ships the ADLC Discovery Tool docs site itself.",
       "source": "CLAUDE.md",
       "status": "verified"
     },

@@ -17,7 +17,7 @@ Without that onboarding, a senior engineer will still produce output — fast, c
 
 **An AI assistant has exactly the same problem.** Every session starts from zero. It has no memory of your architecture decisions, no awareness of your conventions, and no connection to your documentation. Execution is fast. Direction is absent.
 
-The fix is the same as with a new colleague: structured onboarding, maintained context, and a shared source of truth that stays current as the project evolves. Ten specific challenges follow. Most live at the project level, where the harness closes the gap directly — making the right context a first-class output of the work itself, not more process. A few live one layer up, at the Business or Technical/Integration Context that sits above any single project — those need wiring the [Context Topology](/The%20Story/02%20Context%20Landscape.md) itself, not just running the harness once. One more — [The Mental Model Shift](./04%20The%20Mental%20Model%20Shift.md) — isn't a context-wiring problem at all; it's about whether the people running the harness have adopted the mindset it requires, so it gets its own page.
+The fix is the same as with a new colleague: structured onboarding, maintained context, and a shared source of truth that stays current as the project evolves. Ten specific challenges follow. Most live at the project level, where the harness closes the gap directly — making the right context a first-class output of the work itself, not more process. A few live one layer up, at the Business or Technical/Integration Context that sits above any single project — those need wiring the [Context Topology](/Harness/00%20The%20Story/02%20Context%20Landscape.md) itself, not just running the harness once. One more — [The Mental Model Shift](./04%20The%20Mental%20Model%20Shift.md) — isn't a context-wiring problem at all; it's about whether the people running the harness have adopted the mindset it requires, so it gets its own page.
 
 ---
 
@@ -294,7 +294,7 @@ Teams pick up AI tools independently, and each choice makes sense on its own: a 
 
 ![Teams Feed a Broken Estate Machine](/images/context/Teams%20Feed%20a%20Broken%20Estate%20Machine.png)
 
-**How to address this — wiring Context Topology (Technical · Integration Context), not the harness alone:** this is Inconsistent Topology at estate scale, one layer up at the [Technical and Integration Context](/The%20Story/02%20Context%20Landscape.md) most teams assume is already shared. One project's harness gives that project a consistent skeleton — it doesn't keep every team's skeleton the same. Closing the gap means wiring that same skeleton across the estate, team by team: one team adopting it is a preference, every team adopting it is a standard.
+**How to address this — wiring Context Topology (Technical · Integration Context), not the harness alone:** this is Inconsistent Topology at estate scale, one layer up at the [Technical and Integration Context](/Harness/00%20The%20Story/02%20Context%20Landscape.md) most teams assume is already shared. One project's harness gives that project a consistent skeleton — it doesn't keep every team's skeleton the same. Closing the gap means wiring that same skeleton across the estate, team by team: one team adopting it is a preference, every team adopting it is a standard.
 
 ---
 
@@ -312,7 +312,7 @@ Depending on the organisation, those questions carry their own regulatory, custo
 | What can AI generate?                | Not addressed                | Output that could be mistaken for an approved, reviewed deliverable             |
 | Where do prompts and outputs end up? | Not addressed                | Third-party model providers, logged where legal/compliance needs visibility     |
 
-**How to address this — wiring Context Topology (Business Context), not the harness alone:** governance is owned at the [Business Context](/The%20Story/02%20Context%20Landscape.md) layer, above any single project — the harness can't generate a policy any more than it can set company goals. What it contributes: scoped agents (`@web`, `@auth`, `@infra`) restrict what an AI session reads and writes, and NFR docs plus guarded commands make sensitive operations explicit — legible enough to plug into a policy once one exists. The organisation's actual regulatory and IP obligations are diagnosed as part of that discovery, not assumed generically here.
+**How to address this — wiring Context Topology (Business Context), not the harness alone:** governance is owned at the [Business Context](/Harness/00%20The%20Story/02%20Context%20Landscape.md) layer, above any single project — the harness can't generate a policy any more than it can set company goals. What it contributes: scoped agents (`@web`, `@auth`, `@infra`) restrict what an AI session reads and writes, and NFR docs plus guarded commands make sensitive operations explicit — legible enough to plug into a policy once one exists. The organisation's actual regulatory and IP obligations are diagnosed as part of that discovery, not assumed generically here.
 
 ---
 

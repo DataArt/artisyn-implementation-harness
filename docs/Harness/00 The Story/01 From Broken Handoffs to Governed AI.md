@@ -6,7 +6,7 @@ keywords: [story, handoffs, governance, ai-assisted]
 
 # From Broken Handoffs to Governed AI
 
-> This page tells the story. [Target Agentic SDLC Setup](/The%20Story/05%20Target%20Agentic%20SDLC%20Setup.md) is the mechanics — which context layer feeds which phase, concretely.
+> This page tells the story. [Target Agentic SDLC Setup](/Harness/00%20The%20Story/05%20Target%20Agentic%20SDLC%20Setup.md) is the mechanics — which context layer feeds which phase, concretely.
 
 Three acts: the handoff problem the industry has carried for years, what happens when AI is dropped into that same unwired pipeline today, and the balance — humans gating, AI carrying — that prepares for where this is heading next. Together they're three positions on the same spectrum:
 
@@ -96,4 +96,4 @@ That's exactly how Section 3 above states it: gates sit at consequential transit
 
 ---
 
-The mechanics behind this balance — which context layer feeds which phase, and what each phase is required to leave behind — are in [Target Agentic SDLC Setup](/The%20Story/05%20Target%20Agentic%20SDLC%20Setup.md).
+The mechanics behind this balance — which context layer feeds which phase, and what each phase is required to leave behind — are in [Target Agentic SDLC Setup](/Harness/00%20The%20Story/05%20Target%20Agentic%20SDLC%20Setup.md).

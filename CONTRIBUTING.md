@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for considering a contribution. This project is DataArt's Artisyn Harness — an
+Thanks for considering a contribution. This project is DataArt's Artisyn Implementation Harness — an
 AI-first engineering lifecycle system (skills, agents, and conventions). It contains no
 client or application code and doesn't touch any application's code.
 
@@ -47,7 +47,7 @@ commands.
 
 Do not open a public issue for a security vulnerability. Email
 `InfoSec.Helpdesk@dataart.com` (or `securityincident@dataart.com` for an active
-incident) with what you found and how to reproduce it. See `docs/Security Scan/` for
+incident) with what you found and how to reproduce it. See `docs/Harness/08 Security Scan/` for
 this repo's own security review history.
 
 ## License

@@ -7,7 +7,7 @@ keywords: [SDLC stages, tool coverage, capability depth, maturity labels]
 
 # Tools Across the Six SDLC Stages
 
-The same six stages used in the [Story](<../../The Story/00 Software Development Lifecycle.md#1-the-wheel-works>): **Analysis → Design → Implementation → QA → Deployment → Maintenance**. These are SDLC stages, not the six internal steps of Artisyn's Dev workflow.
+The same six stages used in the [Story](<../00 The Story/00 Software Development Lifecycle.md#1-the-wheel-works>): **Analysis → Design → Implementation → QA → Deployment → Maintenance**. These are SDLC stages, not the six internal steps of Artisyn's Dev workflow.
 
 ![Nine tools across six SDLC stages, with features and assessed capability depth](/images/context/sdlc-tool-coverage.svg)
 

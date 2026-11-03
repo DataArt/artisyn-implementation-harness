@@ -8,7 +8,7 @@ import { registerContainers } from './utils/markdown-containers';
 
 export default withMermaid(
   defineConfig({
-    title: 'Artisyn Harness',
+    title: 'Artisyn Implementation Harness',
     description: 'AI-first engineering lifecycles',
     head: [
       ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
@@ -75,15 +75,16 @@ export default withMermaid(
         { text: 'Principles', link: '/Harness/05%20Principles/' },
         { text: 'Roadmap', link: '/Harness/06%20Roadmap/' },
         { text: 'Operational Graph', link: '/Harness/07%20Operational%20Graph/' },
-        { text: '🔒', link: '/Security%20Scan/' },
+        { text: '🔒', link: '/Harness/08%20Security%20Scan/' },
       ],
 
       sidebar: {
-        '/The Story/': [{ text: 'The Story', items: scanSection('The Story') }],
         '/Target Architecture (HLD)/': scanSection(`Target Architecture (HLD)/${HLD_VERSION}`),
         '/System Architecture (LLD)/': scanSection('System Architecture (LLD)'),
         '/Engineering Guide/': scanSection('Engineering Guide'),
-        '/Security Scan/': [{ text: '🔒 Security Scan', items: scanSection('Security Scan') }],
+        '/Harness/00 The Story/': [
+          { text: 'The Story', items: scanSection('Harness/00 The Story') },
+        ],
         '/Harness/01 Explore/': [{ text: 'Explore', items: scanSection('Harness/01 Explore') }],
         '/Harness/02 Quick Start/': [
           { text: 'Quick Start', items: scanSection('Harness/02 Quick Start') },
@@ -98,6 +99,9 @@ export default withMermaid(
         '/Harness/06 Roadmap/': [{ text: 'Roadmap', items: scanSection('Harness/06 Roadmap') }],
         '/Harness/07 Operational Graph/': [
           { text: 'Operational Graph', items: scanSection('Harness/07 Operational Graph') },
+        ],
+        '/Harness/08 Security Scan/': [
+          { text: '🔒 Security Scan', items: scanSection('Harness/08 Security Scan') },
         ],
         '/Harness/': [],
       },

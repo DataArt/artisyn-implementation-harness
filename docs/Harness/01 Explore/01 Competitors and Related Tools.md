@@ -19,7 +19,7 @@ The usual entry is an existing ticket or supplied engineering intent. Artisyn ca
 
 ![Three tiers of AI adoption: Code AI, Workflow AI, and Assisted AI](/images/context/three-tiers-maturity.svg)
 
-The [Story's adoption model](<../../The Story/00 Software Development Lifecycle.md#5-where-teams-get-stuck>) explains why repeatable execution and maintained project context matter. These tiers describe a team's operating practices, not fixed rankings of the tools below.
+The [Story's adoption model](<../00 The Story/00 Software Development Lifecycle.md#5-where-teams-get-stuck>) explains why repeatable execution and maintained project context matter. These tiers describe a team's operating practices, not fixed rankings of the tools below.
 
 | Tier            | Adoption focus                                                        | Question to ask when evaluating a tool                                                 |
 | --------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
@@ -29,7 +29,7 @@ The [Story's adoption model](<../../The Story/00 Software Development Lifecycle.
 
 A skill library can support persistent context; a full workflow can still run with stale information. Evaluate how a team installs, maintains, and uses each option. Artisyn's ambition is the third tier; the comparison below identifies overlapping capabilities and evidence still needed.
 
-For the wider organisational target beyond one project, continue to [Target Agentic SDLC Setup](<../../The Story/05 Target Agentic SDLC Setup.md>).
+For the wider organisational target beyond one project, continue to [Target Agentic SDLC Setup](<../00 The Story/05 Target Agentic SDLC Setup.md>).
 
 ## Landscape
 
