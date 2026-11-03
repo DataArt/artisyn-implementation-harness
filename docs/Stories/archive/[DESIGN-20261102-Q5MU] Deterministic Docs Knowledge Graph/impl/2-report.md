@@ -10,7 +10,7 @@ keywords: [implementation-report, docs-graph, operational-graph, review-findings
 | ------ | -------------------------------------------------------------------------------------------------------------- |
 | Ticket | DESIGN-20261102-Q5MU                                                                                           |
 | Branch | `feat/dev-20261102-q5mu-deterministic-docs-knowledge-graph`                                                    |
-| PR     | —                                                                                                              |
+| PR     | [#10](https://github.com/DataArt/artisyn-harness/pull/10)                                                      |
 | Author | Anton Merkulov                                                                                                 |
 | Status | ✅ Complete                                                                                                    |
 | Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅ |

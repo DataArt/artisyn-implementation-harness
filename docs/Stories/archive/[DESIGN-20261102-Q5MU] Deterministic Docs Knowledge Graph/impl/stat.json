@@ -1471,7 +1471,7 @@
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T00:02:16.798Z",
+    "as_of": "2026-11-03T00:12:16.498Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": 32185.948,
     "observed_work_seconds": 3422.4539999999993,
@@ -1490,7 +1490,7 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-03T00:02:16.789Z",
+    "as_of": "2026-11-03T00:12:16.489Z",
     "source": "2-report.md",
     "source_sha256": "61f720335334512a6da23c63b78b6efc6ce97a85cb3a62c252db25598a8c745e",
     "findings": {
