@@ -22,10 +22,10 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: frame
-completed_stages: ['context-gathering', 'ceremony']
+current_stage: research
+completed_stages: ['context-gathering', 'ceremony', 'frame']
 selected_artifacts: []
-next_action: 'Frame — commit'
+next_action: 'Research — commit'
 context_fingerprint: ''
 ```
 
@@ -50,7 +50,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261103-LBBI                                                                                                                                                                |
 | Branch | `docs/design-20261103-lbbi-github-pages-migration`                                                                                                                                  |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research 🔄 · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -60,29 +60,40 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1m 17s · Wait to date: 15m 54s (closed 15m 54s + current 0s) · Unclassified: 7m 10s
+Observed work: 8m 27s · Wait to date: 17m 8s (closed 17m 8s + current 0s) · Unclassified: 11m 47s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work  | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ----- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-03T13:06:20.993Z | 2026-11-03T13:21:14.252Z | 14m 53s     | 10s   | 14m 43s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-03T13:21:14.302Z | 2026-11-03T13:23:32.117Z | 2m 18s      | 1m 6s | 1m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (active)                | 2026-11-03T13:23:32.158Z | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (pending)            | unavailable              | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s    | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-03T13:06:20.993Z | 2026-11-03T13:21:14.252Z | 14m 53s     | 10s    | 14m 43s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-03T13:21:14.302Z | 2026-11-03T13:23:32.117Z | 2m 18s      | 1m 6s  | 1m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-03T13:23:32.158Z | 2026-11-03T13:31:55.870Z | 8m 24s      | 7m 10s | 1m 13s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (active)             | 2026-11-03T13:31:55.912Z | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
 ## Assumptions
 
-_Filled in during Research OQ triage. One row per open question answered or classified._
+_From Research OQ triage (2026-11-03)._
 
-| #   | Open question | V/E | Answer / status |
-| --- | ------------- | --- | --------------- |
+| #     | Open question                                                                                    | V/E | Answer / status                                                                                                       |
+| ----- | ------------------------------------------------------------------------------------------------ | --- | --------------------------------------------------------------------------------------------------------------------- |
+| OQ-1  | Is a custom domain available/desired for this site (Option B vs. C)?                             | (E) | Deferred to Evaluate/Solution.                                                                                        |
+| OQ-2  | Is a meta-tag CSP acceptable for NFR-10 under GitHub Pages, or does full header CSP require D/E? | (V) | **Resolved: meta-tag CSP is acceptable.** Does not disqualify B/C.                                                    |
+| OQ-3  | Is an NFR-9 access-log equivalent required, or is it retired as AWS-specific?                    | (V) | **Resolved: NFR-9 is retired.** No logging-equivalent requirement; does not disqualify B/C.                           |
+| OQ-4  | Is `cdk destroy` sufficient given `RemovalPolicy.RETAIN` on S3/Secrets Manager?                  | (E) | Deferred to Solution/implementation (explicit manual deletion step needed for retained resources).                    |
+| OQ-5  | Does the `docs-operational-graph.sqlite` WASM fetch path need a `base`-aware fix for Option B?   | (E) | Deferred to Solution/implementation.                                                                                  |
+| OQ-6  | Does Option B's path prefix affect giscus's pathname-based discussion mapping?                   | (E) | Deferred to Solution/implementation.                                                                                  |
+| OQ-7  | What's the tracked action/date for the repo going public?                                        | (E) | Deferred — tracked as a dependency, not yet scheduled.                                                                |
+| OQ-8  | Who owns the pre-publish content/secrets review?                                                 | (E) | Deferred to Solution/Completion.                                                                                      |
+| OQ-9  | Does CD replacement also mean deleting AWS-specific nx targets/actions?                          | (E) | Deferred to Solution (decommission plan).                                                                             |
+| OQ-10 | Is a non-GitHub-native vendor (D/E) acceptable at all?                                           | (V) | **Resolved: GitHub-native only.** Options D (Cloudflare Pages) and E (Netlify) are excluded from the Evaluate matrix. |
+| OQ-11 | Has build size/time been measured against GitHub Pages' limits?                                  | (E) | Deferred — unmeasured, low risk.                                                                                      |
 
 ---
 
@@ -105,9 +116,10 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date       | Phase | Notes                                                  |
-| ---------- | ----- | ------------------------------------------------------ |
-| 2026-11-03 | Frame | 3 known requirements, 5 proposed requirements accepted |
+| Date       | Phase    | Notes                                                                                                                                                                                                                                                              |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-11-03 | Frame    | 3 known requirements, 5 proposed requirements accepted                                                                                                                                                                                                             |
+| 2026-11-03 | Research | @architect returned 5 options (Minimal AWS, GitHub Pages project site, GitHub Pages custom domain, Cloudflare Pages, Netlify); developer confirmed set complete; resolved 3 of 3 Viability OQs (meta-tag CSP OK, NFR-9 retired, GitHub-native only — D/E excluded) |
 
 ---
 

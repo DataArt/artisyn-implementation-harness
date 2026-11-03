@@ -38,21 +38,29 @@
     },
     {
       "id": "frame",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "64827c2c-9cf2-4f6b-8c76-54fb4defa4ff",
           "started_at": "2026-11-03T13:23:32.158Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T13:31:55.870Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "research",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "398fd335-9265-4a5b-9cbb-ab6407bfae64",
+          "started_at": "2026-11-03T13:31:55.912Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "evaluate",
@@ -153,8 +161,31 @@
       "reason": "user_input",
       "detail": "Awaiting frame commit",
       "started_at": "2026-11-03T13:30:42.467Z",
+      "ended_at": "2026-11-03T13:31:55.870Z",
+      "last_observed_at": "2026-11-03T13:31:55.870Z"
+    },
+    {
+      "id": "0f389337-17d8-4de0-a5bf-4c8369f665d0",
+      "stage_id": "research",
+      "stage_attempt_id": "398fd335-9265-4a5b-9cbb-ab6407bfae64",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-03T13:31:55.912Z",
+      "ended_at": "2026-11-03T13:43:43.280Z",
+      "last_observed_at": "2026-11-03T13:43:43.280Z"
+    },
+    {
+      "id": "b68c203b-c504-4d30-a8e6-90e0ac9c5980",
+      "stage_id": "research",
+      "stage_attempt_id": "398fd335-9265-4a5b-9cbb-ab6407bfae64",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting research commit",
+      "started_at": "2026-11-03T13:43:43.280Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T13:30:42.467Z"
+      "last_observed_at": "2026-11-03T13:43:43.280Z"
     }
   ],
   "checks": [
@@ -205,19 +236,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "research-sign-off-01",
+      "stage_id": "research",
+      "stage_attempt_id": "398fd335-9265-4a5b-9cbb-ab6407bfae64",
+      "step": null,
+      "design_revision": 0,
+      "name": "Research sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T13:43:03.841Z",
+      "ended_at": "2026-11-03T13:43:03.841Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed option set and proposed V/E triage; resolved OQ-2 (meta-tag CSP fine), OQ-3 (retire NFR-9), OQ-10 (GitHub-native only, D/E excluded)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T13:30:42.468Z",
+    "as_of": "2026-11-03T13:43:43.281Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 506.995,
-    "observed_wait_seconds": 954.388,
+    "observed_work_seconds": 1214.363,
+    "observed_wait_seconds": 1027.791,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 954.389,
-    "unclassified_seconds": 0.13799999999989632,
+    "wait_seconds_to_date": 1027.792,
+    "unclassified_seconds": 0.18000000000004002,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 882.813,
