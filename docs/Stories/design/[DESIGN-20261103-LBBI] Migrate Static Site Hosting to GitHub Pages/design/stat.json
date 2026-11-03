@@ -77,31 +77,50 @@
     },
     {
       "id": "solution",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "036e0136-f3e0-4f74-96cf-4ddb835a465d",
           "started_at": "2026-11-03T13:57:30.030Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T14:57:05.027Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "a8618cf0-d866-43a2-8727-378c10bea322",
+          "started_at": "2026-11-03T14:57:05.077Z",
+          "ended_at": "2026-11-03T15:01:25.928Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "address-feedback",
-      "status": "pending",
-      "attempts": []
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "Confirmed self-approval, no concerns, no MR",
+      "skipped_at": "2026-11-03T15:01:25.991Z"
     },
     {
       "id": "publish",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "f5544876-4030-4cb4-8727-0af7969bad07",
+          "started_at": "2026-11-03T15:01:30.507Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "completion",
@@ -246,8 +265,30 @@
       "reason": "user_input",
       "detail": "Awaiting solution commit",
       "started_at": "2026-11-03T14:49:18.672Z",
+      "ended_at": "2026-11-03T14:57:05.027Z",
+      "last_observed_at": "2026-11-03T14:57:05.027Z"
+    },
+    {
+      "id": "35389dd7-8c2a-48f1-8b42-ee7cd622a4db",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "a8618cf0-d866-43a2-8727-378c10bea322",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-03T14:57:05.077Z",
+      "ended_at": "2026-11-03T15:01:25.928Z",
+      "last_observed_at": "2026-11-03T15:01:25.928Z"
+    },
+    {
+      "id": "0b88eb05-e8c7-4bd9-8ce7-300c3bf9203c",
+      "stage_id": "publish",
+      "stage_attempt_id": "f5544876-4030-4cb4-8727-0af7969bad07",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-03T15:01:30.507Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T14:49:18.672Z"
+      "last_observed_at": "2026-11-03T15:01:30.507Z"
     }
   ],
   "checks": [
@@ -346,19 +387,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "gate-round-01",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "a8618cf0-d866-43a2-8727-378c10bea322",
+      "step": null,
+      "design_revision": 0,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T15:01:25.878Z",
+      "ended_at": "2026-11-03T15:01:25.878Z",
+      "result": "passed",
+      "evidence_ref": "Self-approved directly by Anton Merkulov (approver), no draft MR opened, no concerns raised, per explicit request to skip the MR gate",
+      "source": "developer confirmation",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T14:49:18.672Z",
+    "as_of": "2026-11-03T15:01:43.631Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 4946.3279999999995,
-    "observed_wait_seconds": 1231.1290000000001,
+    "observed_work_seconds": 5207.178999999999,
+    "observed_wait_seconds": 1697.4840000000002,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 1231.1290000000001,
-    "unclassified_seconds": 0.26900000000000546,
+    "wait_seconds_to_date": 1697.4840000000002,
+    "unclassified_seconds": 18.02200000000107,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 882.813,
