@@ -12,21 +12,29 @@
   "stages": [
     {
       "id": "context-gathering",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "939023d6-c371-484e-b705-7fbebbfd7f4e",
           "started_at": "2026-11-03T13:06:20.993Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T13:21:14.252Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "ceremony",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "b13e092b-bcbe-4e41-9c71-cfce11be17f2",
+          "started_at": "2026-11-03T13:21:14.302Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "frame",
@@ -91,8 +99,31 @@
       "reason": "approval",
       "detail": "Awaiting context-gathering sign-off",
       "started_at": "2026-11-03T13:06:31.439Z",
+      "ended_at": "2026-11-03T13:21:14.252Z",
+      "last_observed_at": "2026-11-03T13:21:14.252Z"
+    },
+    {
+      "id": "1682d3ab-66d5-4fd8-9d98-2c7c14426db9",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "b13e092b-bcbe-4e41-9c71-cfce11be17f2",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-03T13:21:14.302Z",
+      "ended_at": "2026-11-03T13:22:20.542Z",
+      "last_observed_at": "2026-11-03T13:22:20.542Z"
+    },
+    {
+      "id": "f7ac955f-db8e-43a9-a8fc-b8534d2ef87f",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "b13e092b-bcbe-4e41-9c71-cfce11be17f2",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting ceremony commit",
+      "started_at": "2026-11-03T13:22:20.542Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T13:06:31.439Z"
+      "last_observed_at": "2026-11-03T13:22:20.542Z"
     }
   ],
   "checks": [
@@ -111,22 +142,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "ceremony-sign-off-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "b13e092b-bcbe-4e41-9c71-cfce11be17f2",
+      "step": null,
+      "design_revision": 0,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T13:22:06.921Z",
+      "ended_at": "2026-11-03T13:22:06.921Z",
+      "result": "passed",
+      "evidence_ref": "Checked out docs/design-20261103-lbbi-github-pages-migration",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T13:14:59.593Z",
+    "as_of": "2026-11-03T13:22:20.543Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 10.446,
-    "observed_wait_seconds": 0,
+    "observed_work_seconds": 76.68599999999999,
+    "observed_wait_seconds": 882.813,
     "open_work_seconds": 0,
-    "open_wait_seconds": 508.154,
-    "wait_seconds_to_date": 508.154,
-    "unclassified_seconds": 0.047000000000025466,
+    "open_wait_seconds": 0.001,
+    "wait_seconds_to_date": 882.814,
+    "unclassified_seconds": 0.09699999999995634,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 0,
+    "approval_wait_seconds": 882.813,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
