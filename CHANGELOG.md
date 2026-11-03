@@ -1,3 +1,17 @@
+## [1.1.0](https://github.com/DataArt/artisyn-harness/compare/v1.0.0...v1.1.0) (2026-11-03)
+
+### Features
+
+- **docs-web:** render Graph Explorer as a concentric tier-ring graph with doc links ([0676441](https://github.com/DataArt/artisyn-harness/commit/0676441ae0e8ab4ba137e3f35fc6a9e460caaf7f))
+- **docs-web:** wire operational graph into site build, add Graph Explorer page, collapsible sidebars ([a7043da](https://github.com/DataArt/artisyn-harness/commit/a7043da8ff9ff94518e30d0f993c8b604bff012e))
+- **harness-bootstrap:** add operational-graph tool for deterministic docs indexing ([09b6bf9](https://github.com/DataArt/artisyn-harness/commit/09b6bf9e65f0c16bc3fc5c6e69b780de87e1d507))
+- **harness-bootstrap:** add reindex-graph route, doc pruning, and purpose/keywords frontmatter rule ([9437a1f](https://github.com/DataArt/artisyn-harness/commit/9437a1f6b7a8ca863a4060f359e4686745042b07))
+- **harness-bootstrap:** materialize operational graph, add standalone reindex-graph route ([3ce5199](https://github.com/DataArt/artisyn-harness/commit/3ce5199e55f232baf0b59f6f63ecc8a9c6912d3a))
+
+### Bug Fixes
+
+- **harness-bootstrap:** preserve doc id/edges across a file move or rename ([f64906c](https://github.com/DataArt/artisyn-harness/commit/f64906c5c932d9d7983c7358bde7cc3f95275a74))
+
 ## 1.0.0 (2026-10-16)
 
 ### Features
