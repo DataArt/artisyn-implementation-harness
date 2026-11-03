@@ -1,3 +1,9 @@
+---
+id: 2f617a4e
+purpose: Design intent for the Web container — the VitePress static documentation site
+keywords: [web, vitepress, hld]
+---
+
 # Web Container
 
 VitePress static documentation site.
@@ -55,8 +61,9 @@ Nav is five fixed items in `config.ts`, one per top-level `docs/` section. Sideb
 
 ## Boundary contracts
 
-- Input: Markdown content under `docs/` (`srcDir`), VitePress config (`.vitepress/config.ts`), theme components (`.vitepress/theme/`)
-- Output: static HTML/CSS/JS in `apps/docs-web/.vitepress/dist/`, uploaded to the S3 origin by `site:deploy` (`aws s3 sync`) — the container's runtime output is build-time only, no server process
+- Input: Markdown content under `docs/` (`srcDir`), VitePress config (`.vitepress/config.ts`), theme components (`.vitepress/theme/`), and `docs/.og/cli.mjs build` — runs before `vitepress build` to keep the operational graph database current
+- Output: static HTML/CSS/JS in `apps/docs-web/.vitepress/dist/`, uploaded to the S3 origin by `site:deploy` (`aws s3 sync`) — the container's runtime output is build-time only, no server process. `docs-operational-graph.sqlite` is copied into `dist/` by `config.ts`'s `buildEnd` hook as an additional static output
+- Runtime dependencies: `cytoscape` and `sql.js` render and live-query the operational graph on the Graph Explorer page
 - Guarantee: `nx run site:build` fails the build on any dead internal link, since `ignoreDeadLinks` is not set in `config.ts` (NFR-5)
 - Runtime environment values (`VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`) are resolved at build time from `.env.dev` locally or SSM in CI — never read at request time, since the served artifact has no server runtime
 
@@ -69,8 +76,9 @@ Nav is five fixed items in `config.ts`, one per top-level `docs/` section. Sideb
 
 ## Key paths
 
-| Path                             | Purpose                                |
-| -------------------------------- | -------------------------------------- |
-| `apps/docs-web/`                 | VitePress config and theme             |
-| `docs/`                          | Markdown content (srcDir)              |
-| `apps/docs-web/.vitepress/dist/` | Static build output (S3 upload target) |
+| Path                             | Purpose                                                        |
+| -------------------------------- | -------------------------------------------------------------- |
+| `apps/docs-web/`                 | VitePress config and theme                                     |
+| `docs/`                          | Markdown content (srcDir)                                      |
+| `apps/docs-web/.vitepress/dist/` | Static build output (S3 upload target)                         |
+| `docs/.og/cli.mjs`               | Operational graph build-time CLI, run before `vitepress build` |

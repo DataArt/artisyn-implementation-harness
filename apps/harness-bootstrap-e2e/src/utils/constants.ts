@@ -24,7 +24,7 @@ export const SKILL_FILE = 'SKILL.md';
 export const INTENT_FILE = 'INTENT.md';
 
 /** The launch report's fixed stage table length. */
-export const LAUNCH_STAGE_COUNT = 14;
+export const LAUNCH_STAGE_COUNT = 15;
 
 /** Whether a scratch workspace is deleted once its run finishes.
  *

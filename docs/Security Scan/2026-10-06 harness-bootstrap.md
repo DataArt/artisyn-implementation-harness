@@ -1,3 +1,9 @@
+---
+id: 40cf72dd
+purpose: Record the 2026-10-06 DataArt InfoSec security review findings and verdict for the harness-bootstrap skill
+keywords: [security-scan, harness-bootstrap, infosec, review]
+---
+
 # Security Review: harness-bootstrap
 
 _DataArt InfoSec · internal-use-skill-plugin-security-review v1.0.0 (scan mode) · [Internal use]_

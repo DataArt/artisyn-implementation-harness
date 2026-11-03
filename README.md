@@ -4,17 +4,19 @@ _Local development, repository structure, and onboarding for anyone working in t
 
 ## Repository structure
 
-| Path                              | Purpose                                                               |
-| --------------------------------- | --------------------------------------------------------------------- |
-| `docs/Harness/`                   | The harness itself — portable package, plus its own guide             |
-| `docs/Target Architecture (HLD)/` | Architecture design for this platform                                 |
-| `docs/Engineering Guide/`         | Conventions, AI workflow, and development guide                       |
-| `apps/docs-web/`                  | VitePress documentation site                                          |
-| `apps/lambda-auth/`               | Lambda@Edge basic auth handler                                        |
-| `apps/infra/`                     | AWS CDK infrastructure                                                |
-| `raw-artifacts/`                  | Sourcewe documents and reference materials                            |
-| `.claude/`                        | Engineering harness — skills, agents, templates                       |
-| `scripts/`                        | Deterministic automation — bootstrap, CI, local env/secrets push-pull |
+| Path                                 | Purpose                                                               |
+| ------------------------------------ | --------------------------------------------------------------------- |
+| `docs/`                              | All documentation — see `docs/README.md` for the full index           |
+| `docs/Harness/`                      | The harness itself — portable package, plus its own guide             |
+| `docs/Target Architecture (HLD)/`    | Architecture design for this platform                                 |
+| `docs/Engineering Guide/`            | Conventions, AI workflow, and development guide                       |
+| `apps/docs-web/`                     | VitePress documentation site                                          |
+| `apps/lambda-auth/`                  | Lambda@Edge basic auth handler                                        |
+| `apps/infra/`                        | AWS CDK infrastructure                                                |
+| `apps/harness-bootstrap-e2e/`        | Test harness validating the `harness-bootstrap` skill itself          |
+| `.canonical-implementation-harness/` | The harness-bootstrap skill's canonical source, released as a ZIP     |
+| `.claude/`                           | Engineering harness — skills, agents, templates                       |
+| `scripts/`                           | Deterministic automation — bootstrap, CI, local env/secrets push-pull |
 
 ## Local setup
 

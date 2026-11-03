@@ -1,3 +1,9 @@
+---
+id: b92bbe27
+purpose: Implementation plan for migrating infra from Terraform to AWS CDK and wiring the secrets management targets
+keywords: [adlc-003, cdk, secrets-management, plan, infra]
+---
+
 # ADLC-003: CDK Infrastructure & Secrets Management
 
 | Field   | Value                     |

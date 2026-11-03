@@ -9,6 +9,7 @@ import {
   gradeHldCoversContainers,
   gradeDocsIndexExists,
   gradeContainerAgentsDeployed,
+  gradeDocsGraphAdopted,
 } from '../../../graders/docs-adoption.grader.ts';
 
 function tmpRoot(): string {
@@ -139,5 +140,46 @@ describe('gradeContainerAgentsDeployed', () => {
     fs.mkdirSync(path.join(root, '.codex/agents'), { recursive: true });
     fs.writeFileSync(path.join(root, '.codex/agents/be.toml'), 'name = "be"\n');
     expect(gradeContainerAgentsDeployed(root, PROVIDERS.codex, ['be']).pass).toBe(true);
+  });
+});
+
+describe('gradeDocsGraphAdopted', () => {
+  function writeOgPackage(root: string): void {
+    const ogDir = path.join(root, 'docs/.og');
+    fs.mkdirSync(ogDir, { recursive: true });
+    for (const file of [
+      'cli.mjs',
+      'constants.mjs',
+      'schema.mjs',
+      'utils.mjs',
+      'docs.mjs',
+      'edges.mjs',
+      'docs-operational-graph.sqlite',
+    ])
+      fs.writeFileSync(path.join(ogDir, file), '');
+  }
+
+  it('passes when every deployed file exists and the test file does not', () => {
+    const root = tmpRoot();
+    writeOgPackage(root);
+    expect(gradeDocsGraphAdopted(root).pass).toBe(true);
+  });
+
+  it('fails when a deployed file is missing', () => {
+    const root = tmpRoot();
+    writeOgPackage(root);
+    fs.rmSync(path.join(root, 'docs/.og/edges.mjs'));
+    const result = gradeDocsGraphAdopted(root);
+    expect(result.pass).toBe(false);
+    expect(result.failures[0]).toMatch(/edges\.mjs is missing/);
+  });
+
+  it('fails when the canonical-only test file was deployed', () => {
+    const root = tmpRoot();
+    writeOgPackage(root);
+    fs.writeFileSync(path.join(root, 'docs/.og/cli.test.mjs'), '');
+    const result = gradeDocsGraphAdopted(root);
+    expect(result.pass).toBe(false);
+    expect(result.failures[0]).toMatch(/should not be deployed/);
   });
 });

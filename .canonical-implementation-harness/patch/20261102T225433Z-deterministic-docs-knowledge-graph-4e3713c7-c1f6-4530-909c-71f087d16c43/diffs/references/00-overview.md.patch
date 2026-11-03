@@ -1,0 +1,38 @@
+--- a/references/00-overview.md
++++ b/references/00-overview.md
+@@ -4,20 +4,21 @@
+ commands. The launch contract is a router plus stage-scoped references, loaded
+ as each stage starts.
+ 
+-| Reference                                         | Responsibility                                                                      |
+-| ------------------------------------------------- | ----------------------------------------------------------------------------------- |
+-| [Launch](launch/01-launch.md)                     | Stage sequence, task tracking contract, and routing to the stage references         |
+-| [Launch plan](launch/01a-launch-plan.md)          | Provider selection, storage, recovery, context inspection, permanent Q&A, JSON plan |
+-| [Launch install](launch/01b-launch-install.md)    | Blocks A–C and D.1: skills, agents, root context/MCP, Engineering Guide             |
+-| [Launch docs](launch/01c-launch-docs.md)          | D.2–D.5 and E: layer/component agent contract, review, Mermaid gate                 |
+-| [Launch verify](launch/01d-launch-verify.md)      | Cleanup, final audit, and close                                                     |
+-| [Provider launch](launch/08-provider-launch.md)   | Manifest-driven selection, plan generation, adaptation, and finalization            |
+-| [Launch questions](launch/02-launch-questions.md) | Editable question checklist loaded and resolved by launch task 3                    |
+-| [Patch router](patch/03-patch.md)                 | Choose harvest, prepare, or apply                                                   |
+-| [Harvest](patch/04-patch-harvest.md)              | Promote permanent improvements into canonical sources                               |
+-| [Prepare](patch/07-patch-prepare.md)              | Package direct canonical edits into a portable bundle                               |
+-| [Apply](patch/05-patch-apply.md)                  | Personalize canonical updates into permanent outputs                                |
+-| [Patch state](patch/06-patch-state.md)            | Diff manifests, baselines, conflicts, and durable history                           |
++| Reference                                                | Responsibility                                                                      |
++| -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
++| [Launch](launch/01-launch.md)                            | Stage sequence, task tracking contract, and routing to the stage references         |
++| [Launch plan](launch/01a-launch-plan.md)                 | Provider selection, storage, recovery, context inspection, permanent Q&A, JSON plan |
++| [Launch install](launch/01b-launch-install.md)           | Blocks A–C and D.1: skills, agents, root context/MCP, Engineering Guide             |
++| [Launch docs](launch/01c-launch-docs.md)                 | D.2–D.5 and E: layer/component agent contract, review, Mermaid gate                 |
++| [Launch graph/verify](launch/01d-launch-graph-verify.md) | Operational graph materialization, cleanup, final audit, and close                  |
++| [Provider launch](launch/08-provider-launch.md)          | Manifest-driven selection, plan generation, adaptation, and finalization            |
++| [Reindex graph](reindex-graph.md)                        | Standalone operational-graph rebuild, outside the launch sequence                   |
++| [Launch questions](launch/02-launch-questions.md)        | Editable question checklist loaded and resolved by launch task 3                    |
++| [Patch router](patch/03-patch.md)                        | Choose harvest, prepare, or apply                                                   |
++| [Harvest](patch/04-patch-harvest.md)                     | Promote permanent improvements into canonical sources                               |
++| [Prepare](patch/07-patch-prepare.md)                     | Package direct canonical edits into a portable bundle                               |
++| [Apply](patch/05-patch-apply.md)                         | Personalize canonical updates into permanent outputs                                |
++| [Patch state](patch/06-patch-state.md)                   | Diff manifests, baselines, conflicts, and durable history                           |
+ 
+ The toolkit's deployable payload lives entirely under `canonical/` — its `skills/`
+ and `agents/` subfolders hold canonical templates and INTENT rules, its `docs/`

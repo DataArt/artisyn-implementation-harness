@@ -1,3 +1,9 @@
+---
+id: 4edd3908
+purpose: Describes the target configuration — which context layer feeds which SDLC phase, and what each phase must leave behind
+keywords: [target-state, sdlc, story, context-layers]
+---
+
 # Target Agentic SDLC Setup
 
 > [!WARNING] Target state

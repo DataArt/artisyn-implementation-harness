@@ -1,0 +1,44 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,41 @@
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
+ 
++## 3.2.0
++
++Deterministic docs operational graph: a new canonical module
++(`canonical/docs/.og/`) that indexes every project doc into a local SQLite
++database and computes its relationships, with zero added runtime
++dependencies beyond Node's built-in `node:sqlite`.
++
++- **New canonical package `docs/.og/`** — `cli.mjs` (`build()`/`index()`/
++  `reindex()`/`query()`/`search()`/`list()`/`unedge()`), `constants.mjs`,
++  `utils.mjs`, `docs.mjs`, `edges.mjs`, `schema.mjs`, plus `cli.test.mjs`
++  (never copied into a bootstrapped project) and a schema-initialized seed
++  `.sqlite`. ID assignment is additive-only, idempotent, and collision-safe;
++  edges cover six authored graduation types plus computed `mirrors-*` and
++  automatic `keyword-match` relations; `build()` also emits a generated
++  Mermaid mindmap artifact.
++- **New `reindex-graph` route** (`references/reindex-graph.md`) — rebuilds
++  the operational graph standalone, without a full `launch` run: Step 0
++  idempotently deploys/refreshes the six module files, then a deterministic
++  build followed by a 3-phase intelligent scan (fulfill frontmatter, rebuild
++  edges from the now-complete table, review/retract stale relations).
++  `launch`'s own Materialize stage (`references/launch/01d-launch-graph-verify.md`,
++  replacing the old `01d-launch-verify.md`) now delegates to it wholesale
++  instead of duplicating the copy logic.
++- **Dev/design lifecycle wiring** — `dev/references/01-context-gathering.md`
++  and `design/references/01-context-gathering.md`/`04-research.md` query the
++  graph on the read path (required grep/glob fallback); `dev/references/06-document.md`
++  and `design/references/09-publish.md` call `index()` non-blockingly on the
++  write path when a doc graduates.
++- `Documentation/01 Principles.md` — new frontmatter rule: quote `purpose:`
++  in double quotes whenever it contains a YAML-reserved character, so a
++  scan-written value can't break a consuming site's frontmatter parse.
++- Compatible, additive change — no existing command, placeholder, or
++  workflow-step behavior changes; the new module and route are opt-in
++  surface area.
++
+ ## 3.1.0
+ 
+ Design skill 6.1.0: harvested from a direct canonical edit, itself adopted from

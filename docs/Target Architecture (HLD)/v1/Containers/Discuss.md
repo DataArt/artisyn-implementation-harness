@@ -1,3 +1,9 @@
+---
+id: f84dc7bb
+purpose: Design intent for the Discuss container — giscus-based comments widget with no infra of its own
+keywords: [discuss, giscus, github-discussions, hld]
+---
+
 # Discuss Container
 
 Client-side comments widget (giscus, GitHub Discussions-backed) embedded on VitePress documentation pages. No infrastructure or compute of our own — giscus and GitHub host and operate everything behind this integration.

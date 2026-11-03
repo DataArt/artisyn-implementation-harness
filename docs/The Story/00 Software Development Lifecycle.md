@@ -1,3 +1,9 @@
+---
+id: 901b861b
+purpose: Explains the industry-wide SDLC story and what the ADLC engagement does about it
+keywords: [sdlc, story, adlc]
+---
+
 # Software Development Lifecycle
 
 The why behind DataArt's platform: the industry-wide story, and what ADLC — the engagement telling this story — does about it.

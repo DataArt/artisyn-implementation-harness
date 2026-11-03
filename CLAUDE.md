@@ -2,7 +2,7 @@
 
 ## Why
 
-This repo is the canonical source of the Artisyn Harness — an AI-first engineering lifecycle system (skills, agents, and conventions) that runs this platform's own development and can be bootstrapped into other projects via `docs/Harness/package/`. The harness tracks design work, engineering decisions, and skill patterns from design through publication.
+This repo is the canonical source of the Artisyn Harness — an AI-first engineering lifecycle system (skills, agents, and conventions) that runs this platform's own development and can be bootstrapped into other projects via `.canonical-implementation-harness/` (released as a versioned ZIP under `releases/harness-bootstrap/`, installed with `/harness-bootstrap launch`). The harness tracks design work, engineering decisions, and skill patterns from design through publication.
 
 ## What
 
@@ -25,6 +25,7 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 | Auth           | Lambda@Edge basic auth password protection | Node.js · TypeScript |
 | Infrastructure | CDN, static origin, edge auth wiring       | AWS CDK · TypeScript |
 | Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
+| Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
 
 Data flow: Browser → CloudFront (Lambda@Edge auth gate) → S3 (VitePress static build). Discuss integrates client-side with giscus.app/GitHub Discussions.
 

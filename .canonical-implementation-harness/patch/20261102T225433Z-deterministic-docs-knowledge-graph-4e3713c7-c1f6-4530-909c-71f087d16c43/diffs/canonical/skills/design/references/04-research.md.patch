@@ -1,0 +1,24 @@
+--- a/canonical/skills/design/references/04-research.md
++++ b/canonical/skills/design/references/04-research.md
+@@ -41,9 +41,20 @@
+ 
+ ## Step 2 — Delegate to `{{DESIGN_ARCHITECT_AGENT}}` for options research
+ 
++Before delegating, attempt yourself: `node docs/.og/cli.mjs search --term
++<text>` (or `query --related-to <doc>`) against
++`docs/.og/docs-operational-graph.sqlite` to surface related docs. Required
++(not best-effort): when the graph is missing, stale, or the call errors, fall
++back to grep/glob over `{{DESIGN_DOCS_ROOT}}` for the same information —
++either way, never let this block research. This runs here, not inside the
++delegation below: `{{DESIGN_ARCHITECT_AGENT}}` can resolve to a read-only
++agent with no shell access (`@product-architect` on the Product track), so
++the query must be the orchestrator's own step, with whatever it surfaces
++folded into the delegation's context.
++
+ Delegate to `{{DESIGN_ARCHITECT_AGENT}}` with **explicit constraints**:
+ 
+-- Read relevant context docs under `{{DESIGN_DOCS_ROOT}}`
++- Read relevant context docs under `{{DESIGN_DOCS_ROOT}}`, plus whatever the graph query above surfaced
+ - Produce **3 to 5 distinct options** — include at least one "do nothing / minimal change" option if valid, and at least one industry-standard approach
+ - For each option: description, pros, cons, unknowns/risks, at least one industry reference or precedent, and a **colored Mermaid diagram** illustrating the approach (use `classDef` with fill/stroke/color — no default-grey diagrams)
+ - **Do not make a recommendation** — that is Evaluate's job

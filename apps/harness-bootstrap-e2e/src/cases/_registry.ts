@@ -15,4 +15,5 @@ export const cases: CaseEntry[] = [
   { id: 'dev-claude', path: 'src/cases/dev-claude.spec.ts' },
   { id: 'dev-codex', path: 'src/cases/dev-codex.spec.ts' },
   { id: 'patch-prepare-apply', path: 'src/cases/patch-prepare-apply.spec.ts' },
+  { id: 'reindex-graph', path: 'src/cases/reindex-graph.spec.ts' },
 ];

@@ -1,3 +1,9 @@
+---
+id: b21edcd0
+purpose: How to generate and wire MCP credentials so Claude Code can reach AWS, GitHub, and Atlassian
+keywords: [MCP, Claude Code, AWS credentials, GitHub token, Atlassian, settings.local.json]
+---
+
 # MCP Setup
 
 _Connect Claude Code to AWS, GitHub, and Atlassian via Model Context Protocol._

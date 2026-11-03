@@ -1,3 +1,9 @@
+---
+id: 2e51eeea
+purpose: Design intent for the Infrastructure container — AWS CDK definitions for all cloud resources
+keywords: [infrastructure, cdk, hld]
+---
+
 # Infrastructure Container
 
 AWS CDK definitions for all cloud resources.

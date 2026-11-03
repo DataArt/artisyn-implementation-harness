@@ -1,3 +1,9 @@
+---
+id: fa0456f5
+purpose: Describe the design lifecycle's phases for producing an approved architectural design before implementation
+keywords: [design lifecycle, frame, research, evaluate, solution, publish, two-track]
+---
+
 # Design Lifecycle — Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish
 
 _Produces an approved architectural design before implementation begins._

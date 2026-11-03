@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { withMermaid } from 'vitepress-plugin-mermaid';
 import { defineConfig } from 'vitepress';
 import { scanSection } from './utils/sidebar';
@@ -8,10 +10,34 @@ export default withMermaid(
   defineConfig({
     title: 'Artisyn Harness',
     description: 'AI-first engineering lifecycles',
-    head: [['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }]],
+    head: [
+      ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+      // Applies the persisted sidebar/aside collapse state before hydration
+      // (same pattern VitePress itself uses for dark mode) so returning
+      // visitors don't see the panel flash open then collapse on load.
+      [
+        'script',
+        { id: 'check-sidebar-collapse' },
+        `(()=>{try{const d=document.documentElement;
+          if(localStorage.getItem('vp-sidebar-collapsed')==='true')d.classList.add('sidebar-collapsed');
+          if(localStorage.getItem('vp-aside-collapsed')==='true')d.classList.add('aside-collapsed');
+        }catch(e){}})();`,
+      ],
+    ],
 
     srcDir: '../../docs',
-    srcExclude: ['Stories/**', 'Harness/package/**'],
+    srcExclude: ['Stories/**'],
+
+    // The operational graph's sqlite lives at <srcDir>/.og/ (a dot-directory,
+    // excluded from VitePress's own page scan) — copy it into the build output
+    // here instead of via docs/public/, so the binary db never has to sit in
+    // source control as a generated, constantly-churning file. site-build.sh
+    // runs `cli.mjs build` before this build, so the file is current when read.
+    async buildEnd(siteConfig) {
+      const graphDb = path.join(siteConfig.srcDir, '.og', 'docs-operational-graph.sqlite');
+      if (fs.existsSync(graphDb))
+        fs.copyFileSync(graphDb, path.join(siteConfig.outDir, 'docs-operational-graph.sqlite'));
+    },
 
     // Raw HTML in markdown source is disabled — any <script>/<iframe>/event-handler
     // attribute pasted into docs/ (e.g. from a workshop transcript) renders as inert
@@ -48,7 +74,7 @@ export default withMermaid(
         { text: 'Adoption', link: '/Harness/04%20Adoption/00%20Adoption%20Path' },
         { text: 'Principles', link: '/Harness/05%20Principles/' },
         { text: 'Roadmap', link: '/Harness/06%20Roadmap/' },
-        { text: 'Knowledge Graph', link: '/Harness/07%20Knowledge%20Graph/' },
+        { text: 'Operational Graph', link: '/Harness/07%20Operational%20Graph/' },
         { text: '🔒', link: '/Security%20Scan/' },
       ],
 
@@ -70,10 +96,22 @@ export default withMermaid(
           { text: 'Principles', items: scanSection('Harness/05 Principles') },
         ],
         '/Harness/06 Roadmap/': [{ text: 'Roadmap', items: scanSection('Harness/06 Roadmap') }],
-        '/Harness/07 Knowledge Graph/': [
-          { text: 'Knowledge Graph', items: scanSection('Harness/07 Knowledge Graph') },
+        '/Harness/07 Operational Graph/': [
+          { text: 'Operational Graph', items: scanSection('Harness/07 Operational Graph') },
         ],
         '/Harness/': [],
+      },
+    },
+
+    vite: {
+      optimizeDeps: {
+        // mermaid 11.x uses fastdom for DOM measurement batching; it's a UMD/CJS
+        // module Vite's dependency scanner doesn't discover on its own (only
+        // reached via mermaid's dynamically-loaded diagram chunks), so without
+        // forcing it into the pre-bundle it's served raw and fails the browser's
+        // ESM "no default export" check — recurs on every dep-cache invalidation
+        // (e.g. adding a new dependency), not just a one-time stale-cache fluke.
+        include: ['mermaid', 'fastdom', 'fastdom/extensions/fastdom-promised.js'],
       },
     },
   })

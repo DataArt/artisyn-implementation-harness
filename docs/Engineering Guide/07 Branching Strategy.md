@@ -1,3 +1,9 @@
+---
+id: 358e59f3
+purpose: The trunk-based branching model, naming conventions, and how branches map to CI/CD and environments
+keywords: [branching strategy, trunk-based, naming conventions, CI/CD, rollback]
+---
+
 # Branching Strategy
 
 The branching workflow is **trunk-based**, aligned with this project's actual CI/CD automation

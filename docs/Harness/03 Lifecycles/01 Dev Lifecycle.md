@@ -1,3 +1,9 @@
+---
+id: 37a67413
+purpose: Describe the dev lifecycle's phases for delivering an authorized ticket end to end
+keywords: [dev lifecycle, context, plan, implement, test, document]
+---
+
 # Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document
 
 The dev skill delivers an authorized ticket or local change through planning,

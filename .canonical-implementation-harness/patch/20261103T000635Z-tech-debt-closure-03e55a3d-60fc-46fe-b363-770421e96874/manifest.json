@@ -1,0 +1,158 @@
+{
+  "schema_version": 2,
+  "id": "03e55a3d-60fc-46fe-b363-770421e96874",
+  "created_at": "2026-11-03T00:06:35Z",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "DESIGN-20261102-Q5MU Completion-stage tech-debt closure, folded into the still-unconsumed 3.2.0 release rather than a new version bump (developer's call -- v3.2.0.zip exists but nothing has pulled it yet): (1) fixed a real bug in docs.mjs's assign() that crashed build()/reindex() on any doc move/rename when the frontmatter id stayed the same (TD-10, RF-048), with a new regression test; (2) fixed the canonical design/01-context-gathering.md template's own root cause for a duplicated-rendering bug -- {{DESIGN_CONTEXT_STEP}} was used twice but its value is the full body of Step 3 (TD-3), plus an INTENT.md note warning against reusing it; (3) defined a concrete, verified mechanical staleness check for the graph-query wiring and pointed all 6 canonical wiring points at it instead of leaving \"stale\" undefined (TD-5); (4) wired dev/references/03-plan.md Step 1 to the same query-first graph pattern as every other read-path wiring point (TD-11). Package version stays 3.2.0.",
+  "package_version": "3.2.0",
+  "requires": [],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/cli.test.mjs",
+      "old_path": null,
+      "before_sha256": "e62b1c59417c3a3b5d26ea97d4aa3d85141fa6a18864c48c0f12f1c02595d3a3",
+      "after_sha256": "d0eeb77c596731c28a854f02b9952ca6d9780b1bff496be848cf80596f854aae",
+      "payload": "diffs/canonical/docs/.og/cli.test.mjs.patch",
+      "payload_sha256": "3088acdaec0ce8c96c5a419e24d07cb4765faed4232c50ec7d78fb84a971df38",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/docs.mjs",
+      "old_path": null,
+      "before_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
+      "after_sha256": "aa6f288257a10d79b7af6a528a70dad0163bcdcd51c6e38c14dfa4d586c54641",
+      "payload": "diffs/canonical/docs/.og/docs.mjs.patch",
+      "payload_sha256": "39bb7d6b0e1876a661ae96723b1970357ba533ce421f8d7dd06f487538405820",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "script",
+        "intent": null,
+        "output_rule": "Copied verbatim into project docs/.og/ by /harness-bootstrap launch's Materialize stage or reindex-graph",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/INTENT.md",
+      "old_path": null,
+      "before_sha256": "32fa3251285d0421ac2c2671c17292f0e71f25d33a29aeab6c58d9bbeb301896",
+      "after_sha256": "f16c239c9a72e16f3f6045371ee96223f28f50c7677b486346589c9902a5149a",
+      "payload": "diffs/canonical/skills/design/INTENT.md.patch",
+      "payload_sha256": "f13dcde0d82febc4d8cfedcf3765ff3e9f04ee6da2f4f968fbc9ded101b339b7",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/01-context-gathering.md",
+      "old_path": null,
+      "before_sha256": "68c45759e38f94312dee1a33ea5f7d025d17a9e5617f37ebc1ffffdfa4909c67",
+      "after_sha256": "d8c96fd439f234e0f2346f99fded0e5454484aae19c348644f78708c89c04cee",
+      "payload": "diffs/canonical/skills/design/references/01-context-gathering.md.patch",
+      "payload_sha256": "086b36ba14e2ef6a5cd4af3ecd71e93d646cb7f6158d2525057ed19296d496cc",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill-companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/01-context-gathering.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/04-research.md",
+      "old_path": null,
+      "before_sha256": "55abc61c751e815dd6ee5e48040945a0a3b91a54158e796f99fd5e86e29e8afe",
+      "after_sha256": "cb86d6442dee06634c39e05f4742a1e70f7176f1f66585d6a5f69541ce889048",
+      "payload": "diffs/canonical/skills/design/references/04-research.md.patch",
+      "payload_sha256": "f395d572439e99dbeb379a440beb20e2d2ba19d53ac0116736826e1985f80bde",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill-companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/04-research.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/references/09-publish.md",
+      "old_path": null,
+      "before_sha256": "e5a332404dcc2b7cdf3da2124fdbc317da19c9d3623f56be26ebb238c6cd4e7e",
+      "after_sha256": "697d8199a49634c7b33c832528af53b58e324b6c293a4c18d15fb7761f021d3e",
+      "payload": "diffs/canonical/skills/design/references/09-publish.md.patch",
+      "payload_sha256": "6c453678197e1ec68575ea5e9637f0cd4d5934c988d54c79ff63b369e49483f3",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill-companion",
+        "intent": "canonical/skills/design/INTENT.md",
+        "output_rule": ".claude/skills/design/references/09-publish.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "old_path": null,
+      "before_sha256": "17c4b0fa3f5931630fe7fdd25baf2536114cb84475e1773eda22fe56292872cd",
+      "after_sha256": "8342617e97e801e125b3a00b4ed87c94edff020b091cf357d66d5deb05e0a14e",
+      "payload": "diffs/canonical/skills/dev/references/01-context-gathering.md.patch",
+      "payload_sha256": "83bc0de0ee618a6534d15d08b882a15a271dd7aaf8742e9efaf0d23fae4dad6c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill-companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/01-context-gathering.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "old_path": null,
+      "before_sha256": "34c6560014d856f7dec378aa51a2f31c24adc5b6593d1dca1491efea44d26adc",
+      "after_sha256": "509e99588e688fd3598caf272d1612def7fad803e55bcbe9ca3a5119e3f599c8",
+      "payload": "diffs/canonical/skills/dev/references/03-plan.md.patch",
+      "payload_sha256": "d8acf7540be906bf1b20cbc99a5e91a6d037f9367cedde6cff4f3c1e3a89b12c",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill-companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/03-plan.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/references/06-document.md",
+      "old_path": null,
+      "before_sha256": "ce193713256b4579472de96bfc02d9030fee1596ab426ce92a72cffb2927a131",
+      "after_sha256": "777fb629303014112f464d053e402f8755535f57a51fcd264917cb68e7a7c62e",
+      "payload": "diffs/canonical/skills/dev/references/06-document.md.patch",
+      "payload_sha256": "c5cd2f6f38fab0bd9abaf4aa4c2682c589489d46772de20adaecf4110577b121",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "skill-companion",
+        "intent": "canonical/skills/dev/INTENT.md",
+        "output_rule": ".claude/skills/dev/references/06-document.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "references/reindex-graph.md",
+      "old_path": null,
+      "before_sha256": "d4f6bca572310544b84b364d0242e72efa105e32175dc4470a3e7426c3f5e2be",
+      "after_sha256": "a3627a3d5fb45f85c7bd0e13568ee769b3a336f21bef1bcab71868babe5097a7",
+      "payload": "diffs/references/reindex-graph.md.patch",
+      "payload_sha256": "867f50ed0321401d452ca14ed47ae5352ab68838a6b45d6be745bd12e4124d33",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

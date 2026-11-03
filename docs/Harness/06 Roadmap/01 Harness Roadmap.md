@@ -1,3 +1,9 @@
+---
+id: 1ff56a70
+purpose: Track how the bootstrap evolves from a copied git template into a distributable, composable platform
+keywords: [roadmap, registry distribution, harness-bootstrap, gaps]
+---
+
 # Harness Roadmap
 
 _How the bootstrap evolves from a git template into a distributable, composable platform._
@@ -10,11 +16,10 @@ _From a copied git folder to a versioned, installable package._
 
 **Current state**
 
-The bootstrap is distributed by copying `docs/Harness/package/` into a new repo. This works but:
+The bootstrap is distributed as a versioned ZIP (`releases/harness-bootstrap/`, built from `.canonical-implementation-harness/`), extracted into a new repo and installed with `/harness-bootstrap launch`. `patch harvest`/`patch apply` let an installed project pull in later canonical updates. This works but:
 
-- No versioning — projects drift from the template immediately
-- No updates — improvements don't propagate to existing projects
-- No discovery — teams have to know the bootstrap exists
+- No registry — teams have to know the bootstrap exists and fetch the ZIP manually
+- No single-command upgrade — `patch apply` works, but there's no `yarn add`-style pull
 
 **Target state**
 

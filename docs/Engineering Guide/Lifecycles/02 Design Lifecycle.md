@@ -1,3 +1,9 @@
+---
+id: 88115664
+purpose: The Design lifecycle's phases, invariants, and patterns for producing an approved architectural design
+keywords: [design lifecycle, frame, research, evaluate, solution, publish, two-track design]
+---
+
 # Design Lifecycle — Context Gathering → Ceremony → Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish → Completion
 
 _Produces an approved architectural design before implementation begins._

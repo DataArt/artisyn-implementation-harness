@@ -1,3 +1,9 @@
+---
+id: 4871e58d
+purpose: How documentation is born in Stories, refined, and graduates to its permanent home
+keywords: [documents flow, graduation rules, Stories, permanent docs]
+---
+
 # Documents Flow
 
 _How documentation is born, refined, and graduates to its permanent home._

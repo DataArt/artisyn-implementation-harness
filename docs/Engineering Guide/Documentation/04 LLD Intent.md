@@ -1,3 +1,9 @@
+---
+id: 808ed797
+purpose: Required C4 component abstraction and the five semantic coverage keys an LLD component doc must satisfy
+keywords: [LLD intent, C4 component, coverage keys, implementation evidence]
+---
+
 # LLD Intent
 
 An LLD component document states how the inspected implementation works at component

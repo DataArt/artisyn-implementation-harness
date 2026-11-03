@@ -1,3 +1,9 @@
+---
+id: 1d0a3678
+purpose: Step-by-step sequence for provisioning a fresh environment and deploying all apps from a local workstation
+keywords: [provisioning runbook, CDK bootstrap, env-push, sm-push, deploy sequence]
+---
+
 # Local Provisioning Runbook
 
 _Step-by-step sequence for provisioning a fresh environment and deploying all apps from a local workstation._

@@ -1,3 +1,9 @@
+---
+id: 48960fc2
+purpose: How harness skills, agents, and settings map to each supported AI coding tool's native files
+keywords: [Claude, Codex, harness bootstrap, skills, agents, tool compatibility]
+---
+
 # AI Coding Tool Compatibility
 
 The bootstrap package installs a project-specific harness for Claude, Codex, or both.

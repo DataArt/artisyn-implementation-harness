@@ -1,3 +1,9 @@
+---
+id: ae3ceb7b
+purpose: The four harness lifecycles, how they interact, and when to use each one
+keywords: [lifecycle overview, dev, design, evolve, architecture, orchestrators]
+---
+
 # Harness Bootstrap — Lifecycle Overview
 
 _The four lifecycles, how they interact, and when to use each one._

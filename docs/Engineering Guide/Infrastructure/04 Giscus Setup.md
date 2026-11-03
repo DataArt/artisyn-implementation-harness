@@ -1,3 +1,9 @@
+---
+id: b54f7afc
+purpose: Manual runbook for wiring up or reconfiguring the giscus comments widget
+keywords: [giscus, GitHub Discussions, comments widget, setup runbook]
+---
+
 # Giscus Setup
 
 _Manual runbook for wiring up or reconfiguring the comments widget._

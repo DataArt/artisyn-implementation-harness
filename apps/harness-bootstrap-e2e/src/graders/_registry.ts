@@ -37,6 +37,7 @@ export {
   hldCoversContainers,
   docsIndexExists,
   containerAgentsDeployed,
+  docsGraphAdopted,
 } from './docs-adoption.grader.ts';
 
 // Cross-provider projection consistency

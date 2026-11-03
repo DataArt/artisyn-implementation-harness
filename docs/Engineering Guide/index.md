@@ -1,3 +1,9 @@
+---
+id: ca1e020e
+purpose: Landing page and navigation index for the Engineering Guide's conventions, documentation, lifecycles, and infrastructure sections
+keywords: [engineering guide, index, navigation]
+---
+
 # Engineering Guide
 
 Cross-cutting conventions and operational procedures for how work is planned, implemented, reviewed, and published in this repo.

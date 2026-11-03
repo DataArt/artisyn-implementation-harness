@@ -1,5 +1,8 @@
 ---
+id: f3835f50
 aside: false
+purpose: Position Artisyn against comparable methodologies, spec tools, and AI engineering skill libraries
+keywords: [competitors, related tools, positioning, adoption tiers]
 ---
 
 # Competitors and Related Tools

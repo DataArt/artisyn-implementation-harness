@@ -1,3 +1,9 @@
+---
+id: 028f0622
+purpose: Portable conventions for root context files, skill authoring, doc naming, and commit messages
+keywords: [conventions, CLAUDE.md, skill authoring, file naming, commit messages]
+---
+
 # Conventions
 
 _Portable conventions that apply regardless of which AI tool is used._

@@ -1,3 +1,9 @@
+---
+id: d000e20f
+purpose: Entry point to The Story section — navigation to the why behind the platform
+keywords: [story, index, navigation]
+---
+
 # The Story
 
 The why behind DataArt's platform: the industry-wide story, the common challenges the harness exists to solve, and the mindset shift adopting it requires.

@@ -4,6 +4,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { afterEach, expect, it } from 'vitest';
 import { gradeLaunchState } from '../../../graders/state.grader.ts';
+import { LAUNCH_STAGE_COUNT } from '../../../utils/constants.ts';
 
 const roots: string[] = [];
 afterEach(() => {
@@ -132,7 +133,7 @@ it('uses the same verification contract for linked stage receipts', () => {
     path.join(reportDir, 'latest-launch.md'),
     '| Status | 🔄 In progress |\nRun ID / native Task IDs: `run`\n' +
       Array.from(
-        { length: 14 },
+        { length: LAUNCH_STAGE_COUNT },
         (_, i) =>
           `| ${i + 1} | Stage | ${i < 11 ? '✅ Complete' : i === 11 ? '🔄 In progress' : '⏳ Pending'} | |`
       ).join('\n')
@@ -177,7 +178,7 @@ function partialFixture(format: 'compact' | 'structured' | 'legacy' = 'compact')
     metadata +
     '\n## Progress\n' +
     Array.from(
-      { length: 14 },
+      { length: LAUNCH_STAGE_COUNT },
       (_, i) =>
         `| ${i + 1} | Stage | ${i < 11 ? 'Complete' : i === 11 ? 'In progress' : 'Pending'} | evidence |`
     ).join('\n');

@@ -1,0 +1,31 @@
+{
+  "schema_version": 2,
+  "id": "15d8b925-5ddb-4761-919e-720d341104f9",
+  "mode": "apply",
+  "status": "applied",
+  "created_at": "2026-11-02T22:58:00Z",
+  "scope": "DESIGN-20261102-Q5MU canonical edits, provider claude -- Test-stage fix round",
+  "package_version": "3.2.0",
+  "applies": [
+    {
+      "bundle": "4e3713c7-c1f6-4530-909c-71f087d16c43",
+      "operation": "prepare",
+      "package_version": "3.2.0",
+      "note": "Test-stage fix: moved the graph-query instruction in design/references/04-research.md Step 2 and design/references/09-publish.md Step 2 out of the delegated-agent block, since {{DESIGN_ARCHITECT_AGENT}} can resolve to @product-architect (no Bash tool) on the Product track"
+    }
+  ],
+  "providers": ["claude"],
+  "provider_scope_source": "canonical/manifest.json destinations present on disk: .claude/skills, .claude/agents; no .codex/other provider outputs installed",
+  "canonical_writes": "none beyond this bundle's own prepare step -- already recorded in bundle 4e3713c7",
+  "baseline_provenance": "each mapped output re-diffed and re-verified against this bundle's canonical content; only 04-research.md and 09-publish.md actually changed content vs the prior (discarded) apply, the rest are unchanged re-verifications",
+  "decisions": [
+    {
+      "item": ".claude/skills/design/references/04-research.md, .claude/skills/design/references/09-publish.md",
+      "decision": "Found during Test-stage @web/inline review: both instructed a DELEGATED {{DESIGN_ARCHITECT_AGENT}} to run `node docs/.og/cli.mjs` directly -- confirmed via .claude/agents/product-architect.md that this placeholder can resolve to @product-architect, tools Read/Glob/Grep only, no Bash. Fixed: query now runs before delegation, results folded into the delegation context. Same pattern already used correctly in dev/references/01-context-gathering.md and design/references/01-context-gathering.md (direct orchestrator instruction, not delegated)"
+    }
+  ],
+  "verification": [
+    "both fixed files verified by direct diff against the new canonical content after re-insertion",
+    "node --test .canonical-implementation-harness/canonical/docs/.og/cli.test.mjs: 29/29 pass (unaffected by this round's changes, re-confirmed)"
+  ]
+}

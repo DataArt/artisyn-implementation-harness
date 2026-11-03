@@ -1,3 +1,9 @@
+---
+id: a66414a0
+purpose: Diagnoses the onboarding-equivalent challenges AI-assisted development faces without context
+keywords: [challenges, story, onboarding]
+---
+
 # The Challenges — Diagnoses and Answers
 
 Think about onboarding a new engineer. You would give them:

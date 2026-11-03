@@ -1,5 +1,8 @@
 ---
+id: 2c3fa09e
 aside: false
+purpose: Consolidated feature matrix comparing Artisyn against nine competitor tools across SDLC stages
+keywords: [feature comparison, competitor matrix, SDLC stages, evidence ratings]
 ---
 
 # Feature Comparison

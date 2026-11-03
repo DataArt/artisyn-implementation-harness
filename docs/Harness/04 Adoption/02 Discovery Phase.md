@@ -1,3 +1,9 @@
+---
+id: ec02f7b8
+purpose: Explain how the harness compresses client discovery into a working project skeleton
+keywords: [discovery phase, project skeleton, context decay]
+---
+
 # Discovery Phase
 
 _How the harness compresses client discovery and produces a working project skeleton instead of a Word document._

@@ -1,3 +1,9 @@
+---
+id: 63ee2919
+purpose: The full deploy sequence from code change to live site across infrastructure, auth handler, and site content
+keywords: [deploy lifecycle, CDK, lambda-auth deploy, site deploy, CloudFront]
+---
+
 # Deploy Lifecycle
 
 _Full sequence from code change to live site — infrastructure, auth handler, and site content._

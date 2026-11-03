@@ -73,6 +73,16 @@ From the plan, the report, the audit and the structure article, list every doc o
 section this change touches. One row each, with the tier from the structure article
 and the action:
 
+Also query the graph for each doc actually touched by implementation, not just
+the plan's original scope — implementation can diverge from the plan, and a
+plan-only read misses impact the graph already knows about. Attempt `node
+docs/.og/cli.mjs query --related-to <doc> --dir .` (or `search --term <text>`)
+against `docs/.og/docs-operational-graph.sqlite` for each touched doc. Required
+(not best-effort): when the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall
+back to grep/glob over `docs/` for the same information. Either way, never let
+this block the stage — fold anything it surfaces into the table below like any
+other source.
+
 | Doc / section                                                         | Tier       | Action  | Why                                |
 | --------------------------------------------------------------------- | ---------- | ------- | ---------------------------------- |
 | `<app root>/README.md` → Env vars                                     | App README | updated | new `<VAR>` read at startup        |
@@ -122,6 +132,19 @@ All met → mark each row done in `## Documentation` and continue. Otherwise ans
 the flags from the sources you have, or ask the developer the precise question
 (`report`, `wait start --reason user_input`, **Stop and wait**), then re-delegate the
 affected rows.
+
+For each row marked done (new or updated — this doc just graduated), call
+`node docs/.og/cli.mjs index --dir . --doc <source-path> --edge <type> --to
+<destination-path>` automatically — edge direction is source-first, matching the
+edge-type names (`impl-to-hld` etc.): `<source-path>` is this ticket's `1-plan.md`
+or `2-report.md`, whichever is the source of the change; `<destination-path>` is
+the HLD/LLD/Engineering Guide/README doc that just graduated (the row marked done
+above); `<type>` is the matching graduation edge
+(`impl-to-hld`/`impl-to-lld`/`impl-to-engineering-guide`/`impl-to-readme`). `--to`'s
+target must already be indexed (it errors otherwise); if the destination doc is
+new, index it with a plain `index --doc <destination-path>` call first, then this
+one. Non-blocking: on failure, report it in one line and continue — never stop
+the stage for this.
 
 ## Step 5 — Consistency review and closure
 

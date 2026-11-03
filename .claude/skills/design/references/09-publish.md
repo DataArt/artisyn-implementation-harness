@@ -26,13 +26,25 @@ If `Approved:` is still `pending` or unset, tell the developer: "The design gate
 
 ## Step 2 — Doc impact identification
 
+Before delegating, attempt yourself: `node docs/.og/cli.mjs search --term
+<text>` (or `query --related-to <doc>`) against
+`docs/.og/docs-operational-graph.sqlite` for docs related to this design
+beyond what `design/Report.md` already names. Required (not best-effort):
+when the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall back to grep/glob
+over `{dest docs}` for the same information — either way, never let this
+block the stage. This runs here, not inside the delegation below:
+`{resolved architect agent}` can resolve to a read-only agent with no shell
+access (`@product-architect` on the Product track), so the query must be the
+orchestrator's own step, with whatever it surfaces folded into the
+delegation's context.
+
 Delegate to `{resolved architect agent}` (read-only — no file writes):
 
 - Read `design/Report.md` and the paths listed in its `selected_artifacts` state;
   those paths point into the sibling `solution/` directory. Do not assume a fixed
   set of solution filenames.
 - Read `design/Report.md` WAF section (P1 items)
-- Read the relevant docs under `{dest docs}` for the subfolder(s) this design touches
+- Read the relevant docs under `{dest docs}` for the subfolder(s) this design touches, plus whatever the graph query above surfaced
 - Return: a list of specific `{dest docs}` docs that need creating or updating, with the exact section and what settled decision to add or change — no rationale, no rejected options, no open questions (Certainty principle)
 - **Do not write or edit any files — return output only**
 
@@ -86,12 +98,29 @@ Delegate to `@docs-writer` with the classified list from Step 2:
 > 4. All Mermaid diagrams MUST be colored (classDef + style directives)
 > 5. Apply only settled decisions — no rationale, rejected options, or open questions
 > 6. If a new file is created or renamed, update `docs/README.md`
+> 7. Ensure frontmatter `purpose:` (one line, what the doc is for) and
+>    `keywords:` (a short list) are present and accurate, written from your own
+>    understanding of the doc's actual content. Unlike `id` (assigned once,
+>    never reassigned), these two are editable — update either when the doc's
+>    content changed enough that the existing value no longer fits
 >
 > Return a one-line summary per doc written."
 
 Once `@docs-writer` completes, note the summary (one line per doc) and continue
 straight to Step 4 — the developer reviews it, with the architect's verdict,
 at Step 5's single sign-off, not here.
+
+For each doc written, call
+`node docs/.og/cli.mjs index --dir . --doc <source-path> --edge <type> --to
+<destination-path>` automatically — edge direction is source-first, matching the
+edge-type names: `<source-path>` is `solution/Architecture.md` (the Story's
+settled solution), `<destination-path>` is the doc just written (the
+HLD/Product-track file from Step 3's list above); `<type>` is `story-to-hld` for a
+Project-track publish, `story-to-product` for a Product-track publish. `--to`'s
+target must already be indexed (it errors otherwise); if the destination doc is
+new, index it with a plain `index --doc <destination-path>` call first, then this
+one. Non-blocking: on failure, report it in one line and continue — never stop
+the stage for this.
 
 ---
 

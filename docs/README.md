@@ -1,3 +1,9 @@
+---
+id: 9f7cbce1
+purpose: Root navigation index pointing readers to each documentation area of the repo
+keywords: [docs, index, navigation, root]
+---
+
 # Documentation Index
 
 Navigation index for this repository's documentation.
@@ -29,4 +35,4 @@ Navigation index for this repository's documentation.
 The AI harness that powers this repo — lifecycles, skills, agents, and the portable bootstrap package.
 
 → [Harness — Overview](Harness/index.md)
-→ Package source: `docs/Harness/package/` (browse on GitHub — excluded from the built site, see the Harness overview for why)
+→ Package source: `.canonical-implementation-harness/` (browse on GitHub — excluded from the built site, see the Harness overview for why)

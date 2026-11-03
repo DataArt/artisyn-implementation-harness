@@ -1,3 +1,9 @@
+---
+id: 8f03ef24
+purpose: Describes the layers of product context and the project-context gap no one owns by default
+keywords: [context, story, project-context]
+---
+
 # The Context Landscape
 
 > The story of how to build mature product context: which layers already exist somewhere in every organisation, and the one layer that has to be built deliberately because nobody owns it by default.

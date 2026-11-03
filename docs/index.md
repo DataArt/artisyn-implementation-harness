@@ -1,4 +1,7 @@
 ---
+id: 0b3e3361
+purpose: Site homepage introducing the Artisyn Harness and linking to the Harness and Story sections
+keywords: [home, index, landing]
 layout: home
 
 hero:

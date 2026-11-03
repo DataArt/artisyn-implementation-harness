@@ -1,0 +1,29 @@
+{
+  "schema_version": 2,
+  "id": "6922b2a7-5ad4-496f-ac62-8fd2537ded1c",
+  "created_at": "2026-11-02T23:55:54Z",
+  "origin": "artisyn-harness",
+  "operation": "harvest",
+  "summary": "DESIGN-20261102-Q5MU TD-2: reconcile the live Documentation Principles doc (docs/Engineering Guide/Documentation/01 Principles.md, 203 lines) against its canonical template (178 lines) after they drifted with no harvest ever run. Harvested three genuinely generalizable additions the live copy had and canonical lacked: (1) the Why section's rationale that frontier AI models follow ~150-200 instructions reliably before quality degrades, generalized from the literal 'CLAUDE.md' to the existing {{ROOT_INSTRUCTIONS}} placeholder; (2) the full 'Wiring Principle' section describing the progressive-disclosure navigation model (root index -> section nav -> document -> related documents) and its rules, with the project's two embedded images left out as local-only assets; (3) one added sentence to the 'Operational graph frontmatter' principle on quoting the purpose: value when it contains YAML-reserved characters. Left as intentional local-only customizations: the doc's concrete frontmatter block (id/purpose/keywords -- id is assigned per-project by this project's own docs/.og/ tool, not a template concern), both embedded /images/engineering-guide/*.png references, and the live file's older 'Diagram and format standards' wording ('every doc MUST have a Mermaid diagram' / plain classDef+style coloring) and minor SoC-test phrasing differences in Documentation destination, since canonical's current wording for those sections (Applicability-scoped diagram requirement, Default palette tokens, sequence-diagram styling note) is already a later, more nuanced revision and harvesting live's older wording would be a regression. Separately (not part of this harvest, no canonical impact): the live file independently carries two long-standing, pre-existing duplication bugs unrelated to canonical sync -- a stale duplicate 'Certainty principle' bullet and a stale duplicate 'How - doc-type cheat sheet' table, both present since at least commit 09acb50 -- fixed directly in the live file as a separate correction.",
+  "package_version": "3.2.0",
+  "requires": [],
+  "resolves": ["DESIGN-20261102-Q5MU-TD-2"],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "old_path": null,
+      "before_sha256": "6bf8b7d0e952e899438d4bdde0b617036c6fa6fda2393294c8d70f28c02a8b7b",
+      "after_sha256": "7d41bcd4c06602928d641295ffdf6f97195ecaca5c5984f2ebedd8893dff8e4b",
+      "payload": "diffs/canonical/docs/Engineering Guide/Documentation/01 Principles.md.patch",
+      "payload_sha256": "0e87161db2bfd30275e5d1077d658e3ecdb9b5750ce6db511fd8f1f06c0e1f53",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/Documentation/01 Principles.md (project-relative Engineering Guide copy)",
+        "compare": "content"
+      }
+    }
+  ]
+}

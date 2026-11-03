@@ -1,3 +1,9 @@
+---
+id: 40f26a2f
+purpose: Explain how the harness governs day-to-day delivery to keep AI output consistent and traceable
+keywords: [development phase, delivery governance, context decay, consistency]
+---
+
 # Development Phase
 
 _How the harness governs day-to-day delivery — keeping AI output consistent, traceable, and aligned with the approved design across every session and every team member._

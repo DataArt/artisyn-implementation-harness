@@ -1,8 +1,14 @@
+---
+id: 679f8464
+purpose: 'State the beliefs the harness is built on: repeatability, convergence, and architecture coherence'
+keywords: [principles, repeatability, convergence, architecture coherence]
+---
+
 # Principles
 
 The beliefs the harness is built on.
 
-_Known:_ from `docs/Harness/package/00 Overview.md` — **"Reduce scaffolding over time."** Every ticket should be faster than the previous one, because the conventions it discovers are encoded into skills and inherited by future tickets. This is delivered through three things:
+_Known:_ **"Reduce scaffolding over time."** Every ticket should be faster than the previous one, because the conventions it discovers are encoded into skills and inherited by future tickets. This is delivered through three things:
 
 | Principle                  | What it means                                                                                                |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------ |
