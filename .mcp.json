@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "aws-mcp": {
-      "command": "uvx",
-      "args": ["mcp-proxy-for-aws@latest", "https://aws-mcp.us-east-1.api.aws/mcp"],
-      "env": {
-        "AWS_PROFILE": "${AWS_PROFILE}",
-        "AWS_REGION": "${AWS_REGION}"
-      }
-    },
     "atlassian": {
       "command": "uvx",
       "args": ["mcp-atlassian"],
@@ -21,13 +13,6 @@
         "CONFLUENCE_URL": "${CONFLUENCE_URL}",
         "JIRA_URL": "${JIRA_URL}",
         "JIRA_PROJECTS_FILTER": "${JIRA_PROJECTS_FILTER}"
-      }
-    },
-    "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
       }
     }
   }

@@ -1,4 +1,5 @@
 ---
+id: 30b06f20
 purpose: "Intent for retiring the Infrastructure and Auth containers' code (WBS item 5 of the GitHub Pages migration design), code-only"
 keywords: [github-pages, infra-retirement, auth-retirement, intent]
 ---

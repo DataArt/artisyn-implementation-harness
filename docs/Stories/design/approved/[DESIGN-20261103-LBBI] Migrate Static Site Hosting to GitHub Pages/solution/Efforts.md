@@ -1,4 +1,5 @@
 ---
+id: 9f5e28b7
 purpose: 'Work breakdown, sequencing, and effort estimate scaffold for the GitHub Pages migration'
 keywords: [github-pages, wbs, sequencing, effort-estimate]
 ---

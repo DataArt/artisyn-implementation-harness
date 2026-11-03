@@ -1,4 +1,5 @@
 ---
+id: a4a4a0af
 purpose: 'Frames the GitHub Pages hosting migration: problem, evaluation criteria, scope, and constraints'
 keywords: [github-pages, hosting-migration, frame, cloudfront, basic-auth, cdk]
 ---

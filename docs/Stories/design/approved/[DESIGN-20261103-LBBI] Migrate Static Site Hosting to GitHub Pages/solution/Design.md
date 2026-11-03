@@ -1,4 +1,5 @@
 ---
+id: 6d0d181e
 purpose: 'Implementation detail for the GitHub Pages migration — exact config, workflow, and file-level changes behind the decisions in solution/Architecture.md'
 keywords: [github-pages, vitepress-base-path, csp-meta-tag, deploy-workflow, retired-surface]
 ---

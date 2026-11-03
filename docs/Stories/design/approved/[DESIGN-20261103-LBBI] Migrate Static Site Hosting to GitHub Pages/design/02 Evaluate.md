@@ -1,4 +1,5 @@
 ---
+id: 7c435590
 purpose: 'Scores Options A/B/C against the Known ECs and tradeoff dimensions, and recommends Option B (GitHub Pages, project site) for the GitHub Pages migration'
 keywords: [github-pages, hosting-migration, evaluate, recommendation, tradeoffs]
 ---

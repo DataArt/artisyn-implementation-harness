@@ -1,4 +1,5 @@
 ---
+id: 6192e133
 name: Dev Report
 description: Implementation report for retiring existing AWS infra (Efforts.md item 5 of the GitHub Pages migration design)
 type: reference
@@ -17,15 +18,15 @@ type: reference
 
 ## Progress
 
-| #   | Step                                                          | Status     | Notes | Test | Docs |
-| --- | ------------------------------------------------------------- | ---------- | ----- | ---- | ---- |
-| 1   | Tests: skipped                                                | ⏳ Pending |       | —    | —    |
-| 2   | Auth: delete the Auth container                               | ⏳ Pending |       |      |      |
-| 3   | Infra: delete the Infrastructure container                    | ⏳ Pending |       |      |      |
-| 4   | Web: stub AWS-specific nx targets                             | ⏳ Pending |       |      |      |
-| 5   | CI: strip AWS auth and env from ci.yml                        | ⏳ Pending |       |      |      |
-| 6   | CD: stub cd.yml, delete the now-unused auth action            | ⏳ Pending |       |      |      |
-| 7   | Harness governance: retire the @auth/@infra agent definitions | ⏳ Pending |       |      |      |
+| #   | Step                                                          | Status  | Notes                                                               | Test | Docs |
+| --- | ------------------------------------------------------------- | ------- | ------------------------------------------------------------------- | ---- | ---- |
+| 1   | Tests: skipped                                                | ✅ Done | No test setup for this layer                                        | —    | —    |
+| 2   | Auth: delete the Auth container                               | ✅ Done | `apps/lambda-auth/` + `scripts/ci/lambda-auth-build.sh` deleted     |      |      |
+| 3   | Infra: delete the Infrastructure container                    | ✅ Done | `apps/infra/` deleted; `docUrl.ts`'s example path fixed             |      |      |
+| 4   | Web: stub AWS-specific nx targets                             | ✅ Done | 5 targets stubbed; site-deploy.sh deleted; site-build.sh simplified |      |      |
+| 5   | CI: strip AWS auth and env from ci.yml                        | ✅ Done | aws-auth step, AWS env vars, id-token permission removed            |      |      |
+| 6   | CD: stub cd.yml, delete the now-unused auth action            | ✅ Done | aws-auth action deleted; cd.yml's AWS job content stubbed in place  |      |      |
+| 7   | Harness governance: retire the @auth/@infra agent definitions | ✅ Done | Agent files deleted; CLAUDE.md's stale rows/lines fixed             |      |      |
 
 <!--
 Status values : ⏳ Pending · 🔄 Active · ✅ Done · ⚠️ Blocked · ⏭️ Skipped
@@ -78,12 +79,41 @@ Observed work: 3m 40s · Wait: 7m 25s · Unclassified: 15m 41s
 
 ## Implementation Notes
 
-_Added for every step — a brief confirmation for smooth steps, detailed notes for surprises, workarounds, or decisions made._
+### Step 1 — Tests: skipped
+
+Confirmed no test setup exists for the touched layers; skipped per plan.
+
+### Step 2 — Auth: delete the Auth container
+
+Deleted `apps/lambda-auth/` (git-tracked files via `git rm -r`, plus gitignored `dist/`/`node_modules/` via `rm -rf`) and `scripts/ci/lambda-auth-build.sh`. `yarn nx show projects` confirms `lambda-auth` is gone. The plan's grep-for-no-matches check on `lambda-auth-build.sh` turned up 3 non-functional mentions (this plan file, an unrelated archived story, and the LLD Auth overview already flagged for later Document-stage retirement) — no live consumer remains, so the step's intent is satisfied even though the literal grep isn't empty.
+
+### Step 3 — Infra: delete the Infrastructure container
+
+Deleted `apps/infra/` entirely (git-tracked files via `git rm -r`, no gitignored build output present). Fixed `docUrl.ts`'s doc comment, which used `apps/infra/README.md` as its illustrative example — swapped to `apps/harness-bootstrap-e2e/README.md`. `yarn nx show projects` confirms `infra` is gone. Remaining `git grep` hits for `apps/infra/README` are a frozen historical e2e test-run log, this plan file, and an archived unrelated story's report quoting the old comment — no live code references the deleted path.
+
+### Step 4 — Web: stub AWS-specific nx targets
+
+Stubbed `deploy`, `env-push`, `env-pull`, `sm-push`, `sm-pull` in `apps/docs-web/project.json` — each now runs `echo "{target} retired — see solution/Architecture.md ..." && exit 0`, with their AWS-specific `envFile`/`env`/`configurations` blocks dropped. Deleted `scripts/ci/site-deploy.sh` (no longer called). Simplified `scripts/ci/site-build.sh` to drop the SSM-loading `load_env` function entirely. Note: the plan's verification commands referenced the project as `docs-web:deploy`/`docs-web:build`, but the actual nx project name (per `project.json`'s own `"name"` field) is `site` — ran `yarn nx run site:deploy` (prints the stub message, exits 0) and `yarn nx run site:build` (succeeds, builds the full VitePress site in 13.69s) instead; both pass. Logged TD-1: `scripts/local/{env-push,env-pull,sm-push,sm-pull}.sh` and their `nx.json` `targetDefaults` entries are now fully orphaned (no project references them) — out of this step's literal scope, flagged for a follow-up.
+
+### Step 5 — CI: strip AWS auth and env from `ci.yml`
+
+Removed the `./.github/actions/aws-auth` step and its `with:` block, the `AWS_REGION`/`SITE_SSM_ENV_PARAM`/`LAMBDA_AUTH_SSM_ENV_PARAM` env vars, and the top-level `permissions: id-token: write` (kept `contents: read`). `environment: dev` left untouched — not AWS-specific, may still gate other protections. YAML parses clean; `yarn nx affected --target=build --uncommitted` (CI's own build step, run against the actual uncommitted changes rather than the plan's `HEAD~1`/`HEAD` which wouldn't see uncommitted work) succeeds for `site`.
+
+### Step 6 — CD: stub `cd.yml`, delete the now-unused auth action
+
+Stubbed `cd.yml`'s AWS job content in place (kept the file and the `deploy` job's name/trigger/`environment: dev` as the skeleton for a later GitHub Pages deploy job): removed `permissions: id-token: write`, the `env:` block's 3 AWS vars, and the `aws-auth` step; replaced `Deploy affected`'s AWS command with an `echo ... && exit 0` stub. Deleted `.github/actions/aws-auth/` entirely (no reuse value for GitHub Pages deploy). Caught myself initially also dropping `environment: dev` from `cd.yml`, which wasn't in the plan's Changes list — restored it before verifying, to stay within scope discipline. YAML parses clean; grep confirms no AWS reference remains; the stub's exact shell command runs clean standalone.
+
+### Step 7 — Harness governance: retire the `@auth`/`@infra` agent definitions
+
+Deleted `.claude/agents/auth.md` and `.claude/agents/infra.md`. Fixed `CLAUDE.md`: dropped the `Auth`/`Infrastructure` container rows and reworded the Web row/data-flow sentence to describe GitHub Pages (mirroring the already-published `System Overview.md`); dropped `yarn nx run infra:provision` from the guarded-commands example (kept `cdk deploy`/`git push` per plan); reworded the NFR "key constraint" line to state there's no access gate. Dropped the `@auth`/`@infra` rows from the Agents table. One rework mid-step: my first wording of the "no auth gate" sentence still contained the word "auth," which `grep -nwi` correctly flagged against itself — reworded to "no access gate" to actually satisfy AC-10, not just its intent. Found two items beyond this step's scope while reading context, logged as TD-2 (stale "engagement" framing in `System Overview.md`, not a CLAUDE.md file) and TD-3 (a real sequencing problem: deleting `apps/infra/` now means the later AWS-teardown ticket can't use `cdk destroy` — it'll need `aws cloudformation delete-stack` instead).
 
 ## Tech Debt
 
-| #   | Description | Type | Tracker | Finding | Owner | Next action |
-| --- | ----------- | ---- | ------- | ------- | ----- | ----------- |
+| #    | Description                                                                                                                                                                                                                                                                                                                 | Type       | Tracker | Finding | Owner     | Next action                                                                                                                                                                                                                                                                                                     |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- | ------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TD-1 | `scripts/local/{env-push,env-pull,sm-push,sm-pull}.sh` and their `nx.json` `targetDefaults` entries become fully orphaned once `apps/docs-web`'s matching targets are stubbed in Step 4 — no project references them anymore                                                                                                | cleanup    | —       | —       | Developer | Delete the 4 scripts and their `nx.json` `targetDefaults` entries in a follow-up ticket (or fold into this one if preferred before Document)                                                                                                                                                                    |
+| TD-2 | `docs/Target Architecture (HLD)/v1/System Overview.md`'s Purpose line still says "the DataArt × DataArt engagement" — same mischaracterization flagged and fixed in `design/00 Frame.md` during the design phase, but this HLD doc wasn't in scope for that fix or for this ticket's Step 7 (CLAUDE.md only)                | cleanup    | —       | —       | Developer | Fix in the Document stage of this ticket, or a separate doc-cleanup ticket                                                                                                                                                                                                                                      |
+| TD-3 | `solution/Architecture.md`'s Decommission section says the later teardown ticket should run `cdk destroy` against `DocsStack`/`EdgeStack`/`CiStack` — but Steps 2-3 of this ticket delete `apps/infra/` (the CDK app) entirely, so the CDK CLI will have no app/`cdk.json` to run against by the time that teardown happens | dependency | —       | —       | Developer | The later teardown ticket must use `aws cloudformation delete-stack --stack-name <name>` per stack instead of `cdk destroy` — functionally equivalent, same `RemovalPolicy.RETAIN` behavior baked into the deployed CloudFormation template either way. Flag this explicitly when that ticket's plan is written |
 
 <!--
 Type values: blocker · dependency · cleanup · security · performance · ux

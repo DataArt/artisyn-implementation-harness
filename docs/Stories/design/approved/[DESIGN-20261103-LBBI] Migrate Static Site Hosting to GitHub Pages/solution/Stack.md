@@ -1,4 +1,5 @@
 ---
+id: 64005845
 purpose: "Concrete technology/library inventory of the GitHub Pages migration — what's removed, added, and unchanged"
 keywords: [github-pages, stack-inventory, aws-decommission, github-actions]
 ---

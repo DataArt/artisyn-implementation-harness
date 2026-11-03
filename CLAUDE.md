@@ -12,7 +12,7 @@ See `docs/Engineering Guide/01 Conventions.md`.
 
 **Critical — violating either of these is a hard stop:**
 
-- **Guarded commands** — never run directly; present as instructions for the developer: `cdk deploy`, `yarn nx run infra:provision`, `git push`, `yarn nx run harness-bootstrap-e2e:agent-e2e` (spends real agent budget — the developer starts it)
+- **Guarded commands** — never run directly; present as instructions for the developer: `cdk deploy`, `git push`, `yarn nx run harness-bootstrap-e2e:agent-e2e` (spends real agent budget — the developer starts it)
 - **Region** — must never appear hardcoded in source or documentation anywhere; it is deployment configuration only
 
 Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: `<type>/short-description`. Package manager: `yarn` — never `npm` or `npx`.
@@ -21,13 +21,11 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 
 | Container      | Role                                       | Stack                |
 | -------------- | ------------------------------------------ | -------------------- |
-| Web            | VitePress documentation site               | VitePress 1.x · Vite |
-| Auth           | Lambda@Edge basic auth password protection | Node.js · TypeScript |
-| Infrastructure | CDN, static origin, edge auth wiring       | AWS CDK · TypeScript |
+| Web            | VitePress documentation site, built and deployed to GitHub Pages via GitHub Actions | VitePress 1.x · Vite |
 | Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
 | Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
 
-Data flow: Browser → CloudFront (Lambda@Edge auth gate) → S3 (VitePress static build). Discuss integrates client-side with giscus.app/GitHub Discussions.
+Data flow: Browser → GitHub Pages (static build, deployed by GitHub Actions). Discuss integrates client-side with giscus.app/GitHub Discussions.
 
 See `docs/Target Architecture (HLD)/README.md` for the active version's full design.
 
@@ -35,7 +33,7 @@ See `docs/Target Architecture (HLD)/README.md` for the active version's full des
 
 See `docs/Target Architecture (HLD)/v1/Non-Functional Concerns/Requirements.md`.
 
-Key constraint: basic auth password protection on all routes.
+Key constraint: the site is public — no access gate sits in front of any route.
 
 ### Skills
 
@@ -73,8 +71,6 @@ Harness bootstrap: `/harness-bootstrap launch` · `/harness-bootstrap patch harv
 | -------------- | ------------------------------------------ | ----------------------------------- |
 | `@onboarding`  | All (read-only guide)                      | Read, Glob, Grep                    |
 | `@web`         | Web (`apps/docs-web/`, `docs/`)            | Read, Edit, Write, Glob, Grep       |
-| `@auth`        | Auth (`apps/lambda-auth/`)                 | Read, Edit, Write, Glob, Grep       |
-| `@infra`       | Infrastructure (`apps/infra/`)             | Read, Edit, Write, Glob, Grep       |
 | `@architect`   | All (reviewer + doc author)                | Read, Glob, Grep, Bash, Write, Edit |
 | `@docs-writer` | `docs/` (content authoring)                | Read, Edit, Write, Glob, Grep       |
 | `@product-architect` | `docs/Harness/` (product-track governance, read-only) | Read, Glob, Grep |

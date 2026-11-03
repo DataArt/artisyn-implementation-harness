@@ -1,4 +1,5 @@
 ---
+id: 099b24e3
 purpose: 'Lists 5 hosting options for the GitHub Pages migration (Research phase), with no recommendation'
 keywords: [github-pages, hosting-migration, research, cloudfront, cloudflare-pages, netlify, csp]
 ---
