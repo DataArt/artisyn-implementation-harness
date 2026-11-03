@@ -61,7 +61,7 @@ Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CL
 - Deterministic unit tests over the skill's own scripts, fixture/scenario helpers, and grader pass/fail logic — no live agent invocation, Nx-cached
 - Deterministic integration tests over stubbed launch plans, materialization, simulated adaptation, finalization, and cross-provider projections
 - Agent E2E cases that drive real Claude/Codex CLI sessions against disposable fixture workspaces, grade the resulting filesystem/transcript/receipt state, and persist a per-case `report.json`
-- Validates `.canonical-implementation-harness/` as a whole — scripts, canonical templates, patch harvest/prepare/apply — never the deployed site containers (Web/Auth/Infrastructure/Discuss)
+- Validates `.canonical-implementation-harness/` as a whole — scripts, canonical templates, patch harvest/prepare/apply — never the deployed site containers (Web/Discuss)
 
 ## Technology
 

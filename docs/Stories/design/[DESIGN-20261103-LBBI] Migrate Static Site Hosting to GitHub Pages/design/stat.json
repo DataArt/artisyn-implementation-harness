@@ -111,7 +111,7 @@
     },
     {
       "id": "publish",
-      "status": "active",
+      "status": "waiting",
       "attempts": [
         {
           "id": "f5544876-4030-4cb4-8727-0af7969bad07",
@@ -287,8 +287,20 @@
       "kind": "work",
       "activity": "documentation",
       "started_at": "2026-11-03T15:01:30.507Z",
+      "ended_at": "2026-11-03T15:21:41.985Z",
+      "last_observed_at": "2026-11-03T15:21:41.985Z"
+    },
+    {
+      "id": "fe716311-18b2-4d4d-a476-cf392dd56ed2",
+      "stage_id": "publish",
+      "stage_attempt_id": "f5544876-4030-4cb4-8727-0af7969bad07",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting publish commit",
+      "started_at": "2026-11-03T15:21:41.985Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T15:01:30.507Z"
+      "last_observed_at": "2026-11-03T15:21:41.985Z"
     }
   ],
   "checks": [
@@ -403,19 +415,35 @@
       "source": "developer confirmation",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "publish-sign-off-01",
+      "stage_id": "publish",
+      "stage_attempt_id": "f5544876-4030-4cb4-8727-0af7969bad07",
+      "step": null,
+      "design_revision": 0,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T15:20:50.706Z",
+      "ended_at": "2026-11-03T15:20:50.706Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed 8 HLD docs updated + 2 deleted, architect review clean after 1 fix round, sequencing correction and WAF Reliability fix folded in",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T15:01:43.631Z",
+    "as_of": "2026-11-03T15:21:41.985Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 5207.178999999999,
+    "observed_work_seconds": 6418.656999999999,
     "observed_wait_seconds": 1697.4840000000002,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 1697.4840000000002,
-    "unclassified_seconds": 18.02200000000107,
+    "unclassified_seconds": 4.898000000000366,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 882.813,
