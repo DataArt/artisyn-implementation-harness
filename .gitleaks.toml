@@ -1,0 +1,8 @@
+# gitleaks config — used by the CI workflow (.github/workflows/gitleaks.yml). The default rule
+# set, no local additions. Add an allowlist entry only for a value that is verifiably not a
+# secret, keep it as narrow as possible and say what it is.
+
+title = "Artisyn Implementation Harness"
+
+[extend]
+useDefault = true
