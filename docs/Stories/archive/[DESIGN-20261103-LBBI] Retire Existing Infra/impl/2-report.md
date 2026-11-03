@@ -13,8 +13,8 @@ type: reference
 | Branch | `docs/design-20261103-lbbi-github-pages-migration`                                                             |
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
-| Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                    |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅ |
 
 ## Progress
 
@@ -39,17 +39,17 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 42m 44s · Wait: 13m 22s · Unclassified: 24m 10s
+Observed work: 1h 6m 13s · Wait: 15m 26s · Unclassified: 2m 49s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| context    | 2026-11-03T15:41:31.394Z | 2026-11-03T15:49:21.854Z | 7m 50s      | 2m 17s  | 5m 33s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| ceremony   | 2026-11-03T15:49:21.897Z | 2026-11-03T15:52:37.129Z | 3m 15s      | 1m 23s  | 1m 52s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| plan       | 2026-11-03T15:52:37.190Z | 2026-11-03T16:10:04.535Z | 17m 27s     | 15m 41s | 1m 47s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| implement  | 2026-11-03T16:10:04.583Z | 2026-11-03T16:29:14.821Z | 19m 10s     | 16m 30s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| test       | 2026-11-03T16:29:14.865Z | 2026-11-03T16:40:17.261Z | 11m 2s      | 6m 53s  | 4m 10s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| document   | 2026-11-03T16:40:17.311Z | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| completion | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| ---------- | ------------------------ | ------------------------ | ------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| context    | 2026-11-03T15:41:31.394Z | 2026-11-03T15:49:21.854Z | 7m 50s  | 2m 17s  | 5m 33s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| ceremony   | 2026-11-03T15:49:21.897Z | 2026-11-03T15:52:37.129Z | 3m 15s  | 1m 23s  | 1m 52s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| plan       | 2026-11-03T15:52:37.190Z | 2026-11-03T16:10:04.535Z | 17m 27s | 15m 41s | 1m 47s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| implement  | 2026-11-03T16:10:04.583Z | 2026-11-03T16:29:14.821Z | 19m 10s | 16m 30s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| test       | 2026-11-03T16:29:14.865Z | 2026-11-03T16:40:17.261Z | 11m 2s  | 6m 53s  | 4m 10s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| document   | 2026-11-03T16:40:17.311Z | 2026-11-03T17:03:51.678Z | 23m 34s | 21m 30s | 2m 4s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| completion | 2026-11-03T17:04:00.796Z | 2026-11-03T17:05:59.532Z | 1m 59s  | 1m 59s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 
 Quality (recorded inventory): findings 8 · open 0 · PR findings 2 · critical 0 · debt 7 · tests written 0 · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
@@ -60,7 +60,7 @@ Quality (recorded inventory): findings 8 · open 0 · PR findings 2 · critical 
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 42m 44s · Wait: 13m 22s · Unclassified: 24m 10s
+Observed work: 1h 6m 13s · Wait: 15m 26s · Unclassified: 2m 49s
 
 | Step                                                                   | Started (UTC)            | Completed (UTC)          | Elapsed | Work   | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
 | ---------------------------------------------------------------------- | ------------------------ | ------------------------ | ------- | ------ | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
@@ -188,3 +188,11 @@ identified, not that docs were skipped; say so in a line below the table. -->
 
 | Date | Phase | Human time | AI tokens | Notes |
 | ---- | ----- | ---------- | --------- | ----- |
+
+## Completion
+
+- **Date:** 2026-11-03
+- **Archive path:** `docs/Stories/archive/[DESIGN-20261103-LBBI] Retire Existing Infra/`
+- **PR title:** `chore(infra): retire Auth and Infrastructure containers`
+- **External actions:** Tracker — skipped (local design ID, no Jira ticket). Tech debt tickets — none; developer chose to leave TD-3 as a report note rather than create a standalone tracker item (it's advisory for the already-tracked future AWS-teardown ticket in `solution/Efforts.md` items 2–6).
+- **PR link:** _(fill in once opened)_
