@@ -1,3 +1,9 @@
+## [1.1.1](https://github.com/DataArt/artisyn-implementation-harness/compare/v1.1.0...v1.1.1) (2026-11-03)
+
+### Bug Fixes
+
+- **deps:** bump nx and vite to patched versions ([d1af2d7](https://github.com/DataArt/artisyn-implementation-harness/commit/d1af2d71c7cac6edf13d4b27b74f7cf1ca906c62))
+
 ## [1.1.0](https://github.com/DataArt/artisyn-harness/compare/v1.0.0...v1.1.0) (2026-11-03)
 
 ### Features
