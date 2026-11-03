@@ -26,22 +26,30 @@
     },
     {
       "id": "ceremony",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "89b6b5c6-c9ab-4b01-98bf-7a3cc6dcb9ae",
           "started_at": "2026-11-03T15:49:21.897Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T15:52:37.129Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "plan",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "7b405828-e486-4796-b8a9-58d16c76c454",
+          "started_at": "2026-11-03T15:52:37.190Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -126,8 +134,31 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-03T15:50:44.944Z",
+      "ended_at": "2026-11-03T15:52:37.129Z",
+      "last_observed_at": "2026-11-03T15:52:37.129Z"
+    },
+    {
+      "id": "afba245a-c43b-4ddf-8e72-74d5c5bd2747",
+      "stage_id": "plan",
+      "stage_attempt_id": "7b405828-e486-4796-b8a9-58d16c76c454",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-03T15:52:37.190Z",
+      "ended_at": "2026-11-03T16:08:17.870Z",
+      "last_observed_at": "2026-11-03T16:08:17.870Z"
+    },
+    {
+      "id": "72103ebd-6ac9-4785-90fc-37335ef1e93f",
+      "stage_id": "plan",
+      "stage_attempt_id": "7b405828-e486-4796-b8a9-58d16c76c454",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-03T16:08:17.870Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T15:50:44.944Z"
+      "last_observed_at": "2026-11-03T16:08:17.870Z"
     }
   ],
   "checks": [
@@ -160,18 +191,33 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "plan-sign-off-01",
+      "stage_id": "plan",
+      "stage_attempt_id": "7b405828-e486-4796-b8a9-58d16c76c454",
+      "step": null,
+      "name": "Plan sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T16:07:33.050Z",
+      "ended_at": "2026-11-03T16:07:33.050Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed plan after reworking Step 4 (stub, not remove, docs-web nx targets) and Step 6 (stub cd.yml in place for later GitHub Pages reuse, still delete aws-auth action)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T15:50:44.945Z",
+    "as_of": "2026-11-03T16:08:17.871Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 220.251,
-    "observed_wait_seconds": 333.256,
+    "observed_work_seconds": 1160.931,
+    "observed_wait_seconds": 445.441,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "unclassified_seconds": 0.08500000000001273,
+    "unclassified_seconds": 0.14599999999999136,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 232.099,
@@ -183,11 +229,11 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-03T15:50:44.894Z",
+    "as_of": "2026-11-03T16:08:17.820Z",
     "source": "2-report.md",
-    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "source_sha256": "10a5aba0875c5f58f3a4b9a587af4ff16e2a5112d005ad1540259f217ce91cff",
     "findings": {
-      "total": 0,
+      "total": 3,
       "by_kind": {
         "deviation": 0,
         "bug": 0,
@@ -195,24 +241,24 @@
         "improve": 0,
         "security": 0,
         "performance": 0,
-        "docs": 0
+        "docs": 3
       },
       "by_severity": {
         "critical": 0,
         "high": 0,
         "medium": 0,
-        "low": 0,
-        "info": 0
+        "low": 2,
+        "info": 1
       },
       "by_classification": {
-        "introduced": 0,
+        "introduced": 3,
         "pre-existing": 0,
         "ruled-out": 0,
         "advisory": 0
       },
       "by_resolution": {
         "open": 0,
-        "fixed": 0,
+        "fixed": 3,
         "accepted": 0,
         "tech-debt": 0,
         "doc-updated": 0
