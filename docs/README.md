@@ -13,8 +13,6 @@ Navigation index for this repository's documentation.
 ## Engineering Guide
 
 → See [Doc Structure](Engineering%20Guide/Documentation/02%20Structure.md) for the full article index and tier placement guide.
-→ [Deploy Lifecycle](Engineering%20Guide/Infrastructure/02%20Deploy%20Lifecycle.md) — two-phase CDK + lambda-auth deploy sequence
-→ [CI/CD Pipeline](Engineering%20Guide/Infrastructure/03%20CI-CD%20Pipeline.md) — GitHub Actions, AWS OIDC, and affected-deploy automation
 
 ---
 

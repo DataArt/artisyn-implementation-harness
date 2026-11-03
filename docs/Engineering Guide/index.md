@@ -10,7 +10,7 @@ Cross-cutting conventions and operational procedures for how work is planned, im
 
 ## How This Guide Works
 
-The top-level articles cover conventions and setup — read [Doc Structure](./Documentation/02%20Structure.md) first for the full three-tier documentation model this repo follows. [Documentation](#documentation) holds the presentation and structural-contract articles that govern how every doc type is written. [Lifecycles](./Lifecycles/00%20Overview.md) documents the four lifecycles (Dev, Design, Skill, Architecture) that structure all work end to end — also mirrored under [Harness › Lifecycles](/Harness/03%20Lifecycles/00%20Overview.md) as part of the harness's own nav. [Infrastructure](./Infrastructure/00%20Configuration%20%26%20Secrets.md) covers deploy-related operational runbooks. This guide is stable reference material — it changes when a convention changes, not as the project progresses.
+The top-level articles cover conventions and setup — read [Doc Structure](./Documentation/02%20Structure.md) first for the full three-tier documentation model this repo follows. [Documentation](#documentation) holds the presentation and structural-contract articles that govern how every doc type is written. [Lifecycles](./Lifecycles/00%20Overview.md) documents the four lifecycles (Dev, Design, Skill, Architecture) that structure all work end to end — also mirrored under [Harness › Lifecycles](/Harness/03%20Lifecycles/00%20Overview.md) as part of the harness's own nav. [Infrastructure](./Infrastructure/04%20Giscus%20Setup.md) covers the one remaining manual setup procedure, Giscus comments configuration — the AWS deploy/provisioning runbooks that used to live here were retired along with the Infrastructure and Auth containers. This guide is stable reference material — it changes when a convention changes, not as the project progresses.
 
 | Page                                                                            | Holds                                                                          |
 | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
@@ -43,10 +43,6 @@ The top-level articles cover conventions and setup — read [Doc Structure](./Do
 
 ### Infrastructure
 
-| Page                                                                                     | Holds                                                                                |
-| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| [00 Configuration & Secrets](./Infrastructure/00%20Configuration%20%26%20Secrets.md)     | Principles for how environment configuration and secrets flow from source to runtime |
-| [01 Local Provisioning Runbook](./Infrastructure/01%20Local%20Provisioning%20Runbook.md) | Step-by-step sequence for provisioning a fresh environment and deploying all apps    |
-| [02 Deploy Lifecycle](./Infrastructure/02%20Deploy%20Lifecycle.md)                       | Full sequence from code change to live site                                          |
-| [03 CI-CD Pipeline](./Infrastructure/03%20CI-CD%20Pipeline.md)                           | Automated quality gate (CI) and deployment (CD) via GitHub Actions and AWS OIDC      |
-| [04 Giscus Setup](./Infrastructure/04%20Giscus%20Setup.md)                               | Manual comments-widget setup and reconfiguration                                     |
+| Page                                                       | Holds                                            |
+| ---------------------------------------------------------- | ------------------------------------------------ |
+| [04 Giscus Setup](./Infrastructure/04%20Giscus%20Setup.md) | Manual comments-widget setup and reconfiguration |

@@ -68,22 +68,30 @@
     },
     {
       "id": "test",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
           "started_at": "2026-11-03T16:29:14.865Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T16:40:17.261Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "7fcd51cf-33c4-4f6d-9864-8e004dedc144",
+          "started_at": "2026-11-03T16:40:17.311Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -650,8 +658,31 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-03T16:37:43.451Z",
+      "ended_at": "2026-11-03T16:40:17.261Z",
+      "last_observed_at": "2026-11-03T16:40:17.261Z"
+    },
+    {
+      "id": "3a1e32e5-3b85-43e6-98eb-05d2893f732c",
+      "stage_id": "document",
+      "stage_attempt_id": "7fcd51cf-33c4-4f6d-9864-8e004dedc144",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-03T16:40:17.311Z",
+      "ended_at": "2026-11-03T17:01:47.326Z",
+      "last_observed_at": "2026-11-03T17:01:47.326Z"
+    },
+    {
+      "id": "5c379767-ffe5-4c47-b575-e230a8393f5e",
+      "stage_id": "document",
+      "stage_attempt_id": "7fcd51cf-33c4-4f6d-9864-8e004dedc144",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-03T17:01:47.326Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T16:37:43.451Z"
+      "last_observed_at": "2026-11-03T17:01:47.326Z"
     }
   ],
   "checks": [
@@ -1027,18 +1058,33 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "document-sign-off-01",
+      "stage_id": "document",
+      "stage_attempt_id": "7fcd51cf-33c4-4f6d-9864-8e004dedc144",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T17:01:36.928Z",
+      "ended_at": "2026-11-03T17:01:36.928Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed docs current, findings and tech debt closed (requested and received a full TD sweep), approved moving to Completion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T16:37:43.452Z",
+    "as_of": "2026-11-03T17:01:47.327Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 2563.9259999999995,
-    "observed_wait_seconds": 648.091,
+    "observed_work_seconds": 3853.941,
+    "observed_wait_seconds": 801.9010000000001,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "unclassified_seconds": 160.08200000000042,
+    "unclassified_seconds": 160.1320000000005,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 328.084,
@@ -1050,11 +1096,11 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-03T16:37:43.386Z",
+    "as_of": "2026-11-03T17:01:47.263Z",
     "source": "2-report.md",
-    "source_sha256": "5216c006a390046ceb860898c46a51293c39fe52cee301560a048545c77432ac",
+    "source_sha256": "69982bfa887e46dbd2d3cbab0c24565c002bd059b045917c2aefa825e4fc06bd",
     "findings": {
-      "total": 5,
+      "total": 8,
       "by_kind": {
         "deviation": 0,
         "bug": 0,
@@ -1062,26 +1108,26 @@
         "improve": 0,
         "security": 0,
         "performance": 0,
-        "docs": 5
+        "docs": 8
       },
       "by_severity": {
         "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 4,
+        "high": 1,
+        "medium": 1,
+        "low": 5,
         "info": 1
       },
       "by_classification": {
-        "introduced": 3,
+        "introduced": 6,
         "pre-existing": 2,
         "ruled-out": 0,
         "advisory": 0
       },
       "by_resolution": {
         "open": 0,
-        "fixed": 3,
+        "fixed": 8,
         "accepted": 0,
-        "tech-debt": 2,
+        "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
@@ -1110,9 +1156,9 @@
       }
     },
     "tech_debt": {
-      "total": 5,
+      "total": 7,
       "ticketed": 0,
-      "unticketed": 5
+      "unticketed": 7
     },
     "tests": {
       "written": 0,

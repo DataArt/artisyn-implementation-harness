@@ -32,14 +32,14 @@ to render; scope the id to the actual branch or ticket.
 
 ## Environment Mapping
 
-| Branch Type        | Environment Target  | Notes                                                                                |
-| ------------------ | ------------------- | ------------------------------------------------------------------------------------ |
-| `main`             | `dev` (auto-deploy) | Every merge triggers `cd.yml`; `nx affected --target=deploy` ships only what changed |
-| `feat/*` / `fix/*` | None (PR only)      | Validated by `ci.yml`; no preview environment is provisioned per branch              |
+| Branch Type        | Environment Target | Notes                                                                                                                                                                                                                  |
+| ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main`             | `dev`              | `cd.yml` runs on every merge, but its deploy step is currently a retirement stub (no-op) — the AWS deploy mechanism was removed with the Infrastructure container, and no replacement (GitHub Pages) deploy exists yet |
+| `feat/*` / `fix/*` | None (PR only)     | Validated by `ci.yml`; no preview environment is provisioned per branch                                                                                                                                                |
 
 There is no separate `develop`/`staging`/`production` branch or environment today — one GitHub
-Actions environment (`dev`) backs the whole pipeline. A Dev → Staging → Prod promotion chain is a
-reasonable future addition, not a default.
+Actions environment (`dev`) backs the whole pipeline, though it currently deploys nothing. A Dev →
+Staging → Prod promotion chain is a reasonable future addition, not a default.
 
 ## Naming Conventions
 
@@ -51,24 +51,20 @@ reasonable future addition, not a default.
 
 ## CI/CD by Branch
 
-| Trigger               | Runs                                                                                                                                                  |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, build for affected projects, using the SSM-read-only `CiReadRole`                                                  |
-| `main` merge          | `cd.yml` — `nx affected --target=deploy`, using the write-scoped `DeployRole`                                                                         |
-| `main` merge          | `release.yml` — `semantic-release` computes the next version from Conventional Commits, tags, and publishes a GitHub release and `CHANGELOG.md` entry |
-| Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate, same deploy path                                                                 |
+| Trigger               | Runs                                                                                                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, test, build for affected projects. No AWS role assumption — the AWS OIDC auth step was removed with the Infrastructure container |
+| `main` merge          | `cd.yml` — runs, but its deploy step is currently a retirement stub (no-op); no deploy mechanism exists until the GitHub Pages cutover lands                        |
+| `main` merge          | `release.yml` — `semantic-release` computes the next version from Conventional Commits, tags, and publishes a GitHub release and `CHANGELOG.md` entry               |
+| Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate                                                                                                 |
 
-See [`Infrastructure/03 CI-CD Pipeline.md`](./Infrastructure/03%20CI-CD%20Pipeline.md) for the full
-workflow and the `CiReadRole`/`DeployRole` OIDC trust split.
+See `.github/workflows/ci.yml` and `.github/workflows/cd.yml` for the current workflow definitions.
 
 ## Branch Protection
 
 `.github/CODEOWNERS` is configured, but the `main` branch protection _rule_ that actually enforces
 required reviews is not yet turned on in GitHub repo settings — a `CODEOWNERS` file with no
-protection rule requiring it is advisory only, not enforced. This matters beyond general hygiene:
-the `CiReadRole`/`DeployRole` OIDC split only prevents an unreviewed PR from reaching deploy-grade
-credentials — it assumes someone actually reviews and approves the PR before merge. Until the rule
-is enabled, that assumption isn't backed by anything.
+protection rule requiring it is advisory only, not enforced.
 
 Recommended, once configured (Settings → Branches → branch protection rule for `main`):
 
@@ -81,17 +77,13 @@ don't require a check the pipeline doesn't produce.
 
 ## Rollback Strategy
 
-`semantic-release` now tags every merge to `main` with `vX.Y.Z`, giving each release a traceable
-point in history and a generated `CHANGELOG.md` entry — but this does not by itself give tag-based
-deploy rollback. `cd.yml` deploys via `nx affected --base=HEAD~1 --head=HEAD`, which computes what
-changed in the single commit that triggered the run; checking out an old tag and re-running that
-command would only redeploy the diff of its last commit, not reliably reconstruct the tag's full
-state. In practice, a bad deploy is still rolled back by reverting the offending commit on `main`
-and letting `cd.yml` redeploy the reverted state. A true tag-pinned redeploy would need a dedicated
-"deploy this exact ref" path, not `cd.yml`'s diff-based one — not implemented today.
+`semantic-release` still tags every merge to `main` with `vX.Y.Z`, giving each release a traceable
+point in history and a generated `CHANGELOG.md` entry. `cd.yml` currently has no deploy to roll
+back — its deploy step is a retirement stub pending the GitHub Pages cutover. A rollback strategy
+for the actual deploy mechanism is undefined until that cutover lands.
 
 ## Related
 
 - [`01 Conventions.md`](./01%20Conventions.md) — branch/commit naming format
-- [`Infrastructure/03 CI-CD Pipeline.md`](./Infrastructure/03%20CI-CD%20Pipeline.md) — the CI/CD
-  workflow implementation this doc describes
+- `.github/workflows/ci.yml` / `.github/workflows/cd.yml` — the CI/CD workflow implementation
+  this doc describes
