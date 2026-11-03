@@ -22,10 +22,10 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: research
-completed_stages: ['context-gathering', 'ceremony', 'frame']
+current_stage: evaluate
+completed_stages: ['context-gathering', 'ceremony', 'frame', 'research']
 selected_artifacts: []
-next_action: 'Research — commit'
+next_action: 'Evaluate — commit'
 context_fingerprint: ''
 ```
 
@@ -50,7 +50,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261103-LBBI                                                                                                                                                                |
 | Branch | `docs/design-20261103-lbbi-github-pages-migration`                                                                                                                                  |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -60,20 +60,20 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 8m 27s · Wait to date: 17m 8s (closed 17m 8s + current 0s) · Unclassified: 11m 47s
+Observed work: 20m 14s · Wait to date: 18m 30s (closed 18m 30s + current 0s) · Unclassified: 10m 23s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-03T13:06:20.993Z | 2026-11-03T13:21:14.252Z | 14m 53s     | 10s    | 14m 43s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-03T13:21:14.302Z | 2026-11-03T13:23:32.117Z | 2m 18s      | 1m 6s  | 1m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (completed)             | 2026-11-03T13:23:32.158Z | 2026-11-03T13:31:55.870Z | 8m 24s      | 7m 10s | 1m 13s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (active)             | 2026-11-03T13:31:55.912Z | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-03T13:06:20.993Z | 2026-11-03T13:21:14.252Z | 14m 53s     | 10s     | 14m 43s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-03T13:21:14.302Z | 2026-11-03T13:23:32.117Z | 2m 18s      | 1m 6s   | 1m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-03T13:23:32.158Z | 2026-11-03T13:31:55.870Z | 8m 24s      | 7m 10s  | 1m 13s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (completed)          | 2026-11-03T13:31:55.912Z | 2026-11-03T13:45:05.007Z | 13m 9s      | 11m 47s | 1m 22s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (active)             | 2026-11-03T13:45:05.047Z | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -103,6 +103,26 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 <!-- Append dated blocks here. Each block added by Evaluate or the waf-review pattern. -->
 
+### WAF — Evaluate — 2026-11-03
+
+_Recommended option: Option B — GitHub Pages, project site._
+
+| Pillar                 | Rating   | Headline                                                                                                                                                                                               |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Operational Excellence | 🟢 Green | Deploy fully automated via existing GitHub Actions; no new AWS ops surface. Decommissioning the old AWS stacks is the one remaining one-time task.                                                     |
+| Security               | 🟡 Amber | Basic-auth attack surface is gone by design, but CSP drops to a weaker meta-tag (accepted per Research OQ-2), and the pre-publish content/secrets review has no confirmed owner yet.                   |
+| Reliability            | 🟢 Green | GitHub Pages is a mature platform; removing Lambda@Edge actually removes a moving part versus today. No new single point of failure.                                                                   |
+| Performance Efficiency | 🟢 Green | Static-CDN performance comparable to CloudFront at this site's scale; build-size/queue limits unmeasured but low risk.                                                                                 |
+| Cost Optimization      | 🟢 Green | Free for a public repo, zero billing surface — once the `RemovalPolicy.RETAIN` AWS resources (S3 bucket, Secrets Manager secret) are explicitly decommissioned, which `cdk destroy` alone will not do. |
+| Sustainability         | 🟢 Green | No dedicated cloud resources to provision or retain; reuses infrastructure GitHub already runs for the repo.                                                                                           |
+
+**P1 items (resolve before implementation):**
+
+- The pre-publish content/secrets review (Frame's proposed EC, Research OQ-8) must have a confirmed owner and must complete before the repo's visibility changes to public — this action is irreversible once taken.
+- AWS resources carrying `RemovalPolicy.RETAIN` (the S3 bucket and the Secrets Manager secret) are not destroyed by `cdk destroy` alone (Research OQ-4) — an explicit manual deletion/archive step must be planned in Solution, or they keep running (and costing) silently.
+
+Full elaboration: `design/02 Evaluate.md`
+
 ---
 
 ## Gate
@@ -120,6 +140,7 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 | ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 2026-11-03 | Frame    | 3 known requirements, 5 proposed requirements accepted                                                                                                                                                                                                             |
 | 2026-11-03 | Research | @architect returned 5 options (Minimal AWS, GitHub Pages project site, GitHub Pages custom domain, Cloudflare Pages, Netlify); developer confirmed set complete; resolved 3 of 3 Viability OQs (meta-tag CSP OK, NFR-9 retired, GitHub-native only — D/E excluded) |
+| 2026-11-03 | Evaluate | Recommended Option B — GitHub Pages, project site; WAF: 5 Green, 1 Amber (Security); 2 P1 items (pre-publish content/secrets review owner, RETAIN-resource decommission)                                                                                           |
 
 ---
 

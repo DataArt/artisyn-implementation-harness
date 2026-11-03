@@ -51,21 +51,29 @@
     },
     {
       "id": "research",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "398fd335-9265-4a5b-9cbb-ab6407bfae64",
           "started_at": "2026-11-03T13:31:55.912Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T13:45:05.007Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "evaluate",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "145d09e0-accd-4fb8-9ab5-374da3a55da8",
+          "started_at": "2026-11-03T13:45:05.047Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "solution",
@@ -184,8 +192,31 @@
       "reason": "user_input",
       "detail": "Awaiting research commit",
       "started_at": "2026-11-03T13:43:43.280Z",
+      "ended_at": "2026-11-03T13:45:05.007Z",
+      "last_observed_at": "2026-11-03T13:45:05.007Z"
+    },
+    {
+      "id": "b90a2e01-f8e9-40fa-9870-3648b7684f03",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "145d09e0-accd-4fb8-9ab5-374da3a55da8",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-03T13:45:05.047Z",
+      "ended_at": "2026-11-03T13:55:28.370Z",
+      "last_observed_at": "2026-11-03T13:55:28.370Z"
+    },
+    {
+      "id": "d2fac566-0a60-4e3b-bf39-1ff293c77263",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "145d09e0-accd-4fb8-9ab5-374da3a55da8",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting evaluate commit",
+      "started_at": "2026-11-03T13:55:28.370Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T13:43:43.280Z"
+      "last_observed_at": "2026-11-03T13:55:28.370Z"
     }
   ],
   "checks": [
@@ -252,19 +283,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "evaluate-sign-off-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "145d09e0-accd-4fb8-9ab5-374da3a55da8",
+      "step": null,
+      "design_revision": 0,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T13:55:04.957Z",
+      "ended_at": "2026-11-03T13:55:04.957Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed recommendation (Option B), matrix, and 2 P1 WAF items",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T13:43:43.281Z",
+    "as_of": "2026-11-03T13:55:28.370Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1214.363,
-    "observed_wait_seconds": 1027.791,
+    "observed_work_seconds": 1837.6860000000001,
+    "observed_wait_seconds": 1109.518,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 1027.792,
-    "unclassified_seconds": 0.18000000000004002,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 1109.518,
+    "unclassified_seconds": 0.2199999999997999,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 882.813,
