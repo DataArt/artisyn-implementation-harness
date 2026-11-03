@@ -78,6 +78,47 @@ export class DocsStack extends cdk.Stack {
     });
   }
 
+  // Defense-in-depth against any future XSS vector (NFR-7 already blocks the main
+  // one by disabling raw HTML in markdown): restricts script/style/frame/connect
+  // origins to this site plus giscus.app, the one third party the Discuss container
+  // embeds. 'unsafe-inline' is required for VitePress's own framework-injected
+  // bootstrap scripts (dark-mode/sidebar-collapse init, run inline in every page's
+  // <head> — not something this app controls) and for Vue/mermaid's inline styles.
+  // 'wasm-unsafe-eval' is required for the Operational Graph Explorer's sql.js (WASM)
+  // — plain 'unsafe-eval' is not granted. Validated against a local build with no
+  // CSP violations on the homepage, a doc page with the giscus widget, and the Graph
+  // Explorer (see `docs/Target Architecture (HLD)/v1/Non-Functional Concerns/Requirements.md` NFR-10).
+  private createResponseHeadersPolicy(): cloudfront.ResponseHeadersPolicy {
+    return new cloudfront.ResponseHeadersPolicy(this, 'ResponseHeadersPolicy', {
+      securityHeadersBehavior: {
+        contentSecurityPolicy: {
+          contentSecurityPolicy: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://giscus.app",
+            "style-src 'self' 'unsafe-inline' https://giscus.app",
+            "img-src 'self' data: https://giscus.app https://avatars.githubusercontent.com",
+            "font-src 'self' data:",
+            "connect-src 'self' https://giscus.app",
+            'frame-src https://giscus.app',
+            "object-src 'none'",
+            "base-uri 'self'",
+            "frame-ancestors 'self'",
+          ].join('; '),
+          override: true,
+        },
+        frameOptions: {
+          frameOption: cloudfront.HeadersFrameOption.SAMEORIGIN,
+          override: true,
+        },
+        contentTypeOptions: { override: true },
+        referrerPolicy: {
+          referrerPolicy: cloudfront.HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
+          override: true,
+        },
+      },
+    });
+  }
+
   private createDistribution(
     siteBucket: s3.Bucket,
     logsBucket: s3.Bucket,
@@ -107,6 +148,7 @@ export class DocsStack extends cdk.Stack {
             eventType: cloudfront.LambdaEdgeEventType.VIEWER_REQUEST,
           },
         ],
+        responseHeadersPolicy: this.createResponseHeadersPolicy(),
       },
       priceClass: PRICE_CLASS_MAP[cfPriceClass] ?? cloudfront.PriceClass.PRICE_CLASS_100,
     });

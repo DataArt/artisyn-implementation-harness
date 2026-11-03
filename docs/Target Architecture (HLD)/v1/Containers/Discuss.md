@@ -60,6 +60,7 @@ flowchart LR
 - Reading comments is bound only by NFR-1 (site-wide basic auth) — giscus.app's backend fetches via the App's own installation token, not the viewer's identity, so no narrower read gate exists or is achievable within this integration
 - Posting requires GitHub repository permission on the repo configured via `GITHUB_ORG`/`GITHUB_REPO`, enforced entirely by the giscus GitHub App — this platform cannot grant, revoke or audit that permission itself (NFR-6)
 - Widget lifecycle is confirmed client-side only: script inject/teardown runs in the browser on every VitePress route change; no build-time or server-side rendering of comment content
+- giscus's own post-sign-in OAuth flow returns a session token as a `?giscus=<token>` URL query parameter, briefly visible in browser history before `client.js` strips it, then persisted in `localStorage`; exchangeable at the giscus API for the signer's GitHub user-to-server token within the giscus app's scope. This is giscus's own client-side implementation, outside this platform's control — see NFR-10 for what is and isn't mitigated on this platform's side (the token is never captured by this platform's own logging, and a CloudFront CSP narrows the XSS vector that would otherwise let it be read from `localStorage`)
 
 ## Key paths
 
