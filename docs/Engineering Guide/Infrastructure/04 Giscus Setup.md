@@ -68,12 +68,7 @@ VITE_GISCUS_REPO_ID=<value from Step 4>
 VITE_GISCUS_CATEGORY_ID=<value from Step 4>
 ```
 
-These are `VITE_`-prefixed because Vite inlines them at **build time**, not deploy time — see `03 CI-CD Pipeline.md` for why the CI build step (not just the deploy step) must have these loaded before it runs. Push to SSM and rebuild/redeploy:
-
-```bash
-yarn nx run site:env-push:dev
-yarn nx run site:deploy:dev
-```
+These are `VITE_`-prefixed because Vite inlines them at **build time**, not deploy time. Edit the values directly into `apps/docs-web/.env.dev` (or `.env.prod`) — `site:build` and `site:serve` load that file via their `envFile` configuration. There is no CI/CD deploy mechanism to push these to today: `site:deploy`, `site:env-push`, and `site:env-pull` are currently retirement stubs (the old AWS SSM/CloudFront deploy path was removed with the Infrastructure container), pending a future GitHub Pages deploy workflow.
 
 ---
 

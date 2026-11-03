@@ -66,7 +66,7 @@ flowchart LR
 
 ## Navigation
 
-Nav is five fixed items in `config.ts`, one per top-level `docs/` section. Sidebar per section is generated at build time by scanning the corresponding `docs/` subdirectory via the `scanSection` helper in `config.ts`. File numeric prefix (`00`, `01`, …) controls sidebar ordering. `index.md` and `README.md` files are excluded from sidebar items. `docs/index.md` uses the VitePress `layout: home` landing page; each top-level section maintains its own `index.md` as a mini-hero entry point.
+Nav is 8 fixed items in `config.ts`, pointing into `Harness/` subsections plus a Security Scan entry; every other top-level `docs/` section is reached via the homepage. Sidebar per section is generated at build time by scanning the corresponding `docs/` subdirectory via the `scanSection` helper in `config.ts`. File numeric prefix (`00`, `01`, …) controls sidebar ordering. `index.md` and `README.md` files are excluded from sidebar items. `docs/index.md` uses the VitePress `layout: home` landing page; each top-level section maintains its own `index.md` as a mini-hero entry point.
 
 ## Boundary contracts
 
@@ -80,7 +80,7 @@ Nav is five fixed items in `config.ts`, one per top-level `docs/` section. Sideb
 
 - Served as static output only — no server-side runtime at request time; all rendering and link-checking happen at build time (NFR-5)
 - VitePress `base` is set to `/<repo>/` — the site is served as a GitHub Pages project site, not at a domain root
-- Nav is five fixed items hardcoded in `config.ts`; sidebar per section is generated at build time from directory scans, not configurable at runtime
+- Nav is 8 fixed items hardcoded in `config.ts`; sidebar per section is generated at build time from directory scans, not configurable at runtime
 - Site title and description are tokenized in `config.ts`, not hardcoded per environment
 - The site is public — no auth gate sits in front of any route
 

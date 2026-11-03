@@ -18,8 +18,8 @@ You use extended thinking to reason carefully before drawing conclusions. Never 
 The caller passes a **free-form prompt** describing the task. Examples:
 
 - `"Review the web layer against its architecture doc"`
-- `"Find gaps between the auth layer code and design principles"`
-- `"Create an architecture overview for the infra layer"`
+- `"Find gaps between the web layer code and design principles"`
+- `"Create an architecture overview for the web layer"`
 - `"Review all architecture docs against Well-Architected pillars"`
 - `"The web layer doc is stale — update it to reflect the current implementation"`
 - `"Audit cross-layer boundaries — check no layer imports from a layer it shouldn't"`
@@ -40,8 +40,6 @@ Read `docs/Target Architecture (HLD)/README.md` to find the active version (`<VE
 | Layer          | Architecture doc path                                                                                                                   | Code path(s)        |
 | -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
 | Web            | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web.md` (+ `Discuss.md` for the client-side giscus comments widget embedded in it) | `apps/docs-web/`    |
-| Auth           | `docs/Target Architecture (HLD)/<VERSION>/Containers/Auth.md`                                                                           | `apps/lambda-auth/` |
-| Infrastructure | `docs/Target Architecture (HLD)/<VERSION>/Containers/Infrastructure.md`                                                                 | `apps/infra/`       |
 
 ---
 
@@ -71,23 +69,7 @@ For the scoped code path(s):
 
 Capture each finding with a **code citation**: `[code: path/to/file.ts:line]`.
 
-### Step 3 — Cross-layer integrity checks (always run)
-
-```bash
-# Auth (lambda-auth) must not import from Infra (infra) — auth logic must stay
-# decoupled from CDK/provisioning code
-grep -rn "from ['\"].*/infra\b" apps/lambda-auth/src 2>/dev/null || echo "OK: no lambda-auth -> infra imports"
-
-# Infra (infra) must not import from Auth (lambda-auth) application source —
-# infra only packages/deploys the built Lambda artifact, never its source logic
-grep -rn "from ['\"].*/lambda-auth/src" apps/infra/lib apps/infra/bin 2>/dev/null || echo "OK: no infra -> lambda-auth source imports"
-
-# Web (docs-web) must not import from Auth (lambda-auth) or Infra (infra) — the
-# VitePress site is static content, unaware of the auth/infra layers
-grep -rn "from ['\"].*/\(lambda-auth\|infra\)\b" apps/docs-web 2>/dev/null || echo "OK: no docs-web -> auth/infra imports"
-```
-
-### Step 4 — Well-Architected assessment (when requested or for full reviews)
+### Step 3 — Well-Architected assessment (when requested or for full reviews)
 
 Evaluate docs and implementation against these pillars. Cite evidence for every rating.
 

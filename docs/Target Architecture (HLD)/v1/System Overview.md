@@ -8,7 +8,7 @@ keywords: [system-overview, containers, data-flow, hld]
 
 ## Purpose
 
-ADLC Discovery Tool is a static documentation site delivering an AI-first SDLC adoption programme. The site hosts discovery materials, workshop outputs, and design decisions produced during the DataArt × DataArt engagement.
+ADLC Discovery Tool is a static documentation site delivering an AI-first SDLC adoption programme. The site hosts discovery materials, workshop outputs, and design decisions, and is open-sourced via GitHub Pages.
 
 ## Containers
 

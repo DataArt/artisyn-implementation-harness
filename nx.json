@@ -17,30 +17,6 @@
     },
     "lint": {
       "cache": true
-    },
-    "env-push": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "bash scripts/local/env-push.sh"
-      }
-    },
-    "env-pull": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "bash scripts/local/env-pull.sh"
-      }
-    },
-    "sm-push": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "bash scripts/local/sm-push.sh"
-      }
-    },
-    "sm-pull": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "bash scripts/local/sm-pull.sh"
-      }
     }
   },
   "analytics": false
