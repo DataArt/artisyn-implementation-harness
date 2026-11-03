@@ -22,7 +22,7 @@ _Resolved once in Context Gathering. Every later phase reads these values instea
 ## State
 
 ```yaml
-current_stage: publish
+current_stage: completion
 completed_stages:
   [
     'context-gathering',
@@ -33,9 +33,10 @@ completed_stages:
     'solution',
     'review-gate',
     'address-feedback (skipped)',
+    'publish',
   ]
 selected_artifacts: ['architecture', 'design', 'stack', 'efforts']
-next_action: 'Publish — commit'
+next_action: 'Completion — archive, implementation ticket, tracker sync'
 context_fingerprint: ''
 ```
 
@@ -59,8 +60,8 @@ context_fingerprint: ''
 | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ticket | DESIGN-20261103-LBBI                                                                                                                                                                          |
 | Branch | `docs/design-20261103-lbbi-github-pages-migration`                                                                                                                                            |
-| Status | 🔄 In Progress                                                                                                                                                                                |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                                                                                                   |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ✅ · 🏁 Completion ✅ |
 
 ---
 
@@ -70,7 +71,7 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1h 26m 47s · Wait to date: 28m 17s (closed 28m 17s + current 0s) · Unclassified: 20m 16s
+Observed work: 1h 53m 39s · Wait to date: 33m 12s (closed 32m 11s + current 1m 0s) · Unclassified: 5s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -82,8 +83,8 @@ Observed work: 1h 26m 47s · Wait to date: 28m 17s (closed 28m 17s + current 0s)
 | solution (completed)          | 2026-11-03T13:57:30.030Z | 2026-11-03T14:57:05.027Z | 59m 35s     | 51m 49s | 7m 46s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (completed)       | 2026-11-03T14:57:05.077Z | 2026-11-03T15:01:25.928Z | 4m 21s      | 4m 21s  | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (active)              | 2026-11-03T15:01:30.507Z | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (completed)           | 2026-11-03T15:01:30.507Z | 2026-11-03T15:25:35.863Z | 24m 5s      | 20m 11s | 3m 54s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (waiting)          | 2026-11-03T15:25:35.918Z | unavailable              | unavailable | 6m 40s  | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -174,19 +175,22 @@ Full elaboration: `solution/Architecture.md`, `solution/Design.md`, `solution/St
 
 ## Efforts
 
-| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-03 | Frame    | 3 known requirements, 5 proposed requirements accepted                                                                                                                                                                                                                                                                                                                                                        |
-| 2026-11-03 | Research | @architect returned 5 options (Minimal AWS, GitHub Pages project site, GitHub Pages custom domain, Cloudflare Pages, Netlify); developer confirmed set complete; resolved 3 of 3 Viability OQs (meta-tag CSP OK, NFR-9 retired, GitHub-native only — D/E excluded)                                                                                                                                            |
-| 2026-11-03 | Evaluate | Recommended Option B — GitHub Pages, project site; WAF: 5 Green, 1 Amber (Security); 2 P1 items (pre-publish content/secrets review owner, RETAIN-resource decommission)                                                                                                                                                                                                                                      |
-| 2026-11-03 | Solution | Selected artifacts written (Architecture/Design/Stack/Efforts); architect review found 5 mechanical gaps, all auto-applied; WAF: 6/6 Green, 0 P1 items; quality gate: pass; WBS consolidated to 6 items (infra retirement split out as its own step) with developer estimates, total 8h                                                                                                                       |
-| 2026-11-03 | Publish  | MR approved by Anton Merkulov (self-approved, no MR opened); 8 HLD docs updated + 2 deleted (Infrastructure.md, Auth.md) under `docs/Target Architecture (HLD)/v1/`; architect review clean after 1 fix round (3 stale cross-references); mid-flight correction: AWS decommission now sequenced before (not after) public cutover per developer request, Solution WAF Reliability corrected 🟢→🟡 accordingly |
+| Date       | Phase      | Notes                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ---------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-03 | Frame      | 3 known requirements, 5 proposed requirements accepted                                                                                                                                                                                                                                                                                                                                                        |
+| 2026-11-03 | Research   | @architect returned 5 options (Minimal AWS, GitHub Pages project site, GitHub Pages custom domain, Cloudflare Pages, Netlify); developer confirmed set complete; resolved 3 of 3 Viability OQs (meta-tag CSP OK, NFR-9 retired, GitHub-native only — D/E excluded)                                                                                                                                            |
+| 2026-11-03 | Evaluate   | Recommended Option B — GitHub Pages, project site; WAF: 5 Green, 1 Amber (Security); 2 P1 items (pre-publish content/secrets review owner, RETAIN-resource decommission)                                                                                                                                                                                                                                      |
+| 2026-11-03 | Solution   | Selected artifacts written (Architecture/Design/Stack/Efforts); architect review found 5 mechanical gaps, all auto-applied; WAF: 6/6 Green, 0 P1 items; quality gate: pass; WBS consolidated to 6 items (infra retirement split out as its own step) with developer estimates, total 8h                                                                                                                       |
+| 2026-11-03 | Publish    | MR approved by Anton Merkulov (self-approved, no MR opened); 8 HLD docs updated + 2 deleted (Infrastructure.md, Auth.md) under `docs/Target Architecture (HLD)/v1/`; architect review clean after 1 fix round (3 stale cross-references); mid-flight correction: AWS decommission now sequenced before (not after) public cutover per developer request, Solution WAF Reliability corrected 🟢→🟡 accordingly |
+| 2026-11-03 | Completion | Implementation ticket not published to Jira — developer chose `/dev` directly in this repo. Archived to `docs/Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages`; no relative links needed fixing. No tracker sync — local `DESIGN-` ID, never tied to a real Jira ticket. Observed work: 1h 46m 59s.                                                                |
 
 ---
 
 ## Implementation Tickets
 
 _Filled in during Completion after implementation tickets are created._
+
+Not published to a tracker — developer chose to implement directly via `/dev` in this repo, consistent with this design's Implementation note and the Q5MU design's precedent. Single combined implementation unit: `solution/Efforts.md` (6-item WBS: pre-publish review → VitePress readiness → GitHub Pages CI/CD cutover → retire existing infra → public cutover → post-migration cleanup, estimated at 8.5h).
 
 | Ticket | Summary | Tracker |
 | ------ | ------- | ------- |
