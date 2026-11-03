@@ -1,0 +1,33 @@
+{
+  "schema_version": 2,
+  "bundle_id": "6922b2a7-5ad4-496f-ac62-8fd2537ded1c",
+  "mode": "harvest",
+  "status": "verified",
+  "created_at": "2026-11-02T23:55:54Z",
+  "providers": ["claude"],
+  "notes": "DESIGN-20261102-Q5MU TD-2. First harvest ever run for docs/Engineering Guide/Documentation/01 Principles.md: the live project copy (203 lines) and its canonical template (178 lines) had drifted independently with no prior reconciliation. Inspected both files in full, line by line. Harvested into canonical: (1) the Why section's AI-instruction-budget rationale paragraph, generalizing its literal 'CLAUDE.md' reference to canonical's existing {{ROOT_INSTRUCTIONS}} placeholder; (2) the full 'Wiring Principle' section (progressive-disclosure navigation model and its rules), omitting the live file's two embedded /images/engineering-guide/*.png references as project-specific assets; (3) one sentence appended to 'Operational graph frontmatter' on quoting purpose: values containing YAML-reserved characters. Deliberately left unharvested as local-only customizations: the live file's concrete frontmatter block (id/purpose/keywords -- id is assigned per-project by docs/.og/, not portable template content), both embedded images, and the live file's older 'Diagram and format standards' wording and minor Documentation-destination SoC-test phrasing -- canonical's current wording for those is already a later, more nuanced revision (Applicability-scoped diagram requirement, Default palette tokens, sequence-diagram styling), so harvesting live's older text would regress canonical. Separately corrected in the live file only, independent of this harvest: two long-standing duplication bugs (a stale duplicate 'Certainty principle' bullet and a stale duplicate 'How - doc-type cheat sheet' table), both present since at least commit 09acb50, predating this ticket. The live file itself was otherwise left untouched per instructions -- it is the source observed, not a deployment target, so this operation records no permanent-file write; providers names the provider whose installed canonical-template-derived tree was the observation source for this harvest.",
+  "files": [
+    {
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "old_path": null,
+      "operation": "update",
+      "before_sha256": "6bf8b7d0e952e899438d4bdde0b617036c6fa6fda2393294c8d70f28c02a8b7b",
+      "after_sha256": "7d41bcd4c06602928d641295ffdf6f97195ecaca5c5984f2ebedd8893dff8e4b",
+      "provider": "shared",
+      "verification": "diff written against git HEAD's recorded canonical base (hash equal to state/index.json's recorded_sha256 for this path); applied in staging and result hash verified byte-identical to the edited canonical file on disk"
+    }
+  ],
+  "harvest_receipt": {
+    "canonical/docs/Engineering Guide/Documentation/01 Principles.md": {
+      "observed_permanent_sha256": null,
+      "observed_permanent_note": "Live file (docs/Engineering Guide/Documentation/01 Principles.md) was read and compared in full but left byte-for-byte unmodified by this harvest; its hash was not recorded as a new checkpoint because no permanent-file write occurred. Only the independent duplication-bug fix (see notes) touches the live file, tracked separately outside this harvest's scope.",
+      "promoted_canonical_sha256": "7d41bcd4c06602928d641295ffdf6f97195ecaca5c5984f2ebedd8893dff8e4b",
+      "excluded_local_changes": [
+        "Concrete frontmatter block (id: 34ee6f89, purpose:, keywords:) -- id is assigned per-project by docs/.og/",
+        "Embedded images /images/engineering-guide/docs-principles-placement.png and /images/engineering-guide/docs-wiring-discovery.png",
+        "Older 'Diagram and format standards' wording (blanket 'every doc MUST have a Mermaid diagram' + plain classDef/style coloring note) -- superseded by canonical's own later, more nuanced revision",
+        "Minor Documentation-destination SoC-test phrasing variance -- not a substantive improvement either direction"
+      ]
+    }
+  }
+}

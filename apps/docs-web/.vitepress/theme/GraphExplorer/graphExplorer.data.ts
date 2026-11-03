@@ -15,7 +15,6 @@ export interface GraphEdge {
   from_id: string;
   to_id: string;
   edge_type: string;
-  derived: number;
 }
 
 export interface GraphExplorerData {
@@ -49,7 +48,7 @@ export default defineLoader({
         .prepare('SELECT id, tier, path, title FROM docs ORDER BY tier, title')
         .all() as unknown as GraphDoc[];
       const edges = db
-        .prepare('SELECT from_id, to_id, edge_type, derived FROM edges')
+        .prepare('SELECT from_id, to_id, edge_type FROM edges')
         .all() as unknown as GraphEdge[];
       return { docs, edges };
     } catch {

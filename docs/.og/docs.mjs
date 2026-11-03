@@ -114,6 +114,30 @@ export class DocsStore {
       writeAdditiveId(absPath, docId);
     }
     const title = data.title ?? firstHeading(body) ?? null;
+    // A doc that moved keeps its frontmatter `id:` but has a new path — the
+    // row for that id still exists at the old path. INSERT...ON
+    // CONFLICT(path) only catches a same-path update; it would try to
+    // insert a second row with this id and hit the `id` UNIQUE constraint.
+    // Update that row's path in place instead, preserving the id and every
+    // edge referencing it (edges key on id, never path).
+    const byId = this.findById(docId);
+    if (byId && byId.path !== relPath) {
+      this.db
+        .prepare(
+          `UPDATE docs SET path = ?, tier = ?, title = ?, purpose = ?,
+             keywords = ?, updated_at = ? WHERE id = ?`
+        )
+        .run(
+          relPath,
+          tierOf(relPath),
+          title,
+          data.purpose ?? null,
+          data.keywords ?? null,
+          new Date().toISOString(),
+          docId
+        );
+      return { id: docId, path: relPath };
+    }
     this.db
       .prepare(
         `INSERT INTO docs (id, tier, path, title, purpose, keywords, updated_at)

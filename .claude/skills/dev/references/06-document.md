@@ -78,7 +78,7 @@ the plan's original scope — implementation can diverge from the plan, and a
 plan-only read misses impact the graph already knows about. Attempt `node
 docs/.og/cli.mjs query --related-to <doc> --dir .` (or `search --term <text>`)
 against `docs/.og/docs-operational-graph.sqlite` for each touched doc. Required
-(not best-effort): when the graph is missing, stale, or the call errors, fall
+(not best-effort): when the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall
 back to grep/glob over `docs/` for the same information. Either way, never let
 this block the stage — fold anything it surfaces into the table below like any
 other source.

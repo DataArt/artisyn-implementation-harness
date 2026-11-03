@@ -174,7 +174,7 @@ export default {
         const buffer = new Uint8Array(await response.arrayBuffer());
         const db = new SQL.Database(buffer);
         const [docsResult] = db.exec('SELECT id, tier, path, title FROM docs ORDER BY tier, title');
-        const [edgesResult] = db.exec('SELECT from_id, to_id, edge_type, derived FROM edges');
+        const [edgesResult] = db.exec('SELECT from_id, to_id, edge_type FROM edges');
         db.close();
         if (docsResult) {
           liveDocs.value = docsResult.values.map((row) => {
@@ -199,9 +199,19 @@ export default {
       }
     }
 
+    // loadLive() mutates liveDocs/liveEdges synchronously on success, which
+    // reactively changes `elements` — the watch(elements, ...) below would
+    // then fire on its own schedule, on top of the explicit renderGraph()
+    // call right after, rendering the graph twice on first load. Suppress
+    // the watcher only for that one startup transition; every later change
+    // (filter toggles, a live re-fetch) still re-renders normally once this
+    // is true.
+    let initialRenderDone = false;
+
     onMounted(async () => {
       await loadLive();
       renderGraph();
+      initialRenderDone = true;
     });
 
     onBeforeUnmount(() => {
@@ -209,7 +219,10 @@ export default {
       cy = null;
     });
 
-    watch(elements, () => renderGraph());
+    watch(elements, () => {
+      if (!initialRenderDone) return;
+      renderGraph();
+    });
 
     // VitePress's dark-mode toggle flips the `dark` class on `<html>`
     // without remounting this component, so the node/label colors baked

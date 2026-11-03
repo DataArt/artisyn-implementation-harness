@@ -17,7 +17,7 @@ const route = useRoute();
 // globally via a Layout slot. `route.data.relativePath` is the clean
 // source path (unaffected by URL-encoding quirks in `route.path`).
 const isGraphExplorerPage = computed(
-  () => route.data.relativePath === 'Harness/07 Knowledge Graph/04 Graph Explorer.md'
+  () => route.data.relativePath === 'Harness/07 Operational Graph/04 Graph Explorer.md'
 );
 </script>
 

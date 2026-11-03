@@ -36,8 +36,6 @@ A secondary reason: frontier AI models follow ~150–200 instructions reliably b
 
 **Contradictory evidence** — test material claims against counterexamples, not only supporting examples. Inspect conflicting code, configuration and decisions; narrow or correct claims when evidence differs. Record inspected scope, exceptions and resolution in the external review record. Absence of a counterexample in a sample is not proof of a universal rule.
 
-**Certainty principle** — architecture docs (HLD and LLD) state only settled outcomes. No comparisons, open questions, or rationale. Those belong in `Stories/<TICKET>/design/`. → See `docs/README.md`.
-
 **Don't auto-generate root context** — CLAUDE.md and its equivalents are the highest-leverage files in the harness. Generate a scaffold from the bootstrap prompt, then edit by hand. Auto-generated root context is generic; hand-edited root context is precise.
 
 **Operational graph frontmatter** — every doc you write or update gets frontmatter `purpose:` (one line, what the doc is for) and `keywords:` (a short list), written from your own understanding of its actual content. Unlike `id` (assigned once by the operational graph tool, `docs/.og/`, and never reassigned), these two are editable: when the doc's content changed enough that an existing value no longer fits, update it; otherwise leave it. These feed the graph's `search()`; the tool itself never derives or writes them — it is deterministic, no model calls — so this is the one point in any lifecycle with enough content context to write them well. Quote the `purpose:` value in double quotes whenever it contains a colon followed by a space, or any other YAML-reserved character (`:`, `#`, `[`, `]`, `{`, `}`, a leading quote) — an unquoted colon mid-value breaks the frontmatter parse for every later reader, not just the graph tool.
@@ -84,23 +82,6 @@ naming compounds across a growing doc set the way varied phrasing never does.
 
 A quick test before handing a doc over: read the first sentence of each section
 aloud. If it is a fact a reader can act on, the manner is right.
-
----
-
----
-
-## How — doc-type cheat sheet
-
-| Doc type                           | Structure                                                                     | Length target |
-| ---------------------------------- | ----------------------------------------------------------------------------- | ------------- |
-| Root context file (CLAUDE.md)      | WHY (2–3 sentences) → WHAT (rules + pointers) → HOW (slash commands / agents) | 60–130 lines  |
-| Engineering Guide article          | Problem → Steps → Notes                                                       | < 150 lines   |
-| HLD container doc                  | Responsibilities → Technology → Data flow → NFRs → Open questions             | < 80 lines    |
-| LLD container doc                  | Overview → Component detail → Integration patterns → Key decisions            | < 120 lines   |
-| Convention skill                   | Rule → Why → How to apply                                                     | < 40 lines    |
-| Orchestrator skill                 | Orchestration pattern + per-phase invariants                                  | < 60 lines    |
-| App README                         | What → How to run locally → Links to HLD + LLD                                | < 60 lines    |
-| ADR (Architecture Decision Record) | Context → Decision → Consequences                                             | < 60 lines    |
 
 ---
 

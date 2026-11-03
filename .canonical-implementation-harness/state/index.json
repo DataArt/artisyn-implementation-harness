@@ -150,8 +150,8 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/docs/Engineering Guide/Documentation/01 Principles.md": {
-      "recorded_sha256": "6bf8b7d0e952e899438d4bdde0b617036c6fa6fda2393294c8d70f28c02a8b7b",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "7d41bcd4c06602928d641295ffdf6f97195ecaca5c5984f2ebedd8893dff8e4b",
+      "snapshot": "bundle:6922b2a7-5ad4-496f-ac62-8fd2537ded1c"
     },
     "canonical/docs/Engineering Guide/Documentation/02 Structure.md": {
       "recorded_sha256": "9c2bf93c76f234c8175e3c4f10d714442f420661301b1439207af602617a1d64",
@@ -210,12 +210,13 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/skills/design/INTENT.md": {
-      "recorded_sha256": "32fa3251285d0421ac2c2671c17292f0e71f25d33a29aeab6c58d9bbeb301896",
-      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+      "recorded_sha256": "f16c239c9a72e16f3f6045371ee96223f28f50c7677b486346589c9902a5149a",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/design/TEMPLATE.md": {
-      "recorded_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
-      "snapshot": "bundle:edc3be8b-29d2-4963-af01-d8e57c41dd90"
+      "recorded_sha256": "618ed8d068008c7c6ee13b7c09ad961eebe668c7657fc2509cb5783c4851ffb3",
+      "snapshot": "manual-correction:TD-1-DESIGN-20261102-Q5MU",
+      "note": "Prior checkpoint (bundle:edc3be8b) recorded a hash this file has never actually had in git history -- the harvest diff payload drifted from what was committed, confirmed unreachable from any commit or state/objects/. Re-baselined to the real current committed content (verified: matches git HEAD exactly) rather than attempting to reconstruct the broken diff. See 2-report.md TD-1 for the full investigation."
     },
     "canonical/skills/design/interfaces/architecture.md": {
       "recorded_sha256": "9cf39916c24401ca61d5f64193e79c5dc9b26c3a2065845139a8221bb7ffbb1e",
@@ -406,16 +407,16 @@
       "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/01-context-gathering.md": {
-      "recorded_sha256": "17c4b0fa3f5931630fe7fdd25baf2536114cb84475e1773eda22fe56292872cd",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "8342617e97e801e125b3a00b4ed87c94edff020b091cf357d66d5deb05e0a14e",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/dev/references/02-ceremony.md": {
       "recorded_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
       "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/03-plan.md": {
-      "recorded_sha256": "34c6560014d856f7dec378aa51a2f31c24adc5b6593d1dca1491efea44d26adc",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "509e99588e688fd3598caf272d1612def7fad803e55bcbe9ca3a5119e3f599c8",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/dev/references/04-implement.md": {
       "recorded_sha256": "0b36bda3e2dbd483fc9fda6d71ec9361695c49d4a2207fa91887f4e70d918da8",
@@ -426,8 +427,8 @@
       "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/06-document.md": {
-      "recorded_sha256": "ce193713256b4579472de96bfc02d9030fee1596ab426ce92a72cffb2927a131",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "777fb629303014112f464d053e402f8755535f57a51fcd264917cb68e7a7c62e",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/dev/references/07-completion.md": {
       "recorded_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
@@ -647,8 +648,8 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/01-context-gathering.md": {
-      "recorded_sha256": "68c45759e38f94312dee1a33ea5f7d025d17a9e5617f37ebc1ffffdfa4909c67",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "d8c96fd439f234e0f2346f99fded0e5454484aae19c348644f78708c89c04cee",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/design/references/02-ceremony.md": {
       "recorded_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
@@ -659,8 +660,8 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/04-research.md": {
-      "recorded_sha256": "55abc61c751e815dd6ee5e48040945a0a3b91a54158e796f99fd5e86e29e8afe",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "cb86d6442dee06634c39e05f4742a1e70f7176f1f66585d6a5f69541ce889048",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/design/references/05-evaluate.md": {
       "recorded_sha256": "86bf412561ca3642aa997e0e5dd2e49befed2a08e38d16fd8ca42e5803536b5d",
@@ -679,8 +680,8 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/09-publish.md": {
-      "recorded_sha256": "e5a332404dcc2b7cdf3da2124fdbc317da19c9d3623f56be26ebb238c6cd4e7e",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "697d8199a49634c7b33c832528af53b58e324b6c293a4c18d15fb7761f021d3e",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/design/references/10-completion.md": {
       "recorded_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
@@ -691,16 +692,16 @@
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "references/reindex-graph.md": {
-      "recorded_sha256": "d4f6bca572310544b84b364d0242e72efa105e32175dc4470a3e7426c3f5e2be",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "a3627a3d5fb45f85c7bd0e13568ee769b3a336f21bef1bcab71868babe5097a7",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/docs/.og/cli.mjs": {
       "recorded_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/cli.test.mjs": {
-      "recorded_sha256": "e62b1c59417c3a3b5d26ea97d4aa3d85141fa6a18864c48c0f12f1c02595d3a3",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "d0eeb77c596731c28a854f02b9952ca6d9780b1bff496be848cf80596f854aae",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/docs/.og/constants.mjs": {
       "recorded_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
@@ -711,8 +712,8 @@
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/docs.mjs": {
-      "recorded_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "aa6f288257a10d79b7af6a528a70dad0163bcdcd51c6e38c14dfa4d586c54641",
+      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/docs/.og/edges.mjs": {
       "recorded_sha256": "900b0dd5fb624d86b3aefdeada953123132912307c8eea50ecb18af1402e9934",
@@ -1257,10 +1258,10 @@
     },
     ".claude/skills/dev/references/01-context-gathering.md": {
       "canonical_source": "canonical/skills/dev/references/01-context-gathering.md",
-      "canonical_sha256": "17c4b0fa3f5931630fe7fdd25baf2536114cb84475e1773eda22fe56292872cd",
-      "deployed_sha256": "9418dd590198d4074ff35e4d70e53b91982add1e013ff5435d9241f04475dad0",
+      "canonical_sha256": "8342617e97e801e125b3a00b4ed87c94edff020b091cf357d66d5deb05e0a14e",
+      "deployed_sha256": "15dc97cde540ac68c12c12d8e9e751b413128ff164e2e6fd732d97896bf0d57e",
       "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/02-ceremony.md": {
@@ -1273,10 +1274,10 @@
     },
     ".claude/skills/dev/references/03-plan.md": {
       "canonical_source": "canonical/skills/dev/references/03-plan.md",
-      "canonical_sha256": "34c6560014d856f7dec378aa51a2f31c24adc5b6593d1dca1491efea44d26adc",
-      "deployed_sha256": "61e83d0b0c150423b268a79010c5dd31c5bb3c0b50d47783ffbabd3e55f2cb5b",
+      "canonical_sha256": "509e99588e688fd3598caf272d1612def7fad803e55bcbe9ca3a5119e3f599c8",
+      "deployed_sha256": "3283c8affc00df61ecdf79a16fbca9e9f2f2dd1a520f87aa87a2509df1bf167c",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local wording 'project/concern'",
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/04-implement.md": {
@@ -1297,10 +1298,10 @@
     },
     ".claude/skills/dev/references/06-document.md": {
       "canonical_source": "canonical/skills/dev/references/06-document.md",
-      "canonical_sha256": "ce193713256b4579472de96bfc02d9030fee1596ab426ce92a72cffb2927a131",
-      "deployed_sha256": "be061c0a92c37aedede374d646782731abc8e587bb24d49787334b63aa7d8c90",
+      "canonical_sha256": "777fb629303014112f464d053e402f8755535f57a51fcd264917cb68e7a7c62e",
+      "deployed_sha256": "350449323f830db36be76628c915bf0d5f0d1bdb97bb6c8eb3dc409bb7306b0e",
       "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
       "provider": "claude"
     },
     ".claude/skills/dev/references/07-completion.md": {
@@ -1914,9 +1915,9 @@
     "docs/Engineering Guide/Documentation/01 Principles.md": {
       "canonical_source": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
       "canonical_sha256": "6bf8b7d0e952e899438d4bdde0b617036c6fa6fda2393294c8d70f28c02a8b7b",
-      "deployed_sha256": "5459a4564c8ec1456194f6e104ea86c9a3df6895dc3a18be4fe6b3a9640d4c11",
+      "deployed_sha256": "0914dfb950e440b192ac642d61357dd18c9bf07c602ee063a92f1d7b28b3a8d5",
       "rendered_base": null,
-      "note": "This ticket's own \"Operational graph frontmatter\" addition (plus a quoting-rule sentence canonical itself still lacks) was already mirrored directly into this live file during Implement (RF-018/RF-029) -- verified no-op for this apply (876f8c52-76df-4b56-8c85-38df21053362). The live file has substantial unrelated structural drift from canonical (different section headings/tables/images, a Wiring Principle section canonical lacks) predating this ticket -- not reconciled here, flagged as a harvest candidate",
+      "note": "TD-2 harvest (bundle 6922b2a7-5ad4-496f-ac62-8fd2537ded1c) reconciled the long-standing drift: harvested into canonical the Why section's AI-instruction-budget rationale (generalized to {{ROOT_INSTRUCTIONS}}), the full Wiring Principle section (images left local-only), and a YAML-quoting sentence on Operational graph frontmatter. Retained local-only: this file's concrete frontmatter block (id assigned per-project by docs/.og/), both embedded images, and its older Diagram-and-format-standards/SoC-test wording, since canonical's current wording for those is already a later revision -- harvesting the older text would regress canonical. canonical_sha256 here intentionally still points at the pre-harvest canonical base: this operation did not deploy new canonical content into this file, so no apply is implied. Separately, independent of this harvest, fixed two long-standing duplication bugs in this live file (a stale duplicate \"Certainty principle\" bullet and a stale duplicate \"How - doc-type cheat sheet\" table, both present since at least commit 09acb50) -- deployed_sha256 reflects that fix.",
       "provider": "claude"
     },
     "docs/Engineering Guide/Documentation/07 Terminology.md": {
@@ -2025,10 +2026,10 @@
     },
     ".claude/skills/design/references/01-context-gathering.md": {
       "canonical_source": "canonical/skills/design/references/01-context-gathering.md",
-      "canonical_sha256": "68c45759e38f94312dee1a33ea5f7d025d17a9e5617f37ebc1ffffdfa4909c67",
-      "deployed_sha256": "26b2593c968397abbdd076ada45329c33481c7fc58f481ebc24f2a5ec50bd437",
+      "canonical_sha256": "d8c96fd439f234e0f2346f99fded0e5454484aae19c348644f78708c89c04cee",
+      "deployed_sha256": "b1a8ae6d521be9a34b2a40f3c438a80afc6cafdbe8fc1c23cbf950e64eae9bd7",
       "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
       "provider": "claude"
     },
     ".claude/skills/design/references/02-ceremony.md": {
@@ -2049,10 +2050,10 @@
     },
     ".claude/skills/design/references/04-research.md": {
       "canonical_source": "canonical/skills/design/references/04-research.md",
-      "canonical_sha256": "55abc61c751e815dd6ee5e48040945a0a3b91a54158e796f99fd5e86e29e8afe",
-      "deployed_sha256": "69baa1792cd4d4a4701af2919455ecf42a3ab9128c0ee1cdf0f527a6f0b03f47",
+      "canonical_sha256": "cb86d6442dee06634c39e05f4742a1e70f7176f1f66585d6a5f69541ce889048",
+      "deployed_sha256": "d5dd0f525e0ab9361d9edb25158be3da50e70c5cf66bd5673c6c6dbaa18d779f",
       "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
       "provider": "claude"
     },
     ".claude/skills/design/references/05-evaluate.md": {
@@ -2089,10 +2090,10 @@
     },
     ".claude/skills/design/references/09-publish.md": {
       "canonical_source": "canonical/skills/design/references/09-publish.md",
-      "canonical_sha256": "e5a332404dcc2b7cdf3da2124fdbc317da19c9d3623f56be26ebb238c6cd4e7e",
-      "deployed_sha256": "eda0efada95f9d9052db39ddd8f8057197369977388c58dda8ff28619fba419f",
+      "canonical_sha256": "697d8199a49634c7b33c832528af53b58e324b6c293a4c18d15fb7761f021d3e",
+      "deployed_sha256": "da124d12f75e87cce633bae91e7321bf5ec1880d7b0bffe1457f8924fed76d07",
       "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
       "provider": "claude"
     },
     ".claude/skills/design/references/10-completion.md": {
@@ -2121,10 +2122,10 @@
     },
     "docs/.og/docs.mjs": {
       "canonical_source": "canonical/docs/.og/docs.mjs",
-      "canonical_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
-      "deployed_sha256": "2caff463f1c58f39be917f400c3ecd4de9fed77a82702d188fa8ca622b08e93d",
+      "canonical_sha256": "aa6f288257a10d79b7af6a528a70dad0163bcdcd51c6e38c14dfa4d586c54641",
+      "deployed_sha256": "aa6f288257a10d79b7af6a528a70dad0163bcdcd51c6e38c14dfa4d586c54641",
       "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
       "provider": "claude"
     },
     "docs/.og/edges.mjs": {

@@ -145,7 +145,7 @@ Before searching by hand, attempt
 `node docs/.og/cli.mjs query --related-to <doc> --dir .` (or `search --term <text>`)
 against `docs/.og/docs-operational-graph.sqlite` to surface docs already related to this ticket's
 scope. This is a required (not best-effort) fallback: when the graph is missing,
-stale, or the call errors, fall back to grep/glob over `docs/` for the same
+stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall back to grep/glob over `docs/` for the same
 information. Either way, never let this block the stage.
 
 ## Step 4 — Write 0-intent.md

@@ -14,15 +14,15 @@ _Placeholder:_ a fuller narrative (why it exists, what problem it solves, how it
 
 ## Sections
 
-| Section                                               | Holds                                                                             |
-| ----------------------------------------------------- | --------------------------------------------------------------------------------- |
-| [01 Explore](<./01 Explore/index.md>)                 | A browsable tour of the harness's agents, skills, and lifecycles                  |
-| [02 Quick Start](<./02 Quick Start/index.md>)         | How to bring the harness into a project                                           |
-| [03 Lifecycles](<./03 Lifecycles/00 Overview.md>)     | The four lifecycles (Dev, Design, Skill, Architecture) that structure all work    |
-| [04 Adoption](<./04 Adoption/00 Adoption Path.md>)    | Pre-Sales → Discovery → Development → Operate → Improve — the full adoption path  |
-| [05 Principles](<./05 Principles/index.md>)           | The beliefs the harness is built on                                               |
-| [06 Roadmap](<./06 Roadmap/index.md>)                 | Where the harness itself is headed                                                |
-| [07 Knowledge Graph](<./07 Knowledge Graph/index.md>) | The deterministic doc-tier knowledge graph — node/edge model and lifecycle wiring |
+| Section                                                   | Holds                                                                               |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [01 Explore](<./01 Explore/index.md>)                     | A browsable tour of the harness's agents, skills, and lifecycles                    |
+| [02 Quick Start](<./02 Quick Start/index.md>)             | How to bring the harness into a project                                             |
+| [03 Lifecycles](<./03 Lifecycles/00 Overview.md>)         | The four lifecycles (Dev, Design, Skill, Architecture) that structure all work      |
+| [04 Adoption](<./04 Adoption/00 Adoption Path.md>)        | Pre-Sales → Discovery → Development → Operate → Improve — the full adoption path    |
+| [05 Principles](<./05 Principles/index.md>)               | The beliefs the harness is built on                                                 |
+| [06 Roadmap](<./06 Roadmap/index.md>)                     | Where the harness itself is headed                                                  |
+| [07 Operational Graph](<./07 Operational Graph/index.md>) | The deterministic doc-tier operational graph — node/edge model and lifecycle wiring |
 
 ## The package
 

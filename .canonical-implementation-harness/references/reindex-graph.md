@@ -10,6 +10,20 @@ had a full intelligent pass. This procedure owns its own deploy/refresh step (St
 ([01d Launch graph/verify](launch/01d-launch-graph-verify.md)) delegates to this
 procedure wholesale, every run — it decides first-install vs. refresh itself.
 
+## Staleness check
+
+Every lifecycle reference point that queries the graph (`dev`'s Context Gathering,
+Plan, and Document stages; `design`'s Context Gathering, Research, and Publish
+stages) treats it as stale under the same mechanical test: any file under `docs/`
+with a newer mtime than `docs/.og/docs-operational-graph.sqlite` itself. Run
+`find docs -newer docs/.og/docs-operational-graph.sqlite -name '*.md'`; non-empty
+output means stale — fall back to grep/glob for that query instead of trusting
+the graph's results. This is deliberately a cheap mtime check, not a content
+hash: a false "stale" (a doc touched without content changing) only costs an
+unnecessary fallback read, never a wrong answer; `build()`/`reindex()` is cheap
+enough to also just run it proactively when in doubt, rather than relying on the
+check alone.
+
 ## Procedure
 
 ### Step 0 — Deploy or refresh the scripts

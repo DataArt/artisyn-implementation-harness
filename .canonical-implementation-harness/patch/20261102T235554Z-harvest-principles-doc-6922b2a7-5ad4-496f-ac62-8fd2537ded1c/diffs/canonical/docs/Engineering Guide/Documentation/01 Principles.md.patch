@@ -1,0 +1,43 @@
+--- a/canonical/docs/Engineering Guide/Documentation/01 Principles.md
++++ b/canonical/docs/Engineering Guide/Documentation/01 Principles.md
+@@ -10,6 +10,8 @@
+ 
+ These principles exist so that every document in this repo is worth reading: short enough to consume, precise enough to act on, and located where a future reader would look for it.
+ 
++A secondary reason: frontier AI models follow ~150–200 instructions reliably before quality degrades uniformly. Root context files ({{ROOT_INSTRUCTIONS}}) that exceed this budget dilute every instruction in them. The principles below apply to human-facing docs and AI-facing context files equally.
++
+ Root context files should prioritize actionable project rules and links to detailed guidance; apply the document budgets below without removing essential information.
+ 
+ ---
+@@ -40,7 +42,7 @@
+ 
+ **Destination confirmation** — before writing, confirm the doc's tier against Documentation destination below; if the caller specifies a destination, trust it, but flag a destination that looks wrong before writing rather than after.
+ 
+-**Operational graph frontmatter** — every doc you write or update gets frontmatter `purpose:` (one line, what the doc is for) and `keywords:` (a short list), written from your own understanding of its actual content. Unlike `id` (assigned once by the operational graph tool, `docs/.og/`, and never reassigned), these two are editable: when the doc's content changed enough that an existing value no longer fits, update it; otherwise leave it. These feed the graph's `search()`; the tool itself never derives or writes them — it is deterministic, no model calls — so this is the one point in any lifecycle with enough content context to write them well.
++**Operational graph frontmatter** — every doc you write or update gets frontmatter `purpose:` (one line, what the doc is for) and `keywords:` (a short list), written from your own understanding of its actual content. Unlike `id` (assigned once by the operational graph tool, `docs/.og/`, and never reassigned), these two are editable: when the doc's content changed enough that an existing value no longer fits, update it; otherwise leave it. These feed the graph's `search()`; the tool itself never derives or writes them — it is deterministic, no model calls — so this is the one point in any lifecycle with enough content context to write them well. Quote the `purpose:` value in double quotes whenever it contains a colon followed by a space, or any other YAML-reserved character (`:`, `#`, `[`, `]`, `{`, `}`, a leading quote) — an unquoted colon mid-value breaks the frontmatter parse for every later reader, not just the graph tool.
+ 
+ ---
+ 
+@@ -111,6 +113,22 @@
+ 
+ ---
+ 
++## Wiring Principle
++
++Documentation is connected through progressive disclosure, not through one central index containing everything.
++
++`docs/README.md` provides only the root navigation and points readers to the appropriate documentation area. Each area then owns its local navigation, and individual documents use cross-links to connect related knowledge.
++
++The model is:
++
++Root index → Section navigation → Relevant document → Related documents
++
++The rules are simple: one source of truth per concept, link instead of duplicate, keep local navigation current, and add cross-links wherever they help a human or AI agent discover the next relevant piece of context.
++
++This creates multiple discovery paths without duplicating content, so both engineers and agents can progressively load only the context they need.
++
++---
++
+ ## Diagram and format standards
+ 
+ **Applicability**: architecture documents need diagrams that explain actual structure and important sequences. Add drill-down diagrams where ordering, branching or ownership would otherwise be unclear. A checklist, convention or requirement table does not need a decorative diagram.

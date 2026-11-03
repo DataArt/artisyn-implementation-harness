@@ -30,7 +30,7 @@ Before delegating, attempt yourself: `node docs/.og/cli.mjs search --term
 <text>` (or `query --related-to <doc>`) against
 `docs/.og/docs-operational-graph.sqlite` for docs related to this design
 beyond what `design/Report.md` already names. Required (not best-effort):
-when the graph is missing, stale, or the call errors, fall back to grep/glob
+when the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall back to grep/glob
 over `{{DESIGN_DOCS_ROOT}}` for the same information — either way, never let
 this block the stage. This runs here, not inside the delegation below:
 `{{DESIGN_ARCHITECT_AGENT}}` can resolve to a read-only agent with no shell

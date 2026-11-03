@@ -45,6 +45,13 @@ proposing anything.
 
 **Always read architecture docs before proposing any plan:**
 
+Before reading by hand, attempt `node docs/.og/cli.mjs query --related-to <doc>`
+(or `search --term <text>`) against `docs/.og/docs-operational-graph.sqlite` to
+surface docs already related to this ticket's intent. Required (not
+best-effort): when the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall back
+to grep/glob over `docs/` for the same information. Either way, never let this
+block planning — fold anything it surfaces into the reads below.
+
 - Read `docs/Target Architecture (HLD)/README.md` to find the active version and the container index
 - Glob for `docs/Target Architecture (HLD)/*/` to find the version folder; read the container and NFR docs inside it
 - Read `docs/System Architecture (LLD)/README.md` to understand which LLD docs exist, then read the ones relevant to the layers touched by the plan

@@ -266,6 +266,46 @@ test('reindex() prunes a doc row (and its edges) once the file is deleted', asyn
   }
 });
 
+test("reindex() updates a moved doc's path in place, preserving its id and edges", async () => {
+  const dir = scratchDir();
+  try {
+    const story = writeDoc(dir, 'docs/Stories/[DEV-1] Example/impl/0-intent.md', '# Intent\n');
+    const hld = writeDoc(dir, 'docs/Target Architecture (HLD)/v1/Containers/Web.md', '# Web\n');
+    await build({ dir });
+    const { id: storyId } = await index({ dir, doc: story });
+    await index({ dir, doc: hld });
+    await index({ dir, doc: story, edge: 'story-to-hld', to: hld });
+    const edgesBefore = await query({ dir, relatedTo: story });
+    assert.ok(edgesBefore.length >= 1, 'sanity: the edge was written before the move');
+
+    const oldPath = story;
+    const newPath = path.join(dir, 'docs/Stories/archive/[DEV-1] Example/impl/0-intent.md');
+    fs.mkdirSync(path.dirname(newPath), { recursive: true });
+    fs.renameSync(oldPath, newPath);
+
+    const result = await reindex({ dir });
+    assert.deepEqual(result.pruned, [], 'a move is not a deletion; nothing should be pruned');
+
+    const hits = await search({ dir, term: 'Intent' });
+    const moved = hits.find((h) => h.id === storyId);
+    assert.ok(moved, 'moved doc should still be findable by its original id');
+    assert.equal(
+      moved.path,
+      'docs/Stories/archive/[DEV-1] Example/impl/0-intent.md',
+      'row should reflect the new path'
+    );
+
+    const edgesAfter = await query({ dir, relatedTo: newPath });
+    assert.equal(
+      edgesAfter.length,
+      edgesBefore.length,
+      'edges referencing the id survive the move'
+    );
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
 test('sql.js opens and queries the exact .sqlite file node:sqlite wrote, with no conversion step', async () => {
   const dir = scratchDir();
   try {

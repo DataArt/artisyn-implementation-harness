@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-02T15:05:50.769Z",
-  "completed_at": null,
+  "completed_at": "2026-11-03T00:02:16.717Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -82,22 +82,30 @@
     },
     {
       "id": "document",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "ec73cf8f-f6ff-4e5a-b403-4e0865864fa0",
           "started_at": "2026-11-02T23:14:43.330Z",
-          "ended_at": null,
+          "ended_at": "2026-11-02T23:36:02.201Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "5d67645e-703f-4304-aa27-904d33d11f59",
+          "started_at": "2026-11-02T23:36:10.396Z",
+          "ended_at": "2026-11-03T00:02:16.663Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     }
   ],
@@ -808,8 +816,31 @@
       "reason": "approval",
       "detail": "Awaiting document sign-off",
       "started_at": "2026-11-02T23:32:50.119Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-02T23:32:50.119Z"
+      "ended_at": "2026-11-02T23:36:02.201Z",
+      "last_observed_at": "2026-11-02T23:36:02.201Z"
+    },
+    {
+      "id": "43d74372-02ff-4bda-a7b9-3acf5d73e696",
+      "stage_id": "completion",
+      "stage_attempt_id": "5d67645e-703f-4304-aa27-904d33d11f59",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-02T23:36:10.396Z",
+      "ended_at": "2026-11-02T23:39:07.585Z",
+      "last_observed_at": "2026-11-02T23:39:07.585Z"
+    },
+    {
+      "id": "63d46847-a105-4e21-b1a1-5a367be4a898",
+      "stage_id": "completion",
+      "stage_attempt_id": "5d67645e-703f-4304-aa27-904d33d11f59",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting completion sign-off",
+      "started_at": "2026-11-02T23:39:07.585Z",
+      "ended_at": "2026-11-03T00:02:16.663Z",
+      "last_observed_at": "2026-11-03T00:02:16.663Z"
     }
   ],
   "checks": [
@@ -1406,21 +1437,51 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "769cf8cb-e8d8-4430-9b7e-ffbf3296be8e",
+      "stage_id": "completion",
+      "stage_attempt_id": "5d67645e-703f-4304-aa27-904d33d11f59",
+      "step": null,
+      "name": "TD closure round 1 (TD-1,3,4,5,6,7,8,9,10,11)",
+      "kind": "acceptance",
+      "started_at": "2026-11-02T23:55:52.280Z",
+      "ended_at": "2026-11-02T23:55:52.280Z",
+      "result": "passed",
+      "evidence_ref": "Fixed directly: TD-1 (re-baselined TEMPLATE.md checkpoint), TD-3 (fixed canonical template + live rendering bug), TD-5 (defined concrete mtime-based staleness check, wired into 12 wiring points), TD-6 (.gitattributes binary marker per developer choice), TD-7 (added check-tier-sync.mjs, wired into site-build.sh, verified it catches real drift), TD-8 (dedup double-render, dropped unused derived field), TD-9 (fixed stale nav claim), TD-10 (renamed Knowledge Graph section per developer choice, found+fixed a real docs.mjs bug along the way - RF-048), TD-11 (wired dev/03-plan.md Step 1 to query-first). TD-4 left as-is per its own stated next action (doc comment sufficient, real transactions low priority). TD-2 delegated to a subagent (Principles.md harvest), pending",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "9062fcf9-91ec-4c6e-9301-34f112466261",
+      "stage_id": "completion",
+      "stage_attempt_id": "5d67645e-703f-4304-aa27-904d33d11f59",
+      "step": null,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T00:02:13.122Z",
+      "ended_at": "2026-11-03T00:02:13.122Z",
+      "result": "passed",
+      "evidence_ref": "User: 'lets fix all them now' -- chose to fix all 11 TD items directly instead of creating tracker tickets; no Jira sync (local ID)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-02T23:35:20.591Z",
+    "as_of": "2026-11-03T00:02:16.798Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 3245.2649999999994,
-    "observed_wait_seconds": 14114.545999999998,
+    "cycle_time_seconds": 32185.948,
+    "observed_work_seconds": 3422.4539999999993,
+    "observed_wait_seconds": 15695.705999999998,
     "open_work_seconds": 0,
-    "open_wait_seconds": 150.472,
-    "unclassified_seconds": 13059.579000000003,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 13067.828000000005,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 4148.1810000000005,
+    "approval_wait_seconds": 5729.341,
     "failed_checks": 1,
     "first_pass_verification_rate": 0.9166666666666666,
     "human_reported_seconds": null,
@@ -1429,9 +1490,9 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-02T23:35:20.582Z",
+    "as_of": "2026-11-03T00:02:16.789Z",
     "source": "2-report.md",
-    "source_sha256": "4cefff56092483b423344b026d0d21ba111d30ee0572d8e19f088a805254c990",
+    "source_sha256": "61f720335334512a6da23c63b78b6efc6ce97a85cb3a62c252db25598a8c745e",
     "findings": {
       "total": 47,
       "by_kind": {
@@ -1457,9 +1518,9 @@
         "advisory": 22
       },
       "by_resolution": {
-        "open": 4,
-        "fixed": 21,
-        "accepted": 22,
+        "open": 0,
+        "fixed": 23,
+        "accepted": 24,
         "tech-debt": 0,
         "doc-updated": 0
       },
@@ -1489,9 +1550,9 @@
       }
     },
     "tech_debt": {
-      "total": 9,
+      "total": 11,
       "ticketed": 0,
-      "unticketed": 9
+      "unticketed": 11
     },
     "tests": {
       "written": 29,
@@ -1506,6 +1567,6 @@
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": ["RF-002: open", "RF-005: open", "RF-010: open", "RF-011: open"]
+    "closure_issues": []
   }
 }

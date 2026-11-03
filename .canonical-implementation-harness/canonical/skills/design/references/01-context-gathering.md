@@ -65,7 +65,7 @@ to paste the summary/description/ECs manually if nothing else is available.
 Before reading sources by hand, attempt `node docs/.og/cli.mjs search --term
 <text>` (or `query --related-to <doc>`) against `docs/.og/docs-operational-graph.sqlite` to
 surface docs already related to this ticket. Required (not best-effort): when
-the graph is missing, stale, or the call errors, fall back to grep/glob over
+the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall back to grep/glob over
 `docs/` for the same information. Either way, never let this block the stage —
 and fold anything the graph (or its fallback) surfaces into Step 4's Evidence
 table like any other source.
@@ -79,7 +79,7 @@ stage reference and pattern reads them from `design/Report.md`'s `## Context`
 section, resolved here and nowhere else, regardless of deployment mode.
 
 This step also does the lifecycle's one context-reading pass, as part of
-{{DESIGN_CONTEXT_STEP}} above. Frame, Research, and every later phase read
+the resolution above. Frame, Research, and every later phase read
 what was found here from `design/Report.md`'s `## Evidence` table (populated
 in Step 4) instead of re-reading the source docs themselves — and it's how
 session continuity recaps context after a new session picks the ticket back
