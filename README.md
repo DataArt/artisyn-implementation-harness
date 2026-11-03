@@ -57,7 +57,7 @@ Once oriented:
 | Command                  | When to use                                                       |
 | ------------------------ | ----------------------------------------------------------------- |
 | `/design ND-XXX <topic>` | Start a new design session (target architecture, recommendations) |
-| `/dev ND-XXX <task>`     | Implement a ticket (site changes, auth, infra)                    |
+| `/dev ND-XXX <task>`     | Implement a ticket (site changes)                                 |
 | `/where-we-are`          | Delivery gap report                                               |
 
 ## Contributing
