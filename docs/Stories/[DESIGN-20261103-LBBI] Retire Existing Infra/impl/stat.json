@@ -54,22 +54,30 @@
     },
     {
       "id": "implement",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "f49b9abb-8eb7-4867-987b-11f0a9be41ae",
           "started_at": "2026-11-03T16:10:04.583Z",
-          "ended_at": null,
+          "ended_at": "2026-11-03T16:29:14.821Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "test",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+          "started_at": "2026-11-03T16:29:14.865Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -563,8 +571,87 @@
       "kind": "work",
       "activity": "verification",
       "started_at": "2026-11-03T16:22:05.407Z",
+      "ended_at": "2026-11-03T16:29:14.821Z",
+      "last_observed_at": "2026-11-03T16:29:14.821Z"
+    },
+    {
+      "id": "f178193a-0742-4096-a8bb-f401788b088f",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-03T16:29:14.865Z",
+      "ended_at": "2026-11-03T16:29:49.011Z",
+      "last_observed_at": "2026-11-03T16:29:49.011Z"
+    },
+    {
+      "id": "a9b9df65-3e08-4cef-a03f-8b19e2e63218",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-03T16:29:49.011Z",
+      "ended_at": "2026-11-03T16:29:58.921Z",
+      "last_observed_at": "2026-11-03T16:29:58.921Z"
+    },
+    {
+      "id": "902bea03-c27a-491e-9ed1-892580214191",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-03T16:29:58.921Z",
+      "ended_at": "2026-11-03T16:30:08.456Z",
+      "last_observed_at": "2026-11-03T16:30:08.456Z"
+    },
+    {
+      "id": "f8c07267-6c8b-4feb-ad59-465ff92d3768",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-03T16:30:08.456Z",
+      "ended_at": "2026-11-03T16:30:42.364Z",
+      "last_observed_at": "2026-11-03T16:30:42.364Z"
+    },
+    {
+      "id": "3e2b50a9-151f-4500-9fef-64094272869b",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-03T16:30:42.364Z",
+      "ended_at": "2026-11-03T16:36:07.466Z",
+      "last_observed_at": "2026-11-03T16:36:07.466Z"
+    },
+    {
+      "id": "5b8dc2a3-daed-452f-baeb-d07ae02ba687",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting test sign-off",
+      "started_at": "2026-11-03T16:36:07.466Z",
+      "ended_at": "2026-11-03T16:37:43.451Z",
+      "last_observed_at": "2026-11-03T16:37:43.451Z"
+    },
+    {
+      "id": "c326615a-e4d1-42d1-95fc-ae3692dd8c7b",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-03T16:37:43.451Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-03T16:22:05.407Z"
+      "last_observed_at": "2026-11-03T16:37:43.451Z"
     }
   ],
   "checks": [
@@ -846,21 +933,115 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "test-build-01",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "name": "build all remaining projects",
+      "kind": "build",
+      "started_at": "2026-11-03T16:29:36.018Z",
+      "ended_at": "2026-11-03T16:29:49.011Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for build all remaining projects",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-03T16:29:49.011Z"
+    },
+    {
+      "id": "test-typecheck-01",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "name": "typecheck all remaining projects",
+      "kind": "typecheck",
+      "started_at": "2026-11-03T16:29:55.996Z",
+      "ended_at": "2026-11-03T16:29:58.921Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for typecheck all remaining projects",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-03T16:29:58.921Z"
+    },
+    {
+      "id": "test-lint-01",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "name": "lint all remaining projects",
+      "kind": "lint",
+      "started_at": "2026-11-03T16:30:05.266Z",
+      "ended_at": "2026-11-03T16:30:08.456Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for lint all remaining projects",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-03T16:30:08.456Z"
+    },
+    {
+      "id": "test-suite-01",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "name": "harness-bootstrap-e2e deterministic test suite",
+      "kind": "test",
+      "started_at": "2026-11-03T16:30:25.262Z",
+      "ended_at": "2026-11-03T16:30:42.364Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for harness-bootstrap-e2e deterministic test suite",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-03T16:30:42.364Z"
+    },
+    {
+      "id": "test-ac-all-01",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "name": "10/10 acceptance criteria pass",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T16:35:24.626Z",
+      "ended_at": "2026-11-03T16:35:24.626Z",
+      "result": "passed",
+      "evidence_ref": "AC-1..AC-10 each confirmed via Implement-stage per-step checks plus Test-stage Step 2 (build/typecheck/lint/test all green) and the @architect PR-review audit's independent doc-to-code alignment table (12/12 rows verified)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-sign-off-01",
+      "stage_id": "test",
+      "stage_attempt_id": "1d9f334b-6f74-423d-994e-f0e9c34c3158",
+      "step": null,
+      "name": "Test sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-03T16:37:34.603Z",
+      "ended_at": "2026-11-03T16:37:34.603Z",
+      "result": "passed",
+      "evidence_ref": "Developer confirmed checks/review/ACs and approved moving to Document",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-03T16:25:56.634Z",
+    "as_of": "2026-11-03T16:37:43.452Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1721.9109999999998,
-    "observed_wait_seconds": 552.106,
+    "observed_work_seconds": 2563.9259999999995,
+    "observed_wait_seconds": 648.091,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "unclassified_seconds": 391.2650000000003,
+    "open_wait_seconds": 0.001,
+    "unclassified_seconds": 160.08200000000042,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 232.099,
+    "approval_wait_seconds": 328.084,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
@@ -869,11 +1050,11 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-03T16:08:17.820Z",
+    "as_of": "2026-11-03T16:37:43.386Z",
     "source": "2-report.md",
-    "source_sha256": "10a5aba0875c5f58f3a4b9a587af4ff16e2a5112d005ad1540259f217ce91cff",
+    "source_sha256": "5216c006a390046ceb860898c46a51293c39fe52cee301560a048545c77432ac",
     "findings": {
-      "total": 3,
+      "total": 5,
       "by_kind": {
         "deviation": 0,
         "bug": 0,
@@ -881,18 +1062,18 @@
         "improve": 0,
         "security": 0,
         "performance": 0,
-        "docs": 3
+        "docs": 5
       },
       "by_severity": {
         "critical": 0,
         "high": 0,
         "medium": 0,
-        "low": 2,
+        "low": 4,
         "info": 1
       },
       "by_classification": {
         "introduced": 3,
-        "pre-existing": 0,
+        "pre-existing": 2,
         "ruled-out": 0,
         "advisory": 0
       },
@@ -900,7 +1081,7 @@
         "open": 0,
         "fixed": 3,
         "accepted": 0,
-        "tech-debt": 0,
+        "tech-debt": 2,
         "doc-updated": 0
       },
       "deviations_by_type": {
@@ -909,7 +1090,7 @@
         "omission": 0
       },
       "pr_review": {
-        "total": 0,
+        "total": 2,
         "by_kind": {
           "deviation": 0,
           "bug": 0,
@@ -917,31 +1098,31 @@
           "improve": 0,
           "security": 0,
           "performance": 0,
-          "docs": 0
+          "docs": 2
         },
         "by_severity": {
           "critical": 0,
           "high": 0,
           "medium": 0,
-          "low": 0,
+          "low": 2,
           "info": 0
         }
       }
     },
     "tech_debt": {
-      "total": 0,
+      "total": 5,
       "ticketed": 0,
-      "unticketed": 0
+      "unticketed": 5
     },
     "tests": {
-      "written": null,
+      "written": 0,
       "passed": null,
       "failed": null,
       "skipped": null,
-      "scopes": 0
+      "scopes": 2
     },
     "test_runs": {
-      "recorded": 0,
+      "recorded": 2,
       "failed": 0,
       "errors": 0,
       "interrupted": 0
