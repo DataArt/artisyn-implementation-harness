@@ -33,7 +33,7 @@ const origin = fileURLToPath(
 const sha = (v: crypto.BinaryLike) => crypto.createHash('sha256').update(v).digest('hex');
 
 describe('provider planner/materializer/finalizer pipeline', () => {
-  it('plans, materializes, and finalizes a real selection across both providers', () => {
+  it('plans, materializes, and finalizes a real selection across all providers', () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'provider-launch-'));
     const pkg = path.join(root, 'harness-bootstrap');
     let checks = 0;
@@ -68,7 +68,7 @@ describe('provider planner/materializer/finalizer pipeline', () => {
       } as any);
       const selection = {
         run_id: 'all',
-        providers: [PROVIDERS.claude, PROVIDERS.codex],
+        providers: [PROVIDERS.claude, PROVIDERS.codex, 'copilot'],
         skills,
         agents,
         knowns: {
@@ -116,7 +116,7 @@ describe('provider planner/materializer/finalizer pipeline', () => {
       assert.equal(python.status, 0, python.stderr);
       checks++;
       for (const skill of skills) {
-        for (const dir of ['.claude/skills', '.agents/skills']) {
+        for (const dir of ['.claude/skills', '.agents/skills', '.github/skills']) {
           const content = fs.readFileSync(path.join(root, dir, skill, 'SKILL.md'), 'utf8');
           const meta = parseYaml(content.match(/^---\n([\s\S]*?)\n---/)![1]) as any;
           assert.equal(meta.name, skill);
@@ -240,7 +240,12 @@ describe('provider planner/materializer/finalizer pipeline', () => {
       const receiptPath = path.join(pkg, 'state/launch/runs/all/materialization.json');
       const receipt = JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
       for (const item of plan.derived_outputs)
-        fs.writeFileSync(path.join(root, item.target), 'Project guidance after evidence review\n');
+        fs.writeFileSync(
+          path.join(root, item.target),
+          item.target === '.mcp.json'
+            ? '{"mcpServers": {}}\n'
+            : 'Project guidance after evidence review\n'
+        );
       const evidence: any = {
         plan_sha256: receipt.plan_sha256,
         outputs: [],
@@ -285,7 +290,7 @@ describe('provider planner/materializer/finalizer pipeline', () => {
       checks++;
       run('finalize-launch.mjs', ['--run', 'all', '--evidence', evidenceFile, '--write']);
       assert(fs.existsSync(path.join(pkg, 'state/launch/runs/all/verification.json')));
-      for (const provider of [PROVIDERS.claude, PROVIDERS.codex]) {
+      for (const provider of [PROVIDERS.claude, PROVIDERS.codex, 'copilot']) {
         const solo: any = buildPlan(root, pkg, {
           run_id: provider,
           providers: [provider],
@@ -293,8 +298,9 @@ describe('provider planner/materializer/finalizer pipeline', () => {
         });
         assert(solo.files.every((f: any) => f.provider === provider));
         assert.equal(
-          solo.derived_outputs.filter((f: any) => ['CLAUDE.md', 'AGENTS.md'].includes(f.target))
-            .length,
+          solo.derived_outputs.filter((f: any) =>
+            ['CLAUDE.md', 'AGENTS.md', '.github/copilot-instructions.md'].includes(f.target)
+          ).length,
           1
         );
         checks++;
@@ -317,7 +323,7 @@ describe('provider planner/materializer/finalizer pipeline', () => {
         if (entry.target.endsWith('.md') || entry.target.endsWith('.toml')) {
           const content = fs.readFileSync(file, 'utf8');
           for (const match of content.matchAll(
-            /(?:\.agents|\.claude)\/skills\/[^\s`"<>]+\/runtime\/[a-z-]+\.md|\.(?:claude|codex)\/harness-runtime\/[a-z-]+\.md/g
+            /(?:\.agents|\.claude|\.github)\/skills\/[^\s`"<>]+\/runtime\/[a-z-]+\.md|\.(?:claude|codex|github)\/harness-runtime\/[a-z-]+\.md/g
           )) {
             assert(
               fs.existsSync(path.join(root, match[0])),
@@ -326,24 +332,25 @@ describe('provider planner/materializer/finalizer pipeline', () => {
           }
         }
       }
-      for (const [skill, script] of [
-        ['dev', 'timing.mjs'],
-        ['design', 'design-metrics.mjs'],
-      ]) {
-        const result = spawnSync(
-          process.execPath,
-          [
-            path.join(root, '.agents/skills', skill, 'scripts', script),
-            'init',
-            '--dir',
-            path.join(root, 'standalone-' + skill),
-            '--ticket',
-            'TEST-1',
-          ],
-          { encoding: 'utf8' }
-        );
-        assert.equal(result.status, 0, result.stderr + result.stdout);
-      }
+      for (const skillsRoot of ['.agents/skills', '.github/skills'])
+        for (const [skill, script] of [
+          ['dev', 'timing.mjs'],
+          ['design', 'design-metrics.mjs'],
+        ]) {
+          const result = spawnSync(
+            process.execPath,
+            [
+              path.join(root, skillsRoot, skill, 'scripts', script),
+              'init',
+              '--dir',
+              path.join(root, 'standalone-' + skill),
+              '--ticket',
+              'TEST-1',
+            ],
+            { encoding: 'utf8' }
+          );
+          assert.equal(result.status, 0, result.stderr + result.stdout);
+        }
       checks++;
       console.log(
         `${checks} provider launch checks passed (isolated project; semantic adaptation simulated).`

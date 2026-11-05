@@ -40,8 +40,12 @@ installed providers from `canonical/manifest.json`'s destinations and the record
 answers, confirm each one is actually installed, and limit the run to the providers the
 request names. Do not infer the scope from the execution host, and do not treat one
 installed provider as the whole scope when another is also installed. Inspect, diff and
-record each selected provider's outputs separately — a shared canonical source has one
-rendered result per provider, with its own baseline and its own local edits.
+record provider-specific outputs separately, with their own baselines and local edits.
+Group mappings that resolve to the same physical output before deployment. For a shared
+file, resolve all installed consumers from the manifest and local evidence. If a change
+affects a provider outside the requested scope, show that impact and obtain scope
+expansion before writing; otherwise leave that output pending. Follow the shared-output
+contract in `06-patch-state.md`.
 
 Read local Answers (newest populated report, then legacy answers files) and INTENT
 substitution tables. Infer clear project values from existing context; ask only for
@@ -61,10 +65,13 @@ rendered output. Include stored local customizations in the comparison:
   silently overwrite modifications to existing template text.
 - Missing baseline: use the conservative migration procedure in the shared contract.
 
-Deploy provider by provider, completing and verifying one provider's outputs before
-starting the next, so a failure leaves a known boundary rather than a half-written pair.
-Resolve each provider's output path through the manifest; never write a rendered result
-for one provider to another's destination.
+Deploy provider-specific outputs provider by provider, completing and verifying one
+provider's outputs before starting the next. Deploy each shared physical output once:
+compare the affected providers' native renderings, reconcile differences and local edits,
+then verify the result for every affected consumer before advancing its single baseline.
+Record `provider: "shared"` and `providers` on that result; never deploy a second copy
+or overwrite it in the next provider's pass. A failed consumer check keeps the shared
+output pending/partial for all affected providers. Resolve paths through the manifest.
 
 Resolve rename pairs before writes. Compare both the current old and new paths;
 write and verify the destination before removing the old path. Copies retain their
@@ -74,7 +81,8 @@ can affect several outputs; record a separate result for each local mapping.
 For `structure` rows, inspect required categories semantically, not exact heading
 names. Preserve all project LLD/HLD/NFR prose. Record any agreed missing-category
 scaffolding as a local deployment action, never as portable source content.
-Root AGENTS.md/CLAUDE.md remain project-maintained: record scoped catalog edits for
+Provider instruction files (AGENTS.md, CLAUDE.md and `.github/copilot-instructions.md`)
+remain project-maintained: record scoped catalog edits for
 new/renamed/retired commands without regenerating the whole file.
 
 Freeze the bundle and pending local operation record before writes. For incoming

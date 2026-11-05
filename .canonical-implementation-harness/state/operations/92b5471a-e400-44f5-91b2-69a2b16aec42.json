@@ -1,0 +1,61 @@
+{
+  "schema_version": 2,
+  "bundle_id": "92b5471a-e400-44f5-91b2-69a2b16aec42",
+  "mode": "prepare",
+  "providers": [],
+  "status": "failed",
+  "created_at": "2026-11-05T16:00:36.739440+00:00",
+  "files": [],
+  "checkpoint_advances": [
+    {
+      "path": "canonical/docs/Engineering Guide/Documentation/07 Terminology.md",
+      "after_sha256": "02455b967b9116b1e3ff7038e7ed50ee626de2cf82c16f43f8f1b9297ed32356",
+      "source": "verified release ZIP v3.2.0; prior checkpoint unreachable, initialized current observed baseline"
+    },
+    {
+      "path": "scripts/check-mermaid.mjs",
+      "after_sha256": "da0a70c050e608aeda7931518588aaf027443ca7dcac491bbc0e4d627afccef4",
+      "source": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    {
+      "path": "scripts/finalize-launch.mjs",
+      "after_sha256": "4f14b75a9685d03aebfc639562969116bc828271a08b91fb59490b8747016708",
+      "source": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    {
+      "path": "scripts/lib/cli.mjs",
+      "after_sha256": "998aabe42f1c046bba0a9c289b0912c5f70dbadda89378a7b6b13d500f0dc124",
+      "source": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    {
+      "path": "scripts/lib/fs-safe.mjs",
+      "after_sha256": "8cb2a8e693e2a4bfb77ecbe7e6984cee1942a3764a69bac2e332f02bdbc448b7",
+      "source": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    {
+      "path": "scripts/lib/fs-walk.mjs",
+      "after_sha256": "d9608c7681d5683f383c3a8c00d255cb5dc2606cf04e38ed3fb20505f9878b92",
+      "source": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    {
+      "path": "scripts/lib/tokens.mjs",
+      "after_sha256": "cb3dbcf405320982a7f6cc1599b38b39306c6625381fdf9b791fb9d756beb0ca",
+      "source": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    {
+      "path": "scripts/provider-adapter.mjs",
+      "after_sha256": "6134924a8277ea98726ec930ff21f0144e03fd1fe79f9e29ebf62dd93627ac04",
+      "source": "release ZIP v3.2.0 (first observed support-file baseline)"
+    }
+  ],
+  "unresolved": [],
+  "decisions": [
+    "Prepare only; no installed project files read or written.",
+    "Package version 3.2.0 -> 3.3.0 for additive Copilot support.",
+    "Support-file baselines not previously indexed are observed from the released v3.2.0 ZIP.",
+    "Unreachable historical checkpoint for Terminology.md replaced by verified identical release ZIP observation; no invented diff.",
+    "Existing bundled deletion of dev/templates/intent.md is a checkpoint-only advance.",
+    "Capture existing unbundled formatting and guide changes without rewriting canonical content."
+  ],
+  "reason": "Cross-device staging rename failed before bundle publication or index writes; retry uses same-filesystem staging."
+}

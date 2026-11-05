@@ -1,0 +1,456 @@
+{
+  "schema_version": 2,
+  "id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
+  "created_at": "2026-11-05T16:00:45.480648+00:00",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "Release 3.3.0: Copilot provider support, shared configuration ownership and provider-neutral host procedures; capture previously unbundled guide/formatting changes. Exact update bases are identified by SHA-256; package tooling bases are from the released v3.2.0 ZIP.",
+  "package_version": "3.3.0",
+  "base_release": "3.2.0",
+  "requires": [
+    "00e80d85-54d6-411b-bdf2-a0d2b6179663",
+    "03e55a3d-60fc-46fe-b363-770421e96874",
+    "4e3713c7-c1f6-4530-909c-71f087d16c43",
+    "5f3c3011-6ff1-4596-a95e-71020ea0287a",
+    "63cc5487-12a1-4dc8-9841-6752e0372404",
+    "b102a291-6ae6-4a49-9e75-1f280fa3c613",
+    "bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
+  ],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "318e2238cf4418e37d04a7bcc80b4cf7d7d7641324b9980f7291092ceaed63f3",
+      "after_sha256": "3f53380f98c9847adbc123d07278b45b270c6b4a3eb81a568619c85f72f127a7",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "f4501c7dee413c189922533bba611ddc75cc8ad8646999cd8cc30ca4e2dfe873",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "README.md",
+      "old_path": null,
+      "before_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
+      "after_sha256": "accc8ed1c961a0375ec2f572d721a1b28766847c0bf6a2bffe3cb8dfe0af0b76",
+      "payload": "diffs/README.md.patch",
+      "payload_sha256": "2c7d41733dac83fea7f2848b9193b0cb1b55132b5e799d6a998a445c6800dd3c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "8433bc945e4f7e141ab90c7ee0eb08083bb8f0f3fdc586bce4240eb38ffdd163",
+      "after_sha256": "d7699b56eeae858513266ce50054c34903580b96e6d98a3fccf48b4a8dcdc992",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "bec1f29af7c12bb813f833103e089918cc8d61eb69bfd6317a800b141823da7e",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/browser.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8c64e40642c003123d4ae6fc6c18813d81904fa9992f038caa01cc9d27d82347",
+      "payload": "files/canonical/adaptors/copilot/browser.md",
+      "payload_sha256": "8c64e40642c003123d4ae6fc6c18813d81904fa9992f038caa01cc9d27d82347",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/context.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "96e917bea5474dcee469e5d2b32ce8333d7416c0186d59a733b9dd381a4406b8",
+      "payload": "files/canonical/adaptors/copilot/context.md",
+      "payload_sha256": "96e917bea5474dcee469e5d2b32ce8333d7416c0186d59a733b9dd381a4406b8",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/credentials.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "c5eaa8109132c0344d8fc5be11f5773765a3d2453849aa39bd782eb142b9b894",
+      "payload": "files/canonical/adaptors/copilot/credentials.md",
+      "payload_sha256": "c5eaa8109132c0344d8fc5be11f5773765a3d2453849aa39bd782eb142b9b894",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/delegation.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "42e05bd4674e2facd3c8f4e985278a21b58f24344d3aa9acd005929fe1458df0",
+      "payload": "files/canonical/adaptors/copilot/delegation.md",
+      "payload_sha256": "42e05bd4674e2facd3c8f4e985278a21b58f24344d3aa9acd005929fe1458df0",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/interaction.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "7dfdbb52c1d84f62c1722e7232b4c99427f08b2c3991e8f532b2db87ddf086c7",
+      "payload": "files/canonical/adaptors/copilot/interaction.md",
+      "payload_sha256": "7dfdbb52c1d84f62c1722e7232b4c99427f08b2c3991e8f532b2db87ddf086c7",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/planning.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "1e133e5609d2095d822e209489f9b32379448ac98ce6450ca140548fbfbef582",
+      "payload": "files/canonical/adaptors/copilot/planning.md",
+      "payload_sha256": "1e133e5609d2095d822e209489f9b32379448ac98ce6450ca140548fbfbef582",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/review.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "8e6821a3f35592f83b27adfde94fe2941d3ece3b390e0439b5aa5f75385bfbde",
+      "payload": "files/canonical/adaptors/copilot/review.md",
+      "payload_sha256": "8e6821a3f35592f83b27adfde94fe2941d3ece3b390e0439b5aa5f75385bfbde",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "add",
+      "path": "canonical/adaptors/copilot/task-tracking.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "d92d4e12fe1c5f75c43c6d36932adf8a0a08364d487ea23d53920a5fac068676",
+      "payload": "files/canonical/adaptors/copilot/task-tracking.md",
+      "payload_sha256": "d92d4e12fe1c5f75c43c6d36932adf8a0a08364d487ea23d53920a5fac068676",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "runtime",
+        "intent": null,
+        "output_rule": "Resolve runtimeSource, agentRuntime and skill runtime companions through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/docs-writer/INTENT.md",
+      "old_path": null,
+      "before_sha256": "ce6d27cae7bca34d69d9ce4601a6ebe2e530d10330f9a8de4e9e9570114e5fe2",
+      "after_sha256": "97405e23e62e78bbfbc210a1082d623c0fc1aa0e83bb6e26aab258e545a28dda",
+      "payload": "diffs/canonical/agents/docs-writer/INTENT.md.patch",
+      "payload_sha256": "441f96f3a2d4ff782f594d49084161db7e160af1577bce245416b5bd39ac0604",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/cli.test.mjs",
+      "old_path": null,
+      "before_sha256": "d0eeb77c596731c28a854f02b9952ca6d9780b1bff496be848cf80596f854aae",
+      "after_sha256": "48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
+      "payload": "diffs/canonical/docs/.og/cli.test.mjs.patch",
+      "payload_sha256": "12581963565661e83a2ace34a65eef33d41b90e78dbc67f78212505679d5c663",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md",
+      "old_path": null,
+      "before_sha256": "66343545834b6b5e182d15eec9e6d25c3b8d6950f8a1dacdf0e694dea91e5af5",
+      "after_sha256": "b630f4f97d519c2b68d736a8001b6e820fb17e29fe23dfd478b051f9d67c72a3",
+      "payload": "diffs/canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md.patch",
+      "payload_sha256": "e0870cb0db707f9bf76a323d47f73a768d13aade1b379c22514641d51c7df60e",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/04 AI Coding Tool Compatibility.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/Engineering Guide/05 MCP Setup.md",
+      "old_path": null,
+      "before_sha256": "821e0fa6653a1bf06f680ea5b36a3b54630e5fb99f11856abe7ccbc6428bb23c",
+      "after_sha256": "9e189f70abd4756357653011f7fcaaf82dd4e6281c2666cf44218d1d2569b635",
+      "payload": "diffs/canonical/docs/Engineering Guide/05 MCP Setup.md.patch",
+      "payload_sha256": "50bfe631d73a81086021a3e3745b6cdaa861e9e8cccdc8e28a53538c64347755",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/Engineering Guide/05 MCP Setup.md",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/manifest.json",
+      "old_path": null,
+      "before_sha256": "d8c2f2cfe9cd1bb3fa2f360fcbb9987c3728906e81655e102c718ff8564971a9",
+      "after_sha256": "d7286ac99e731c4da27f60d0423640462c2bee58bc3c0054c88ddb866da36546",
+      "payload": "diffs/canonical/manifest.json.patch",
+      "payload_sha256": "68c966407f10e167a5c36718eb6486143106855aea6da3a4d59cbe0f643405e7",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "adapter",
+        "intent": null,
+        "output_rule": "Selected provider adapter input resolved through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/settings.json",
+      "old_path": null,
+      "before_sha256": "bedd41f8aa19efd99c4ed56a804a9a2896250fb99a0a3643ac06950c8c1eb4d2",
+      "after_sha256": "f1ae06a32d9d73132b1798b979e54ce07a11b8863c0e085fc7c7b591f70e0d22",
+      "payload": "diffs/canonical/settings.json.patch",
+      "payload_sha256": "d84711bb5dc3028d4155eba333c0460e617b503b15cf66a6cf3a2c13a5f858d8",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "adapter",
+        "intent": null,
+        "output_rule": "Selected provider adapter input resolved through canonical/manifest.json",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/INTENT.md",
+      "old_path": null,
+      "before_sha256": "f16c239c9a72e16f3f6045371ee96223f28f50c7677b486346589c9902a5149a",
+      "after_sha256": "5bdcd2a46d316e58e41ab284747d070983b105717f85dd6429dc1672884db346",
+      "payload": "diffs/canonical/skills/design/INTENT.md.patch",
+      "payload_sha256": "968ab050ca227f56b51053c995c45aa47d3f054fd400977c3491df4e7f4a5149",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "patterns/skill-authoring.md",
+      "old_path": null,
+      "before_sha256": "bc609157e172c03ec322c7de7ad15517fb0de9cf52f38a7261c3796910972565",
+      "after_sha256": "d812020b946e6fe0816cc6ca7eb905d99477d85dea7f2b25880fddd5d0f56f28",
+      "payload": "diffs/patterns/skill-authoring.md.patch",
+      "payload_sha256": "cc4294fc2918b063991c0a018b7de39eda45261a570f2aa122faa1d2a849f89b",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/host-capabilities.md",
+      "old_path": null,
+      "before_sha256": "d92f91ed67553b4e97dbba2c428d3be05a0890d7a49ffad0e21d7ca108aaabd5",
+      "after_sha256": "f67276e7db7617ffef4c6cd1ca93261e0b26366107726efbee6c8ba986c6be6b",
+      "payload": "diffs/references/host-capabilities.md.patch",
+      "payload_sha256": "4ad3210f7bbee200e2c59abc66c3d902abc0dc4bfb5c5ff69b2d6e86c5671b95",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01-launch.md",
+      "old_path": null,
+      "before_sha256": "6b99b01ff0dd8ab86a29eb8ec2658ff7a261d1a627fb1aaa597354b555312f52",
+      "after_sha256": "ecc194107a55564474dadbdfd75ef14ba3d9f3d61770b6969c604277431f3a6a",
+      "payload": "diffs/references/launch/01-launch.md.patch",
+      "payload_sha256": "dd3539b015165edec54dbe27cf0df2a4c8bf28875d5420889a09986038611e39",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01a-launch-plan.md",
+      "old_path": null,
+      "before_sha256": "8feb672456f79eb1431c22dc760494297a0e17ee8ad4e27606a04e65e0f453bc",
+      "after_sha256": "1d9d1119bed3ef2cced77b273a0bf87f3d71ea6fdda062541a13f1fc3e3d6407",
+      "payload": "diffs/references/launch/01a-launch-plan.md.patch",
+      "payload_sha256": "a4773e9ec69ff1b250bacf848a4d012b70950972100fc8c297e0df468afc4917",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01b-launch-install.md",
+      "old_path": null,
+      "before_sha256": "01892a62b0799a6172ebfb0fdecbd0f6d2486eb3ddbcee497611cbb435ee56ec",
+      "after_sha256": "5230dc5ccf93aeb1002c90ece3632a1d9bb9ba445519e1f8290c8f6e9e6e3f98",
+      "payload": "diffs/references/launch/01b-launch-install.md.patch",
+      "payload_sha256": "c008f4b42cfe1ec19b06e280ed47a87f2a205493ef7ec06b7893336595e90e87",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/02-launch-questions.md",
+      "old_path": null,
+      "before_sha256": "fb96842bbc286b5b37e6de9774fc53884825520d258570047d57e52a580578d5",
+      "after_sha256": "9ef1cef34f52df0321575185d518dc8fa0544c47f7eae67a382055d15a84b179",
+      "payload": "diffs/references/launch/02-launch-questions.md.patch",
+      "payload_sha256": "5a06258e9206af1d7bb07fc1660980453ea35eb16916db42fecd06cae116c81e",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/08-provider-launch.md",
+      "old_path": null,
+      "before_sha256": "5423af7fac64ae0a97686087d1f0f416e7884b0620ca0f164365ff8ca05aa9c8",
+      "after_sha256": "04d873544c0d0fb49264d0b9f9b89834c62b31d21155a4b95797dd48e0364bbf",
+      "payload": "diffs/references/launch/08-provider-launch.md.patch",
+      "payload_sha256": "46dea408e0d8af3f1c628a8e2f8759d4813bbb63fadd377d64d555ac904cbeaa",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/04-patch-harvest.md",
+      "old_path": null,
+      "before_sha256": "9916f8457e8931298acf650d9f728ea1edc82786af402bcd84facc61abf33374",
+      "after_sha256": "d2c42af385a1e5fe05f62e93ff41f54d5314a2ac06d148a65938a223227033e3",
+      "payload": "diffs/references/patch/04-patch-harvest.md.patch",
+      "payload_sha256": "cf5d03d6622c6e174a5b34ac1f0194b0704a0c9e315712b3b7f516a1a8f2a478",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/05-patch-apply.md",
+      "old_path": null,
+      "before_sha256": "0d0f681fe6ac0642a11891cd1b3889aa49ad2c2872d58ee2b01ade4178192671",
+      "after_sha256": "4454f961fdce0f56db2282ac853a87ee02e12c5c955175cdc1138e7be799fc65",
+      "payload": "diffs/references/patch/05-patch-apply.md.patch",
+      "payload_sha256": "6ac5f184b2a21d78c904e28d7b4011c9dd597c38e4aaac354bc652736fd8902f",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/patch/06-patch-state.md",
+      "old_path": null,
+      "before_sha256": "9e53c236da6e2605a2327fe33ee3731a432c19cbee65e3eb9c3c542a92090c18",
+      "after_sha256": "ed3ead7dbe4a6254f75085dcafe4bd71dfb9a7ee59cbf85cf3c5eee0188cb040",
+      "payload": "diffs/references/patch/06-patch-state.md.patch",
+      "payload_sha256": "1ef8d9cd32fc82031f9e1fe8eb8bea86be7c4e26d436a70b8358a32e9adae130",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/lib/agent-format.mjs",
+      "old_path": null,
+      "before_sha256": "f980ba5c8bfb3b55188cf15a53c8583363dfd8880827db0c1f09b881142dbc6e",
+      "after_sha256": "412ef20ee5e4ed34bd6f018e504d932b578d1282b6fea7089b56efac9895fa01",
+      "payload": "diffs/scripts/lib/agent-format.mjs.patch",
+      "payload_sha256": "b726bf70c98f47691e0cf102168d562be54a2940a5395a80e19196dbd06ecb27",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/lib/constants.mjs",
+      "old_path": null,
+      "before_sha256": "775367524b170c98ced7d2673eabeb2b32dcb2d988d54228ea578f4f056e44d5",
+      "after_sha256": "78b489aa53529c736179dec9e39e3b0d62c3ea17a9972755d39defe03fba5c7e",
+      "payload": "diffs/scripts/lib/constants.mjs.patch",
+      "payload_sha256": "a139a1456857db2159e783cddca2a762362901175932979cecd4c2756f66279d",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/lib/manifest.mjs",
+      "old_path": null,
+      "before_sha256": "b5e344ee5287bc888b1a2174afd5fb7ab104cf0df9e7ba2cc45a3132fcbad9e1",
+      "after_sha256": "cf8901023299c5689731d3428eb67d5e1bf5f86a9ab15bf8d9adb687dce24e00",
+      "payload": "diffs/scripts/lib/manifest.mjs.patch",
+      "payload_sha256": "2dd1f3e2e5d8178b1808bfc82180163fba4656fd1d931269c342a8603ba6425d",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/lib/mcp-config.mjs",
+      "old_path": null,
+      "before_sha256": "45d8a143b196505013a59c251b3dacb686b907d414dd3c846559768f28658b79",
+      "after_sha256": "234761a88a00f5e812e12fd386c4b46ac7e0c56c2fede9ff4ce72042e64da504",
+      "payload": "diffs/scripts/lib/mcp-config.mjs.patch",
+      "payload_sha256": "ac6ea14b21ab5e586b2d96a8625aaea370135e4587956e18d1b9239e3fa8de2c",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/materialize-launch.mjs",
+      "old_path": null,
+      "before_sha256": "8f2eab9eb4c253500040e1be785dda0110f8cb11a9b12f1090aa46038d9da5ca",
+      "after_sha256": "a7c3853f71214d3aea7a617af11fe656b48c1ff4bea23914d2ca7023f312e797",
+      "payload": "diffs/scripts/materialize-launch.mjs.patch",
+      "payload_sha256": "516763742b8acaba87bab5f7e81fe940be9ca648f622c9f8e3240da3bc511845",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/plan-provider-launch.mjs",
+      "old_path": null,
+      "before_sha256": "e5d27abd5f67bdace3b527333d81c4fa0c7ca73fe9a56b270dffc1d884c2f735",
+      "after_sha256": "941422ec6dd534442dd2083e6d84c3f94d9bd02a767262e781572cdee5f14bca",
+      "payload": "diffs/scripts/plan-provider-launch.mjs.patch",
+      "payload_sha256": "e8f0e985337b01a02c88b4fcb9e42c996cc852af52a5c588e346bbeb9f388243",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

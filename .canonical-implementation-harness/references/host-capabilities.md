@@ -2,7 +2,8 @@
 
 Record the current execution host and available capabilities in the operation report.
 For Claude read `canonical/adaptors/claude/`; for Codex read
-`canonical/adaptors/codex/`, relative to the physical package root. Read
+`canonical/adaptors/codex/`; for Copilot read `canonical/adaptors/copilot/`,
+relative to the physical package root. Read
 `task-tracking.md` and `interaction.md` first; load delegation, review, browser,
 credentials, context, and planning procedures when their corresponding stage needs them.
 These are execution procedures, independent of Q6's installation targets.
@@ -20,7 +21,7 @@ Use native clarification tools when available, otherwise ask in conversation.
 
 Resolve package paths through the physical directory, including when invoked via a
 skill-discovery symlink. In this repository, the symlinks expose the authoring source.
-In consumer projects, both hosts may link to the one package extracted from the release
+In consumer projects, all selected hosts may link to the one package extracted from the release
 ZIP, sharing its answers, reports, and run state. Never ask consumers to copy the
 source-repository authoring directory. Installed provider artifacts remain independent
 of bootstrap's discovery links.

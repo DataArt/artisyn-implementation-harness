@@ -16,11 +16,16 @@ capturing; discovery must include untracked files. Do not sweep unrelated files
 into the patch. For new or removed files, record add/delete explicitly; a missing
 permanent file alone is not evidence that its shared template should be retired.
 
-A permanent file belongs to exactly one provider's installed tree, so record which
-provider's copy was observed and compare it against that provider's baseline and
-harvest receipt. When both providers carry the same canonical source, harvest from one
-of them deliberately; the other provider's copy is a separate output whose own edits are
-neither promoted nor assumed identical.
+For a provider-specific file, record which provider's copy was observed and compare
+it against that provider's baseline and harvest receipt. When several providers carry
+separate copies of the same canonical source, harvest from one deliberately; other
+copies have their own edits and are not assumed identical.
+
+For one physical file shared by providers, such as Claude/Copilot's `.mcp.json`,
+follow the shared-output contract in `06-patch-state.md`: inspect it once against
+its single baseline, record `provider: "shared"` and its affected `providers`, and
+store one harvest receipt. Generalize shared declarations rather than one provider's
+native rendering details. Do not manufacture separate observations for the same file.
 
 Compare each permanent file with its stored rendered deployment baseline. Use the
 harvest receipt to exclude edits already promoted, but do not advance deployment
@@ -68,9 +73,11 @@ written hashes with the planned payloads. Record per-file results and mark harve
 only when all selected writes and checks succeed; otherwise keep partial/failed.
 
 Store a harvest receipt with the observed permanent hash, promoted canonical hash,
-and excluded local-only changes for each mapping, under the provider whose output was
-observed. The promoted canonical result is provider-neutral; only the observation is
-provider-scoped, and deploying it to the other provider is a later `apply`. Update canonical checkpoints for
+and excluded local-only changes for each physical output. A provider-specific
+observation belongs to that provider; a shared observation names all affected providers
+and uses the shared receipt. The promoted canonical result remains provider-neutral.
+Deploying it to separate provider copies is a later `apply`; harvesting a shared file
+does not claim that any separate output was deployed. Update canonical checkpoints for
 successfully recorded files. Do not rewrite permanent files or claim they were
 deployed. If there is no new change, report a no-op without making another bundle.
 

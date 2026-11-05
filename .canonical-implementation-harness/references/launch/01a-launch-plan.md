@@ -4,10 +4,10 @@ Stage sequence and tracking live in [01-launch.md](01-launch.md).
 
 ## 1. Initialize storage, recover, and inspect
 
-**First launch action:** select `claude`, `codex`, or both, reusing an explicit
+**First launch action:** select one or more of `claude`, `codex`, and `copilot`, reusing an explicit
 selection already supplied by the developer. Record Q6 before provider output planning.
 `package:` is the installed bootstrap package directory, independent of the selected targets;
-use one package/state directory for both providers. In consumer projects, install it by
+use one package/state directory for all selected providers. In consumer projects, install it by
 extracting the released ZIP archive; do not copy the source-repository directory. In a consumer project, add
 `/<package-relative-path>/` to .gitignore; the toolkit and its local launch history
 are disposable after verification. Do not untrack files as a side effect of launch.

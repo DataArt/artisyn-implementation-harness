@@ -1,0 +1,24 @@
+--- a/canonical/docs/.og/cli.test.mjs
++++ b/canonical/docs/.og/cli.test.mjs
+@@ -266,7 +266,7 @@
+   }
+ });
+ 
+-test('reindex() updates a moved doc\'s path in place, preserving its id and edges', async () => {
++test("reindex() updates a moved doc's path in place, preserving its id and edges", async () => {
+   const dir = scratchDir();
+   try {
+     const story = writeDoc(dir, 'docs/Stories/[DEV-1] Example/impl/0-intent.md', '# Intent\n');
+@@ -296,7 +296,11 @@
+     );
+ 
+     const edgesAfter = await query({ dir, relatedTo: newPath });
+-    assert.equal(edgesAfter.length, edgesBefore.length, 'edges referencing the id survive the move');
++    assert.equal(
++      edgesAfter.length,
++      edgesBefore.length,
++      'edges referencing the id survive the move'
++    );
+   } finally {
+     fs.rmSync(dir, { recursive: true, force: true });
+   }

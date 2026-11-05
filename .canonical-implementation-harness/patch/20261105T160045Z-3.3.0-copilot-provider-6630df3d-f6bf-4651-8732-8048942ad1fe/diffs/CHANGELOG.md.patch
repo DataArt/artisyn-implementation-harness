@@ -1,0 +1,23 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,6 +1,20 @@
+ # Changelog
+ 
+ All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
++
++## 3.3.0
++
++- Align shared-file harvest/apply ownership, baselines and receipts; preserve historical bundles.
++- Include Copilot in installed compatibility and MCP credential guides, and consistently
++  separate the execution host from installation targets.
++- Reject empty Copilot enum settings and malformed plugin/marketplace entries.
++- Add Copilot as a third provider alongside Claude and Codex, with `.agent.md`
++  specialists, explicit native tool scopes and eight permanent runtime procedures.
++- Add portable MCP configuration and repository settings for Copilot;
++  existing local configuration remains a reviewed derivation. Configuration outputs sharing a path
++  are written once when renderings match; conflicts or local edits require reconciliation.
++- Cover Copilot rendering, multi-provider materialization/finalization, provider selection,
++  configuration preservation and adapter dependency hashes with deterministic tests.
+ 
+ ## 3.2.0
+ 

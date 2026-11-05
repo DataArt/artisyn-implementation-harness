@@ -1,0 +1,18 @@
+--- a/references/launch/01-launch.md
++++ b/references/launch/01-launch.md
+@@ -67,10 +67,12 @@
+ synchronously before the orchestrator continues — never as a fire-and-forget handoff.
+ 
+ Initialize tracking immediately after ignore setup and report initialization, before
+-context inspection or Q&A. Load the selected provider's
+-`canonical/adaptors/<provider>/task-tracking.md` and follow its native tracker contract:
++context inspection or Q&A. Load the execution host's
++`canonical/adaptors/<host>/task-tracking.md` (independent of Q6 installation targets)
++and follow its native tracker contract:
+ Claude uses `TaskCreate`/`TaskUpdate`/`TaskList` when exposed; Codex uses `update_plan`
+-when exposed. Inspect tools available in this session first; a failed tool-discovery
++when exposed. Copilot uses the durable report and mirrors an exposed native TODO tracker.
++Inspect tools available in this session first; a failed tool-discovery
+ call alone does not prove a tracker is absent. Record the selected tracker (and, when
+ falling back, the discovery evidence) once in the report.
+ 

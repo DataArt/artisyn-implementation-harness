@@ -1,0 +1,46 @@
+--- a/canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md
++++ b/canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md
+@@ -1,29 +1,32 @@
+ # AI Coding Tool Compatibility
+ 
+-The bootstrap package installs a project-specific harness for Claude, Codex, or both.
++The bootstrap package installs a project-specific harness for one or more of Claude, Codex, and Copilot.
+ Its canonical manifest maps the same source skills and role definitions to native files.
+ Installed files are editable project artifacts; harvest/apply reconciles later changes.
+ There is no intermediate project `.harness/skills` source or continuous generator.
+ 
+-| Artifact     | Claude                         | Codex                            |
+-| ------------ | ------------------------------ | -------------------------------- |
+-| Instructions | CLAUDE.md                      | AGENTS.md                        |
+-| Skills       | .claude/skills/<name>/SKILL.md | .agents/skills/<name>/SKILL.md   |
+-| Agents       | .claude/agents/<name>.md       | .codex/agents/<name>.toml        |
+-| Settings     | .claude/settings.json          | .codex/config.toml               |
+-| MCP          | .mcp.json                      | MCP tables in .codex/config.toml |
++| Artifact     | Claude                         | Codex                            | Copilot                         |
++| ------------ | ------------------------------ | -------------------------------- | ------------------------------- |
++| Instructions | CLAUDE.md                      | AGENTS.md                        | .github/copilot-instructions.md |
++| Skills       | .claude/skills/<name>/SKILL.md | .agents/skills/<name>/SKILL.md   | .github/skills/<name>/SKILL.md  |
++| Agents       | .claude/agents/<name>.md       | .codex/agents/<name>.toml        | .github/agents/<name>.agent.md  |
++| Settings     | .claude/settings.json          | .codex/config.toml               | .github/copilot/settings.json   |
++| MCP          | .mcp.json                      | MCP tables in .codex/config.toml | .mcp.json                       |
+ 
+ Shared documentation is written once for every selected provider. Where a doc shows a
+-command, it uses a leading skill-invocation prefix — `/` in Claude, `$` in Codex — and
++command, it uses a leading skill-invocation prefix — `/` in Claude/Copilot, `$` in Codex — and
+ where it needs the root instruction file it names the one this install produced. Skill
+ companions (patterns, references, runtime procedures) are always referenced by their
+ path _inside_ the installed skill bundle, so the table above is the only place a
+ provider-specific root path appears.
+ 
+-Both-provider installs derive shared project facts once and render provider-specific paths
++Multi-provider installs derive shared project facts once and render provider-specific paths
+ and invocation syntax. Native agent models and permissions are not interchangeable.
+ Role instructions do not create enforced tool allowlists. Existing provider configuration
+-is reconciled rather than overwritten, and local credentials remain local.
++is reconciled rather than overwritten, and local credentials remain local. Claude and
++Copilot share one MCP file: reconcile changes once and verify both installed consumers.
++Copilot tool lists and instruction-inheritance flags depend on host capabilities;
++verify the actual delegated context and tool scope rather than relying on file syntax.
+ 
+ ## Workflow contract and runtime procedures
+ 

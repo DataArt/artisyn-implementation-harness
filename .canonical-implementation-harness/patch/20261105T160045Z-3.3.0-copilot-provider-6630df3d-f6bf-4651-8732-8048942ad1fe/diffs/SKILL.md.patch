@@ -1,0 +1,45 @@
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1,7 +1,7 @@
+ ---
+ name: harness-bootstrap
+ metadata:
+-  version: 3.2.0
++  version: 3.3.0
+ description: >
+   Install the portable AI-dev harness, rebuild its operational graph standalone,
+   harvest project skill improvements into its canonical templates, package direct
+@@ -19,8 +19,8 @@
+ Backup Owner: None
+ Team: Harness / Platform
+ Created: 2026-09-15
+-Last Reviewed: 2026-11-02
+-Version: 3.2.0
++Last Reviewed: 2026-11-05
++Version: 3.3.0
+ Purpose: Install the portable AI-dev harness, rebuild its operational graph standalone, harvest project skill improvements into its canonical templates, package direct canonical edits into a portable bundle, or apply canonical updates to an existing project.
+ Data Class: Internal
+ External Connections: None — operates on local project files; any MCP servers it configures for other skills (e.g. Jira/Confluence, AWS) are declared per-project in the generated `.mcp.json`, not used by this skill itself
+@@ -46,7 +46,7 @@
+ Read [Host capabilities](references/host-capabilities.md) before executing an operation.
+ Use the current host's procedures for execution; the target provider's procedures
+ are copied into installed artifacts by the manifest. Invoke this skill using the
+-host's native syntax (`/harness-bootstrap` in Claude, `$harness-bootstrap` in Codex).
++host's native syntax (`/harness-bootstrap` in Claude or Copilot, `$harness-bootstrap` in Codex).
+ 
+ ## Route
+ 
+@@ -101,9 +101,10 @@
+ **Initialize task tracking before context inspection or Q&A**, immediately after
+ provider selection and storage setup and report initialization. Create/resume one task per row of the
+ [Launch task table](references/launch/01-launch.md#launch-task-table); the table owns stage
+-names, dependencies, and completion evidence. Load the selected provider's
+-`canonical/adaptors/<provider>/task-tracking.md`: Claude uses its Task tools when
+-exposed; Codex uses `update_plan` when exposed. Otherwise track in the report. Enforce
++names, dependencies, and completion evidence. Load the execution host's
++`canonical/adaptors/<host>/task-tracking.md`: Claude uses its Task tools when
++exposed; Codex uses `update_plan` when exposed; Copilot uses the durable report and
++mirrors an exposed native TODO tracker when available. Otherwise track in the report. Enforce
+ ordering explicitly when the native tracker has no dependency support. Record the
+ selected mechanism once. Updating progress does not enter Plan mode.
+ Reports persist progress across sessions and accompany available native tracking.

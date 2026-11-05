@@ -1,0 +1,62 @@
+--- a/scripts/lib/agent-format.mjs
++++ b/scripts/lib/agent-format.mjs
+@@ -90,7 +90,56 @@
+ export function renderAgent(text, provider, name) {
+   const fields = agentFields(text);
+   if (!SAFE_NAME_RE.test(name)) throw new Error('Invalid installed agent name');
+-  return provider === 'claude'
+-    ? renderClaudeAgent(text, fields, name)
+-    : renderCodexAgent(fields, name);
++  if (provider === 'claude') return renderClaudeAgent(text, fields, name);
++  if (provider === 'codex') return renderCodexAgent(fields, name);
++  if (provider === 'copilot') return renderCopilotAgent(text, fields, name);
++  throw new Error(`Unknown provider: ${provider}`);
+ }
++
++// Use portable Copilot tool groups rather than individual host tool names.
++const COPILOT_TOOLS = {
++  Read: 'read',
++  Glob: 'search',
++  Grep: 'search',
++  Write: 'edit',
++  Edit: 'edit',
++  Bash: 'execute',
++  Task: 'agent',
++  WebSearch: 'web',
++  WebFetch: 'web',
++};
++
++function renderCopilotAgent(text, fields, name) {
++  if (!fields.tools) throw new Error('Copilot agents require an explicit tool scope');
++  const tools = [
++    ...new Set(
++      fields.tools.split(',').map((raw) => {
++        const tool = raw.trim();
++        if (Object.hasOwn(COPILOT_TOOLS, tool)) return COPILOT_TOOLS[tool];
++        const mcp = tool.match(/^mcp__([a-zA-Z0-9_-]+?)__(\*|[a-zA-Z0-9_-]+)$/);
++        if (mcp) return `${mcp[1]}/${mcp[2]}`;
++        throw new Error(`Unsupported Copilot agent tool: ${tool}`);
++      })
++    ),
++  ];
++  if (['sonnet', 'opus', 'haiku', 'inherit'].includes(fields.model))
++    throw new Error(
++      'Copilot model must be a native model ID; omit it to inherit the session model'
++    );
++  if (fields.body.length > 30000) throw new Error('Copilot agent prompt exceeds 30000 characters');
++  const metadata = text.match(/^metadata:\s*\n((?:[ \t]+[^\n]*\n)*)/m)?.[1];
++  return [
++    '---',
++    `name: ${name}`,
++    `description: ${JSON.stringify(fields.description.trim())}`,
++    `tools: ${JSON.stringify(tools)}`,
++    'strict-tools-list: true',
++    'include-custom-instructions: true',
++    ...(fields.model ? [`model: ${JSON.stringify(fields.model)}`] : []),
++    ...(metadata ? [`metadata:\n${metadata.trimEnd()}`] : []),
++    '---',
++    '',
++    fields.body,
++    '',
++  ].join('\n');
++}

@@ -8,9 +8,9 @@ services this project actually selected; delete the rest when personalizing this
 doc.**
 
 Server declarations are shared and tracked; credential **values** are always local
-to your machine. Nothing in this guide is ever committed, pasted into a chat, or
-copied into launch answers, reports or manifests. Where a step differs per AI
-coding tool, both variants are given — follow the one for the tool you actually
+to your machine. Never commit credential values, paste them into a chat, or
+copy them into launch answers, reports or manifests. Where a step differs per AI
+coding tool, the selected providers' routes are given — follow the one for the tool you actually
 run, and see `04 AI Coding Tool Compatibility.md` for the full file mapping.
 
 ## Atlassian (Jira / Confluence)
@@ -46,8 +46,8 @@ Claude Code loads this at session start and resolves the shared `.mcp.json`'s
 `${JIRA_PERSONAL_TOKEN}` / `${CONFLUENCE_PERSONAL_TOKEN}` references from it — no
 separate `.env` file or shell `source` step is needed.
 
-**Codex** — export the same values in your shell profile instead (see "Codex
-credentials" below):
+**Codex / Copilot** — export the same values into the environment used to launch
+the assistant (see the provider credential sections below):
 
 ```bash
 export JIRA_PERSONAL_TOKEN="<your-jira-pat>"
@@ -99,7 +99,7 @@ narrower if the project only needs a subset).
 }
 ```
 
-**Codex** — export the same value in your shell profile instead:
+**Codex / Copilot** — export the same value into the assistant's process environment:
 
 ```bash
 export GITHUB_PERSONAL_ACCESS_TOKEN="<your-github-pat>"
@@ -114,6 +114,23 @@ come from your own process environment — export them in your shell profile as
 shown per service above. Do not copy a Claude `settings.local.json` into Codex —
 the two tools read credentials differently, and the file has no meaning there.
 
+## Copilot credentials
+
+MCP servers are declared in the shared `.mcp.json` under `mcpServers`. A stdio
+server's `env` uses references such as `"TOKEN": "${TOKEN}"`; an HTTP server's
+`headers` can use `"Authorization": "Bearer ${TOKEN}"`. Supply values through the
+process environment used to start Copilot. If starting from an editor, ensure that
+editor inherits the variables too; exporting them in an unrelated terminal is insufficient.
+Do not put tokens in `.github/copilot/settings.json` or assume Claude's local `env`
+settings provide credentials to Copilot.
+
+Claude and Copilot may read the same `.mcp.json`. Preserve existing servers and
+verify both installed consumers when changing it. Keep existing editor MCP
+configuration unless its migration is explicitly requested. Copilot includes a
+GitHub integration: verify whether it meets the need before adding a duplicate server.
+Personal overrides in `.github/copilot/settings.local.json` must be gitignored;
+that file is not a credential store.
+
 ## Provide only what's selected
 
 Include only the services this project actually selected. Bootstrap writes
@@ -127,11 +144,15 @@ Project MCP configuration is picked up at session start, so restart after editin
 it. The tool prompts you to approve each server on first use; installing
 configuration does not grant that approval on your behalf.
 
-Verify the server is connected using your tool's own MCP listing — for Claude Code:
+Inspect configured servers with the host's MCP listing — for Claude Code:
 
 ```bash
 claude mcp list
 ```
+
+For Copilot, use the host's MCP view or `copilot mcp list` in a terminal. A listed
+configuration does not prove a connection: verify the required server tools in the
+active session. Missing capabilities remain unverified.
 
 If a server does not appear, check that the variables are set in the environment
 the tool actually starts from, then restart the session.

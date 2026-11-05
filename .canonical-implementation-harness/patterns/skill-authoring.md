@@ -8,7 +8,9 @@ bootstrap; do not install it as a standalone project skill.
 
 Use the provider selected in launch answers and the launch installation mapping.
 For Claude, slash commands use `.claude/skills/{name}/SKILL.md`, with `name` and
-`description` frontmatter. Register entrypoints in the provider-selected root
+`description` frontmatter. Copilot uses the same frontmatter under
+`.github/skills/{name}/SKILL.md` with `/` invocations; Codex uses
+`.agents/skills/{name}/SKILL.md` with `$` invocations. Register entrypoints in the provider-selected root
 instruction file. Supporting references are loaded by their callers and do not need
 individual root-context entries.
 

@@ -1,0 +1,10 @@
+--- a/canonical/settings.json
++++ b/canonical/settings.json
+@@ -14,5 +14,6 @@
+         "enabled": true
+       }
+     }
+-  }
++  },
++  "copilot": {}
+ }

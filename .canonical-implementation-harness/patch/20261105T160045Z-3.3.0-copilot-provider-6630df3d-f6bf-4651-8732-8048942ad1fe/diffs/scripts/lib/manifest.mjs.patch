@@ -1,0 +1,23 @@
+--- a/scripts/lib/manifest.mjs
++++ b/scripts/lib/manifest.mjs
+@@ -50,6 +50,11 @@
+   if (!PROVIDER_NAMES.includes(name) || pathKeys.some((key) => !isSafeRelativePath(provider[key])))
+     throw new Error('Invalid provider paths');
+   if (
++    provider.agentExtension != null &&
++    !['md', 'agent.md', 'toml'].includes(provider.agentExtension)
++  )
++    throw new Error('Unsupported agent extension');
++  if (
+     !SUPPORTED_AGENT_FORMATS.includes(provider.agentFormat) ||
+     !INVOCATION_PREFIX_RE.test(provider.invocationPrefix ?? '')
+   )
+@@ -83,7 +88,7 @@
+     agents_root: p.agents,
+     instructions_file: p.instructions,
+     agent_runtime: p.agentRuntime,
+-    agent_extension: p.agentFormat === 'toml' ? 'toml' : 'md',
++    agent_extension: p.agentExtension ?? (p.agentFormat === 'toml' ? 'toml' : 'md'),
+     input:
+       provider === 'claude' ? '$ARGUMENTS' : 'the user request accompanying this skill invocation',
+   };
