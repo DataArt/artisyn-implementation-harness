@@ -2,7 +2,7 @@
 
 All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
 
-## Unreleased
+## 3.3.0
 
 - Align shared-file harvest/apply ownership, baselines and receipts; preserve historical bundles.
 - Include Copilot in installed compatibility and MCP credential guides, and consistently

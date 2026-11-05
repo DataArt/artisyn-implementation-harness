@@ -2,16 +2,19 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "318e2238cf4418e37d04a7bcc80b4cf7d7d7641324b9980f7291092ceaed63f3",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "3f53380f98c9847adbc123d07278b45b270c6b4a3eb81a568619c85f72f127a7",
+      "snapshot": "state/objects/3f53380f98c9847adbc123d07278b45b270c6b4a3eb81a568619c85f72f127a7",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "README.md": {
-      "recorded_sha256": "f512e1dcb6ea0bc2ae2f4154f1fcb263c972adf00457dd408322204982eadf68",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "accc8ed1c961a0375ec2f572d721a1b28766847c0bf6a2bffe3cb8dfe0af0b76",
+      "snapshot": "state/objects/accc8ed1c961a0375ec2f572d721a1b28766847c0bf6a2bffe3cb8dfe0af0b76",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "SKILL.md": {
-      "recorded_sha256": "8433bc945e4f7e141ab90c7ee0eb08083bb8f0f3fdc586bce4240eb38ffdd163",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "d7699b56eeae858513266ce50054c34903580b96e6d98a3fccf48b4a8dcdc992",
+      "snapshot": "state/objects/d7699b56eeae858513266ce50054c34903580b96e6d98a3fccf48b4a8dcdc992",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/adaptors/claude/browser.md": {
       "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
@@ -86,8 +89,9 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/agents/docs-writer/INTENT.md": {
-      "recorded_sha256": "ce6d27cae7bca34d69d9ce4601a6ebe2e530d10330f9a8de4e9e9570114e5fe2",
-      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
+      "recorded_sha256": "97405e23e62e78bbfbc210a1082d623c0fc1aa0e83bb6e26aab258e545a28dda",
+      "snapshot": "state/objects/97405e23e62e78bbfbc210a1082d623c0fc1aa0e83bb6e26aab258e545a28dda",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/agents/docs-writer/TEMPLATE.md": {
       "recorded_sha256": "7d02764f5715a9e152c1958484dc915e1e96f8d69d771f2747b8446ecfbe15b9",
@@ -142,12 +146,14 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md": {
-      "recorded_sha256": "66343545834b6b5e182d15eec9e6d25c3b8d6950f8a1dacdf0e694dea91e5af5",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "b630f4f97d519c2b68d736a8001b6e820fb17e29fe23dfd478b051f9d67c72a3",
+      "snapshot": "state/objects/b630f4f97d519c2b68d736a8001b6e820fb17e29fe23dfd478b051f9d67c72a3",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/docs/Engineering Guide/05 MCP Setup.md": {
-      "recorded_sha256": "821e0fa6653a1bf06f680ea5b36a3b54630e5fb99f11856abe7ccbc6428bb23c",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "9e189f70abd4756357653011f7fcaaf82dd4e6281c2666cf44218d1d2569b635",
+      "snapshot": "state/objects/9e189f70abd4756357653011f7fcaaf82dd4e6281c2666cf44218d1d2569b635",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/docs/Engineering Guide/Documentation/01 Principles.md": {
       "recorded_sha256": "7d41bcd4c06602928d641295ffdf6f97195ecaca5c5984f2ebedd8893dff8e4b",
@@ -170,8 +176,9 @@
       "snapshot": "git:HEAD (unchanged by this bundle)"
     },
     "canonical/docs/Engineering Guide/Documentation/07 Terminology.md": {
-      "recorded_sha256": "e05836f2bb0d58b70980858f766c14f99bcdb35ebd53b2f137cee648a26dd93d",
-      "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
+      "recorded_sha256": "02455b967b9116b1e3ff7038e7ed50ee626de2cf82c16f43f8f1b9297ed32356",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "verified release ZIP v3.2.0; prior checkpoint unreachable, initialized current observed baseline"
     },
     "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md": {
       "recorded_sha256": "ebcf64f15253b35b3d68f8f8821aa73a289e46384fd4885a9aaa932d9d1428ab",
@@ -198,20 +205,23 @@
       "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/manifest.json": {
-      "recorded_sha256": "d8c2f2cfe9cd1bb3fa2f360fcbb9987c3728906e81655e102c718ff8564971a9",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "d7286ac99e731c4da27f60d0423640462c2bee58bc3c0054c88ddb866da36546",
+      "snapshot": "state/objects/d7286ac99e731c4da27f60d0423640462c2bee58bc3c0054c88ddb866da36546",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/mcp.json": {
       "recorded_sha256": "d8e397af03b5b032f21d0aa967086f0c78b33c87b76f2e9898ae0a144df7de02",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/settings.json": {
-      "recorded_sha256": "bedd41f8aa19efd99c4ed56a804a9a2896250fb99a0a3643ac06950c8c1eb4d2",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "f1ae06a32d9d73132b1798b979e54ce07a11b8863c0e085fc7c7b591f70e0d22",
+      "snapshot": "state/objects/f1ae06a32d9d73132b1798b979e54ce07a11b8863c0e085fc7c7b591f70e0d22",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/skills/design/INTENT.md": {
-      "recorded_sha256": "f16c239c9a72e16f3f6045371ee96223f28f50c7677b486346589c9902a5149a",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "5bdcd2a46d316e58e41ab284747d070983b105717f85dd6429dc1672884db346",
+      "snapshot": "state/objects/5bdcd2a46d316e58e41ab284747d070983b105717f85dd6429dc1672884db346",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/skills/design/TEMPLATE.md": {
       "recorded_sha256": "618ed8d068008c7c6ee13b7c09ad961eebe668c7657fc2509cb5783c4851ffb3",
@@ -588,44 +598,52 @@
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "references/launch/01-launch.md": {
-      "recorded_sha256": "6b99b01ff0dd8ab86a29eb8ec2658ff7a261d1a627fb1aaa597354b555312f52",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "ecc194107a55564474dadbdfd75ef14ba3d9f3d61770b6969c604277431f3a6a",
+      "snapshot": "state/objects/ecc194107a55564474dadbdfd75ef14ba3d9f3d61770b6969c604277431f3a6a",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/launch/01a-launch-plan.md": {
-      "recorded_sha256": "8feb672456f79eb1431c22dc760494297a0e17ee8ad4e27606a04e65e0f453bc",
-      "snapshot": "bundle:bef7be46-d4b4-43bb-a6db-c6056ab9b3c0"
+      "recorded_sha256": "1d9d1119bed3ef2cced77b273a0bf87f3d71ea6fdda062541a13f1fc3e3d6407",
+      "snapshot": "state/objects/1d9d1119bed3ef2cced77b273a0bf87f3d71ea6fdda062541a13f1fc3e3d6407",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/launch/01b-launch-install.md": {
-      "recorded_sha256": "01892a62b0799a6172ebfb0fdecbd0f6d2486eb3ddbcee497611cbb435ee56ec",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "5230dc5ccf93aeb1002c90ece3632a1d9bb9ba445519e1f8290c8f6e9e6e3f98",
+      "snapshot": "state/objects/5230dc5ccf93aeb1002c90ece3632a1d9bb9ba445519e1f8290c8f6e9e6e3f98",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/launch/01c-launch-docs.md": {
       "recorded_sha256": "628cfe0729c26fe4067a7492b34db8e2f563be2d33b6fc6d74aab9252ba715c3",
       "snapshot": "bundle:b102a291-6ae6-4a49-9e75-1f280fa3c613"
     },
     "references/launch/02-launch-questions.md": {
-      "recorded_sha256": "fb96842bbc286b5b37e6de9774fc53884825520d258570047d57e52a580578d5",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "9ef1cef34f52df0321575185d518dc8fa0544c47f7eae67a382055d15a84b179",
+      "snapshot": "state/objects/9ef1cef34f52df0321575185d518dc8fa0544c47f7eae67a382055d15a84b179",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/launch/08-provider-launch.md": {
-      "recorded_sha256": "5423af7fac64ae0a97686087d1f0f416e7884b0620ca0f164365ff8ca05aa9c8",
-      "snapshot": "bundle:5f3c3011-6ff1-4596-a95e-71020ea0287a"
+      "recorded_sha256": "04d873544c0d0fb49264d0b9f9b89834c62b31d21155a4b95797dd48e0364bbf",
+      "snapshot": "state/objects/04d873544c0d0fb49264d0b9f9b89834c62b31d21155a4b95797dd48e0364bbf",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/patch/03-patch.md": {
       "recorded_sha256": "b34228a8d96dc81ee07f2881a919f6f61f63e0459afe2ef823ee71730bcd38ab",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "references/patch/04-patch-harvest.md": {
-      "recorded_sha256": "9916f8457e8931298acf650d9f728ea1edc82786af402bcd84facc61abf33374",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "d2c42af385a1e5fe05f62e93ff41f54d5314a2ac06d148a65938a223227033e3",
+      "snapshot": "state/objects/d2c42af385a1e5fe05f62e93ff41f54d5314a2ac06d148a65938a223227033e3",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/patch/05-patch-apply.md": {
-      "recorded_sha256": "0d0f681fe6ac0642a11891cd1b3889aa49ad2c2872d58ee2b01ade4178192671",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "4454f961fdce0f56db2282ac853a87ee02e12c5c955175cdc1138e7be799fc65",
+      "snapshot": "state/objects/4454f961fdce0f56db2282ac853a87ee02e12c5c955175cdc1138e7be799fc65",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/patch/06-patch-state.md": {
-      "recorded_sha256": "9e53c236da6e2605a2327fe33ee3731a432c19cbee65e3eb9c3c542a92090c18",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "ed3ead7dbe4a6254f75085dcafe4bd71dfb9a7ee59cbf85cf3c5eee0188cb040",
+      "snapshot": "state/objects/ed3ead7dbe4a6254f75085dcafe4bd71dfb9a7ee59cbf85cf3c5eee0188cb040",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/patch/07-patch-prepare.md": {
       "recorded_sha256": "d8410af0d7eaad7cc1530156932e3c8dcc09ac19c61a6bf41d49b6f70fc02adf",
@@ -700,8 +718,9 @@
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/cli.test.mjs": {
-      "recorded_sha256": "d0eeb77c596731c28a854f02b9952ca6d9780b1bff496be848cf80596f854aae",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
+      "snapshot": "state/objects/48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/docs/.og/constants.mjs": {
       "recorded_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
@@ -726,6 +745,121 @@
     "canonical/docs/.og/utils.mjs": {
       "recorded_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+    },
+    "canonical/adaptors/copilot/browser.md": {
+      "recorded_sha256": "8c64e40642c003123d4ae6fc6c18813d81904fa9992f038caa01cc9d27d82347",
+      "snapshot": "state/objects/8c64e40642c003123d4ae6fc6c18813d81904fa9992f038caa01cc9d27d82347",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "canonical/adaptors/copilot/context.md": {
+      "recorded_sha256": "96e917bea5474dcee469e5d2b32ce8333d7416c0186d59a733b9dd381a4406b8",
+      "snapshot": "state/objects/96e917bea5474dcee469e5d2b32ce8333d7416c0186d59a733b9dd381a4406b8",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "canonical/adaptors/copilot/credentials.md": {
+      "recorded_sha256": "c5eaa8109132c0344d8fc5be11f5773765a3d2453849aa39bd782eb142b9b894",
+      "snapshot": "state/objects/c5eaa8109132c0344d8fc5be11f5773765a3d2453849aa39bd782eb142b9b894",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "canonical/adaptors/copilot/delegation.md": {
+      "recorded_sha256": "42e05bd4674e2facd3c8f4e985278a21b58f24344d3aa9acd005929fe1458df0",
+      "snapshot": "state/objects/42e05bd4674e2facd3c8f4e985278a21b58f24344d3aa9acd005929fe1458df0",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "canonical/adaptors/copilot/interaction.md": {
+      "recorded_sha256": "7dfdbb52c1d84f62c1722e7232b4c99427f08b2c3991e8f532b2db87ddf086c7",
+      "snapshot": "state/objects/7dfdbb52c1d84f62c1722e7232b4c99427f08b2c3991e8f532b2db87ddf086c7",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "canonical/adaptors/copilot/planning.md": {
+      "recorded_sha256": "1e133e5609d2095d822e209489f9b32379448ac98ce6450ca140548fbfbef582",
+      "snapshot": "state/objects/1e133e5609d2095d822e209489f9b32379448ac98ce6450ca140548fbfbef582",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "canonical/adaptors/copilot/review.md": {
+      "recorded_sha256": "8e6821a3f35592f83b27adfde94fe2941d3ece3b390e0439b5aa5f75385bfbde",
+      "snapshot": "state/objects/8e6821a3f35592f83b27adfde94fe2941d3ece3b390e0439b5aa5f75385bfbde",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "canonical/adaptors/copilot/task-tracking.md": {
+      "recorded_sha256": "d92d4e12fe1c5f75c43c6d36932adf8a0a08364d487ea23d53920a5fac068676",
+      "snapshot": "state/objects/d92d4e12fe1c5f75c43c6d36932adf8a0a08364d487ea23d53920a5fac068676",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "patterns/skill-authoring.md": {
+      "recorded_sha256": "d812020b946e6fe0816cc6ca7eb905d99477d85dea7f2b25880fddd5d0f56f28",
+      "snapshot": "state/objects/d812020b946e6fe0816cc6ca7eb905d99477d85dea7f2b25880fddd5d0f56f28",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "references/host-capabilities.md": {
+      "recorded_sha256": "f67276e7db7617ffef4c6cd1ca93261e0b26366107726efbee6c8ba986c6be6b",
+      "snapshot": "state/objects/f67276e7db7617ffef4c6cd1ca93261e0b26366107726efbee6c8ba986c6be6b",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "scripts/lib/agent-format.mjs": {
+      "recorded_sha256": "412ef20ee5e4ed34bd6f018e504d932b578d1282b6fea7089b56efac9895fa01",
+      "snapshot": "state/objects/412ef20ee5e4ed34bd6f018e504d932b578d1282b6fea7089b56efac9895fa01",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "scripts/lib/constants.mjs": {
+      "recorded_sha256": "78b489aa53529c736179dec9e39e3b0d62c3ea17a9972755d39defe03fba5c7e",
+      "snapshot": "state/objects/78b489aa53529c736179dec9e39e3b0d62c3ea17a9972755d39defe03fba5c7e",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "scripts/lib/manifest.mjs": {
+      "recorded_sha256": "cf8901023299c5689731d3428eb67d5e1bf5f86a9ab15bf8d9adb687dce24e00",
+      "snapshot": "state/objects/cf8901023299c5689731d3428eb67d5e1bf5f86a9ab15bf8d9adb687dce24e00",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "scripts/lib/mcp-config.mjs": {
+      "recorded_sha256": "234761a88a00f5e812e12fd386c4b46ac7e0c56c2fede9ff4ce72042e64da504",
+      "snapshot": "state/objects/234761a88a00f5e812e12fd386c4b46ac7e0c56c2fede9ff4ce72042e64da504",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "scripts/materialize-launch.mjs": {
+      "recorded_sha256": "a7c3853f71214d3aea7a617af11fe656b48c1ff4bea23914d2ca7023f312e797",
+      "snapshot": "state/objects/a7c3853f71214d3aea7a617af11fe656b48c1ff4bea23914d2ca7023f312e797",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "scripts/plan-provider-launch.mjs": {
+      "recorded_sha256": "941422ec6dd534442dd2083e6d84c3f94d9bd02a767262e781572cdee5f14bca",
+      "snapshot": "state/objects/941422ec6dd534442dd2083e6d84c3f94d9bd02a767262e781572cdee5f14bca",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+    },
+    "scripts/check-mermaid.mjs": {
+      "recorded_sha256": "da0a70c050e608aeda7931518588aaf027443ca7dcac491bbc0e4d627afccef4",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    "scripts/finalize-launch.mjs": {
+      "recorded_sha256": "4f14b75a9685d03aebfc639562969116bc828271a08b91fb59490b8747016708",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    "scripts/lib/cli.mjs": {
+      "recorded_sha256": "998aabe42f1c046bba0a9c289b0912c5f70dbadda89378a7b6b13d500f0dc124",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    "scripts/lib/fs-safe.mjs": {
+      "recorded_sha256": "8cb2a8e693e2a4bfb77ecbe7e6984cee1942a3764a69bac2e332f02bdbc448b7",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    "scripts/lib/fs-walk.mjs": {
+      "recorded_sha256": "d9608c7681d5683f383c3a8c00d255cb5dc2606cf04e38ed3fb20505f9878b92",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    "scripts/lib/tokens.mjs": {
+      "recorded_sha256": "cb3dbcf405320982a7f6cc1599b38b39306c6625381fdf9b791fb9d756beb0ca",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    "scripts/provider-adapter.mjs": {
+      "recorded_sha256": "6134924a8277ea98726ec930ff21f0144e03fd1fe79f9e29ebf62dd93627ac04",
+      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
+      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
     }
   },
   "mappings": {

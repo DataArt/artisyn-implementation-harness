@@ -1,0 +1,55 @@
+--- a/references/launch/08-provider-launch.md
++++ b/references/launch/08-provider-launch.md
+@@ -7,9 +7,9 @@
+ 
+ Consumer projects obtain the package from the release archive, not by copying
+ `.canonical-implementation-harness/` from the source repository. Extract the archive
+-into the selected host's skill directory (`.agents/skills/` or `.claude/skills/`); the
++into the selected host's skill directory (`.agents/skills/`, `.claude/skills/`, or `.github/skills/`); the
+ archive creates `harness-bootstrap/` there. Record that package path as `package:`;
+-both providers share `package:state/launch/` history. Scripts resolve their own package directory.
++all selected providers share `package:state/launch/` history. Scripts resolve their own package directory.
+ No package path is inferred from the selected provider.
+ 
+ ## Prepare a selection
+@@ -73,14 +73,14 @@
+ does not imply filesystem write access. Prompt restrictions are not native tool allowlists.
+ 
+ Extend the plan with shared documentation and other reserved outputs before freezing it.
+-Shared docs are generated once for both providers. Both root instruction files use the
++Shared docs are generated once for all selected providers. All root instruction files use the
+ same confirmed project facts, with provider paths and invocation syntax adapted.
+ 
+ ## Adapt and verify
+ 
+ Read each canonical INTENT directly from the bootstrap package and apply it to the
+ permanent output, resolving/removing deferred project tokens and conditional sections.
+-Use the same project decisions for both providers. Do not copy INTENT files into the
++Use the same project decisions for all selected providers. Do not copy INTENT files into the
+ consumer project or alter provider mechanics through free-form INTENT reasoning.
+ 
+ Native tasks, native planning, delegation and browser tools are capabilities, not promises
+@@ -218,3 +218,23 @@
+ state/launch history is local installation bookkeeping, not workflow runtime state.
+ Keep or archive it only if later bootstrap/patch operations need its records. Removing
+ the package does not remove installed skills, agents, configuration, or story reports.
++
++## Copilot
++
++Select `copilot` in Q6, alone or alongside Claude and Codex. Install the release ZIP
++under `.github/skills/` and invoke `/harness-bootstrap launch`.
++
++| Artifact            | Destination                       |
++| ------------------- | --------------------------------- |
++| Skills              | `.github/skills/<name>/SKILL.md`  |
++| Agents              | `.github/agents/<name>.agent.md`  |
++| Instructions        | `.github/copilot-instructions.md` |
++| Repository settings | `.github/copilot/settings.json`   |
++| MCP                 | `.mcp.json` (`mcpServers`)        |
++
++No interface selection is required. Preserve existing configuration and environment
++references. Configuration outputs sharing a path are planned once: identical
++renderings are written automatically; differing renderings or local edits require
++reconciliation. Record every provider that uses the shared output. Execute bootstrap
++using the current host's runtime procedures, independent of Q6; install the Copilot
++procedures into Copilot outputs. Verify the capabilities actually available in the session.

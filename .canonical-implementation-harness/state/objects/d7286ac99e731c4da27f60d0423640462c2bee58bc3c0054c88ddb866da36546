@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "canonical": {
+    "skills": "skills",
+    "agents": "agents",
+    "docs": "docs",
+    "settings": "settings.json",
+    "mcp": "mcp.json"
+  },
+  "providers": {
+    "claude": {
+      "skills": ".claude/skills",
+      "agents": ".claude/agents",
+      "instructions": "CLAUDE.md",
+      "settings": ".claude/settings.json",
+      "mcp": ".mcp.json",
+      "invocationPrefix": "/",
+      "agentFormat": "markdown",
+      "agentRuntime": ".claude/harness-runtime",
+      "runtimeSource": "adaptors/claude"
+    },
+    "codex": {
+      "skills": ".agents/skills",
+      "agents": ".codex/agents",
+      "instructions": "AGENTS.md",
+      "settings": ".codex/config.toml",
+      "mcp": ".codex/config.toml",
+      "invocationPrefix": "$",
+      "agentFormat": "toml",
+      "agentRuntime": ".codex/harness-runtime",
+      "runtimeSource": "adaptors/codex"
+    },
+    "copilot": {
+      "skills": ".github/skills",
+      "agents": ".github/agents",
+      "instructions": ".github/copilot-instructions.md",
+      "settings": ".github/copilot/settings.json",
+      "mcp": ".mcp.json",
+      "invocationPrefix": "/",
+      "agentFormat": "markdown",
+      "agentExtension": "agent.md",
+      "agentRuntime": ".github/harness-runtime",
+      "runtimeSource": "adaptors/copilot"
+    }
+  },
+  "runtimeFiles": [
+    "planning.md",
+    "task-tracking.md",
+    "delegation.md",
+    "interaction.md",
+    "context.md",
+    "browser.md",
+    "credentials.md",
+    "review.md"
+  ],
+  "skillEntrypoint": {
+    "source": "TEMPLATE.md",
+    "target": "SKILL.md"
+  },
+  "intentFilename": "INTENT.md"
+}

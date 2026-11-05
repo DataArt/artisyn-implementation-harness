@@ -1,0 +1,19 @@
+--- a/canonical/agents/docs-writer/INTENT.md
++++ b/canonical/agents/docs-writer/INTENT.md
+@@ -13,11 +13,11 @@
+ 
+ ## Substitutions
+ 
+-| Placeholder                  | Source                          | Notes                                                        |
+-| ---------------------------- | ------------------------------- | ------------------------------------------------------------ |
+-| `{{DOC_PRINCIPLES_ARTICLE}}` | Q — Doc Principles article path | e.g. `docs/Engineering Guide/Documentation/01 Principles.md` |
+-| `{{DOC_STRUCTURE_ARTICLE}}`  | Q — Doc Structure article path  | e.g. `docs/Engineering Guide/Documentation/02 Structure.md`  |
+-| `{{TERMINOLOGY_REGISTRY}}`   | Q — Terminology registry path    | e.g. `docs/Engineering Guide/Documentation/07 Terminology.md` |
++| Placeholder                  | Source                          | Notes                                                         |
++| ---------------------------- | ------------------------------- | ------------------------------------------------------------- |
++| `{{DOC_PRINCIPLES_ARTICLE}}` | Q — Doc Principles article path | e.g. `docs/Engineering Guide/Documentation/01 Principles.md`  |
++| `{{DOC_STRUCTURE_ARTICLE}}`  | Q — Doc Structure article path  | e.g. `docs/Engineering Guide/Documentation/02 Structure.md`   |
++| `{{TERMINOLOGY_REGISTRY}}`   | Q — Terminology registry path   | e.g. `docs/Engineering Guide/Documentation/07 Terminology.md` |
+ 
+ ## Conditionals
+ 

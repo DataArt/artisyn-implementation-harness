@@ -1,0 +1,110 @@
+--- a/canonical/docs/Engineering Guide/05 MCP Setup.md
++++ b/canonical/docs/Engineering Guide/05 MCP Setup.md
+@@ -8,9 +8,9 @@
+ doc.**
+ 
+ Server declarations are shared and tracked; credential **values** are always local
+-to your machine. Nothing in this guide is ever committed, pasted into a chat, or
+-copied into launch answers, reports or manifests. Where a step differs per AI
+-coding tool, both variants are given — follow the one for the tool you actually
++to your machine. Never commit credential values, paste them into a chat, or
++copy them into launch answers, reports or manifests. Where a step differs per AI
++coding tool, the selected providers' routes are given — follow the one for the tool you actually
+ run, and see `04 AI Coding Tool Compatibility.md` for the full file mapping.
+ 
+ ## Atlassian (Jira / Confluence)
+@@ -19,7 +19,7 @@
+ install [uv](https://docs.astral.sh/uv/getting-started/installation/) first:
+ 
+ ```bash
+-curl -LsSf https://astral.sh/uv/install.sh | sh
++pipx install uv
+ ```
+ 
+ Generate a PAT for each service (bearer token auth, no expiry recommended for
+@@ -46,8 +46,8 @@
+ `${JIRA_PERSONAL_TOKEN}` / `${CONFLUENCE_PERSONAL_TOKEN}` references from it — no
+ separate `.env` file or shell `source` step is needed.
+ 
+-**Codex** — export the same values in your shell profile instead (see "Codex
+-credentials" below):
++**Codex / Copilot** — export the same values into the environment used to launch
++the assistant (see the provider credential sections below):
+ 
+ ```bash
+ export JIRA_PERSONAL_TOKEN="<your-jira-pat>"
+@@ -61,7 +61,9 @@
+ install [uv](https://docs.astral.sh/uv/getting-started/installation/) first (see
+ command above if not already installed). The bootstrap configures the server in the
+ selected provider's native MCP file; the server launches with
+-`uvx mcp-proxy-for-aws-cli@latest https://aws-mcp.us-east-1.api.aws/mcp --metadata AWS_REGION=us-east-1`.
++`uvx mcp-proxy-for-aws-cli@latest https://aws-mcp.${AWS_REGION}.api.aws/mcp --metadata AWS_REGION=${AWS_REGION}`,
++where `${AWS_REGION}` is the project's confirmed AWS region — deployment
++configuration, resolved per project, never hardcoded here.
+ 
+ No token is stored in the project config. The proxy uses the local AWS credential
+ chain (for example, an AWS CLI profile, SSO session, environment credentials, or an
+@@ -73,9 +75,10 @@
+ export AWS_PROFILE="<your-aws-profile>"
+ ```
+ 
+-The MCP declaration's `--metadata AWS_REGION=us-east-1` sets the default region for
+-AWS operations. Change it to the project's confirmed region when needed. Never put
+-credential values in MCP config, source control, launch answers, or reports.
++The MCP declaration's `--metadata AWS_REGION=${AWS_REGION}` sets the default region
++for AWS operations, resolved to the project's confirmed region at launch. Never put
++credential values — or a literal region — in MCP config, source control, launch
++answers, or reports.
+ 
+ ## GitHub (`@modelcontextprotocol/server-github`)
+ 
+@@ -96,7 +99,7 @@
+ }
+ ```
+ 
+-**Codex** — export the same value in your shell profile instead:
++**Codex / Copilot** — export the same value into the assistant's process environment:
+ 
+ ```bash
+ export GITHUB_PERSONAL_ACCESS_TOKEN="<your-github-pat>"
+@@ -111,6 +114,23 @@
+ shown per service above. Do not copy a Claude `settings.local.json` into Codex —
+ the two tools read credentials differently, and the file has no meaning there.
+ 
++## Copilot credentials
++
++MCP servers are declared in the shared `.mcp.json` under `mcpServers`. A stdio
++server's `env` uses references such as `"TOKEN": "${TOKEN}"`; an HTTP server's
++`headers` can use `"Authorization": "Bearer ${TOKEN}"`. Supply values through the
++process environment used to start Copilot. If starting from an editor, ensure that
++editor inherits the variables too; exporting them in an unrelated terminal is insufficient.
++Do not put tokens in `.github/copilot/settings.json` or assume Claude's local `env`
++settings provide credentials to Copilot.
++
++Claude and Copilot may read the same `.mcp.json`. Preserve existing servers and
++verify both installed consumers when changing it. Keep existing editor MCP
++configuration unless its migration is explicitly requested. Copilot includes a
++GitHub integration: verify whether it meets the need before adding a duplicate server.
++Personal overrides in `.github/copilot/settings.local.json` must be gitignored;
++that file is not a credential store.
++
+ ## Provide only what's selected
+ 
+ Include only the services this project actually selected. Bootstrap writes
+@@ -124,11 +144,15 @@
+ it. The tool prompts you to approve each server on first use; installing
+ configuration does not grant that approval on your behalf.
+ 
+-Verify the server is connected using your tool's own MCP listing — for Claude Code:
++Inspect configured servers with the host's MCP listing — for Claude Code:
+ 
+ ```bash
+ claude mcp list
+ ```
+ 
++For Copilot, use the host's MCP view or `copilot mcp list` in a terminal. A listed
++configuration does not prove a connection: verify the required server tools in the
++active session. Missing capabilities remain unverified.
++
+ If a server does not appear, check that the variables are set in the environment
+ the tool actually starts from, then restart the session.
