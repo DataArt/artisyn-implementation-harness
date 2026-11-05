@@ -46,7 +46,7 @@ location are independent. Never infer Q6 from the host or discovery directory.
 Read [Host capabilities](references/host-capabilities.md) before executing an operation.
 Use the current host's procedures for execution; the target provider's procedures
 are copied into installed artifacts by the manifest. Invoke this skill using the
-host's native syntax (`/harness-bootstrap` in Claude, `$harness-bootstrap` in Codex).
+host's native syntax (`/harness-bootstrap` in Claude or Copilot, `$harness-bootstrap` in Codex).
 
 ## Route
 
@@ -101,9 +101,10 @@ synchronously before moving on, never as a fire-and-forget handoff of the whole 
 **Initialize task tracking before context inspection or Q&A**, immediately after
 provider selection and storage setup and report initialization. Create/resume one task per row of the
 [Launch task table](references/launch/01-launch.md#launch-task-table); the table owns stage
-names, dependencies, and completion evidence. Load the selected provider's
-`canonical/adaptors/<provider>/task-tracking.md`: Claude uses its Task tools when
-exposed; Codex uses `update_plan` when exposed. Otherwise track in the report. Enforce
+names, dependencies, and completion evidence. Load the execution host's
+`canonical/adaptors/<host>/task-tracking.md`: Claude uses its Task tools when
+exposed; Codex uses `update_plan` when exposed; Copilot uses the durable report and
+mirrors an exposed native TODO tracker when available. Otherwise track in the report. Enforce
 ordering explicitly when the native tracker has no dependency support. Record the
 selected mechanism once. Updating progress does not enter Plan mode.
 Reports persist progress across sessions and accompany available native tracking.

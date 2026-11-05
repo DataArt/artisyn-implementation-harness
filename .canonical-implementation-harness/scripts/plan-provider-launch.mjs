@@ -16,6 +16,7 @@ import { SAFE_NAME_RE } from './lib/constants.mjs';
 const ADAPTER_SOURCES = [
   'scripts/provider-adapter.mjs',
   'scripts/lib/manifest.mjs',
+  'scripts/lib/constants.mjs',
   'scripts/lib/agent-format.mjs',
   'scripts/lib/mcp-config.mjs',
 ];
@@ -28,7 +29,7 @@ function assertSelectionShape(manifest, selection) {
     new Set(providers).size !== providers.length ||
     providers.some((p) => !Object.hasOwn(manifest.providers, p))
   )
-    throw new Error('Select claude, codex, or both (unique provider list)');
+    throw new Error('Select a unique, nonempty list of manifest providers');
   if (!/^[a-zA-Z0-9_-]+$/.test(selection.run_id ?? ''))
     throw new Error('A simple run_id is required');
   const skills = selection.skills ?? [];
@@ -120,7 +121,8 @@ function planSkillFiles(provider, providerConfig, skill, manifest, packageRoot, 
 
 function planAgentFiles(provider, providerConfig, agent, manifest, add) {
   const base = `canonical/${manifest.canonical.agents}/${agent.template}`;
-  const extension = providerConfig.agentFormat === 'toml' ? 'toml' : 'md';
+  const extension =
+    providerConfig.agentExtension ?? (providerConfig.agentFormat === 'toml' ? 'toml' : 'md');
   add(`${base}/TEMPLATE.md`, `${providerConfig.agents}/${agent.name}.${extension}`, provider, {
     render: 'agent',
     agent_name: agent.name,
@@ -135,25 +137,51 @@ function planAgentFiles(provider, providerConfig, agent, manifest, add) {
   });
 }
 
-/** Settings/MCP config: added as a plain plan file when the target doesn't
- * already differ from the canonical rendering, otherwise reserved as a derived
- * output the orchestrator must reconcile with the existing local file by hand.
+/** Collect native config renderings by physical destination. Configuration paths
+ * can be shared by any selected providers; no provider pair owns this decision.
  */
-function planProviderConfig(provider, providerConfig, manifest, root, packageRoot, plan, add) {
+function planProviderConfig(provider, providerConfig, manifest, packageRoot, configs) {
   const kinds = provider === 'codex' ? ['settings'] : ['settings', 'mcp'];
-  for (const kind of kinds) {
-    const target = providerConfig[kind];
-    const source = `canonical/${manifest.canonical[kind]}`;
-    const desired = renderItem('', { provider, render: kind }, packageRoot, manifest);
+  for (const render of kinds) {
+    const target = providerConfig[render];
+    const source = `canonical/${manifest.canonical[render]}`;
+    const desired = renderItem('', { provider, render }, packageRoot, manifest);
+    if (!configs.has(target)) configs.set(target, []);
+    configs.get(target).push({ source, provider, render, desired });
+  }
+}
+
+/** Equal bytes need one automatic write. Conflicting renderings or local edits
+ * need one reviewed derivation. Freeze adapter inputs for every comparison below.
+ */
+function planConfigOutputs(configs, root, packageRoot, plan) {
+  const add = createFileAdder(root, packageRoot, plan);
+  for (const [target, candidates] of configs) {
+    const first = candidates[0];
+    const providers = [...new Set(candidates.map((item) => item.provider))].sort();
+    const ownership = candidates.length > 1 ? { providers } : {};
     const existing = path.join(root, target);
-    if (fs.existsSync(existing) && fs.readFileSync(existing, 'utf8') !== desired) {
+    const current = fs.existsSync(existing) ? fs.readFileSync(existing) : null;
+    const conflicting = candidates.some((item) => item.desired !== first.desired);
+    if (conflicting || (current !== null && !current.equals(Buffer.from(first.desired)))) {
       plan.derived_outputs.push({
         target,
-        expected_target_sha256: sha256(fs.readFileSync(existing)),
-        rule: 'Reconcile canonical settings and MCP declarations with existing config. Preserve unrelated settings, hooks, servers and local policy; validate provider syntax.',
+        ...ownership,
+        expected_target_sha256: current === null ? null : sha256(current),
+        rule: conflicting
+          ? 'Reconcile differing native configuration renderings for this shared output once. Preserve unrelated settings, hooks, servers and local policy; verify compatibility with every listed provider.'
+          : 'Reconcile canonical settings and MCP declarations with existing config. Preserve unrelated settings, hooks, servers and local policy; validate provider syntax.',
+        renderings: candidates.map(({ source, provider, render }) => ({
+          source,
+          provider,
+          render,
+        })),
         inputs: [],
       });
-    } else add(source, target, provider, { render: kind });
+    } else {
+      // All candidates render the same frozen bytes; one renderer writes them.
+      add(first.source, target, first.provider, { render: first.render, ...ownership });
+    }
   }
 }
 
@@ -168,7 +196,7 @@ function planInstructions(provider, providerConfig, root, plan) {
   });
 }
 
-function planProvider(provider, { skills, agents }, manifest, root, packageRoot, plan) {
+function planProvider(provider, { skills, agents }, manifest, root, packageRoot, plan, configs) {
   const providerConfig = manifest.providers[provider];
   const add = createFileAdder(root, packageRoot, plan);
   for (const skill of skills)
@@ -181,7 +209,7 @@ function planProvider(provider, { skills, agents }, manifest, root, packageRoot,
         `${providerConfig.agentRuntime}/${file}`,
         provider
       );
-  planProviderConfig(provider, providerConfig, manifest, root, packageRoot, plan, add);
+  planProviderConfig(provider, providerConfig, manifest, packageRoot, configs);
   planInstructions(provider, providerConfig, root, plan);
 }
 
@@ -215,8 +243,10 @@ export function buildPlan(root, packageRoot, selection) {
     files: [],
     derived_outputs: [],
   };
+  const configs = new Map();
   for (const provider of providers)
-    planProvider(provider, { skills, agents }, manifest, root, packageRoot, plan);
+    planProvider(provider, { skills, agents }, manifest, root, packageRoot, plan, configs);
+  planConfigOutputs(configs, root, packageRoot, plan);
   freezeAdapterSources(manifest, packageRoot, plan);
   assertNoDuplicateTargets(plan);
   return plan;

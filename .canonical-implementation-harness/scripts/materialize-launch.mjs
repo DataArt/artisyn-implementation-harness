@@ -32,6 +32,7 @@ const requiredAdapterSources = (manifest) => [
   `canonical/${manifest.canonical.mcp}`,
   'scripts/provider-adapter.mjs',
   'scripts/lib/manifest.mjs',
+  'scripts/lib/constants.mjs',
   'scripts/lib/agent-format.mjs',
   'scripts/lib/mcp-config.mjs',
 ];
@@ -215,6 +216,15 @@ function prepare(plan, root, canonical) {
   const prepared = plan.files.map((item) => {
     if (item.provider && !plan.providers?.includes(item.provider))
       throw new Error('File provider is not selected');
+    if (
+      item.providers != null &&
+      (!Array.isArray(item.providers) ||
+        !item.providers.length ||
+        new Set(item.providers).size !== item.providers.length ||
+        !item.providers.includes(item.provider) ||
+        item.providers.some((provider) => !plan.providers?.includes(provider)))
+    )
+      throw new Error('Invalid file provider ownership');
     return prepareFileEntry(item, { root, canonical, knowns, manifest, targets });
   });
   for (const item of plan.derived_outputs ?? [])
@@ -292,7 +302,8 @@ function materializeFiles(prepared, root, receipt, save) {
         target: item.target,
         temporary_intent: item.temporary_intent === true,
         intent: item.intent ?? null,
-        provider: item.provider ?? null,
+        provider: item.providers?.length > 1 ? 'shared' : (item.provider ?? null),
+        ...(item.providers ? { providers: item.providers } : {}),
         before_sha256: observed,
         materialized_sha256: sha256(output),
         status: 'materialized',

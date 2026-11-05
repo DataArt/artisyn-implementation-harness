@@ -27,7 +27,7 @@ root docs/entrypoints — is the bootstrap's own scaffolding, not deployable pay
 
 ## Local toolkit and durable project state
 
-Launch first selects Claude, Codex, or both. The canonical manifest maps sources
+Launch first selects one or more of Claude, Codex, and Copilot. The canonical manifest maps sources
 to provider destinations; native settings and MCP declarations live beside it.
 See [Provider launch](references/launch/08-provider-launch.md) for executable plan generation,
 adaptation and verification. Permanent provider files remain editable project artifacts.
@@ -237,12 +237,19 @@ removed after verified launch without affecting skill/agent execution.
 ## Shared package discovery
 
 This repository keeps the authoring source in `.canonical-implementation-harness/`.
-The `.claude/skills/harness-bootstrap` and `.agents/skills/harness-bootstrap`
+The `.claude/skills/harness-bootstrap`, `.agents/skills/harness-bootstrap`, and
+`.github/skills/harness-bootstrap`
 symlinks are local discovery links for working on this source repository.
 
 Consumer projects receive the released ZIP (`releases/harness-bootstrap/`), not a
 copy of this authoring directory. Extract the ZIP into the consumer project's selected host skill directory, such as
-`.agents/skills/` for Codex or `.claude/skills/` for Claude. The archive creates the
+`.agents/skills/` for Codex, `.claude/skills/` for Claude, or `.github/skills/` for Copilot. The archive creates the
 `harness-bootstrap/` skill folder there. Record its
-physical location as `package:`; both hosts can then share its state. See
+physical location as `package:`; all selected hosts can then share its state. See
 [host capabilities](references/host-capabilities.md) for execution procedures.
+
+## Copilot
+
+Install the release ZIP under `.github/skills/`, invoke `/harness-bootstrap launch`
+and select `copilot` in Q6. Claude and Codex may remain selected alongside it.
+See [provider destinations](references/launch/08-provider-launch.md#copilot).

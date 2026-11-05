@@ -30,6 +30,7 @@ review customized legacy commands before removal. Keep the legacy configuration 
 Read destinations and runtime procedures from `canonical/manifest.json`.
 Claude installs `.claude/skills/<name>/SKILL.md` and `.claude/agents/<name>.md`;
 Codex installs `.agents/skills/<name>/SKILL.md` and `.codex/agents/<name>.toml`.
+Copilot installs `.github/skills/<name>/SKILL.md` and `.github/agents/<name>.agent.md`.
 Read each canonical INTENT.md directly from the bootstrap package while deriving its
 permanent output. Rename skill TEMPLATE.md, preserve companion names, install the
 selected provider's runtime procedures, and verify the derived content. Never copy an
@@ -101,7 +102,7 @@ format. A copied agent template is not an adapted agent.
 ## Block C — Provider instruction file and MCP
 
 Generate one root instruction file for each selected provider: CLAUDE.md for Claude,
-AGENTS.md for Codex, both for both. Derive shared project facts once and render
+AGENTS.md for Codex, and `.github/copilot-instructions.md` for Copilot. Derive shared project facts once and render
 provider paths/invocations consistently. Reconcile existing guidance; preserve
 unselected provider files and unrelated local configuration.
 
@@ -109,7 +110,7 @@ Structure root instructions as Why / What / How within the installed Documentati
 Principles budget: purpose, conventions, guarded commands, stack, HLD/NFR pointers,
 selected lifecycle scope, installed skills/roles, tracker and integration setup.
 
-`canonical/settings.json` is the native settings source for Claude and Codex.
+`canonical/settings.json` is the native settings source for Claude, Codex, and Copilot.
 `canonical/mcp.json` holds the selected shared server declarations (empty by default).
 The adapter renders Claude settings and MCP separately and assembles both into
 Codex config.toml. Existing non-identical configuration is a reserved derivation: the
@@ -199,16 +200,16 @@ preserving these relative paths and recording each installed doc in the registry
 Shared docs are generated once for all selected providers, so they carry no literal
 provider paths. Resolve these placeholders during D.1 and verify none survive:
 
-| Placeholder             | Resolve to                                                                                           |
-| ----------------------- | ---------------------------------------------------------------------------------------------------- |
-| `{{SKILL_PREFIX}}`      | The invocation prefix from the manifest (`/` Claude, `$` Codex). For a both-provider install use the |
-|                         | primary provider's prefix and keep the notation note that explains the other.                        |
-| `{{ROOT_INSTRUCTIONS}}` | The generated root instruction filename(s) — `CLAUDE.md`, `AGENTS.md`, or both.                      |
+| Placeholder             | Resolve to                                                                                                       |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `{{SKILL_PREFIX}}`      | The invocation prefix from the manifest (`/` Claude/Copilot, `$` Codex). For a multi-provider install use the    |
+|                         | primary provider's prefix and keep the notation note that explains the other.                                    |
+| `{{ROOT_INSTRUCTIONS}}` | The generated root instruction filename(s) — `CLAUDE.md`, `AGENTS.md`, and/or `.github/copilot-instructions.md`. |
 
 Do not reintroduce a provider skill/agent root into a shared doc. Reference skill
 companions by their path inside the installed bundle (`patterns/…`, `runtime/…`), and
 leave the provider→path mapping to `04 AI Coding Tool Compatibility.md`, which is the
-one doc that legitimately names both providers' paths. `05 MCP Setup.md` documents
+one doc that legitimately names the selected providers' paths. `05 MCP Setup.md` documents
 each selected provider's credential route; remove the sections for providers that were
 not selected.
 

@@ -3,11 +3,11 @@
  */
 
 // Provider names this adapter's rendering code has a branch for (agent-format.mjs's
-// Claude/Codex split, mcp-config.mjs's Codex-combines-settings-and-mcp behavior, the
+// explicit provider dispatch, mcp-config.mjs's Codex-combines-settings-and-mcp behavior, the
 // `{{provider:input}}` token). `canonical/manifest.json` is the source of truth for
 // everything else about a provider — its paths, `agentFormat`, `invocationPrefix` —
 // this only bounds which manifest provider entries this version can actually render.
-export const PROVIDER_NAMES = ['claude', 'codex'];
+export const PROVIDER_NAMES = ['claude', 'codex', 'copilot'];
 // Agent output shapes the renderer implements (agent-format.mjs). The manifest
 // declares which one each provider uses; this only rejects one the renderer doesn't.
 export const SUPPORTED_AGENT_FORMATS = ['markdown', 'toml'];
