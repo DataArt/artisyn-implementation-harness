@@ -40,8 +40,16 @@
     },
     {
       "id": "plan",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "504c7f39-53cf-4a45-9f94-1c0ca3a5d3ba",
+          "started_at": "2026-11-08T23:38:36.522Z",
+          "ended_at": "2026-11-08T23:54:04.889Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     },
     {
@@ -92,6 +100,17 @@
       "started_at": "2026-11-08T23:36:56.016Z",
       "ended_at": "2026-11-08T23:37:53.054Z",
       "last_observed_at": "2026-11-08T23:37:53.054Z"
+    },
+    {
+      "id": "67f418c3-8475-45b9-aece-c3601ace7358",
+      "stage_id": "plan",
+      "stage_attempt_id": "504c7f39-53cf-4a45-9f94-1c0ca3a5d3ba",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-08T23:38:36.522Z",
+      "ended_at": "2026-11-08T23:54:04.889Z",
+      "last_observed_at": "2026-11-08T23:54:04.889Z"
     }
   ],
   "checks": [
@@ -124,18 +143,33 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "35bd091d-2901-47bf-ac83-e280f5dc58cb",
+      "stage_id": "plan",
+      "stage_attempt_id": "504c7f39-53cf-4a45-9f94-1c0ca3a5d3ba",
+      "step": null,
+      "name": "Plan sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T23:53:39.895Z",
+      "ended_at": "2026-11-08T23:53:39.895Z",
+      "result": "passed",
+      "evidence_ref": "confirmed 7-step plan with 3-round audit and RF-001..004 resolutions via AskUserQuestion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T23:37:53.065Z",
+    "as_of": "2026-11-08T23:54:04.900Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 229.663,
+    "observed_work_seconds": 1158.03,
     "observed_wait_seconds": 0,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 0.09899999999998954,
+    "unclassified_seconds": 43.56700000000001,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 0,
@@ -147,38 +181,38 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-08T23:37:53.011Z",
+    "as_of": "2026-11-08T23:54:04.841Z",
     "source": "2-report.md",
-    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "source_sha256": "320fc80268c2c656e6920c107849dce11cf6a9ba1dabd59d1880bd297fd7472f",
     "findings": {
-      "total": 0,
+      "total": 4,
       "by_kind": {
         "deviation": 0,
-        "bug": 0,
+        "bug": 2,
         "design": 0,
         "improve": 0,
         "security": 0,
         "performance": 0,
-        "docs": 0
+        "docs": 2
       },
       "by_severity": {
         "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 0,
+        "high": 2,
+        "medium": 1,
+        "low": 1,
         "info": 0
       },
       "by_classification": {
-        "introduced": 0,
-        "pre-existing": 0,
+        "introduced": 3,
+        "pre-existing": 1,
         "ruled-out": 0,
         "advisory": 0
       },
       "by_resolution": {
         "open": 0,
-        "fixed": 0,
+        "fixed": 3,
         "accepted": 0,
-        "tech-debt": 0,
+        "tech-debt": 1,
         "doc-updated": 0
       },
       "deviations_by_type": {
@@ -224,6 +258,6 @@
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": []
+    "closure_issues": ["RF-003: debt needs linked TD row, owner and next action"]
   }
 }
