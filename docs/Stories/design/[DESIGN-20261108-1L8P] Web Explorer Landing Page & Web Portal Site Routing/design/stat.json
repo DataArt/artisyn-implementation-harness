@@ -38,8 +38,16 @@
     },
     {
       "id": "frame",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "11b5986e-f223-40cb-860e-eb37e7de6345",
+          "started_at": "2026-11-08T22:36:56.002Z",
+          "ended_at": "2026-11-08T22:39:45.991Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "research",
@@ -112,6 +120,17 @@
       "started_at": "2026-11-08T22:34:02.044Z",
       "ended_at": "2026-11-08T22:34:46.407Z",
       "last_observed_at": "2026-11-08T22:34:46.407Z"
+    },
+    {
+      "id": "3d9d82a7-840a-40f5-8bcb-621563bb99af",
+      "stage_id": "frame",
+      "stage_attempt_id": "11b5986e-f223-40cb-860e-eb37e7de6345",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-08T22:36:56.002Z",
+      "ended_at": "2026-11-08T22:39:45.991Z",
+      "last_observed_at": "2026-11-08T22:39:45.991Z"
     }
   ],
   "checks": [
@@ -146,19 +165,51 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "5cffdb47-5a95-4d6e-855c-c213aa6835cf",
+      "stage_id": "frame",
+      "stage_attempt_id": "11b5986e-f223-40cb-860e-eb37e7de6345",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame decisions sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T22:39:29.191Z",
+      "ended_at": "2026-11-08T22:39:29.191Z",
+      "result": "passed",
+      "evidence_ref": "confirmed 2-decision split via AskUserQuestion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "10c6af49-870d-4d0f-bb41-6dec16923257",
+      "stage_id": "frame",
+      "stage_attempt_id": "11b5986e-f223-40cb-860e-eb37e7de6345",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T22:39:29.248Z",
+      "ended_at": "2026-11-08T22:39:29.248Z",
+      "result": "passed",
+      "evidence_ref": "confirmed proposed ECs as written via AskUserQuestion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T22:34:53.806Z",
+    "as_of": "2026-11-08T22:39:46.001Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 49.373,
+    "observed_work_seconds": 219.362,
     "observed_wait_seconds": 97.336,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 97.336,
-    "unclassified_seconds": 198.495,
+    "unclassified_seconds": 320.701,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 97.336,
