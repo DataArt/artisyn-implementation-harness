@@ -12,22 +12,30 @@
   "stages": [
     {
       "id": "context",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "bbeb5007-c157-4300-9680-6f7d5f20928f",
           "started_at": "2026-11-08T23:34:03.342Z",
-          "ended_at": null,
+          "ended_at": "2026-11-08T23:36:55.967Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "ceremony",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "dc6a30d5-0bb0-43f9-8166-bf1563edd03a",
+          "started_at": "2026-11-08T23:36:56.016Z",
+          "ended_at": "2026-11-08T23:37:53.054Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     },
     {
@@ -71,8 +79,19 @@
       "kind": "work",
       "activity": "investigation",
       "started_at": "2026-11-08T23:34:03.342Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-08T23:34:03.342Z"
+      "ended_at": "2026-11-08T23:36:55.967Z",
+      "last_observed_at": "2026-11-08T23:36:55.967Z"
+    },
+    {
+      "id": "c8fff9c6-7a2a-4f5f-accb-e5ca6b7bdbd3",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "dc6a30d5-0bb0-43f9-8166-bf1563edd03a",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-08T23:36:56.016Z",
+      "ended_at": "2026-11-08T23:37:53.054Z",
+      "last_observed_at": "2026-11-08T23:37:53.054Z"
     }
   ],
   "checks": [
@@ -90,18 +109,33 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "28c7c6e5-f510-41d1-9fb5-8dfd19d903ed",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "dc6a30d5-0bb0-43f9-8166-bf1563edd03a",
+      "step": null,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T23:37:31.618Z",
+      "ended_at": "2026-11-08T23:37:31.618Z",
+      "result": "passed",
+      "evidence_ref": "developer explicitly chose to stay on docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T23:36:11.444Z",
+    "as_of": "2026-11-08T23:37:53.065Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 0,
+    "observed_work_seconds": 229.663,
     "observed_wait_seconds": 0,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 128.141,
+    "unclassified_seconds": 0.09899999999998954,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 0,
@@ -113,7 +147,7 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-08T23:36:11.443Z",
+    "as_of": "2026-11-08T23:37:53.011Z",
     "source": "2-report.md",
     "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
     "findings": {
