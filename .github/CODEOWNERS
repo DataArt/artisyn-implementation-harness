@@ -2,9 +2,8 @@
 # GitHub requests a review from the matching owner(s) on every PR touching these paths.
 # Last match wins, so keep the default at the top and overrides below it.
 
-* @anton.merkulov@dataart.com
+* @antonioMerkulov
 
-apps/docs-web/ @anton.merkulov@dataart.com
-apps/lambda-auth/ @anton.merkulov@dataart.com
-apps/infra/ @anton.merkulov@dataart.com
-docs/Harness/ @anton.merkulov@dataart.com
+apps/docs-web/ @antonioMerkulov
+apps/harness-bootstrap-e2e/ @antonioMerkulov
+docs/ @antonioMerkulov

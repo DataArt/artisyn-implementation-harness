@@ -70,10 +70,3 @@ dependency anywhere in the tree.
   Icon font package with per-asset licensing (fonts vs. code vs. some icon sets
   require attribution) — relevant only if its font assets ship in a published
   artifact; mermaid-cli is a build-time tool, so they don't.
-
-## Not a one-time artifact
-
-Compliance's ask was for a license manifest before approving open-source release, not
-an ongoing gate — this file is that one-time snapshot. If a future review wants this
-enforced automatically (e.g., failing CI on a new copyleft dependency), that would be a
-separate, explicit decision, not something this audit implies.
