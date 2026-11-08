@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-08T22:29:08.649Z",
-  "completed_at": null,
+  "completed_at": "2026-11-08T23:31:26.133Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -124,8 +124,16 @@
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "b62e86a8-d92f-46ea-a128-70bb83491f7d",
+          "started_at": "2026-11-08T23:29:12.473Z",
+          "ended_at": "2026-11-08T23:31:26.068Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     }
   ],
   "steps": [],
@@ -229,6 +237,17 @@
       "started_at": "2026-11-08T23:17:35.079Z",
       "ended_at": "2026-11-08T23:28:01.300Z",
       "last_observed_at": "2026-11-08T23:28:01.300Z"
+    },
+    {
+      "id": "1ec241eb-0878-4b22-a48d-ee3b7fe67241",
+      "stage_id": "completion",
+      "stage_attempt_id": "b62e86a8-d92f-46ea-a128-70bb83491f7d",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-08T23:29:12.473Z",
+      "ended_at": "2026-11-08T23:31:26.068Z",
+      "last_observed_at": "2026-11-08T23:31:26.068Z"
     }
   ],
   "checks": [
@@ -375,19 +394,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "925e1c33-20f5-4e4e-a9b4-84e7b514eb82",
+      "stage_id": "completion",
+      "stage_attempt_id": "b62e86a8-d92f-46ea-a128-70bb83491f7d",
+      "step": null,
+      "design_revision": 0,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T23:31:11.222Z",
+      "ended_at": "2026-11-08T23:31:11.222Z",
+      "result": "passed",
+      "evidence_ref": "confirmed archive, skipped ticket publishing, skipped tracker sync via AskUserQuestion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T23:28:01.312Z",
+    "as_of": "2026-11-08T23:31:26.155Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 2530.9809999999998,
+    "cycle_time_seconds": 3737.484,
+    "observed_work_seconds": 2664.5759999999996,
     "observed_wait_seconds": 97.336,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 97.336,
-    "unclassified_seconds": 904.3930000000003,
+    "unclassified_seconds": 975.6190000000004,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 97.336,

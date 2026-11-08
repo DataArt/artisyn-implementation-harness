@@ -46,8 +46,8 @@ context_fingerprint: ''
 | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ticket | DESIGN-20261108-1L8P                                                                                                                                                                          |
 | Branch | `docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing`                                                                                                                           |
-| Status | 🔄 In Progress                                                                                                                                                                                |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                                                                                                   |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ✅ · 🏁 Completion ✅ |
 
 ---
 
@@ -57,7 +57,7 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 31m 45s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 25m 31s
+Observed work: 42m 11s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 18m 29s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -69,8 +69,8 @@ Observed work: 31m 45s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · U
 | solution (completed)          | 2026-11-08T23:03:39.138Z | 2026-11-08T23:14:07.089Z | 10m 28s     | 10m 28s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (completed)       | 2026-11-08T23:14:51.430Z | 2026-11-08T23:16:18.501Z | 1m 27s      | 1m 27s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (active)              | 2026-11-08T23:17:35.079Z | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (completed)           | 2026-11-08T23:17:35.079Z | 2026-11-08T23:28:01.300Z | 10m 26s     | 10m 26s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (active)           | 2026-11-08T23:29:12.473Z | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -184,6 +184,12 @@ Full elaboration: `design/02 Evaluate.md`
 ## Implementation Tickets
 
 _Filled in during Completion after implementation tickets are created._
+
+Developer decision (2026-11-09): no tracker ticket exists for this free-form design (local ID, Ceremony's tracker transition was skipped at Step 1 for the same reason). Developer chose to skip publishing implementation tickets to Jira — `solution/Efforts.md`'s 5 WBS units (Web Explorer, Web Docs, Web Portal, CI/CD, Documentation) become `/dev`'s implementation plan directly in this repo instead. Tracker sync (Completion Step 4) is likewise skipped — there is no `ND-XX` ticket to log a worklog against or transition; total observed work (42m 11s, per `design/stat.json`) is recorded here instead.
+
+| Ticket | Summary                                                              | Tracker |
+| ------ | -------------------------------------------------------------------- | ------- |
+| —      | Skipped — implemented via `/dev` from `solution/Efforts.md` directly | n/a     |
 
 | Ticket | Summary | Tracker |
 | ------ | ------- | ------- |
