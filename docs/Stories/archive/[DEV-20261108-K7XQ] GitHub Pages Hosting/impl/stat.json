@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-08T19:57:20.224Z",
-  "completed_at": null,
+  "completed_at": "2026-11-08T21:05:55.415Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -82,22 +82,30 @@
     },
     {
       "id": "document",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "3ec8073a-196e-4223-8649-a4ad3ea9ef8d",
           "started_at": "2026-11-08T20:50:15.328Z",
-          "ended_at": null,
+          "ended_at": "2026-11-08T21:04:03.041Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "9745a590-d674-4163-970e-2ae9be60c1a4",
+          "started_at": "2026-11-08T21:04:10.266Z",
+          "ended_at": "2026-11-08T21:05:55.362Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     }
   ],
@@ -785,8 +793,42 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-08T21:03:17.997Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-08T21:03:17.997Z"
+      "ended_at": "2026-11-08T21:04:03.041Z",
+      "last_observed_at": "2026-11-08T21:04:03.041Z"
+    },
+    {
+      "id": "12c5b663-64b1-4a79-92df-ab8d6adbeac0",
+      "stage_id": "completion",
+      "stage_attempt_id": "9745a590-d674-4163-970e-2ae9be60c1a4",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-08T21:04:10.266Z",
+      "ended_at": "2026-11-08T21:05:03.266Z",
+      "last_observed_at": "2026-11-08T21:05:03.266Z"
+    },
+    {
+      "id": "d1df1abc-3863-46b2-bee5-8f9278ec1178",
+      "stage_id": "completion",
+      "stage_attempt_id": "9745a590-d674-4163-970e-2ae9be60c1a4",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting completion sign-off",
+      "started_at": "2026-11-08T21:05:03.266Z",
+      "ended_at": "2026-11-08T21:05:50.765Z",
+      "last_observed_at": "2026-11-08T21:05:50.765Z"
+    },
+    {
+      "id": "f880808d-445b-470c-8062-329187bd08cd",
+      "stage_id": "completion",
+      "stage_attempt_id": "9745a590-d674-4163-970e-2ae9be60c1a4",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-08T21:05:50.765Z",
+      "ended_at": "2026-11-08T21:05:55.362Z",
+      "last_observed_at": "2026-11-08T21:05:55.362Z"
     }
   ],
   "checks": [
@@ -1341,21 +1383,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "completion-signoff-01",
+      "stage_id": "completion",
+      "stage_attempt_id": "9745a590-d674-4163-970e-2ae9be60c1a4",
+      "step": null,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T21:05:50.819Z",
+      "ended_at": "2026-11-08T21:05:50.819Z",
+      "result": "passed",
+      "evidence_ref": "skip",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T21:03:17.998Z",
+    "as_of": "2026-11-08T21:05:55.480Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 1748.6960000000001,
-    "observed_wait_seconds": 2086.464,
+    "cycle_time_seconds": 4115.191,
+    "observed_work_seconds": 1806.2930000000001,
+    "observed_wait_seconds": 2179.0069999999996,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "unclassified_seconds": 122.65799999999965,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 129.93600000000015,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 1357.697,
+    "approval_wait_seconds": 1405.196,
     "failed_checks": 2,
     "first_pass_verification_rate": 0.75,
     "human_reported_seconds": null,
@@ -1364,7 +1421,7 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-08T21:03:12.072Z",
+    "as_of": "2026-11-08T21:05:55.478Z",
     "source": "2-report.md",
     "source_sha256": "96e26c84b66492a0054e956494e26a76586782bb5ef2f662634c47c59de10df6",
     "findings": {

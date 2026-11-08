@@ -13,8 +13,8 @@ type: reference
 | Branch | `feat/dev-20261108-k7xq-github-pages-hosting`                                                                  |
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
-| Status | 🔄 In Progress                                                                                                 |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                    |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅ |
 
 ## Progress
 
@@ -36,17 +36,17 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 29m 9s · Wait: 32m 37s · Unclassified: 2m 3s
+Observed work: 30m 6s · Wait: 36m 19s · Unclassified: 2m 10s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
-| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
-| context    | 2026-11-08T19:57:20.224Z | 2026-11-08T20:07:31.995Z | 10m 12s     | 35s     | 9m 36s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| ceremony   | 2026-11-08T20:07:38.060Z | 2026-11-08T20:09:14.772Z | 1m 37s      | 4s      | 1m 33s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| plan       | 2026-11-08T20:09:20.944Z | 2026-11-08T20:20:10.144Z | 10m 49s     | 5m 37s  | 5m 13s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| implement  | 2026-11-08T20:20:16.346Z | 2026-11-08T20:42:06.951Z | 21m 51s     | 8m 22s  | 11m 58s | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
-| test       | 2026-11-08T20:42:13.641Z | 2026-11-08T20:50:07.601Z | 7m 54s      | 3m 38s  | 4m 16s  | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
-| document   | 2026-11-08T20:50:15.328Z | unavailable              | unavailable | 10m 53s | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| completion | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
+| ---------- | ------------------------ | ------------------------ | ------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
+| context    | 2026-11-08T19:57:20.224Z | 2026-11-08T20:07:31.995Z | 10m 12s | 35s     | 9m 36s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| ceremony   | 2026-11-08T20:07:38.060Z | 2026-11-08T20:09:14.772Z | 1m 37s  | 4s      | 1m 33s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| plan       | 2026-11-08T20:09:20.944Z | 2026-11-08T20:20:10.144Z | 10m 49s | 5m 37s  | 5m 13s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| implement  | 2026-11-08T20:20:16.346Z | 2026-11-08T20:42:06.951Z | 21m 51s | 8m 22s  | 11m 58s | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
+| test       | 2026-11-08T20:42:13.641Z | 2026-11-08T20:50:07.601Z | 7m 54s  | 3m 38s  | 4m 16s  | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
+| document   | 2026-11-08T20:50:15.328Z | 2026-11-08T21:04:03.041Z | 13m 48s | 10m 53s | 2m 55s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| completion | 2026-11-08T21:04:10.266Z | 2026-11-08T21:05:55.362Z | 1m 45s  | 58s     | 47s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 
 Quality (recorded inventory): findings 6 · open 0 · PR findings 1 · critical 0 · debt 1 · tests written 0 · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
@@ -57,7 +57,7 @@ Quality (recorded inventory): findings 6 · open 0 · PR findings 1 · critical 
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 29m 9s · Wait: 32m 37s · Unclassified: 2m 3s
+Observed work: 30m 6s · Wait: 36m 19s · Unclassified: 2m 10s
 
 | Step                                                   | Started (UTC)            | Completed (UTC)          | Elapsed | Work   | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
 | ------------------------------------------------------ | ------------------------ | ------------------------ | ------- | ------ | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
@@ -151,3 +151,10 @@ identified, not that docs were skipped; say so in a line below the table. -->
 
 | Date | Phase | Human time | AI tokens | Notes |
 | ---- | ----- | ---------- | --------- | ----- |
+
+## Completion
+
+- **Date**: 2026-11-08
+- **Archive path**: `docs/Stories/archive/[DEV-20261108-K7XQ] GitHub Pages Hosting/`
+- **PR title**: `feat(docs-web): add GitHub Pages hosting for the VitePress site`
+- **External actions**: None taken — tracker skipped (local `DEV-` ID), tech-debt ticket creation declined by developer; TD-1 remains tracked locally in this report only
