@@ -20,10 +20,10 @@ type: reference
 ## State
 
 ```yaml
-current_stage: research
-completed_stages: [context-gathering, ceremony, frame]
+current_stage: evaluate
+completed_stages: [context-gathering, ceremony, frame, research]
 selected_artifacts: []
-next_action: 'research'
+next_action: 'evaluate'
 context_fingerprint: ''
 ```
 
@@ -46,7 +46,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261108-1L8P                                                                                                                                                                |
 | Branch | `docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing`                                                                                                                 |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research 🔄 · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -56,20 +56,20 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 49s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 8m 11s
+Observed work: 3m 39s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 18m 10s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ---- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-08T22:29:08.649Z | 2026-11-08T22:30:50.995Z | 1m 42s      | 5s   | 1m 37s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-08T22:34:02.044Z | 2026-11-08T22:34:46.407Z | 44s         | 44s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (active)                | 2026-11-08T22:36:56.002Z | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-08T22:29:08.649Z | 2026-11-08T22:30:50.995Z | 1m 42s      | 5s     | 1m 37s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-08T22:34:02.044Z | 2026-11-08T22:34:46.407Z | 44s         | 44s    | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-08T22:36:56.002Z | 2026-11-08T22:39:45.991Z | 2m 50s      | 2m 50s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (active)             | 2026-11-08T22:41:35.254Z | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -77,8 +77,23 @@ Observed work: 49s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Uncla
 
 _Filled in during Research OQ triage. One row per open question answered or classified._
 
-| #   | Open question | V/E | Answer / status |
-| --- | ------------- | --- | --------------- |
+_From Research OQ triage (2026-11-08)._
+
+| #    | Decision     | Open question                                                                       | V/E | Answer / status                                                                                                                                            |
+| ---- | ------------ | ----------------------------------------------------------------------------------- | --- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OQ-1 | Web Explorer | Root TS `^6.0`/Vite `^8` bump to match scaffold, or pin scaffold to root TS `^5.7`? | (V) | Conditional — Option B (adopt scaffold as-is) stays viable pending reconciliation confirmed in Evaluate/Solution.                                          |
+| OQ-2 | Web Explorer | CI budget fit (install/build time, bundle size) unmeasured                          | (E) | Deferred — feeds Evaluate's cost dimension.                                                                                                                |
+| OQ-3 | Web Explorer | Eslint/Prettier conformance effort for scaffold's source                            | (E) | Deferred — rework-cost detail.                                                                                                                             |
+| OQ-4 | Web Explorer | Keep/trim/rewrite simulated `/design`/`/dev` walkthrough content?                   | (E) | Deferred to Solution content drafting.                                                                                                                     |
+| OQ-5 | Web Explorer | Scaffold's `vite.config.ts` has no explicit `base` set                              | (E) | Confirmed fixable with a one-line config change — not a blocker.                                                                                           |
+| OQ-6 | Web Explorer | Isolated-lockfile audit coverage gap (Option D)                                     | (V) | Resolved — Option D disqualified; breaks NFR-11's root-lockfile-scoped audit gate and the single-lockfile convention.                                      |
+| OQ-7 | Web Explorer | Brand-asset approval finality                                                       | (E) | Deferred — publish-readiness item, not a Research blocker.                                                                                                 |
+| OQ-1 | Web Portal   | Does VitePress support a nested (two-segment) subpath `base` cleanly?               | (V) | Resolved — yes, standard Vite `base` passthrough, any depth. Does not disqualify Options B/C/D.                                                            |
+| OQ-2 | Web Portal   | Does `configure-pages` auto-detection still work against a merged artifact root?    | (E) | Worst case needs an explicit Pages settings override — config detail, not a blocker.                                                                       |
+| OQ-3 | Web Portal   | Is breaking existing bookmarked/indexed doc URLs (base path move) acceptable?       | (V) | **Developer confirmed (2026-11-08): accept the breakage** — Pages deploy is ~5 days old, minimal indexing/bookmarks yet. No redirect/compat stub required. |
+| OQ-4 | Web Portal   | How deep should CI verification of the composed artifact go?                        | (E) | Deferred to Evaluate/Solution scope decision.                                                                                                              |
+| OQ-5 | Web Portal   | Does Frame's EC2+EC5 bundling forbid Option E's split-PR sequencing?                | (V) | Resolved — no, bundling is decision-tracking only; Option E's sequencing stays viable on top of whichever topology wins.                                   |
+| OQ-6 | Web Portal   | Exact subpath string for web-docs (`/docs/`, `/web-docs/`, etc.)                    | (E) | Deferred to Solution.                                                                                                                                      |
 
 ---
 
@@ -101,9 +116,10 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date       | Phase | Notes                                                                                                                      |
-| ---------- | ----- | -------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-08 | Frame | 5 known requirements, 4 proposed requirements accepted; split into 2 decisions (Web Explorer, Web Portal site composition) |
+| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                 |
+| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-08 | Frame    | 5 known requirements, 4 proposed requirements accepted; split into 2 decisions (Web Explorer, Web Portal site composition)                                                                                                                                                                            |
+| 2026-11-08 | Research | @architect returned 4 options for Web Explorer (no SPA, adopt scaffold, rebuild, isolated sub-workspace) and 5 options for Web Portal site composition (no composition, Nx assemble, typed Nx project, public/ passthrough, rename-sequencing variant); developer confirmed both option sets complete |
 
 ---
 

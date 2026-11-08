@@ -11,7 +11,7 @@ const base = '/artisyn-implementation-harness/';
 
 export default withMermaid(
   defineConfig({
-    title: 'Artisyn Implementation Harness',
+    title: 'Implementation Harness',
     description: 'AI-first engineering lifecycles',
     base,
     head: [
