@@ -19,7 +19,7 @@ flowchart LR
     end
 
     subgraph GITHUB ["🐙 GitHub (GITHUB_ORG/GITHUB_REPO — public)"]
-        DISCUSSIONS["🗨️ Discussions\n(ADLC Comments category)"]:::discussions
+        DISCUSSIONS["🗨️ Discussions\n(Web Comments category)"]:::discussions
         APP["🔌 giscus GitHub App"]:::app
     end
 

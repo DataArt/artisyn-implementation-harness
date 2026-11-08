@@ -6,12 +6,32 @@ import { scanSection } from './utils/sidebar';
 import { HLD_VERSION } from './utils/constants';
 import { registerContainers } from './utils/markdown-containers';
 
+// GitHub Pages project-site URL shape: https://dataart.github.io/artisyn-implementation-harness/
+const base = '/artisyn-implementation-harness/';
+
 export default withMermaid(
   defineConfig({
     title: 'Artisyn Implementation Harness',
     description: 'AI-first engineering lifecycles',
+    base,
     head: [
-      ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+      ['link', { rel: 'icon', type: 'image/png', href: `${base}favicon.png` }],
+      [
+        'meta',
+        {
+          'http-equiv': 'Content-Security-Policy',
+          content:
+            "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; img-src 'self' data: https://giscus.app https://avatars.githubusercontent.com; font-src 'self' data:; connect-src 'self' https://giscus.app; frame-src https://giscus.app; object-src 'none'; base-uri 'self'",
+        },
+      ],
+      [
+        'meta',
+        {
+          name: 'keywords',
+          content:
+            'agent-skills, agent-skills-manager, agent-skills-tools, agentic-development, ai-assisted-development, ai-sdlc, ai-sdlc-framework, architecture-governance, coding-agents, context-engineering, context-engineering-framework, context-engineering-kit, developer-tools, developer-tools-ai-agent, engineering-workflows, implementation-harness, software-architecture, software-architecture-and-design, software-development-lifecycle',
+        },
+      ],
       // Applies the persisted sidebar/aside collapse state before hydration
       // (same pattern VitePress itself uses for dark mode) so returning
       // visitors don't see the panel flash open then collapse on load.
@@ -61,7 +81,7 @@ export default withMermaid(
         { icon: 'linkedin', link: 'https://www.linkedin.com/company/dataart/posts/?feedView=all' },
         {
           icon: {
-            svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><image href="/da-favicon.png" width="32" height="32"/></svg>',
+            svg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><image href="${base}da-favicon.png" width="32" height="32"/></svg>`,
           },
           link: 'https://www.dataart.com/artisyn',
         },

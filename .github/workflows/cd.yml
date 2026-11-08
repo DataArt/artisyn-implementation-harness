@@ -7,10 +7,18 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: github-pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v7
         with:
@@ -18,5 +26,22 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Deploy affected
-        run: echo "CD deploy retired pending GitHub Pages cutover — see solution/Architecture.md" && exit 0
+      - name: Build site
+        run: yarn nx affected --target=build --configuration=ci --base=HEAD~1 --head=HEAD
+        env:
+          VITE_GITHUB_ORG: ${{ vars.VITE_GITHUB_ORG }}
+          VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
+          VITE_GISCUS_REPO_ID: ${{ vars.VITE_GISCUS_REPO_ID }}
+          VITE_GISCUS_CATEGORY_ID: ${{ vars.VITE_GISCUS_CATEGORY_ID }}
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: apps/docs-web/.vitepress/dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

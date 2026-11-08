@@ -169,7 +169,7 @@ export default {
           import('sql.js/dist/sql-wasm.wasm?url'),
         ]);
         const SQL = await initSqlJs({ locateFile: () => wasmUrl });
-        const response = await fetch('/docs-operational-graph.sqlite');
+        const response = await fetch(`${import.meta.env.BASE_URL}docs-operational-graph.sqlite`);
         if (!response.ok) throw new Error(`fetch failed: ${response.status}`);
         const buffer = new Uint8Array(await response.arrayBuffer());
         const db = new SQL.Database(buffer);
