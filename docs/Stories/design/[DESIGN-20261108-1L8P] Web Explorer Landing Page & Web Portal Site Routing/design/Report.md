@@ -20,10 +20,10 @@ type: reference
 ## State
 
 ```yaml
-current_stage: solution
-completed_stages: [context-gathering, ceremony, frame, research, evaluate]
-selected_artifacts: []
-next_action: 'solution'
+current_stage: review-gate
+completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution]
+selected_artifacts: [architecture, design, stack, efforts]
+next_action: 'review-gate'
 context_fingerprint: ''
 ```
 
@@ -46,7 +46,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261108-1L8P                                                                                                                                                                |
 | Branch | `docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing`                                                                                                                 |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -56,7 +56,7 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 14m 40s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 16m 28s
+Observed work: 19m 50s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 23m 31s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -64,8 +64,8 @@ Observed work: 14m 40s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · U
 | ceremony (completed)          | 2026-11-08T22:34:02.044Z | 2026-11-08T22:34:46.407Z | 44s         | 44s    | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | frame (completed)             | 2026-11-08T22:36:56.002Z | 2026-11-08T22:39:45.991Z | 2m 50s      | 2m 50s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | research (completed)          | 2026-11-08T22:41:35.254Z | 2026-11-08T22:52:35.555Z | 11m 0s      | 11m 0s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (active)             | 2026-11-08T22:56:43.158Z | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| evaluate (completed)          | 2026-11-08T22:56:43.158Z | 2026-11-08T23:01:53.233Z | 5m 10s      | 5m 10s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (active)             | 2026-11-08T23:03:39.138Z | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -102,6 +102,25 @@ _From Research OQ triage (2026-11-08)._
 _Filled in during the Evaluate phase closing step and updated by any `patterns/waf-review.md` invocation._
 
 <!-- Append dated blocks here. Each block added by Evaluate or the waf-review pattern. -->
+
+### Review — solution — 2026-11-09 [pillars: all]
+
+_Assessed: `solution/Architecture.md` + `solution/Design.md`, the integrated chosen approach (post-architect-review correction)._
+
+| Pillar                 | Rating   | Headline                                                                                                                                                                                       |
+| ---------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟡 Amber | One new Nx project + typed assemble script to operate; mitigated by mirroring existing conventions and fail-fast asserts.                                                                      |
+| Security               | 🟢 Green | No new secrets/auth surface; NFR-5/7 unchanged for Web Docs; NFR-7 risk not reintroduced by Web Explorer's JSX-rendered content; NFR-11 audit coverage preserved via the single root lockfile. |
+| Reliability            | 🟡 Amber | No staging environment; mitigated by the CI-level file-existence assertion (now correctly wired via `implicitDependencies`, per architect review) and the PR1/PR2 rollout sequencing.          |
+| Performance Efficiency | 🟡 Amber | Web Explorer's bundle (React 19 + Motion + Tailwind 4) heavier than strictly needed for one promo page; mitigated by a bundle-size budget check added to its build target.                     |
+| Cost Optimization      | 🟢 Green | No new infrastructure — still GitHub Pages, zero marginal cost.                                                                                                                                |
+| Sustainability         | 🟢 Green | Build-time only composition, no added runtime compute.                                                                                                                                         |
+
+**P1 items:** none. One material gap was found and fixed during this review — see Decision Coverage below.
+
+**Decision Coverage / Architect Review:** `@architect` reviewed `solution/Architecture.md` and found that `dependsOn` alone (as originally drafted in Decision 5) does not create the project-graph edge `nx affected` needs — only `implicitDependencies` does, per this repo's own existing `apps/docs-web/project.json` pattern. This was a mechanical finding (no scope change to the chosen approach) and was auto-applied: `solution/Architecture.md` Decision 5 and `solution/Design.md`'s `project.json` shape were both corrected to declare `implicitDependencies: ["web-explorer", "web-docs"]` alongside the task-ordering `dependsOn`. `solution/Efforts.md` ticket 5 updated to match.
+
+**Quality gate (`patterns/design-quality-gate.md`):** PASS, with 2 minor gaps found and closed during this review — (a) NFR-7 applicability to Web Explorer specifically, and (b) a verification obligation for the Performance Amber bundle-size concern, were both narrative-only (WAF/Evaluate) and not yet decisions in `solution/Architecture.md`'s register; both now have an explicit decision + verification obligation (Decision 1). Mermaid rendering: this repo's `@mermaid-js/mermaid-cli` is missing its `puppeteer` dependency, so the 5 diagrams across `Architecture.md`, `Design.md`, and `Efforts.md` were checked via syntax-oriented inspection instead (balanced subgraphs, `classDef` definitions matching every referenced class, well-formed arrows) — no issues found. No markdown hyperlinks (`[text](path)`) are used for cross-file references in these artifacts (only inline-code path mentions), so there was no relative-link resolution to check.
 
 ### WAF — Evaluate — 2026-11-08 (Decision 1: Web Explorer)
 
@@ -150,11 +169,12 @@ Full elaboration: `design/02 Evaluate.md`
 
 ## Efforts
 
-| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                 |
-| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-08 | Frame    | 5 known requirements, 4 proposed requirements accepted; split into 2 decisions (Web Explorer, Web Portal site composition)                                                                                                                                                                            |
-| 2026-11-08 | Research | @architect returned 4 options for Web Explorer (no SPA, adopt scaffold, rebuild, isolated sub-workspace) and 5 options for Web Portal site composition (no composition, Nx assemble, typed Nx project, public/ passthrough, rename-sequencing variant); developer confirmed both option sets complete |
-| 2026-11-08 | Evaluate | Recommended Option B (Web Explorer: adopt scaffold, pin TS/Vite down) and Option C+E (Web Portal: typed web-portal Nx project, sequenced rename); WAF: 2 pillars Amber (perf/OE on Decision 1, reliability on Decision 2), rest Green; 0 P1 items                                                     |
+| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-08 | Frame    | 5 known requirements, 4 proposed requirements accepted; split into 2 decisions (Web Explorer, Web Portal site composition)                                                                                                                                                                                                                                                                            |
+| 2026-11-08 | Research | @architect returned 4 options for Web Explorer (no SPA, adopt scaffold, rebuild, isolated sub-workspace) and 5 options for Web Portal site composition (no composition, Nx assemble, typed Nx project, public/ passthrough, rename-sequencing variant); developer confirmed both option sets complete                                                                                                 |
+| 2026-11-08 | Evaluate | Recommended Option B (Web Explorer: adopt scaffold, pin TS/Vite down) and Option C+E (Web Portal: typed web-portal Nx project, sequenced rename); WAF: 2 pillars Amber (perf/OE on Decision 1, reliability on Decision 2), rest Green; 0 P1 items                                                                                                                                                     |
+| 2026-11-09 | Solution | Selected artifacts written (Architecture, Design, Stack, Efforts); architect review found and auto-fixed 1 mechanical gap (`implicitDependencies` needed alongside `dependsOn`); WAF review: pass, 0 P1s (3 pillars Amber, mitigated); quality gate: pass, 2 minor coverage gaps closed; WBS collapsed to 5 layer-level units at developer's request; estimate column explicitly skipped by developer |
 
 ---
 

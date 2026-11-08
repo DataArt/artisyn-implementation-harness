@@ -77,8 +77,16 @@
     },
     {
       "id": "solution",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "8865c758-806f-449b-8aa4-7ad950f3fe6b",
+          "started_at": "2026-11-08T23:03:39.138Z",
+          "ended_at": "2026-11-08T23:14:07.089Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "review-gate",
@@ -169,6 +177,17 @@
       "started_at": "2026-11-08T22:56:43.158Z",
       "ended_at": "2026-11-08T23:01:53.233Z",
       "last_observed_at": "2026-11-08T23:01:53.233Z"
+    },
+    {
+      "id": "8e5c6b5a-de45-4d6c-b22a-9fe7364e34e5",
+      "stage_id": "solution",
+      "stage_attempt_id": "8865c758-806f-449b-8aa4-7ad950f3fe6b",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-08T23:03:39.138Z",
+      "ended_at": "2026-11-08T23:14:07.089Z",
+      "last_observed_at": "2026-11-08T23:14:07.089Z"
     }
   ],
   "checks": [
@@ -267,19 +286,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "5cd907a4-d00f-465d-af61-85aaa5fbbe1b",
+      "stage_id": "solution",
+      "stage_attempt_id": "8865c758-806f-449b-8aa4-7ad950f3fe6b",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T23:13:33.121Z",
+      "ended_at": "2026-11-08T23:13:33.121Z",
+      "result": "passed",
+      "evidence_ref": "accepted Architecture/Design/Stack/Efforts incl. architect-review fix and WBS collapse to 5 layer units; estimate column explicitly skipped by developer",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T23:01:53.253Z",
+    "as_of": "2026-11-08T23:14:07.101Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1189.738,
+    "observed_work_seconds": 1817.689,
     "observed_wait_seconds": 97.336,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 97.336,
-    "unclassified_seconds": 677.577,
+    "unclassified_seconds": 783.4739999999997,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 97.336,
