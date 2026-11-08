@@ -26,22 +26,30 @@
     },
     {
       "id": "ceremony",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "39d9d73a-da57-472f-b21e-028587472cd6",
           "started_at": "2026-11-08T20:07:38.060Z",
-          "ended_at": null,
+          "ended_at": "2026-11-08T20:09:14.772Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "plan",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "9b219772-ae65-4fbd-a688-a04c2d010269",
+          "started_at": "2026-11-08T20:09:20.944Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -138,8 +146,43 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-08T20:08:44.620Z",
+      "ended_at": "2026-11-08T20:09:14.772Z",
+      "last_observed_at": "2026-11-08T20:09:14.772Z"
+    },
+    {
+      "id": "d00e2428-2a18-4e96-b764-fa7ac4da6b3d",
+      "stage_id": "plan",
+      "stage_attempt_id": "9b219772-ae65-4fbd-a688-a04c2d010269",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-08T20:09:20.944Z",
+      "ended_at": "2026-11-08T20:14:57.620Z",
+      "last_observed_at": "2026-11-08T20:14:57.620Z"
+    },
+    {
+      "id": "641c6c87-9301-4e9f-916f-ee9805cfb9d8",
+      "stage_id": "plan",
+      "stage_attempt_id": "9b219772-ae65-4fbd-a688-a04c2d010269",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting plan sign-off",
+      "started_at": "2026-11-08T20:14:57.620Z",
+      "ended_at": "2026-11-08T20:19:10.672Z",
+      "last_observed_at": "2026-11-08T20:19:10.672Z"
+    },
+    {
+      "id": "57e838b5-9245-4789-914c-8f173bd490b8",
+      "stage_id": "plan",
+      "stage_attempt_id": "9b219772-ae65-4fbd-a688-a04c2d010269",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-08T20:19:10.672Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-08T20:08:44.620Z"
+      "last_observed_at": "2026-11-08T20:19:10.672Z"
     }
   ],
   "checks": [
@@ -172,21 +215,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "plan-signoff-01",
+      "stage_id": "plan",
+      "stage_attempt_id": "9b219772-ae65-4fbd-a688-a04c2d010269",
+      "step": null,
+      "name": "Plan sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:18:57.181Z",
+      "ended_at": "2026-11-08T20:18:57.181Z",
+      "result": "passed",
+      "evidence_ref": "go ahead",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T20:08:44.620Z",
+    "as_of": "2026-11-08T20:19:10.672Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 39.098,
-    "observed_wait_seconds": 639.2330000000001,
+    "observed_work_seconds": 375.774,
+    "observed_wait_seconds": 922.4370000000001,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 6.110000000000014,
+    "unclassified_seconds": 12.281999999999812,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 494.80199999999996,
+    "approval_wait_seconds": 747.8539999999999,
     "failed_checks": 0,
     "first_pass_verification_rate": null,
     "human_reported_seconds": null,
@@ -195,15 +253,15 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-08T20:08:39.117Z",
+    "as_of": "2026-11-08T20:19:06.259Z",
     "source": "2-report.md",
-    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "source_sha256": "382bed035bc9297ea30704072b3032f72b541387b3f15b8d45b28b77dd20261d",
     "findings": {
-      "total": 0,
+      "total": 1,
       "by_kind": {
         "deviation": 0,
         "bug": 0,
-        "design": 0,
+        "design": 1,
         "improve": 0,
         "security": 0,
         "performance": 0,
@@ -213,18 +271,18 @@
         "critical": 0,
         "high": 0,
         "medium": 0,
-        "low": 0,
+        "low": 1,
         "info": 0
       },
       "by_classification": {
         "introduced": 0,
         "pre-existing": 0,
         "ruled-out": 0,
-        "advisory": 0
+        "advisory": 1
       },
       "by_resolution": {
         "open": 0,
-        "fixed": 0,
+        "fixed": 1,
         "accepted": 0,
         "tech-debt": 0,
         "doc-updated": 0
