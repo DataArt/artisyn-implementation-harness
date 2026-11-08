@@ -1,0 +1,171 @@
+{
+  "schema_version": 2,
+  "lifecycle": "design",
+  "design_revision": 0,
+  "ticket": "DESIGN-20261108-1L8P",
+  "tracking_started_at": "2026-11-08T22:29:08.602Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-08T22:29:08.649Z",
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context-gathering",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "9e20a68d-1e46-4c09-93d4-4137a7ba36a7",
+          "started_at": "2026-11-08T22:29:08.649Z",
+          "ended_at": "2026-11-08T22:30:50.995Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "ceremony",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "e59a20d7-809f-4e6c-af23-421141b0fe1f",
+          "started_at": "2026-11-08T22:34:02.044Z",
+          "ended_at": "2026-11-08T22:34:46.407Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "frame",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "research",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "evaluate",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "solution",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "review-gate",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "address-feedback",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "publish",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": []
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "16d29120-77f2-4f03-b4f5-02e985742fa0",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "9e20a68d-1e46-4c09-93d4-4137a7ba36a7",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-08T22:29:08.649Z",
+      "ended_at": "2026-11-08T22:29:13.659Z",
+      "last_observed_at": "2026-11-08T22:29:13.659Z"
+    },
+    {
+      "id": "5f6187bc-03cd-43ce-8c63-7d435ab57407",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "9e20a68d-1e46-4c09-93d4-4137a7ba36a7",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context-gathering sign-off",
+      "started_at": "2026-11-08T22:29:13.659Z",
+      "ended_at": "2026-11-08T22:30:50.995Z",
+      "last_observed_at": "2026-11-08T22:30:50.995Z"
+    },
+    {
+      "id": "e5591df5-37a6-45d8-9ac0-f7d93afcd838",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "e59a20d7-809f-4e6c-af23-421141b0fe1f",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-08T22:34:02.044Z",
+      "ended_at": "2026-11-08T22:34:46.407Z",
+      "last_observed_at": "2026-11-08T22:34:46.407Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "fba2ad3e-d033-4c2c-b52f-17590bbf0c04",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "9e20a68d-1e46-4c09-93d4-4137a7ba36a7",
+      "step": null,
+      "design_revision": 0,
+      "name": "Context Gathering sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T22:30:46.640Z",
+      "ended_at": "2026-11-08T22:30:46.640Z",
+      "result": "passed",
+      "evidence_ref": "developer approved static-composition routing and title via AskUserQuestion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "11424e4b-582f-46d8-9651-85afd52fc888",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "e59a20d7-809f-4e6c-af23-421141b0fe1f",
+      "step": null,
+      "design_revision": 0,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T22:34:29.154Z",
+      "ended_at": "2026-11-08T22:34:29.154Z",
+      "result": "passed",
+      "evidence_ref": "confirmed branch docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-08T22:34:53.806Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 49.373,
+    "observed_wait_seconds": 97.336,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 97.336,
+    "unclassified_seconds": 198.495,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 97.336,
+    "failed_checks": 0,
+    "first_pass_verification_rate": 1,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  }
+}
