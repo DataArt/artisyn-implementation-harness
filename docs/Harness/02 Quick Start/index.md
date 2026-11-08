@@ -55,7 +55,7 @@ Run a ticket through the lifecycle:
 /dev TKT-XXX <task>        # implement a ticket
 ```
 
-→ See the root [README](../../../README.md) for the full ticket flow, or `@onboarding` inside the assistant for a guided walkthrough.
+→ See [03 Lifecycles](<../03 Lifecycles/00 Overview.md>) for the full ticket flow, or `@onboarding` inside the assistant for a guided walkthrough.
 
 ## Keeping the harness current
 
