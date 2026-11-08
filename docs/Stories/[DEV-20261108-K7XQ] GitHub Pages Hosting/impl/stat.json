@@ -54,23 +54,31 @@
     },
     {
       "id": "implement",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "b4977566-4f33-452f-8b74-7140282c0cdb",
           "started_at": "2026-11-08T20:20:16.346Z",
-          "ended_at": null,
+          "ended_at": "2026-11-08T20:42:06.951Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
     },
     {
       "id": "test",
-      "status": "pending",
-      "attempts": [],
-      "flags": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+          "started_at": "2026-11-08T20:42:13.641Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": ["failed_check"]
     },
     {
       "id": "document",
@@ -621,8 +629,121 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-08T20:40:13.173Z",
+      "ended_at": "2026-11-08T20:42:06.951Z",
+      "last_observed_at": "2026-11-08T20:42:06.951Z"
+    },
+    {
+      "id": "e70a9ad4-17e4-4934-b56c-2db0d82e49da",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:42:13.641Z",
+      "ended_at": "2026-11-08T20:42:35.734Z",
+      "last_observed_at": "2026-11-08T20:42:35.734Z"
+    },
+    {
+      "id": "f7208967-e4af-449e-bb34-cc759a48b7a7",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:42:35.734Z",
+      "ended_at": "2026-11-08T20:42:40.884Z",
+      "last_observed_at": "2026-11-08T20:42:40.884Z"
+    },
+    {
+      "id": "756186aa-e85a-44e2-bee3-ac1c5f653e5d",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:42:40.884Z",
+      "ended_at": "2026-11-08T20:42:45.955Z",
+      "last_observed_at": "2026-11-08T20:42:45.955Z"
+    },
+    {
+      "id": "fbd75b10-1d34-45f8-a17a-6767ffd3b31c",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:42:45.955Z",
+      "ended_at": "2026-11-08T20:44:36.371Z",
+      "last_observed_at": "2026-11-08T20:44:36.371Z"
+    },
+    {
+      "id": "336fe605-f75a-4712-8649-11731ad50373",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting test sign-off",
+      "started_at": "2026-11-08T20:44:36.371Z",
+      "ended_at": "2026-11-08T20:47:05.476Z",
+      "last_observed_at": "2026-11-08T20:47:05.476Z"
+    },
+    {
+      "id": "1037aa11-1865-4b1d-9ced-67803663ef8d",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:47:05.476Z",
+      "ended_at": "2026-11-08T20:47:17.585Z",
+      "last_observed_at": "2026-11-08T20:47:17.585Z"
+    },
+    {
+      "id": "11d09c6d-b427-4f7b-8977-c7471144fd1a",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:47:17.585Z",
+      "ended_at": "2026-11-08T20:48:05.379Z",
+      "last_observed_at": "2026-11-08T20:48:05.379Z"
+    },
+    {
+      "id": "cd14726f-5250-43db-bb78-993f86402171",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-08T20:48:05.379Z",
+      "ended_at": "2026-11-08T20:48:20.319Z",
+      "last_observed_at": "2026-11-08T20:48:20.319Z"
+    },
+    {
+      "id": "f10e500f-2243-4f8f-b813-685cc1409b9c",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting test sign-off (post-rework)",
+      "started_at": "2026-11-08T20:48:20.319Z",
+      "ended_at": "2026-11-08T20:49:29.916Z",
+      "last_observed_at": "2026-11-08T20:49:29.916Z"
+    },
+    {
+      "id": "1a8fa436-15e0-4b81-917d-38b6c75cebaf",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-08T20:49:29.916Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-08T20:40:13.173Z"
+      "last_observed_at": "2026-11-08T20:49:29.916Z"
     }
   ],
   "checks": [
@@ -963,22 +1084,206 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "test-build-01",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "site build (committed worktree)",
+      "kind": "build",
+      "started_at": "2026-11-08T20:42:18.486Z",
+      "ended_at": "2026-11-08T20:42:35.734Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site build (committed worktree)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:42:35.734Z"
+    },
+    {
+      "id": "test-typecheck-01",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "site typecheck (committed worktree)",
+      "kind": "typecheck",
+      "started_at": "2026-11-08T20:42:38.445Z",
+      "ended_at": "2026-11-08T20:42:40.884Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site typecheck (committed worktree)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:42:40.884Z"
+    },
+    {
+      "id": "test-lint-01",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "site lint (committed worktree)",
+      "kind": "lint",
+      "started_at": "2026-11-08T20:42:43.588Z",
+      "ended_at": "2026-11-08T20:42:45.955Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site lint (committed worktree)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:42:45.955Z"
+    },
+    {
+      "id": "test-AC-1",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "AC-1",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:44:06.595Z",
+      "ended_at": "2026-11-08T20:44:06.595Z",
+      "result": "passed",
+      "evidence_ref": "verified in Implement Step 2-4, rechecked on committed worktree in Test Step 2-3",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-AC-2",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "AC-2",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:44:06.643Z",
+      "ended_at": "2026-11-08T20:44:06.643Z",
+      "result": "passed",
+      "evidence_ref": "verified in Implement Step 2-4, rechecked on committed worktree in Test Step 2-3",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-AC-3",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "AC-3",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:44:06.705Z",
+      "ended_at": "2026-11-08T20:44:06.705Z",
+      "result": "passed",
+      "evidence_ref": "verified in Implement Step 2-4, rechecked on committed worktree in Test Step 2-3",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-AC-4",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "AC-4",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:44:06.759Z",
+      "ended_at": "2026-11-08T20:44:06.759Z",
+      "result": "passed",
+      "evidence_ref": "verified in Implement Step 2-4, rechecked on committed worktree in Test Step 2-3",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-AC-5",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "AC-5",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:44:06.814Z",
+      "ended_at": "2026-11-08T20:44:06.814Z",
+      "result": "passed",
+      "evidence_ref": "verified in Implement Step 2-4, rechecked on committed worktree in Test Step 2-3",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-AC-6",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "AC-6",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:44:06.878Z",
+      "ended_at": "2026-11-08T20:44:06.878Z",
+      "result": "failed",
+      "evidence_ref": "cannot be checked pre-merge — cd.yml only triggers on push to main; this branch has not merged yet",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-cd-affected-build-01",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "cd.yml affected build command",
+      "kind": "build",
+      "started_at": "2026-11-08T20:47:05.476Z",
+      "ended_at": "2026-11-08T20:47:17.585Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for cd.yml affected build command",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:47:17.585Z"
+    },
+    {
+      "id": "test-rf003-01",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "RF-003 affected-build rework",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:48:05.421Z",
+      "ended_at": "2026-11-08T20:48:05.421Z",
+      "result": "passed",
+      "evidence_ref": "requested nx affected over direct run for ci.yml consistency; verified site affected + build succeeds with new command",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-signoff-01",
+      "stage_id": "test",
+      "stage_attempt_id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
+      "step": null,
+      "name": "Test sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:49:17.514Z",
+      "ended_at": "2026-11-08T20:49:17.514Z",
+      "result": "passed",
+      "evidence_ref": "go ahead",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T20:40:13.174Z",
+    "as_of": "2026-11-08T20:49:29.917Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 878.201,
-    "observed_wait_seconds": 1586.5520000000001,
+    "observed_work_seconds": 1095.7740000000001,
+    "observed_wait_seconds": 1919.0320000000002,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "unclassified_seconds": 108.24099999999973,
+    "unclassified_seconds": 114.93099999999956,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 1009.2479999999999,
-    "failed_checks": 1,
+    "approval_wait_seconds": 1227.9499999999998,
+    "failed_checks": 2,
     "first_pass_verification_rate": 0.75,
     "human_reported_seconds": null,
     "tokens": null,
@@ -986,15 +1291,15 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-08T20:40:06.946Z",
+    "as_of": "2026-11-08T20:49:25.063Z",
     "source": "2-report.md",
-    "source_sha256": "2213ac3ab89c77025a4fd0644ee9d2845cd5d2ac4299a5c3bb31691cc173ec70",
+    "source_sha256": "fd8ac7e02068afe9302dd755b17f93900a9a5119bd30e124ad75487a1aca9100",
     "findings": {
-      "total": 2,
+      "total": 3,
       "by_kind": {
         "deviation": 0,
         "bug": 1,
-        "design": 1,
+        "design": 2,
         "improve": 0,
         "security": 0,
         "performance": 0,
@@ -1004,18 +1309,18 @@
         "critical": 0,
         "high": 0,
         "medium": 1,
-        "low": 1,
+        "low": 2,
         "info": 0
       },
       "by_classification": {
-        "introduced": 0,
+        "introduced": 1,
         "pre-existing": 1,
         "ruled-out": 0,
         "advisory": 1
       },
       "by_resolution": {
         "open": 0,
-        "fixed": 2,
+        "fixed": 3,
         "accepted": 0,
         "tech-debt": 0,
         "doc-updated": 0
@@ -1026,11 +1331,11 @@
         "omission": 0
       },
       "pr_review": {
-        "total": 0,
+        "total": 1,
         "by_kind": {
           "deviation": 0,
           "bug": 0,
-          "design": 0,
+          "design": 1,
           "improve": 0,
           "security": 0,
           "performance": 0,
@@ -1040,22 +1345,22 @@
           "critical": 0,
           "high": 0,
           "medium": 0,
-          "low": 0,
+          "low": 1,
           "info": 0
         }
       }
     },
     "tech_debt": {
-      "total": 0,
+      "total": 1,
       "ticketed": 0,
-      "unticketed": 0
+      "unticketed": 1
     },
     "tests": {
-      "written": null,
+      "written": 0,
       "passed": null,
       "failed": null,
       "skipped": null,
-      "scopes": 0
+      "scopes": 1
     },
     "test_runs": {
       "recorded": 0,

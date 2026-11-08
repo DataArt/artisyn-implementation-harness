@@ -27,7 +27,7 @@ jobs:
       - uses: ./.github/actions/setup
 
       - name: Build site
-        run: yarn nx run site:build --configuration=ci
+        run: yarn nx affected --target=build --configuration=ci --base=HEAD~1 --head=HEAD
         env:
           VITE_GITHUB_ORG: ${{ vars.VITE_GITHUB_ORG }}
           VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
