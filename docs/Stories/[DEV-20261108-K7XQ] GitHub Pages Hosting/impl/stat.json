@@ -40,23 +40,31 @@
     },
     {
       "id": "plan",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "9b219772-ae65-4fbd-a688-a04c2d010269",
           "started_at": "2026-11-08T20:09:20.944Z",
-          "ended_at": null,
+          "ended_at": "2026-11-08T20:20:10.144Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "implement",
-      "status": "pending",
-      "attempts": [],
-      "flags": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+          "started_at": "2026-11-08T20:20:16.346Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": ["failed_check"]
     },
     {
       "id": "test",
@@ -77,7 +85,80 @@
       "flags": []
     }
   ],
-  "steps": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Tests: skipped (no test setup)",
+      "order": 1,
+      "plan_ref": "1-plan.md#step-1",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "9e257de1-ca8e-4e67-b234-70872e136a72",
+          "started_at": "2026-11-08T20:20:30.717Z",
+          "ended_at": "2026-11-08T20:20:39.468Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-2",
+      "title": "Web: VitePress base path and base-aware assets",
+      "order": 2,
+      "plan_ref": "1-plan.md#step-2",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "657d57a2-c025-43aa-9a00-e879504b305f",
+          "started_at": "2026-11-08T20:20:43.249Z",
+          "ended_at": "2026-11-08T20:23:03.529Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": ["failed_check"]
+    },
+    {
+      "id": "step-3",
+      "title": "Web: CSP meta tag",
+      "order": 3,
+      "plan_ref": "1-plan.md#step-3",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1",
+          "started_at": "2026-11-08T20:23:20.806Z",
+          "ended_at": "2026-11-08T20:32:11.076Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-4",
+      "title": "CI/CD: GitHub Pages deploy workflow",
+      "order": 4,
+      "plan_ref": "1-plan.md#step-4",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496",
+          "started_at": "2026-11-08T20:32:50.196Z",
+          "ended_at": "2026-11-08T20:35:22.200Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    }
+  ],
   "intervals": [
     {
       "id": "77cc5485-6fcb-4554-808b-280a9625b6b9",
@@ -181,8 +262,367 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-08T20:19:10.672Z",
+      "ended_at": "2026-11-08T20:20:10.144Z",
+      "last_observed_at": "2026-11-08T20:20:10.144Z"
+    },
+    {
+      "id": "ceff8c28-0a56-42d7-907a-ebf67ced2418",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:20:16.346Z",
+      "ended_at": "2026-11-08T20:20:30.717Z",
+      "last_observed_at": "2026-11-08T20:20:30.717Z"
+    },
+    {
+      "id": "efd1aade-93c2-4ebe-bfd1-158d1c9fec02",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-1",
+        "attempt_id": "9e257de1-ca8e-4e67-b234-70872e136a72"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:20:30.717Z",
+      "ended_at": "2026-11-08T20:20:39.468Z",
+      "last_observed_at": "2026-11-08T20:20:39.468Z"
+    },
+    {
+      "id": "9bd82b25-d986-44e0-a99f-4286f4c49000",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:20:43.249Z",
+      "ended_at": "2026-11-08T20:20:58.614Z",
+      "last_observed_at": "2026-11-08T20:20:58.614Z"
+    },
+    {
+      "id": "7bd6a58e-70b6-41f2-a57f-998f1fcc16f9",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:20:58.614Z",
+      "ended_at": "2026-11-08T20:21:14.710Z",
+      "last_observed_at": "2026-11-08T20:21:14.710Z"
+    },
+    {
+      "id": "00075373-fafd-413b-9614-58823578a046",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:21:14.710Z",
+      "ended_at": "2026-11-08T20:22:01.049Z",
+      "last_observed_at": "2026-11-08T20:22:01.049Z"
+    },
+    {
+      "id": "1092390e-3b75-4e06-b019-009c4875eba6",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:22:01.049Z",
+      "ended_at": "2026-11-08T20:22:03.767Z",
+      "last_observed_at": "2026-11-08T20:22:03.767Z"
+    },
+    {
+      "id": "ee5e9629-c62f-4c8d-b321-570097c70510",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:22:03.767Z",
+      "ended_at": "2026-11-08T20:22:24.500Z",
+      "last_observed_at": "2026-11-08T20:22:24.500Z"
+    },
+    {
+      "id": "f44f9ab9-7478-4e53-9137-4fcc3b003ce4",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:22:24.500Z",
+      "ended_at": "2026-11-08T20:22:27.429Z",
+      "last_observed_at": "2026-11-08T20:22:27.429Z"
+    },
+    {
+      "id": "6bd841e1-e429-4844-9818-855c91aeb56d",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:22:27.429Z",
+      "ended_at": "2026-11-08T20:22:31.125Z",
+      "last_observed_at": "2026-11-08T20:22:31.125Z"
+    },
+    {
+      "id": "95d76830-6eb9-4a54-a5e6-bf4a13bd6a45",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:22:31.125Z",
+      "ended_at": "2026-11-08T20:22:37.361Z",
+      "last_observed_at": "2026-11-08T20:22:37.361Z"
+    },
+    {
+      "id": "aa59c0c8-e486-45f7-86b1-1feae585c2d0",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:22:37.361Z",
+      "ended_at": "2026-11-08T20:23:03.529Z",
+      "last_observed_at": "2026-11-08T20:23:03.529Z"
+    },
+    {
+      "id": "8c8561d8-696f-4dd1-bbf1-73f8e0753b4f",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:23:20.806Z",
+      "ended_at": "2026-11-08T20:23:31.313Z",
+      "last_observed_at": "2026-11-08T20:23:31.313Z"
+    },
+    {
+      "id": "61468318-e11f-42b8-ad1e-9fadc4d784db",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:23:31.313Z",
+      "ended_at": "2026-11-08T20:23:42.754Z",
+      "last_observed_at": "2026-11-08T20:23:42.754Z"
+    },
+    {
+      "id": "2b7982d5-0402-48d4-8a74-18bddb3244db",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:23:42.754Z",
+      "ended_at": "2026-11-08T20:24:57.310Z",
+      "last_observed_at": "2026-11-08T20:24:57.310Z"
+    },
+    {
+      "id": "dad928f3-faf3-4505-b084-7be17ff304fa",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Step 3: live CSP console check needs developer's browser",
+      "started_at": "2026-11-08T20:24:57.310Z",
+      "ended_at": "2026-11-08T20:29:04.299Z",
+      "last_observed_at": "2026-11-08T20:29:04.299Z"
+    },
+    {
+      "id": "5c77f2b5-eb83-482c-a2c0-27f603d6a0c6",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:29:04.299Z",
+      "ended_at": "2026-11-08T20:29:16.148Z",
+      "last_observed_at": "2026-11-08T20:29:16.148Z"
+    },
+    {
+      "id": "dade9a40-5b2f-4a99-aa45-75ce9459b713",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:29:16.148Z",
+      "ended_at": "2026-11-08T20:32:11.076Z",
+      "last_observed_at": "2026-11-08T20:32:11.076Z"
+    },
+    {
+      "id": "d4165d69-f696-47ef-a003-95cadc8bca78",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:32:50.196Z",
+      "ended_at": "2026-11-08T20:33:18.816Z",
+      "last_observed_at": "2026-11-08T20:33:18.816Z"
+    },
+    {
+      "id": "e18de03c-ec19-487e-a8e4-2fdd30e34b83",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:33:18.816Z",
+      "ended_at": "2026-11-08T20:33:18.864Z",
+      "last_observed_at": "2026-11-08T20:33:18.864Z"
+    },
+    {
+      "id": "85093bd9-5d07-4831-b11d-40122ed767a1",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:33:18.864Z",
+      "ended_at": "2026-11-08T20:33:23.520Z",
+      "last_observed_at": "2026-11-08T20:33:23.520Z"
+    },
+    {
+      "id": "97a3379d-b638-4790-b92d-440cd648d4f3",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T20:33:23.520Z",
+      "ended_at": "2026-11-08T20:33:35.556Z",
+      "last_observed_at": "2026-11-08T20:33:35.556Z"
+    },
+    {
+      "id": "9aa33596-ff64-43fd-89d2-fb30f98b4d49",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:33:35.556Z",
+      "ended_at": "2026-11-08T20:33:45.899Z",
+      "last_observed_at": "2026-11-08T20:33:45.899Z"
+    },
+    {
+      "id": "40029aa8-c59b-4270-b4e2-2065d8388451",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Step 4: awaiting developer to set GitHub Actions repository variables",
+      "started_at": "2026-11-08T20:33:45.899Z",
+      "ended_at": "2026-11-08T20:35:22.159Z",
+      "last_observed_at": "2026-11-08T20:35:22.159Z"
+    },
+    {
+      "id": "50830e82-663e-4e78-98dc-b48646f66d67",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T20:35:22.159Z",
+      "ended_at": "2026-11-08T20:35:22.200Z",
+      "last_observed_at": "2026-11-08T20:35:22.200Z"
+    },
+    {
+      "id": "b577a6d0-04e2-45ae-878f-a2d775848aaa",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting implement sign-off",
+      "started_at": "2026-11-08T20:35:51.779Z",
+      "ended_at": "2026-11-08T20:40:13.173Z",
+      "last_observed_at": "2026-11-08T20:40:13.173Z"
+    },
+    {
+      "id": "b61fe80f-1e5f-40ed-a622-7efa3e9b0ecb",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-08T20:40:13.173Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-08T20:19:10.672Z"
+      "last_observed_at": "2026-11-08T20:40:13.173Z"
     }
   ],
   "checks": [
@@ -230,37 +670,330 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "step-1-skip-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-1",
+        "attempt_id": "9e257de1-ca8e-4e67-b234-70872e136a72"
+      },
+      "name": "Tests step skip reason",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:20:39.416Z",
+      "ended_at": "2026-11-08T20:20:39.416Z",
+      "result": "passed",
+      "evidence_ref": "apps/docs-web/project.json defines no test target — no test setup for this layer",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-2-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "name": "site build",
+      "kind": "build",
+      "started_at": "2026-11-08T20:20:58.614Z",
+      "ended_at": "2026-11-08T20:21:14.710Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site build",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:21:14.710Z"
+    },
+    {
+      "id": "step-2-verify-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "name": "Base-path assets verification",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:21:57.407Z",
+      "ended_at": "2026-11-08T20:21:57.407Z",
+      "result": "passed",
+      "evidence_ref": "dist/index.html favicon hrefs prefixed /artisyn-implementation-harness/; chunks/theme.*.js fetch now reads /artisyn-implementation-harness/docs-operational-graph.sqlite",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-2-typecheck-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "name": "site typecheck",
+      "kind": "typecheck",
+      "started_at": "2026-11-08T20:22:01.049Z",
+      "ended_at": "2026-11-08T20:22:03.767Z",
+      "result": "failed",
+      "evidence_ref": "Command exit recorded for site typecheck",
+      "source": "command",
+      "exit_code": 1,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:22:03.767Z"
+    },
+    {
+      "id": "step-2-typecheck-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "name": "site typecheck (retry)",
+      "kind": "typecheck",
+      "started_at": "2026-11-08T20:22:24.500Z",
+      "ended_at": "2026-11-08T20:22:27.429Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site typecheck (retry)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:22:27.429Z"
+    },
+    {
+      "id": "step-2-lint-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "name": "site lint",
+      "kind": "lint",
+      "started_at": "2026-11-08T20:22:31.125Z",
+      "ended_at": "2026-11-08T20:22:37.361Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site lint",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:22:37.361Z"
+    },
+    {
+      "id": "step-2-typecheck-run-03",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "657d57a2-c025-43aa-9a00-e879504b305f"
+      },
+      "name": "site typecheck",
+      "kind": "typecheck",
+      "started_at": "2026-11-08T20:23:00.066Z",
+      "ended_at": "2026-11-08T20:23:00.066Z",
+      "result": "passed",
+      "evidence_ref": "yarn nx run site:typecheck passed after adding vite/client to tsconfig types",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-3-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "name": "site build",
+      "kind": "build",
+      "started_at": "2026-11-08T20:23:31.313Z",
+      "ended_at": "2026-11-08T20:23:42.754Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site build",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:23:42.754Z"
+    },
+    {
+      "id": "step-3-csp-tag-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "name": "CSP meta tag present in build",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:24:57.162Z",
+      "ended_at": "2026-11-08T20:24:57.162Z",
+      "result": "passed",
+      "evidence_ref": "dist/index.html and dist/Harness/07 Operational Graph/04 Graph Explorer.html both contain the exact CSP meta tag string",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-3-build-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "name": "site build (giscus fix)",
+      "kind": "build",
+      "started_at": "2026-11-08T20:29:04.299Z",
+      "ended_at": "2026-11-08T20:29:16.148Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site build (giscus fix)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:29:16.148Z"
+    },
+    {
+      "id": "step-3-giscus-fix-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "name": "Giscus category name fix",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:29:50.821Z",
+      "ended_at": "2026-11-08T20:29:50.821Z",
+      "result": "passed",
+      "evidence_ref": "gh api graphql confirmed repo's actual Discussions category is named 'Web Comments' (id DIC_kwDOT7pBZ84DDmbz, matching the already-correct VITE_GISCUS_CATEGORY_ID); GiscusComments.vue hardcoded 'ADLC Comments' as the data-category name, a mismatch with the id — fixed to 'Web Comments'",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-3-live-check-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-3",
+        "attempt_id": "a71c78d8-8134-4835-bc8f-b2152bc1efe1"
+      },
+      "name": "Live CSP/Graph Explorer/giscus browser check",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:32:11.030Z",
+      "ended_at": "2026-11-08T20:32:11.030Z",
+      "result": "passed",
+      "evidence_ref": "ok, it works — Graph Explorer renders and giscus widget loads correctly after the category-name fix, no CSP console violations",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-4-yaml-valid-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "name": "cd.yml YAML validity",
+      "kind": "build",
+      "started_at": "2026-11-08T20:33:18.816Z",
+      "ended_at": "2026-11-08T20:33:18.864Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for cd.yml YAML validity",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:33:18.864Z"
+    },
+    {
+      "id": "step-4-ci-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "name": "site build (ci configuration, repo-var env)",
+      "kind": "build",
+      "started_at": "2026-11-08T20:33:23.520Z",
+      "ended_at": "2026-11-08T20:33:35.556Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for site build (ci configuration, repo-var env)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T20:33:35.556Z"
+    },
+    {
+      "id": "step-4-vars-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "3e8d3d2e-0e50-4f4e-a5eb-fda96981e496"
+      },
+      "name": "Repo variables set",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:35:18.245Z",
+      "ended_at": "2026-11-08T20:35:18.245Z",
+      "result": "passed",
+      "evidence_ref": "gh variable list confirms all four VITE_* variables set with correct values",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "implement-signoff-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "b4977566-4f33-452f-8b74-7140282c0cdb",
+      "step": null,
+      "name": "Implement sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T20:39:56.285Z",
+      "ended_at": "2026-11-08T20:39:56.285Z",
+      "result": "passed",
+      "evidence_ref": "proceed",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T20:19:10.672Z",
+    "as_of": "2026-11-08T20:40:13.174Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 375.774,
-    "observed_wait_seconds": 922.4370000000001,
+    "observed_work_seconds": 878.201,
+    "observed_wait_seconds": 1586.5520000000001,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "unclassified_seconds": 12.281999999999812,
+    "open_wait_seconds": 0.001,
+    "unclassified_seconds": 108.24099999999973,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 747.8539999999999,
-    "failed_checks": 0,
-    "first_pass_verification_rate": null,
+    "approval_wait_seconds": 1009.2479999999999,
+    "failed_checks": 1,
+    "first_pass_verification_rate": 0.75,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-08T20:19:06.259Z",
+    "as_of": "2026-11-08T20:40:06.946Z",
     "source": "2-report.md",
-    "source_sha256": "382bed035bc9297ea30704072b3032f72b541387b3f15b8d45b28b77dd20261d",
+    "source_sha256": "2213ac3ab89c77025a4fd0644ee9d2845cd5d2ac4299a5c3bb31691cc173ec70",
     "findings": {
-      "total": 1,
+      "total": 2,
       "by_kind": {
         "deviation": 0,
-        "bug": 0,
+        "bug": 1,
         "design": 1,
         "improve": 0,
         "security": 0,
@@ -270,19 +1003,19 @@
       "by_severity": {
         "critical": 0,
         "high": 0,
-        "medium": 0,
+        "medium": 1,
         "low": 1,
         "info": 0
       },
       "by_classification": {
         "introduced": 0,
-        "pre-existing": 0,
+        "pre-existing": 1,
         "ruled-out": 0,
         "advisory": 1
       },
       "by_resolution": {
         "open": 0,
-        "fixed": 1,
+        "fixed": 2,
         "accepted": 0,
         "tech-debt": 0,
         "doc-updated": 0

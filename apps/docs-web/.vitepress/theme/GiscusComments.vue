@@ -7,7 +7,7 @@ import { useRoute } from 'vitepress';
 // https://giscus.app once Giscus is enabled on the target repo.
 const GISCUS_REPO = `${import.meta.env.VITE_GITHUB_ORG}/${import.meta.env.VITE_GITHUB_REPO}`;
 const GISCUS_REPO_ID = import.meta.env.VITE_GISCUS_REPO_ID;
-const GISCUS_CATEGORY = 'ADLC Comments';
+const GISCUS_CATEGORY = 'Web Comments';
 const GISCUS_CATEGORY_ID = import.meta.env.VITE_GISCUS_CATEGORY_ID;
 const GISCUS_MAPPING = 'specific';
 const GISCUS_THEME = 'preferred_color_scheme';
