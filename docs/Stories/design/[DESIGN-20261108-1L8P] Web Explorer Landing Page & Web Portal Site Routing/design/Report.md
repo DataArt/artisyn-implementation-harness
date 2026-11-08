@@ -20,10 +20,10 @@ type: reference
 ## State
 
 ```yaml
-current_stage: review-gate
-completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution]
+current_stage: publish
+completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution, review-gate]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'review-gate'
+next_action: 'publish'
 context_fingerprint: ''
 ```
 
@@ -41,12 +41,12 @@ context_fingerprint: ''
 
 ## Status
 
-| Field  | Value                                                                                                                                                                               |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ticket | DESIGN-20261108-1L8P                                                                                                                                                                |
-| Branch | `docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing`                                                                                                                 |
-| Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Field  | Value                                                                                                                                                                                         |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ticket | DESIGN-20261108-1L8P                                                                                                                                                                          |
+| Branch | `docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing`                                                                                                                           |
+| Status | 🔄 In Progress                                                                                                                                                                                |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish 🔄 · 🏁 Completion ⏳ |
 
 ---
 
@@ -56,20 +56,20 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 19m 50s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 23m 31s
+Observed work: 31m 45s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 14m 21s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-08T22:29:08.649Z | 2026-11-08T22:30:50.995Z | 1m 42s      | 5s     | 1m 37s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-08T22:34:02.044Z | 2026-11-08T22:34:46.407Z | 44s         | 44s    | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (completed)             | 2026-11-08T22:36:56.002Z | 2026-11-08T22:39:45.991Z | 2m 50s      | 2m 50s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (completed)          | 2026-11-08T22:41:35.254Z | 2026-11-08T22:52:35.555Z | 11m 0s      | 11m 0s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (completed)          | 2026-11-08T22:56:43.158Z | 2026-11-08T23:01:53.233Z | 5m 10s      | 5m 10s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (active)             | 2026-11-08T23:03:39.138Z | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-08T22:29:08.649Z | 2026-11-08T22:30:50.995Z | 1m 42s      | 5s      | 1m 37s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-08T22:34:02.044Z | 2026-11-08T22:34:46.407Z | 44s         | 44s     | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-08T22:36:56.002Z | 2026-11-08T22:39:45.991Z | 2m 50s      | 2m 50s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (completed)          | 2026-11-08T22:41:35.254Z | 2026-11-08T22:52:35.555Z | 11m 0s      | 11m 0s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (completed)          | 2026-11-08T22:56:43.158Z | 2026-11-08T23:01:53.233Z | 5m 10s      | 5m 10s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (completed)          | 2026-11-08T23:03:39.138Z | 2026-11-08T23:14:07.089Z | 10m 28s     | 10m 28s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| review-gate (completed)       | 2026-11-08T23:14:51.430Z | 2026-11-08T23:16:18.501Z | 1m 27s      | 1m 27s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -160,21 +160,22 @@ Full elaboration: `design/02 Evaluate.md`
 
 ## Gate
 
-- Approver: —
-- Draft MR: —
-- Approved: — _(a date once approved, or `declined`)_
+- Approver: developer (self-approved)
+- Draft MR: — (skipped at developer's explicit request — self-approved, no MR opened)
+- Approved: 2026-11-09
 - Decline reason: — _(filled in by Address Feedback only if declined)_
 
 ---
 
 ## Efforts
 
-| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                                                                 |
-| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-08 | Frame    | 5 known requirements, 4 proposed requirements accepted; split into 2 decisions (Web Explorer, Web Portal site composition)                                                                                                                                                                                                                                                                            |
-| 2026-11-08 | Research | @architect returned 4 options for Web Explorer (no SPA, adopt scaffold, rebuild, isolated sub-workspace) and 5 options for Web Portal site composition (no composition, Nx assemble, typed Nx project, public/ passthrough, rename-sequencing variant); developer confirmed both option sets complete                                                                                                 |
-| 2026-11-08 | Evaluate | Recommended Option B (Web Explorer: adopt scaffold, pin TS/Vite down) and Option C+E (Web Portal: typed web-portal Nx project, sequenced rename); WAF: 2 pillars Amber (perf/OE on Decision 1, reliability on Decision 2), rest Green; 0 P1 items                                                                                                                                                     |
-| 2026-11-09 | Solution | Selected artifacts written (Architecture, Design, Stack, Efforts); architect review found and auto-fixed 1 mechanical gap (`implicitDependencies` needed alongside `dependsOn`); WAF review: pass, 0 P1s (3 pillars Amber, mitigated); quality gate: pass, 2 minor coverage gaps closed; WBS collapsed to 5 layer-level units at developer's request; estimate column explicitly skipped by developer |
+| Date       | Phase                          | Notes                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-08 | Frame                          | 5 known requirements, 4 proposed requirements accepted; split into 2 decisions (Web Explorer, Web Portal site composition)                                                                                                                                                                                                                                                                            |
+| 2026-11-08 | Research                       | @architect returned 4 options for Web Explorer (no SPA, adopt scaffold, rebuild, isolated sub-workspace) and 5 options for Web Portal site composition (no composition, Nx assemble, typed Nx project, public/ passthrough, rename-sequencing variant); developer confirmed both option sets complete                                                                                                 |
+| 2026-11-08 | Evaluate                       | Recommended Option B (Web Explorer: adopt scaffold, pin TS/Vite down) and Option C+E (Web Portal: typed web-portal Nx project, sequenced rename); WAF: 2 pillars Amber (perf/OE on Decision 1, reliability on Decision 2), rest Green; 0 P1 items                                                                                                                                                     |
+| 2026-11-09 | Solution                       | Selected artifacts written (Architecture, Design, Stack, Efforts); architect review found and auto-fixed 1 mechanical gap (`implicitDependencies` needed alongside `dependsOn`); WAF review: pass, 0 P1s (3 pillars Amber, mitigated); quality gate: pass, 2 minor coverage gaps closed; WBS collapsed to 5 layer-level units at developer's request; estimate column explicitly skipped by developer |
+| 2026-11-09 | Review Gate / Address Feedback | Developer self-approved, explicitly requested skipping the draft-MR step and Address Feedback entirely; no concerns raised                                                                                                                                                                                                                                                                            |
 
 ---
 

@@ -90,13 +90,24 @@
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "9a6be926-2747-4aa0-a5b9-d05ef5e07290",
+          "started_at": "2026-11-08T23:14:51.430Z",
+          "ended_at": "2026-11-08T23:16:18.501Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "address-feedback",
-      "status": "pending",
-      "attempts": []
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "developer self-approved and explicitly requested skipping review/address-feedback",
+      "skipped_at": "2026-11-08T23:16:35.285Z"
     },
     {
       "id": "publish",
@@ -188,6 +199,17 @@
       "started_at": "2026-11-08T23:03:39.138Z",
       "ended_at": "2026-11-08T23:14:07.089Z",
       "last_observed_at": "2026-11-08T23:14:07.089Z"
+    },
+    {
+      "id": "f160c467-1a40-4a10-990c-2b9dcce7ec34",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "9a6be926-2747-4aa0-a5b9-d05ef5e07290",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-08T23:14:51.430Z",
+      "ended_at": "2026-11-08T23:16:18.501Z",
+      "last_observed_at": "2026-11-08T23:16:18.501Z"
     }
   ],
   "checks": [
@@ -302,19 +324,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "cdd18fae-93e5-4f8a-99b4-b4f5b6a5f64c",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "9a6be926-2747-4aa0-a5b9-d05ef5e07290",
+      "step": null,
+      "design_revision": 0,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T23:16:18.440Z",
+      "ended_at": "2026-11-08T23:16:18.440Z",
+      "result": "passed",
+      "evidence_ref": "developer self-approved and explicitly requested skipping the draft-MR step and Address Feedback",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T23:14:07.101Z",
+    "as_of": "2026-11-08T23:16:51.773Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1817.689,
+    "observed_work_seconds": 1904.76,
     "observed_wait_seconds": 97.336,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 97.336,
-    "unclassified_seconds": 783.4739999999997,
+    "unclassified_seconds": 861.0749999999998,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 97.336,
