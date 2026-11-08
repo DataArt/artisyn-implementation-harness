@@ -20,10 +20,11 @@ type: reference
 ## State
 
 ```yaml
-current_stage: publish
-completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution, review-gate]
+current_stage: completion
+completed_stages:
+  [context-gathering, ceremony, frame, research, evaluate, solution, review-gate, publish]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'publish'
+next_action: 'completion'
 context_fingerprint: ''
 ```
 
@@ -46,7 +47,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261108-1L8P                                                                                                                                                                          |
 | Branch | `docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing`                                                                                                                           |
 | Status | 🔄 In Progress                                                                                                                                                                                |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish 🔄 · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ✅ · 🏁 Completion 🔄 |
 
 ---
 
@@ -56,7 +57,7 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 31m 45s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 14m 21s
+Observed work: 31m 45s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 25m 31s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -68,7 +69,7 @@ Observed work: 31m 45s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · U
 | solution (completed)          | 2026-11-08T23:03:39.138Z | 2026-11-08T23:14:07.089Z | 10m 28s     | 10m 28s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (completed)       | 2026-11-08T23:14:51.430Z | 2026-11-08T23:16:18.501Z | 1m 27s      | 1m 27s  | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (active)              | 2026-11-08T23:17:35.079Z | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
@@ -176,6 +177,7 @@ Full elaboration: `design/02 Evaluate.md`
 | 2026-11-08 | Evaluate                       | Recommended Option B (Web Explorer: adopt scaffold, pin TS/Vite down) and Option C+E (Web Portal: typed web-portal Nx project, sequenced rename); WAF: 2 pillars Amber (perf/OE on Decision 1, reliability on Decision 2), rest Green; 0 P1 items                                                                                                                                                     |
 | 2026-11-09 | Solution                       | Selected artifacts written (Architecture, Design, Stack, Efforts); architect review found and auto-fixed 1 mechanical gap (`implicitDependencies` needed alongside `dependsOn`); WAF review: pass, 0 P1s (3 pillars Amber, mitigated); quality gate: pass, 2 minor coverage gaps closed; WBS collapsed to 5 layer-level units at developer's request; estimate column explicitly skipped by developer |
 | 2026-11-09 | Review Gate / Address Feedback | Developer self-approved, explicitly requested skipping the draft-MR step and Address Feedback entirely; no concerns raised                                                                                                                                                                                                                                                                            |
+| 2026-11-09 | Publish                        | MR approved by developer (self); docs updated: `Web Explorer.md` (new), `Web Portal.md` (new), `Web.md` renamed to `Web Docs.md`, `Discuss.md`, `System Overview.md`, `index.md`; architect review found 2 issues (unsupported base-path tokenization claim, NFR-5 miscitation across 3 docs), both fixed and re-reviewed OK; operational graph reindexed with `story-to-hld` edges                   |
 
 ---
 

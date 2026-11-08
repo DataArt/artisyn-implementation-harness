@@ -1,4 +1,5 @@
 ---
+id: 27f15cce
 purpose: 'Settled solution for DESIGN-20261108-1L8P: Web Explorer and Web Portal containers added to the Web layer, with Web Docs renamed and re-based'
 keywords: [web-explorer, web-portal, web-docs, github-pages, nx composition, architecture]
 ---

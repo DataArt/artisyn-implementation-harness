@@ -111,8 +111,16 @@
     },
     {
       "id": "publish",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "7912dc6e-28ae-4aa3-a679-0175a15d94a4",
+          "started_at": "2026-11-08T23:17:35.079Z",
+          "ended_at": "2026-11-08T23:28:01.300Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "completion",
@@ -210,6 +218,17 @@
       "started_at": "2026-11-08T23:14:51.430Z",
       "ended_at": "2026-11-08T23:16:18.501Z",
       "last_observed_at": "2026-11-08T23:16:18.501Z"
+    },
+    {
+      "id": "fb79eb3a-198a-41eb-a25d-ea0265633e92",
+      "stage_id": "publish",
+      "stage_attempt_id": "7912dc6e-28ae-4aa3-a679-0175a15d94a4",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-08T23:17:35.079Z",
+      "ended_at": "2026-11-08T23:28:01.300Z",
+      "last_observed_at": "2026-11-08T23:28:01.300Z"
     }
   ],
   "checks": [
@@ -340,19 +359,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "928e66a7-31e5-4644-a576-8217d2f10064",
+      "stage_id": "publish",
+      "stage_attempt_id": "7912dc6e-28ae-4aa3-a679-0175a15d94a4",
+      "step": null,
+      "design_revision": 0,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T23:27:28.750Z",
+      "ended_at": "2026-11-08T23:27:28.750Z",
+      "result": "passed",
+      "evidence_ref": "confirmed 6 HLD doc changes incl. 2 architect-review corrections via AskUserQuestion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T23:16:51.773Z",
+    "as_of": "2026-11-08T23:28:01.312Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1904.76,
+    "observed_work_seconds": 2530.9809999999998,
     "observed_wait_seconds": 97.336,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 97.336,
-    "unclassified_seconds": 861.0749999999998,
+    "unclassified_seconds": 904.3930000000003,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 97.336,

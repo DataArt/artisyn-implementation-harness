@@ -12,11 +12,13 @@ ADLC Discovery Tool is a static documentation site delivering an AI-first SDLC a
 
 ## Containers
 
-| Container             | Responsibility                                                                                                           | Stack                    |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
-| Web                   | Static documentation site rendered from Markdown via VitePress                                                           | VitePress 1.x · Vite     |
-| Discuss               | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                             | giscus (external)        |
-| Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration coverage plus live agent E2E runs | Vitest · Nx · TypeScript |
+| Container             | Responsibility                                                                                                                                         | Stack                                 |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------- |
+| Web Explorer          | Promotional single-page app                                                                                                                            | React 19 · Vite · Tailwind 4 · Motion |
+| Web Docs              | Static documentation site rendered from Markdown via VitePress                                                                                         | VitePress 1.x · Vite                  |
+| Web Portal            | Build-time composition of Web Explorer's and Web Docs's static builds into one deployable artifact tree — no application source, no runtime of its own | Nx (`nx:run-commands`) · TypeScript   |
+| Discuss               | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                                                           | giscus (external)                     |
+| Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration coverage plus live agent E2E runs                               | Vitest · Nx · TypeScript              |
 
 Harness Bootstrap E2E is dev/CI tooling, not a runtime participant in the browser-facing request flow below — it tests the `harness-bootstrap` skill against disposable fixture workspaces and has no presence in the deployed site. Its deterministic layers run inside `ci.yml`; its agent E2E layer runs only from a developer's own environment. See `Containers/Harness Bootstrap E2E.md`.
 
@@ -30,17 +32,22 @@ flowchart LR
     GH["📦 GitHub Repo\nmain branch"]:::repo
 
     subgraph CI_BOX ["  GitHub Actions  "]
-        BUILD["⚙️ Build\nvitepress build"]:::ci
+        EXP_BUILD["⚙️ web-explorer:build"]:::ci
+        DOCS_BUILD["⚙️ web-docs:build"]:::ci
+        PORTAL_BUILD["⚙️ web-portal:build\n(assemble + assert)"]:::ci
         CFGP["🛠️ configure-pages"]:::ci
-        UPLOAD["📤 upload-pages-artifact\napps/docs-web/.vitepress/dist"]:::ci
+        UPLOAD["📤 upload-pages-artifact\napps/web-portal/dist"]:::ci
         DEPLOY["🚀 deploy-pages"]:::ci
     end
 
-    PAGES["🌍 GitHub Pages\n/<repo>/"]:::pages
+    PAGES["🌍 GitHub Pages\n/<repo>/ → Web Explorer\n/<repo>/docs/ → Web Docs"]:::pages
 
     Dev -->|"git push"| GH
-    GH -->|"triggers"| BUILD
-    BUILD --> CFGP --> UPLOAD --> DEPLOY
+    GH -->|"triggers"| EXP_BUILD
+    GH -->|"triggers"| DOCS_BUILD
+    EXP_BUILD --> PORTAL_BUILD
+    DOCS_BUILD --> PORTAL_BUILD
+    PORTAL_BUILD --> CFGP --> UPLOAD --> DEPLOY
     DEPLOY --> PAGES
     Browser -->|"HTTPS"| PAGES
 
