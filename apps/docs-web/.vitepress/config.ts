@@ -12,6 +12,14 @@ export default withMermaid(
     description: 'AI-first engineering lifecycles',
     head: [
       ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+      [
+        'meta',
+        {
+          name: 'keywords',
+          content:
+            'agent-skills, agent-skills-manager, agent-skills-tools, agentic-development, ai-assisted-development, ai-sdlc, ai-sdlc-framework, architecture-governance, coding-agents, context-engineering, context-engineering-framework, context-engineering-kit, developer-tools, developer-tools-ai-agent, engineering-workflows, implementation-harness, software-architecture, software-architecture-and-design, software-development-lifecycle',
+        },
+      ],
       // Applies the persisted sidebar/aside collapse state before hydration
       // (same pattern VitePress itself uses for dark mode) so returning
       // visitors don't see the panel flash open then collapse on load.
