@@ -68,22 +68,30 @@
     },
     {
       "id": "test",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "453563d9-ccf7-4fb3-90e4-0fdcdabc272e",
           "started_at": "2026-11-08T20:42:13.641Z",
-          "ended_at": null,
+          "ended_at": "2026-11-08T20:50:07.601Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "3ec8073a-196e-4223-8649-a4ad3ea9ef8d",
+          "started_at": "2026-11-08T20:50:15.328Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -742,8 +750,43 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-08T20:49:29.916Z",
+      "ended_at": "2026-11-08T20:50:07.601Z",
+      "last_observed_at": "2026-11-08T20:50:07.601Z"
+    },
+    {
+      "id": "52cd8753-8ac7-4897-9631-a783632f7e8c",
+      "stage_id": "document",
+      "stage_attempt_id": "3ec8073a-196e-4223-8649-a4ad3ea9ef8d",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-08T20:50:15.328Z",
+      "ended_at": "2026-11-08T21:01:08.250Z",
+      "last_observed_at": "2026-11-08T21:01:08.250Z"
+    },
+    {
+      "id": "b2dfd195-5acf-4739-ab8e-cbf623b5b2cf",
+      "stage_id": "document",
+      "stage_attempt_id": "3ec8073a-196e-4223-8649-a4ad3ea9ef8d",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting document sign-off",
+      "started_at": "2026-11-08T21:01:08.250Z",
+      "ended_at": "2026-11-08T21:03:17.997Z",
+      "last_observed_at": "2026-11-08T21:03:17.997Z"
+    },
+    {
+      "id": "09b0aa14-6d26-46d2-9630-5cabdfbb294b",
+      "stage_id": "document",
+      "stage_attempt_id": "3ec8073a-196e-4223-8649-a4ad3ea9ef8d",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-08T21:03:17.997Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-08T20:49:29.916Z"
+      "last_observed_at": "2026-11-08T21:03:17.997Z"
     }
   ],
   "checks": [
@@ -1268,21 +1311,51 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "test-AC-6-deferred",
+      "stage_id": "document",
+      "stage_attempt_id": "3ec8073a-196e-4223-8649-a4ad3ea9ef8d",
+      "step": null,
+      "name": "AC-6",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T21:00:47.952Z",
+      "ended_at": "2026-11-08T21:00:47.952Z",
+      "result": "passed",
+      "evidence_ref": "Deferred to post-merge, authorized at Test sign-off ('go ahead' after explicit flag that AC-6 can't be checked pre-merge); tracked as TD-1 with owner and next action, not silently dropped",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "document-signoff-01",
+      "stage_id": "document",
+      "stage_attempt_id": "3ec8073a-196e-4223-8649-a4ad3ea9ef8d",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T21:02:45.200Z",
+      "ended_at": "2026-11-08T21:02:45.200Z",
+      "result": "passed",
+      "evidence_ref": "go ahead",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T20:49:29.917Z",
+    "as_of": "2026-11-08T21:03:17.998Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1095.7740000000001,
-    "observed_wait_seconds": 1919.0320000000002,
+    "observed_work_seconds": 1748.6960000000001,
+    "observed_wait_seconds": 2086.464,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "unclassified_seconds": 114.93099999999956,
+    "unclassified_seconds": 122.65799999999965,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 1227.9499999999998,
+    "approval_wait_seconds": 1357.697,
     "failed_checks": 2,
     "first_pass_verification_rate": 0.75,
     "human_reported_seconds": null,
@@ -1291,30 +1364,30 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-08T20:49:25.063Z",
+    "as_of": "2026-11-08T21:03:12.072Z",
     "source": "2-report.md",
-    "source_sha256": "fd8ac7e02068afe9302dd755b17f93900a9a5119bd30e124ad75487a1aca9100",
+    "source_sha256": "96e26c84b66492a0054e956494e26a76586782bb5ef2f662634c47c59de10df6",
     "findings": {
-      "total": 3,
+      "total": 6,
       "by_kind": {
-        "deviation": 0,
+        "deviation": 1,
         "bug": 1,
         "design": 2,
         "improve": 0,
         "security": 0,
         "performance": 0,
-        "docs": 0
+        "docs": 2
       },
       "by_severity": {
         "critical": 0,
         "high": 0,
         "medium": 1,
-        "low": 2,
+        "low": 5,
         "info": 0
       },
       "by_classification": {
-        "introduced": 1,
-        "pre-existing": 1,
+        "introduced": 3,
+        "pre-existing": 2,
         "ruled-out": 0,
         "advisory": 1
       },
@@ -1323,10 +1396,10 @@
         "fixed": 3,
         "accepted": 0,
         "tech-debt": 0,
-        "doc-updated": 0
+        "doc-updated": 3
       },
       "deviations_by_type": {
-        "contradiction": 0,
+        "contradiction": 1,
         "extension": 0,
         "omission": 0
       },
