@@ -64,8 +64,16 @@
     },
     {
       "id": "evaluate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "9afb7b9a-fdbd-4e6c-b053-62b1ace7b767",
+          "started_at": "2026-11-08T22:56:43.158Z",
+          "ended_at": "2026-11-08T23:01:53.233Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "solution",
@@ -150,6 +158,17 @@
       "started_at": "2026-11-08T22:41:35.254Z",
       "ended_at": "2026-11-08T22:52:35.555Z",
       "last_observed_at": "2026-11-08T22:52:35.555Z"
+    },
+    {
+      "id": "9f7ff6d0-9dda-452f-b4cc-bca2d4686bcd",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "9afb7b9a-fdbd-4e6c-b053-62b1ace7b767",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-08T22:56:43.158Z",
+      "ended_at": "2026-11-08T23:01:53.233Z",
+      "last_observed_at": "2026-11-08T23:01:53.233Z"
     }
   ],
   "checks": [
@@ -232,19 +251,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "ce2652ce-b319-4642-a049-d1f118306166",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "9afb7b9a-fdbd-4e6c-b053-62b1ace7b767",
+      "step": null,
+      "design_revision": 0,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-08T23:01:33.297Z",
+      "ended_at": "2026-11-08T23:01:33.297Z",
+      "result": "passed",
+      "evidence_ref": "confirmed Option B (Web Explorer) and Option C+E (Web Portal composition) recommendations via AskUserQuestion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T22:52:35.562Z",
+    "as_of": "2026-11-08T23:01:53.253Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 879.663,
+    "observed_work_seconds": 1189.738,
     "observed_wait_seconds": 97.336,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 97.336,
-    "unclassified_seconds": 429.961,
+    "unclassified_seconds": 677.577,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 97.336,

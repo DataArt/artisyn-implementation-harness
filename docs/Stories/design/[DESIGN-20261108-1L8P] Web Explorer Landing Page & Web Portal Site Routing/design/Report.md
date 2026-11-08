@@ -20,10 +20,10 @@ type: reference
 ## State
 
 ```yaml
-current_stage: evaluate
-completed_stages: [context-gathering, ceremony, frame, research]
+current_stage: solution
+completed_stages: [context-gathering, ceremony, frame, research, evaluate]
 selected_artifacts: []
-next_action: 'evaluate'
+next_action: 'solution'
 context_fingerprint: ''
 ```
 
@@ -46,7 +46,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261108-1L8P                                                                                                                                                                |
 | Branch | `docs/design-20261108-1l8p-web-explorer-landing-web-portal-routing`                                                                                                                 |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -56,15 +56,15 @@ context_fingerprint: ''
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 3m 39s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 18m 10s
+Observed work: 14m 40s · Wait to date: 1m 37s (closed 1m 37s + current 0s) · Unclassified: 16m 28s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
 | context-gathering (completed) | 2026-11-08T22:29:08.649Z | 2026-11-08T22:30:50.995Z | 1m 42s      | 5s     | 1m 37s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | ceremony (completed)          | 2026-11-08T22:34:02.044Z | 2026-11-08T22:34:46.407Z | 44s         | 44s    | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | frame (completed)             | 2026-11-08T22:36:56.002Z | 2026-11-08T22:39:45.991Z | 2m 50s      | 2m 50s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (active)             | 2026-11-08T22:41:35.254Z | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| research (completed)          | 2026-11-08T22:41:35.254Z | 2026-11-08T22:52:35.555Z | 11m 0s      | 11m 0s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (active)             | 2026-11-08T22:56:43.158Z | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -103,6 +103,40 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 <!-- Append dated blocks here. Each block added by Evaluate or the waf-review pattern. -->
 
+### WAF — Evaluate — 2026-11-08 (Decision 1: Web Explorer)
+
+_Recommended option: B — adopt the existing scaffold as-is at `apps/web-explorer`, with OQ-1 resolved by pinning the scaffold's TS/Vite ranges down to root-compatible majors._
+
+| Pillar                 | Rating   | Headline                                                                            |
+| ---------------------- | -------- | ----------------------------------------------------------------------------------- |
+| Operational Excellence | 🟡 Amber | New app to operate; mirror `apps/docs-web/project.json`'s target shape on adoption. |
+| Security               | 🟢 Green | Static, no backend; React/JSX avoids NFR-7's raw-HTML risk.                         |
+| Reliability            | 🟢 Green | Static site, no runtime dependency; build failure fails CI before prod.             |
+| Performance Efficiency | 🟡 Amber | React 19 + Motion + Tailwind 4 heavier than strictly needed for one promo page.     |
+| Cost Optimization      | 🟢 Green | Static hosting on GitHub Pages — zero marginal cost.                                |
+| Sustainability         | 🟢 Green | Build-time only, no added runtime compute.                                          |
+
+**P1 items (resolve before implementation):** none.
+
+Full elaboration: `design/02 Evaluate.md`
+
+### WAF — Evaluate — 2026-11-08 (Decision 2: Web Portal Site Composition)
+
+_Recommended option: C — first-class typed `apps/web-portal` Nx project, sequenced per Option E (composition first, mechanical rename as a follow-up PR)._
+
+| Pillar                 | Rating   | Headline                                                                                               |
+| ---------------------- | -------- | ------------------------------------------------------------------------------------------------------ |
+| Operational Excellence | 🟢 Green | Typed assemble script with explicit asserts; idiomatic Nx target; sequencing reduces blast radius.     |
+| Security               | 🟢 Green | No new secrets/auth surface; NFR-5/NFR-7 scope unchanged.                                              |
+| Reliability            | 🟡 Amber | No staging environment — first composed deploy validated only by CI assertions, not a live smoke test. |
+| Performance Efficiency | 🟢 Green | Merge step adds negligible build time; Nx caching limits unnecessary rebuilds.                         |
+| Cost Optimization      | 🟢 Green | No new infrastructure — still GitHub Pages.                                                            |
+| Sustainability         | 🟢 Green | No added runtime compute, build-time composition only.                                                 |
+
+**P1 items (resolve before implementation):** none.
+
+Full elaboration: `design/02 Evaluate.md`
+
 ---
 
 ## Gate
@@ -120,6 +154,7 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 | ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-11-08 | Frame    | 5 known requirements, 4 proposed requirements accepted; split into 2 decisions (Web Explorer, Web Portal site composition)                                                                                                                                                                            |
 | 2026-11-08 | Research | @architect returned 4 options for Web Explorer (no SPA, adopt scaffold, rebuild, isolated sub-workspace) and 5 options for Web Portal site composition (no composition, Nx assemble, typed Nx project, public/ passthrough, rename-sequencing variant); developer confirmed both option sets complete |
+| 2026-11-08 | Evaluate | Recommended Option B (Web Explorer: adopt scaffold, pin TS/Vite down) and Option C+E (Web Portal: typed web-portal Nx project, sequenced rename); WAF: 2 pillars Amber (perf/OE on Decision 1, reliability on Decision 2), rest Green; 0 P1 items                                                     |
 
 ---
 
