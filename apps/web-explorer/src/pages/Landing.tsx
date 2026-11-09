@@ -14,7 +14,7 @@ import {
   Sparkles,
   Workflow,
 } from 'lucide-react';
-import LifecycleDemo from '../components/LifecycleDemo';
+import TerminalScenarios from '../components/TerminalScenarios';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import SectionLink from '../components/SectionLink';
@@ -140,11 +140,11 @@ export default function Landing() {
             <span className="eyebrow">01 / HOW IT WORKS</span>
             <h2 id="how-heading">Explore the harness in action.</h2>
             <p>
-              Choose a lifecycle, inspect each phase, and see how context, architectural checks, and
-              feedback connect. This is an illustrative walkthrough—not a live agent run.
+              Three real flows, condensed: installing the harness, designing a change, and
+              implementing it. This is a simulated run—not a live agent execution.
             </p>
           </div>
-          <LifecycleDemo />
+          <TerminalScenarios />
         </section>
 
         <section id="capabilities" className="section container" aria-labelledby="cap-heading">
