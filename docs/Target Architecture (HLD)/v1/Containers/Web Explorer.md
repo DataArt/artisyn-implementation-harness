@@ -1,12 +1,12 @@
 ---
 id: 3a7c9e1d
-purpose: Design intent for the Web Explorer container — the promotional single-page app built with React and Vite
-keywords: [web-explorer, react, vite, tailwind, hld]
+purpose: 'Design intent for the Web Explorer container: the promotional multi-route app (landing page plus an Inside the Loop section) built with React and Vite'
+keywords: [web-explorer, react, vite, tailwind, hld, inside-the-loop, hashrouter]
 ---
 
 # Web Explorer Container
 
-Promotional single-page app at `apps/web-explorer`, owned by the Web layer alongside Web Docs and Web Portal.
+Promotional multi-route app at `apps/web-explorer`, owned by the Web layer alongside Web Docs and Web Portal. Two route groups under a client-side `HashRouter`: the landing page at `/`, and an `/inside-the-loop` section (a hub page plus 10 routed detail pages).
 
 ## Baseline diagram
 
@@ -38,27 +38,32 @@ flowchart LR
 
 ## Responsibilities
 
-- Render the promotional landing page as JSX components — no raw HTML string injection and no `<script>` tags in the rendered output (NFR-7)
+- Render the promotional landing page and the `/inside-the-loop` section as JSX components — no raw HTML string injection and no `<script>` tags in the rendered output (NFR-7)
+- Route both sections client-side under a single `HashRouter`: `/` for the landing page, `/inside-the-loop` for the hub page plus its 10 detail pages
 - Produce a static build at `apps/web-explorer/dist/` with no server runtime of its own
-- Enforce a bundle-size budget as part of its own `build` target, failing CI if exceeded
+- Enforce a bundle-size budget against the landing page's own entry chunk — route-based code-splitting (`React.lazy()`) keeps the `/inside-the-loop` section's own chunk out of that measurement regardless of its size
 
 ## Technology
 
-| Component    | Choice                                                                       |
-| ------------ | ---------------------------------------------------------------------------- |
-| UI framework | React `^19.3.1`                                                              |
-| Build tool   | Vite, pinned to a major compatible with root TypeScript `^5.7.0` and Node 24 |
-| Language     | TypeScript `^5.7.0`                                                          |
-| Styling      | Tailwind CSS `^4.3.5` via `@tailwindcss/vite`                                |
-| Animation    | Motion `^14.10.1`                                                            |
-| Icons        | Lucide React `^1.70.0`                                                       |
+| Component        | Choice                                                                       |
+| ---------------- | ---------------------------------------------------------------------------- |
+| UI framework     | React `^19.3.1`                                                              |
+| Build tool       | Vite, pinned to a major compatible with root TypeScript `^5.7.0` and Node 24 |
+| Language         | TypeScript `^5.7.0`                                                          |
+| Styling          | Tailwind CSS `^4.3.5` via `@tailwindcss/vite`                                |
+| Animation        | Motion `^14.10.1`                                                            |
+| Icons            | Lucide React `^1.70.0`, `simple-icons`                                       |
+| Routing          | `react-router-dom` (`HashRouter`)                                            |
+| Dependency graph | `@xyflow/react` — the `/inside-the-loop` hub page's dependency-graph map     |
+| Chart data       | `d3-array`, `d3-scale`                                                       |
 
 ## Boundary contracts
 
 - Input: React/JSX source, Tailwind config, root workspace `tsconfig.base.json`
 - Output: static HTML/CSS/JS in `apps/web-explorer/dist/`, consumed as an input to Web Portal's `portal-assemble.ts` composition step
 - Guarantee: content is rendered as JSX, not raw HTML — no `dangerouslySetInnerHTML` or raw `<script>` tags appear in the source (NFR-7)
-- Guarantee: `web-explorer:build` fails if the bundle-size budget check does not pass
+- Guarantee: `web-explorer:build` fails if the bundle-size budget check against the landing page's entry chunk does not pass
+- Guarantee: routing uses `HashRouter`, not `BrowserRouter` — this is a static artifact with no server to rewrite a deep link back to `index.html`; the hash-based approach needs zero GitHub Pages server configuration
 
 ## Constraints
 

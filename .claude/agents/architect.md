@@ -37,9 +37,12 @@ Parse the prompt to determine:
 
 Read `docs/Target Architecture (HLD)/README.md` to find the active version (`<VERSION>`), then use the table below.
 
-| Layer          | Architecture doc path                                                                                                                   | Code path(s)        |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| Web            | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web.md` (+ `Discuss.md` for the client-side giscus comments widget embedded in it) | `apps/docs-web/`    |
+| Layer                  | Architecture doc path                                                                                                                        | Code path(s)                  |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| Web Docs               | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web Docs.md` (+ `Discuss.md` for the client-side giscus comments widget embedded in it) | `apps/web-docs/`              |
+| Web Explorer           | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web Explorer.md`                                                                        | `apps/web-explorer/`          |
+| Web Portal             | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web Portal.md`                                                                          | `apps/web-portal/` (composition only, no source) |
+| Harness Bootstrap E2E  | `docs/Target Architecture (HLD)/<VERSION>/Containers/Harness Bootstrap E2E.md`                                                               | `apps/harness-bootstrap-e2e/` |
 
 ---
 

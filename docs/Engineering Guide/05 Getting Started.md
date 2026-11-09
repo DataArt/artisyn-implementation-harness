@@ -19,17 +19,23 @@ flowchart TB
 
     root["@artisyn-harness/root\n(workspace root)"]
 
-    root --> site["site\napps/docs-web"]
+    root --> site["web-docs\napps/web-docs"]
+    root --> explorer["web-explorer\napps/web-explorer"]
+    root --> portal["web-portal\napps/web-portal"]
     root --> docs["docs\ndocs/"]
 
     class site app
+    class explorer app
+    class portal app
     class docs content
 ```
 
-| NX project | Path            | Stack     | Purpose                        |
-| ---------- | --------------- | --------- | ------------------------------ |
-| `site`     | `apps/docs-web` | VitePress | Documentation site             |
-| `docs`     | `docs/`         | Markdown  | Content library (implicit dep) |
+| NX project     | Path                | Stack               | Purpose                                                                    |
+| -------------- | ------------------- | ------------------- | -------------------------------------------------------------------------- |
+| `web-docs`     | `apps/web-docs`     | VitePress           | Documentation site, served under `/docs/`                                  |
+| `web-explorer` | `apps/web-explorer` | React 19 · Vite     | Promotional landing page + Inside the Loop section, served at the root     |
+| `web-portal`   | `apps/web-portal`   | Nx composition only | No source — assembles `web-explorer` + `web-docs` into one deployable tree |
+| `docs`         | `docs/`             | Markdown            | Content library (implicit dep of `web-docs`)                               |
 
 ---
 
@@ -59,10 +65,19 @@ yarn install         # installs all workspace deps
 
 ```bash
 # Docs site — live reload dev server
-yarn nx run site:serve
+yarn nx run web-docs:serve
 
 # Docs site — production build
-yarn nx run site:build
+yarn nx run web-docs:build
+
+# Landing page — live reload dev server
+yarn nx run web-explorer:serve
+
+# Landing page — production build
+yarn nx run web-explorer:build
+
+# Composed deploy artifact (both apps, root + /docs/) — what CI actually deploys
+yarn nx run web-portal:build
 ```
 
 ---
@@ -74,7 +89,7 @@ yarn format             # format all files with Prettier
 yarn format:check       # check formatting without writing
 yarn lint               # ESLint across the workspace
 
-yarn nx run site:typecheck          # TypeScript check — docs site
+yarn nx run web-docs:typecheck       # TypeScript check — docs site
 ```
 
 ---

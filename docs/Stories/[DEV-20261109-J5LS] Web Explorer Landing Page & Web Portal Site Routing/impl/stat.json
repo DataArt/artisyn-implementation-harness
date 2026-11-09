@@ -68,22 +68,30 @@
     },
     {
       "id": "test",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "e7759c60-18b3-42b3-ae30-1267466bfa24",
           "started_at": "2026-11-09T01:32:34.371Z",
-          "ended_at": null,
+          "ended_at": "2026-11-09T01:43:25.103Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "aae61f7e-6c9b-4545-bd56-c62dba459f9c",
+          "started_at": "2026-11-09T01:43:36.336Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -692,8 +700,43 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-09T01:42:42.452Z",
+      "ended_at": "2026-11-09T01:43:25.103Z",
+      "last_observed_at": "2026-11-09T01:43:25.103Z"
+    },
+    {
+      "id": "e041cb81-9f5a-45f4-9b10-f131db243477",
+      "stage_id": "document",
+      "stage_attempt_id": "aae61f7e-6c9b-4545-bd56-c62dba459f9c",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-09T01:43:36.336Z",
+      "ended_at": "2026-11-09T02:01:08.252Z",
+      "last_observed_at": "2026-11-09T02:01:08.252Z"
+    },
+    {
+      "id": "0c45f20b-568c-4f03-bcd0-3f375065dd88",
+      "stage_id": "document",
+      "stage_attempt_id": "aae61f7e-6c9b-4545-bd56-c62dba459f9c",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting document sign-off",
+      "started_at": "2026-11-09T02:01:08.252Z",
+      "ended_at": "2026-11-09T02:02:21.895Z",
+      "last_observed_at": "2026-11-09T02:02:21.895Z"
+    },
+    {
+      "id": "985129f3-aef7-4ac2-b159-ea8011c7de4b",
+      "stage_id": "document",
+      "stage_attempt_id": "aae61f7e-6c9b-4545-bd56-c62dba459f9c",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-09T02:02:21.895Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-09T01:42:42.452Z"
+      "last_observed_at": "2026-11-09T02:02:21.895Z"
     }
   ],
   "checks": [
@@ -1294,21 +1337,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "document-signoff-01",
+      "stage_id": "document",
+      "stage_attempt_id": "aae61f7e-6c9b-4545-bd56-c62dba459f9c",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-09T02:01:33.608Z",
+      "ended_at": "2026-11-09T02:01:33.608Z",
+      "result": "passed",
+      "evidence_ref": "developer: nice",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-09T01:42:42.453Z",
+    "as_of": "2026-11-09T02:02:21.896Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 2424.845,
-    "observed_wait_seconds": 90.779,
+    "observed_work_seconds": 3476.7609999999995,
+    "observed_wait_seconds": 207.073,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "unclassified_seconds": 5203.525,
+    "unclassified_seconds": 5214.758000000001,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 90.779,
+    "approval_wait_seconds": 164.422,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
@@ -1317,43 +1375,43 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-09T01:42:31.595Z",
+    "as_of": "2026-11-09T02:02:13.921Z",
     "source": "2-report.md",
-    "source_sha256": "d7aab057e7f46f9fecd88f770716bff3c2e2ecd2009bd2436a57ba5dd59c0c51",
+    "source_sha256": "24ddd3f1fe27abe83f4def2bfd7c27fdbe820711270086d78becacf7bb839263",
     "findings": {
-      "total": 6,
+      "total": 11,
       "by_kind": {
-        "deviation": 0,
+        "deviation": 1,
         "bug": 2,
         "design": 0,
         "improve": 1,
         "security": 0,
         "performance": 0,
-        "docs": 3
+        "docs": 7
       },
       "by_severity": {
         "critical": 0,
         "high": 2,
-        "medium": 1,
-        "low": 3,
+        "medium": 5,
+        "low": 4,
         "info": 0
       },
       "by_classification": {
-        "introduced": 4,
+        "introduced": 9,
         "pre-existing": 2,
         "ruled-out": 0,
         "advisory": 0
       },
       "by_resolution": {
         "open": 0,
-        "fixed": 4,
+        "fixed": 8,
         "accepted": 0,
         "tech-debt": 2,
-        "doc-updated": 0
+        "doc-updated": 1
       },
       "deviations_by_type": {
         "contradiction": 0,
-        "extension": 0,
+        "extension": 1,
         "omission": 0
       },
       "pr_review": {
