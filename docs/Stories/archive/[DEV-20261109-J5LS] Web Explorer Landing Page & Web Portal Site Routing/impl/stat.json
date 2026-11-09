@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-08T23:34:03.342Z",
-  "completed_at": null,
+  "completed_at": "2026-11-09T02:05:28.055Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -82,22 +82,30 @@
     },
     {
       "id": "document",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "aae61f7e-6c9b-4545-bd56-c62dba459f9c",
           "started_at": "2026-11-09T01:43:36.336Z",
-          "ended_at": null,
+          "ended_at": "2026-11-09T02:03:17.100Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "c0f93d19-0a2b-42fb-a928-679b6b23c8cb",
+          "started_at": "2026-11-09T02:03:47.714Z",
+          "ended_at": "2026-11-09T02:05:28.005Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     }
   ],
@@ -735,8 +743,19 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-09T02:02:21.895Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-09T02:02:21.895Z"
+      "ended_at": "2026-11-09T02:03:17.100Z",
+      "last_observed_at": "2026-11-09T02:03:17.100Z"
+    },
+    {
+      "id": "172e3c19-fb34-48b3-9902-ebb5636ffd4d",
+      "stage_id": "completion",
+      "stage_attempt_id": "c0f93d19-0a2b-42fb-a928-679b6b23c8cb",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-09T02:03:47.714Z",
+      "ended_at": "2026-11-09T02:05:28.005Z",
+      "last_observed_at": "2026-11-09T02:05:28.005Z"
     }
   ],
   "checks": [
@@ -1352,18 +1371,33 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "completion-signoff-01",
+      "stage_id": "completion",
+      "stage_attempt_id": "c0f93d19-0a2b-42fb-a928-679b6b23c8cb",
+      "step": null,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-09T02:05:23.430Z",
+      "ended_at": "2026-11-09T02:05:23.430Z",
+      "result": "passed",
+      "evidence_ref": "developer: ignore it (no tracker tickets)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-09T02:02:21.896Z",
+    "as_of": "2026-11-09T02:05:28.133Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 3476.7609999999995,
-    "observed_wait_seconds": 207.073,
+    "cycle_time_seconds": 9084.713,
+    "observed_work_seconds": 3577.0519999999997,
+    "observed_wait_seconds": 262.278,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "unclassified_seconds": 5214.758000000001,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 5245.4220000000005,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 164.422,
@@ -1375,9 +1409,9 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-09T02:02:13.921Z",
+    "as_of": "2026-11-09T02:05:28.130Z",
     "source": "2-report.md",
-    "source_sha256": "24ddd3f1fe27abe83f4def2bfd7c27fdbe820711270086d78becacf7bb839263",
+    "source_sha256": "63224055b33316525051f7754d694fd593dcf3ddd1b0b5fb878322ec5cbc6756",
     "findings": {
       "total": 11,
       "by_kind": {
