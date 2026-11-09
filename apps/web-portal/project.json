@@ -1,0 +1,19 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "web-portal",
+  "projectType": "application",
+  "root": "apps/web-portal",
+  "sourceRoot": "",
+  "implicitDependencies": ["web-explorer", "web-docs"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "dependsOn": ["web-explorer:build", "web-docs:build"],
+      "outputs": ["{projectRoot}/dist"],
+      "options": {
+        "command": "tsx scripts/ci/portal-assemble.ts"
+      }
+    }
+  }
+}

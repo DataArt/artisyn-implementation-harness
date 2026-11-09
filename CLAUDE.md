@@ -21,11 +21,13 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 
 | Container      | Role                                       | Stack                |
 | -------------- | ------------------------------------------ | -------------------- |
-| Web            | VitePress documentation site, built and deployed to GitHub Pages via GitHub Actions | VitePress 1.x · Vite |
+| Web Docs       | VitePress documentation site, served under the `/docs/` subpath, built and deployed to GitHub Pages via GitHub Actions | VitePress 1.x · Vite |
+| Web Explorer   | Promotional single-page app, served at the GitHub Pages project-site root | React 19 · Vite · react-router-dom |
+| Web Portal     | Composition-only Nx project, no application source — assembles Web Explorer's and Web Docs's independently-built static outputs into one deployable artifact tree for GitHub Pages | Nx composition script only |
 | Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
 | Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
 
-Data flow: Browser → GitHub Pages (static build, deployed by GitHub Actions). Discuss integrates client-side with giscus.app/GitHub Discussions.
+Data flow: Browser → GitHub Pages (static build, deployed by GitHub Actions) — root → Web Explorer, `/docs/` → Web Docs, both composed by Web Portal. Discuss integrates client-side with giscus.app/GitHub Discussions.
 
 See `docs/Target Architecture (HLD)/README.md` for the active version's full design.
 
@@ -70,7 +72,7 @@ Harness bootstrap: `/harness-bootstrap launch` · `/harness-bootstrap patch harv
 | Agent          | Layer                                      | Tools                               |
 | -------------- | ------------------------------------------ | ----------------------------------- |
 | `@onboarding`  | All (read-only guide)                      | Read, Glob, Grep                    |
-| `@web`         | Web (`apps/docs-web/`, `docs/`)            | Read, Edit, Write, Glob, Grep       |
+| `@web`         | Web Docs (`apps/web-docs/`, `docs/`)       | Read, Edit, Write, Glob, Grep       |
 | `@architect`   | All (reviewer + doc author)                | Read, Glob, Grep, Bash, Write, Edit |
 | `@docs-writer` | `docs/` (content authoring)                | Read, Edit, Write, Glob, Grep       |
 | `@product-architect` | `docs/Harness/` (product-track governance, read-only) | Read, Glob, Grep |

@@ -1,4 +1,4 @@
-// Fails loudly if apps/docs-web's hand-duplicated TIER_COLORS (Graph Explorer's
+// Fails loudly if apps/web-docs's hand-duplicated TIER_COLORS (Graph Explorer's
 // Cytoscape stylesheet) drifts from the canonical tier taxonomy in
 // docs/.og/constants.mjs. The web build intentionally doesn't import the
 // canonical module at runtime (TD-7 in DESIGN-20261102-Q5MU's report), so this
@@ -13,7 +13,7 @@ if (APP_README_PATTERN) canonicalTiers.add('AppReadme');
 
 const stylePath = path.resolve(
   import.meta.dirname,
-  '../../apps/docs-web/.vitepress/theme/GraphExplorer/cytoscapeStyle.ts'
+  '../../apps/web-docs/.vitepress/theme/GraphExplorer/cytoscapeStyle.ts'
 );
 const styleSource = fs.readFileSync(stylePath, 'utf8');
 const match = styleSource.match(/TIER_COLORS:\s*Record<string,\s*string>\s*=\s*\{([\s\S]*?)\}/);
@@ -34,7 +34,7 @@ if (missingFromUi.length || extraInUi.length) {
     console.error(`  Missing from TIER_COLORS: ${missingFromUi.join(', ')}`);
   if (extraInUi.length) console.error(`  No longer a real tier: ${extraInUi.join(', ')}`);
   console.error(
-    '  Update apps/docs-web/.vitepress/theme/GraphExplorer/cytoscapeStyle.ts to match.'
+    '  Update apps/web-docs/.vitepress/theme/GraphExplorer/cytoscapeStyle.ts to match.'
   );
   process.exit(1);
 }

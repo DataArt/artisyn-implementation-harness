@@ -52,7 +52,7 @@ flowchart LR
 | Widget            | giscus — client-side script embed (`giscus.app/client.js`), no npm dependency                                                                          |
 | Data store        | GitHub Discussions on the repo configured via `GITHUB_ORG`/`GITHUB_REPO` (public repo)                                                                 |
 | Access control    | Asymmetric: posting requires GitHub repository permission (verified); reading is open to anyone who can view the public repo's Discussions (see NFR-6) |
-| Theme integration | `apps/docs-web/.vitepress/theme/` (Web container) — no dedicated NX app                                                                                |
+| Theme integration | `apps/web-docs/.vitepress/theme/` (Web Docs container) — no dedicated NX app                                                                           |
 
 ## Constraints
 
@@ -66,6 +66,6 @@ flowchart LR
 
 | Path                                                     | Purpose                                          |
 | -------------------------------------------------------- | ------------------------------------------------ |
-| `apps/docs-web/.vitepress/theme/GiscusComments.vue`      | Owns the giscus script inject/teardown lifecycle |
-| `apps/docs-web/.vitepress/theme/Layout.vue`              | Injects the widget into the `#doc-after` slot    |
+| `apps/web-docs/.vitepress/theme/GiscusComments.vue`      | Owns the giscus script inject/teardown lifecycle |
+| `apps/web-docs/.vitepress/theme/Layout.vue`              | Injects the widget into the `#doc-after` slot    |
 | `docs/System Architecture (LLD)/Discuss/00. Overview.md` | Implementation detail                            |

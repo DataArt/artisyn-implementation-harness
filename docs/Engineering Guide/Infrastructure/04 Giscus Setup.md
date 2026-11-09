@@ -12,7 +12,7 @@ _Manual runbook for wiring up or reconfiguring the comments widget._
 
 ## When you need this
 
-If comments show "giscus is not installed on this repository" (or the widget doesn't render at all), either this setup was never done, or `VITE_GITHUB_ORG` / `VITE_GITHUB_REPO` / `VITE_GISCUS_REPO_ID` / `VITE_GISCUS_CATEGORY_ID` in `apps/docs-web/.env.<env>` are missing or wrong — check those first.
+If comments show "giscus is not installed on this repository" (or the widget doesn't render at all), either this setup was never done, or `VITE_GITHUB_ORG` / `VITE_GITHUB_REPO` / `VITE_GISCUS_REPO_ID` / `VITE_GISCUS_CATEGORY_ID` in `apps/web-docs/.env.<env>` are missing or wrong — check those first.
 
 ---
 
@@ -59,7 +59,7 @@ gh api graphql -f query='
 
 ---
 
-## Step 5 — Wire the values into `apps/docs-web/.env.<env>`
+## Step 5 — Wire the values into `apps/web-docs/.env.<env>`
 
 ```
 VITE_GITHUB_ORG=<org>
@@ -68,7 +68,7 @@ VITE_GISCUS_REPO_ID=<value from Step 4>
 VITE_GISCUS_CATEGORY_ID=<value from Step 4>
 ```
 
-These are `VITE_`-prefixed because Vite inlines them at **build time**, not deploy time. Edit the values directly into `apps/docs-web/.env.dev` (or `.env.prod`) — `site:build` and `site:serve` load that file via their `envFile` configuration. There is no CI/CD deploy mechanism to push these to today: `site:deploy`, `site:env-push`, and `site:env-pull` are currently retirement stubs (the old AWS SSM/CloudFront deploy path was removed with the Infrastructure container), pending a future GitHub Pages deploy workflow.
+These are `VITE_`-prefixed because Vite inlines them at **build time**, not deploy time. Edit the values directly into `apps/web-docs/.env.dev` (or `.env.prod`) — `web-docs:build` and `web-docs:serve` load that file via their `envFile` configuration. There is no CI/CD deploy mechanism to push these to today: `web-docs:deploy`, `web-docs:env-push`, and `web-docs:env-pull` are currently retirement stubs that print a message and exit 0 (the old AWS SSM/CloudFront deploy path was removed with the Infrastructure container); the live deploy path is `.github/workflows/cd.yml` building `web-docs` via `nx affected`, composed by `web-portal:build` into the artifact GitHub Pages actually serves — not through these Nx targets.
 
 ---
 

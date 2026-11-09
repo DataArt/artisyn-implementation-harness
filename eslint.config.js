@@ -30,5 +30,21 @@ export default tseslint.config(
     languageOptions: {
       globals: globals.node,
     },
+  },
+  {
+    files: ['apps/web-explorer/**/*.{ts,tsx}'],
+    languageOptions: {
+      globals: globals.browser,
+    },
+    rules: {
+      // A handful of ported chart components (see 2-report.md, Step 9)
+      // destructure a public prop they don't currently consume, matching
+      // their upstream source — `_`-prefixed is the explicit "intentionally
+      // unused" signal, scoped to this app only.
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
+      ],
+    },
   }
 );

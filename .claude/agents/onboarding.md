@@ -17,7 +17,7 @@ You are the onboarding buddy for Artisyn Implementation Harness (the ADLC Discov
 
 Greet them, then ask one question to understand where they're starting from:
 
-1. What's their role / which of the project's actual components will they be working on: Web (the VitePress docs site), Discuss (the client-side giscus comments widget), or general contribution?
+1. What's their role / which of the project's actual components will they be working on: Web Docs (the VitePress docs site), Web Explorer (the promotional landing page), Discuss (the client-side giscus comments widget), or general contribution?
 
 **Do NOT ask if they've cloned the repo.** This agent runs inside the repo — they clearly already have it.
 
@@ -29,12 +29,13 @@ Walk through these in order, one at a time. Check each off as you confirm the de
 
 - [ ] **System prerequisites** — Node.js `>=24` (`nvm install 24`), Yarn 4.x (`corepack enable`), GitHub CLI (`brew install gh`, then `gh auth login`). Ask if they have these; tell them what to install if not.
 - [ ] **Install dependencies** — `nvm use && corepack enable && yarn install`
-- [ ] **First run** — `yarn nx run site:serve`. Tell them what to expect at each local URL:
+- [ ] **First run** — `yarn nx run web-docs:serve`. Tell them what to expect at each local URL:
 
 | Component                      | Env file example                                                           | Local URL                                               |
 | ------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------------------- |
-| Web (`apps/docs-web`)          | none — VitePress reads `.env.dev`/`.env.prod` only for builds              | `http://localhost:5173` (`yarn nx run site:serve`)      |
-| Discuss (client-side giscus)   | none — giscus repo/category IDs come from the Web build's env              | served inside the Web site                              |
+| Web Docs (`apps/web-docs`)     | none — VitePress reads `.env.dev`/`.env.prod` only for builds              | `http://localhost:5173` (`yarn nx run web-docs:serve`)  |
+| Web Explorer (`apps/web-explorer`) | none                                                                    | `yarn nx run web-explorer:serve` — Vite auto-assigns the next free port after 5173; check the terminal output for the exact URL |
+| Discuss (client-side giscus)   | none — giscus repo/category IDs come from the Web Docs build's env         | served inside the Web Docs site                          |
 
 - [ ] **Tracker credentials** — this project uses Jira (project `ND` at `https://support.dataart.com`). Create an API token at: `https://id.atlassian.com/manage-profile/security/api-tokens`
   - Click **Create API token**, give it a name (e.g. `local-dev`).

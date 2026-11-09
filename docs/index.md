@@ -5,10 +5,10 @@ keywords: [home, index, landing]
 layout: home
 
 hero:
-  name: Artisyn Implementation Harness
-  text: 'AI-first engineering lifecycle'
+  name: Artisyn
+  text: 'Implementation Harness'
   tagline: >
-    A structured workflow system layered on an AI coding assistant —
+    AI-first engineering lifecycle. A structured workflow system layered on an AI coding assistant —
     specialised, lifecycle-aware agents governed by encoded conventions
     and feedback loops, turning design intent into implemented,
     documented outcomes with a clear path from open question to
