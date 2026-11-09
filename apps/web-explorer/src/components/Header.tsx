@@ -1,32 +1,7 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, Code2 } from 'lucide-react';
 import { repoUrl, docsUrl } from '../env';
-
-/**
- * Shared across every page. "How it works" / "Capabilities" are in-page
- * anchors on Landing ("/") — with HashRouter, the URL's one "#" is already
- * owned by the router (e.g. "#/inside-the-loop"), so a plain
- * href="#how-it-works" would be read as a route change, not a scroll. On "/"
- * this scrolls directly; from elsewhere it navigates to "/" first and passes
- * the target via router state, which Landing's own effect picks up on mount.
- */
-function SectionLink({ id, children }: { id: string; children: React.ReactNode }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const onClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (location.pathname === '/') {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate('/', { state: { scrollTo: id } });
-    }
-  };
-  return (
-    <a href={`#${id}`} onClick={onClick}>
-      {children}
-    </a>
-  );
-}
+import SectionLink from './SectionLink';
 
 export default function Header() {
   return (

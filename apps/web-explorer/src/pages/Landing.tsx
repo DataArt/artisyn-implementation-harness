@@ -17,6 +17,7 @@ import {
 import LifecycleDemo from '../components/LifecycleDemo';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import SectionLink from '../components/SectionLink';
 import { repoUrl, docsUrl } from '../env';
 
 const bootstrapCommand = '/harness-bootstrap launch';
@@ -91,9 +92,9 @@ export default function Landing() {
               task.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href="#how-it-works">
+              <SectionLink id="how-it-works" className="button button-primary">
                 Explore the lifecycle <ArrowRight size={18} />
-              </a>
+              </SectionLink>
               <a
                 className="button button-outline"
                 href={repoUrl}
