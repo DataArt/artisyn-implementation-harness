@@ -5,6 +5,15 @@
  * lists in docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md and
  * 02 Design Lifecycle.md.
  *
+ * Human-in-the-loop points match the real skills' own rule: "Two stops per
+ * phase, both at its end" (`.claude/skills/{design,dev}/SKILL.md`) — a
+ * sign-off, then a commit the developer runs. Nearly every phase below
+ * carries a short wait/input pair for that reason, not just the one or two
+ * "big" stops (Review Gate's external approval, Test's full AC sign-off).
+ * Address Feedback is the one phase that's a genuine pass-through here —
+ * it only runs at all when the reviewer raised concerns, and this run had
+ * none.
+ *
  * The design/dev example is this project's own real migration — rehosting
  * this very site from AWS to GitHub Pages — not an invented storyboard:
  * DESIGN-20261103-LBBI ("Migrate Static Site Hosting to GitHub Pages") and
@@ -79,7 +88,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
           'Removes template placeholders and verifies nothing sensitive was committed before handing control back.',
         lines: [
           { kind: 'activity', text: 'removing template placeholders, checking for secrets…' },
-          { kind: 'output', text: '✓ harness installed — ready for /design or /dev' },
+          { kind: 'wait', text: 'harness installed. Good to start using /design or /dev?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
     ],
@@ -102,6 +112,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             kind: 'output',
             text: '✓ Report.md created — local ID, no tracker ticket for this one',
           },
+          { kind: 'wait', text: 'intent captured. Good to move to Ceremony?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
@@ -114,6 +126,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             text: 'checking out design/20261103-lbbi-migrate-static-site-hosting…',
           },
           { kind: 'output', text: '✓ branch ready' },
+          { kind: 'wait', text: 'branch confirmed. Good to move to Frame?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
@@ -126,6 +140,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             text: 'framing: AWS hosting cost and ops overhead for a static site…',
           },
           { kind: 'output', text: '✓ 00 Frame.md' },
+          { kind: 'wait', text: 'problem framed. Good to move to Research?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
@@ -138,6 +154,11 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             text: 'comparing 5 options: keep AWS, GH Pages (project/custom domain), Cloudflare Pages, Netlify…',
           },
           { kind: 'output', text: '✓ 01 Research.md — 10 open questions flagged' },
+          {
+            kind: 'wait',
+            text: '5 options compared, no recommendation yet. Good to move to Evaluate?',
+          },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
@@ -150,6 +171,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             kind: 'output',
             text: '✓ 02 Evaluate.md — Option B, GitHub Pages project site, recommended',
           },
+          { kind: 'wait', text: 'Option B recommended, WAF clean. Good to move to Solution?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
@@ -162,12 +185,14 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             text: 'drafting solution: drop AWS SSM/CloudFront, add a Pages deploy workflow…',
           },
           { kind: 'output', text: '✓ solution/ written' },
+          { kind: 'wait', text: 'solution drafted. Good to open the review gate?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
         title: 'Review Gate',
         explanation:
-          'Opens a draft MR and stops — a human looks at this before anything moves forward.',
+          'Opens a draft MR and stops — a human looks at this before anything moves forward. The one stop that waits on a real external fact, not a same-session ask.',
         lines: [
           { kind: 'wait', text: 'draft MR opened, waiting on reviewer…' },
           { kind: 'input', text: 'you: approved, ship it' },
@@ -176,7 +201,7 @@ export const scenarios: Record<ScenarioId, Scenario> = {
       {
         title: 'Address Feedback',
         explanation:
-          'Only runs if the reviewer raised concerns — here there were none, so it is a clean pass-through.',
+          'Only runs if the reviewer raised concerns — here there were none, so it is a clean pass-through, no extra sign-off needed.',
         lines: [{ kind: 'output', text: '✓ approved with no concerns — skipped' }],
       },
       {
@@ -185,14 +210,18 @@ export const scenarios: Record<ScenarioId, Scenario> = {
         lines: [
           { kind: 'activity', text: 'rewriting the deployment section of the HLD and LLD…' },
           { kind: 'output', text: '✓ docs updated' },
+          { kind: 'wait', text: 'docs current. Good to move to Completion?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
         title: 'Completion',
         explanation:
-          'Archives the design and hands off the implementation ticket — DEV-20261108-K7XQ.',
+          'Archives the design and hands off the implementation ticket — DEV-20261108-K7XQ. One combined ask for anything external before it closes.',
         lines: [
           { kind: 'activity', text: 'archiving design…' },
+          { kind: 'wait', text: 'design archived. Move the tracker, open the dev ticket?' },
+          { kind: 'input', text: 'you: all — go' },
           { kind: 'output', text: '✓ DEV-20261108-K7XQ opened for implementation' },
         ],
       },
@@ -213,6 +242,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
         lines: [
           { kind: 'activity', text: 'reading the approved design, writing intent…' },
           { kind: 'output', text: '✓ 0-intent.md' },
+          { kind: 'wait', text: 'intent captured. Good to move to Ceremony?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
@@ -221,6 +252,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
         lines: [
           { kind: 'activity', text: 'checking out dev/20261108-k7xq-github-pages-hosting…' },
           { kind: 'output', text: '✓ branch ready' },
+          { kind: 'wait', text: 'branch confirmed. Good to move to Plan?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
@@ -233,21 +266,26 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             text: 'deriving steps: VitePress base path, CSP meta tag, CD workflow…',
           },
           { kind: 'output', text: '✓ 1-plan.md — 4 steps' },
+          { kind: 'wait', text: '4 steps proposed. Good to move to Implement?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
         title: 'Implement',
         explanation:
-          'Executes one step at a time, each with its own observed verification before moving on.',
+          'Executes one step at a time, each with its own observed verification — intelligent checkpoints the agent clears itself, escalating only on real doubt. Every step updates 2-report.md and stat.json, the living record of what ran and how long it took.',
         lines: [
           { kind: 'activity', text: 'step 4/4: rewriting .github/workflows/cd.yml…' },
           { kind: 'output', text: '✓ build, lint, YAML validate pass' },
+          { kind: 'output', text: '✓ 2-report.md + stat.json updated' },
+          { kind: 'wait', text: 'all 4 steps verified. Good to move to Test?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
         title: 'Test',
         explanation:
-          'Builds, reviews, and proves every acceptance criterion — then stops for a human sign-off.',
+          'Builds, reviews, and proves every acceptance criterion — then stops for a full sign-off, not a quick checkpoint.',
         lines: [
           { kind: 'wait', text: 'checks, review, and ACs done. Good to move to Document?' },
           { kind: 'input', text: 'you: all good' },
@@ -260,16 +298,21 @@ export const scenarios: Record<ScenarioId, Scenario> = {
         lines: [
           {
             kind: 'activity',
-            text: 'rewriting the HLD deployment section, updating NFR verification text…',
+            text: 'rewriting the LLD deploy section — the no-op stub is now a real GitHub Pages workflow…',
           },
-          { kind: 'output', text: '✓ docs updated' },
+          { kind: 'output', text: '✓ LLD updated' },
+          { kind: 'wait', text: 'docs current, findings closed. Good to move to Completion?' },
+          { kind: 'input', text: 'you: go' },
         ],
       },
       {
         title: 'Completion',
-        explanation: 'Archives the story, hands over the commit and PR text, and closes the loop.',
+        explanation:
+          'Archives the story, hands over the commit and PR text, and closes the loop. One combined ask for anything external before it closes.',
         lines: [
           { kind: 'activity', text: 'archiving, preparing PR…' },
+          { kind: 'wait', text: 'story archived. Move the tracker, open tech-debt tickets?' },
+          { kind: 'input', text: 'you: none — archive' },
           { kind: 'output', text: '✓ archived, PR text handed over' },
         ],
       },
