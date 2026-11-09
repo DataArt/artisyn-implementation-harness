@@ -1,5 +1,5 @@
 {
-  "name": "@artisyn/web-explorer",
+  "name": "@artisyn-harness/web-explorer",
   "private": true,
   "version": "0.1.0",
   "type": "module",
