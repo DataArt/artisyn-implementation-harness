@@ -250,8 +250,8 @@ export const scenarios: Record<ScenarioId, Scenario> = {
     label: 'dev',
     command: '/dev DEV-20261108-K7XQ',
     storyUrl:
-      'https://github.com/DataArt/artisyn-implementation-harness/tree/main/docs/Stories/archive/%5BDEV-20261108-K7XQ%5D%20GitHub%20Pages%20Hosting',
-    storyLabel: 'Read the real dev story',
+      'https://github.com/DataArt/artisyn-implementation-harness/tree/main/docs/Stories/archive/%5BDEV-20261108-K7XQ%5D%20GitHub%20Pages%20Hosting/impl',
+    storyLabel: 'See the real artifacts (0-intent.md, 1-plan.md, 2-report.md)',
     stages: [
       {
         title: 'Context',
