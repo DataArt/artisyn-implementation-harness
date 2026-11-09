@@ -1,4 +1,5 @@
 ---
+id: 842fa9c5
 name: Design Evaluate Template
 description: Template for 02 Evaluate.md — Phase 3 output with Requirements × Options matrix, tradeoffs, and recommendation
 type: reference

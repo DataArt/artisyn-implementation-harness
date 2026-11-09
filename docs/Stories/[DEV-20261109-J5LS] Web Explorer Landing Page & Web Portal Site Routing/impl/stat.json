@@ -54,8 +54,16 @@
     },
     {
       "id": "implement",
-      "status": "pending",
-      "attempts": [],
+      "status": "active",
+      "attempts": [
+        {
+          "id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+          "started_at": "2026-11-08T23:54:53.089Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -77,7 +85,116 @@
       "flags": []
     }
   ],
-  "steps": [],
+  "steps": [
+    {
+      "id": "step-02",
+      "title": "Web Docs rename",
+      "order": 2,
+      "plan_ref": "1-plan.md#step-2",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "5cac0310-232a-4aa9-8df5-84de26f264b8",
+          "started_at": "2026-11-08T23:55:31.492Z",
+          "ended_at": "2026-11-08T23:57:27.316Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-03",
+      "title": "Register web-explorer",
+      "order": 3,
+      "plan_ref": "1-plan.md#step-3",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "d4afdcb8-ad38-4107-8d9f-dfa5bb6a072d",
+          "started_at": "2026-11-08T23:57:50.690Z",
+          "ended_at": "2026-11-08T23:59:30.036Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-04",
+      "title": "web-explorer base path/budget/lint",
+      "order": 4,
+      "plan_ref": "1-plan.md#step-4",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5",
+          "started_at": "2026-11-08T23:59:50.969Z",
+          "ended_at": "2026-11-09T00:02:36.596Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-05",
+      "title": "Adopt scaffold docs to LLD + README",
+      "order": 5,
+      "plan_ref": "1-plan.md#step-5",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "71c75016-0adc-40f7-bbc9-74fe58d3f3be",
+          "started_at": "2026-11-09T00:03:00.874Z",
+          "ended_at": "2026-11-09T00:05:06.937Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-06",
+      "title": "Create web-portal composition project",
+      "order": 6,
+      "plan_ref": "1-plan.md#step-6",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "f71d5e03-7a9f-4bc4-875a-40ab39cda26c",
+          "started_at": "2026-11-09T00:05:31.808Z",
+          "ended_at": "2026-11-09T00:07:09.701Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-07",
+      "title": "Update cd.yml artifact path",
+      "order": 7,
+      "plan_ref": "1-plan.md#step-7",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "dcd63dcf-c9c9-4c8d-9c7b-ac1f9a3a6831",
+          "started_at": "2026-11-09T00:07:32.269Z",
+          "ended_at": "2026-11-09T00:09:18.626Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    }
+  ],
   "intervals": [
     {
       "id": "fc352fc5-d49f-454a-b5fe-26aba077a644",
@@ -111,6 +228,297 @@
       "started_at": "2026-11-08T23:38:36.522Z",
       "ended_at": "2026-11-08T23:54:04.889Z",
       "last_observed_at": "2026-11-08T23:54:04.889Z"
+    },
+    {
+      "id": "73257807-13f1-4340-9fa4-aab9e87e5d1b",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T23:54:53.089Z",
+      "ended_at": "2026-11-08T23:55:31.492Z",
+      "last_observed_at": "2026-11-08T23:55:31.492Z"
+    },
+    {
+      "id": "a53398f3-9832-4053-810a-646759184838",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "5cac0310-232a-4aa9-8df5-84de26f264b8"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T23:55:31.492Z",
+      "ended_at": "2026-11-08T23:57:10.006Z",
+      "last_observed_at": "2026-11-08T23:57:10.006Z"
+    },
+    {
+      "id": "7ea09f92-b6d4-4e78-99a7-88156457fed2",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "5cac0310-232a-4aa9-8df5-84de26f264b8"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T23:57:10.006Z",
+      "ended_at": "2026-11-08T23:57:21.372Z",
+      "last_observed_at": "2026-11-08T23:57:21.372Z"
+    },
+    {
+      "id": "6bcec7cc-ea66-492f-879b-81a6920dc02a",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "5cac0310-232a-4aa9-8df5-84de26f264b8"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T23:57:21.372Z",
+      "ended_at": "2026-11-08T23:57:27.316Z",
+      "last_observed_at": "2026-11-08T23:57:27.316Z"
+    },
+    {
+      "id": "a675953f-93a5-4c71-8f13-c6f2acc06f52",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "d4afdcb8-ad38-4107-8d9f-dfa5bb6a072d"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T23:57:50.690Z",
+      "ended_at": "2026-11-08T23:59:20.488Z",
+      "last_observed_at": "2026-11-08T23:59:20.488Z"
+    },
+    {
+      "id": "cec22c8e-cadc-47fc-a892-495dbb6a069f",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "d4afdcb8-ad38-4107-8d9f-dfa5bb6a072d"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-08T23:59:20.488Z",
+      "ended_at": "2026-11-08T23:59:21.776Z",
+      "last_observed_at": "2026-11-08T23:59:21.776Z"
+    },
+    {
+      "id": "f59c6c22-6a50-4d27-9b44-f7f24e067618",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "d4afdcb8-ad38-4107-8d9f-dfa5bb6a072d"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T23:59:21.776Z",
+      "ended_at": "2026-11-08T23:59:30.036Z",
+      "last_observed_at": "2026-11-08T23:59:30.036Z"
+    },
+    {
+      "id": "370400ab-04b8-4890-8580-8a553b90bf22",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-08T23:59:50.969Z",
+      "ended_at": "2026-11-09T00:02:25.135Z",
+      "last_observed_at": "2026-11-09T00:02:25.135Z"
+    },
+    {
+      "id": "701b2a29-7d33-409d-9a11-3c7681b15b0f",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-09T00:02:25.135Z",
+      "ended_at": "2026-11-09T00:02:27.969Z",
+      "last_observed_at": "2026-11-09T00:02:27.969Z"
+    },
+    {
+      "id": "e325574b-2fc9-41a4-97fb-e8dd1e00a6e3",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:02:27.969Z",
+      "ended_at": "2026-11-09T00:02:28.017Z",
+      "last_observed_at": "2026-11-09T00:02:28.017Z"
+    },
+    {
+      "id": "b3b1b4b6-c566-461b-9d3e-b30e3ecbbfb4",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-09T00:02:28.017Z",
+      "ended_at": "2026-11-09T00:02:28.872Z",
+      "last_observed_at": "2026-11-09T00:02:28.872Z"
+    },
+    {
+      "id": "22f82105-9e2e-44bc-92c4-1484d3b1e195",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:02:28.872Z",
+      "ended_at": "2026-11-09T00:02:28.916Z",
+      "last_observed_at": "2026-11-09T00:02:28.916Z"
+    },
+    {
+      "id": "708705aa-2cd7-4d53-a990-4708d06842d4",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-09T00:02:28.916Z",
+      "ended_at": "2026-11-09T00:02:29.778Z",
+      "last_observed_at": "2026-11-09T00:02:29.778Z"
+    },
+    {
+      "id": "0778001a-5fae-4f5d-b3de-f0cb0696eaac",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:02:29.778Z",
+      "ended_at": "2026-11-09T00:02:36.596Z",
+      "last_observed_at": "2026-11-09T00:02:36.596Z"
+    },
+    {
+      "id": "635b572b-3bcf-4986-ac29-9314825760c9",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "71c75016-0adc-40f7-bbc9-74fe58d3f3be"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:03:00.874Z",
+      "ended_at": "2026-11-09T00:05:06.937Z",
+      "last_observed_at": "2026-11-09T00:05:06.937Z"
+    },
+    {
+      "id": "9d79409d-e49f-454f-9171-6aa31faefeb1",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "f71d5e03-7a9f-4bc4-875a-40ab39cda26c"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:05:31.808Z",
+      "ended_at": "2026-11-09T00:06:51.773Z",
+      "last_observed_at": "2026-11-09T00:06:51.773Z"
+    },
+    {
+      "id": "9397b9d6-37ba-4bf1-bc38-a365aa4cd91f",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "f71d5e03-7a9f-4bc4-875a-40ab39cda26c"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-09T00:06:51.773Z",
+      "ended_at": "2026-11-09T00:07:03.629Z",
+      "last_observed_at": "2026-11-09T00:07:03.629Z"
+    },
+    {
+      "id": "bcf8a89c-05e1-4d0f-ad41-5a0be137f334",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "f71d5e03-7a9f-4bc4-875a-40ab39cda26c"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:07:03.629Z",
+      "ended_at": "2026-11-09T00:07:09.701Z",
+      "last_observed_at": "2026-11-09T00:07:09.701Z"
+    },
+    {
+      "id": "5ed5b340-c989-4246-808a-af8551f0c68f",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-07",
+        "attempt_id": "dcd63dcf-c9c9-4c8d-9c7b-ac1f9a3a6831"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:07:32.269Z",
+      "ended_at": "2026-11-09T00:08:58.325Z",
+      "last_observed_at": "2026-11-09T00:08:58.325Z"
+    },
+    {
+      "id": "7fe39de4-e023-449c-862d-3a1c2cc913cf",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-07",
+        "attempt_id": "dcd63dcf-c9c9-4c8d-9c7b-ac1f9a3a6831"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-09T00:08:58.325Z",
+      "ended_at": "2026-11-09T00:09:10.986Z",
+      "last_observed_at": "2026-11-09T00:09:10.986Z"
+    },
+    {
+      "id": "2ff8a033-6aa6-4b9e-8c79-be06e75ce90e",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-07",
+        "attempt_id": "dcd63dcf-c9c9-4c8d-9c7b-ac1f9a3a6831"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-09T00:09:10.986Z",
+      "ended_at": "2026-11-09T00:09:18.626Z",
+      "last_observed_at": "2026-11-09T00:09:18.626Z"
     }
   ],
   "checks": [
@@ -158,23 +566,174 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "step-02-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "5cac0310-232a-4aa9-8df5-84de26f264b8"
+      },
+      "name": "web-docs build after rename",
+      "kind": "build",
+      "started_at": "2026-11-08T23:57:10.006Z",
+      "ended_at": "2026-11-08T23:57:21.372Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-docs build after rename",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T23:57:21.372Z"
+    },
+    {
+      "id": "step-03-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "d4afdcb8-ad38-4107-8d9f-dfa5bb6a072d"
+      },
+      "name": "yarn install resolves pinned TS/Vite ranges",
+      "kind": "build",
+      "started_at": "2026-11-08T23:59:20.488Z",
+      "ended_at": "2026-11-08T23:59:21.776Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for yarn install resolves pinned TS/Vite ranges",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-08T23:59:21.776Z"
+    },
+    {
+      "id": "step-04-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "name": "web-explorer build + bundle budget",
+      "kind": "build",
+      "started_at": "2026-11-09T00:02:25.135Z",
+      "ended_at": "2026-11-09T00:02:27.969Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer build + bundle budget",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-09T00:02:27.969Z"
+    },
+    {
+      "id": "step-04-lint-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "name": "web-explorer lint",
+      "kind": "lint",
+      "started_at": "2026-11-09T00:02:28.017Z",
+      "ended_at": "2026-11-09T00:02:28.872Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer lint",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-09T00:02:28.872Z"
+    },
+    {
+      "id": "step-04-typecheck-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "cb7dd656-ae79-41a3-9e18-6562b27ea2f5"
+      },
+      "name": "web-explorer typecheck",
+      "kind": "typecheck",
+      "started_at": "2026-11-09T00:02:28.916Z",
+      "ended_at": "2026-11-09T00:02:29.778Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer typecheck",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-09T00:02:29.778Z"
+    },
+    {
+      "id": "step-05-check-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "71c75016-0adc-40f7-bbc9-74fe58d3f3be"
+      },
+      "name": "web-explorer docs adoption verification",
+      "kind": "build",
+      "started_at": "2026-11-09T00:05:01.619Z",
+      "ended_at": "2026-11-09T00:05:01.619Z",
+      "result": "passed",
+      "evidence_ref": "apps/web-explorer/docs/ removed (ls confirms gone); README.md 31 lines vs web-docs's 55; new LLD file created; no dangling references found via grep",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-06-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "f71d5e03-7a9f-4bc4-875a-40ab39cda26c"
+      },
+      "name": "web-portal clean composed build",
+      "kind": "build",
+      "started_at": "2026-11-09T00:06:51.773Z",
+      "ended_at": "2026-11-09T00:07:03.629Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-portal clean composed build",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-09T00:07:03.629Z"
+    },
+    {
+      "id": "step-07-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "d7bdc721-4bd4-497b-a4ab-b4132d39bc65",
+      "step": {
+        "id": "step-07",
+        "attempt_id": "dcd63dcf-c9c9-4c8d-9c7b-ac1f9a3a6831"
+      },
+      "name": "clean rebuild matching cd.yml's new artifact path",
+      "kind": "build",
+      "started_at": "2026-11-09T00:08:58.325Z",
+      "ended_at": "2026-11-09T00:09:10.986Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for clean rebuild matching cd.yml's new artifact path",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-09T00:09:10.986Z"
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-08T23:54:04.900Z",
+    "as_of": "2026-11-09T00:09:18.628Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1158.03,
+    "observed_work_seconds": 1907.5430000000001,
     "observed_wait_seconds": 0,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 43.56700000000001,
+    "unclassified_seconds": 207.7819999999997,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 0,
     "failed_checks": 0,
-    "first_pass_verification_rate": null,
+    "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"

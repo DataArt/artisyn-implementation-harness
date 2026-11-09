@@ -1,4 +1,5 @@
 ---
+id: a9cacf81
 purpose: 'Concrete technology and version choices for Web Explorer, Web Portal, and the Web Docs rename'
 keywords: [stack, web-explorer, web-portal, versions, dependencies]
 ---

@@ -1,4 +1,5 @@
 ---
+id: 3057968d
 purpose: 'Research phase output for DESIGN-20261108-1L8P Decision 1: option set for adopting the web-explorer promo SPA, no recommendation'
 keywords: [research, web-explorer, open questions, design phase]
 ---

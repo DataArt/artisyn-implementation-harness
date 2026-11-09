@@ -1,4 +1,5 @@
 ---
+id: f5b3e164
 purpose: 'Implementation-level detail for the Web Portal composition mechanism and the config changes it requires in Web Explorer and Web Docs'
 keywords: [web-portal, portal-assemble, nx project.json, vite config, vitepress config, cd.yml]
 ---

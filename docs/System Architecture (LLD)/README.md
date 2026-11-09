@@ -11,5 +11,6 @@ Container folder index. Mirrors `docs/Target Architecture (HLD)/` container name
 | Container             | Folder                                                                    |
 | --------------------- | ------------------------------------------------------------------------- |
 | Web                   | [`Web/`](./Web/00.%20Overview.md)                                         |
+| Web Explorer          | [`Web Explorer/`](./Web%20Explorer/00.%20Overview.md)                     |
 | Discuss               | [`Discuss/`](./Discuss/00.%20Overview.md)                                 |
 | Harness Bootstrap E2E | [`Harness Bootstrap E2E/`](./Harness%20Bootstrap%20E2E/00.%20Overview.md) |

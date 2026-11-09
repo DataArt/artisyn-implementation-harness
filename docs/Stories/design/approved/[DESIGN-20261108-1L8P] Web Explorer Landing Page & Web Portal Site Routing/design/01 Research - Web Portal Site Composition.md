@@ -1,4 +1,5 @@
 ---
+id: a54e70c1
 purpose: 'Research phase output for DESIGN-20261108-1L8P Decision 2: option set for composing web-explorer and web-docs into one GitHub Pages deploy, no recommendation'
 keywords: [research, web-portal, web-docs, github-pages, open questions, design phase]
 ---

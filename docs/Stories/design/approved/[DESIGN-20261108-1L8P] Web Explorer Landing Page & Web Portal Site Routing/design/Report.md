@@ -1,4 +1,5 @@
 ---
+id: a4b4cd98
 name: Design Report Template
 description: Template for design/Report.md — the living design report, idempotency anchor, and WAF findings store
 type: reference
