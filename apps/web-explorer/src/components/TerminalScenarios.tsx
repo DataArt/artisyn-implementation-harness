@@ -30,19 +30,20 @@ export default function TerminalScenarios() {
   const sideRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
 
-  // Cap the terminal to the side panel's actual height — never taller than it,
-  // scroll internally instead. Pure CSS can't match a sibling's intrinsic
-  // height while also staying scrollable, so this measures it directly.
+  // Match the terminal's height to the side panel exactly, from the start,
+  // scrolling internally once content outgrows it. Pure CSS can't match a
+  // sibling's intrinsic height while also staying scrollable, so this
+  // measures it directly.
   useLayoutEffect(() => {
     const side = sideRef.current;
     const terminal = terminalRef.current;
     if (!side || !terminal) return;
     const sync = () => {
       if (window.matchMedia('(max-width: 700px)').matches) {
-        terminal.style.maxHeight = '';
+        terminal.style.height = '';
         return;
       }
-      terminal.style.maxHeight = `${side.offsetHeight}px`;
+      terminal.style.height = `${side.offsetHeight}px`;
     };
     sync();
     const ro = new ResizeObserver(sync);
