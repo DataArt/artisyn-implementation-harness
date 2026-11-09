@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -27,6 +27,32 @@ export default function TerminalScenarios() {
   const [stageIndex, setStageIndex] = useState(0);
   const [lineCount, setLineCount] = useState(0);
   const [playing, setPlaying] = useState(true);
+  const sideRef = useRef<HTMLDivElement>(null);
+  const terminalRef = useRef<HTMLDivElement>(null);
+
+  // Cap the terminal to the side panel's actual height — never taller than it,
+  // scroll internally instead. Pure CSS can't match a sibling's intrinsic
+  // height while also staying scrollable, so this measures it directly.
+  useLayoutEffect(() => {
+    const side = sideRef.current;
+    const terminal = terminalRef.current;
+    if (!side || !terminal) return;
+    const sync = () => {
+      if (window.matchMedia('(max-width: 700px)').matches) {
+        terminal.style.maxHeight = '';
+        return;
+      }
+      terminal.style.maxHeight = `${side.offsetHeight}px`;
+    };
+    sync();
+    const ro = new ResizeObserver(sync);
+    ro.observe(side);
+    window.addEventListener('resize', sync);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', sync);
+    };
+  }, []);
 
   const scenario = scenarios[scenarioId];
   const stages = scenario.stages;
@@ -108,7 +134,11 @@ export default function TerminalScenarios() {
       </div>
       <div className="demo-body scenario-body">
         <div className="scenario-terminal-pane">
-          <div className="demo-terminal mono scenario-terminal" aria-live="polite">
+          <div
+            ref={terminalRef}
+            className="demo-terminal mono scenario-terminal"
+            aria-live="polite"
+          >
             <div>
               <span className="term-prompt">$</span> {scenario.command}
             </div>
@@ -162,7 +192,7 @@ export default function TerminalScenarios() {
             {!isLast && <span className="terminal-cursor" aria-hidden="true" />}
           </div>
         </div>
-        <div className="demo-side scenario-side">
+        <div ref={sideRef} className="demo-side scenario-side">
           <div className="eyebrow">SELECT FLOW</div>
           <div className="mode-control" role="group" aria-label="Choose scenario">
             {SCENARIO_IDS.map((value) => (
