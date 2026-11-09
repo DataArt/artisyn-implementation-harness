@@ -112,24 +112,24 @@ export default function Landing() {
             </div>
             <div className="code-rows mono">
               <p>
-                <span className="term-prompt">$</span> /design TKT-123
+                <span className="term-prompt">$</span> /harness-bootstrap launch
               </p>
               <p>
-                <span className="terminal-check">✓</span> Load project architecture
+                <span className="terminal-check">✓</span> Scan repo, detect stack
               </p>
               <p>
-                <span className="terminal-check">✓</span> Apply engineering conventions
+                <span className="terminal-check">✓</span> Generate skills, agents, docs scaffold
               </p>
               <p>
-                <span className="terminal-check">✓</span> Validate design approach
+                <span className="terminal-check">✓</span> Verify, hand off clean
               </p>
               <p className="code-highlight">
-                <span className="terminal-chevron">›</span> Prepare output for review{' '}
+                <span className="terminal-chevron">›</span> Ready for /design or /dev{' '}
                 <span className="cursor" />
               </p>
             </div>
             <div className="code-foot">
-              <Braces size={15} /> Context in · Structured decisions out <span>SIMULATED</span>
+              <Braces size={15} /> One command · Full harness installed <span>SIMULATED</span>
             </div>
           </div>
           <div className="hero-divider" />
