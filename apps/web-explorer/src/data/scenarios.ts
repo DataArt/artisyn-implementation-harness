@@ -190,7 +190,10 @@ export const scenarios: Record<ScenarioId, Scenario> = {
             kind: 'activity',
             text: 'drafting solution: drop AWS SSM/CloudFront, add a Pages deploy workflow…',
           },
-          { kind: 'output', text: '✓ solution/ written' },
+          {
+            kind: 'output',
+            text: '✓ solution/Architecture.md, Design.md, Stack.md, Efforts.md written',
+          },
           {
             kind: 'wait',
             text: 'solution drafted — review in your IDE, fill in Efforts.md. Good to go?',
@@ -217,8 +220,14 @@ export const scenarios: Record<ScenarioId, Scenario> = {
         title: 'Publish',
         explanation: 'Updates the permanent HLD/LLD docs with the now-approved decision.',
         lines: [
-          { kind: 'activity', text: 'rewriting the deployment section of the HLD and LLD…' },
-          { kind: 'output', text: '✓ docs updated' },
+          {
+            kind: 'activity',
+            text: 'rewriting System Overview.md, retiring Infrastructure.md and Auth.md…',
+          },
+          {
+            kind: 'output',
+            text: '✓ System Overview.md, Non-Functional Concerns/Requirements.md updated; Infrastructure.md, Auth.md retired',
+          },
           { kind: 'wait', text: 'docs updated and reviewed. Good to go, or what should change?' },
           { kind: 'input', text: 'you: go' },
         ],
