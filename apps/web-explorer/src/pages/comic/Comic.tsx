@@ -20,7 +20,7 @@ import './comic.css';
 type SheetId = 'wheel' | 'memory' | 'roulette' | 'fix';
 
 const SHEETS: Record<SheetId, { file: string; width: number; height: number }> = {
-  wheel: { file: 'wheel.png', width: 1536, height: 1024 },
+  wheel: { file: 'wheel.png', width: 1448, height: 1086 },
   memory: { file: 'memory.png', width: 1672, height: 941 },
   roulette: { file: 'roulette.jpg', width: 2816, height: 1536 },
   fix: { file: 'fix.png', width: 1774, height: 887 },
@@ -48,8 +48,8 @@ const scenes: Scene[] = [
     title: 'The wheel keeps turning',
     variant: ['panorama'],
     sheet: 'wheel',
-    crop: [0, 0, 1536, 1024],
-    alt: 'A software factory wheel has six AI-staffed stages. The left board, AI IS EVERYWHERE, lists Analysis, Design, Implement, QA, Deploy, and Maintain with checkmarks. The right board, BUT IS IT WORKING?, lists Faster output, Mixed quality, Rework, and Unclear productivity.',
+    crop: [0, 0, 1448, 1086],
+    alt: 'A software factory wheel with six AI-staffed spokes — Analysis, Design, Implement, QA, Deploy, Maintain. The left board, AI IS EVERYWHERE, lists all six with checkmarks. The right board, BUT IS IT WORKING?, lists Faster output, Mixed quality, Rework, and Unclear productivity. A banner reads "Fast output. Uneven results." while a puzzled engineer and robot ask "Where are we going?"',
     bubbles: [
       { speaker: 'Engineer', text: 'With a helper like this, we’ll finally get everything done!' },
       { speaker: 'AI', text: 'Speed increased. But where are we going?', bot: true },

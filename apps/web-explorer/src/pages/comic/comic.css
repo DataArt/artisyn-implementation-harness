@@ -312,7 +312,7 @@
 }
 .comic-scene--panorama figure {
   height: auto;
-  aspect-ratio: 3/2;
+  aspect-ratio: 4/3;
   border-right: 0;
   border-bottom: 1px solid var(--comic-line);
 }
@@ -549,7 +549,7 @@
   }
   .comic-scene--panorama figure {
     height: auto;
-    aspect-ratio: 1.35;
+    aspect-ratio: 4/3;
   }
   .comic-dialogue {
     padding: 24px 20px 32px;
