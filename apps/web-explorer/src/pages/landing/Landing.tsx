@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
 import {
   ArrowRight,
@@ -246,6 +246,9 @@ export default function Landing() {
               <small>HLD · LLD · Engineering Guide · READMEs</small>
             </div>
           </div>
+          <Link to="/docs-flow" className="icon-link">
+            Explore the full interactive flow <ArrowRight size={15} />
+          </Link>
         </section>
 
         <section

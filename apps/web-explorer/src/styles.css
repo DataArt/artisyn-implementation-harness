@@ -88,6 +88,29 @@ h2{font-size:clamp(32px,4.1vw,52px);line-height:1.15;letter-spacing:-.02em;margi
 .hubnode--active{box-shadow:0 0 0 calc(3px * var(--deck-zoom)) rgba(124,108,240,.3),0 1px 2px rgba(0,0,0,.3)}
 .hubnode--dimmed{opacity:.35}
 
+/* Documents Flow diagram — colors match docs/Engineering Guide/Lifecycles/05 Documents Flow.md's own Mermaid classDefs */
+.docsflowmap{position:relative;width:100%;aspect-ratio:16/8;max-height:620px;margin-top:20px}
+.docsflowmap .react-flow{background:transparent}
+.docsflowmap .react-flow__edge-path{stroke-linecap:round}
+.docsflowmap .react-flow__edge-text{font-family:inherit}
+.flow-node{position:relative;width:210px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:12px 14px;border-radius:10px;cursor:pointer;font-family:inherit;text-align:center;color:#fff;box-shadow:0 1px 2px rgba(0,0,0,.35);transition:box-shadow .15s ease,transform .15s ease;border:1.5px solid transparent}
+.flow-node:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.45)}
+.flow-node--selected{box-shadow:0 0 0 3px rgba(124,108,240,.45),0 8px 20px rgba(0,0,0,.45)}
+.flow-node__label{font-weight:700;font-size:14.5px}
+.flow-node__sub{font-size:11px;line-height:1.3;opacity:.82}
+.flow-node--ticket{background:#2C3E50;border-color:#1A252F}
+.flow-node--design{background:#8E44AD;border-color:#6C3483}
+.flow-node--solution{background:#D97706;border-color:#B45309}
+.flow-node--impl{background:#1A6B3C;border-color:#14532d}
+.flow-node--pctx{background:#7C3AED;border-color:#5B21B6}
+.flow-node--hld{background:#1D4ED8;border-color:#1e3a8a}
+.flow-node--lld{background:#0E7490;border-color:#0c4a6e}
+.flow-node--eg{background:#065F46;border-color:#064e3b}
+.flow-node--readme{background:#4B5563;border-color:#374151}
+.flow-node--archive{background:#334155;border-color:#1e293b;border-style:dashed}
+.flow-node--audit{background:#9D174D;border-color:#831843}
+@media(max-width:700px){.docsflowmap{aspect-ratio:3/4;max-height:720px}}
+
 /* Engineering loop (three-pillar overview) */
 .engineering-loop{container-type:inline-size;margin-bottom:28px}
 .engineering-loop__pillars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
