@@ -3,16 +3,16 @@ import './inside-the-loop.css';
 import InsideTheLoopLayout from './InsideTheLoopLayout';
 import InsideTheLoopHub from './InsideTheLoopHub';
 import InsideTheLoopDetailPage from './InsideTheLoopDetailPage';
-import { Requirements } from './inside-the-loop/01-requirements';
-import { Context } from './inside-the-loop/02-context';
-import { Harness } from './inside-the-loop/03-harness';
-import { CodeReview } from './inside-the-loop/04-code-review';
-import { CodeQuality } from './inside-the-loop/05-quality';
-import { Retro } from './inside-the-loop/06-retro';
-import { ContinuousImprovement } from './inside-the-loop/07-improvement';
-import { Onboarding } from './inside-the-loop/08-onboarding';
-import { Tools } from './inside-the-loop/09-tools';
-import { Infrastructure } from './inside-the-loop/10-infrastructure';
+import { Requirements } from './01-requirements';
+import { Context } from './02-context';
+import { Harness } from './03-harness';
+import { CodeReview } from './04-code-review';
+import { CodeQuality } from './05-quality';
+import { Retro } from './06-retro';
+import { ContinuousImprovement } from './07-improvement';
+import { Onboarding } from './08-onboarding';
+import { Tools } from './09-tools';
+import { Infrastructure } from './10-infrastructure';
 
 /**
  * One module, lazy-loaded as a single chunk from main.tsx — the hub and all

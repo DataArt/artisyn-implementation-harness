@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import Landing from './pages/Landing';
+import Landing from './pages/landing/Landing';
 import './styles.css';
 
 // Lazy-loaded: the whole /inside-the-loop/* feature area (hub + 10 detail
@@ -11,7 +11,13 @@ import './styles.css';
 // visitor to "/" should never pay for any of it. See check-bundle-budget.mjs,
 // which measures only the entry chunk(s) actually referenced by index.html,
 // not every chunk in dist/.
-const InsideTheLoopRoutes = lazy(() => import('./pages/InsideTheLoopRoutes'));
+const InsideTheLoopRoutes = lazy(() => import('./pages/inside-the-loop/InsideTheLoopRoutes'));
+
+// Also lazy: the comic's own sprite-sheet images are large static assets, and
+// its content/styles are unrelated to the landing page — no reason for a
+// first-time "/" visitor to pay for this chunk either. Not linked from the
+// header nav (developer's direction) — reachable only at this direct route.
+const Comic = lazy(() => import('./pages/comic/Comic'));
 
 // HashRouter, not BrowserRouter: this app is served as a static artifact
 // (composed by Web Portal — see docs/Target Architecture (HLD)/v1/Containers/
@@ -28,6 +34,14 @@ createRoot(document.getElementById('root')!).render(
           element={
             <Suspense fallback={null}>
               <InsideTheLoopRoutes />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/comic"
+          element={
+            <Suspense fallback={null}>
+              <Comic />
             </Suspense>
           }
         />

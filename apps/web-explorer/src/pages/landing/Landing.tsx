@@ -14,11 +14,11 @@ import {
   Sparkles,
   Workflow,
 } from 'lucide-react';
-import TerminalScenarios from '../components/TerminalScenarios';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import SectionLink from '../components/SectionLink';
-import { repoUrl, docsUrl } from '../env';
+import TerminalScenarios from '../../components/TerminalScenarios';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import SectionLink from '../../components/SectionLink';
+import { repoUrl, docsUrl } from '../../env';
 
 const bootstrapCommand = '/harness-bootstrap launch';
 const capabilities = [

@@ -1,0 +1,608 @@
+/* "The Factory That Remembers" — Artisyn Harness comic, adopted from a
+ * standalone MIT-licensed artifact (DataArt, 2026). Scoped entirely under
+ * .comic-page: every custom property and class is comic-prefixed so nothing
+ * here can leak into or collide with the rest of the site's token system —
+ * the source page defined its tokens at :root (--ink, --paper, etc.), which
+ * would have clobbered this app's own --ink/--accent/--surface tokens had
+ * they been copied verbatim. */
+
+.comic-page {
+  --comic-ink: oklch(22% 0.025 205);
+  --comic-paper: oklch(94% 0.025 85);
+  --comic-cream: oklch(93% 0.065 85);
+  --comic-cyan: oklch(84% 0.13 190);
+  --comic-steel: oklch(70% 0.04 205);
+  --comic-red: oklch(55% 0.17 30);
+
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--comic-ink);
+  background: oklch(25% 0.025 205);
+  padding: 32px 16px 64px;
+}
+
+.comic-page * {
+  box-sizing: border-box;
+}
+
+.comic-page h1,
+.comic-page h2,
+.comic-page h3,
+.comic-page p,
+.comic-page figure {
+  margin: 0;
+}
+
+.comic-shell {
+  max-width: 1100px;
+  margin: auto;
+  background: var(--comic-paper);
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 0 60px oklch(10% 0.02 200 / 0.4);
+}
+
+/* Hero */
+.comic-hero {
+  position: relative;
+  padding: 64px 64px 46px;
+  background: var(--comic-steel);
+  border-bottom: 4px solid var(--comic-ink);
+  background-image: radial-gradient(oklch(25% 0.03 205 / 0.12) 1px, transparent 1px);
+  background-size: 6px 6px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 324px;
+  column-gap: 30px;
+  align-items: start;
+}
+
+.comic-issue {
+  display: inline-block;
+  border: 2px solid var(--comic-ink);
+  padding: 5px 13px;
+  background: var(--comic-cream);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  transform: rotate(-2deg);
+}
+
+.comic-hero h1 {
+  font-family: 'Arial Black', 'Trebuchet MS', sans-serif;
+  font-size: clamp(42px, 6.2vw, 68px);
+  font-weight: 900;
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  margin: 30px 0 24px;
+  text-transform: uppercase;
+  max-width: 850px;
+}
+
+.comic-hero h1 span {
+  display: block;
+  color: var(--comic-cream);
+  text-shadow: 3px 3px 0 var(--comic-ink);
+  -webkit-text-stroke: 1px var(--comic-ink);
+}
+
+.comic-dek {
+  font-size: 20px;
+  max-width: 540px;
+  line-height: 1.5;
+}
+
+.comic-hero-bottom {
+  margin-top: 35px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.comic-read {
+  font-weight: bold;
+  text-decoration: none;
+  background: var(--comic-cream);
+  color: var(--comic-ink);
+  padding: 12px 22px;
+  border: 2px solid var(--comic-ink);
+  box-shadow: 4px 4px 0 var(--comic-ink);
+  transition: transform 0.2s;
+}
+.comic-read:hover {
+  transform: translateY(-3px);
+}
+
+.comic-meta {
+  font-size: 12px;
+}
+
+.comic-hero-art {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+}
+
+.comic-publisher-logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 13.5px;
+  width: max-content;
+  max-width: 100%;
+  padding: 18px 37.5px;
+  background: var(--comic-cream);
+  border: 3px solid var(--comic-ink);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 0 3px var(--comic-steel),
+    5px 5px 0 oklch(22% 0.025 205 / 0.25);
+}
+
+.comic-publisher-logo img {
+  display: block;
+  flex-shrink: 0;
+  width: 45px;
+  height: 45px;
+  border: 1px solid var(--comic-ink);
+  border-radius: 2px;
+}
+
+.comic-publisher-wordmark {
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  line-height: 1;
+  color: var(--comic-ink);
+}
+
+.comic-team-badge {
+  display: block;
+  width: 100%;
+  max-width: 324px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Act labels / interludes */
+.comic-act-start {
+  padding: 42px 42px 18px;
+}
+.comic-act-label {
+  font-size: 13px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.comic-act-start h2 {
+  font-size: 30px;
+  letter-spacing: -0.04em;
+  margin-top: 8px;
+}
+
+.comic-scenes {
+  padding: 0 38px;
+}
+
+.comic-interlude {
+  padding: 42px 12px 58px;
+  text-align: center;
+}
+.comic-interlude h2 {
+  font-size: clamp(40px, 7vw, 70px);
+  line-height: 1.05;
+  letter-spacing: -0.055em;
+  margin: 18px 0 24px;
+  font-weight: 900;
+}
+.comic-interlude p {
+  font-size: 19px;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.comic-wire,
+.comic-big-wire {
+  display: block;
+  font-size: 58px;
+  line-height: 1.2;
+  margin-top: 22px;
+  color: var(--comic-red);
+}
+
+.comic-solution {
+  padding: 50px 36px;
+  background: var(--comic-ink);
+  color: var(--comic-paper);
+  margin: 25px -38px 60px;
+  border-block: 4px solid var(--comic-ink);
+}
+.comic-solution em {
+  font-style: normal;
+  color: var(--comic-cyan);
+}
+.comic-solution .comic-big-wire {
+  color: var(--comic-cyan);
+}
+
+/* Scenes */
+.comic-scene {
+  margin: 26px 0 52px;
+  border: 3px solid var(--comic-ink);
+  background: var(--comic-cream);
+  box-shadow: 7px 8px 0 oklch(30% 0.03 205 / 0.18);
+  scroll-margin-top: 28px;
+}
+
+.comic-scene-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 19px;
+  border-bottom: 3px solid var(--comic-ink);
+  background: var(--comic-cream);
+  flex-wrap: wrap;
+}
+.comic-number {
+  font-size: 20px;
+  line-height: 36px;
+  min-width: 36px;
+  text-align: center;
+  background: var(--comic-ink);
+  color: var(--comic-cream);
+  font-weight: bold;
+}
+.comic-scene-head h3 {
+  font-size: clamp(19px, 2.5vw, 26px);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+.comic-scene-head code {
+  margin-left: auto;
+  font: bold 15px 'Trebuchet MS', sans-serif;
+  white-space: nowrap;
+  padding: 5px 9px;
+  background: var(--comic-cyan);
+  border: 1.5px solid var(--comic-ink);
+}
+
+.comic-scene-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 430px;
+}
+.comic-scene--tall .comic-scene-body {
+  min-height: 650px;
+}
+.comic-scene--noir .comic-scene-body {
+  min-height: 500px;
+}
+.comic-scene--clean .comic-scene-body {
+  min-height: 405px;
+}
+.comic-scene--finale .comic-scene-body {
+  min-height: 530px;
+}
+
+.comic-scene figure {
+  position: relative;
+  overflow: hidden;
+  background: var(--comic-steel);
+  border-right: 3px solid var(--comic-ink);
+}
+.comic-scene--reverse .comic-scene-body {
+  grid-template-columns: 1fr 1fr;
+}
+.comic-scene--reverse figure {
+  order: 2;
+  border-right: 0;
+  border-left: 3px solid var(--comic-ink);
+}
+.comic-scene--noir figure {
+  background: oklch(20% 0.01 205);
+}
+.comic-scene--clean figure {
+  background: oklch(98% 0.01 205);
+}
+.comic-scene--panorama .comic-scene-body {
+  display: block;
+}
+.comic-scene--panorama figure {
+  height: auto;
+  aspect-ratio: 3/2;
+  border-right: 0;
+  border-bottom: 3px solid var(--comic-ink);
+}
+.comic-scene--panorama .comic-dialogue {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 24px 30px 34px;
+}
+.comic-scene--panorama .comic-bubble {
+  margin: 0;
+}
+
+.comic-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.comic-dialogue {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 32px;
+  padding: 35px 28px;
+  background-color: var(--comic-paper);
+  background-image: radial-gradient(oklch(30% 0.03 205 / 0.13) 0.8px, transparent 0.8px);
+  background-size: 5px 5px;
+}
+
+.comic-bubble {
+  position: relative;
+  max-width: 100%;
+  padding: 18px 22px 22px;
+  background: oklch(98% 0.013 85);
+  border: 2.5px solid var(--comic-ink);
+  border-radius: 28px 25px 30px 8px;
+  box-shadow: 3px 4px 0 oklch(30% 0.03 205 / 0.12);
+  transform: rotate(-1deg);
+}
+.comic-bubble--bot {
+  background: oklch(92% 0.045 190);
+  border-radius: 24px 25px 8px 25px;
+  transform: rotate(1deg);
+  margin-left: 18px;
+}
+.comic-bubble:after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: inherit;
+  border-bottom: 2.5px solid var(--comic-ink);
+  border-right: 2.5px solid var(--comic-ink);
+  bottom: -10px;
+  left: 22px;
+  transform: skewY(30deg);
+}
+.comic-bubble--bot:after {
+  left: auto;
+  right: 22px;
+}
+.comic-speaker {
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 7px;
+  color: oklch(37% 0.04 205);
+}
+.comic-bubble p {
+  font-size: clamp(18px, 2vw, 23px);
+  line-height: 1.35;
+}
+
+.comic-narration {
+  border-top: 3px solid var(--comic-ink);
+  padding: 20px 25px;
+  font-size: 17px;
+  line-height: 1.55;
+  background: var(--comic-cream);
+}
+
+/* Closing + about */
+.comic-closing {
+  padding: 40px 22px 65px;
+  text-align: center;
+}
+.comic-closing h2 {
+  font-size: clamp(32px, 5vw, 48px);
+  letter-spacing: -0.045em;
+  line-height: 1.15;
+  max-width: 800px;
+  margin: auto;
+}
+.comic-chain {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 35px;
+}
+.comic-chain code {
+  border: 2px solid var(--comic-ink);
+  padding: 8px 12px;
+  background: var(--comic-cyan);
+  font: bold 15px 'Trebuchet MS', sans-serif;
+}
+.comic-end {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 38px;
+}
+
+.comic-about {
+  padding: 30px 42px 38px;
+  border-top: 3px solid var(--comic-ink);
+  background: var(--comic-steel);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.comic-about p {
+  max-width: 76ch;
+  margin: 8px 0;
+}
+.comic-about a {
+  color: inherit;
+  text-underline-offset: 4px;
+}
+
+.comic-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 680px) {
+  .comic-hero {
+    padding: 30px 20px;
+    grid-template-columns: minmax(0, 1fr) 135px;
+    gap: 20px 12px;
+  }
+  .comic-hero h1 {
+    font-size: clamp(28px, 6.3vw, 42px);
+    margin: 0;
+  }
+  .comic-dek {
+    font-size: 17px;
+  }
+  .comic-publisher-logo {
+    padding: 9px 15px;
+    gap: 6px;
+    max-width: 135px;
+    border-width: 2px;
+  }
+  .comic-publisher-logo img {
+    width: 24px;
+    height: 24px;
+  }
+  .comic-publisher-wordmark {
+    font-size: 25px;
+  }
+  .comic-team-badge {
+    width: 135px;
+  }
+  .comic-act-start {
+    padding: 30px 19px 6px;
+  }
+  .comic-act-start h2 {
+    font-size: 26px;
+  }
+  .comic-scenes {
+    padding: 0 13px;
+  }
+  .comic-scene {
+    margin: 22px 0 36px;
+    box-shadow: 4px 5px 0 oklch(30% 0.03 205 / 0.18);
+  }
+  .comic-scene-head {
+    padding: 11px 10px;
+    gap: 9px;
+  }
+  .comic-scene-head h3 {
+    font-size: 21px;
+    flex: 1;
+  }
+  .comic-scene-head code {
+    font-size: 13px;
+    margin-left: 45px;
+  }
+  .comic-number {
+    font-size: 16px;
+    line-height: 29px;
+    min-width: 29px;
+  }
+  .comic-scene-body,
+  .comic-scene--reverse .comic-scene-body {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .comic-scene--tall .comic-scene-body,
+  .comic-scene--noir .comic-scene-body,
+  .comic-scene--clean .comic-scene-body,
+  .comic-scene--finale .comic-scene-body {
+    min-height: 0;
+  }
+  .comic-scene figure,
+  .comic-scene--reverse figure {
+    order: 0;
+    height: auto;
+    aspect-ratio: 1/1.05;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 3px solid var(--comic-ink);
+  }
+  .comic-scene--tall figure {
+    aspect-ratio: 4/5;
+  }
+  .comic-scene--noir figure,
+  .comic-scene--finale figure {
+    aspect-ratio: 1/1;
+  }
+  .comic-scene--clean figure {
+    aspect-ratio: 1.08;
+  }
+  .comic-scene--panorama figure {
+    height: auto;
+    aspect-ratio: 1.35;
+  }
+  .comic-dialogue {
+    padding: 24px 20px 32px;
+    gap: 27px;
+  }
+  .comic-bubble p {
+    font-size: 19px;
+  }
+  .comic-bubble {
+    max-width: 95%;
+    padding: 15px 18px 18px;
+  }
+  .comic-bubble--bot {
+    align-self: flex-end;
+  }
+  .comic-narration {
+    padding: 17px;
+    font-size: 16px;
+  }
+  .comic-scene--panorama .comic-dialogue {
+    display: flex;
+    padding: 24px 20px 32px;
+    gap: 27px;
+  }
+  .comic-interlude {
+    padding: 34px 6px 38px;
+  }
+  .comic-interlude h2 {
+    font-size: 44px;
+  }
+  .comic-interlude p {
+    font-size: 17px;
+  }
+  .comic-solution {
+    margin: 20px -13px 35px;
+    padding: 42px 22px;
+  }
+  .comic-closing {
+    padding: 25px 0 42px;
+  }
+  .comic-chain {
+    gap: 7px;
+  }
+  .comic-chain code {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  .comic-about {
+    padding: 25px 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comic-page {
+    scroll-behavior: auto;
+  }
+}

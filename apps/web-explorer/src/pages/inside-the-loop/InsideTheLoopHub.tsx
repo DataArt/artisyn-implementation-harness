@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Slide, Callout } from '../components/primitives';
-import { InsideLoopMap, type HubFeedback, type HubNode } from '../charts/InsideLoopMap';
-import { Modal } from '../components/Modal';
-import { EngineeringLoop } from '../components/EngineeringLoop';
+import { Slide, Callout } from '../../components/primitives';
+import { InsideLoopMap, type HubFeedback, type HubNode } from '../../charts/InsideLoopMap';
+import { Modal } from '../../components/Modal';
+import { EngineeringLoop } from '../../components/EngineeringLoop';
 import { useNavigation } from './InsideTheLoopNav';
 
 // Left-to-right dependency graph — InsideLoopMap computes the actual
