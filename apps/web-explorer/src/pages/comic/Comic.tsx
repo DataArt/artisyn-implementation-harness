@@ -303,7 +303,14 @@ export default function Comic() {
                 morning.
               </p>
               <div className="comic-hero-bottom">
-                <a className="comic-read" href="#comic-scenes">
+                <a
+                  className="comic-read"
+                  href="#comic-scenes"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.getElementById('comic-scenes')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
                   Read the comic &darr;
                 </a>
                 <span className="comic-meta">Based on real events</span>
