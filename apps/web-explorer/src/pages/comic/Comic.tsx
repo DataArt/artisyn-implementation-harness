@@ -367,7 +367,9 @@ export default function Comic() {
             <SceneArticle scene={byId('scene-5')} />
 
             <section className="comic-interlude comic-solution">
-              <span className="comic-act-label">Act III &middot; Artisyn Harness</span>
+              <span className="comic-act-label">
+                Act III &middot; Artisyn Implementation Harness
+              </span>
               <h2>
                 What if the memory
                 <br /> lived <em>in the project?</em>
@@ -408,7 +410,7 @@ export default function Comic() {
             <strong>BIG IDEAS, LITTLE PICTURES</strong>
             <p>
               A picture-book guide for the very youngest: how we build projects in an AI Software
-              Factory using Artisyn Harness.
+              Factory using Artisyn Implementation Harness.
             </p>
             <p>
               From the first idea to working software, our engineer and AI helper show how shared
@@ -421,7 +423,7 @@ export default function Comic() {
             <p>
               Explore{' '}
               <a href={repoUrl} target="_blank" rel="noopener noreferrer">
-                Artisyn Harness on GitHub &#8599;
+                Artisyn Implementation Harness on GitHub &#8599;
               </a>
               .
             </p>
