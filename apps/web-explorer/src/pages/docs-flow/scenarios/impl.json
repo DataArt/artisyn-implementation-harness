@@ -1,0 +1,7 @@
+{
+  "id": "impl",
+  "label": "Impl scenario",
+  "desc": "Target governs /dev → hand-off",
+  "start": 5,
+  "end": 9
+}

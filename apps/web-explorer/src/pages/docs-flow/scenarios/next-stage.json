@@ -1,0 +1,7 @@
+{
+  "id": "next-stage",
+  "label": "Hand-off scenario",
+  "desc": "Verifies, archives, triggers the next ticket",
+  "start": 9,
+  "end": 10
+}

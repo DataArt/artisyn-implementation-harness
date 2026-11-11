@@ -1,0 +1,388 @@
+{
+  "width": 1500,
+  "height": 865,
+  "artifacts": {
+    "requirements": {
+      "id": "requirements",
+      "title": "Requirements",
+      "subtitle": "Ticket intent and acceptance criteria",
+      "eyebrow": "INPUT",
+      "kind": "input",
+      "description": "The ticket — Jira ND-* or a local id — carries the acceptance criteria and intent that /design actually reads first, /dev checks its own work against directly, and hand-off verifies evidence against. One ticket, read at every stage.",
+      "details": [
+        "Read first by /design",
+        "Read again by /dev",
+        "Verified against when /dev reports back"
+      ],
+      "markdown": "# Requirements\n\n- Ticket intent and acceptance criteria\n- Constraints\n- What \"done\" means",
+      "path": "Requirements (the ticket itself)"
+    },
+    "tracker": {
+      "id": "tracker",
+      "title": "Task tracking system",
+      "subtitle": "Source of intent & execution tasks",
+      "eyebrow": "SYSTEM",
+      "kind": "system",
+      "description": "Jira project ND, per this repo's own conventions — the ticket's home. Holds the requirements /design reads first, receives the implementation tasks /design hands back, and is where /dev reports its result and triggers whatever the ticket's workflow runs next.",
+      "details": [
+        "Holds the ticket's requirements",
+        "Receives /design's implementation tasks",
+        "Receives /dev's result report",
+        "Triggers the next stage on transition"
+      ],
+      "markdown": "# Task tracking system\n\n- Jira project ND\n- Requirements (the ticket itself)\n- Implementation tasks\n- Status transitions",
+      "path": "Jira project ND — support.dataart.com",
+      "children": ["requirements"]
+    },
+    "design": {
+      "id": "design",
+      "title": "/design",
+      "subtitle": "Context → Frame → Research → Evaluate → Solution → Publish",
+      "eyebrow": "WORKFLOW",
+      "kind": "command",
+      "description": "Explores the requirements and existing architecture, drafts and evaluates options, and — once a recommendation is approved — publishes the settled decision into the HLD and hands implementation tasks back to the tracker.",
+      "details": [
+        "Produces its own interim working drafts first",
+        "Only the settled recommendation graduates",
+        "Rationale and rejected options never graduate",
+        "Hands implementation tasks back to the tracker"
+      ],
+      "markdown": "# /design\n\n1. Frame the problem\n2. Research options\n3. Evaluate and recommend\n4. Publish the approved solution\n5. Create implementation tasks",
+      "path": "Harness skill: /design"
+    },
+    "hitl": {
+      "id": "hitl",
+      "title": "HITL",
+      "subtitle": "Human reviews and approves the draft",
+      "eyebrow": "REVIEW GATE",
+      "kind": "gate",
+      "description": "The Review Gate stage of /design: a human validates the drafted solution — checked against the WAF — before anything is allowed to publish into the HLD.",
+      "details": [
+        "Validates the solution drafted in History",
+        "Approves before /design can publish",
+        "The one human checkpoint before a permanent record changes"
+      ],
+      "markdown": "# HITL\n\n- Reviews the drafted solution\n- Approves, or sends it back to Address Feedback",
+      "path": "Design lifecycle: Review Gate stage"
+    },
+    "target": {
+      "id": "target",
+      "title": "Target State (HLD)",
+      "subtitle": "Permanent — aspirational design intent",
+      "eyebrow": "PERMANENT RECORD",
+      "kind": "state",
+      "description": "WHY and WHAT a project is designed toward. Holds only settled, per-container architecture descriptions — not the drafts, options, or rationale that produced them. Those stay behind in History as the Story’s own ledger.",
+      "details": [
+        "Populated by /design’s settled solution",
+        "Governs the next stage, /dev",
+        "Updated again only on an authorized deviation"
+      ],
+      "markdown": "# Target State (HLD)\n\n- Containers/ — one settled architecture doc per container",
+      "path": "docs/Target Architecture (HLD)/",
+      "children": ["hld-container"]
+    },
+    "hld-container": {
+      "id": "hld-container",
+      "title": "Containers/ (per-container architecture)",
+      "subtitle": "What the HLD actually holds",
+      "eyebrow": "HLD DOCUMENT",
+      "kind": "document",
+      "description": "One settled architecture doc per container — what it is and why, not the options that were considered or rejected to get there.",
+      "details": [
+        "One file per container",
+        "Populated once /design’s solution is approved",
+        "Read directly by /dev"
+      ],
+      "markdown": "# Containers/\n\n- Web Explorer.md\n- Web Docs.md\n- Web Portal.md\n- …",
+      "path": "docs/Target Architecture (HLD)/v1/Containers/<container>.md"
+    },
+    "dev": {
+      "id": "dev",
+      "title": "/dev",
+      "subtitle": "Context → Plan → Implement → Test → Document → Completion",
+      "eyebrow": "WORKFLOW",
+      "kind": "command",
+      "description": "Reads the requirements and the HLD as source of truth, accounts for the current LLD before touching anything, then builds. Produces code and its own interim working notes the whole time, and verifies against requirements before reporting back.",
+      "details": [
+        "Governed by the HLD, not improvising",
+        "Accounts for current LLD components before changing them",
+        "Produces its own interim state (Stories/impl/) and code",
+        "An authorized deviation is the one path back into the HLD",
+        "Verifies against requirements before reporting to the tracker"
+      ],
+      "markdown": "# /dev\n\n1. Read HLD + LLD + requirements\n2. Plan the steps\n3. Implement, verified step by step\n4. Document — updates LLD, surfaces any deviation\n5. Complete — report result to the tracker",
+      "path": "Harness skill: /dev"
+    },
+    "current": {
+      "id": "current",
+      "title": "Current State (LLD)",
+      "subtitle": "Permanent — current implementation detail",
+      "eyebrow": "PERMANENT RECORD",
+      "kind": "state",
+      "description": "WHAT is currently built and HOW it works — descriptive, not aspirational. /dev's interim notes populate this on essentially every ticket that changes a container's implementation detail.",
+      "details": [
+        "Populated by /dev’s interim implementation notes",
+        "Governs the next /dev ticket that touches this component",
+        "A gap vs. the HLD is a delivery gap by design, not an error"
+      ],
+      "markdown": "# Current State (LLD)\n\n- Container docs — what’s actually built\n- Component contracts, interfaces, dependencies",
+      "path": "docs/System Architecture (LLD)/",
+      "children": ["component"]
+    },
+    "component": {
+      "id": "component",
+      "title": "Container docs",
+      "subtitle": "As-built, per container",
+      "eyebrow": "LLD DOCUMENT",
+      "kind": "document",
+      "description": "One doc per container, describing actual responsibilities, dependencies, and interfaces — not intent.",
+      "details": [
+        "Real component boundaries",
+        "Updated by /dev document",
+        "Read by the next ticket that touches this container"
+      ],
+      "markdown": "# Container doc\n\n- Responsibilities\n- Interfaces and dependencies\n- Current behavior",
+      "path": "docs/System Architecture (LLD)/<container>/"
+    },
+    "history": {
+      "id": "history",
+      "title": "History State (Stories)",
+      "subtitle": "Interim — the ticket’s own point-in-time ledger",
+      "eyebrow": "INTERIM STATE",
+      "kind": "state",
+      "description": "One Story folder per ticket, holding design/, solution/, and impl/ as siblings — every draft, option, and working note either lifecycle produces. Archived read-only once the ticket completes, never reopened to add a doc.",
+      "details": [
+        "design/ and solution/ are /design’s own drafts, not duplicated into the HLD",
+        "impl/ is /dev’s own drafts, not duplicated into the LLD",
+        "Populates the permanent records once settled"
+      ],
+      "markdown": "# Stories/[TICKET]/\n\n- design/ — Frame, Research, Evaluate\n- solution/ — Architecture, Design, Stack, Efforts\n- impl/ — intent, plan, report",
+      "path": "Stories/[TICKET]/",
+      "children": ["hld-design", "hld-solution", "notes"]
+    },
+    "hld-design": {
+      "id": "hld-design",
+      "title": "design/ (Frame · Research · Evaluate)",
+      "subtitle": "/design’s own working drafts",
+      "eyebrow": "STORY DOCUMENT",
+      "kind": "document",
+      "description": "The interim working drafts that produced the HLD's settled decision — kept as the Story's own history, not duplicated into the permanent doc.",
+      "details": [
+        "Frames the problem",
+        "Compares options with no recommendation yet",
+        "Recommends one, with a WAF check"
+      ],
+      "markdown": "# design/\n\n- 00 Frame.md\n- 01 Research.md\n- 02 Evaluate.md",
+      "path": "Stories/[TICKET]/design/"
+    },
+    "hld-solution": {
+      "id": "hld-solution",
+      "title": "solution/ (Architecture · Design · Stack · Efforts)",
+      "subtitle": "What actually populates the HLD",
+      "eyebrow": "STORY DOCUMENT",
+      "kind": "document",
+      "description": "The certainty artifacts — immutable after the Publish gate. This is what /design actually publishes into the HLD, and what /dev later reads as its source of truth.",
+      "details": [
+        "The approved architecture, design, stack, and effort estimate",
+        "Reviewed before publish",
+        "Read directly by /dev"
+      ],
+      "markdown": "# solution/\n\n- Architecture.md\n- Design.md\n- Stack.md\n- Efforts.md",
+      "path": "Stories/[TICKET]/solution/"
+    },
+    "notes": {
+      "id": "notes",
+      "title": "impl/ (Intent · Plan · Report)",
+      "subtitle": "/dev’s own working drafts",
+      "eyebrow": "STORY DOCUMENT",
+      "kind": "document",
+      "description": "What ran, what was found, and how long it took — updated every step of /dev, not written after the fact.",
+      "details": [
+        "Updated by every step, not just at the end",
+        "Records review findings and tech debt",
+        "Preserves history without replacing the LLD"
+      ],
+      "markdown": "# impl/\n\n- 0-intent.md\n- 1-plan.md\n- 2-report.md\n- stat.json",
+      "path": "Stories/[TICKET]/impl/"
+    },
+    "code": {
+      "id": "code",
+      "title": "Code",
+      "subtitle": "Verified, step by step",
+      "eyebrow": "OUTPUT",
+      "kind": "output",
+      "description": "The actual change — built and verified one step at a time, each with its own observed check before moving on.",
+      "details": [
+        "Built against the HLD, not improvised",
+        "Verified per step, not only at the end",
+        "Not a substitute for the LLD"
+      ],
+      "markdown": "# Code\n\n- Implemented behavior\n- Build, lint, typecheck per step\n- Acceptance-criteria evidence",
+      "path": "The codebase itself"
+    },
+    "handoff": {
+      "id": "handoff",
+      "title": "Next stage",
+      "subtitle": "Deployment · testing",
+      "eyebrow": "DOWNSTREAM",
+      "kind": "command",
+      "description": "Whatever the ticket's own workflow runs after hand-off — deployment, testing, release — kicked off once the tracker sees /dev's result and transitions the ticket. Outside this harness's own lifecycle.",
+      "details": [
+        "Triggered by the tracker, not by /dev directly",
+        "Scope depends on the ticket's own workflow",
+        "Outside this harness's own lifecycle"
+      ],
+      "markdown": "# Next stage\n\n- Deployment\n- Testing\n- Release — whatever the ticket's own workflow defines",
+      "path": "Downstream of the tracking system"
+    }
+  },
+  "nodes": [
+    { "id": "tracker", "x": 74, "y": 281, "w": 227, "h": 156 },
+    { "id": "design", "x": 434, "y": 132, "w": 213, "h": 84 },
+    { "id": "target", "x": 977, "y": 53, "w": 267, "h": 164 },
+    { "id": "history", "x": 777, "y": 323, "w": 316, "h": 215 },
+    { "id": "hitl", "x": 1182, "y": 280, "w": 98, "h": 98 },
+    { "id": "dev", "x": 438, "y": 545, "w": 221, "h": 85 },
+    { "id": "code", "x": 850, "y": 585, "w": 148, "h": 63 },
+    { "id": "current", "x": 883, "y": 675, "w": 257, "h": 154 },
+    { "id": "handoff", "x": 191, "y": 758, "w": 230, "h": 82 }
+  ],
+  "edges": [
+    {
+      "id": "e0",
+      "step": 0,
+      "source": "tracker",
+      "target": "design",
+      "label": "trigger design",
+      "path": "M 241 281 C 278 216, 345 166, 434 167",
+      "lx": 328,
+      "ly": 190
+    },
+    {
+      "id": "e1",
+      "step": 1,
+      "source": "design",
+      "target": "history",
+      "label": "produces interim",
+      "path": "M 604 216 C 645 263, 701 303, 800 323",
+      "lx": 698,
+      "ly": 279
+    },
+    {
+      "id": "e2",
+      "step": 2,
+      "source": "history",
+      "target": "hitl",
+      "label": "validates",
+      "path": "M 1093 376 C 1121 374, 1155 330, 1182 328",
+      "lx": 1131,
+      "ly": 390
+    },
+    {
+      "id": "e3a",
+      "step": 3,
+      "source": "hitl",
+      "target": "design",
+      "label": "approves",
+      "path": "M 1182 302 C 1065 253, 842 229, 647 185",
+      "lx": 938,
+      "ly": 249
+    },
+    {
+      "id": "e3b",
+      "step": 3,
+      "source": "design",
+      "target": "target",
+      "label": "publishes HLD",
+      "path": "M 647 155 C 740 113, 842 129, 977 128",
+      "lx": 820,
+      "ly": 115
+    },
+    {
+      "id": "e4",
+      "step": 4,
+      "source": "design",
+      "target": "tracker",
+      "label": "creates impl tasks",
+      "path": "M 434 198 C 381 234, 360 312, 301 317",
+      "lx": 360,
+      "ly": 271
+    },
+    {
+      "id": "e5",
+      "step": 5,
+      "source": "tracker",
+      "target": "dev",
+      "label": "trigger /dev",
+      "path": "M 301 401 C 371 451, 377 557, 438 574",
+      "lx": 361,
+      "ly": 485
+    },
+    {
+      "id": "e6a",
+      "step": 6,
+      "source": "dev",
+      "target": "history",
+      "label": "records intent",
+      "path": "M 659 560 C 699 547, 740 530, 821 512",
+      "lx": 738,
+      "ly": 530
+    },
+    {
+      "id": "e6b",
+      "step": 6,
+      "source": "dev",
+      "target": "code",
+      "label": "produces code",
+      "path": "M 659 588 C 730 588, 780 605, 850 617",
+      "lx": 755,
+      "ly": 600
+    },
+    {
+      "id": "e7",
+      "step": 7,
+      "source": "dev",
+      "target": "current",
+      "label": "updates as-built",
+      "path": "M 659 608 C 742 643, 788 750, 883 750",
+      "lx": 755,
+      "ly": 686
+    },
+    {
+      "id": "e8",
+      "step": 8,
+      "source": "dev",
+      "target": "target",
+      "label": "documents deviation",
+      "path": "M 659 583 C 715 583, 739 561, 788 561 L 1425 561 Q 1465 561, 1465 521 L 1465 153 Q 1465 128, 1435 128 L 1244 128",
+      "lx": 1272,
+      "ly": 544
+    },
+    {
+      "id": "e9",
+      "step": 9,
+      "source": "dev",
+      "target": "tracker",
+      "label": "report result",
+      "path": "M 438 610 C 341 688, 220 578, 224 437",
+      "lx": 290,
+      "ly": 630
+    },
+    {
+      "id": "e10",
+      "step": 10,
+      "source": "tracker",
+      "target": "handoff",
+      "label": "trigger next stage",
+      "path": "M 109 437 C 52 489, 25 547, 25 670 L 25 784 Q 25 801, 46 801 L 191 801",
+      "lx": 112,
+      "ly": 739
+    }
+  ],
+  "pillars": [
+    { "id": "intent", "label": "intent", "x": 80 },
+    { "id": "process", "label": "process", "x": 500 },
+    { "id": "artifacts", "label": "artifacts", "x": 1000 }
+  ],
+  "dividers": [420, 715]
+}

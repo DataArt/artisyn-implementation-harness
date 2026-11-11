@@ -6,7 +6,7 @@ import SectionLink from './SectionLink';
 export default function Header() {
   return (
     <header className="site-header">
-      <div className="container header-inner">
+      <div className="header-inner">
         <Link className="brand" to="/" aria-label="Artisyn home">
           <img
             src={`${import.meta.env.BASE_URL}brand/artisyn-mark.svg`}

@@ -1,0 +1,7 @@
+{
+  "id": "e2e",
+  "label": "End-to-end flow",
+  "desc": "The full lifecycle, start to finish",
+  "start": 0,
+  "end": 10
+}
