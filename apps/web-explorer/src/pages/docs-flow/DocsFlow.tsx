@@ -18,6 +18,8 @@ import {
   Layers3,
   Link2,
   ListChecks,
+  Minus,
+  Plus,
   RotateCcw,
   X,
 } from 'lucide-react';
@@ -148,6 +150,11 @@ export default function DocsFlow() {
   const onWheel = (event: WheelEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     zoomAt(event.deltaY < 0 ? 1.09 : 0.92, event.clientX - rect.left, event.clientY - rect.top);
+  };
+  const zoomButton = (factor: number) => {
+    const el = viewportRef.current;
+    if (!el) return;
+    zoomAt(factor, el.clientWidth / 2, el.clientHeight / 2);
   };
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
     if ((event.target as HTMLElement).closest('.artifact-node')) return;
@@ -355,7 +362,7 @@ export default function DocsFlow() {
                   <DividerNode key={i} x={x} top={0} bottom={sceneHeight} />
                 ))}
                 {pillars.map((p) => (
-                  <PillarLabelNode key={p.id} label={p.label} x={p.x} y={6} />
+                  <PillarLabelNode key={p.id} label={p.label} x={p.x} y={p.y} />
                 ))}
                 {nodes.map((node) => {
                   const focused = step.focus.includes(node.id);
@@ -378,9 +385,17 @@ export default function DocsFlow() {
             <div className="canvas-hint">
               Click to inspect &middot; Drag to pan &middot; Scroll to zoom
             </div>
-            <button className="canvas-fit" title="Fit scene" onClick={fit}>
-              <RotateCcw size={14} />
-            </button>
+            <div className="canvas-controls">
+              <button title="Zoom in" onClick={() => zoomButton(1.2)}>
+                <Plus size={14} />
+              </button>
+              <button title="Zoom out" onClick={() => zoomButton(1 / 1.2)}>
+                <Minus size={14} />
+              </button>
+              <button title="Fit scene" onClick={fit}>
+                <RotateCcw size={14} />
+              </button>
+            </div>
           </div>
         </main>
 

@@ -407,21 +407,32 @@
   border-color: rgba(124, 108, 240, 0.6);
   opacity: 1;
 }
-.docs-explorer .canvas-fit {
+.docs-explorer .canvas-controls {
   position: absolute;
   bottom: 12px;
   right: 12px;
   z-index: 5;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.docs-explorer .canvas-controls button {
   width: 27px;
   height: 27px;
   display: grid;
   place-items: center;
-  border: 1px solid var(--line);
-  background: var(--surface);
+  background: transparent;
   color: var(--muted);
-  border-radius: 7px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
 }
-.docs-explorer .canvas-fit:hover {
+.docs-explorer .canvas-controls button:last-child {
+  border-bottom: 0;
+}
+.docs-explorer .canvas-controls button:hover {
   background: #26344b;
   color: var(--ink);
 }

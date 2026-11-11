@@ -1,9 +1,9 @@
 import type { Artifact, SceneNode } from './flow';
 
 const CHILD_LABELS: Record<string, string> = {
-  'hld-design': 'design (Frame; …)',
-  'hld-solution': 'solution (Frame; …)',
-  notes: 'impl (intent; …)',
+  'hld-design': 'design (Frame, Research, Evaluate)',
+  'hld-solution': 'solution (Architecture, Design, …)',
+  notes: 'impl (intent, plan, report)',
   'hld-container': 'Container',
   component: 'Component(s)',
   requirements: 'Requirements',

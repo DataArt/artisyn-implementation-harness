@@ -49,7 +49,7 @@ export type SceneEdge = {
   lx: number;
   ly: number;
 };
-export type Pillar = { id: string; label: string; x: number };
+export type Pillar = { id: string; label: string; x: number; y: number };
 
 type Scene = {
   width: number;

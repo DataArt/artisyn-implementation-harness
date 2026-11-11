@@ -1,6 +1,6 @@
 {
   "width": 1500,
-  "height": 865,
+  "height": 905,
   "artifacts": {
     "requirements": {
       "id": "requirements",
@@ -238,14 +238,14 @@
   },
   "nodes": [
     { "id": "tracker", "x": 74, "y": 281, "w": 227, "h": 156 },
-    { "id": "design", "x": 434, "y": 132, "w": 213, "h": 84 },
-    { "id": "target", "x": 977, "y": 53, "w": 267, "h": 164 },
-    { "id": "history", "x": 777, "y": 323, "w": 316, "h": 215 },
-    { "id": "hitl", "x": 1182, "y": 280, "w": 98, "h": 98 },
-    { "id": "dev", "x": 438, "y": 545, "w": 221, "h": 85 },
-    { "id": "code", "x": 850, "y": 585, "w": 148, "h": 63 },
-    { "id": "current", "x": 883, "y": 675, "w": 257, "h": 154 },
-    { "id": "handoff", "x": 191, "y": 758, "w": 230, "h": 82 }
+    { "id": "design", "x": 484, "y": 132, "w": 213, "h": 84 },
+    { "id": "target", "x": 850, "y": 10, "w": 267, "h": 164 },
+    { "id": "hitl", "x": 1200, "y": 204, "w": 98, "h": 98 },
+    { "id": "history", "x": 850, "y": 332, "w": 316, "h": 215 },
+    { "id": "dev", "x": 480, "y": 400, "w": 221, "h": 85 },
+    { "id": "code", "x": 850, "y": 577, "w": 148, "h": 63 },
+    { "id": "current", "x": 850, "y": 670, "w": 257, "h": 154 },
+    { "id": "handoff", "x": 475, "y": 610, "w": 230, "h": 82 }
   ],
   "edges": [
     {
@@ -254,7 +254,7 @@
       "source": "tracker",
       "target": "design",
       "label": "trigger design",
-      "path": "M 241 281 C 278 216, 345 166, 434 167",
+      "path": "M 241 281 C 278 216, 345 166, 484 167",
       "lx": 328,
       "ly": 190
     },
@@ -264,9 +264,9 @@
       "source": "design",
       "target": "history",
       "label": "produces interim",
-      "path": "M 604 216 C 645 263, 701 303, 800 323",
-      "lx": 698,
-      "ly": 279
+      "path": "M 654 216 C 690 260, 770 300, 850 332",
+      "lx": 740,
+      "ly": 280
     },
     {
       "id": "e2",
@@ -274,9 +274,9 @@
       "source": "history",
       "target": "hitl",
       "label": "validates",
-      "path": "M 1093 376 C 1121 374, 1155 330, 1182 328",
-      "lx": 1131,
-      "ly": 390
+      "path": "M 1166 385 C 1200 370, 1232 340, 1249 302",
+      "lx": 1245,
+      "ly": 360
     },
     {
       "id": "e3a",
@@ -284,9 +284,9 @@
       "source": "hitl",
       "target": "design",
       "label": "approves",
-      "path": "M 1182 302 C 1065 253, 842 229, 647 185",
-      "lx": 938,
-      "ly": 249
+      "path": "M 1200 240 C 1050 225, 850 200, 697 185",
+      "lx": 770,
+      "ly": 200
     },
     {
       "id": "e3b",
@@ -294,9 +294,9 @@
       "source": "design",
       "target": "target",
       "label": "publishes HLD",
-      "path": "M 647 155 C 740 113, 842 129, 977 128",
-      "lx": 820,
-      "ly": 115
+      "path": "M 697 155 C 740 120, 800 95, 850 85",
+      "lx": 760,
+      "ly": 110
     },
     {
       "id": "e4",
@@ -304,7 +304,7 @@
       "source": "design",
       "target": "tracker",
       "label": "creates impl tasks",
-      "path": "M 434 198 C 381 234, 360 312, 301 317",
+      "path": "M 484 198 C 400 234, 360 312, 301 317",
       "lx": 360,
       "ly": 271
     },
@@ -314,9 +314,9 @@
       "source": "tracker",
       "target": "dev",
       "label": "trigger /dev",
-      "path": "M 301 401 C 371 451, 377 557, 438 574",
-      "lx": 361,
-      "ly": 485
+      "path": "M 301 401 C 350 410, 420 405, 480 429",
+      "lx": 390,
+      "ly": 395
     },
     {
       "id": "e6a",
@@ -324,9 +324,9 @@
       "source": "dev",
       "target": "history",
       "label": "records intent",
-      "path": "M 659 560 C 699 547, 740 530, 821 512",
-      "lx": 738,
-      "ly": 530
+      "path": "M 701 415 C 760 420, 810 470, 850 517",
+      "lx": 775,
+      "ly": 435
     },
     {
       "id": "e6b",
@@ -334,9 +334,9 @@
       "source": "dev",
       "target": "code",
       "label": "produces code",
-      "path": "M 659 588 C 730 588, 780 605, 850 617",
-      "lx": 755,
-      "ly": 600
+      "path": "M 701 443 C 760 470, 800 530, 850 608",
+      "lx": 795,
+      "ly": 535
     },
     {
       "id": "e7",
@@ -344,9 +344,9 @@
       "source": "dev",
       "target": "current",
       "label": "updates as-built",
-      "path": "M 659 608 C 742 643, 788 750, 883 750",
-      "lx": 755,
-      "ly": 686
+      "path": "M 701 463 C 770 520, 810 650, 850 747",
+      "lx": 792,
+      "ly": 660
     },
     {
       "id": "e8",
@@ -354,9 +354,9 @@
       "source": "dev",
       "target": "target",
       "label": "documents deviation",
-      "path": "M 659 583 C 715 583, 739 561, 788 561 L 1425 561 Q 1465 561, 1465 521 L 1465 153 Q 1465 128, 1435 128 L 1244 128",
-      "lx": 1272,
-      "ly": 544
+      "path": "M 701 480 C 715 480, 730 495, 730 520 L 730 860 Q 730 880, 750 880 L 1445 880 Q 1465 880, 1465 860 L 1465 110 Q 1465 70, 1435 70 L 1117 70",
+      "lx": 1100,
+      "ly": 880
     },
     {
       "id": "e9",
@@ -364,9 +364,9 @@
       "source": "dev",
       "target": "tracker",
       "label": "report result",
-      "path": "M 438 610 C 341 688, 220 578, 224 437",
-      "lx": 290,
-      "ly": 630
+      "path": "M 480 465 C 400 470, 260 440, 224 437",
+      "lx": 330,
+      "ly": 480
     },
     {
       "id": "e10",
@@ -374,15 +374,15 @@
       "source": "tracker",
       "target": "handoff",
       "label": "trigger next stage",
-      "path": "M 109 437 C 52 489, 25 547, 25 670 L 25 784 Q 25 801, 46 801 L 191 801",
-      "lx": 112,
-      "ly": 739
+      "path": "M 188 437 C 150 490, 140 600, 200 640 C 260 660, 350 651, 475 651",
+      "lx": 250,
+      "ly": 560
     }
   ],
   "pillars": [
-    { "id": "intent", "label": "intent", "x": 80 },
-    { "id": "process", "label": "process", "x": 500 },
-    { "id": "artifacts", "label": "artifacts", "x": 1000 }
+    { "id": "intent", "label": "intent", "x": 80, "y": 6 },
+    { "id": "process", "label": "process", "x": 550, "y": 6 },
+    { "id": "artifacts", "label": "artifacts", "x": 950, "y": -26 }
   ],
-  "dividers": [420, 715]
+  "dividers": [420, 760]
 }
