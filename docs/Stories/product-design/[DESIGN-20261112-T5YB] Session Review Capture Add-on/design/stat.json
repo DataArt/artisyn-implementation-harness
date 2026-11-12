@@ -492,8 +492,31 @@
       "reason": "user_input",
       "detail": "Review Gate: awaiting the draft MR URL from the developer (approver: antonioMerkulov)",
       "started_at": "2026-11-12T04:42:27.035Z",
+      "ended_at": "2026-11-12T04:48:18.052Z",
+      "last_observed_at": "2026-11-12T04:48:18.052Z"
+    },
+    {
+      "id": "dc372281-5a1d-482b-8d01-dd20939af056",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T04:48:18.052Z",
+      "ended_at": "2026-11-12T04:48:34.469Z",
+      "last_observed_at": "2026-11-12T04:48:34.469Z"
+    },
+    {
+      "id": "4e2653df-21df-44be-a1ad-282a3985aa4f",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting design approval from antonioMerkulov on https://github.com/DataArt/artisyn-implementation-harness/pull/18",
+      "started_at": "2026-11-12T04:48:34.469Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-12T04:42:27.035Z"
+      "last_observed_at": "2026-11-12T04:48:34.469Z"
     }
   ],
   "checks": [
@@ -676,15 +699,15 @@
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-12T04:42:27.036Z",
+    "as_of": "2026-11-12T04:48:34.641Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 4123.904,
-    "observed_wait_seconds": 7262.037000000001,
+    "observed_work_seconds": 4140.321000000001,
+    "observed_wait_seconds": 7613.054000000001,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 7262.038000000001,
-    "unclassified_seconds": 1043.6259999999977,
+    "open_wait_seconds": 0.172,
+    "wait_seconds_to_date": 7613.226000000001,
+    "unclassified_seconds": 1043.625999999998,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 4976.359,
