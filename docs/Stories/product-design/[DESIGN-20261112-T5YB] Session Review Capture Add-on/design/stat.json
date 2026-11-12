@@ -12,21 +12,29 @@
   "stages": [
     {
       "id": "context-gathering",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
           "started_at": "2026-11-12T01:15:17.594Z",
-          "ended_at": null,
+          "ended_at": "2026-11-12T01:28:36.708Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "ceremony",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "a8ff7d0d-f870-4ce8-86da-78c99bc951a5",
+          "started_at": "2026-11-12T01:28:36.828Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "frame",
@@ -125,8 +133,19 @@
       "kind": "work",
       "activity": "investigation",
       "started_at": "2026-11-12T01:28:27.635Z",
+      "ended_at": "2026-11-12T01:28:36.708Z",
+      "last_observed_at": "2026-11-12T01:28:36.708Z"
+    },
+    {
+      "id": "17f8d36c-216b-4cb7-8613-6a0b2a366ad7",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "a8ff7d0d-f870-4ce8-86da-78c99bc951a5",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:28:36.828Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-12T01:28:27.635Z"
+      "last_observed_at": "2026-11-12T01:28:36.828Z"
     }
   ],
   "checks": [
@@ -145,19 +164,35 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "ceremony-signoff-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "a8ff7d0d-f870-4ce8-86da-78c99bc951a5",
+      "step": null,
+      "design_revision": 0,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T01:29:01.646Z",
+      "ended_at": "2026-11-12T01:29:01.646Z",
+      "result": "passed",
+      "evidence_ref": "Already on docs/design-20261112-t5yb-session-review-capture-add-on (git branch --show-current); created off main on the developer's instruction 'switch to a new branch off main first'",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-12T01:28:35.918Z",
+    "as_of": "2026-11-12T01:29:01.778Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 23.62,
+    "observed_work_seconds": 32.693,
     "observed_wait_seconds": 766.421,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
     "wait_seconds_to_date": 766.421,
-    "unclassified_seconds": 8.408999999999992,
+    "unclassified_seconds": 25.195999999999913,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 543.239,
