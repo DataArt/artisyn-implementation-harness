@@ -77,21 +77,29 @@
     },
     {
       "id": "solution",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
           "started_at": "2026-11-12T03:11:31.886Z",
-          "ended_at": null,
+          "ended_at": "2026-11-12T04:38:01.829Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "77169717-264c-4899-91cd-9cbec39c29fe",
+          "started_at": "2026-11-12T04:38:01.927Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "address-feedback",
@@ -438,8 +446,54 @@
       "kind": "work",
       "activity": "documentation",
       "started_at": "2026-11-12T04:37:17.665Z",
+      "ended_at": "2026-11-12T04:38:01.829Z",
+      "last_observed_at": "2026-11-12T04:38:01.829Z"
+    },
+    {
+      "id": "43852987-bd50-44a8-9de1-05c0045f49b8",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T04:38:01.927Z",
+      "ended_at": "2026-11-12T04:38:14.213Z",
+      "last_observed_at": "2026-11-12T04:38:14.213Z"
+    },
+    {
+      "id": "cbc73d8e-aa09-4b4c-af6a-e0856574e255",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Review Gate: awaiting the approver's name and the draft MR URL from the developer",
+      "started_at": "2026-11-12T04:38:14.213Z",
+      "ended_at": "2026-11-12T04:42:17.605Z",
+      "last_observed_at": "2026-11-12T04:42:17.605Z"
+    },
+    {
+      "id": "3f9c585e-d502-4b18-b110-2fecc525752d",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T04:42:17.605Z",
+      "ended_at": "2026-11-12T04:42:27.035Z",
+      "last_observed_at": "2026-11-12T04:42:27.035Z"
+    },
+    {
+      "id": "e58d47c3-c331-4a42-abf6-45a57265b40d",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Review Gate: awaiting the draft MR URL from the developer (approver: antonioMerkulov)",
+      "started_at": "2026-11-12T04:42:27.035Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-12T04:37:17.665Z"
+      "last_observed_at": "2026-11-12T04:42:27.035Z"
     }
   ],
   "checks": [
@@ -622,15 +676,15 @@
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-12T04:38:00.939Z",
+    "as_of": "2026-11-12T04:42:27.036Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 4058.024,
-    "observed_wait_seconds": 7018.645000000001,
+    "observed_work_seconds": 4123.904,
+    "observed_wait_seconds": 7262.037000000001,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "wait_seconds_to_date": 7018.645000000001,
-    "unclassified_seconds": 1086.8019999999988,
+    "open_wait_seconds": 0.001,
+    "wait_seconds_to_date": 7262.038000000001,
+    "unclassified_seconds": 1043.6259999999977,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 4976.359,

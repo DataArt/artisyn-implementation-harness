@@ -73,7 +73,7 @@ context_fingerprint: ''
 <!-- design-metrics:start -->
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1h 7m 38s · Wait to date: 1h 56m 59s (closed 1h 56m 59s + current 0s) · Unclassified: 18m 7s
+Observed work: 1h 8m 34s · Wait to date: 2h 1m 2s (closed 2h 1m 2s + current 0s) · Unclassified: 17m 33s
 
 | Stage | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -82,8 +82,8 @@ Observed work: 1h 7m 38s · Wait to date: 1h 56m 59s (closed 1h 56m 59s + curren
 | frame (completed) | 2026-11-12T01:29:02.634Z | 2026-11-12T01:42:20.609Z | 13m 18s | 4m 4s | 9m 14s | unavailable | unavailable | from_tracking_start | 1 | 0 |
 | research (completed) | 2026-11-12T01:42:20.722Z | 2026-11-12T02:29:11.869Z | 46m 51s | 25m 53s | 20m 59s | unavailable | unavailable | from_tracking_start | 1 | 0 |
 | evaluate (completed) | 2026-11-12T02:29:11.979Z | 2026-11-12T03:11:31.797Z | 42m 20s | 6m 46s | 35m 34s | unavailable | unavailable | from_tracking_start | 1 | 0 |
-| solution (active) | 2026-11-12T03:11:31.886Z | unavailable | unavailable | 29m 58s | 38m 25s | unavailable | unavailable | from_tracking_start | 1 | 2 |
-| review-gate (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
+| solution (completed) | 2026-11-12T03:11:31.886Z | 2026-11-12T04:38:01.829Z | 1h 26m 30s | 30m 42s | 38m 25s | unavailable | unavailable | from_tracking_start | 1 | 2 |
+| review-gate (active) | 2026-11-12T04:38:01.927Z | unavailable | unavailable | 12s | 4m 3s | unavailable | unavailable | from_tracking_start | 1 | 0 |
 | address-feedback (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
 | publish (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
 | completion (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
@@ -247,8 +247,8 @@ _WAF assessment of [`solution/Architecture.md`](../solution/Architecture.md) and
 
 ## Gate
 
-- Approver: —
-- Draft MR: —
+- Approver: antonioMerkulov (harness author; owner of all paths in `.github/CODEOWNERS`)
+- Draft MR: — _(to be opened by the developer)_
 - Approved: — _(a date once approved, or `declined`)_
 - Decline reason: — _(filled in by Address Feedback only if declined)_
 
@@ -267,6 +267,7 @@ _WAF assessment of [`solution/Architecture.md`](../solution/Architecture.md) and
 | 2026-11-12 | Evaluate          | Step 1b auto-approved: no viability question was open (OQ1-4, OQ2-4, OQ3-1, OQ3-3 and OQ3-7 resolved at the Research sign-off; OQ2-12 resolved by Decision 1's recommended location). Recommended Packaging B (manifest-declared add-on with a hash lock and a refresh script), Launch Flow C (standalone idempotent installer script), Ownership F (stateless detection, no ownership record). WAF: 12 green, 6 amber, no red across the three recommended options; 1 P1 item — the harness author confirms at the Review Gate that a package script may add named keys to an existing `.claude/settings.json`. The three recommendations are interdependent: with the script performing the copy, Packaging B reduces to the manifest declaration, the lock and the refresh script; the research did not describe that combination, so Solution must specify it and the architect review must check it. During sign-off the developer (kit owner) confirmed that teams do not edit the kit's files, only its settings, which confirms Ownership F's first assumption. The matrices are the orchestrator's judgment from the research; no independent review yet. Developer approved ("go"). |
 | 2026-11-12 | Solution          | Artifact selection: `architecture` (the package gains a new content kind and a second writer into the target repo), `design` (one file per decision), `stack` (pinned kit release, runtime and subprocess constraints), `efforts` (implementation slices and two spikes). None omitted. Step 1b concern scan found two material points that existing evidence could not settle, both kit behaviour; asked once and answered by the developer (kit owner): (1) when only the version number differs, the harness reports it and offers to update that one file ("Report and offer"); (2) when the kit is already installed and nothing may be done (same, newer, no version file), the install question is not asked; the state is reported and the question recorded as not applicable ("Skip and report"). The remaining open questions from Evaluate are settled in the solution as design decisions: kit-behaviour ones from the kit's own documents and the developer's earlier answers, harness-rule ones as proposals for the harness author at the Review Gate. Two items stay unverified and become spikes in Efforts: whether Claude Code discovers a `SKILL.md` nested in the installed package, and how settings in a subfolder's `.claude/` scope hooks and `env`. |
 | 2026-11-12 | Solution          | Selected artifacts written: `Architecture.md` (30 decisions, nine detection classes, three flows), three Design files, `Stack.md`, `Efforts.md` (ten slices, two of them spikes). `@product-architect` reviewed `Architecture.md` twice. Pass 1: 17 gaps (9 structural), all where the add-on met plan → materialize → finalize and the patch contract; the main correction was taking the add-on out of the launch plan. Pass 2: 16 resolved, 8 new points; two needed the developer, who answered (existing harness projects get the kit on explicit request at `patch apply`, with a one-line note otherwise; an install without a version file whose files all equal the payload is offered completion, a deliberate narrowing of EC3). The two-pass limit was reached, so the revisions after pass 2 and the five supporting files were cross-read by the orchestrator and `@docs-writer` only. WAF review (solution): 3 green, 3 amber, no red; 1 P1, resolved by approval at the Review Gate (the restated settings rule D8, with D6, D7 and D28). Quality gate: pass with two recorded limits — no independent review after pass 2, and no Mermaid CLI in this checkout (10 diagrams inspected for syntax, 27 links checked, none broken). The developer accepted both limits at sign-off and chose to drop the estimate table, because `/dev` will implement the slices. Developer approved ("good to go"). |
+| 2026-11-12 | Review Gate       | Prerequisites verified: Frame, three Research files, three Evaluate files, `Architecture.md`, three Design files, `Stack.md`, `Efforts.md`. No draft MR existed. The developer named the approver: antonioMerkulov. MR title and body suggested; the developer opens the draft MR and pushes the branch (`git push` is guarded). |
 
 ---
 
