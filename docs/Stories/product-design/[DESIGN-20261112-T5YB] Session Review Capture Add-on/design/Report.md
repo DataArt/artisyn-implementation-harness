@@ -25,10 +25,10 @@ Track and subfolder were not auto-approved: the request could be read as either 
 ## State
 
 ```yaml
-current_stage: evaluate
-completed_stages: ['context-gathering', 'ceremony', 'frame', 'research']
+current_stage: solution
+completed_stages: ['context-gathering', 'ceremony', 'frame', 'research', 'evaluate']
 selected_artifacts: []
-next_action: 'Evaluate — matrix, tradeoffs, recommendation and WAF per decision (3 decisions), then sign-off'
+next_action: 'Solution — select artifacts, write solution/, architect and WAF review, then sign-off'
 context_fingerprint: ''
 ```
 
@@ -64,7 +64,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261112-T5YB (local design ID — no tracker ticket)                                                                                                                          |
 | Branch | `docs/design-20261112-t5yb-session-review-capture-add-on`                                                                                                                                                               |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -73,15 +73,15 @@ context_fingerprint: ''
 <!-- design-metrics:start -->
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 23m 8s · Wait to date: 42m 59s (closed 42m 59s + current 0s) · Unclassified: 7m 47s
+Observed work: 37m 38s · Wait to date: 1h 18m 33s (closed 1h 18m 33s + current 0s) · Unclassified: 2s
 
 | Stage | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | context-gathering (completed) | 2026-11-12T01:15:17.594Z | 2026-11-12T01:28:36.708Z | 13m 19s | 33s | 12m 46s | unavailable | unavailable | from_tracking_start | 1 | 0 |
 | ceremony (completed) | 2026-11-12T01:28:36.828Z | 2026-11-12T01:29:02.512Z | 26s | 26s | 0s | unavailable | unavailable | from_tracking_start | 1 | 0 |
 | frame (completed) | 2026-11-12T01:29:02.634Z | 2026-11-12T01:42:20.609Z | 13m 18s | 4m 4s | 9m 14s | unavailable | unavailable | from_tracking_start | 1 | 0 |
-| research (active) | 2026-11-12T01:42:20.722Z | unavailable | unavailable | 18m 6s | 20m 59s | unavailable | unavailable | from_tracking_start | 1 | 0 |
-| evaluate (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
+| research (completed) | 2026-11-12T01:42:20.722Z | 2026-11-12T02:29:11.869Z | 46m 51s | 25m 53s | 20m 59s | unavailable | unavailable | from_tracking_start | 1 | 0 |
+| evaluate (active) | 2026-11-12T02:29:11.979Z | unavailable | unavailable | 6m 43s | 35m 34s | unavailable | unavailable | from_tracking_start | 1 | 0 |
 | solution (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
 | review-gate (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
 | address-feedback (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
@@ -147,6 +147,47 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 <!-- Append dated blocks here. Each block added by Evaluate or the waf-review pattern. -->
 
+### WAF — Evaluate — 2026-11-12
+
+_Three decisions, one recommended option each. Full elaboration is in the three `design/02 Evaluate - *.md` files._
+
+**Decision 1, Packaging and sync — recommended option: B (2), manifest-declared add-on with a hash lock and a refresh script.**
+
+| Pillar | Rating | Headline |
+| --- | --- | --- |
+| Operational Excellence | 🟢 | Scripted refresh with a check in the unit suite; the file list lives in the manifest |
+| Security | 🟡 | The lock makes in-harness edits fail a check, but vendored hook scripts and a headless dispatch enter the package's scan scope |
+| Reliability | 🟢 | The copy does not depend on file content; the release ZIP needs an LF pin for the payload |
+| Performance Efficiency | 🟢 | Nine small files |
+| Cost Optimization | 🟡 | Highest build cost of the options; one-time and reusable |
+| Sustainability | 🟢 | About 110 KB of text |
+
+**Decision 2, Launch flow — recommended option: C (3), standalone idempotent installer script.**
+
+| Pillar | Rating | Headline |
+| --- | --- | --- |
+| Operational Excellence | 🟢 | Idempotent, dry-run diff before any write, own receipt, verify step |
+| Security | 🟡 | A package script registers hooks in settings and changes an existing harness rule; consent is enforced at the script boundary |
+| Reliability | 🟡 | Deterministic and refuses on a changed state; JSON rewrite, dropped files and the Git Bash and CLI prerequisites need rules |
+| Performance Efficiency | 🟢 | One script run |
+| Cost Optimization | 🟡 | No agent tokens for the install; a yes commits the team to one headless review run per session, on `opus` by default |
+| Sustainability | 🟢 | Fewest agent turns per install |
+
+**Decision 3, Ownership after launch — recommended option: F (6), stateless detection with no ownership record.**
+
+| Pillar | Rating | Headline |
+| --- | --- | --- |
+| Operational Excellence | 🟢 | Nothing to maintain; one routine at launch and at `patch apply` |
+| Security | 🟢 | No baseline bytes of hook scripts, no removal path, no write except the explicit offer |
+| Reliability | 🟡 | No state to go stale and works from any clone; cannot see an edit on an older install, and version ordering is undefined |
+| Performance Efficiency | 🟢 | Comparison of nine small files |
+| Cost Optimization | 🟢 | Smallest state-contract change of the six options |
+| Sustainability | 🟢 | No stored state |
+
+**P1 items (resolve before implementation):**
+
+- Decision 2: the harness author confirms, at the Review Gate, that a package script may add named keys to an existing `.claude/settings.json` (restating the Block C / BOOT-005 rule).
+
 ---
 
 ## Gate
@@ -168,6 +209,7 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 | 2026-11-12 | Ceremony          | No tracker ticket (local design ID) — Step 1 tracker transition skipped. Already on the design branch, created off `main` during Context Gathering on the developer's instruction; confirmed with Git. |
 | 2026-11-12 | Frame             | 8 known requirements, 5 proposed requirements accepted. Three decisions; the breakdown was confirmed by the developer on the identical table during framing ("leave decisions as is") and not re-asked. One rework before sign-off: the developer found the Problem paragraph and diagram centred on evolve reflections, so both were re-drafted around the operator and usage side; `/evolve` is now one closing sentence. The Mermaid diagram was checked by the developer in their preview, not rendered by the orchestrator. |
 | 2026-11-12 | Research          | `@product-architect` returned 15 options across the three decisions: Packaging and Sync 5 (reference-driven canonical payload; manifest add-on with hash lock; existing roots with copy treatment; pinned archive; `vendor/` root), Launch Flow 4 (agent recipe plus probe; plan-native add-on; standalone installer script; kit-owned recipe with harness gates), Ownership After Launch 6 (existing patch baseline; separate unit record; install-once hand-off; release recognition; committed stamp; stateless detection). 43 open questions triaged (6 viability, 37 evaluation-input). The developer resolved the viability questions at sign-off: a refresh must be able to travel in a patch bundle (Packaging E out); the upgrade is offered at launch and at `patch apply`, from what is found in the repo, regardless of who installed it (Ownership C out; a sixth, stateless option was added on that basis); a harness script performs the settings merge ("go with the script"); EC5 means the unmodified kit content with line endings normalised. Two of these change existing harness rules and are flagged for the harness author at the Review Gate. The docs graph CLI printed nothing on this Windows checkout again; the architect read sources directly. The orchestrator opened the 2.2.5 drop-in zip to answer one question (11 LF-only files, identical to the kit tree). No diagram was rendered. Developer confirmed the set and said to proceed to Evaluate. |
+| 2026-11-12 | Evaluate          | Step 1b auto-approved: no viability question was open (OQ1-4, OQ2-4, OQ3-1, OQ3-3 and OQ3-7 resolved at the Research sign-off; OQ2-12 resolved by Decision 1's recommended location). Recommended Packaging B (manifest-declared add-on with a hash lock and a refresh script), Launch Flow C (standalone idempotent installer script), Ownership F (stateless detection, no ownership record). WAF: 12 green, 6 amber, no red across the three recommended options; 1 P1 item — the harness author confirms at the Review Gate that a package script may add named keys to an existing `.claude/settings.json`. The three recommendations are interdependent: with the script performing the copy, Packaging B reduces to the manifest declaration, the lock and the refresh script; the research did not describe that combination, so Solution must specify it and the architect review must check it. During sign-off the developer (kit owner) confirmed that teams do not edit the kit's files, only its settings, which confirms Ownership F's first assumption. The matrices are the orchestrator's judgment from the research; no independent review yet. Developer approved ("go"). |
 
 ---
 

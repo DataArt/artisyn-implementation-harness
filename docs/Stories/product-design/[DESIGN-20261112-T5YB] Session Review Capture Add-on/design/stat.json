@@ -51,21 +51,29 @@
     },
     {
       "id": "research",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
           "started_at": "2026-11-12T01:42:20.722Z",
-          "ended_at": null,
+          "ended_at": "2026-11-12T02:29:11.869Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "evaluate",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+          "started_at": "2026-11-12T02:29:11.979Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "solution",
@@ -274,8 +282,65 @@
       "kind": "work",
       "activity": "investigation",
       "started_at": "2026-11-12T02:21:25.181Z",
+      "ended_at": "2026-11-12T02:29:11.869Z",
+      "last_observed_at": "2026-11-12T02:29:11.869Z"
+    },
+    {
+      "id": "d0ebe630-018d-4015-bdd7-5915ad450f2d",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T02:29:11.979Z",
+      "ended_at": "2026-11-12T02:35:22.638Z",
+      "last_observed_at": "2026-11-12T02:35:22.638Z"
+    },
+    {
+      "id": "27090e8b-a3c7-4d87-8ba4-75d2379db847",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off",
+      "started_at": "2026-11-12T02:35:22.638Z",
+      "ended_at": "2026-11-12T03:07:03.614Z",
+      "last_observed_at": "2026-11-12T03:07:03.614Z"
+    },
+    {
+      "id": "24172c5f-c626-4d18-a4e3-058b20e7c036",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T03:07:03.614Z",
+      "ended_at": "2026-11-12T03:07:36.421Z",
+      "last_observed_at": "2026-11-12T03:07:36.421Z"
+    },
+    {
+      "id": "9b8117ce-f599-4741-90ce-fb65255dc75b",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off (after recording the kit owner's answer on team edits)",
+      "started_at": "2026-11-12T03:07:36.421Z",
+      "ended_at": "2026-11-12T03:11:29.729Z",
+      "last_observed_at": "2026-11-12T03:11:29.729Z"
+    },
+    {
+      "id": "a0f8db33-041d-46b5-bc7e-a96ce1e2976c",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T03:11:29.729Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-12T02:21:25.181Z"
+      "last_observed_at": "2026-11-12T03:11:29.729Z"
     }
   ],
   "checks": [
@@ -358,22 +423,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "evaluate-signoff-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "design_revision": 0,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T03:11:29.833Z",
+      "ended_at": "2026-11-12T03:11:29.833Z",
+      "result": "passed",
+      "evidence_ref": "Developer replied 'go' to the Evaluate sign-off (recommending Packaging B, Launch flow C, Ownership F; WAF 12 green, 6 amber, 1 P1 routed to the Review Gate), after their answer 'team doesnt edit session review toolkit, only its settings though' was recorded in the Ownership evaluation.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-12T02:29:11.280Z",
+    "as_of": "2026-11-12T03:11:31.182Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1388.177,
-    "observed_wait_seconds": 2579.0550000000003,
+    "observed_work_seconds": 2258.3309999999997,
+    "observed_wait_seconds": 4713.339000000001,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 2579.0550000000003,
-    "unclassified_seconds": 466.5799999999999,
+    "wait_seconds_to_date": 4713.339000000001,
+    "unclassified_seconds": 2.0439999999989595,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 2242.071,
+    "approval_wait_seconds": 4376.3550000000005,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
