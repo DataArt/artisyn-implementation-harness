@@ -1,0 +1,720 @@
+{
+  "schema_version": 2,
+  "lifecycle": "design",
+  "design_revision": 0,
+  "ticket": "DESIGN-20261112-T5YB",
+  "tracking_started_at": "2026-11-12T01:15:17.468Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-12T01:15:17.594Z",
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context-gathering",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
+          "started_at": "2026-11-12T01:15:17.594Z",
+          "ended_at": "2026-11-12T01:28:36.708Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "ceremony",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "a8ff7d0d-f870-4ce8-86da-78c99bc951a5",
+          "started_at": "2026-11-12T01:28:36.828Z",
+          "ended_at": "2026-11-12T01:29:02.512Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "frame",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+          "started_at": "2026-11-12T01:29:02.634Z",
+          "ended_at": "2026-11-12T01:42:20.609Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+          "started_at": "2026-11-12T01:42:20.722Z",
+          "ended_at": "2026-11-12T02:29:11.869Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "evaluate",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+          "started_at": "2026-11-12T02:29:11.979Z",
+          "ended_at": "2026-11-12T03:11:31.797Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "solution",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+          "started_at": "2026-11-12T03:11:31.886Z",
+          "ended_at": "2026-11-12T04:38:01.829Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "review-gate",
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "77169717-264c-4899-91cd-9cbec39c29fe",
+          "started_at": "2026-11-12T04:38:01.927Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
+    },
+    {
+      "id": "address-feedback",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "publish",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": []
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "ef6765e6-f267-41f0-a6e7-32b3138de395",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T01:15:17.594Z",
+      "ended_at": "2026-11-12T01:15:25.409Z",
+      "last_observed_at": "2026-11-12T01:15:25.409Z"
+    },
+    {
+      "id": "2bfec774-7a4a-4b1d-9777-80f7b5a55d95",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context-gathering sign-off",
+      "started_at": "2026-11-12T01:15:25.409Z",
+      "ended_at": "2026-11-12T01:24:28.648Z",
+      "last_observed_at": "2026-11-12T01:24:28.648Z"
+    },
+    {
+      "id": "83bcf158-42d8-4696-9293-bcb3ca4f78b4",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T01:24:28.648Z",
+      "ended_at": "2026-11-12T01:24:44.453Z",
+      "last_observed_at": "2026-11-12T01:24:44.453Z"
+    },
+    {
+      "id": "2a3be6e2-f3a3-4062-9c0b-c3b311ee25af",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting Context Gathering commit",
+      "started_at": "2026-11-12T01:24:44.453Z",
+      "ended_at": "2026-11-12T01:28:27.635Z",
+      "last_observed_at": "2026-11-12T01:28:27.635Z"
+    },
+    {
+      "id": "d0f2293a-3d6a-41c2-b192-856e7e1426da",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T01:28:27.635Z",
+      "ended_at": "2026-11-12T01:28:36.708Z",
+      "last_observed_at": "2026-11-12T01:28:36.708Z"
+    },
+    {
+      "id": "17f8d36c-216b-4cb7-8613-6a0b2a366ad7",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "a8ff7d0d-f870-4ce8-86da-78c99bc951a5",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:28:36.828Z",
+      "ended_at": "2026-11-12T01:29:02.512Z",
+      "last_observed_at": "2026-11-12T01:29:02.512Z"
+    },
+    {
+      "id": "77a2b93a-9b39-4191-a436-037bb2d3ec3d",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:29:02.634Z",
+      "ended_at": "2026-11-12T01:31:28.134Z",
+      "last_observed_at": "2026-11-12T01:31:28.134Z"
+    },
+    {
+      "id": "eef81d42-537a-468e-b330-d3e655b01cea",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting frame sign-off",
+      "started_at": "2026-11-12T01:31:28.134Z",
+      "ended_at": "2026-11-12T01:39:27.973Z",
+      "last_observed_at": "2026-11-12T01:39:27.973Z"
+    },
+    {
+      "id": "64453dfb-9172-499c-af6a-b92cbb7a6eeb",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:39:27.973Z",
+      "ended_at": "2026-11-12T01:40:32.297Z",
+      "last_observed_at": "2026-11-12T01:40:32.297Z"
+    },
+    {
+      "id": "4bc1d7d7-5a9b-4b17-b933-e2e91cbf2d85",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting frame sign-off (after Problem rework)",
+      "started_at": "2026-11-12T01:40:32.297Z",
+      "ended_at": "2026-11-12T01:41:46.533Z",
+      "last_observed_at": "2026-11-12T01:41:46.533Z"
+    },
+    {
+      "id": "7c91c945-b4fe-4ae6-b566-352cc8ff5f53",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:41:46.533Z",
+      "ended_at": "2026-11-12T01:42:20.609Z",
+      "last_observed_at": "2026-11-12T01:42:20.609Z"
+    },
+    {
+      "id": "9f59ec64-1fa3-4da0-98f2-93e4bfa1ec1d",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T01:42:20.722Z",
+      "ended_at": "2026-11-12T01:59:39.149Z",
+      "last_observed_at": "2026-11-12T01:59:39.149Z"
+    },
+    {
+      "id": "e30df081-7197-4cf1-a471-e0e250376441",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting research sign-off",
+      "started_at": "2026-11-12T01:59:39.149Z",
+      "ended_at": "2026-11-12T02:18:43.906Z",
+      "last_observed_at": "2026-11-12T02:18:43.906Z"
+    },
+    {
+      "id": "f57d38ad-0b99-411a-93c7-96fb42aab20f",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T02:18:43.906Z",
+      "ended_at": "2026-11-12T02:19:31.379Z",
+      "last_observed_at": "2026-11-12T02:19:31.379Z"
+    },
+    {
+      "id": "55848690-b014-45f1-bcaa-72322cfc1497",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting developer answers on research viability questions 1 and 3",
+      "started_at": "2026-11-12T02:19:31.379Z",
+      "ended_at": "2026-11-12T02:21:25.181Z",
+      "last_observed_at": "2026-11-12T02:21:25.181Z"
+    },
+    {
+      "id": "e6d8f054-d6b3-4617-ad66-ef66938e6be1",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T02:21:25.181Z",
+      "ended_at": "2026-11-12T02:29:11.869Z",
+      "last_observed_at": "2026-11-12T02:29:11.869Z"
+    },
+    {
+      "id": "d0ebe630-018d-4015-bdd7-5915ad450f2d",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T02:29:11.979Z",
+      "ended_at": "2026-11-12T02:35:22.638Z",
+      "last_observed_at": "2026-11-12T02:35:22.638Z"
+    },
+    {
+      "id": "27090e8b-a3c7-4d87-8ba4-75d2379db847",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off",
+      "started_at": "2026-11-12T02:35:22.638Z",
+      "ended_at": "2026-11-12T03:07:03.614Z",
+      "last_observed_at": "2026-11-12T03:07:03.614Z"
+    },
+    {
+      "id": "24172c5f-c626-4d18-a4e3-058b20e7c036",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T03:07:03.614Z",
+      "ended_at": "2026-11-12T03:07:36.421Z",
+      "last_observed_at": "2026-11-12T03:07:36.421Z"
+    },
+    {
+      "id": "9b8117ce-f599-4741-90ce-fb65255dc75b",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off (after recording the kit owner's answer on team edits)",
+      "started_at": "2026-11-12T03:07:36.421Z",
+      "ended_at": "2026-11-12T03:11:29.729Z",
+      "last_observed_at": "2026-11-12T03:11:29.729Z"
+    },
+    {
+      "id": "a0f8db33-041d-46b5-bc7e-a96ce1e2976c",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T03:11:29.729Z",
+      "ended_at": "2026-11-12T03:11:31.797Z",
+      "last_observed_at": "2026-11-12T03:11:31.797Z"
+    },
+    {
+      "id": "f3b8eb51-0d94-4352-b088-ce678558b2fb",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T03:11:31.886Z",
+      "ended_at": "2026-11-12T03:13:06.608Z",
+      "last_observed_at": "2026-11-12T03:13:06.608Z"
+    },
+    {
+      "id": "93375ce5-fd1c-4026-ba7c-b70e44ace30d",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Solution Step 1b: two kit-behaviour questions only the kit owner can answer",
+      "started_at": "2026-11-12T03:13:06.608Z",
+      "ended_at": "2026-11-12T03:28:04.422Z",
+      "last_observed_at": "2026-11-12T03:28:04.422Z"
+    },
+    {
+      "id": "022c5b4f-1b11-483a-811e-df3e34551658",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T03:28:04.422Z",
+      "ended_at": "2026-11-12T03:34:10.486Z",
+      "last_observed_at": "2026-11-12T03:34:10.486Z"
+    },
+    {
+      "id": "6edded73-29c3-40e5-8746-17d30b3ba747",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T03:51:33.334Z",
+      "ended_at": "2026-11-12T04:05:07.792Z",
+      "last_observed_at": "2026-11-12T04:05:07.792Z"
+    },
+    {
+      "id": "c3bd1a58-b184-4ba2-bea7-d9fb3d0ef85c",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Two product decisions raised by the architect's second pass (N2, N3)",
+      "started_at": "2026-11-12T04:05:07.792Z",
+      "ended_at": "2026-11-12T04:18:35.280Z",
+      "last_observed_at": "2026-11-12T04:18:35.280Z"
+    },
+    {
+      "id": "e8860163-ac25-443d-8101-ee8da8a7e8d1",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T04:18:35.280Z",
+      "ended_at": "2026-11-12T04:27:17.661Z",
+      "last_observed_at": "2026-11-12T04:27:17.661Z"
+    },
+    {
+      "id": "69e75c43-d09f-421c-9233-8ae45cab3459",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting solution sign-off",
+      "started_at": "2026-11-12T04:27:17.661Z",
+      "ended_at": "2026-11-12T04:37:17.665Z",
+      "last_observed_at": "2026-11-12T04:37:17.665Z"
+    },
+    {
+      "id": "906a2e56-84ab-45ee-94f7-5f510cf49e56",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T04:37:17.665Z",
+      "ended_at": "2026-11-12T04:38:01.829Z",
+      "last_observed_at": "2026-11-12T04:38:01.829Z"
+    },
+    {
+      "id": "43852987-bd50-44a8-9de1-05c0045f49b8",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T04:38:01.927Z",
+      "ended_at": "2026-11-12T04:38:14.213Z",
+      "last_observed_at": "2026-11-12T04:38:14.213Z"
+    },
+    {
+      "id": "cbc73d8e-aa09-4b4c-af6a-e0856574e255",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Review Gate: awaiting the approver's name and the draft MR URL from the developer",
+      "started_at": "2026-11-12T04:38:14.213Z",
+      "ended_at": "2026-11-12T04:42:17.605Z",
+      "last_observed_at": "2026-11-12T04:42:17.605Z"
+    },
+    {
+      "id": "3f9c585e-d502-4b18-b110-2fecc525752d",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T04:42:17.605Z",
+      "ended_at": "2026-11-12T04:42:27.035Z",
+      "last_observed_at": "2026-11-12T04:42:27.035Z"
+    },
+    {
+      "id": "e58d47c3-c331-4a42-abf6-45a57265b40d",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Review Gate: awaiting the draft MR URL from the developer (approver: antonioMerkulov)",
+      "started_at": "2026-11-12T04:42:27.035Z",
+      "ended_at": "2026-11-12T04:48:18.052Z",
+      "last_observed_at": "2026-11-12T04:48:18.052Z"
+    },
+    {
+      "id": "dc372281-5a1d-482b-8d01-dd20939af056",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T04:48:18.052Z",
+      "ended_at": "2026-11-12T04:48:34.469Z",
+      "last_observed_at": "2026-11-12T04:48:34.469Z"
+    },
+    {
+      "id": "4e2653df-21df-44be-a1ad-282a3985aa4f",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "77169717-264c-4899-91cd-9cbec39c29fe",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting design approval from antonioMerkulov on https://github.com/DataArt/artisyn-implementation-harness/pull/18",
+      "started_at": "2026-11-12T04:48:34.469Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-12T04:48:34.469Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "context-gathering-signoff-01",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "105cc38c-ab64-4bd9-8a89-d7a85e62d3d0",
+      "step": null,
+      "design_revision": 0,
+      "name": "Context Gathering sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T01:24:28.768Z",
+      "ended_at": "2026-11-12T01:24:28.768Z",
+      "result": "passed",
+      "evidence_ref": "Developer replied: 'good to go, switch to a new branch off main first'",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "ceremony-signoff-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "a8ff7d0d-f870-4ce8-86da-78c99bc951a5",
+      "step": null,
+      "design_revision": 0,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T01:29:01.646Z",
+      "ended_at": "2026-11-12T01:29:01.646Z",
+      "result": "passed",
+      "evidence_ref": "Already on docs/design-20261112-t5yb-session-review-capture-add-on (git branch --show-current); created off main on the developer's instruction 'switch to a new branch off main first'",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "frame-decisions-signoff-01",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame decisions sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T01:31:27.884Z",
+      "ended_at": "2026-11-12T01:31:27.884Z",
+      "result": "passed",
+      "evidence_ref": "Given before the Frame stage, on the identical three-decision breakdown shown in the framing draft: developer replied 'accept all proposed ECs, leave decisions as is, local design ID'. 00 Frame.md renders that breakdown unchanged; not re-asked.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "frame-signoff-01",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T01:41:46.661Z",
+      "ended_at": "2026-11-12T01:41:46.661Z",
+      "result": "passed",
+      "evidence_ref": "After the Problem section was reworked around the operator and usage side at the developer's request, developer replied: 'good to go, commit and start research'",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "research-signoff-01",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "design_revision": 0,
+      "name": "Research sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T02:21:59.426Z",
+      "ended_at": "2026-11-12T02:21:59.426Z",
+      "result": "passed",
+      "evidence_ref": "After discussing the four viability questions, developer replied: 'yes, accept, go with the script, proceed to evaluate'. Earlier in the same discussion: offer at install and upgrade ('seems fair'), LF-normalised comparison ('fine'). Approval given with one agreed addition pending: a sixth ownership option (stateless detection), to be reviewed at the Evaluate sign-off.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "evaluate-signoff-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "67a9a626-5a91-410a-b19c-948128eb6d86",
+      "step": null,
+      "design_revision": 0,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T03:11:29.833Z",
+      "ended_at": "2026-11-12T03:11:29.833Z",
+      "result": "passed",
+      "evidence_ref": "Developer replied 'go' to the Evaluate sign-off (recommending Packaging B, Launch flow C, Ownership F; WAF 12 green, 6 amber, 1 P1 routed to the Review Gate), after their answer 'team doesnt edit session review toolkit, only its settings though' was recorded in the Ownership evaluation.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-architect-review-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Architect review of Architecture.md",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:05:07.503Z",
+      "ended_at": "2026-11-12T04:05:07.503Z",
+      "result": "failed",
+      "evidence_ref": "Pass 1: not OK, 17 gaps (9 structural, 8 mechanical), all against how the add-on met plan-materialize-finalize and the patch contract. Architecture.md revised.",
+      "source": "@product-architect (independent, read-only)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-architect-review-02",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Architect review of Architecture.md",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:05:07.642Z",
+      "ended_at": "2026-11-12T04:05:07.642Z",
+      "result": "failed",
+      "evidence_ref": "Pass 2 (final): 16 of 17 resolved, finding 12 resolved in substance. New: N1 (D6 against D28, mechanical), N2 (no fresh-install route for already-launched projects, needs a developer decision), N3 (EC3 third case narrowed, to be stated); N4-N8 left to the Design files. Two-pass limit reached; later revisions are not independently re-reviewed.",
+      "source": "@product-architect (independent, read-only)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-waf-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "WAF review of the solution",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:26:39.364Z",
+      "ended_at": "2026-11-12T04:26:39.364Z",
+      "result": "passed",
+      "evidence_ref": "All pillars: 3 green, 3 amber, no red. 1 P1 carried to the Review Gate (harness author confirms the restated settings rule, D8, with the other rule changes D6, D7, D28). Not an independent review.",
+      "source": "orchestrator (self)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-quality-gate-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Design quality gate",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:26:39.514Z",
+      "ended_at": "2026-11-12T04:26:39.514Z",
+      "result": "passed",
+      "evidence_ref": "Checks 1, 2, 6, 7 pass; 3 pass with notes; 4 pass with a limit (no independent review after the architect's second pass); 5 not run (no Mermaid CLI; syntax-oriented inspection of 10 diagrams instead). Links: 27 checked, 0 broken.",
+      "source": "orchestrator (self)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-signoff-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:37:17.776Z",
+      "ended_at": "2026-11-12T04:37:17.776Z",
+      "result": "passed",
+      "evidence_ref": "Developer replied 'drop the table, reword the sentence, good to go' to the Solution sign-off, which named two limits to accept or reject (no independent review after the architect's second pass; diagrams not rendered) and asked for estimates. The estimate table is dropped at the developer's decision, so no total is computed.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-12T04:48:34.641Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 4140.321000000001,
+    "observed_wait_seconds": 7613.054000000001,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0.172,
+    "wait_seconds_to_date": 7613.226000000001,
+    "unclassified_seconds": 1043.625999999998,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 4976.359,
+    "failed_checks": 2,
+    "first_pass_verification_rate": 0.8333333333333334,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  }
+}
