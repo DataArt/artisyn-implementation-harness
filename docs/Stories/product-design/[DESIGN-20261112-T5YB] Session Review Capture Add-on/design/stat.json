@@ -38,21 +38,29 @@
     },
     {
       "id": "frame",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
           "started_at": "2026-11-12T01:29:02.634Z",
-          "ended_at": null,
+          "ended_at": "2026-11-12T01:42:20.609Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "research",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+          "started_at": "2026-11-12T01:42:20.722Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "evaluate",
@@ -209,8 +217,65 @@
       "kind": "work",
       "activity": "planning",
       "started_at": "2026-11-12T01:41:46.533Z",
+      "ended_at": "2026-11-12T01:42:20.609Z",
+      "last_observed_at": "2026-11-12T01:42:20.609Z"
+    },
+    {
+      "id": "9f59ec64-1fa3-4da0-98f2-93e4bfa1ec1d",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T01:42:20.722Z",
+      "ended_at": "2026-11-12T01:59:39.149Z",
+      "last_observed_at": "2026-11-12T01:59:39.149Z"
+    },
+    {
+      "id": "e30df081-7197-4cf1-a471-e0e250376441",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting research sign-off",
+      "started_at": "2026-11-12T01:59:39.149Z",
+      "ended_at": "2026-11-12T02:18:43.906Z",
+      "last_observed_at": "2026-11-12T02:18:43.906Z"
+    },
+    {
+      "id": "f57d38ad-0b99-411a-93c7-96fb42aab20f",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T02:18:43.906Z",
+      "ended_at": "2026-11-12T02:19:31.379Z",
+      "last_observed_at": "2026-11-12T02:19:31.379Z"
+    },
+    {
+      "id": "55848690-b014-45f1-bcaa-72322cfc1497",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting developer answers on research viability questions 1 and 3",
+      "started_at": "2026-11-12T02:19:31.379Z",
+      "ended_at": "2026-11-12T02:21:25.181Z",
+      "last_observed_at": "2026-11-12T02:21:25.181Z"
+    },
+    {
+      "id": "e6d8f054-d6b3-4617-ad66-ef66938e6be1",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-12T02:21:25.181Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-12T01:41:46.533Z"
+      "last_observed_at": "2026-11-12T02:21:25.181Z"
     }
   ],
   "checks": [
@@ -277,22 +342,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "research-signoff-01",
+      "stage_id": "research",
+      "stage_attempt_id": "16fe3e9e-51bb-41b7-aa24-472913373cbf",
+      "step": null,
+      "design_revision": 0,
+      "name": "Research sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T02:21:59.426Z",
+      "ended_at": "2026-11-12T02:21:59.426Z",
+      "result": "passed",
+      "evidence_ref": "After discussing the four viability questions, developer replied: 'yes, accept, go with the script, proceed to evaluate'. Earlier in the same discussion: offer at install and upgrade ('seems fair'), LF-normalised comparison ('fine'). Approval given with one agreed addition pending: a sixth ownership option (stateless detection), to be reviewed at the Evaluate sign-off.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-12T01:42:19.764Z",
+    "as_of": "2026-11-12T02:29:11.280Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 268.201,
-    "observed_wait_seconds": 1320.496,
+    "observed_work_seconds": 1388.177,
+    "observed_wait_seconds": 2579.0550000000003,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 1320.496,
-    "unclassified_seconds": 33.59899999999993,
+    "wait_seconds_to_date": 2579.0550000000003,
+    "unclassified_seconds": 466.5799999999999,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 1097.314,
+    "approval_wait_seconds": 2242.071,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
