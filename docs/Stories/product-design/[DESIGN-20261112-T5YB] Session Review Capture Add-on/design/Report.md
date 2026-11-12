@@ -25,10 +25,10 @@ Track and subfolder were not auto-approved: the request could be read as either 
 ## State
 
 ```yaml
-current_stage: frame
-completed_stages: ['context-gathering', 'ceremony']
+current_stage: research
+completed_stages: ['context-gathering', 'ceremony', 'frame']
 selected_artifacts: []
-next_action: 'Frame — write design/00 Frame.md, then sign-off'
+next_action: 'Research — options per decision (3 decisions), OQ triage, then sign-off'
 context_fingerprint: ''
 ```
 
@@ -64,7 +64,7 @@ context_fingerprint: ''
 | Ticket | DESIGN-20261112-T5YB (local design ID — no tracker ticket)                                                                                                                          |
 | Branch | `docs/design-20261112-t5yb-session-review-capture-add-on`                                                                                                                                                               |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame 🔄 · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research 🔄 · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -73,13 +73,13 @@ context_fingerprint: ''
 <!-- design-metrics:start -->
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 33s · Wait to date: 12m 46s (closed 12m 46s + current 0s) · Unclassified: 25s
+Observed work: 4m 28s · Wait to date: 22m 0s (closed 22m 0s + current 0s) · Unclassified: 34s
 
 | Stage | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | context-gathering (completed) | 2026-11-12T01:15:17.594Z | 2026-11-12T01:28:36.708Z | 13m 19s | 33s | 12m 46s | unavailable | unavailable | from_tracking_start | 1 | 0 |
-| ceremony (active) | 2026-11-12T01:28:36.828Z | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 1 | 0 |
-| frame (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
+| ceremony (completed) | 2026-11-12T01:28:36.828Z | 2026-11-12T01:29:02.512Z | 26s | 26s | 0s | unavailable | unavailable | from_tracking_start | 1 | 0 |
+| frame (active) | 2026-11-12T01:29:02.634Z | unavailable | unavailable | 3m 30s | 9m 14s | unavailable | unavailable | from_tracking_start | 1 | 0 |
 | research (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
 | evaluate (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
 | solution (pending) | unavailable | unavailable | unavailable | 0s | 0s | unavailable | unavailable | from_tracking_start | 0 | 0 |
@@ -123,6 +123,7 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 | 2026-11-12 | Context Gathering | Signed off by the developer ("good to go"). On the developer's instruction the design branch `docs/design-20261112-t5yb-session-review-capture-add-on` was created off `main` before this stage's commit, so the commit does not land on `fix/windows-invalid-image-filenames`. The orchestrator ran the switch because the developer asked for it directly. |
 | 2026-11-12 | Context Gathering | Commit policy for this design: the developer said "run the adds/commits yourself for the rest of this design". The orchestrator runs each stage's `git add`/`git commit` and verifies it in Git; content sign-offs are unchanged, and `git push` stays the developer's. |
 | 2026-11-12 | Ceremony          | No tracker ticket (local design ID) — Step 1 tracker transition skipped. Already on the design branch, created off `main` during Context Gathering on the developer's instruction; confirmed with Git. |
+| 2026-11-12 | Frame             | 8 known requirements, 5 proposed requirements accepted. Three decisions; the breakdown was confirmed by the developer on the identical table during framing ("leave decisions as is") and not re-asked. One rework before sign-off: the developer found the Problem paragraph and diagram centred on evolve reflections, so both were re-drafted around the operator and usage side; `/evolve` is now one closing sentence. The Mermaid diagram was checked by the developer in their preview, not rendered by the orchestrator. |
 
 ---
 

@@ -25,21 +25,29 @@
     },
     {
       "id": "ceremony",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "a8ff7d0d-f870-4ce8-86da-78c99bc951a5",
           "started_at": "2026-11-12T01:28:36.828Z",
-          "ended_at": null,
+          "ended_at": "2026-11-12T01:29:02.512Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "frame",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+          "started_at": "2026-11-12T01:29:02.634Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "research",
@@ -144,8 +152,65 @@
       "kind": "work",
       "activity": "planning",
       "started_at": "2026-11-12T01:28:36.828Z",
+      "ended_at": "2026-11-12T01:29:02.512Z",
+      "last_observed_at": "2026-11-12T01:29:02.512Z"
+    },
+    {
+      "id": "77a2b93a-9b39-4191-a436-037bb2d3ec3d",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:29:02.634Z",
+      "ended_at": "2026-11-12T01:31:28.134Z",
+      "last_observed_at": "2026-11-12T01:31:28.134Z"
+    },
+    {
+      "id": "eef81d42-537a-468e-b330-d3e655b01cea",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting frame sign-off",
+      "started_at": "2026-11-12T01:31:28.134Z",
+      "ended_at": "2026-11-12T01:39:27.973Z",
+      "last_observed_at": "2026-11-12T01:39:27.973Z"
+    },
+    {
+      "id": "64453dfb-9172-499c-af6a-b92cbb7a6eeb",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:39:27.973Z",
+      "ended_at": "2026-11-12T01:40:32.297Z",
+      "last_observed_at": "2026-11-12T01:40:32.297Z"
+    },
+    {
+      "id": "4bc1d7d7-5a9b-4b17-b933-e2e91cbf2d85",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting frame sign-off (after Problem rework)",
+      "started_at": "2026-11-12T01:40:32.297Z",
+      "ended_at": "2026-11-12T01:41:46.533Z",
+      "last_observed_at": "2026-11-12T01:41:46.533Z"
+    },
+    {
+      "id": "7c91c945-b4fe-4ae6-b566-352cc8ff5f53",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-12T01:41:46.533Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-12T01:28:36.828Z"
+      "last_observed_at": "2026-11-12T01:41:46.533Z"
     }
   ],
   "checks": [
@@ -180,22 +245,54 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "frame-decisions-signoff-01",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame decisions sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T01:31:27.884Z",
+      "ended_at": "2026-11-12T01:31:27.884Z",
+      "result": "passed",
+      "evidence_ref": "Given before the Frame stage, on the identical three-decision breakdown shown in the framing draft: developer replied 'accept all proposed ECs, leave decisions as is, local design ID'. 00 Frame.md renders that breakdown unchanged; not re-asked.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "frame-signoff-01",
+      "stage_id": "frame",
+      "stage_attempt_id": "ec6e9e40-1a98-488a-89ca-5c645eb93fae",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T01:41:46.661Z",
+      "ended_at": "2026-11-12T01:41:46.661Z",
+      "result": "passed",
+      "evidence_ref": "After the Problem section was reworked around the operator and usage side at the developer's request, developer replied: 'good to go, commit and start research'",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-12T01:29:01.778Z",
+    "as_of": "2026-11-12T01:42:19.764Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 32.693,
-    "observed_wait_seconds": 766.421,
+    "observed_work_seconds": 268.201,
+    "observed_wait_seconds": 1320.496,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 766.421,
-    "unclassified_seconds": 25.195999999999913,
+    "wait_seconds_to_date": 1320.496,
+    "unclassified_seconds": 33.59899999999993,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 543.239,
+    "approval_wait_seconds": 1097.314,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
