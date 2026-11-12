@@ -64,21 +64,29 @@
     },
     {
       "id": "evaluate",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "67a9a626-5a91-410a-b19c-948128eb6d86",
           "started_at": "2026-11-12T02:29:11.979Z",
-          "ended_at": null,
+          "ended_at": "2026-11-12T03:11:31.797Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "solution",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+          "started_at": "2026-11-12T03:11:31.886Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "review-gate",
@@ -339,8 +347,99 @@
       "kind": "work",
       "activity": "review",
       "started_at": "2026-11-12T03:11:29.729Z",
+      "ended_at": "2026-11-12T03:11:31.797Z",
+      "last_observed_at": "2026-11-12T03:11:31.797Z"
+    },
+    {
+      "id": "f3b8eb51-0d94-4352-b088-ce678558b2fb",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T03:11:31.886Z",
+      "ended_at": "2026-11-12T03:13:06.608Z",
+      "last_observed_at": "2026-11-12T03:13:06.608Z"
+    },
+    {
+      "id": "93375ce5-fd1c-4026-ba7c-b70e44ace30d",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Solution Step 1b: two kit-behaviour questions only the kit owner can answer",
+      "started_at": "2026-11-12T03:13:06.608Z",
+      "ended_at": "2026-11-12T03:28:04.422Z",
+      "last_observed_at": "2026-11-12T03:28:04.422Z"
+    },
+    {
+      "id": "022c5b4f-1b11-483a-811e-df3e34551658",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T03:28:04.422Z",
+      "ended_at": "2026-11-12T03:34:10.486Z",
+      "last_observed_at": "2026-11-12T03:34:10.486Z"
+    },
+    {
+      "id": "6edded73-29c3-40e5-8746-17d30b3ba747",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-12T03:51:33.334Z",
+      "ended_at": "2026-11-12T04:05:07.792Z",
+      "last_observed_at": "2026-11-12T04:05:07.792Z"
+    },
+    {
+      "id": "c3bd1a58-b184-4ba2-bea7-d9fb3d0ef85c",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Two product decisions raised by the architect's second pass (N2, N3)",
+      "started_at": "2026-11-12T04:05:07.792Z",
+      "ended_at": "2026-11-12T04:18:35.280Z",
+      "last_observed_at": "2026-11-12T04:18:35.280Z"
+    },
+    {
+      "id": "e8860163-ac25-443d-8101-ee8da8a7e8d1",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T04:18:35.280Z",
+      "ended_at": "2026-11-12T04:27:17.661Z",
+      "last_observed_at": "2026-11-12T04:27:17.661Z"
+    },
+    {
+      "id": "69e75c43-d09f-421c-9233-8ae45cab3459",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting solution sign-off",
+      "started_at": "2026-11-12T04:27:17.661Z",
+      "ended_at": "2026-11-12T04:37:17.665Z",
+      "last_observed_at": "2026-11-12T04:37:17.665Z"
+    },
+    {
+      "id": "906a2e56-84ab-45ee-94f7-5f510cf49e56",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-12T04:37:17.665Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-12T03:11:29.729Z"
+      "last_observed_at": "2026-11-12T04:37:17.665Z"
     }
   ],
   "checks": [
@@ -439,24 +538,104 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "solution-architect-review-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Architect review of Architecture.md",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:05:07.503Z",
+      "ended_at": "2026-11-12T04:05:07.503Z",
+      "result": "failed",
+      "evidence_ref": "Pass 1: not OK, 17 gaps (9 structural, 8 mechanical), all against how the add-on met plan-materialize-finalize and the patch contract. Architecture.md revised.",
+      "source": "@product-architect (independent, read-only)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-architect-review-02",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Architect review of Architecture.md",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:05:07.642Z",
+      "ended_at": "2026-11-12T04:05:07.642Z",
+      "result": "failed",
+      "evidence_ref": "Pass 2 (final): 16 of 17 resolved, finding 12 resolved in substance. New: N1 (D6 against D28, mechanical), N2 (no fresh-install route for already-launched projects, needs a developer decision), N3 (EC3 third case narrowed, to be stated); N4-N8 left to the Design files. Two-pass limit reached; later revisions are not independently re-reviewed.",
+      "source": "@product-architect (independent, read-only)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-waf-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "WAF review of the solution",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:26:39.364Z",
+      "ended_at": "2026-11-12T04:26:39.364Z",
+      "result": "passed",
+      "evidence_ref": "All pillars: 3 green, 3 amber, no red. 1 P1 carried to the Review Gate (harness author confirms the restated settings rule, D8, with the other rule changes D6, D7, D28). Not an independent review.",
+      "source": "orchestrator (self)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-quality-gate-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Design quality gate",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:26:39.514Z",
+      "ended_at": "2026-11-12T04:26:39.514Z",
+      "result": "passed",
+      "evidence_ref": "Checks 1, 2, 6, 7 pass; 3 pass with notes; 4 pass with a limit (no independent review after the architect's second pass); 5 not run (no Mermaid CLI; syntax-oriented inspection of 10 diagrams instead). Links: 27 checked, 0 broken.",
+      "source": "orchestrator (self)",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-signoff-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "d22ee80c-4551-42c9-b5e0-9936f71a944a",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-12T04:37:17.776Z",
+      "ended_at": "2026-11-12T04:37:17.776Z",
+      "result": "passed",
+      "evidence_ref": "Developer replied 'drop the table, reword the sentence, good to go' to the Solution sign-off, which named two limits to accept or reject (no independent review after the architect's second pass; diagrams not rendered) and asked for estimates. The estimate table is dropped at the developer's decision, so no total is computed.",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-12T03:11:31.182Z",
+    "as_of": "2026-11-12T04:38:00.939Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 2258.3309999999997,
-    "observed_wait_seconds": 4713.339000000001,
+    "observed_work_seconds": 4058.024,
+    "observed_wait_seconds": 7018.645000000001,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 4713.339000000001,
-    "unclassified_seconds": 2.0439999999989595,
+    "wait_seconds_to_date": 7018.645000000001,
+    "unclassified_seconds": 1086.8019999999988,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 4376.3550000000005,
-    "failed_checks": 0,
-    "first_pass_verification_rate": 1,
+    "approval_wait_seconds": 4976.359,
+    "failed_checks": 2,
+    "first_pass_verification_rate": 0.8333333333333334,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
