@@ -8,6 +8,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
+import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 
 import { DB_FILE, MERMAID_FILE, AUTHORED_EDGE_TYPES } from './constants.mjs';
@@ -16,13 +17,33 @@ import { need, atomicWrite, listMarkdownFiles, toPosixRelative } from './utils.m
 import { DocsStore } from './docs.mjs';
 import { EdgesStore, computeMirrors, computeKeywordMatches } from './edges.mjs';
 
+/** The folder this tool lives in; `--dir` must be its project root. */
+const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
+
 /**
- * Open (creating if absent) the graph database at `dir`'s DB_FILE, schema
- * ensured, and wrap it as a `{ docs, edges }` store pair.
+ * Open the graph database at `dir`'s DB_FILE, schema ensured, and wrap it as a
+ * `{ docs, edges }` store pair. `dir` must be the project root that contains
+ * this tool at docs/.og/ — any other value (`docs`, `docs/.og`, a cwd inside
+ * the tool folder) used to create a stray empty database at a nested path and
+ * silently return empty results. Read-only commands pass `create: false` and
+ * fail when the database is absent instead of creating an empty one.
+ * @param {string} dir
+ * @param {{create?: boolean}} [opts]
  * @returns {{db: import('node:sqlite').DatabaseSync, docs: DocsStore, edges: EdgesStore}}
  */
-function openStore(dir) {
-  const dbPath = path.join(dir, DB_FILE);
+function openStore(dir, { create = true } = {}) {
+  const root = path.resolve(dir);
+  need(
+    path.join(root, 'docs', '.og') === TOOL_DIR,
+    `--dir must be the project root containing docs/.og/ (got "${dir}", expected "${path.dirname(path.dirname(TOOL_DIR))}")`
+  );
+  const dbPath = path.join(root, DB_FILE);
+  if (!create) {
+    need(
+      fs.existsSync(dbPath),
+      `Graph not built at ${dbPath}; run: node docs/.og/cli.mjs build --dir <project root>`
+    );
+  }
   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
   const db = new DatabaseSync(dbPath);
   db.exec(SCHEMA);
@@ -199,7 +220,7 @@ export async function build({ dir }) {
  * @returns {Promise<import('./edges.mjs').EdgeRow[]>}
  */
 export async function query({ dir, relatedTo, edge }) {
-  const { db, docs, edges } = openStore(dir);
+  const { db, docs, edges } = openStore(dir, { create: false });
   try {
     const abs = path.isAbsolute(relatedTo) ? relatedTo : path.join(dir, relatedTo);
     const relPath = fs.existsSync(abs) ? toPosixRelative(dir, abs) : relatedTo;
@@ -215,7 +236,7 @@ export async function query({ dir, relatedTo, edge }) {
  * @returns {Promise<{id: string, path: string, title: string|null}[]>}
  */
 export async function search({ dir, term }) {
-  const { db, docs } = openStore(dir);
+  const { db, docs } = openStore(dir, { create: false });
   try {
     const needle = term.toLowerCase();
     return docs
@@ -254,7 +275,7 @@ export async function list({ dir, missing }) {
       MISSING_FIELDS.includes(field),
       `Unknown --missing field: ${field} (expected purpose, keywords)`
     );
-  const { db, docs } = openStore(dir);
+  const { db, docs } = openStore(dir, { create: false });
   try {
     return fields.length ? docs.missing(fields) : docs.all();
   } finally {

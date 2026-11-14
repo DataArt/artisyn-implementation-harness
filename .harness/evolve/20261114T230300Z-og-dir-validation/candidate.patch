@@ -1,0 +1,157 @@
+--- .canonical-implementation-harness/canonical/docs/.og/cli.mjs	2026-11-03 01:18:59.509985948 +0100
++++ .canonical-implementation-harness/canonical/docs/.og/cli.mjs	2026-11-14 23:44:33.710228482 +0100
+@@ -8,6 +8,7 @@
+ import fs from 'node:fs';
+ import path from 'node:path';
+ import { parseArgs } from 'node:util';
++import { fileURLToPath } from 'node:url';
+ import { DatabaseSync } from 'node:sqlite';
+ 
+ import { DB_FILE, MERMAID_FILE, AUTHORED_EDGE_TYPES } from './constants.mjs';
+@@ -16,13 +17,30 @@
+ import { DocsStore } from './docs.mjs';
+ import { EdgesStore, computeMirrors, computeKeywordMatches } from './edges.mjs';
+ 
++/** The folder this tool lives in; `--dir` must be its project root. */
++const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
++
+ /**
+- * Open (creating if absent) the graph database at `dir`'s DB_FILE, schema
+- * ensured, and wrap it as a `{ docs, edges }` store pair.
++ * Open the graph database at `dir`'s DB_FILE, schema ensured, and wrap it as a
++ * `{ docs, edges }` store pair. `dir` must be the project root that contains
++ * this tool at docs/.og/ — any other value (`docs`, `docs/.og`, a cwd inside
++ * the tool folder) used to create a stray empty database at a nested path and
++ * silently return empty results. Read-only commands pass `create: false` and
++ * fail when the database is absent instead of creating an empty one.
++ * @param {string} dir
++ * @param {{create?: boolean}} [opts]
+  * @returns {{db: import('node:sqlite').DatabaseSync, docs: DocsStore, edges: EdgesStore}}
+  */
+-function openStore(dir) {
+-  const dbPath = path.join(dir, DB_FILE);
++function openStore(dir, { create = true } = {}) {
++  const root = path.resolve(dir);
++  need(
++    path.join(root, 'docs', '.og') === TOOL_DIR,
++    `--dir must be the project root containing docs/.og/ (got "${dir}", expected "${path.dirname(path.dirname(TOOL_DIR))}")`
++  );
++  const dbPath = path.join(root, DB_FILE);
++  if (!create) {
++    need(fs.existsSync(dbPath), `Graph not built at ${dbPath}; run: node docs/.og/cli.mjs build --dir <project root>`);
++  }
+   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+   const db = new DatabaseSync(dbPath);
+   db.exec(SCHEMA);
+@@ -199,7 +217,7 @@
+  * @returns {Promise<import('./edges.mjs').EdgeRow[]>}
+  */
+ export async function query({ dir, relatedTo, edge }) {
+-  const { db, docs, edges } = openStore(dir);
++  const { db, docs, edges } = openStore(dir, { create: false });
+   try {
+     const abs = path.isAbsolute(relatedTo) ? relatedTo : path.join(dir, relatedTo);
+     const relPath = fs.existsSync(abs) ? toPosixRelative(dir, abs) : relatedTo;
+@@ -215,7 +233,7 @@
+  * @returns {Promise<{id: string, path: string, title: string|null}[]>}
+  */
+ export async function search({ dir, term }) {
+-  const { db, docs } = openStore(dir);
++  const { db, docs } = openStore(dir, { create: false });
+   try {
+     const needle = term.toLowerCase();
+     return docs
+@@ -254,7 +272,7 @@
+       MISSING_FIELDS.includes(field),
+       `Unknown --missing field: ${field} (expected purpose, keywords)`
+     );
+-  const { db, docs } = openStore(dir);
++  const { db, docs } = openStore(dir, { create: false });
+   try {
+     return fields.length ? docs.missing(fields) : docs.all();
+   } finally {
+--- .claude/skills/design/references/04-research.md	2026-11-03 01:18:59.691906833 +0100
++++ .claude/skills/design/references/04-research.md	2026-11-14 23:44:33.713689506 +0100
+@@ -41,8 +41,8 @@
+ 
+ ## Step 2 — Delegate to `{resolved architect agent}` for options research
+ 
+-Before delegating, attempt yourself: `node docs/.og/cli.mjs search --term
+-<text>` (or `query --related-to <doc>`) against
++Before delegating, attempt yourself, from the project root: `node docs/.og/cli.mjs
++search --dir . --term <text>` (or `query --dir . --related-to <doc>`) against
+ `docs/.og/docs-operational-graph.sqlite` to surface related docs. Required
+ (not best-effort): when the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall
+ back to grep/glob over `{source docs}` for the same information — either
+--- docs/.og/cli.mjs	2026-11-03 01:18:59.851897238 +0100
++++ docs/.og/cli.mjs	2026-11-14 23:44:33.679900943 +0100
+@@ -8,6 +8,7 @@
+ import fs from 'node:fs';
+ import path from 'node:path';
+ import { parseArgs } from 'node:util';
++import { fileURLToPath } from 'node:url';
+ import { DatabaseSync } from 'node:sqlite';
+ 
+ import { DB_FILE, MERMAID_FILE, AUTHORED_EDGE_TYPES } from './constants.mjs';
+@@ -16,13 +17,30 @@
+ import { DocsStore } from './docs.mjs';
+ import { EdgesStore, computeMirrors, computeKeywordMatches } from './edges.mjs';
+ 
++/** The folder this tool lives in; `--dir` must be its project root. */
++const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
++
+ /**
+- * Open (creating if absent) the graph database at `dir`'s DB_FILE, schema
+- * ensured, and wrap it as a `{ docs, edges }` store pair.
++ * Open the graph database at `dir`'s DB_FILE, schema ensured, and wrap it as a
++ * `{ docs, edges }` store pair. `dir` must be the project root that contains
++ * this tool at docs/.og/ — any other value (`docs`, `docs/.og`, a cwd inside
++ * the tool folder) used to create a stray empty database at a nested path and
++ * silently return empty results. Read-only commands pass `create: false` and
++ * fail when the database is absent instead of creating an empty one.
++ * @param {string} dir
++ * @param {{create?: boolean}} [opts]
+  * @returns {{db: import('node:sqlite').DatabaseSync, docs: DocsStore, edges: EdgesStore}}
+  */
+-function openStore(dir) {
+-  const dbPath = path.join(dir, DB_FILE);
++function openStore(dir, { create = true } = {}) {
++  const root = path.resolve(dir);
++  need(
++    path.join(root, 'docs', '.og') === TOOL_DIR,
++    `--dir must be the project root containing docs/.og/ (got "${dir}", expected "${path.dirname(path.dirname(TOOL_DIR))}")`
++  );
++  const dbPath = path.join(root, DB_FILE);
++  if (!create) {
++    need(fs.existsSync(dbPath), `Graph not built at ${dbPath}; run: node docs/.og/cli.mjs build --dir <project root>`);
++  }
+   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
+   const db = new DatabaseSync(dbPath);
+   db.exec(SCHEMA);
+@@ -199,7 +217,7 @@
+  * @returns {Promise<import('./edges.mjs').EdgeRow[]>}
+  */
+ export async function query({ dir, relatedTo, edge }) {
+-  const { db, docs, edges } = openStore(dir);
++  const { db, docs, edges } = openStore(dir, { create: false });
+   try {
+     const abs = path.isAbsolute(relatedTo) ? relatedTo : path.join(dir, relatedTo);
+     const relPath = fs.existsSync(abs) ? toPosixRelative(dir, abs) : relatedTo;
+@@ -215,7 +233,7 @@
+  * @returns {Promise<{id: string, path: string, title: string|null}[]>}
+  */
+ export async function search({ dir, term }) {
+-  const { db, docs } = openStore(dir);
++  const { db, docs } = openStore(dir, { create: false });
+   try {
+     const needle = term.toLowerCase();
+     return docs
+@@ -254,7 +272,7 @@
+       MISSING_FIELDS.includes(field),
+       `Unknown --missing field: ${field} (expected purpose, keywords)`
+     );
+-  const { db, docs } = openStore(dir);
++  const { db, docs } = openStore(dir, { create: false });
+   try {
+     return fields.length ? docs.missing(fields) : docs.all();
+   } finally {
