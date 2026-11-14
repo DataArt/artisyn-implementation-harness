@@ -15,16 +15,20 @@ a brief confirmation.
 
 **Project key**: {{PROJECT_KEY}} · **Jira**: `{{JIRA_URL}}` · **Confluence**: `{{CONFLUENCE_URL}}`
 
-## Transition IDs
+## Workflow states and transition IDs
 
-| State       | ID                                | When                                            |
-| ----------- | --------------------------------- | ----------------------------------------------- |
-| In Progress | `{{JIRA_TRANSITION_IN_PROGRESS}}` | Dev plan started / Design frame started         |
-| Testing     | `{{JIRA_TRANSITION_TESTING}}`     | Test phase complete, PR submitted               |
-| Done        | `{{JIRA_TRANSITION_DONE}}`        | Document/Publish phase complete, story archived |
-| On Hold     | `{{JIRA_TRANSITION_ON_HOLD}}`     | Blocked / parked                                |
+The lifecycle skills ask by the generic state in the first column. Map it to this
+project's own state name and transition ID; never assume the generic name exists in Jira.
 
-Never guess transition IDs — always use this table.
+| Generic state (what skills say) | Project state name         | ID                                | When                                            |
+| ------------------------------- | -------------------------- | --------------------------------- | ----------------------------------------------- |
+| In Progress                     | {{JIRA_STATE_IN_PROGRESS}} | `{{JIRA_TRANSITION_IN_PROGRESS}}` | Dev plan started / Design frame started         |
+| Testing                         | {{JIRA_STATE_TESTING}}     | `{{JIRA_TRANSITION_TESTING}}`     | Test phase complete, PR submitted               |
+| Done                            | {{JIRA_STATE_DONE}}        | `{{JIRA_TRANSITION_DONE}}`        | Document/Publish phase complete, story archived |
+| On Hold                         | {{JIRA_STATE_ON_HOLD}}     | `{{JIRA_TRANSITION_ON_HOLD}}`     | Blocked / parked                                |
+
+Never guess state names or transition IDs — always use this table. When a request names a
+state that has no row, say so and ask instead of picking the nearest one.
 
 ## Labels
 
