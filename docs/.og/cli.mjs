@@ -17,16 +17,16 @@ import { need, atomicWrite, listMarkdownFiles, toPosixRelative } from './utils.m
 import { DocsStore } from './docs.mjs';
 import { EdgesStore, computeMirrors, computeKeywordMatches } from './edges.mjs';
 
-/** The folder this tool lives in; `--dir` must be its project root. */
+/** The folder this tool lives in (`<project>/docs/.og`). */
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 
 /**
  * Open the graph database at `dir`'s DB_FILE, schema ensured, and wrap it as a
- * `{ docs, edges }` store pair. `dir` must be the project root that contains
- * this tool at docs/.og/ — any other value (`docs`, `docs/.og`, a cwd inside
- * the tool folder) used to create a stray empty database at a nested path and
- * silently return empty results. Read-only commands pass `create: false` and
- * fail when the database is absent instead of creating an empty one.
+ * `{ docs, edges }` store pair. `dir` must be the project root, never `docs/` or
+ * `docs/.og/` themselves: those values used to create a stray empty database at a
+ * nested path and silently return empty results. An empty project with no `docs/`
+ * yet is fine (build creates the schema). Read-only commands pass `create: false`
+ * and fail when the database is absent instead of creating an empty one.
  * @param {string} dir
  * @param {{create?: boolean}} [opts]
  * @returns {{db: import('node:sqlite').DatabaseSync, docs: DocsStore, edges: EdgesStore}}
@@ -34,8 +34,8 @@ const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
 function openStore(dir, { create = true } = {}) {
   const root = path.resolve(dir);
   need(
-    path.join(root, 'docs', '.og') === TOOL_DIR,
-    `--dir must be the project root containing docs/.og/ (got "${dir}", expected "${path.dirname(path.dirname(TOOL_DIR))}")`
+    root !== TOOL_DIR && root !== path.dirname(TOOL_DIR) && path.basename(root) !== '.og',
+    `--dir must be the project root (the folder that contains docs/), not docs/ or docs/.og/ (got "${dir}")`
   );
   const dbPath = path.join(root, DB_FILE);
   if (!create) {

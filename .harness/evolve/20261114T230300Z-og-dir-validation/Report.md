@@ -55,6 +55,10 @@ Adoption order across this run's candidates (they share files; each ships a `can
 
 Draft readiness: inspectable content, patch and criteria present. Current stage: closed. Next action: none; lifecycle complete. Follow-up outside it: `/harness-bootstrap patch harvest` for the canonical templates.
 
+## Post-adoption correction (2026-11-15)
+
+The adopted root check compared `--dir` to the tool's own folder, which broke `canonical/docs/.og/cli.test.mjs` (every case runs against a scratch root, three of them on an empty tree with no `docs/`). Validate scenario 8 had marked the unit suite blocked and no scenario ran that node:test file. Corrected in both copies: the check now rejects only the two wrong roots (the tool folder itself, its parent `docs/`, or any folder named `.og`); suite 30/30 green; `--dir docs` and `--dir docs/.og` still rejected on the live repo; installed hash `3cfbdf45297dd4cde505a70e78608c165c316e5e7f2f5add3efec0046ead3c6f`. The canonical copy is edited directly and must travel in the next prepare/harvest.
+
 ## Unresolved decisions
 
 1. `docs/.og/` has no row in `.canonical-implementation-harness/registry.md`, so `patch harvest` cannot carry a future divergence between the two copies; the draft edits both copies directly. Consider adding a `content` row for `cli.mjs` at adoption.
