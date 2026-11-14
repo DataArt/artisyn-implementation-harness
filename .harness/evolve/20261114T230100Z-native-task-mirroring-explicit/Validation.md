@@ -12,6 +12,10 @@ Candidate: `20261114T230100Z-native-task-mirroring-explicit`. Hashes: see `Repor
 | 4   | Regression       | Resume of a half-done ticket                   | task-tracking pattern's reconcile logic unchanged; no duplicate tasks                                                                                   | diff scope                                                      | patterns/task-tracking.md not in candidate                                                                                                                                                                                                                                                     | ls candidate/                               | pass                      |
 | 5   | Structural       | Nine changed files                             | Every `First actions` line still names the correct `--stage` id; pattern path exists                                                                    | grep (pre-checked on composed copy: 7 refs mention native task) | Six `stage start --stage <id>` lines unchanged ids; pattern file exists                                                                                                                                                                                                                        | grep on composed copy                       | pass                      |
 
+## Correction after adoption
+
+2026-11-15: scenario 5 missed that `07-completion.md` had no `First actions` line (staging bug, see Report.md). Live file corrected; a future check should grep `First actions` in all six references, not only `stage start` ids.
+
 ## Tool/runtime limitations
 
 Walkthrough only; a live check is to run `/dev context` on a scratch ticket and watch `TaskList`.

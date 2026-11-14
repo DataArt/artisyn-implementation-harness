@@ -1,7 +1,8 @@
 # Completion stage
 
 Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage completion`. First action: `stage start --stage completion`.
+`--stage completion`. First actions: mark this stage's native task `in_progress`
+(`patterns/task-tracking.md`), then `stage start --stage completion`.
 
 Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This is the
 last stage. It makes "done" unambiguous: archive the story, finalise metrics, hand

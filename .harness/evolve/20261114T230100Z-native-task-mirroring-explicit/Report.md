@@ -63,6 +63,10 @@ Revised once during Validate: `01-context-gathering.md` now marks the task `in_p
 
 Draft readiness: inspectable content, patch and criteria present. Current stage: closed. Next action: none; lifecycle complete. Follow-up outside it: `/harness-bootstrap patch harvest` for the canonical templates.
 
+## Post-adoption correction (2026-11-15)
+
+Found during `/harness-bootstrap patch harvest`: the installed `07-completion.md` lacked the `First actions` line. Cause: the triage staging script copied the baseline file a second time for the closing-paragraph edit, overwriting the first edit; Validate scenario 5 checked stage ids but not the presence of `First actions` in all six references. Fixed directly in the live file; installed hash now `04e3bf906663c5c56d4344c8191e147d13e37fe48c27ebbf5cdc639ff5c865b9`. The candidate folder keeps the defective copy for history.
+
 ## Unresolved decisions
 
 None blocking. Judgment call: the close step says to check `TaskList`, which costs one call; kept because the second reflection shows the tracker can be silently absent.
