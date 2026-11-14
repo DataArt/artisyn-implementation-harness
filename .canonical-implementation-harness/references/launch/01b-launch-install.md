@@ -109,6 +109,9 @@ unselected provider files and unrelated local configuration.
 Structure root instructions as Why / What / How within the installed Documentation
 Principles budget: purpose, conventions, guarded commands, stack, HLD/NFR pointers,
 selected lifecycle scope, installed skills/roles, tracker and integration setup.
+Read `canonical/root-instructions/INTERFACE.md` for the required categories and their
+intent, including the "work outside a ticket" rule; render each category in the
+provider's own invocation syntax and register the file with a `structure` row.
 
 `canonical/settings.json` is the native settings source for Claude, Codex, and Copilot.
 `canonical/mcp.json` holds the selected shared server declarations (empty by default).

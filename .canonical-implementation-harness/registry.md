@@ -35,6 +35,7 @@ not rows copied from the source project.
 | web                       | agent | content   | `canonical/agents/layer/TEMPLATE.md`                                       | `.claude/agents/web.md`                                          |
 | auth                      | agent | content   | `canonical/agents/layer/TEMPLATE.md`                                       | `.claude/agents/auth.md`                                         |
 | infra                     | agent | content   | `canonical/agents/infra/TEMPLATE.md`                                       | `.claude/agents/infra.md`                                        |
+| root-instructions         | doc   | structure | `canonical/root-instructions/INTERFACE.md`                                 | `CLAUDE.md`                                                      |
 | eg-conventions            | doc   | content   | `canonical/docs/Engineering Guide/01 Conventions.md`                       | `docs/Engineering Guide/01 Conventions.md`                       |
 | eg-engineer-role          | doc   | content   | `canonical/docs/Engineering Guide/03 Engineer Role.md`                     | `docs/Engineering Guide/03 Engineer Role.md`                     |
 | eg-ai-tool-compat         | doc   | content   | `canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md`      | `docs/Engineering Guide/04 AI Coding Tool Compatibility.md`      |

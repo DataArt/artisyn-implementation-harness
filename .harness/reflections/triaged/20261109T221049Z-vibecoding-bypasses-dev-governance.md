@@ -1,5 +1,8 @@
 ---
-status: pending-triage
+status: triaged
+triaged: 2026-11-14T22:05:00Z
+candidate: .harness/evolve/20261114T220500Z-doc-catch-up-outside-ticket/
+candidate-sibling: .harness/evolve/20261114T223000Z-root-instructions-interface/
 timestamp: 2026-11-09T22:10:49Z
 ---
 
