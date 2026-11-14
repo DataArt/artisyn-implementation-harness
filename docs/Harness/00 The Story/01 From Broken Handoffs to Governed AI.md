@@ -44,7 +44,7 @@ This has been the industry's reality for years — the broken telephone game, pl
 
 > **Dropping AI into an unwired pipeline doesn't remove the mixed basket. It just fills it faster.**
 
-![AI Factory: From Intent to Confuse](/images/context/AI%20Factory%3A%20From%20Intent%20to%20Confuse.png)
+![AI Factory: From Intent to Confuse](/images/context/AI%20Factory%20-%20From%20Intent%20to%20Confuse.png)
 
 AI can move extremely fast from intent to result — and still miss what the organisation actually meant.
 

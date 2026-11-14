@@ -340,7 +340,7 @@ Engineers are using AI tools across a growing number of workloads, and spend is 
 
 Organisations that invest in a tool-agnostic context foundation now don't have to start over every time a new tool takes the lead. Organisations that build their whole workflow around today's specific tool do.
 
-![Context Foundation: Stable Tools vs. Broken Migration](/images/context/Context%20Foundation%3A%20Stable%20Tools%20vs.%20Broken%20Migration.png)
+![Context Foundation: Stable Tools vs. Broken Migration](/images/context/Context%20Foundation%20-%20Stable%20Tools%20vs.%20Broken%20Migration.png)
 
 **How to address this — the harness (Project Context):** this is the harness's founding constraint: root context, conventions, and lifecycles live as portable Markdown, mapped to each AI tool's primitives (see [AI Coding Tool Compatibility](/Engineering%20Guide/04%20AI%20Coding%20Tool%20Compatibility.md)) rather than hard-coded into one vendor's format. Swapping tools later means re-wiring an adapter layer, not rebuilding the foundation.
 
