@@ -1,0 +1,54 @@
+--- .canonical-implementation-harness/scripts/materialize-launch.mjs	2026-11-08 19:02:47.007099603 +0100
++++ .canonical-implementation-harness/scripts/materialize-launch.mjs
+@@ -270,9 +270,16 @@
+   };
+   if (fs.existsSync(receiptPath)) {
+     const previous = JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
+-    if (previous.plan_sha256 !== receipt.plan_sha256)
+-      throw new Error('Run ID already belongs to a different plan; use a new run ID');
++    if (previous.run_id !== receipt.run_id)
++      throw new Error('Run ID already belongs to a different run; use a new run ID');
+     if (!Array.isArray(previous.files)) throw new Error('Invalid existing materialization receipt');
++    // The launch guide amends this run's plan.json in place (D.1–D.5 derived outputs,
++    // corrected evidence). An amended plan is accepted under the same run ID; the
++    // per-file checks in materializeFiles() still reject any entry whose source or
++    // rendered bytes no longer match what this run already materialized.
++    if (previous.plan_sha256 !== receipt.plan_sha256)
++      receipt.plan_sha256_history = [...(previous.plan_sha256_history ?? []), previous.plan_sha256];
++    else if (previous.plan_sha256_history) receipt.plan_sha256_history = previous.plan_sha256_history;
+     receipt.files = previous.files;
+   }
+   return receipt;
+--- apps/harness-bootstrap-e2e/src/tests/unit/materialize-launch.spec.ts	2026-10-01 02:34:52.596787405 +0200
++++ apps/harness-bootstrap-e2e/src/tests/unit/materialize-launch.spec.ts
+@@ -143,9 +143,29 @@
+         fs.readFileSync(path.join(root, 'output/exact.md'), 'utf8'),
+         'Project $& {{OTHER}}; ticket <TICKET>\n'
+       );
++      // An amended plan under the same run ID is accepted (the launch guide amends
++      // plan.json in place); the receipt keeps the previous plan hash in its history.
+       const reused = structuredClone(exact);
+       reused.knowns.PROJECT_KEY.source = 'changed evidence';
+-      assert.match(run(reused, '--check', false).stderr, /different plan/);
++      run(reused, '--check');
++      run(reused, '--write');
++      const amended = JSON.parse(
++        fs.readFileSync(path.join(root, 'package/state/launch/runs/exact/materialization.json'), 'utf8')
++      );
++      assert.equal(amended.plan_sha256_history.length, 1);
++      assert.notEqual(amended.plan_sha256, amended.plan_sha256_history[0]);
++      // A changed rendering of an already materialized file is still rejected: preflight
++      // sees the existing output as unexpected local content before any write.
++      const changed = structuredClone(reused);
++      changed.knowns.PROJECT_KEY.value = 'OTHER';
++      assert.match(
++        run(changed, '--write', false).stderr,
++        /Unexpected local content|conflicts with plan/
++      );
++      assert.equal(
++        fs.readFileSync(path.join(root, 'output/exact.md'), 'utf8'),
++        'Project $& {{OTHER}}; ticket <TICKET>\n'
++      );
+       // Existing symlinks cannot route outputs into canonical files.
+       fs.symlinkSync(path.dirname(source), path.join(root, 'canonical-link'), 'dir');
+       const linked = structuredClone(plan);

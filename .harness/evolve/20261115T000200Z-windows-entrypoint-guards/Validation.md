@@ -1,0 +1,21 @@
+# Validation plan — Windows-safe script entrypoint guards
+
+Candidate: `20261115T000200Z-windows-entrypoint-guards`. Hashes: see `Report.md`. Status: **executed 2026-11-15.** Walkthroughs are labelled as such.
+
+## Scenario table
+
+| #   | Category   | Input / context                                                                 | Expected behavior                                                          | Method                                                                        | Actual outcome                                                                                                                                                                                            | Evidence                                       | Result                 |
+| --- | ---------- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- | ---------------------- |
+| 1   | Positive   | `node docs/.og/cli.mjs search --dir . --term <term>` on this machine            | Runs, prints results                                                       | run (pre-run on composed scratch copy: build + search ok)                     | Composed scratch copy: `build --dir .` and `search` run and return results; `--help` prints usage (guard true)                                                                                            | scratch compose3 run                           | pass                   |
+| 2   | Positive   | Programmatic import of `cli.mjs` (tests)                                        | Guard stays false, no CLI side effect                                      | `node --test cli.test.mjs` (pre-run composed: 31/31 with node_modules linked) | Programmatic `import()` of the composed `cli.mjs` returns 7 exports with no CLI output; suite 31/31                                                                                                       | node -e import; node --test                    | pass                   |
+| 3   | Positive   | `node .canonical-implementation-harness/scripts/check-mermaid.mjs` with no args | Prints usage error, exit 1 (proves the guard is true)                      | run                                                                           | `node scripts/check-mermaid.mjs` with no args prints the usage error and exits 1; `import()` of it does not run                                                                                           | scratch scripts copy (candidate overlaid)      | pass                   |
+| 4   | Negative   | Windows path shapes                                                             | `path.resolve('C:\\x\\cli.mjs') === fileURLToPath('file:///C:/x/cli.mjs')` | reasoning + Node docs; cannot execute here                                    | Both sides are absolute native paths: `path.resolve` on `C:\\x\\cli.mjs` gives `C:\\x\\cli.mjs`; `fileURLToPath('file:///C:/x/cli.mjs')` gives the same on Windows per Node docs. Not executed on Windows | reasoning; `path.win32.resolve` sample printed | pass (by construction) |
+| 5   | Structural | Both `cli.mjs` copies identical; `node --check` all three                       | pass                                                                       | shell (pre-checked)                                                           | Copies identical; `node --check` ok on all three                                                                                                                                                          | shell                                          | pass                   |
+
+## Tool/runtime limitations
+
+No Windows runtime available; scenario 4 is by construction only.
+
+## Verdict
+
+**Pass.** 5 of 5 scenarios; scenario 4 by construction only (no Windows runtime). Next action: `/evolve adopt 20261115T000200Z-windows-entrypoint-guards` once accepted.

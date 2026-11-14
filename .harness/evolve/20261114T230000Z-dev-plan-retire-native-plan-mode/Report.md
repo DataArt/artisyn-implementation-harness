@@ -49,6 +49,10 @@ Adoption order across this run's candidates (they share files; each ships a `can
 
 Draft readiness: inspectable content, patch and criteria present. Current stage: closed. Next action: none; lifecycle complete. Follow-up outside it: `/harness-bootstrap patch harvest` for the canonical templates.
 
+## Post-adoption correction (2026-11-15)
+
+The developer's `harness-bootstrap-e2e:unit` run failed `provider-launch.spec.ts`: it probed provider path rendering by asserting the rendered Codex `03-plan.md` contains `.agents/skills/dev/runtime/planning.md`, a reference this candidate removed. The probe now uses `runtime/interaction.md`, which the same Step 3 still applies; the assertion's purpose (the `{{provider:skills_root}}` runtime path renders per provider) is unchanged. Validate had not run this spec (vitest unavailable in that environment).
+
 ## Unresolved decisions
 
 1. Whether to delete `.claude/skills/dev/runtime/planning.md` now. Draft keeps it: the package adaptor re-installs it on `patch apply`, so the retirement belongs in `canonical/adaptors/claude/planning.md` or the manifest's per-skill runtime list. Decide at harvest.

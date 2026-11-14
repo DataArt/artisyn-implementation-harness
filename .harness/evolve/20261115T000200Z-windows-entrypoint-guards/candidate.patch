@@ -1,0 +1,41 @@
+--- .canonical-implementation-harness/canonical/docs/.og/cli.mjs	2026-11-15 00:34:28.894421483 +0100
++++ .canonical-implementation-harness/canonical/docs/.og/cli.mjs
+@@ -353,7 +353,7 @@
+   return 0;
+ }
+ 
+-if (import.meta.url === `file://${process.argv[1]}`) {
++if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+   runCli()
+     .then((code) => {
+       process.exitCode = code;
+--- .canonical-implementation-harness/scripts/check-mermaid.mjs	2026-09-29 01:17:43.110403525 +0200
++++ .canonical-implementation-harness/scripts/check-mermaid.mjs
+@@ -1,6 +1,7 @@
+ #!/usr/bin/env node
+ // Node standard library only. Renderer dependencies are managed separately.
+ import fs from 'node:fs';
++import { fileURLToPath } from 'node:url';
+ import path from 'node:path';
+ import { spawnSync } from 'node:child_process';
+ import { sha256 } from './lib/fs-safe.mjs';
+@@ -180,7 +181,7 @@
+ 
+ if (
+   process.argv[1] &&
+-  path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)
++  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+ ) {
+   try {
+     if (process.argv.length !== 3) throw Error('Usage: node check-mermaid.mjs <config.json>');
+--- docs/.og/cli.mjs	2026-11-15 00:34:28.893958569 +0100
++++ docs/.og/cli.mjs
+@@ -353,7 +353,7 @@
+   return 0;
+ }
+ 
+-if (import.meta.url === `file://${process.argv[1]}`) {
++if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+   runCli()
+     .then((code) => {
+       process.exitCode = code;

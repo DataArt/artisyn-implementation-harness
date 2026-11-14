@@ -1,0 +1,22 @@
+--- "docs/Harness/00 The Story/01 From Broken Handoffs to Governed AI.md"	2026-11-03 10:18:39.432951983 +0100
++++ docs/Harness/00 The Story/01 From Broken Handoffs to Governed AI.md
+@@ -44,7 +44,7 @@
+ 
+ > **Dropping AI into an unwired pipeline doesn't remove the mixed basket. It just fills it faster.**
+ 
+-![AI Factory: From Intent to Confuse](/images/context/AI%20Factory%3A%20From%20Intent%20to%20Confuse.png)
++![AI Factory: From Intent to Confuse](/images/context/AI%20Factory%20-%20From%20Intent%20to%20Confuse.png)
+ 
+ AI can move extremely fast from intent to result — and still miss what the organisation actually meant.
+ 
+--- "docs/Harness/00 The Story/03 Challenges.md"	2026-11-03 10:18:39.445672610 +0100
++++ docs/Harness/00 The Story/03 Challenges.md
+@@ -340,7 +340,7 @@
+ 
+ Organisations that invest in a tool-agnostic context foundation now don't have to start over every time a new tool takes the lead. Organisations that build their whole workflow around today's specific tool do.
+ 
+-![Context Foundation: Stable Tools vs. Broken Migration](/images/context/Context%20Foundation%3A%20Stable%20Tools%20vs.%20Broken%20Migration.png)
++![Context Foundation: Stable Tools vs. Broken Migration](/images/context/Context%20Foundation%20-%20Stable%20Tools%20vs.%20Broken%20Migration.png)
+ 
+ **How to address this — the harness (Project Context):** this is the harness's founding constraint: root context, conventions, and lifecycles live as portable Markdown, mapped to each AI tool's primitives (see [AI Coding Tool Compatibility](/Engineering%20Guide/04%20AI%20Coding%20Tool%20Compatibility.md)) rather than hard-coded into one vendor's format. Swapping tools later means re-wiring an adapter layer, not rebuilding the foundation.
+ 
