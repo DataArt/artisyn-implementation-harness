@@ -1,0 +1,115 @@
+--- .claude/skills/design/references/10-completion.md	2026-11-02 19:22:40.742753046 +0100
++++ .claude/skills/design/references/10-completion.md	2026-11-14 23:43:49.700940978 +0100
+@@ -136,6 +136,10 @@
+ exists and the worktree holds nothing from this phase. If not, say what is
+ missing and wait again.
+ 
++Before either closing message below, mark the Completion stage's native task
++`completed` (`patterns/task-tracking.md`): the tracker shows it done and no later
++stage exists to do it. Check `TaskList` shows no open task for this design.
++
+ **Approved** — once confirmed, hand over the PR text (do not open it
+ yourself — that is a guarded command the developer runs):
+ 
+--- .claude/skills/dev/SKILL.md	2026-11-02 19:22:40.768291491 +0100
++++ .claude/skills/dev/SKILL.md	2026-11-14 23:43:49.675558639 +0100
+@@ -120,8 +120,10 @@
+ 
+ ## Stage tasks — apply once, every entry (mandatory)
+ 
+-Do this on every entry, full-chain or single-stage, resumed or fresh. A system
+-reminder about native progress tools is the cue to do it now.
++Do this on every entry, full-chain or single-stage, resumed or fresh, before the
++target stage's first metrics call. It is a step, not a reminder-driven aside: do
++not wait for a system reminder about progress tools, and never finish a stage with
++its native task still open.
+ 
+ Apply `.claude/skills/dev/patterns/task-tracking.md`. It inspects existing
+ state (the native tracker or `2-report.md`) and decides create vs. reuse vs.
+--- .claude/skills/dev/references/01-context-gathering.md	2026-11-03 01:18:59.698423846 +0100
++++ .claude/skills/dev/references/01-context-gathering.md	2026-11-14 23:50:25.203937899 +0100
+@@ -87,8 +87,9 @@
+   `🎯 Context 🔄 · 🚀 Ceremony ⏳ · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳`
+ - Leave the Progress table empty; Plan fills it
+ 
+-Then initialise metrics and start the stage, reusing the same `git config user.name`
+-value:
++Then mark the Context stage's native task `in_progress`
++(`patterns/task-tracking.md`), and initialise metrics and start the stage, reusing
++the same `git config user.name` value:
+ 
+ ```sh
+ node .claude/skills/dev/scripts/timing.mjs init --dir "$IMPL_DIR" --ticket "$TICKET" --author "$AUTHOR"
+--- .claude/skills/dev/references/02-ceremony.md	2026-11-02 19:22:40.778583670 +0100
++++ .claude/skills/dev/references/02-ceremony.md	2026-11-14 23:43:49.678779453 +0100
+@@ -1,7 +1,8 @@
+ # Ceremony stage
+ 
+ Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+-`--stage ceremony`. First action: `stage start --stage ceremony`.
++`--stage ceremony`. First actions: mark this stage's native task `in_progress`
++(`patterns/task-tracking.md`), then `stage start --stage ceremony`.
+ 
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage is
+ the official start of work: assign and transition the ticket via `@scrum-master`,
+--- .claude/skills/dev/references/03-plan.md	2026-11-03 01:18:59.701926376 +0100
++++ .claude/skills/dev/references/03-plan.md	2026-11-14 23:43:49.682409102 +0100
+@@ -1,7 +1,8 @@
+ # Plan stage
+ 
+ Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+-`--stage plan`. First action: `stage start --stage plan`.
++`--stage plan`. First actions: mark this stage's native task `in_progress`
++(`patterns/task-tracking.md`), then `stage start --stage plan`.
+ 
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+ is planning only: read `0-intent.md` and the codebase, write `1-plan.md`, get it
+--- .claude/skills/dev/references/04-implement.md	2026-11-02 19:22:40.787710672 +0100
++++ .claude/skills/dev/references/04-implement.md	2026-11-14 23:43:49.686169878 +0100
+@@ -1,7 +1,8 @@
+ # Implement stage
+ 
+ Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+-`--stage implement`. First action: `stage start --stage implement`.
++`--stage implement`. First actions: mark this stage's native task `in_progress`
++(`patterns/task-tracking.md`), then `stage start --stage implement`.
+ 
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+ executes the approved `1-plan.md` one step at a time.
+--- .claude/skills/dev/references/05-test.md	2026-11-02 19:22:40.792759218 +0100
++++ .claude/skills/dev/references/05-test.md	2026-11-14 23:43:49.687621138 +0100
+@@ -1,7 +1,8 @@
+ # Test stage
+ 
+ Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+-`--stage test`. First action: `stage start --stage test`. Wrap every command you run
++`--stage test`. First actions: mark this stage's native task `in_progress`
++(`patterns/task-tracking.md`), then `stage start --stage test`. Wrap every command you run
+ with `check --kind <kind> --name <name> -- <command>`.
+ 
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+--- .claude/skills/dev/references/06-document.md	2026-11-03 01:18:59.706003703 +0100
++++ .claude/skills/dev/references/06-document.md	2026-11-14 23:43:49.691205204 +0100
+@@ -1,7 +1,8 @@
+ # Document stage
+ 
+ Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
+-`--stage document`. First action: `stage start --stage document`.
++`--stage document`. First actions: mark this stage's native task `in_progress`
++(`patterns/task-tracking.md`), then `stage start --stage document`.
+ 
+ Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
+ keeps the permanent docs true after the change: find out what the change means for
+--- .claude/skills/dev/references/07-completion.md	2026-10-05 23:04:38.705055676 +0200
++++ .claude/skills/dev/references/07-completion.md	2026-11-14 23:43:49.699306592 +0100
+@@ -141,6 +141,10 @@
+ share the PR link, put it in the report's PR row; it can ride along in a small
+ follow-up commit.
+ 
++Mark the Completion stage's native task `completed` now (`patterns/task-tracking.md`):
++the banner shows it done and no later stage exists to do it. Check `TaskList` shows
++no open task for this ticket.
++
+ Then the closing message. This is the signal the team asked for; do not bury it.
+ 
+ > "🏁 **{TICKET} is complete.**

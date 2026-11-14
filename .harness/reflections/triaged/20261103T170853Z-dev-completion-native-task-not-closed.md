@@ -1,5 +1,7 @@
 ---
-status: pending-triage
+status: triaged
+triaged: 2026-11-14T23:10:00Z
+candidate: .harness/evolve/20261114T230100Z-native-task-mirroring-explicit/
 timestamp: 2026-11-03T17:08:53Z
 ticket: DESIGN-20261103-LBBI
 ---

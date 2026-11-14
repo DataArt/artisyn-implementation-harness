@@ -1,7 +1,8 @@
 # Ceremony stage
 
 Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage ceremony`. First action: `stage start --stage ceremony`.
+`--stage ceremony`. First actions: mark this stage's native task `in_progress`
+(`patterns/task-tracking.md`), then `stage start --stage ceremony`.
 
 Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage is
 the official start of work: assign and transition the ticket via `@scrum-master`,
@@ -78,9 +79,11 @@ Add a one-line note if the ticket was auto-assigned. Then metrics `report`.
 
 ## Step 4 — Commit
 
-Nothing new beyond the report rows. If Context's commit is still pending, propose it
-again with these rows included; otherwise propose
-`docs({ticket-lowercase}): record branch and tracker state`.
+The lifecycle's first commit, on the branch just checked out. Propose
+`docs({ticket-lowercase}): capture intent and record branch` covering
+`docs/Stories/[{TICKET}] {name}/impl/` (intent, report, stat.json) and this stage's
+rows. If the story folder was already committed earlier (a resumed ticket), propose
+only `docs({ticket-lowercase}): record branch and tracker state`.
 
 This is a manual-operation sign-off (`patterns/approval-sign-off.md`): the developer
 runs the commit, you wait. `wait start --reason user_input --detail "Awaiting commit"`.

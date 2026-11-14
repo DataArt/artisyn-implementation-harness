@@ -1,5 +1,7 @@
 ---
-status: pending-triage
+status: archived
+archived: 2026-11-14T23:10:00Z
+reason: already owned. .claude/agents/docs-writer.md has carried the push rule (read 07 Terminology.md, use the approved form for any registered concept, in every invocation incl. frontmatter keywords) since commit b7302ae, 2026-10-07, before this observation. The operational graph stores keywords from frontmatter and never derives wording itself (cli.mjs is deterministic), so it inherits the registry through docs-writer. Reconsider only with evidence of a doc written after b7302ae whose keywords used a forbidden synonym.
 timestamp: 2026-11-08T23:20:06Z
 ticket: DESIGN-20261108-1L8P
 ---

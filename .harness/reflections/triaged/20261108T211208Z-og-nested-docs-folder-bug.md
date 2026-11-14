@@ -1,5 +1,7 @@
 ---
-status: pending-triage
+status: triaged
+triaged: 2026-11-14T23:10:00Z
+candidate: .harness/evolve/20261114T230300Z-og-dir-validation/
 timestamp: 2026-11-08T21:12:08Z
 ticket: DEV-20261108-K7XQ
 ---

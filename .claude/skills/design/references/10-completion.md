@@ -136,6 +136,10 @@ developer runs the commit, never you. `wait start --reason user_input`.
 exists and the worktree holds nothing from this phase. If not, say what is
 missing and wait again.
 
+Before either closing message below, mark the Completion stage's native task
+`completed` (`patterns/task-tracking.md`): the tracker shows it done and no later
+stage exists to do it. Check `TaskList` shows no open task for this design.
+
 **Approved** — once confirmed, hand over the PR text (do not open it
 yourself — that is a guarded command the developer runs):
 

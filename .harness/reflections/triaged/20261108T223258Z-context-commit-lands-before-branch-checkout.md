@@ -1,5 +1,7 @@
 ---
-status: pending-triage
+status: triaged
+triaged: 2026-11-14T23:10:00Z
+candidate: .harness/evolve/20261114T230400Z-first-commit-after-checkout/
 timestamp: 2026-11-08T22:32:58Z
 ticket: DESIGN-20261108-1L8P
 ---

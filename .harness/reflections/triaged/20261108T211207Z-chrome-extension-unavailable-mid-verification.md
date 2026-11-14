@@ -1,5 +1,7 @@
 ---
-status: pending-triage
+status: triaged
+triaged: 2026-11-14T23:10:00Z
+candidate: .harness/evolve/20261114T230200Z-dev-browser-check-fallback/
 timestamp: 2026-11-08T21:12:07Z
 ticket: DEV-20261108-K7XQ
 ---

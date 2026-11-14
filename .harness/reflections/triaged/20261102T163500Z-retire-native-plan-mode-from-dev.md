@@ -1,5 +1,7 @@
 ---
-status: pending-triage
+status: triaged
+triaged: 2026-11-14T23:10:00Z
+candidate: .harness/evolve/20261114T230000Z-dev-plan-retire-native-plan-mode/
 timestamp: 2026-11-02T16:35:00Z
 ticket: DESIGN-20261102-Q5MU
 ---

@@ -1,0 +1,27 @@
+--- .claude/skills/dev/references/04-implement.md	2026-11-02 19:22:40.787710672 +0100
++++ .claude/skills/dev/references/04-implement.md	2026-11-14 23:43:49.705962263 +0100
+@@ -104,6 +104,11 @@
+    missing piece. Report what you ran and the real result; name the divergence or
+    the item that needs their eyes; give the precise action (what to open, what to
+    look at, which command to run). Do not ask a general "does it look good?".
++   A verification item that needs a live browser applies
++   `.claude/skills/dev/runtime/browser.md`. If the browser tools report not
++   connected, follow that file's "When the tools are not exposed" walkthrough once
++   (say what is missing and how to connect) before handing the check to the
++   developer; record it as verified by them, their words as evidence.
+    Before stopping: update the step's Progress row and note, `report`, then
+    `wait start --reason user_input --detail "Step N: <what is needed>"`.
+    **Stop and wait.** On the reply, `resume --activity implementation` and record
+--- .claude/skills/dev/references/05-test.md	2026-11-02 19:22:40.792759218 +0100
++++ .claude/skills/dev/references/05-test.md	2026-11-14 23:43:49.707103312 +0100
+@@ -98,7 +98,9 @@
+ conditions, all required:
+ 
+ - Every AC could be checked here: a command, a response, a file, a log, nothing
+-  that needs the developer's access, their machine, or their eyes
++  that needs the developer's access, their machine, or their eyes. A browser AC
++  applies `.claude/skills/dev/runtime/browser.md`; tools reporting not connected
++  get its setup walkthrough once before the AC is handed to the developer
+ - Every AC passed, with its evidence recorded
+ 
+ All met → say in one line "N/N acceptance criteria pass" and continue. Otherwise:

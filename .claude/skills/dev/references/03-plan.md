@@ -1,7 +1,8 @@
 # Plan stage
 
 Apply `.claude/skills/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage plan`. First action: `stage start --stage plan`.
+`--stage plan`. First actions: mark this stage's native task `in_progress`
+(`patterns/task-tracking.md`), then `stage start --stage plan`.
 
 Routing and stage tracking live in `.claude/skills/dev/SKILL.md`. This stage
 is planning only: read `0-intent.md` and the codebase, write `1-plan.md`, get it
@@ -125,8 +126,7 @@ Other rules:
 
 ## Step 3 — Draft and write the plan
 
-Apply `.claude/skills/dev/runtime/planning.md`. Draft in this order,
-each part from the intent:
+Draft in this order, each part from the intent:
 
 1. `## Solution` — the answer to the intent's "what does better look like", within
    its constraints and the architecture read in Step 1. Diagram if wiring changes.
@@ -141,9 +141,11 @@ through `.claude/skills/dev/runtime/interaction.md`: ask only when two
 approaches are genuinely both reasonable and the choice changes scope, cost or
 architecture. Prepare the options first; combine related choices into one question.
 
-If the host's native planning mode has its own approval step, that step is this
-phase's sign-off (Step 5) and nothing else; do not add another stop. If native mode
-is unavailable, plan in the normal way; do not claim native enforcement.
+This stage does not use the host's native planning mode. That mode is a single
+read-only gate built for "think, then execute once"; this stage writes files
+(`1-plan.md`, `2-report.md`, metrics) and delegates to `@architect`, and the
+lifecycle has seven stages each with its own sign-off and commit. The sign-off in
+Step 5 is the only gate. Do not enter or claim native planning mode.
 
 When writes are allowed, persist the plan at
 `docs/Stories/[{TICKET}] {name}/impl/1-plan.md` (`patterns/write-confirm.md`). The

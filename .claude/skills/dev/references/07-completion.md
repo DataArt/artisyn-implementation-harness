@@ -141,6 +141,10 @@ Pushing and opening the PR are the developer's (`git push` is guarded). When the
 share the PR link, put it in the report's PR row; it can ride along in a small
 follow-up commit.
 
+Mark the Completion stage's native task `completed` now (`patterns/task-tracking.md`):
+the banner shows it done and no later stage exists to do it. Check `TaskList` shows
+no open task for this ticket.
+
 Then the closing message. This is the signal the team asked for; do not bury it.
 
 > "🏁 **{TICKET} is complete.**

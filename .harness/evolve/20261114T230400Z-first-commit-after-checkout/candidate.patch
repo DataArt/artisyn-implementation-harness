@@ -1,0 +1,150 @@
+--- .claude/skills/design/SKILL.md	2026-11-02 19:22:40.665886375 +0100
++++ .claude/skills/design/SKILL.md	2026-11-14 23:43:49.733190989 +0100
+@@ -35,7 +35,9 @@
+ 
+ - **Two stops per phase, both at its end.** The sign-off
+   (`patterns/phase-sign-off.md`) and then the commit: proposed, run by the
+-  developer, checked in Git before the stage closes. Review Gate and Address
++  developer, checked in Git before the stage closes. Context Gathering has no
++  commit of its own; its files ride in Ceremony's first commit after the checkout.
++  Review Gate and Address
+   Feedback are the exception — their stop waits on a real external fact (the
+   actual MR approval state), not an agent decision.
+ - **Inside a phase, keep going.** Steps use intelligent checkpoints
+@@ -228,9 +230,9 @@
+ Follow `references/01-context-gathering.md` exactly — it resolves the ticket,
+ fetches tracker context, resolves the design context (track/subfolder), and
+ creates the story folder and Report.md. Ends with a phase sign-off, then
+-Report → Commit.
++Report; no commit until Ceremony's checkout.
+ 
+-Once commit is confirmed, emit a progress announcement
++Then emit a progress announcement
+ (`.claude/skills/design/patterns/announce-progress.md`):
+ `"📋 Remaining: Ceremony → Frame → Research → Evaluate → Solution → Review → Publish → Completion"`
+ — then continue straight into Ceremony. Direct-stage entry ends here.
+--- .claude/skills/design/references/01-context-gathering.md	2026-11-03 01:18:59.688384344 +0100
++++ .claude/skills/design/references/01-context-gathering.md	2026-11-14 23:43:49.725988565 +0100
+@@ -13,8 +13,9 @@
+ folder is created under. It creates the story folder and `design/Report.md`,
+ but writes no framing content; that is Frame's job.
+ 
+-Two stops in this stage: the sign-off in Step 5 on the gathered context, and
+-the commit in Step 7.
++One stop in this stage: the sign-off in Step 5 on the gathered context. There is
++no commit here; the story folder is committed by Ceremony Step 4, after the branch
++checkout, so the lifecycle's first commit lands on the feature branch.
+ 
+ > 🔁 **Session continuity:** apply `.claude/skills/design/patterns/session-continuity.md`.
+ 
+@@ -153,18 +154,11 @@
+ 
+ Then metrics `report`.
+ 
+-## Step 7 — Commit
++## Step 7 — Close
+ 
+-The story folder is new. Propose:
+-
+-> `docs({TICKET}): gather context for <short title>`
+-
+-covering `{stories root}[{TICKET}] {name}/design/` (Report.md, stat.json).
+-
+-This is a manual-operation sign-off (`patterns/approval-sign-off.md`) — the
+-developer runs the commit, never you. `wait start --reason user_input`.
+-**Stop and wait.** On the reply, check `git log`/`git status`: the commit exists
+-and the worktree holds nothing from this phase. If not, say what is missing and
+-wait again. Then `stage complete --stage context-gathering`.
++No commit in this stage. `stage complete --stage context-gathering`. Continue to
++Ceremony for a full-flow request. For direct entry stop here and say that the story
++folder is uncommitted on purpose until `/design ceremony {TICKET}` checks out the
++branch and proposes the first commit.
+ 
+ 🔁 Re-read `.claude/skills/design/SKILL.md` and resume the router from the next stage (Ceremony).
+--- .claude/skills/design/references/02-ceremony.md	2026-11-02 19:22:40.707869139 +0100
++++ .claude/skills/design/references/02-ceremony.md	2026-11-14 23:43:49.727341408 +0100
+@@ -77,9 +77,11 @@
+ 
+ ## Step 4 — Commit
+ 
+-Nothing new beyond the report row. If Context Gathering's commit is still
+-pending, propose it again with this row included; otherwise propose
+-`docs({TICKET}): record branch and tracker state`.
++The lifecycle's first commit, on the branch just checked out. Propose
++`docs({TICKET}): gather context and record branch` covering
++`{stories root}[{TICKET}] {name}/design/` (Report.md, stat.json) and this stage's
++row. If the story folder was already committed earlier (a resumed design), propose
++only `docs({TICKET}): record branch and tracker state`.
+ 
+ This is a manual-operation sign-off (`patterns/approval-sign-off.md`) — the
+ developer runs the commit, never you. `wait start --reason user_input`.
+--- .claude/skills/dev/SKILL.md	2026-11-02 19:22:40.768291491 +0100
++++ .claude/skills/dev/SKILL.md	2026-11-14 23:43:49.719453521 +0100
+@@ -30,8 +30,9 @@
+ - **Two stops per phase, both at its end.** The sign-off (`patterns/phase-sign-off.md`):
+   Context on the written intent, Ceremony on the branch, Plan, Implement, Test and
+   Document on their results. Then the commit: proposed, run by the developer, checked
+-  in Git before the stage closes. Completion ends with one combined ask for external
+-  actions.
++  in Git before the stage closes. Context is the exception: it has no commit of its
++  own, its files ride in Ceremony's first commit after the checkout. Completion ends
++  with one combined ask for external actions.
+ - **Inside a phase, keep going.** Steps use intelligent checkpoints
+   (`patterns/approval-intelligent.md`): run the checks yourself, auto-approve when
+   the content qualifies, and say in one line what you checked. Escalate only on
+--- .claude/skills/dev/references/01-context-gathering.md	2026-11-03 01:18:59.698423846 +0100
++++ .claude/skills/dev/references/01-context-gathering.md	2026-11-14 23:43:49.714832156 +0100
+@@ -9,7 +9,9 @@
+ or plan work starts. Read-only apart from the story folder, the report skeleton and
+ the intent file.
+ 
+-Two stops in this stage: the sign-off in Step 5 on the written intent, and the commit in Step 7. The sign-off
++One stop in this stage: the sign-off in Step 5 on the written intent. There is no
++commit here; the story folder is committed by Ceremony Step 4, after the branch
++checkout, so the lifecycle's first commit lands on the feature branch. The sign-off
+ (`patterns/phase-sign-off.md`). It covers both the gathered context and the intent
+ written from it; gaps and conflicts are asked there, as open questions in the file,
+ not earlier. Everything planned later derives from that file.
+@@ -197,20 +199,11 @@
+ `🎯 Context ✅ · 🚀 Ceremony 🔄 · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳`,
+ then metrics `report`.
+ 
+-## Step 7 — Commit
++## Step 7 — Close
+ 
+-The story folder is new. Propose:
+-
+-```
+-docs({ticket-lowercase}): capture intent for {short-name}
+-```
+-
+-covering `docs/Stories/[{TICKET}] {name}/impl/` (intent, report skeleton, stat.json).
+-
+-This is a manual-operation sign-off (`patterns/approval-sign-off.md`): the developer
+-runs the commit, you wait. `wait start --reason user_input --detail "Awaiting commit"`.
+-**Stop and wait.** On the reply, check `git log`/`git status`: the commit exists and the
+-worktree holds nothing from this phase. If not, say what is missing and wait again.
+-Then `stage complete --stage context`. Continue to Ceremony for a full-flow request; stop here for direct entry.
++No commit in this stage. `stage complete --stage context`. Continue to Ceremony for a
++full-flow request. For direct entry stop here and say that the story folder is
++uncommitted on purpose until `/dev ceremony {TICKET}` checks out the branch and
++proposes the first commit.
+ 
+ 🔁 Re-read `.claude/skills/dev/SKILL.md` and resume the router from the next stage (Ceremony).
+--- .claude/skills/dev/references/02-ceremony.md	2026-11-02 19:22:40.778583670 +0100
++++ .claude/skills/dev/references/02-ceremony.md	2026-11-14 23:43:49.715893872 +0100
+@@ -78,9 +78,11 @@
+ 
+ ## Step 4 — Commit
+ 
+-Nothing new beyond the report rows. If Context's commit is still pending, propose it
+-again with these rows included; otherwise propose
+-`docs({ticket-lowercase}): record branch and tracker state`.
++The lifecycle's first commit, on the branch just checked out. Propose
++`docs({ticket-lowercase}): capture intent and record branch` covering
++`docs/Stories/[{TICKET}] {name}/impl/` (intent, report, stat.json) and this stage's
++rows. If the story folder was already committed earlier (a resumed ticket), propose
++only `docs({ticket-lowercase}): record branch and tracker state`.
+ 
+ This is a manual-operation sign-off (`patterns/approval-sign-off.md`): the developer
+ runs the commit, you wait. `wait start --reason user_input --detail "Awaiting commit"`.

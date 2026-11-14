@@ -35,7 +35,9 @@ approving every move of a junior one. So:
 
 - **Two stops per phase, both at its end.** The sign-off
   (`patterns/phase-sign-off.md`) and then the commit: proposed, run by the
-  developer, checked in Git before the stage closes. Review Gate and Address
+  developer, checked in Git before the stage closes. Context Gathering has no
+  commit of its own; its files ride in Ceremony's first commit after the checkout.
+  Review Gate and Address
   Feedback are the exception — their stop waits on a real external fact (the
   actual MR approval state), not an agent decision.
 - **Inside a phase, keep going.** Steps use intelligent checkpoints
@@ -228,9 +230,9 @@ Where `[status]` is: `🔄` (active) · `✅` (done) · `⏳` (pending)
 Follow `references/01-context-gathering.md` exactly — it resolves the ticket,
 fetches tracker context, resolves the design context (track/subfolder), and
 creates the story folder and Report.md. Ends with a phase sign-off, then
-Report → Commit.
+Report; no commit until Ceremony's checkout.
 
-Once commit is confirmed, emit a progress announcement
+Then emit a progress announcement
 (`.claude/skills/design/patterns/announce-progress.md`):
 `"📋 Remaining: Ceremony → Frame → Research → Evaluate → Solution → Review → Publish → Completion"`
 — then continue straight into Ceremony. Direct-stage entry ends here.

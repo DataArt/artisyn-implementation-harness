@@ -30,8 +30,9 @@ approving every move of a junior one. So:
 - **Two stops per phase, both at its end.** The sign-off (`patterns/phase-sign-off.md`):
   Context on the written intent, Ceremony on the branch, Plan, Implement, Test and
   Document on their results. Then the commit: proposed, run by the developer, checked
-  in Git before the stage closes. Completion ends with one combined ask for external
-  actions.
+  in Git before the stage closes. Context is the exception: it has no commit of its
+  own, its files ride in Ceremony's first commit after the checkout. Completion ends
+  with one combined ask for external actions.
 - **Inside a phase, keep going.** Steps use intelligent checkpoints
   (`patterns/approval-intelligent.md`): run the checks yourself, auto-approve when
   the content qualifies, and say in one line what you checked. Escalate only on
@@ -120,8 +121,10 @@ anything. Then apply **Stage tasks** below and go to the target phase.
 
 ## Stage tasks — apply once, every entry (mandatory)
 
-Do this on every entry, full-chain or single-stage, resumed or fresh. A system
-reminder about native progress tools is the cue to do it now.
+Do this on every entry, full-chain or single-stage, resumed or fresh, before the
+target stage's first metrics call. It is a step, not a reminder-driven aside: do
+not wait for a system reminder about progress tools, and never finish a stage with
+its native task still open.
 
 Apply `.claude/skills/dev/patterns/task-tracking.md`. It inspects existing
 state (the native tracker or `2-report.md`) and decides create vs. reuse vs.
