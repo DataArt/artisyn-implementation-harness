@@ -41,8 +41,8 @@ re-ask here.
 
 ## Step 2 — Delegate to `{{DESIGN_ARCHITECT_AGENT}}` for options research
 
-Before delegating, attempt yourself: `node docs/.og/cli.mjs search --term
-<text>` (or `query --related-to <doc>`) against
+Before delegating, attempt yourself, from the project root: `node docs/.og/cli.mjs
+search --dir . --term <text>` (or `query --dir . --related-to <doc>`) against
 `docs/.og/docs-operational-graph.sqlite` to surface related docs. Required
 (not best-effort): when the graph is missing, stale (see `references/reindex-graph.md`'s Staleness check), or the call errors, fall
 back to grep/glob over `{{DESIGN_DOCS_ROOT}}` for the same information —

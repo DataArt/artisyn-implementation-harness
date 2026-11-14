@@ -77,9 +77,11 @@ Add a one-line note if the ticket was auto-assigned. Then metrics `report`.
 
 ## Step 4 — Commit
 
-Nothing new beyond the report row. If Context Gathering's commit is still
-pending, propose it again with this row included; otherwise propose
-`docs({TICKET}): record branch and tracker state`.
+The lifecycle's first commit, on the branch just checked out. Propose
+`docs({TICKET}): gather context and record branch` covering
+`{{DESIGN_STORIES_ROOT}}[{TICKET}] {name}/design/` (Report.md, stat.json) and this stage's
+row. If the story folder was already committed earlier (a resumed design), propose
+only `docs({TICKET}): record branch and tracker state`.
 
 This is a manual-operation sign-off (`patterns/approval-sign-off.md`) — the
 developer runs the commit, never you. `wait start --reason user_input`.

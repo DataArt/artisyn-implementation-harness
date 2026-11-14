@@ -1,0 +1,48 @@
+{
+  "schema_version": 2,
+  "id": "9bb977cd-e11e-4586-b3fc-778e7b5d3473",
+  "created_at": "2026-11-14T23:08:21.818817+00:00",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "Root-instructions interface (folded into package 3.4.0): new canonical/root-instructions/INTERFACE.md stating the required categories and intent of every generated root instruction file (CLAUDE.md / AGENTS.md / copilot-instructions.md), including the 'work outside a ticket' rule (spawn the docs-writer agent after a logical chat-driven change with no lifecycle run active; index written docs; no Document stage). Launch Block C now reads it and registers the root file with a `structure` row. Direct canonical edits adopted from /evolve candidate 20261114T223000Z-root-instructions-interface on 2026-11-14 (commit a0133af). Local registry.md row and CLAUDE.md section are project deployment actions, not payload.",
+  "package_version": "3.4.0",
+  "base_release": "3.3.0",
+  "requires": ["bcbb6844-621e-4f82-82d9-67145e2b86fd"],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "add",
+      "path": "canonical/root-instructions/INTERFACE.md",
+      "old_path": null,
+      "before_sha256": null,
+      "after_sha256": "71f15c0d9c29af3d8df7d9eed61ac5ae369dff9489dbdd5eb7f4bd9e5eff8bb7",
+      "payload": "files/canonical/root-instructions/INTERFACE.md",
+      "payload_sha256": "71f15c0d9c29af3d8df7d9eed61ac5ae369dff9489dbdd5eb7f4bd9e5eff8bb7",
+      "deployment": "canonical-only",
+      "mapping": null,
+      "note": "Interface article: read by launch Block C; checked by a `structure` registry row against the generated root instruction file; never materialised into consumer projects."
+    },
+    {
+      "operation": "update",
+      "path": "references/launch/01b-launch-install.md",
+      "old_path": null,
+      "before_sha256": "5230dc5ccf93aeb1002c90ece3632a1d9bb9ba445519e1f8290c8f6e9e6e3f98",
+      "after_sha256": "11202e3e4666353ea983ea1f9e97ba8ea177320a4eb5841ff29da9a00d19dfc5",
+      "payload": "diffs/references/launch/01b-launch-install.md.patch",
+      "payload_sha256": "ef1d0d0164b233c0d34120ba4576fa41ba800b2d321d24faac75ce718576ed76",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "6f7013c1cf33bfafe90a37e09c6ddb67a871757be17d85954e81caeb4db40d69",
+      "after_sha256": "10de1b1d2094c984f6bb061085cdc43bcbb4bda36603bdb5e9da23dd5ead2693",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "37de10d6d7e13f7104ad0531b63268926e497b5337a0b84a9e74976948b5f254",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

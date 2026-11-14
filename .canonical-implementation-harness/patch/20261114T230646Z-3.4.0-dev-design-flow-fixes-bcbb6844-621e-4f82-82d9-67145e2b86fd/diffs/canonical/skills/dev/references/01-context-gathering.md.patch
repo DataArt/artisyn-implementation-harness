@@ -1,0 +1,52 @@
+--- a/canonical/skills/dev/references/01-context-gathering.md
++++ b/canonical/skills/dev/references/01-context-gathering.md
+@@ -9,7 +9,9 @@
+ or plan work starts. Read-only apart from the story folder, the report skeleton and
+ the intent file.
+ 
+-Two stops in this stage: the sign-off in Step 5 on the written intent, and the commit in Step 7. The sign-off
++One stop in this stage: the sign-off in Step 5 on the written intent. There is no
++commit here; the story folder is committed by Ceremony Step 4, after the branch
++checkout, so the lifecycle's first commit lands on the feature branch. The sign-off
+ (`patterns/phase-sign-off.md`). It covers both the gathered context and the intent
+ written from it; gaps and conflicts are asked there, as open questions in the file,
+ not earlier. Everything planned later derives from that file.
+@@ -87,8 +89,9 @@
+   `🎯 Context 🔄 · 🚀 Ceremony ⏳ · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳`
+ - Leave the Progress table empty; Plan fills it
+ 
+-Then initialise metrics and start the stage, reusing the same `git config user.name`
+-value:
++Then mark the Context stage's native task `in_progress`
++(`patterns/task-tracking.md`), and initialise metrics and start the stage, reusing
++the same `git config user.name` value:
+ 
+ ```sh
+ node {{provider:skills_root}}/dev/scripts/timing.mjs init --dir "$IMPL_DIR" --ticket "$TICKET" --author "$AUTHOR"
+@@ -197,20 +200,11 @@
+ `🎯 Context ✅ · 🚀 Ceremony 🔄 · 📋 Plan ⏳ · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳`,
+ then metrics `report`.
+ 
+-## Step 7 — Commit
+-
+-The story folder is new. Propose:
+-
+-```
+-docs({ticket-lowercase}): capture intent for {short-name}
+-```
+-
+-covering `docs/Stories/[{TICKET}] {name}/impl/` (intent, report skeleton, stat.json).
+-
+-This is a manual-operation sign-off (`patterns/approval-sign-off.md`): the developer
+-runs the commit, you wait. `wait start --reason user_input --detail "Awaiting commit"`.
+-**Stop and wait.** On the reply, check `git log`/`git status`: the commit exists and the
+-worktree holds nothing from this phase. If not, say what is missing and wait again.
+-Then `stage complete --stage context`. Continue to Ceremony for a full-flow request; stop here for direct entry.
++## Step 7 — Close
++
++No commit in this stage. `stage complete --stage context`. Continue to Ceremony for a
++full-flow request. For direct entry stop here and say that the story folder is
++uncommitted on purpose until `{{provider:invoke:dev}} ceremony {TICKET}` checks out the
++branch and proposes the first commit.
+ 
+ 🔁 Re-read `{{provider:skills_root}}/dev/SKILL.md` and resume the router from the next stage (Ceremony).

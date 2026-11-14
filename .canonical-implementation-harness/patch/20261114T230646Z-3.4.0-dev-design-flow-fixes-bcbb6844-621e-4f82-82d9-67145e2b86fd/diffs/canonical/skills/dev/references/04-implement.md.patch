@@ -1,0 +1,24 @@
+--- a/canonical/skills/dev/references/04-implement.md
++++ b/canonical/skills/dev/references/04-implement.md
+@@ -1,7 +1,8 @@
+ # Implement stage
+ 
+ Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
+-`--stage implement`. First action: `stage start --stage implement`.
++`--stage implement`. First actions: mark this stage's native task `in_progress`
++(`patterns/task-tracking.md`), then `stage start --stage implement`.
+ 
+ Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This stage
+ executes the approved `1-plan.md` one step at a time.
+@@ -104,6 +105,11 @@
+    missing piece. Report what you ran and the real result; name the divergence or
+    the item that needs their eyes; give the precise action (what to open, what to
+    look at, which command to run). Do not ask a general "does it look good?".
++   A verification item that needs a live browser applies
++   `{{provider:skills_root}}/dev/runtime/browser.md`. If the browser tools report not
++   connected, follow that file's "When the tools are not exposed" walkthrough once
++   (say what is missing and how to connect) before handing the check to the
++   developer; record it as verified by them, their words as evidence.
+    Before stopping: update the step's Progress row and note, `report`, then
+    `wait start --reason user_input --detail "Step N: <what is needed>"`.
+    **Stop and wait.** On the reply, `resume --activity implementation` and record

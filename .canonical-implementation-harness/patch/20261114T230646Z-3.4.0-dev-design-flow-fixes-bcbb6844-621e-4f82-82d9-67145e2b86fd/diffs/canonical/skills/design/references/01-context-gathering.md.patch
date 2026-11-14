@@ -1,0 +1,38 @@
+--- a/canonical/skills/design/references/01-context-gathering.md
++++ b/canonical/skills/design/references/01-context-gathering.md
+@@ -13,8 +13,9 @@
+ folder is created under. It creates the story folder and `design/Report.md`,
+ but writes no framing content; that is Frame's job.
+ 
+-Two stops in this stage: the sign-off in Step 5 on the gathered context, and
+-the commit in Step 7.
++One stop in this stage: the sign-off in Step 5 on the gathered context. There is
++no commit here; the story folder is committed by Ceremony Step 4, after the branch
++checkout, so the lifecycle's first commit lands on the feature branch.
+ 
+ > 🔁 **Session continuity:** apply `{{provider:skills_root}}/design/patterns/session-continuity.md`.
+ 
+@@ -153,18 +154,11 @@
+ 
+ Then metrics `report`.
+ 
+-## Step 7 — Commit
++## Step 7 — Close
+ 
+-The story folder is new. Propose:
+-
+-> `docs({TICKET}): gather context for <short title>`
+-
+-covering `{{DESIGN_STORIES_ROOT}}[{TICKET}] {name}/design/` (Report.md, stat.json).
+-
+-This is a manual-operation sign-off (`patterns/approval-sign-off.md`) — the
+-developer runs the commit, never you. `wait start --reason user_input`.
+-**Stop and wait.** On the reply, check `git log`/`git status`: the commit exists
+-and the worktree holds nothing from this phase. If not, say what is missing and
+-wait again. Then `stage complete --stage context-gathering`.
++No commit in this stage. `stage complete --stage context-gathering`. Continue to
++Ceremony for a full-flow request. For direct entry stop here and say that the story
++folder is uncommitted on purpose until `{{provider:invoke:design}} ceremony {TICKET}`
++checks out the branch and proposes the first commit.
+ 
+ 🔁 Re-read `{{provider:skills_root}}/design/SKILL.md` and resume the router from the next stage (Ceremony).

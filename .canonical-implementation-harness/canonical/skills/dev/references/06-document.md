@@ -1,7 +1,8 @@
 # Document stage
 
 Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage document`. First action: `stage start --stage document`.
+`--stage document`. First actions: mark this stage's native task `in_progress`
+(`patterns/task-tracking.md`), then `stage start --stage document`.
 
 Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This stage
 keeps the permanent docs true after the change: find out what the change means for

@@ -2,9 +2,10 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "3f53380f98c9847adbc123d07278b45b270c6b4a3eb81a568619c85f72f127a7",
-      "snapshot": "state/objects/3f53380f98c9847adbc123d07278b45b270c6b4a3eb81a568619c85f72f127a7",
-      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+      "recorded_sha256": "10de1b1d2094c984f6bb061085cdc43bcbb4bda36603bdb5e9da23dd5ead2693",
+      "snapshot": "bundle:9bb977cd-e11e-4586-b3fc-778e7b5d3473",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
+      "note": "prepare 20261114T230821Z: root-instructions interface"
     },
     "README.md": {
       "recorded_sha256": "accc8ed1c961a0375ec2f572d721a1b28766847c0bf6a2bffe3cb8dfe0af0b76",
@@ -12,9 +13,10 @@
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "SKILL.md": {
-      "recorded_sha256": "d7699b56eeae858513266ce50054c34903580b96e6d98a3fccf48b4a8dcdc992",
-      "snapshot": "state/objects/d7699b56eeae858513266ce50054c34903580b96e6d98a3fccf48b4a8dcdc992",
-      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+      "recorded_sha256": "fbce531df0ac6fba86a25f6185bd1ccee02f2f9529bc1a2c76eca47abcae34db",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/adaptors/claude/browser.md": {
       "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
@@ -219,14 +221,15 @@
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/skills/design/INTENT.md": {
-      "recorded_sha256": "5bdcd2a46d316e58e41ab284747d070983b105717f85dd6429dc1672884db346",
-      "snapshot": "state/objects/5bdcd2a46d316e58e41ab284747d070983b105717f85dd6429dc1672884db346",
-      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+      "recorded_sha256": "432993b3bdd9614846e7b3bb941b73a72f46e0e8ba3f809bf64f48ad629a78e4",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/design/TEMPLATE.md": {
-      "recorded_sha256": "618ed8d068008c7c6ee13b7c09ad961eebe668c7657fc2509cb5783c4851ffb3",
-      "snapshot": "manual-correction:TD-1-DESIGN-20261102-Q5MU",
-      "note": "Prior checkpoint (bundle:edc3be8b) recorded a hash this file has never actually had in git history -- the harvest diff payload drifted from what was committed, confirmed unreachable from any commit or state/objects/. Re-baselined to the real current committed content (verified: matches git HEAD exactly) rather than attempting to reconstruct the broken diff. See 2-report.md TD-1 for the full investigation."
+      "recorded_sha256": "e82dfc6bc679459b9924fa0e328dbf5d45b6efb0c13e5ecfa6262b6ace908191",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/design/interfaces/architecture.md": {
       "recorded_sha256": "9cf39916c24401ca61d5f64193e79c5dc9b26c3a2065845139a8221bb7ffbb1e",
@@ -357,12 +360,14 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/dev/INTENT.md": {
-      "recorded_sha256": "27a6b227f09bed28788c0c201607008107b0bb2792f9bc9d5721c5997414acfa",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "3b5dd2c09bc2a3f9dc7348a5d4b28462902b8387f2d8a74ef397dca5e9f45c3b",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/TEMPLATE.md": {
-      "recorded_sha256": "a6ae755a12568a7ff04a78470f583178dbc2edc32a44baa71c9dfe0398e74c21",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "28c413127e4702732c3e4e02907b8e05f853b9851fdeacced037690345cf564f",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/interfaces/intent.md": {
       "recorded_sha256": "dbce01d8b97bdbde0ab4b29792818b6a160a6043d8c940d2c8bb276f9995e40c",
@@ -417,32 +422,39 @@
       "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
     },
     "canonical/skills/dev/references/01-context-gathering.md": {
-      "recorded_sha256": "8342617e97e801e125b3a00b4ed87c94edff020b091cf357d66d5deb05e0a14e",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "fd1968b3c20d5b58434a140102504c65816d2a3f4f7e4678db8126aad5d5bb9a",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/references/02-ceremony.md": {
-      "recorded_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "d50a933e6ff095aacd5148e72b45ca70158846cc2cfab6e0cd8a4a01c77dffe9",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/references/03-plan.md": {
-      "recorded_sha256": "509e99588e688fd3598caf272d1612def7fad803e55bcbe9ca3a5119e3f599c8",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "3672ebb8c921f2ffb83f344cb943bee74f6da2970688bf2e9f8d9374d9d674a4",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/references/04-implement.md": {
-      "recorded_sha256": "0b36bda3e2dbd483fc9fda6d71ec9361695c49d4a2207fa91887f4e70d918da8",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "fa66c08fec28a01e1d0f62614a2e191134f772200952755ecaa57e87aa890790",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/references/05-test.md": {
-      "recorded_sha256": "270d1eff9068eeac537670b651e9c665843d020ef80b408508c677e65b73510a",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "dfc251095e51b76dbc83544f25687a13ae715d3944d1de3c50bbf1857b1eb7ea",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/references/06-document.md": {
-      "recorded_sha256": "777fb629303014112f464d053e402f8755535f57a51fcd264917cb68e7a7c62e",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "a79cfd3051f2c20225a3bd0fcbf087a7f7044cd5f9f934cff796f5f6428bb713",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/references/07-completion.md": {
-      "recorded_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
-      "snapshot": "bundle:fe0b575a-b784-4792-9cbb-d39b3cc902d4"
+      "recorded_sha256": "236173c7501fd432358e42c07c12c9bd1e9fa6592b796229b68621b418bb5dd5",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/dev/scripts/constants.mjs": {
       "recorded_sha256": "f146f7191dc328a1277d36c6394298b233e87a0aafe27855c14b0500b1d02af3",
@@ -608,9 +620,10 @@
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "references/launch/01b-launch-install.md": {
-      "recorded_sha256": "5230dc5ccf93aeb1002c90ece3632a1d9bb9ba445519e1f8290c8f6e9e6e3f98",
-      "snapshot": "state/objects/5230dc5ccf93aeb1002c90ece3632a1d9bb9ba445519e1f8290c8f6e9e6e3f98",
-      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+      "recorded_sha256": "11202e3e4666353ea983ea1f9e97ba8ea177320a4eb5841ff29da9a00d19dfc5",
+      "snapshot": "bundle:9bb977cd-e11e-4586-b3fc-778e7b5d3473",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
+      "note": "prepare 20261114T230821Z: root-instructions interface"
     },
     "references/launch/01c-launch-docs.md": {
       "recorded_sha256": "628cfe0729c26fe4067a7492b34db8e2f563be2d33b6fc6d74aab9252ba715c3",
@@ -650,8 +663,9 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "registry.md": {
-      "recorded_sha256": "151b4b502c381a931a85dfdf4c88b20ae51daee77315f07e5db002a8aac81125",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "a180ce376d349f38ecfcba35fdef6ed88262a4a8495a37ab5f8274084f8746fb",
+      "snapshot": "local:20261114T230821Z",
+      "note": "local deployment action: added `root-instructions` structure row (CLAUDE.md); not a payload"
     },
     "reports/report.template.md": {
       "recorded_sha256": "63e901059b9f67d89c88a489e0c01c23ebc3520427da0e63701802dbe8c0af74",
@@ -666,20 +680,23 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/01-context-gathering.md": {
-      "recorded_sha256": "d8c96fd439f234e0f2346f99fded0e5454484aae19c348644f78708c89c04cee",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "59b4700a0cd7871df5c2fe461b353217de4bab5d761b08a54ae8e19222ff113d",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/design/references/02-ceremony.md": {
-      "recorded_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
-      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+      "recorded_sha256": "30cde67705b1c5b60d5594a04fb2a4afc83a437a590d5e7cb2f32a6f3065e4d7",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/design/references/03-frame.md": {
       "recorded_sha256": "cbbea6e3a8452d72bcc692b43b80dd8eac6e78e56119e04a27cf1c7e8ac2b63f",
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/design/references/04-research.md": {
-      "recorded_sha256": "cb86d6442dee06634c39e05f4742a1e70f7176f1f66585d6a5f69541ce889048",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "cc75489aa9fca4b143da6d514ff52bd3aa0d81f753b190ef8e1c285dd2eabcbb",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/skills/design/references/05-evaluate.md": {
       "recorded_sha256": "86bf412561ca3642aa997e0e5dd2e49befed2a08e38d16fd8ca42e5803536b5d",
@@ -702,8 +719,9 @@
       "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/skills/design/references/10-completion.md": {
-      "recorded_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
-      "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
+      "recorded_sha256": "1e70e9b3586a95c75541e2e6c5bd4ba27f4fe4643c5569963fac88562b4404a8",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "references/launch/01d-launch-graph-verify.md": {
       "recorded_sha256": "f93d60b8e59f59ad40522037f86abbbf7843d30d239a82eb8621be019d8699b6",
@@ -714,8 +732,9 @@
       "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
     },
     "canonical/docs/.og/cli.mjs": {
-      "recorded_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
+      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
     },
     "canonical/docs/.og/cli.test.mjs": {
       "recorded_sha256": "48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
@@ -860,6 +879,11 @@
       "recorded_sha256": "6134924a8277ea98726ec930ff21f0144e03fd1fe79f9e29ebf62dd93627ac04",
       "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
       "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+    },
+    "canonical/root-instructions/INTERFACE.md": {
+      "recorded_sha256": "71f15c0d9c29af3d8df7d9eed61ac5ae369dff9489dbdd5eb7f4bd9e5eff8bb7",
+      "snapshot": "bundle:9bb977cd-e11e-4586-b3fc-778e7b5d3473",
+      "note": "prepare 20261114T230821Z: root-instructions interface"
     }
   },
   "mappings": {
@@ -945,17 +969,17 @@
     },
     ".claude/skills/design/SKILL.md": {
       "canonical_source": "canonical/skills/design/TEMPLATE.md",
-      "canonical_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
+      "canonical_sha256": "e82dfc6bc679459b9924fa0e328dbf5d45b6efb0c13e5ecfa6262b6ace908191",
       "deployed_sha256": "46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e",
       "rendered_base": "46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e",
-      "note": "harvest receipt from bundle edc3be8b-29d2-4963-af01-d8e57c41dd90; deployed_sha256/rendered_base updated to match the already-identical live file (no placeholder substitution differs for this project's own dogfood deployment of this change)",
+      "note": "harvest receipt from bundle edc3be8b-29d2-4963-af01-d8e57c41dd90; deployed_sha256/rendered_base updated to match the already-identical live file (no placeholder substitution differs for this project's own dogfood deployment of this change) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
       "provider": "claude",
       "harvest_receipt": {
-        "observed_permanent_sha256": "46ebbe2792894611861f83f7d0356cafb14442bbd0345d83a2269b1d73060f9e",
-        "promoted_canonical_sha256": "fdc485073caab00182b8b6c618588d6bf6326222d28edea837100c995db71cf3",
+        "observed_permanent_sha256": "d109cc6a392cd9aa611b03d4aa2f2d7f86d7cb37e2a4b0bfb027d65d51505798",
+        "promoted_canonical_sha256": "e82dfc6bc679459b9924fa0e328dbf5d45b6efb0c13e5ecfa6262b6ace908191",
         "excluded_local_only_changes": [],
-        "bundle": "edc3be8b-29d2-4963-af01-d8e57c41dd90",
-        "observed_at": "2026-11-02T14:54:57Z"
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
       }
     },
     ".claude/skills/design/interfaces/architecture.md": {
@@ -1280,11 +1304,18 @@
     },
     ".claude/skills/dev/SKILL.md": {
       "canonical_source": "canonical/skills/dev/TEMPLATE.md",
-      "canonical_sha256": "a6ae755a12568a7ff04a78470f583178dbc2edc32a44baa71c9dfe0398e74c21",
+      "canonical_sha256": "28c413127e4702732c3e4e02907b8e05f853b9851fdeacced037690345cf564f",
       "deployed_sha256": "aaeb40fba1c633563ff648dc6f7214417acbf12d1a894f9c0311fd6f9f4183a5",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
-      "provider": "claude"
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "cb7a4d58aa333b12a8dcf0af53f2d029b750341f78e4b84e7293d758770385e8",
+        "promoted_canonical_sha256": "28c413127e4702732c3e4e02907b8e05f853b9851fdeacced037690345cf564f",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/interfaces/intent.md": {
       "canonical_source": "canonical/skills/dev/interfaces/intent.md",
@@ -1392,59 +1423,108 @@
     },
     ".claude/skills/dev/references/01-context-gathering.md": {
       "canonical_source": "canonical/skills/dev/references/01-context-gathering.md",
-      "canonical_sha256": "8342617e97e801e125b3a00b4ed87c94edff020b091cf357d66d5deb05e0a14e",
+      "canonical_sha256": "fd1968b3c20d5b58434a140102504c65816d2a3f4f7e4678db8126aad5d5bb9a",
       "deployed_sha256": "15dc97cde540ac68c12c12d8e9e751b413128ff164e2e6fd732d97896bf0d57e",
       "rendered_base": null,
-      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
-      "provider": "claude"
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "a811497fbdfb0d7789007b3db65a07763da72194130b15e11b7217ec3a8766a4",
+        "promoted_canonical_sha256": "fd1968b3c20d5b58434a140102504c65816d2a3f4f7e4678db8126aad5d5bb9a",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/references/02-ceremony.md": {
       "canonical_source": "canonical/skills/dev/references/02-ceremony.md",
-      "canonical_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
+      "canonical_sha256": "d50a933e6ff095aacd5148e72b45ca70158846cc2cfab6e0cd8a4a01c77dffe9",
       "deployed_sha256": "3da7f3ee083b7617fb0b731135ae2a6605fbc04ce4491e8dd14e67c639a1b1aa",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
-      "provider": "claude"
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "4f243ebd80f177c608834b656d22ed9db6742fc02c22ce6897826d89f7b7ce8c",
+        "promoted_canonical_sha256": "d50a933e6ff095aacd5148e72b45ca70158846cc2cfab6e0cd8a4a01c77dffe9",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/references/03-plan.md": {
       "canonical_source": "canonical/skills/dev/references/03-plan.md",
-      "canonical_sha256": "509e99588e688fd3598caf272d1612def7fad803e55bcbe9ca3a5119e3f599c8",
+      "canonical_sha256": "3672ebb8c921f2ffb83f344cb943bee74f6da2970688bf2e9f8d9374d9d674a4",
       "deployed_sha256": "3283c8affc00df61ecdf79a16fbca9e9f2f2dd1a520f87aa87a2509df1bf167c",
       "rendered_base": null,
-      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
-      "provider": "claude"
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "6479508402f0ee55dc45b7c97f41f4a259d5474d58d42502066d83c3d01fb646",
+        "promoted_canonical_sha256": "3672ebb8c921f2ffb83f344cb943bee74f6da2970688bf2e9f8d9374d9d674a4",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/references/04-implement.md": {
       "canonical_source": "canonical/skills/dev/references/04-implement.md",
-      "canonical_sha256": "0b36bda3e2dbd483fc9fda6d71ec9361695c49d4a2207fa91887f4e70d918da8",
+      "canonical_sha256": "fa66c08fec28a01e1d0f62614a2e191134f772200952755ecaa57e87aa890790",
       "deployed_sha256": "f0989c5da7087c857127b953d7a3f81c507c10117e3120703c6fc767163e243e",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local commit-scope examples (infra, lambda-auth, docs-web)",
-      "provider": "claude"
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local commit-scope examples (infra, lambda-auth, docs-web) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "30c674f0fa75c735b1b4448959fe1d052ed8a741928b1f313322bf33eeced87c",
+        "promoted_canonical_sha256": "fa66c08fec28a01e1d0f62614a2e191134f772200952755ecaa57e87aa890790",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/references/05-test.md": {
       "canonical_source": "canonical/skills/dev/references/05-test.md",
-      "canonical_sha256": "270d1eff9068eeac537670b651e9c665843d020ef80b408508c677e65b73510a",
+      "canonical_sha256": "dfc251095e51b76dbc83544f25687a13ae715d3944d1de3c50bbf1857b1eb7ea",
       "deployed_sha256": "55f39e4936dfbfb0ec99507acec22b468ae0dfb310c12faeca8b4928cdb50a4f",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local customizations: no DB layer (migration mention dropped), project build/typecheck/lint targets named, cdk synth/deploy guard note",
-      "provider": "claude"
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); retained customization: retained local customizations: no DB layer (migration mention dropped), project build/typecheck/lint targets named, cdk synth/deploy guard note | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "316bb944c55b5f2492b985df556178a2fc3a5d19e087c45017d2100a198940e0",
+        "promoted_canonical_sha256": "dfc251095e51b76dbc83544f25687a13ae715d3944d1de3c50bbf1857b1eb7ea",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/references/06-document.md": {
       "canonical_source": "canonical/skills/dev/references/06-document.md",
-      "canonical_sha256": "777fb629303014112f464d053e402f8755535f57a51fcd264917cb68e7a7c62e",
+      "canonical_sha256": "a79cfd3051f2c20225a3bd0fcbf087a7f7044cd5f9f934cff796f5f6428bb713",
       "deployed_sha256": "350449323f830db36be76628c915bf0d5f0d1bdb97bb6c8eb3dc409bb7306b0e",
       "rendered_base": null,
-      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
-      "provider": "claude"
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "a2bbe94c072d722aba48058d3262bb5a2205ec4440b483f4cc8e6371762b1e44",
+        "promoted_canonical_sha256": "a79cfd3051f2c20225a3bd0fcbf087a7f7044cd5f9f934cff796f5f6428bb713",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/references/07-completion.md": {
       "canonical_source": "canonical/skills/dev/references/07-completion.md",
-      "canonical_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
+      "canonical_sha256": "236173c7501fd432358e42c07c12c9bd1e9fa6592b796229b68621b418bb5dd5",
       "deployed_sha256": "0077a8cf2e517921db93f6775eca1868c1a1be6db58810cd368b05939920eb11",
       "rendered_base": null,
-      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted)",
-      "provider": "claude"
+      "note": "deployed by apply 6678df37-6181-4971-ae10-72c729996d1a (bundle fe0b575a); clean rendered output (prettier-formatted) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "04e3bf906663c5c56d4344c8191e147d13e37fe48c27ebbf5cdc639ff5c865b9",
+        "promoted_canonical_sha256": "236173c7501fd432358e42c07c12c9bd1e9fa6592b796229b68621b418bb5dd5",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/dev/runtime/browser.md": {
       "canonical_source": "canonical/adaptors/claude/browser.md",
@@ -2043,7 +2123,7 @@
       "canonical_sha256": "821e0fa6653a1bf06f680ea5b36a3b54630e5fb99f11856abe7ccbc6428bb23c",
       "deployed_sha256": "d48a9f429a560628ccc6acdcf8d888104fa4d3a0ec87fe58d1b2a6678a8839b2",
       "rendered_base": null,
-      "note": "retained local customization — canonical not deployed (contradicts verified project MCP config)",
+      "note": "retained local customization \u2014 canonical not deployed (contradicts verified project MCP config)",
       "provider": "shared"
     },
     "docs/Engineering Guide/Documentation/01 Principles.md": {
@@ -2160,19 +2240,33 @@
     },
     ".claude/skills/design/references/01-context-gathering.md": {
       "canonical_source": "canonical/skills/design/references/01-context-gathering.md",
-      "canonical_sha256": "d8c96fd439f234e0f2346f99fded0e5454484aae19c348644f78708c89c04cee",
+      "canonical_sha256": "59b4700a0cd7871df5c2fe461b353217de4bab5d761b08a54ae8e19222ff113d",
       "deployed_sha256": "b1a8ae6d521be9a34b2a40f3c438a80afc6cafdbe8fc1c23cbf950e64eae9bd7",
       "rendered_base": null,
-      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
-      "provider": "claude"
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "6a6a1b8b22e303e9863517aa59e786f6f2a226938fe69db79e64c97d4422bc1f",
+        "promoted_canonical_sha256": "59b4700a0cd7871df5c2fe461b353217de4bab5d761b08a54ae8e19222ff113d",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/design/references/02-ceremony.md": {
       "canonical_source": "canonical/skills/design/references/02-ceremony.md",
-      "canonical_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
+      "canonical_sha256": "30cde67705b1c5b60d5594a04fb2a4afc83a437a590d5e7cb2f32a6f3065e4d7",
       "deployed_sha256": "a2843a72d6f6b6c7a2c051cc7e4f8d64767497ef1de36a2e368563e524295904",
       "rendered_base": "a2843a72d6f6b6c7a2c051cc7e4f8d64767497ef1de36a2e368563e524295904",
-      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
-      "provider": "claude"
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243 | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "e386c041fbc1da02c31ae737df098ca31cd98b999d501657f513cf302d1817c9",
+        "promoted_canonical_sha256": "30cde67705b1c5b60d5594a04fb2a4afc83a437a590d5e7cb2f32a6f3065e4d7",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/design/references/03-frame.md": {
       "canonical_source": "canonical/skills/design/references/03-frame.md",
@@ -2184,11 +2278,18 @@
     },
     ".claude/skills/design/references/04-research.md": {
       "canonical_source": "canonical/skills/design/references/04-research.md",
-      "canonical_sha256": "cb86d6442dee06634c39e05f4742a1e70f7176f1f66585d6a5f69541ce889048",
+      "canonical_sha256": "cc75489aa9fca4b143da6d514ff52bd3aa0d81f753b190ef8e1c285dd2eabcbb",
       "deployed_sha256": "d5dd0f525e0ab9361d9edb25158be3da50e70c5cf66bd5673c6c6dbaa18d779f",
       "rendered_base": null,
-      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11)",
-      "provider": "claude"
+      "note": "deployed/verified by apply e0025a09-8ca9-40d2-8770-e25488f78ac2 (bundle 03e55a3d-60fc-46fe-b363-770421e96874) -- Completion-stage tech-debt closure (TD-3/TD-5/TD-10/TD-11) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "9c7697803b0c3b22d3fb3299bc3cc2ad4a6bcc8425bc4bde5e5ac6bd2707f036",
+        "promoted_canonical_sha256": "cc75489aa9fca4b143da6d514ff52bd3aa0d81f753b190ef8e1c285dd2eabcbb",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     ".claude/skills/design/references/05-evaluate.md": {
       "canonical_source": "canonical/skills/design/references/05-evaluate.md",
@@ -2232,19 +2333,33 @@
     },
     ".claude/skills/design/references/10-completion.md": {
       "canonical_source": "canonical/skills/design/references/10-completion.md",
-      "canonical_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
+      "canonical_sha256": "1e70e9b3586a95c75541e2e6c5bd4ba27f4fe4643c5569963fac88562b4404a8",
       "deployed_sha256": "91daca4b2110f9700a74133af7cd3b611925566ae23a554f48838ab2dae81237",
       "rendered_base": "91daca4b2110f9700a74133af7cd3b611925566ae23a554f48838ab2dae81237",
-      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243",
-      "provider": "claude"
+      "note": "baseline from apply of bundle 991523ee-2a51-4f30-90f4-678ab0e95243 | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "641cb1ee9a40d89122a57c060f870afc9e1367b877ae817d2f29d3fd73d9f35a",
+        "promoted_canonical_sha256": "1e70e9b3586a95c75541e2e6c5bd4ba27f4fe4643c5569963fac88562b4404a8",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     "docs/.og/cli.mjs": {
       "canonical_source": "canonical/docs/.og/cli.mjs",
-      "canonical_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
+      "canonical_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
       "deployed_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
       "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
-      "provider": "claude"
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
+      "provider": "claude",
+      "harvest_receipt": {
+        "observed_permanent_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
+        "promoted_canonical_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
+        "excluded_local_only_changes": [],
+        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+        "observed_at": "2026-11-14T23:06:46.294821+00:00"
+      }
     },
     "docs/.og/constants.mjs": {
       "canonical_source": "canonical/docs/.og/constants.mjs",

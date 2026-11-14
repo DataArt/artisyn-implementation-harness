@@ -1,7 +1,8 @@
 # Completion stage
 
 Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage completion`. First action: `stage start --stage completion`.
+`--stage completion`. First actions: mark this stage's native task `in_progress`
+(`patterns/task-tracking.md`), then `stage start --stage completion`.
 
 Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This is the
 last stage. It makes "done" unambiguous: archive the story, finalise metrics, hand
@@ -140,6 +141,10 @@ Closes {TICKET}
 Pushing and opening the PR are the developer's (`git push` is guarded). When they
 share the PR link, put it in the report's PR row; it can ride along in a small
 follow-up commit.
+
+Mark the Completion stage's native task `completed` now (`patterns/task-tracking.md`):
+the banner shows it done and no later stage exists to do it. Check the native tracker
+shows no open task for this ticket.
 
 Then the closing message. This is the signal the team asked for; do not bury it.
 

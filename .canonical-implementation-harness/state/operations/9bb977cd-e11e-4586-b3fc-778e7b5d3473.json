@@ -1,0 +1,43 @@
+{
+  "schema_version": 2,
+  "bundle_id": "9bb977cd-e11e-4586-b3fc-778e7b5d3473",
+  "mode": "prepare",
+  "providers": [],
+  "status": "prepared",
+  "created_at": "2026-11-14T23:08:21.818817+00:00",
+  "files": [
+    {
+      "path": "canonical/root-instructions/INTERFACE.md",
+      "canonical_pre_sha256": null,
+      "canonical_post_sha256": "71f15c0d9c29af3d8df7d9eed61ac5ae369dff9489dbdd5eb7f4bd9e5eff8bb7",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "references/launch/01b-launch-install.md",
+      "canonical_pre_sha256": "5230dc5ccf93aeb1002c90ece3632a1d9bb9ba445519e1f8290c8f6e9e6e3f98",
+      "canonical_post_sha256": "11202e3e4666353ea983ea1f9e97ba8ea177320a4eb5841ff29da9a00d19dfc5",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "CHANGELOG.md",
+      "canonical_pre_sha256": "6f7013c1cf33bfafe90a37e09c6ddb67a871757be17d85954e81caeb4db40d69",
+      "canonical_post_sha256": "10de1b1d2094c984f6bb061085cdc43bcbb4bda36603bdb5e9da23dd5ead2693",
+      "result": "prepared",
+      "provider": null
+    }
+  ],
+  "decisions": [
+    "Prepare only: canonical/package files edited directly on 2026-11-14 (commit a0133af); no permanent file read or written.",
+    "INTERFACE.md is canonical-only: interface articles are read at launch and checked by structure rows, never deployed.",
+    "registry.md (local bookkeeping) gained the `root-instructions` structure row; recorded as a local deployment action, checkpoint advanced, not bundled.",
+    "CLAUDE.md's 'Work outside a ticket' section is a structure-only root file edit: local, not harvested.",
+    "Package version already 3.4.0 from the sibling harvest; this bundle adds its CHANGELOG line and requires that bundle."
+  ],
+  "unresolved": [],
+  "verification": {
+    "written_hashes_match_payload_after": true,
+    "bundle": "patch/20261114T230821Z-root-instructions-interface-9bb977cd-e11e-4586-b3fc-778e7b5d3473"
+  }
+}

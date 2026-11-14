@@ -1,0 +1,27 @@
+--- a/canonical/skills/dev/INTENT.md
++++ b/canonical/skills/dev/INTENT.md
+@@ -105,16 +105,17 @@
+       rework and Implement Step 3 step checkpoint are intelligent
+       checkpoints. Omitted tracker branches must not be restored to satisfy this list.
+ - [ ] Every phase sign-off step carries its own `wait start` + **Stop and wait** line and records a `<Stage> sign-off` acceptance check; `scripts/timing.mjs` refuses `stage complete` without one in the current attempt (covered by its tests)
+-- [ ] Every stage reference names its `stage start` as the first action and ends with the
+-      same three steps — Sign-off (rework if any) → Report (`2-report.md`, metrics `report`) →
+-      Commit (proposed, developer runs it, verified in Git, then `stage complete`; Implement by
+-      step/block) — with every stop preceded by `report` + `wait start`.
++- [ ] Every stage reference names marking the stage's native task `in_progress` and then
++      `stage start` as its first actions, and ends with the same three steps — Sign-off (rework
++      if any) → Report (`2-report.md`, metrics `report`) → Commit (proposed, developer runs it,
++      verified in Git, then `stage complete`; Implement by step/block) — with every stop preceded
++      by `report` + `wait start`. Context Gathering is the one exception: it ends with Report →
++      Close (`stage complete`, no commit); its files ride in Ceremony's first commit after checkout.
+ - [ ] Quality summary preserves unknown counts and distinguishes failed runs from cases.
+ - [ ] Closure requires evidence for terminal resolutions; full-flow tracker completion has one owner.
+ 
+-- [ ] Plan Step 3 uses the selected provider's planning procedure and respects host write
+-      restrictions; a native planning approval, when present, is the Plan phase sign-off
+-      and adds no second stop. An unavailable native mode plans without claiming native enforcement.
++- [ ] Plan Step 3 does not use the host's native planning mode (the stage writes files and
++      delegates); the Plan phase sign-off at Step 5 is its only gate.
+ - [ ] Plan Step 1 writes tests by default when the project has a test setup for the touched layers (type chosen from the work, existing framework only); skipping it requires a stated reason in the plan. Its verification is "suite runs, new cases red as expected", recorded as a passed self-sourced acceptance check so the metrics gate can close the step.
+ 
+ ## Component-agent routing

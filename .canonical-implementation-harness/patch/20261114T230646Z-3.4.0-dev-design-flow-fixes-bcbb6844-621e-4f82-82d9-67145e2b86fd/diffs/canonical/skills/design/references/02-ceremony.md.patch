@@ -1,0 +1,17 @@
+--- a/canonical/skills/design/references/02-ceremony.md
++++ b/canonical/skills/design/references/02-ceremony.md
+@@ -77,9 +77,11 @@
+ 
+ ## Step 4 — Commit
+ 
+-Nothing new beyond the report row. If Context Gathering's commit is still
+-pending, propose it again with this row included; otherwise propose
+-`docs({TICKET}): record branch and tracker state`.
++The lifecycle's first commit, on the branch just checked out. Propose
++`docs({TICKET}): gather context and record branch` covering
++`{{DESIGN_STORIES_ROOT}}[{TICKET}] {name}/design/` (Report.md, stat.json) and this stage's
++row. If the story folder was already committed earlier (a resumed design), propose
++only `docs({TICKET}): record branch and tracker state`.
+ 
+ This is a manual-operation sign-off (`patterns/approval-sign-off.md`) — the
+ developer runs the commit, never you. `wait start --reason user_input`.

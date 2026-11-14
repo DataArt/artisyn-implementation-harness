@@ -1,0 +1,13 @@
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -12,6 +12,10 @@
+   needs a browser and the tools report not connected.
+ - Context Gathering no longer commits; Ceremony's commit after the branch checkout is the
+   lifecycle's first commit, in dev and design (design skill 6.2.0).
++- New `canonical/root-instructions/INTERFACE.md`: the required categories and intent of every
++  generated root instruction file (Why, conventions, architecture, NFRs, lifecycles, agents,
++  tracker and integrations, work outside a ticket); launch Block C reads it and the root file
++  is registered with a `structure` row.
+ - Operational graph CLI validates `--dir` against its own project root and read-only
+   commands fail on an unbuilt graph instead of creating a stray empty database; design
+   Research passes `--dir .` explicitly.

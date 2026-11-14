@@ -54,7 +54,9 @@ The full design lifecycle in one skill: Context Gathering → Ceremony → Frame
 Research → Evaluate → Solution → Review Gate → Address Feedback → Publish →
 Completion. Routes to each stage reference in order (or directly to one stage,
 on request), stopping once per phase for developer confirmation (two stops —
-sign-off, then commit — except Review Gate/Address Feedback, which wait on the
+sign-off, then commit — except Context Gathering, which has no commit of its own
+and rides in Ceremony's first commit after checkout, and Review Gate/Address
+Feedback, which wait on the
 real external MR approval state). Replaces the former separate `design-frame`,
 `design-research`, `design-evaluate`, `design-solution`, `design-review-gate`,
 `design-review`, `design-address-feedback`, `design-publish` skills — those

@@ -1,7 +1,8 @@
 # Test stage
 
 Apply `{{provider:skills_root}}/dev/patterns/metrics.md`; this stage's metrics unit is
-`--stage test`. First action: `stage start --stage test`. Wrap every command you run
+`--stage test`. First actions: mark this stage's native task `in_progress`
+(`patterns/task-tracking.md`), then `stage start --stage test`. Wrap every command you run
 with `check --kind <kind> --name <name> -- <command>`.
 
 Routing and stage tracking live in `{{provider:skills_root}}/dev/SKILL.md`. This stage
@@ -99,7 +100,9 @@ Intelligent-approval checkpoint (`patterns/approval-intelligent.md`). Auto-appro
 conditions, all required:
 
 - Every AC could be checked here: a command, a response, a file, a log, nothing
-  that needs the developer's access, their machine, or their eyes
+  that needs the developer's access, their machine, or their eyes. A browser AC
+  applies `{{provider:skills_root}}/dev/runtime/browser.md`; tools reporting not connected
+  get its setup walkthrough once before the AC is handed to the developer
 - Every AC passed, with its evidence recorded
 
 All met → say in one line "N/N acceptance criteria pass" and continue. Otherwise:

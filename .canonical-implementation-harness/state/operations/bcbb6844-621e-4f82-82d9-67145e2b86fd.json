@@ -1,0 +1,205 @@
+{
+  "schema_version": 2,
+  "bundle_id": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
+  "mode": "harvest",
+  "providers": ["claude"],
+  "status": "harvested",
+  "created_at": "2026-11-14T23:06:46.294821+00:00",
+  "files": [
+    {
+      "path": "CHANGELOG.md",
+      "canonical_pre_sha256": "3f53380f98c9847adbc123d07278b45b270c6b4a3eb81a568619c85f72f127a7",
+      "canonical_post_sha256": "6f7013c1cf33bfafe90a37e09c6ddb67a871757be17d85954e81caeb4db40d69",
+      "expected_sha256": "6f7013c1cf33bfafe90a37e09c6ddb67a871757be17d85954e81caeb4db40d69",
+      "result": "harvested",
+      "provider": null,
+      "permanent_path": null,
+      "observed_permanent_sha256": null
+    },
+    {
+      "path": "SKILL.md",
+      "canonical_pre_sha256": "d7699b56eeae858513266ce50054c34903580b96e6d98a3fccf48b4a8dcdc992",
+      "canonical_post_sha256": "fbce531df0ac6fba86a25f6185bd1ccee02f2f9529bc1a2c76eca47abcae34db",
+      "expected_sha256": "fbce531df0ac6fba86a25f6185bd1ccee02f2f9529bc1a2c76eca47abcae34db",
+      "result": "harvested",
+      "provider": null,
+      "permanent_path": null,
+      "observed_permanent_sha256": null
+    },
+    {
+      "path": "canonical/skills/design/INTENT.md",
+      "canonical_pre_sha256": "5bdcd2a46d316e58e41ab284747d070983b105717f85dd6429dc1672884db346",
+      "canonical_post_sha256": "432993b3bdd9614846e7b3bb941b73a72f46e0e8ba3f809bf64f48ad629a78e4",
+      "expected_sha256": "432993b3bdd9614846e7b3bb941b73a72f46e0e8ba3f809bf64f48ad629a78e4",
+      "result": "harvested",
+      "provider": null,
+      "permanent_path": null,
+      "observed_permanent_sha256": null
+    },
+    {
+      "path": "canonical/skills/design/TEMPLATE.md",
+      "canonical_pre_sha256": "618ed8d068008c7c6ee13b7c09ad961eebe668c7657fc2509cb5783c4851ffb3",
+      "canonical_post_sha256": "e82dfc6bc679459b9924fa0e328dbf5d45b6efb0c13e5ecfa6262b6ace908191",
+      "expected_sha256": "e82dfc6bc679459b9924fa0e328dbf5d45b6efb0c13e5ecfa6262b6ace908191",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/design/SKILL.md",
+      "observed_permanent_sha256": "d109cc6a392cd9aa611b03d4aa2f2d7f86d7cb37e2a4b0bfb027d65d51505798"
+    },
+    {
+      "path": "canonical/skills/design/references/01-context-gathering.md",
+      "canonical_pre_sha256": "d8c96fd439f234e0f2346f99fded0e5454484aae19c348644f78708c89c04cee",
+      "canonical_post_sha256": "59b4700a0cd7871df5c2fe461b353217de4bab5d761b08a54ae8e19222ff113d",
+      "expected_sha256": "59b4700a0cd7871df5c2fe461b353217de4bab5d761b08a54ae8e19222ff113d",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/design/references/01-context-gathering.md",
+      "observed_permanent_sha256": "6a6a1b8b22e303e9863517aa59e786f6f2a226938fe69db79e64c97d4422bc1f"
+    },
+    {
+      "path": "canonical/skills/design/references/02-ceremony.md",
+      "canonical_pre_sha256": "befda4815a6d1de26972287a66a5181732546a5a76b2418abb8309357c56d3a6",
+      "canonical_post_sha256": "30cde67705b1c5b60d5594a04fb2a4afc83a437a590d5e7cb2f32a6f3065e4d7",
+      "expected_sha256": "30cde67705b1c5b60d5594a04fb2a4afc83a437a590d5e7cb2f32a6f3065e4d7",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/design/references/02-ceremony.md",
+      "observed_permanent_sha256": "e386c041fbc1da02c31ae737df098ca31cd98b999d501657f513cf302d1817c9"
+    },
+    {
+      "path": "canonical/skills/design/references/04-research.md",
+      "canonical_pre_sha256": "cb86d6442dee06634c39e05f4742a1e70f7176f1f66585d6a5f69541ce889048",
+      "canonical_post_sha256": "cc75489aa9fca4b143da6d514ff52bd3aa0d81f753b190ef8e1c285dd2eabcbb",
+      "expected_sha256": "cc75489aa9fca4b143da6d514ff52bd3aa0d81f753b190ef8e1c285dd2eabcbb",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/design/references/04-research.md",
+      "observed_permanent_sha256": "9c7697803b0c3b22d3fb3299bc3cc2ad4a6bcc8425bc4bde5e5ac6bd2707f036"
+    },
+    {
+      "path": "canonical/skills/design/references/10-completion.md",
+      "canonical_pre_sha256": "134c6b46dcc47944cc417999f2c20c26816aaef89c7001054ab30e08d23204c7",
+      "canonical_post_sha256": "1e70e9b3586a95c75541e2e6c5bd4ba27f4fe4643c5569963fac88562b4404a8",
+      "expected_sha256": "1e70e9b3586a95c75541e2e6c5bd4ba27f4fe4643c5569963fac88562b4404a8",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/design/references/10-completion.md",
+      "observed_permanent_sha256": "641cb1ee9a40d89122a57c060f870afc9e1367b877ae817d2f29d3fd73d9f35a"
+    },
+    {
+      "path": "canonical/skills/dev/INTENT.md",
+      "canonical_pre_sha256": "27a6b227f09bed28788c0c201607008107b0bb2792f9bc9d5721c5997414acfa",
+      "canonical_post_sha256": "3b5dd2c09bc2a3f9dc7348a5d4b28462902b8387f2d8a74ef397dca5e9f45c3b",
+      "expected_sha256": "3b5dd2c09bc2a3f9dc7348a5d4b28462902b8387f2d8a74ef397dca5e9f45c3b",
+      "result": "harvested",
+      "provider": null,
+      "permanent_path": null,
+      "observed_permanent_sha256": null
+    },
+    {
+      "path": "canonical/skills/dev/TEMPLATE.md",
+      "canonical_pre_sha256": "a6ae755a12568a7ff04a78470f583178dbc2edc32a44baa71c9dfe0398e74c21",
+      "canonical_post_sha256": "28c413127e4702732c3e4e02907b8e05f853b9851fdeacced037690345cf564f",
+      "expected_sha256": "28c413127e4702732c3e4e02907b8e05f853b9851fdeacced037690345cf564f",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/SKILL.md",
+      "observed_permanent_sha256": "cb7a4d58aa333b12a8dcf0af53f2d029b750341f78e4b84e7293d758770385e8"
+    },
+    {
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "canonical_pre_sha256": "8342617e97e801e125b3a00b4ed87c94edff020b091cf357d66d5deb05e0a14e",
+      "canonical_post_sha256": "fd1968b3c20d5b58434a140102504c65816d2a3f4f7e4678db8126aad5d5bb9a",
+      "expected_sha256": "fd1968b3c20d5b58434a140102504c65816d2a3f4f7e4678db8126aad5d5bb9a",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/references/01-context-gathering.md",
+      "observed_permanent_sha256": "a811497fbdfb0d7789007b3db65a07763da72194130b15e11b7217ec3a8766a4"
+    },
+    {
+      "path": "canonical/skills/dev/references/02-ceremony.md",
+      "canonical_pre_sha256": "0abfe2bb29a81f479eebcc4336109ceb68ab368ac7b282827f30b82a68067946",
+      "canonical_post_sha256": "d50a933e6ff095aacd5148e72b45ca70158846cc2cfab6e0cd8a4a01c77dffe9",
+      "expected_sha256": "d50a933e6ff095aacd5148e72b45ca70158846cc2cfab6e0cd8a4a01c77dffe9",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/references/02-ceremony.md",
+      "observed_permanent_sha256": "4f243ebd80f177c608834b656d22ed9db6742fc02c22ce6897826d89f7b7ce8c"
+    },
+    {
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "canonical_pre_sha256": "509e99588e688fd3598caf272d1612def7fad803e55bcbe9ca3a5119e3f599c8",
+      "canonical_post_sha256": "3672ebb8c921f2ffb83f344cb943bee74f6da2970688bf2e9f8d9374d9d674a4",
+      "expected_sha256": "3672ebb8c921f2ffb83f344cb943bee74f6da2970688bf2e9f8d9374d9d674a4",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/references/03-plan.md",
+      "observed_permanent_sha256": "6479508402f0ee55dc45b7c97f41f4a259d5474d58d42502066d83c3d01fb646"
+    },
+    {
+      "path": "canonical/skills/dev/references/04-implement.md",
+      "canonical_pre_sha256": "0b36bda3e2dbd483fc9fda6d71ec9361695c49d4a2207fa91887f4e70d918da8",
+      "canonical_post_sha256": "fa66c08fec28a01e1d0f62614a2e191134f772200952755ecaa57e87aa890790",
+      "expected_sha256": "fa66c08fec28a01e1d0f62614a2e191134f772200952755ecaa57e87aa890790",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/references/04-implement.md",
+      "observed_permanent_sha256": "30c674f0fa75c735b1b4448959fe1d052ed8a741928b1f313322bf33eeced87c"
+    },
+    {
+      "path": "canonical/skills/dev/references/05-test.md",
+      "canonical_pre_sha256": "270d1eff9068eeac537670b651e9c665843d020ef80b408508c677e65b73510a",
+      "canonical_post_sha256": "dfc251095e51b76dbc83544f25687a13ae715d3944d1de3c50bbf1857b1eb7ea",
+      "expected_sha256": "dfc251095e51b76dbc83544f25687a13ae715d3944d1de3c50bbf1857b1eb7ea",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/references/05-test.md",
+      "observed_permanent_sha256": "316bb944c55b5f2492b985df556178a2fc3a5d19e087c45017d2100a198940e0"
+    },
+    {
+      "path": "canonical/skills/dev/references/06-document.md",
+      "canonical_pre_sha256": "777fb629303014112f464d053e402f8755535f57a51fcd264917cb68e7a7c62e",
+      "canonical_post_sha256": "a79cfd3051f2c20225a3bd0fcbf087a7f7044cd5f9f934cff796f5f6428bb713",
+      "expected_sha256": "a79cfd3051f2c20225a3bd0fcbf087a7f7044cd5f9f934cff796f5f6428bb713",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/references/06-document.md",
+      "observed_permanent_sha256": "a2bbe94c072d722aba48058d3262bb5a2205ec4440b483f4cc8e6371762b1e44"
+    },
+    {
+      "path": "canonical/skills/dev/references/07-completion.md",
+      "canonical_pre_sha256": "636edb8f943bf568338fdfe18393106fc28b86d8f6191c17158466a1cdf7a48d",
+      "canonical_post_sha256": "236173c7501fd432358e42c07c12c9bd1e9fa6592b796229b68621b418bb5dd5",
+      "expected_sha256": "236173c7501fd432358e42c07c12c9bd1e9fa6592b796229b68621b418bb5dd5",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": ".claude/skills/dev/references/07-completion.md",
+      "observed_permanent_sha256": "04e3bf906663c5c56d4344c8191e147d13e37fe48c27ebbf5cdc639ff5c865b9"
+    },
+    {
+      "path": "canonical/docs/.og/cli.mjs",
+      "canonical_pre_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
+      "canonical_post_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
+      "expected_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": "docs/.og/cli.mjs",
+      "observed_permanent_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5"
+    }
+  ],
+  "decisions": [
+    "Scope: the 13 dev/design skill files and docs/.og/cli.mjs changed by the five /evolve adoptions of 2026-11-14 (commits 9d671ac, c790df4, 68da989); CLAUDE.md is a structure-only root file and is not harvested.",
+    "Every deployed_sha256 in state equalled the pre-adoption hash of its live file, so the promoted delta is exactly the adopted hunks; no earlier unharvested edits were mixed in.",
+    "Generalization: `.claude/skills/` -> `{{provider:skills_root}}/`, `/dev ceremony` -> `{{provider:invoke:dev}} ceremony`, `/design ceremony` -> `{{provider:invoke:design}} ceremony`, `{stories root}` -> `{{DESIGN_STORIES_ROOT}}`; Claude-specific `TaskList` wording replaced by 'the native tracker'. No new placeholder names introduced.",
+    "docs/.og/cli.mjs: canonical copy was edited directly and identically to the live file (prettier-formatted in the same commit); bundled as an update from its recorded checkpoint 2badf4ef\u2026 and recorded as a harvest observation, no canonical write needed.",
+    "dev/runtime/planning.md stays installed and canonical (shared adaptor file); only dev's reference to it is removed.",
+    "Versions: dev TEMPLATE 3.1.0 -> 3.2.0, design TEMPLATE 6.1.0 -> 6.2.0 (compatible new behavior), package 3.3.0 -> 3.4.0; CHANGELOG 3.4.0 entry added.",
+    "Deployment baselines (deployed_sha256 / rendered_base) are not advanced by harvest, per the state contract; the live files already carry the behavior with placeholders rendered."
+  ],
+  "unresolved": [],
+  "verification": {
+    "written_hashes_match_payload_after": true,
+    "placeholder_check": "pending-shell",
+    "bundle": "patch/20261114T230646Z-3.4.0-dev-design-flow-fixes-bcbb6844-621e-4f82-82d9-67145e2b86fd"
+  }
+}

@@ -2,6 +2,24 @@
 
 All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
 
+## 3.4.0
+
+- Dev Plan no longer references the host's native planning mode; the Step 5 sign-off is
+  the only gate (dev skill 3.2.0).
+- Native task mirroring is an explicit first action in every dev stage and both dev and
+  design Completion stages close their task before the closing message.
+- Dev Implement and Test point at the installed browser procedure when a live check
+  needs a browser and the tools report not connected.
+- Context Gathering no longer commits; Ceremony's commit after the branch checkout is the
+  lifecycle's first commit, in dev and design (design skill 6.2.0).
+- New `canonical/root-instructions/INTERFACE.md`: the required categories and intent of every
+  generated root instruction file (Why, conventions, architecture, NFRs, lifecycles, agents,
+  tracker and integrations, work outside a ticket); launch Block C reads it and the root file
+  is registered with a `structure` row.
+- Operational graph CLI validates `--dir` against its own project root and read-only
+  commands fail on an unbuilt graph instead of creating a stray empty database; design
+  Research passes `--dir .` explicitly.
+
 ## 3.3.0
 
 - Align shared-file harvest/apply ownership, baselines and receipts; preserve historical bundles.
