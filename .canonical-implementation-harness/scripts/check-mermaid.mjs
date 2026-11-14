@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Node standard library only. Renderer dependencies are managed separately.
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { sha256 } from './lib/fs-safe.mjs';
@@ -178,10 +179,7 @@ export function run(config) {
   return manifest;
 }
 
-if (
-  process.argv[1] &&
-  path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname)
-) {
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     if (process.argv.length !== 3) throw Error('Usage: node check-mermaid.mjs <config.json>');
     const result = run(JSON.parse(fs.readFileSync(process.argv[2], 'utf8')));

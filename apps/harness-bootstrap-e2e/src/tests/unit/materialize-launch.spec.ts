@@ -143,9 +143,32 @@ describe('materialize-launch.mjs', () => {
         fs.readFileSync(path.join(root, 'output/exact.md'), 'utf8'),
         'Project $& {{OTHER}}; ticket <TICKET>\n'
       );
+      // An amended plan under the same run ID is accepted (the launch guide amends
+      // plan.json in place); the receipt keeps the previous plan hash in its history.
       const reused = structuredClone(exact);
       reused.knowns.PROJECT_KEY.source = 'changed evidence';
-      assert.match(run(reused, '--check', false).stderr, /different plan/);
+      run(reused, '--check');
+      run(reused, '--write');
+      const amended = JSON.parse(
+        fs.readFileSync(
+          path.join(root, 'package/state/launch/runs/exact/materialization.json'),
+          'utf8'
+        )
+      );
+      assert.equal(amended.plan_sha256_history.length, 1);
+      assert.notEqual(amended.plan_sha256, amended.plan_sha256_history[0]);
+      // A changed rendering of an already materialized file is still rejected: preflight
+      // sees the existing output as unexpected local content before any write.
+      const changed = structuredClone(reused);
+      changed.knowns.PROJECT_KEY.value = 'OTHER';
+      assert.match(
+        run(changed, '--write', false).stderr,
+        /Unexpected local content|conflicts with plan/
+      );
+      assert.equal(
+        fs.readFileSync(path.join(root, 'output/exact.md'), 'utf8'),
+        'Project $& {{OTHER}}; ticket <TICKET>\n'
+      );
       // Existing symlinks cannot route outputs into canonical files.
       fs.symlinkSync(path.dirname(source), path.join(root, 'canonical-link'), 'dir');
       const linked = structuredClone(plan);

@@ -96,7 +96,7 @@ describe('provider planner/materializer/finalizer pipeline', () => {
       assert(
         fs
           .readFileSync(path.join(root, '.agents/skills/dev/references/03-plan.md'), 'utf8')
-          .includes('.agents/skills/dev/runtime/planning.md')
+          .includes('.agents/skills/dev/runtime/interaction.md')
       );
       assert(
         !fs

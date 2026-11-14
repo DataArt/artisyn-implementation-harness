@@ -270,9 +270,17 @@ function loadOrInitReceipt(receiptPath, plan, planSha256) {
   };
   if (fs.existsSync(receiptPath)) {
     const previous = JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
-    if (previous.plan_sha256 !== receipt.plan_sha256)
-      throw new Error('Run ID already belongs to a different plan; use a new run ID');
+    if (previous.run_id !== receipt.run_id)
+      throw new Error('Run ID already belongs to a different run; use a new run ID');
     if (!Array.isArray(previous.files)) throw new Error('Invalid existing materialization receipt');
+    // The launch guide amends this run's plan.json in place (D.1–D.5 derived outputs,
+    // corrected evidence). An amended plan is accepted under the same run ID; the
+    // per-file checks in materializeFiles() still reject any entry whose source or
+    // rendered bytes no longer match what this run already materialized.
+    if (previous.plan_sha256 !== receipt.plan_sha256)
+      receipt.plan_sha256_history = [...(previous.plan_sha256_history ?? []), previous.plan_sha256];
+    else if (previous.plan_sha256_history)
+      receipt.plan_sha256_history = previous.plan_sha256_history;
     receipt.files = previous.files;
   }
   return receipt;

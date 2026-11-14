@@ -53,6 +53,12 @@ mistake.
 
 ### Step 1 — Deterministic build
 
+Files under `docs/` owned by other tooling go in `docs/.ogignore`: one project-relative
+path prefix per line (`docs/vendor/`, `docs/agents/issue-tracker.md`), `#` comments allowed.
+Listed paths are never indexed and never receive a frontmatter `id`; a previously indexed
+path is pruned on the next build. Ask the developer about externally owned paths before the
+first build in a repo whose `docs/` predates the harness.
+
 Run `node docs/.og/cli.mjs build --dir <project root>` directly, no copy step.
 Report the real result — parse its JSON output (`{ skipped, pruned }`):
 

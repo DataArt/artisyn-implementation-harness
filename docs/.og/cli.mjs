@@ -13,7 +13,7 @@ import { DatabaseSync } from 'node:sqlite';
 
 import { DB_FILE, MERMAID_FILE, AUTHORED_EDGE_TYPES } from './constants.mjs';
 import { SCHEMA } from './schema.mjs';
-import { need, atomicWrite, listMarkdownFiles, toPosixRelative } from './utils.mjs';
+import { need, atomicWrite, listMarkdownFiles, readIgnoreList, toPosixRelative } from './utils.mjs';
 import { DocsStore } from './docs.mjs';
 import { EdgesStore, computeMirrors, computeKeywordMatches } from './edges.mjs';
 
@@ -129,7 +129,8 @@ export async function unedge({ dir, doc, edge, to }) {
 export async function reindex({ dir }) {
   const { db, docs, edges } = openStore(dir);
   try {
-    const found = listMarkdownFiles(path.join(dir, 'docs'));
+    const docsRoot = path.join(dir, 'docs');
+    const found = listMarkdownFiles(docsRoot, readIgnoreList(docsRoot));
     for (const file of found) docs.assign(dir, file);
     const pruned = docs.pruneExcept(new Set(found.map((file) => toPosixRelative(dir, file))));
     edges.removeForDocs(pruned);
@@ -353,7 +354,7 @@ async function runCli() {
   return 0;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   runCli()
     .then((code) => {
       process.exitCode = code;
