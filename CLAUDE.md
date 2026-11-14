@@ -67,6 +67,10 @@ Architecture: `/where-we-are` · `/war design` · `/war implementation`
 
 Harness bootstrap: `/harness-bootstrap launch` · `/harness-bootstrap patch harvest` · `/harness-bootstrap patch prepare` · `/harness-bootstrap patch apply`
 
+### Work outside a ticket
+
+Code often lands in plain chat with no lifecycle run active (no `/dev` story, no `/design` or `/evolve` session): a component, a fix, a refactor. The code is verified as usual, but nothing updates the permanent docs. So once a logical change is done (not after every edit), spawn `@docs-writer` without asking and have it align the docs with the diff: the container's LLD doc, the app README and any Engineering Guide article that names the changed behaviour. Give it the changed files and the reasoning from the session; it applies the doc principles and terminology itself. Then run `node docs/.og/cli.mjs index --dir . --doc <path>` for each doc it wrote; on failure report one line and continue. The developer reviews the doc changes in the same git diff as the code. Typo, formatting and comment edits need none of this. Never start `/dev document` for this; it needs a story that passed Test.
+
 ### Agents
 
 | Agent          | Layer                                      | Tools                               |
