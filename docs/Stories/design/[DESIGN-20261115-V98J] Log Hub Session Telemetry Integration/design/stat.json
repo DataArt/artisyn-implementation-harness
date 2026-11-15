@@ -64,21 +64,29 @@
     },
     {
       "id": "evaluate",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
           "started_at": "2026-11-15T11:56:19.944Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T12:07:13.775Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "solution",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
+          "started_at": "2026-11-15T12:07:13.931Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "review-gate",
@@ -374,8 +382,65 @@
       "reason": "user_input",
       "detail": "Awaiting evaluate commit",
       "started_at": "2026-11-15T12:05:01.935Z",
+      "ended_at": "2026-11-15T12:07:13.622Z",
+      "last_observed_at": "2026-11-15T12:07:13.622Z"
+    },
+    {
+      "id": "1c76b27a-6265-491e-9114-5653cf841f32",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T12:07:13.622Z",
+      "ended_at": "2026-11-15T12:07:13.775Z",
+      "last_observed_at": "2026-11-15T12:07:13.775Z"
+    },
+    {
+      "id": "dd2494c0-1af8-436b-81e6-88e07699aaf5",
+      "stage_id": "solution",
+      "stage_attempt_id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T12:07:13.931Z",
+      "ended_at": "2026-11-15T12:19:17.125Z",
+      "last_observed_at": "2026-11-15T12:19:17.125Z"
+    },
+    {
+      "id": "29e4378e-1194-4d9c-8f74-7ec2bf8d713a",
+      "stage_id": "solution",
+      "stage_attempt_id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting solution sign-off",
+      "started_at": "2026-11-15T12:19:17.125Z",
+      "ended_at": "2026-11-15T12:23:37.442Z",
+      "last_observed_at": "2026-11-15T12:23:37.442Z"
+    },
+    {
+      "id": "7dcea3e7-c492-432b-87c7-5043b23522e5",
+      "stage_id": "solution",
+      "stage_attempt_id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T12:23:37.442Z",
+      "ended_at": "2026-11-15T12:23:38.040Z",
+      "last_observed_at": "2026-11-15T12:23:38.040Z"
+    },
+    {
+      "id": "a5d3a644-9fdc-4a01-8c8c-3f4310a8dea1",
+      "stage_id": "solution",
+      "stage_attempt_id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting solution commit",
+      "started_at": "2026-11-15T12:23:38.040Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T12:05:01.935Z"
+      "last_observed_at": "2026-11-15T12:23:38.040Z"
     }
   ],
   "checks": [
@@ -490,22 +555,38 @@
       "source": "orchestrator WAF assessment",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "solution-signoff-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T12:23:37.596Z",
+      "ended_at": "2026-11-15T12:23:37.596Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'ok, looks good' — approved content; explicitly declined to fill in Efforts.md Estimate column, leaving it empty by choice",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T12:05:01.938Z",
+    "as_of": "2026-11-15T12:23:38.043Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1735.278,
-    "observed_wait_seconds": 6991.2339999999995,
+    "observed_work_seconds": 2459.223,
+    "observed_wait_seconds": 7383.237999999999,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.003,
-    "wait_seconds_to_date": 6991.236999999999,
-    "unclassified_seconds": 0.7550000000007203,
+    "wait_seconds_to_date": 7383.240999999999,
+    "unclassified_seconds": 0.9110000000006694,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 6751.148999999999,
+    "approval_wait_seconds": 7011.465999999999,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,

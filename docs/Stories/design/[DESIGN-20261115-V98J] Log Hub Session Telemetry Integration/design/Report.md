@@ -17,10 +17,10 @@ Resolved once in Context Gathering. Every later phase reads these values instead
 ## State
 
 ```yaml
-current_stage: solution
-completed_stages: [context-gathering, ceremony, frame, research, evaluate]
-selected_artifacts: []
-next_action: 'Solution — select artifacts, Architecture + Design per decision + Stack + Efforts'
+current_stage: review-gate
+completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution]
+selected_artifacts: [architecture, design, stack, efforts]
+next_action: 'Review Gate — suggest draft MR, record approver and URL'
 context_fingerprint: 'project/v1-containers/log-hub-hook-2.31.1'
 ```
 
@@ -69,7 +69,7 @@ their resolution here; do not rely on conversation history for design provenance
 | Ticket | DESIGN-20261115-V98J (local ID, no tracker record)                                                                                                                                  |
 | Branch | `docs/design-20261115-v98j-log-hub-telemetry`                                                                                                                                       |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -79,7 +79,7 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 28m 54s · Wait to date: 1h 56m 31s (closed 1h 56m 31s + current 0s) · Unclassified: 1s
+Observed work: 40m 59s · Wait to date: 2h 3m 3s (closed 2h 3m 3s + current 0s) · Unclassified: 1s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -87,8 +87,8 @@ Observed work: 28m 54s · Wait to date: 1h 56m 31s (closed 1h 56m 31s + current 
 | ceremony (completed)          | 2026-11-15T09:42:56.438Z | 2026-11-15T09:44:36.795Z | 1m 40s      | 1s      | 1m 39s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | frame (completed)             | 2026-11-15T09:44:36.952Z | 2026-11-15T09:52:49.692Z | 8m 13s      | 3m 41s  | 4m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | research (completed)          | 2026-11-15T09:52:49.844Z | 2026-11-15T11:56:19.784Z | 2h 3m 30s   | 19m 50s | 1h 43m 40s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (active)             | 2026-11-15T11:56:19.944Z | unavailable              | unavailable | 5m 22s  | 3m 19s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| evaluate (completed)          | 2026-11-15T11:56:19.944Z | 2026-11-15T12:07:13.775Z | 10m 54s     | 5m 23s  | 5m 31s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (active)             | 2026-11-15T12:07:13.931Z | unavailable              | unavailable | 12m 3s  | 4m 20s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -178,6 +178,36 @@ _Recommended option: Option D — repo-owned Nx wrapper with CI verify, using Op
 
 Full elaboration: `design/02 Evaluate - Repo integration footprint and canonical isolation.md`
 
+### WAF — Solution — 2026-11-15
+
+_Target: solution/Architecture.md, Design.md, Stack.md, Efforts.md. Both Evaluate-stage P1 items (SHA256SUMS verification; local-scope registration spike) are confirmed resolved at the design level by the Architecture.md decision register — not re-raised._
+
+| Pillar | Rating | Headline |
+| Operational Excellence | 🟢 | One-command lifecycle, CI-checked `verify`; `status` target and a consent-audit log are open P2/P3 items. |
+| Security | 🟡 | Both carried-forward P1s closed; one new P1: Decision 6's fallback must not ship until open question D2-6 (committing ~45 unsigned third-party scripts) is explicitly answered or confirmed moot — now gated in Efforts.md WBS #4. |
+| Reliability | 🟡 | Design-level mitigation sound; two spikes (WBS #3, #7) remain unexecuted, and a no-backup/export-guidance gap (P2) is untracked in Efforts. |
+| Performance Efficiency | 🟢 | No material gaps for a local, single-user design. |
+| Cost Optimization | 🟢 | Zero cash cost; post-turn analysis off by default. |
+| Sustainability | 🟢 | Opt-in, stoppable; minor Guide-content gap only (P3). |
+
+**P1 items (resolve before implementation):**
+
+- Decision 6's fallback branch (committing third-party scripts under the Evaluate Option A layout) is not implemented until the developer explicitly answers or confirms moot the open question in `design/Report.md` Assumptions row D2-6. Now gated in `solution/Efforts.md` WBS item 4. If the local-scope spike (WBS #3) succeeds, this fallback never activates and the item closes as moot.
+
+**P2 items (address in implementation):**
+
+- Add a `log-hub:status` target, or explicitly descope it.
+- `install-hook.mjs` logs the fetched hook-installer tarball's SHA-256.
+- Assert the Compose server binds to `127.0.0.1`, not `0.0.0.0`, at `serve` time.
+- Add an Efforts WBS line for Postgres export/import guidance before version-pin bumps.
+
+**P3 items (backlog):**
+
+- Log the disclosure-acceptance event locally for contributor self-audit.
+- Add a "stop when not in use" reminder to the Engineering Guide article (Decision 12).
+
+Full elaboration: `solution/Architecture.md`, `solution/Design.md`, `solution/Efforts.md`
+
 ---
 
 ## Gate
@@ -196,6 +226,7 @@ Full elaboration: `design/02 Evaluate - Repo integration footprint and canonical
 | 2026-11-15 | Frame    | 4 known requirements, 5 proposed requirements accepted; 2 decisions confirmed (Server topology; Repo integration footprint and canonical isolation)                                                                                                                                                                                                                                |
 | 2026-11-15 | Research | @architect returned 6 options for Server topology (A developer-only local, B per-contributor local, F Nx-wrapped local, C hybrid, D shared internal VM, E cloud-hosted) and 5 for Repo footprint (A commit all, B gitignore + local scope, C commit marketplace + local scope, D Nx wrapper + CI verify, E personal only); developer confirmed set complete; 29 OQs triaged 9V/20E |
 | 2026-11-15 | Evaluate | Recommended C hybrid with F (Nx-wrapped local) as default for Server topology, and D wrapper with B layout for Repo footprint; WAF: 11 🟢 / 4 🟡 / 0 🔴; 2 P1 items (SHA256SUMS verify; local-scope spike)                                                                                                                                                                         |
+| 2026-11-15 | Solution | Selected artifacts written (Architecture, Design, Stack, Efforts); architect review ran (2 findings fixed, OK on re-review); WAF: 4 🟢 / 2 🟡 / 0 🔴, 1 P1 gated into Efforts WBS #4; quality gate pass; Estimate column left empty by developer choice                                                                                                                            |
 
 ---
 
