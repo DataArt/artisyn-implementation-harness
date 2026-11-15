@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-15T15:45:37.642Z",
-  "completed_at": null,
+  "completed_at": "2026-11-15T18:27:25.122Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -131,14 +131,14 @@
     },
     {
       "id": "completion",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
           "started_at": "2026-11-15T18:25:24.528Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T18:27:24.937Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     }
@@ -701,8 +701,19 @@
       "reason": "approval",
       "detail": "Awaiting completion sign-off",
       "started_at": "2026-11-15T18:26:07.926Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-15T18:26:07.926Z"
+      "ended_at": "2026-11-15T18:27:24.538Z",
+      "last_observed_at": "2026-11-15T18:27:24.538Z"
+    },
+    {
+      "id": "395debf7-163c-4082-8f3e-85f00452ee9e",
+      "stage_id": "completion",
+      "stage_attempt_id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T18:27:24.538Z",
+      "ended_at": "2026-11-15T18:27:24.937Z",
+      "last_observed_at": "2026-11-15T18:27:24.937Z"
     }
   ],
   "checks": [
@@ -1025,22 +1036,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "completion-signoff-01",
+      "stage_id": "completion",
+      "stage_attempt_id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
+      "step": null,
+      "design_revision": 1,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T18:27:24.738Z",
+      "ended_at": "2026-11-15T18:27:24.738Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'done' — committed the archive",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T18:26:08.087Z",
+    "as_of": "2026-11-15T18:27:25.292Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 4510.629,
-    "observed_wait_seconds": 5109.9929999999995,
+    "cycle_time_seconds": 9707.48,
+    "observed_work_seconds": 4511.028,
+    "observed_wait_seconds": 5186.605,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.161,
-    "wait_seconds_to_date": 5110.1539999999995,
-    "unclassified_seconds": 9.810000000001368,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 5186.605,
+    "unclassified_seconds": 9.9950000000008,
     "rework_seconds": 509.378,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 3151.112,
+    "approval_wait_seconds": 3227.724,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,

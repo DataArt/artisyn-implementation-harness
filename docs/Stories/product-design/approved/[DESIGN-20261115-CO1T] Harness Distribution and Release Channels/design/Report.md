@@ -97,7 +97,7 @@ Selected artifacts: `architecture` (integrated, single), `design` (one per decis
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1h 15m 11s · Wait to date: 1h 25m 10s (closed 1h 25m 10s + current 0s) · Unclassified: 10s
+Observed work: 1h 15m 11s · Wait to date: 1h 26m 27s (closed 1h 26m 27s + current 0s) · Unclassified: 10s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -110,7 +110,7 @@ Observed work: 1h 15m 11s · Wait to date: 1h 25m 10s (closed 1h 25m 10s + curre
 | review-gate (completed)       | 2026-11-15T18:04:34.271Z | 2026-11-15T18:04:34.765Z | 0s          | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | publish (completed)           | 2026-11-15T18:04:43.285Z | 2026-11-15T18:25:24.367Z | 20m 41s     | 18m 29s | 2m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| completion (waiting)          | 2026-11-15T18:25:24.528Z | unavailable              | unavailable | 19s     | 25s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (completed)        | 2026-11-15T18:25:24.528Z | 2026-11-15T18:27:24.937Z | 2m 0s       | 19s     | 1m 41s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 
 <!-- design-metrics:end -->
 
