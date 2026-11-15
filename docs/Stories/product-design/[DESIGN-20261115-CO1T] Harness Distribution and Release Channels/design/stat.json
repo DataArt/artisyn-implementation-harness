@@ -71,36 +71,63 @@
     },
     {
       "id": "evaluate",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
           "started_at": "2026-11-15T16:50:40.507Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T17:13:08.882Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "solution",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+          "started_at": "2026-11-15T17:13:09.062Z",
+          "ended_at": "2026-11-15T18:04:34.113Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "c44e7cbc-3dad-4bc5-9b52-b4bf791bab17",
+          "started_at": "2026-11-15T18:04:34.271Z",
+          "ended_at": "2026-11-15T18:04:34.765Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "address-feedback",
-      "status": "pending",
-      "attempts": []
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "Developer in-session approval, gate waived",
+      "skipped_at": "2026-11-15T18:04:34.608Z"
     },
     {
       "id": "publish",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "78024a0f-013e-4a34-84da-ccc830213f9a",
+          "started_at": "2026-11-15T18:04:43.285Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "completion",
@@ -461,8 +488,133 @@
       "reason": "user_input",
       "detail": "Awaiting evaluate commit",
       "started_at": "2026-11-15T17:11:53.641Z",
+      "ended_at": "2026-11-15T17:13:08.719Z",
+      "last_observed_at": "2026-11-15T17:13:08.719Z"
+    },
+    {
+      "id": "c5586e21-d451-4d0c-840a-86492ec1e71e",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T17:13:08.719Z",
+      "ended_at": "2026-11-15T17:13:08.882Z",
+      "last_observed_at": "2026-11-15T17:13:08.882Z"
+    },
+    {
+      "id": "25227783-6c18-4a38-89a2-9fed0ae192a0",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T17:13:09.062Z",
+      "ended_at": "2026-11-15T17:23:27.245Z",
+      "last_observed_at": "2026-11-15T17:23:27.245Z"
+    },
+    {
+      "id": "2ab491c8-6ded-45d3-9cd1-a24160d10243",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Developer clarifying remote distribution question",
+      "started_at": "2026-11-15T17:23:27.245Z",
+      "ended_at": "2026-11-15T17:33:41.693Z",
+      "last_observed_at": "2026-11-15T17:33:41.693Z"
+    },
+    {
+      "id": "41c7edc5-ee9a-4fba-a4b1-b675fe7ce52e",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T17:33:41.693Z",
+      "ended_at": "2026-11-15T17:48:13.291Z",
+      "last_observed_at": "2026-11-15T17:48:13.291Z"
+    },
+    {
+      "id": "bf4112c6-8d6c-4f29-95ce-138da6d72bb4",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting solution sign-off",
+      "started_at": "2026-11-15T17:48:13.291Z",
+      "ended_at": "2026-11-15T17:53:39.940Z",
+      "last_observed_at": "2026-11-15T17:53:39.940Z"
+    },
+    {
+      "id": "c175c2c1-70cd-47d7-bb33-27ceee4b23d5",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T17:53:39.940Z",
+      "ended_at": "2026-11-15T17:58:26.095Z",
+      "last_observed_at": "2026-11-15T17:58:26.095Z"
+    },
+    {
+      "id": "41864e1b-97a0-419c-9c53-3ff924231e05",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting solution sign-off (after naming correction)",
+      "started_at": "2026-11-15T17:58:26.095Z",
+      "ended_at": "2026-11-15T18:04:25.301Z",
+      "last_observed_at": "2026-11-15T18:04:25.301Z"
+    },
+    {
+      "id": "e7136c3d-efe2-4100-a3d6-15ff3979be0f",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T18:04:25.301Z",
+      "ended_at": "2026-11-15T18:04:34.113Z",
+      "last_observed_at": "2026-11-15T18:04:34.113Z"
+    },
+    {
+      "id": "83f575e0-f1c5-4b93-8276-f8db50cd77e4",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "c44e7cbc-3dad-4bc5-9b52-b4bf791bab17",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T18:04:34.271Z",
+      "ended_at": "2026-11-15T18:04:34.765Z",
+      "last_observed_at": "2026-11-15T18:04:34.765Z"
+    },
+    {
+      "id": "cc08aefe-dd95-4068-b97e-3ab73967ed90",
+      "stage_id": "publish",
+      "stage_attempt_id": "78024a0f-013e-4a34-84da-ccc830213f9a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T18:04:43.285Z",
+      "ended_at": "2026-11-15T18:04:43.640Z",
+      "last_observed_at": "2026-11-15T18:04:43.640Z"
+    },
+    {
+      "id": "6a397310-b82c-4d46-9ddb-77a37b00ee3a",
+      "stage_id": "publish",
+      "stage_attempt_id": "78024a0f-013e-4a34-84da-ccc830213f9a",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting solution commit before Publish work",
+      "started_at": "2026-11-15T18:04:43.640Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T17:11:53.641Z"
+      "last_observed_at": "2026-11-15T18:04:43.640Z"
     }
   ],
   "checks": [
@@ -625,22 +777,134 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "solution-mermaid-parse-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "design_revision": 1,
+      "name": "Mermaid parse check",
+      "kind": "lint",
+      "started_at": "2026-11-15T17:43:08.156Z",
+      "ended_at": "2026-11-15T17:43:08.156Z",
+      "result": "passed",
+      "evidence_ref": "12/12 solution diagrams parse (mmdc render unavailable)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-architect-review-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "design_revision": 1,
+      "name": "Architect review",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T17:48:12.658Z",
+      "ended_at": "2026-11-15T17:48:12.658Z",
+      "result": "passed",
+      "evidence_ref": "13 findings (4 material, 9 mechanical) all applied; Report § Architect review",
+      "source": "@product-architect",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-waf-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "design_revision": 1,
+      "name": "WAF solution review",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T17:48:12.812Z",
+      "ended_at": "2026-11-15T17:48:12.812Z",
+      "result": "passed",
+      "evidence_ref": "Report § Review — solution — 2026-11-15: 5 green, Security amber bounded; 0 P1",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-quality-gate-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "design_revision": 1,
+      "name": "Design quality gate",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T17:48:12.970Z",
+      "ended_at": "2026-11-15T17:48:12.970Z",
+      "result": "passed",
+      "evidence_ref": "Report § Quality gate: 7/7 pass; mmdc render unavailable, parse-only",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-mermaid-parse-02",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "design_revision": 1,
+      "name": "Mermaid parse check",
+      "kind": "lint",
+      "started_at": "2026-11-15T17:58:25.785Z",
+      "ended_at": "2026-11-15T17:58:25.785Z",
+      "result": "passed",
+      "evidence_ref": "12/12 solution diagrams parse after naming correction",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-signoff-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "583afa17-f8cb-42a4-a9b1-62e301d37298",
+      "step": null,
+      "design_revision": 1,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T18:04:25.459Z",
+      "ended_at": "2026-11-15T18:04:25.459Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'ok, looks good' — 7 solution artifacts approved incl. naming correction; Estimate column left empty by developer",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "gate-round-01",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "c44e7cbc-3dad-4bc5-9b52-b4bf791bab17",
+      "step": null,
+      "design_revision": 1,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T18:04:34.432Z",
+      "ended_at": "2026-11-15T18:04:34.432Z",
+      "result": "passed",
+      "evidence_ref": "Developer approved in session ('ok, looks good, skip review gate and feedback'); no draft MR opened",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T17:11:53.644Z",
+    "as_of": "2026-11-15T18:04:43.642Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1597.691,
-    "observed_wait_seconds": 3577.665,
+    "observed_work_seconds": 3383.451,
+    "observed_wait_seconds": 4953.046,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.003,
-    "wait_seconds_to_date": 3577.668,
-    "unclassified_seconds": 0.790999999999869,
+    "open_wait_seconds": 0.002,
+    "wait_seconds_to_date": 4953.048000000001,
+    "unclassified_seconds": 9.64899999999893,
     "rework_seconds": 509.378,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 2363.746,
+    "approval_wait_seconds": 3049.601,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,

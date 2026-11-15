@@ -77,7 +77,7 @@ flowchart LR
 
 ### Known ECs
 
-- EC1: The package is renamed from `harness-bootstrap` to `artisyn-implementation-harness` to match the brand. This covers the package, skill name, release artifact names and docs.
+- EC1: The package is renamed from `harness-bootstrap` to `artisyn-implementation-harness` to match the brand. This covers the package, skill name, release artifact names and docs. _Amended at Solution sign-off (2026-11-15): the package, repo, tag and ZIP carry `artisyn-implementation-harness`; the skill folder and command are `implementation-harness`, the plugin is `artisyn` and the marketplace is `dataart`, giving `/artisyn:implementation-harness launch`._
 - EC2: The package is published to GitHub Packages as an npm package. It contains the skill plus a simple CLI. The CLI extracts and places the skill into the chosen provider folder(s), then tells the user to run the bootstrap launch.
 - EC3: The package is listed on the Claude, Codex and Copilot plugin/skill marketplaces.
 - EC4: The package is installable via skills.sh.
