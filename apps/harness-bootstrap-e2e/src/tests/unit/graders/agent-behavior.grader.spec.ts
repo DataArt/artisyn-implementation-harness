@@ -31,9 +31,10 @@ it('accepts native tracking from either host', () => {
   expect(gradeTaskTrackingUsed([]).pass).toBe(false);
 });
 it('accepts accurate in-progress report tracking even when launch gates block completion', () => {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'tracking-'));
-  roots.push(root);
-  const dir = path.join(root, 'state/launch/reports');
+  const project = fs.mkdtempSync(path.join(os.tmpdir(), 'tracking-'));
+  roots.push(project);
+  const root = path.join(project, '.claude/skills/implementation-harness');
+  const dir = path.join(project, '.harness/state/launch/reports');
   fs.mkdirSync(dir, { recursive: true });
   const file = path.join(dir, '20260929-launch.md');
   const rows = Array.from(
@@ -80,9 +81,10 @@ function launchReport(completed = 3): string {
   );
 }
 function trackingWorkspace(report: string): string {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'tracking-'));
-  roots.push(root);
-  const dir = path.join(root, 'state/launch/reports');
+  const project = fs.mkdtempSync(path.join(os.tmpdir(), 'tracking-'));
+  roots.push(project);
+  const root = path.join(project, '.claude/skills/implementation-harness');
+  const dir = path.join(project, '.harness/state/launch/reports');
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'latest-launch.md'), report);
   return root;
@@ -94,7 +96,7 @@ it('requires report and final Codex snapshot to agree, even after an earlier mat
     item: {
       type: 'todo_list',
       items: Array.from({ length: LAUNCH_STAGE_COUNT }, (_, i) => ({
-        text: `[harness-bootstrap run] Stage ${i + 1}`,
+        text: `[implementation-harness run] Stage ${i + 1}`,
         completed: i < completed,
       })),
     },
@@ -149,7 +151,7 @@ it('reconstructs Claude tasks by ID and ignores failed updates', () => {
             type: 'tool_use',
             id: `create${i}`,
             name: 'TaskCreate',
-            input: { subject: `[harness-bootstrap run] Stage ${i}` },
+            input: { subject: `[implementation-harness run] Stage ${i}` },
           },
         ],
       },

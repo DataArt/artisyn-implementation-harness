@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto';
 import { afterEach, expect, it } from 'vitest';
 import { gradeLaunchState } from '../../../graders/state.grader.ts';
 import { LAUNCH_STAGE_COUNT } from '../../../utils/constants.ts';
+import { projectRootOf } from '../../../utils/paths.ts';
 
 const roots: string[] = [];
 afterEach(() => {
@@ -14,12 +15,12 @@ const hash = (text: string) => createHash('sha256').update(text).digest('hex');
 function fixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'launch-state-'));
   roots.push(root);
-  const pkg = path.join(root, '.agents/skills/harness-bootstrap');
+  const pkg = path.join(root, '.agents/skills/implementation-harness');
   fs.mkdirSync(pkg, { recursive: true });
   return { root, pkg };
 }
 function receipts(root: string, pkg: string, id = 'run') {
-  const dir = path.join(pkg, 'state/launch/runs', id);
+  const dir = path.join(projectRootOf(pkg), '.harness/state/launch/runs', id);
   fs.mkdirSync(dir, { recursive: true });
   const target = `${id}.md`;
   fs.writeFileSync(path.join(root, target), 'adapted output');
@@ -127,7 +128,7 @@ it('preserves materialization-only assertions', () => {
 it('uses the same verification contract for linked stage receipts', () => {
   const { root, pkg } = fixture();
   const stages = ['a', 'b', 'c'].map((stage) => receipts(root, pkg, `run-${stage}`));
-  const reportDir = path.join(pkg, 'state/launch/reports');
+  const reportDir = path.join(projectRootOf(pkg), '.harness/state/launch/reports');
   fs.mkdirSync(reportDir, { recursive: true });
   fs.writeFileSync(
     path.join(reportDir, 'latest-launch.md'),
@@ -138,9 +139,9 @@ it('uses the same verification contract for linked stage receipts', () => {
           `| ${i + 1} | Stage | ${i < 11 ? '✅ Complete' : i === 11 ? '🔄 In progress' : '⏳ Pending'} | |`
       ).join('\n')
   );
-  fs.mkdirSync(path.join(pkg, 'state/operations'));
+  fs.mkdirSync(path.join(projectRootOf(pkg), '.harness/state/operations'));
   fs.writeFileSync(
-    path.join(pkg, 'state/operations/launch.json'),
+    path.join(projectRootOf(pkg), '.harness/state/operations/launch.json'),
     JSON.stringify({
       mode: 'launch',
       run_id: 'run',
@@ -167,7 +168,7 @@ function partialFixture(format: 'compact' | 'structured' | 'legacy' = 'compact')
   run.receipt.derived_outputs.push({ target: 'AGENTS.md' });
   fs.writeFileSync(path.join(root, 'AGENTS.md'), 'root instructions');
   fs.writeFileSync(path.join(run.dir, 'materialization.json'), JSON.stringify(run.receipt));
-  const dir = path.join(pkg, 'state/launch/reports');
+  const dir = path.join(projectRootOf(pkg), '.harness/state/launch/reports');
   fs.mkdirSync(dir, { recursive: true });
   const reportPath = path.join(dir, 'latest-launch.md');
   const metadata =
@@ -184,7 +185,7 @@ function partialFixture(format: 'compact' | 'structured' | 'legacy' = 'compact')
     ).join('\n');
   if (format === 'legacy') report = report.replaceAll('| Complete |', '| ✅ Complete |');
   fs.writeFileSync(reportPath, report);
-  fs.mkdirSync(path.join(pkg, 'state/operations'));
+  fs.mkdirSync(path.join(projectRootOf(pkg), '.harness/state/operations'));
   const operation = {
     mode: 'launch',
     run_id: 'run',
@@ -259,7 +260,10 @@ function partialFixture(format: 'compact' | 'structured' | 'legacy' = 'compact')
               ),
             }
           : operation;
-    fs.writeFileSync(path.join(pkg, 'state/operations/launch.json'), JSON.stringify(record));
+    fs.writeFileSync(
+      path.join(projectRootOf(pkg), '.harness/state/operations/launch.json'),
+      JSON.stringify(record)
+    );
   };
   save();
   return { root, pkg, operation, reportPath, save };

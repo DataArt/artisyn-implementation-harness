@@ -138,7 +138,7 @@ export const reindexGraphScenario: ScenarioDefinition = {
       id: 'reindex',
       agent: {
         prompt: (c) =>
-          `/harness-bootstrap reindex-graph (package at ${path.relative(
+          `/implementation-harness reindex-graph (package at ${path.relative(
             c.workspaces[0].root,
             c.workspaces[0].packageRoot
           )})`,

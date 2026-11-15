@@ -1,7 +1,7 @@
 import { createHash } from 'node:crypto';
 import { existsSync, readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { dirname, join } from 'node:path';
+import { dirname, join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -142,12 +142,20 @@ export function runChecks(
   // 4. canonical/settings.json's current hash matches the bootstrap's recorded hash.
   const canonicalSettingsPath = join(
     repoRoot,
-    '.canonical-implementation-harness',
+    'skills',
+    'implementation-harness',
     'canonical',
     'settings.json'
   );
-  const stateIndexPath = join(repoRoot, '.canonical-implementation-harness', 'state', 'index.json');
-  if (existsSync(canonicalSettingsPath) && existsSync(stateIndexPath)) {
+  const stateIndexPath = join(repoRoot, '.harness', 'state', 'index.json');
+  // A moved folder must not turn this check into a silent skip: a missing file is a finding.
+  const missing = [canonicalSettingsPath, stateIndexPath].filter((file) => !existsSync(file));
+  if (missing.length > 0) {
+    failures.push({
+      assertion: 'canonical-hash',
+      message: `cannot check the canonical hash, missing: ${missing.map((file) => relative(repoRoot, file)).join(', ')}`,
+    });
+  } else {
     const actualHash = createHash('sha256')
       .update(readFileSync(canonicalSettingsPath))
       .digest('hex');

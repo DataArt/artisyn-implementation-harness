@@ -258,8 +258,9 @@ describe('patch operation provider scope', () => {
   });
 
   it('reads the newest record for a mode, tolerating the patch- mode prefix', () => {
-    const packageRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'patch-ops-'));
-    const dir = path.join(packageRoot, OPERATIONS_DIR);
+    const project = fs.mkdtempSync(path.join(os.tmpdir(), 'patch-ops-'));
+    const packageRoot = path.join(project, '.claude/skills/implementation-harness');
+    const dir = path.join(project, OPERATIONS_DIR);
     fs.mkdirSync(dir, { recursive: true });
     const older = applyRecord({ created_at: '2026-09-01T00:00:00Z', mode: 'patch-apply' });
     const newer = applyRecord({ created_at: '2026-10-01T00:00:00Z', mode: 'patch-apply' });

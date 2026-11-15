@@ -168,7 +168,7 @@ export const patchPrepareApplyScenario: ScenarioDefinition = {
       agent: {
         host: () => PROVIDERS.claude,
         prompt: (c) =>
-          `/harness-bootstrap patch prepare (package at ${path.relative(sender(c).root, sender(c).packageRoot)})`,
+          `/implementation-harness patch prepare (package at ${path.relative(sender(c).root, sender(c).packageRoot)})`,
       },
       run: recordBundle,
       graders: [
@@ -189,7 +189,7 @@ export const patchPrepareApplyScenario: ScenarioDefinition = {
       agent: {
         host: () => PROVIDERS.claude,
         workspace: 1,
-        prompt: (c) => `/harness-bootstrap patch apply ${transferBundle(c)}`,
+        prompt: (c) => `/implementation-harness patch apply ${transferBundle(c)}`,
       },
       graders: [
         agentRunSucceeded(),

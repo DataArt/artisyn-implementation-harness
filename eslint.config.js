@@ -19,7 +19,7 @@ export default tseslint.config(
       '**/.vitepress/cache/**',
       '.nx/**',
       '.yarn/**',
-      // Workflow DSL files: the harness-bootstrap runtime injects pipeline()/agent()
+      // Workflow DSL files: the implementation-harness runtime injects pipeline()/agent()
       // and other bindings as globals at execution time, so standard no-undef checks
       // don't apply.
       '**/workflows/*.js',

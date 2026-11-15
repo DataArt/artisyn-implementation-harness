@@ -6,8 +6,8 @@ import { expect, it } from 'vitest';
 import { createFixture, installSkillPackage } from '../../utils/fixture.ts';
 
 it.each([
-  [PROVIDERS.claude, '.claude/skills/harness-bootstrap'],
-  [PROVIDERS.codex, '.agents/skills/harness-bootstrap'],
+  [PROVIDERS.claude, '.claude/skills/implementation-harness'],
+  [PROVIDERS.codex, '.agents/skills/implementation-harness'],
 ] as const)('copies package contents into the %s skill directory', async (host, relativePath) => {
   const workspace = await createFixture(fixtures.nxMonorepo);
   try {
@@ -17,9 +17,7 @@ it.each([
     expect(
       fs.existsSync(path.join(workspace.packageRoot, 'canonical/adaptors/codex/task-tracking.md'))
     ).toBe(true);
-    expect(fs.existsSync(path.join(workspace.root, '.canonical-implementation-harness'))).toBe(
-      false
-    );
+    expect(fs.existsSync(path.join(workspace.root, 'skills/implementation-harness'))).toBe(false);
     expect(fs.existsSync(path.join(workspace.root, '.harness'))).toBe(false);
     const otherHostPath = path.join(
       workspace.root,

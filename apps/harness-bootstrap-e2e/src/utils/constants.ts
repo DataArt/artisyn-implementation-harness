@@ -6,11 +6,13 @@
 /** Every directory a provider may materialize into, for whole-tree scans. */
 export const PROVIDER_DIRS = ['.claude', '.agents', '.codex'];
 
-export const LAUNCH_DIR = 'state/launch';
-export const LAUNCH_RUNS_DIR = 'state/launch/runs';
-export const LAUNCH_REPORTS_DIR = 'state/launch/reports';
-export const LAUNCH_OPERATION_FILE = 'state/launch/operation.json';
-export const OPERATIONS_DIR = 'state/operations';
+/** Runtime state lives in the project, never in the package. Project-relative. */
+export const STATE_DIR = '.harness/state';
+export const LAUNCH_DIR = `${STATE_DIR}/launch`;
+export const LAUNCH_RUNS_DIR = `${STATE_DIR}/launch/runs`;
+export const LAUNCH_REPORTS_DIR = `${STATE_DIR}/launch/reports`;
+export const LAUNCH_OPERATION_FILE = `${STATE_DIR}/launch/operation.json`;
+export const OPERATIONS_DIR = `${STATE_DIR}/operations`;
 export const LAUNCH_REPORT_SUFFIX = '-launch.md';
 
 export const MATERIALIZATION_FILE = 'materialization.json';

@@ -6,11 +6,11 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { expect, it } from 'vitest';
 // @ts-expect-error -- plain ESM .mjs
-import { buildPlan } from '../../../../../.canonical-implementation-harness/scripts/plan-provider-launch.mjs';
+import { buildPlan } from '../../../../../skills/implementation-harness/scripts/plan-provider-launch.mjs';
 // @ts-expect-error -- plain ESM .mjs
-import { renderConfig } from '../../../../../.canonical-implementation-harness/scripts/provider-adapter.mjs';
+import { renderConfig } from '../../../../../skills/implementation-harness/scripts/provider-adapter.mjs';
 const origin = fileURLToPath(
-  new URL('../../../../../.canonical-implementation-harness', import.meta.url)
+  new URL('../../../../../skills/implementation-harness', import.meta.url)
 );
 
 function fixture() {
@@ -40,7 +40,10 @@ function fixture() {
   };
   const receipt = () =>
     JSON.parse(
-      fs.readFileSync(path.join(pkg, 'state/launch/runs/config/materialization.json'), 'utf8')
+      fs.readFileSync(
+        path.join(root, '.harness/state/launch/runs/config/materialization.json'),
+        'utf8'
+      )
     );
   return {
     root,

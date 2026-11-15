@@ -68,7 +68,7 @@ describe('StepRun agent config', () => {
     expect(options.prompt).toBe('do the thing');
     expect(options.cwd).toBe('/scratch/a');
     expect(grade.launch).toBe(launch);
-    expect(grade.transcriptPath).toContain('/scratch/a/pkg');
+    expect(grade.transcriptPath).toContain('/scratch/a/.harness/state/launch');
   });
 
   it('honours an explicit host and workspace index', async () => {

@@ -1,7 +1,7 @@
 # harness-bootstrap-e2e
 
-Tests for the `harness-bootstrap` authoring package in
-`.canonical-implementation-harness/`. Deterministic tests exercise scripts and
+Tests for the `implementation-harness` authoring package in
+`skills/implementation-harness/`. Deterministic tests exercise scripts and
 contracts; agent E2E cases exercise the skill through real Claude or Codex CLI
 sessions in disposable projects.
 
@@ -117,7 +117,7 @@ never operate directly on fixture sources; unpopulated fixtures fail explicitly.
 `installSkillPackage()` copies the current authoring package into the selected
 host's skill directory and excludes package `state`. Consumer release-ZIP
 installation is a separate workflow. Scratch projects do not contain an
-`.canonical-implementation-harness/` authoring directory.
+`skills/implementation-harness/` authoring directory.
 
 `src/utils/providers.ts` centralizes `PROVIDERS`, the shared `Provider` type,
 and `PROVIDER_DETAILS`: display names, skill and agent paths, instruction files,
@@ -333,7 +333,7 @@ HB_E2E_KEEP_TMP=1 yarn nx run harness-bootstrap-e2e:integration --skip-nx-cache
 ```
 
 For bootstrap, inspect these paths under the host's
-`.agents/skills/harness-bootstrap/` or `.claude/skills/harness-bootstrap/`
+`.agents/skills/implementation-harness/` or `.claude/skills/implementation-harness/`
 inside `fixture/`:
 
 - `state/launch/<host>-<step>-transcript-*.jsonl`: full CLI stdout transcript, one per agent step, saved when the runner exits.

@@ -77,7 +77,7 @@ export class StepRun {
     if (!workspace) throw new Error(`step ${this.id} wants workspace ${agent.workspace ?? 0}`);
 
     const transcriptPath = path.join(
-      workspace.packageRoot,
+      workspace.root,
       LAUNCH_DIR,
       `${host}-${this.id}-transcript-${Date.now()}.jsonl`
     );

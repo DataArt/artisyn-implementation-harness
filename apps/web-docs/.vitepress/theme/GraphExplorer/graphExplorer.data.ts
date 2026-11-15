@@ -29,7 +29,7 @@ const DB_FILE = path.resolve(dirname, '../../../../../docs/.og/docs-operational-
 // current via `cli.mjs build` before this runs. This is the fallback render
 // GraphExplorer falls back to when the client-side live query (fetch +
 // sql.js) fails — never a blank or broken page. The db itself can be absent
-// (a fresh bootstrap before `/harness-bootstrap launch`/`reindex-graph` has
+// (a fresh bootstrap before `/implementation-harness launch`/`reindex-graph` has
 // ever run) — that must not fail the whole VitePress build, only leave this
 // one loader's data empty; GraphExplorer's own live sql.js query is already
 // built to recover from an empty/failed fetch.

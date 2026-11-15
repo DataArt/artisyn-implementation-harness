@@ -17,7 +17,7 @@ export function buildScratchLaunchPrompt(
   host: Provider,
   fixture: FixtureDefinition
 ): string {
-  return `Run ${PROVIDER_DETAILS[host].invocationPrefix}harness-bootstrap launch. The skill entrypoint is ${PROVIDER_DETAILS[host].skills}/harness-bootstrap/SKILL.md; read it before acting. Treat every answer below as already
+  return `Run ${PROVIDER_DETAILS[host].invocationPrefix}implementation-harness launch. The skill entrypoint is ${PROVIDER_DETAILS[host].skills}/implementation-harness/SKILL.md; read it before acting. Treat every answer below as already
 confirmed evidence — do not ask me anything further, proceed autonomously
 through the full launch lifecycle (Q&A -> plan -> materialize -> INTENT ->
 verify) to completion, and finalize the launch report.

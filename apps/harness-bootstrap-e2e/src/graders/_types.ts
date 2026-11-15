@@ -49,7 +49,7 @@ export type GraderBinding = (
 ) => GradeResult | null | Promise<GradeResult | null>;
 
 /** Schema version 2 patch bundle manifest, per
- * .canonical-implementation-harness/references/patch/06-patch-state.md.
+ * skills/implementation-harness/references/patch/06-patch-state.md.
  * Only the fields patch.grader inspects are typed here.
  */
 export interface PatchChange {

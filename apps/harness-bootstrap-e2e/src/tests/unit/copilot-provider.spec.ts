@@ -7,16 +7,16 @@ import { spawnSync } from 'node:child_process';
 import { describe, it, expect } from 'vitest';
 import { parse as parseYaml } from 'yaml';
 // @ts-expect-error -- plain ESM .mjs
-import { buildPlan } from '../../../../../.canonical-implementation-harness/scripts/plan-provider-launch.mjs';
+import { buildPlan } from '../../../../../skills/implementation-harness/scripts/plan-provider-launch.mjs';
 import {
   renderAgent,
   renderConfig,
   providerText,
   loadManifest,
   // @ts-expect-error -- plain ESM .mjs
-} from '../../../../../.canonical-implementation-harness/scripts/provider-adapter.mjs';
+} from '../../../../../skills/implementation-harness/scripts/provider-adapter.mjs';
 const origin = fileURLToPath(
-  new URL('../../../../../.canonical-implementation-harness', import.meta.url)
+  new URL('../../../../../skills/implementation-harness', import.meta.url)
 );
 const settings = { schemaVersion: 1, copilot: {} };
 const mcp = {
@@ -273,7 +273,10 @@ describe('Copilot provider', () => {
         );
         expect(fs.existsSync(path.join(root, '.github/skills/dev/INTENT.md'))).toBe(false);
         const receipt = JSON.parse(
-          fs.readFileSync(path.join(pkg, 'state/launch/runs/copilot/materialization.json'), 'utf8')
+          fs.readFileSync(
+            path.join(root, '.harness/state/launch/runs/copilot/materialization.json'),
+            'utf8'
+          )
         );
         expect(receipt.providers).toEqual(providers);
         fs.appendFileSync(path.join(pkg, 'scripts/lib/constants.mjs'), '\n');

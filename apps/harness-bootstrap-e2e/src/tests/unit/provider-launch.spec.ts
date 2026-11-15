@@ -18,24 +18,24 @@ import { fileURLToPath } from 'node:url';
 import { parse as parseYaml } from 'yaml';
 import { describe, it } from 'vitest';
 // @ts-expect-error -- plain ESM .mjs, no type declarations published
-import { buildPlan } from '../../../../../.canonical-implementation-harness/scripts/plan-provider-launch.mjs';
+import { buildPlan } from '../../../../../skills/implementation-harness/scripts/plan-provider-launch.mjs';
 import {
   providerText,
   renderConfig,
   renderAgent,
   loadManifest,
   // @ts-expect-error -- plain ESM .mjs, no type declarations published
-} from '../../../../../.canonical-implementation-harness/scripts/provider-adapter.mjs';
+} from '../../../../../skills/implementation-harness/scripts/provider-adapter.mjs';
 
 const origin = fileURLToPath(
-  new URL('../../../../../.canonical-implementation-harness', import.meta.url)
+  new URL('../../../../../skills/implementation-harness', import.meta.url)
 );
 const sha = (v: crypto.BinaryLike) => crypto.createHash('sha256').update(v).digest('hex');
 
 describe('provider planner/materializer/finalizer pipeline', () => {
   it('plans, materializes, and finalizes a real selection across all providers', () => {
     const root = fs.mkdtempSync(path.join(os.tmpdir(), 'provider-launch-'));
-    const pkg = path.join(root, 'harness-bootstrap');
+    const pkg = path.join(root, 'implementation-harness');
     let checks = 0;
     const run = (script: string, args: string[], success = true) => {
       const result = spawnSync(
@@ -237,7 +237,7 @@ describe('provider planner/materializer/finalizer pipeline', () => {
       run('materialize-launch.mjs', ['--plan', planFile, '--check'], false);
       fs.writeFileSync(agentFormatFile, agentFormatBefore);
       // Finalization requires every output and final hash, including reserved derivations.
-      const receiptPath = path.join(pkg, 'state/launch/runs/all/materialization.json');
+      const receiptPath = path.join(root, '.harness/state/launch/runs/all/materialization.json');
       const receipt = JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
       for (const item of plan.derived_outputs)
         fs.writeFileSync(
@@ -289,7 +289,7 @@ describe('provider planner/materializer/finalizer pipeline', () => {
       assert(fs.existsSync(path.join(pkg, 'canonical/skills/dev/INTENT.md')));
       checks++;
       run('finalize-launch.mjs', ['--run', 'all', '--evidence', evidenceFile, '--write']);
-      assert(fs.existsSync(path.join(pkg, 'state/launch/runs/all/verification.json')));
+      assert(fs.existsSync(path.join(root, '.harness/state/launch/runs/all/verification.json')));
       for (const provider of [PROVIDERS.claude, PROVIDERS.codex, 'copilot']) {
         const solo: any = buildPlan(root, pkg, {
           run_id: provider,

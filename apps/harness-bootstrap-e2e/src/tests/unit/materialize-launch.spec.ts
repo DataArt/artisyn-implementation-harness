@@ -17,7 +17,7 @@ import { describe, it } from 'vitest';
 
 const script = fileURLToPath(
   new URL(
-    '../../../../../.canonical-implementation-harness/scripts/materialize-launch.mjs',
+    '../../../../../skills/implementation-harness/scripts/materialize-launch.mjs',
     import.meta.url
   )
 );
@@ -74,14 +74,14 @@ describe('materialize-launch.mjs', () => {
       assert.equal(fs.readFileSync(target, 'utf8'), 'Project FLR; ticket <TICKET>\n');
       const receipt = JSON.parse(
         fs.readFileSync(
-          path.join(root, 'package/state/launch/runs/test/materialization.json'),
+          path.join(root, '.harness/state/launch/runs/test/materialization.json'),
           'utf8'
         )
       );
       assert.equal(receipt.status, 'materialized');
       assert.equal(receipt.files[0].derivation, 'pending');
       run(plan, '--write');
-      const receiptFile = path.join(root, 'package/state/launch/runs/test/materialization.json');
+      const receiptFile = path.join(root, '.harness/state/launch/runs/test/materialization.json');
       assert.deepEqual(JSON.parse(fs.readFileSync(receiptFile, 'utf8')).files, receipt.files);
       // Resuming a partial receipt retains completed entries and their original evidence.
       fs.writeFileSync(
@@ -151,7 +151,7 @@ describe('materialize-launch.mjs', () => {
       run(reused, '--write');
       const amended = JSON.parse(
         fs.readFileSync(
-          path.join(root, 'package/state/launch/runs/exact/materialization.json'),
+          path.join(root, '.harness/state/launch/runs/exact/materialization.json'),
           'utf8'
         )
       );
@@ -178,14 +178,14 @@ describe('materialize-launch.mjs', () => {
       // Receipt paths are contained too, including symlinked state directories.
       const outside = path.join(root, 'outside');
       fs.mkdirSync(outside);
-      fs.symlinkSync(outside, path.join(root, 'package/state/launch/runs/escaped'), 'dir');
+      fs.symlinkSync(outside, path.join(root, '.harness/state/launch/runs/escaped'), 'dir');
       const escaped = structuredClone(exact);
       escaped.run_id = 'escaped';
       run(escaped, '--write', false);
       assert.deepEqual(fs.readdirSync(outside), []);
       fs.symlinkSync(
         path.dirname(source),
-        path.join(root, 'package/state/launch/runs/canonical-receipt'),
+        path.join(root, '.harness/state/launch/runs/canonical-receipt'),
         'dir'
       );
       const redirected = structuredClone(exact);
@@ -220,13 +220,13 @@ describe('materialize-launch.mjs', () => {
       assert.deepEqual(fs.readdirSync(gitMetadata), []);
       const harnessOutput = structuredClone(exact);
       harnessOutput.run_id = 'metadata';
-      harnessOutput.files[0].target = 'package/state/launch/answers.json';
+      harnessOutput.files[0].target = '.harness/state/launch/answers.json';
       assert.match(run(harnessOutput, '--write', false).stderr, /harness metadata/);
       const harnessDerived = structuredClone(derivedGit);
       harnessDerived.run_id = 'derived-metadata';
-      harnessDerived.derived_outputs[0].target = 'package/state/launch/answers.json';
+      harnessDerived.derived_outputs[0].target = '.harness/state/launch/answers.json';
       assert.match(run(harnessDerived, '--write', false).stderr, /harness metadata/);
-      assert(!fs.existsSync(path.join(canonical, 'state/launch/answers.json')));
+      assert(!fs.existsSync(path.join(root, '.harness/state/launch/answers.json')));
 
       // Preserve UTF-8 BOM bytes, matching the source decoder's behavior.
       fs.writeFileSync(source, '﻿Project {{PROJECT_KEY}}\n');
@@ -255,7 +255,7 @@ describe('materialize-launch.mjs', () => {
       assert(!fs.existsSync(path.join(root, 'generated.md')));
       const derivedReceipt = JSON.parse(
         fs.readFileSync(
-          path.join(root, 'package/state/launch/runs/derived/materialization.json'),
+          path.join(root, '.harness/state/launch/runs/derived/materialization.json'),
           'utf8'
         )
       );

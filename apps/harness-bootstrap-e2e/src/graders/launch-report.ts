@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { projectRootOf } from '../utils/paths.ts';
 import {
   LAUNCH_REPORTS_DIR,
   LAUNCH_REPORT_SUFFIX,
@@ -40,7 +41,7 @@ export function parseLaunchReport(text: string) {
  * matters to callers that want "the current one".
  */
 export function launchReports(packageRoot: string): string[] {
-  const dir = path.join(packageRoot, LAUNCH_REPORTS_DIR);
+  const dir = path.join(projectRootOf(packageRoot), LAUNCH_REPORTS_DIR);
   return (fs.existsSync(dir) ? fs.readdirSync(dir) : [])
     .filter((name) => name.endsWith(LAUNCH_REPORT_SUFFIX))
     .map((name) => path.join(dir, name))
@@ -57,7 +58,7 @@ export function latestLaunchReport(packageRoot: string): string | undefined {
 }
 
 /** The run ID a completed launch reported. Falls back to a lone directory
- * under `state/launch/runs/` when no report names one; anything else is
+ * under `.harness/state/launch/runs/` when no report names one; anything else is
  * ambiguous and says so, since picking the wrong run would grade the wrong
  * receipts.
  */
@@ -66,7 +67,7 @@ export function resolveLaunchRunId(packageRoot: string): string {
     const runId = parseLaunchReport(text).runId;
     if (runId) return runId;
   }
-  const runsDir = path.join(packageRoot, LAUNCH_RUNS_DIR);
+  const runsDir = path.join(projectRootOf(packageRoot), LAUNCH_RUNS_DIR);
   const runs = fs.existsSync(runsDir) ? fs.readdirSync(runsDir) : [];
   if (runs.length !== 1)
     throw new Error(

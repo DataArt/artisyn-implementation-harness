@@ -28,8 +28,8 @@ function seedCleanFixture(root: string): void {
       permissions: { deny: ['Read(./apps/log-hub/.local/**)', 'Read(./.artisyn/**)'] },
     })
   );
-  const canonicalDir = join(root, '.canonical-implementation-harness', 'canonical');
-  const stateDir = join(root, '.canonical-implementation-harness', 'state');
+  const canonicalDir = join(root, 'skills', 'implementation-harness', 'canonical');
+  const stateDir = join(root, '.harness', 'state');
   mkdirSync(canonicalDir, { recursive: true });
   mkdirSync(stateDir, { recursive: true });
   const canonicalContent = '{"schemaVersion":1}';
@@ -110,10 +110,21 @@ test('tampered canonical hash: fails, names the exact assertion', () => {
   withTempRepoRoot((root) => {
     seedCleanFixture(root);
     writeFileSync(
-      join(root, '.canonical-implementation-harness', 'canonical', 'settings.json'),
+      join(root, 'skills', 'implementation-harness', 'canonical', 'settings.json'),
       '{"tampered":true}'
     );
     const failures = runChecks(root, cleanGitProbe);
     assert.ok(failures.some((f) => f.assertion === 'canonical-hash'));
+  });
+});
+
+test('moved or missing canonical files: fails instead of skipping the hash check', () => {
+  withTempRepoRoot((root) => {
+    seedCleanFixture(root);
+    rmSync(join(root, '.harness', 'state', 'index.json'));
+    const failures = runChecks(root, cleanGitProbe);
+    const hit = failures.find((f) => f.assertion === 'canonical-hash');
+    assert.ok(hit, 'canonical-hash finding present');
+    assert.match(hit.message, /index\.json/);
   });
 });

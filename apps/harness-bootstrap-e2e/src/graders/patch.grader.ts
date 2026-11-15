@@ -2,6 +2,7 @@ import { result } from './grading.ts';
 import type { GradeResult, GraderBinding } from './_types.ts';
 import fs from 'node:fs';
 import path from 'node:path';
+import { projectRootOf } from '../utils/paths.ts';
 import { applyPatch } from 'diff';
 import { sha256, readJson } from '../utils/fs.ts';
 import type { PatchManifest, Receipt } from './_types.ts';
@@ -208,7 +209,7 @@ export function gradePatchProviderScope(
 
 /** Newest local operation record for `mode` under the package's state dir. */
 export function latestOperation(packageRoot: string, mode: string): Receipt {
-  const dir = path.join(packageRoot, OPERATIONS_DIR);
+  const dir = path.join(projectRootOf(packageRoot), OPERATIONS_DIR);
   const records = (fs.existsSync(dir) ? fs.readdirSync(dir) : [])
     .filter((name) => name.endsWith('.json'))
     .map((name) => readJson<Receipt>(path.join(dir, name)))

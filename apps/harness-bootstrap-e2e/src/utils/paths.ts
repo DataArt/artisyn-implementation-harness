@@ -5,12 +5,12 @@ export const appRoot = fileURLToPath(new URL('../..', import.meta.url));
 export const workspaceRoot = path.resolve(appRoot, '../..');
 export const fixturesRoot = path.join(appRoot, 'fixtures');
 
-/** The real, current harness-bootstrap skill package — copied fresh into a
+/** The real, current implementation-harness skill package — copied fresh into a
  * scratch workspace per test, never read from in place. This is the same
  * `origin` this skill's own scripts/tests/provider-launch.test.mjs uses, so
  * BOOT-* cases exercise the actual canonical content, not a synthetic stand-in.
  */
-export const skillPackageRoot = path.join(workspaceRoot, '.canonical-implementation-harness');
+export const skillPackageRoot = path.join(workspaceRoot, 'skills/implementation-harness');
 
 export const materializeLaunchScript = path.join(
   skillPackageRoot,
@@ -21,3 +21,8 @@ export const planProviderLaunchScript = path.join(
   skillPackageRoot,
   'scripts/plan-provider-launch.mjs'
 );
+
+/** The project that owns an installed package folder (`<project>/<provider>/skills/<name>`).
+ * Runtime state is project-relative, so graders resolve it from here.
+ */
+export const projectRootOf = (packageRoot: string) => path.resolve(packageRoot, '../../..');

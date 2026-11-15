@@ -96,7 +96,7 @@ export function nativeProgress(events: StreamEvent[], runId?: string): ProgressI
     }
   }
   if (tasks.size) snapshot = [...tasks.values()];
-  if (runId && snapshot?.some((item) => item.text.includes('[harness-bootstrap ')))
-    snapshot = snapshot.filter((item) => item.text.includes(`[harness-bootstrap ${runId}]`));
+  if (runId && snapshot?.some((item) => item.text.includes('[implementation-harness ')))
+    snapshot = snapshot.filter((item) => item.text.includes(`[implementation-harness ${runId}]`));
   return snapshot;
 }

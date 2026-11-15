@@ -40,12 +40,7 @@ async function setup(): Promise<GradeContext> {
 
   const providers = [PROVIDERS.claude, PROVIDERS.codex];
   const first = await runStubbedLaunch(workspace, providers, 'boot-004');
-  const receiptPath = path.join(
-    workspace.packageRoot,
-    LAUNCH_RUNS_DIR,
-    first.runId,
-    MATERIALIZATION_FILE
-  );
+  const receiptPath = path.join(workspace.root, LAUNCH_RUNS_DIR, first.runId, MATERIALIZATION_FILE);
   artifacts.set(RECEIPT_BEFORE, readJson<Receipt>(receiptPath));
   rematerialize(first);
   artifacts.set(RECEIPT_AFTER, readJson<Receipt>(receiptPath));

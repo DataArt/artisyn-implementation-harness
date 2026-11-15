@@ -6,7 +6,7 @@ import { reindexGraphScenario } from '../scenarios/_registry.ts';
 
 export const reindexGraph: CaseDefinition = {
   id: 'reindex-graph',
-  name: 'Standalone /harness-bootstrap reindex-graph picks up a doc added after materialization',
+  name: 'Standalone /implementation-harness reindex-graph picks up a doc added after materialization',
   fixture: fixtures.multiContainerProject,
   configuration: 'stubbed-baseline',
   scenario: reindexGraphScenario,

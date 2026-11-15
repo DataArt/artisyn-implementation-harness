@@ -34,7 +34,7 @@ export const fixtures = {
     path: 'multi-container-project',
     projectName: 'Multi-container Fixture Project',
     purpose:
-      'A minimal disposable fixture repository used only to smoke-test the harness-bootstrap skill’s own launch flow. Not a real product.',
+      'A minimal disposable fixture repository used only to smoke-test the implementation-harness skill’s own launch flow. Not a real product.',
     populated: true,
     hasHarness: false,
     hasDocs: false,

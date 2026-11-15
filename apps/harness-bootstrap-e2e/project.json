@@ -8,10 +8,10 @@
     "default": [
       "{projectRoot}/**",
       "!{projectRoot}/runs/**",
-      "{workspaceRoot}/.canonical-implementation-harness/scripts/**",
-      "{workspaceRoot}/.canonical-implementation-harness/canonical/**",
-      "{workspaceRoot}/.canonical-implementation-harness/SKILL.md",
-      "{workspaceRoot}/.canonical-implementation-harness/references/**",
+      "{workspaceRoot}/skills/implementation-harness/scripts/**",
+      "{workspaceRoot}/skills/implementation-harness/canonical/**",
+      "{workspaceRoot}/skills/implementation-harness/SKILL.md",
+      "{workspaceRoot}/skills/implementation-harness/references/**",
       "sharedGlobals"
     ]
   },

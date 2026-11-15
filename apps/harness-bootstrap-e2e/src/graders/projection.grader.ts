@@ -11,7 +11,7 @@ const SKILL_PROJECTION = 'projection/skills';
 const AGENT_PROJECTION = 'projection/agents';
 import type { Provider } from '../utils/build-launch.ts';
 // @ts-expect-error -- plain ESM .mjs, no type declarations published
-import { AGENT_WRITE_TOOLS } from '../../../../.canonical-implementation-harness/scripts/lib/constants.mjs';
+import { AGENT_WRITE_TOOLS } from '../../../../skills/implementation-harness/scripts/lib/constants.mjs';
 
 function frontmatter(text: string): Record<string, unknown> {
   const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);

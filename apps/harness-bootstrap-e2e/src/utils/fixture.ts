@@ -9,13 +9,13 @@ import { nextFixtureDir, persistRuns } from './run-output.ts';
 import { CLEANUP_WORKSPACES } from './constants.ts';
 
 /** Default location; installSkillPackage resets this to the chosen host discovery root. */
-const PACKAGE_RELATIVE_PATH = `${PROVIDER_DETAILS[PROVIDERS.claude].skills}/harness-bootstrap`;
+const PACKAGE_RELATIVE_PATH = `${PROVIDER_DETAILS[PROVIDERS.claude].skills}/implementation-harness`;
 
 export interface Workspace {
   fixture: FixtureDefinition;
   /** Scratch project root — a fresh copy per test, never the source fixture. */
   root: string;
-  /** Where the harness-bootstrap package copy lives inside this workspace,
+  /** Where the implementation-harness package copy lives inside this workspace,
    * once `installSkillPackage()` has been called.
    */
   packageRoot: string;
@@ -85,7 +85,7 @@ export async function destroyFixture(workspace: Workspace): Promise<void> {
  */
 export function installSkillPackage(workspace: Workspace, host: Provider = PROVIDERS.claude): void {
   const hostRoot = PROVIDER_DETAILS[host].skills;
-  workspace.packageRoot = path.join(workspace.root, hostRoot, 'harness-bootstrap');
+  workspace.packageRoot = path.join(workspace.root, hostRoot, 'implementation-harness');
   fs.mkdirSync(workspace.packageRoot, { recursive: true });
 
   for (const entry of fs.readdirSync(skillPackageRoot)) {

@@ -1,6 +1,6 @@
 /**
  * Terminal-transcript scenarios for the "see it in action" section. Phase
- * names and order are sourced from the real skills: harness-bootstrap's
+ * names and order are sourced from the real skills: implementation-harness's
  * Context → Q&A → Generation → Cleanup lifecycle, and the design/dev phase
  * lists in docs/Engineering Guide/Lifecycles/01 Dev Lifecycle.md and
  * 02 Design Lifecycle.md.
@@ -53,7 +53,7 @@ export const scenarios: Record<ScenarioId, Scenario> = {
   bootstrap: {
     id: 'bootstrap',
     label: 'bootstrap',
-    command: '/harness-bootstrap launch',
+    command: '/implementation-harness launch',
     stages: [
       {
         title: 'Context',

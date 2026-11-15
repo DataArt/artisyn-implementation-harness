@@ -30,7 +30,7 @@ const FLOWS: Flow[] = [
   {
     id: 'launch',
     label: 'bootstrap',
-    command: '/harness-bootstrap launch',
+    command: '/implementation-harness launch',
     lines: [
       { kind: 'done', text: 'Scan repo, detect stack' },
       { kind: 'done', text: 'Generate skills, agents, docs scaffold' },

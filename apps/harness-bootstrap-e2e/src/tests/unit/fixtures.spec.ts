@@ -11,8 +11,8 @@ describe('fixture facts', () => {
       const root = path.join(fixturesRoot, fixture.path);
       expect(fs.existsSync(path.join(root, 'docs'))).toBe(fixture.hasDocs);
       const hasHarness = [
-        '.claude/skills/harness-bootstrap',
-        '.agents/skills/harness-bootstrap',
+        '.claude/skills/implementation-harness',
+        '.agents/skills/implementation-harness',
       ].some((dir) => fs.existsSync(path.join(root, dir)));
       expect(hasHarness).toBe(fixture.hasHarness);
       expect(fs.readdirSync(path.join(root, 'apps')).sort()).toEqual(

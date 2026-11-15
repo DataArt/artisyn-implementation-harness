@@ -37,7 +37,7 @@ describe('gradeIntentCleanup', () => {
 
   it('ignores INTENT.md under an excluded path (the canonical package)', () => {
     const root = tmpRoot();
-    const packageRoot = path.join(root, '.agents/skills/harness-bootstrap');
+    const packageRoot = path.join(root, '.agents/skills/implementation-harness');
     fs.mkdirSync(path.join(packageRoot, 'canonical/skills/dev'), { recursive: true });
     fs.writeFileSync(path.join(packageRoot, 'canonical/skills/dev/INTENT.md'), 'Adapt scope.\n');
     expect(gradeIntentCleanup(root, ['.claude'], [packageRoot]).pass).toBe(true);

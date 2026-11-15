@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 // @ts-expect-error -- plain ESM .mjs, no type declarations published
-import { buildPlan } from '../../../../.canonical-implementation-harness/scripts/plan-provider-launch.mjs';
+import { buildPlan } from '../../../../skills/implementation-harness/scripts/plan-provider-launch.mjs';
 import { installSkillPackage, type Workspace } from './fixture.ts';
 import { hashFile } from './fs.ts';
 import { LAUNCH_RUNS_DIR, MATERIALIZATION_FILE } from './constants.ts';
@@ -117,12 +117,7 @@ export function rematerialize(result: LaunchResult): void {
  */
 export function finalizeStubbedLaunch(result: LaunchResult): void {
   const { workspace, runId } = result;
-  const receiptPath = path.join(
-    workspace.packageRoot,
-    LAUNCH_RUNS_DIR,
-    runId,
-    MATERIALIZATION_FILE
-  );
+  const receiptPath = path.join(workspace.root, LAUNCH_RUNS_DIR, runId, MATERIALIZATION_FILE);
   const receipt = JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
   const plan = result.plan as { derived_outputs?: Array<{ target: string }> };
   for (const item of plan.derived_outputs ?? [])

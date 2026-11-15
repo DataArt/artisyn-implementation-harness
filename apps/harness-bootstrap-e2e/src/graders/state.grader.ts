@@ -2,6 +2,7 @@ import { result } from './grading.ts';
 import type { GradeResult, GraderBinding, Receipt } from './_types.ts';
 import fs from 'node:fs';
 import path from 'node:path';
+import { projectRootOf } from '../utils/paths.ts';
 import { hashFile, isUnder, readJson } from '../utils/fs.ts';
 import { errorMessage } from '../utils/errors.ts';
 import {
@@ -10,6 +11,7 @@ import {
   MATERIALIZATION_FILE,
   OPERATIONS_DIR,
   VERIFICATION_FILE,
+  STATE_DIR,
 } from '../utils/constants.ts';
 
 import {
@@ -21,7 +23,7 @@ import {
 
 /** Exact-match: the materialization/verification receipts
  * materialize-launch.mjs / finalize-launch.mjs write under
- * `<packageRoot>/state/launch/runs/<run_id>/`.
+ * `<project>/.harness/state/launch/runs/<run_id>/`.
  */
 export function gradeLaunchState(
   packageRoot: string,
@@ -40,7 +42,7 @@ export function gradeLaunchState(
 function verifyReceipt(packageRoot: string, runId: string): string[] {
   const failures: string[] = [];
   try {
-    const dir = path.join(packageRoot, LAUNCH_RUNS_DIR, runId);
+    const dir = path.join(projectRootOf(packageRoot), LAUNCH_RUNS_DIR, runId);
     const receipt = readJson<Receipt>(path.join(dir, MATERIALIZATION_FILE));
     const verification = readJson<Receipt>(path.join(dir, VERIFICATION_FILE));
     if (
@@ -119,7 +121,7 @@ function checkedOutputPath(root: string, packageRoot: string, relative: unknown)
 
 function gradeState(packageRoot: string, runId: string, expectVerified: boolean): GradeResult {
   const failures: string[] = [];
-  const runDir = path.join(packageRoot, LAUNCH_RUNS_DIR, runId);
+  const runDir = path.join(projectRootOf(packageRoot), LAUNCH_RUNS_DIR, runId);
   const receiptPath = path.join(runDir, MATERIALIZATION_FILE);
   if (!fs.existsSync(receiptPath)) {
     if (expectVerified) return gradeLinkedLaunchState(packageRoot, runId);
@@ -165,7 +167,7 @@ function gradeExternalGatePartialLaunch(
 ): string[] {
   const failures: string[] = [];
   try {
-    const operationsDir = path.join(packageRoot, OPERATIONS_DIR);
+    const operationsDir = path.join(projectRootOf(packageRoot), OPERATIONS_DIR);
     const operations = (fs.existsSync(operationsDir) ? fs.readdirSync(operationsDir) : [])
       .filter((name) => name.endsWith('.json'))
       .map((name) => readJson<Receipt>(path.join(operationsDir, name)))
@@ -310,6 +312,17 @@ function readCheckpointCheck(value: unknown): { status: string; evidence: string
   return { status: '', evidence: '' };
 }
 
+/** A stage receipt is recorded project-relative (`.harness/state/...`), with the `state/` alias
+ * (`state/...` means `.harness/state/...`), or through the package folder (older records).
+ * Anything else is resolved inside the state root.
+ */
+function resolveReceiptRef(projectRoot: string, packageRelativePath: string, ref: string): string {
+  if (ref.startsWith('.harness/') || ref.startsWith(packageRelativePath + '/'))
+    return path.resolve(projectRoot, ref);
+  if (ref.startsWith('state/')) return path.resolve(projectRoot, '.harness', ref);
+  return path.resolve(projectRoot, STATE_DIR, ref);
+}
+
 /** Launches may use linked A/B/C materialization runs followed by an aggregate
  * plan. Accept that shape only when the report is still honestly in progress at
  * external Stage E gates, stage receipts verify A/B/C, and every recorded output
@@ -319,9 +332,9 @@ function readCheckpointCheck(value: unknown): { status: string; evidence: string
 function gradeLinkedLaunchState(packageRoot: string, primaryRunId: string): GradeResult {
   const failures: string[] = [];
   const operationFiles: string[] = [];
-  const centralOperation = path.join(packageRoot, LAUNCH_OPERATION_FILE);
+  const centralOperation = path.join(projectRootOf(packageRoot), LAUNCH_OPERATION_FILE);
   if (fs.existsSync(centralOperation)) operationFiles.push(centralOperation);
-  const operationsDir = path.join(packageRoot, OPERATIONS_DIR);
+  const operationsDir = path.join(projectRootOf(packageRoot), OPERATIONS_DIR);
   if (fs.existsSync(operationsDir))
     operationFiles.push(
       ...fs
@@ -376,10 +389,8 @@ function gradeLinkedLaunchState(packageRoot: string, primaryRunId: string): Grad
     ...(operation.stage_receipts ?? []),
   ].filter((value): value is string => typeof value === 'string');
   for (const receiptRelative of receiptEntries) {
-    const receiptPath = receiptRelative.startsWith(packageRelativePath + '/')
-      ? path.resolve(projectRoot, receiptRelative)
-      : path.resolve(packageRoot, receiptRelative);
-    if (!isUnder(receiptPath, path.resolve(packageRoot))) {
+    const receiptPath = resolveReceiptRef(projectRoot, packageRelativePath, receiptRelative);
+    if (!isUnder(receiptPath, path.join(projectRoot, STATE_DIR))) {
       failures.push(`unsafe stage receipt path: ${receiptRelative}`);
       continue;
     }
