@@ -13,8 +13,8 @@ type: reference
 | Branch | `docs/design-20261115-v98j-log-hub-telemetry`                                                                  |
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
-| Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                    |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅ |
 
 ## Progress
 
@@ -46,17 +46,17 @@ New `log-hub` Nx project wraps the upstream Artisyn Log Hub release (pinned `v1.
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 49m 24s · Wait: 53m 18s · Unclassified: 21m 24s
+Observed work: 1h 2m 34s · Wait: 53m 18s · Unclassified: 12m 2s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
-| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
-| context    | 2026-11-15T12:50:58.009Z | 2026-11-15T12:54:03.155Z | 3m 5s       | 53s     | 2m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| ceremony   | 2026-11-15T12:54:03.305Z | 2026-11-15T13:03:56.971Z | 9m 54s      | 1m 11s  | 8m 42s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| plan       | 2026-11-15T13:03:57.123Z | 2026-11-15T13:26:30.760Z | 22m 34s     | 13m 26s | 9m 8s   | unavailable  | unavailable   | from_tracking_start | 2        | 0             | 🔀 scope change |
-| implement  | 2026-11-15T13:26:30.916Z | 2026-11-15T14:27:16.105Z | 1h 0m 45s   | 20m 35s | 33m 15s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| test       | 2026-11-15T14:29:17.993Z | 2026-11-15T14:32:38.515Z | 3m 21s      | 3m 21s  | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| document   | 2026-11-15T14:33:31.108Z | unavailable              | unavailable | 9m 59s  | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| completion | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed    | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
+| ---------- | ------------------------ | ------------------------ | ---------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
+| context    | 2026-11-15T12:50:58.009Z | 2026-11-15T12:54:03.155Z | 3m 5s      | 53s     | 2m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| ceremony   | 2026-11-15T12:54:03.305Z | 2026-11-15T13:03:56.971Z | 9m 54s     | 1m 11s  | 8m 42s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| plan       | 2026-11-15T13:03:57.123Z | 2026-11-15T13:26:30.760Z | 22m 34s    | 13m 26s | 9m 8s   | unavailable  | unavailable   | from_tracking_start | 2        | 0             | 🔀 scope change |
+| implement  | 2026-11-15T13:26:30.916Z | 2026-11-15T14:58:42.003Z | 1h 32m 11s | 20m 46s | 33m 15s | unavailable  | unavailable   | from_tracking_start | 2        | 0             | 🔀 scope change |
+| test       | 2026-11-15T14:29:17.993Z | 2026-11-15T14:32:38.515Z | 3m 21s     | 3m 21s  | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| document   | 2026-11-15T14:33:31.108Z | 2026-11-15T14:55:03.823Z | 21m 33s    | 21m 33s | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| completion | 2026-11-15T14:55:51.681Z | 2026-11-15T14:57:16.394Z | 1m 25s     | 1m 25s  | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 
 Quality (recorded inventory): findings 8 · open 0 · PR findings 0 · critical 0 · debt 1 · tests written 32 · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
@@ -67,20 +67,20 @@ Quality (recorded inventory): findings 8 · open 0 · PR findings 0 · critical 
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 49m 24s · Wait: 53m 18s · Unclassified: 21m 24s
+Observed work: 1h 2m 34s · Wait: 53m 18s · Unclassified: 12m 2s
 
-| Step                                                             | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| ---------------------------------------------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| step-1: Scaffold the log-hub Nx project                          | 2026-11-15T13:28:20.934Z | 2026-11-15T13:29:50.440Z | 1m 30s      | 1m 30s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-2: Checksum verification module and tests                   | 2026-11-15T13:30:06.069Z | 2026-11-15T13:30:59.521Z | 53s         | 53s    | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-3a: init.ts download verify scaffold env                    | 2026-11-15T13:31:17.352Z | 2026-11-15T13:33:45.306Z | 2m 28s      | 2m 28s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-3b: serve.ts and stop.ts                                    | 2026-11-15T13:34:04.771Z | 2026-11-15T13:36:46.202Z | 2m 41s      | 2m 41s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-4: install-hook.ts                                          | 2026-11-15T13:37:03.623Z | 2026-11-15T13:44:04.110Z | 7m 0s       | 7m 0s  | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-5: uninstall-hook.ts                                        | 2026-11-15T13:45:02.414Z | 2026-11-15T13:46:02.331Z | 1m 0s       | 1m 0s  | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-6: verify.ts CI check                                       | 2026-11-15T13:46:09.940Z | 2026-11-15T13:48:27.196Z | 2m 17s      | 2m 17s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-7: Wire settings.json gitignore CI                          | 2026-11-15T13:49:05.336Z | 2026-11-15T13:49:47.312Z | 42s         | 42s    | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-8: Developer-side live verification                         | 2026-11-15T13:51:41.926Z | 2026-11-15T13:52:58.132Z | 1m 16s      | 1m 16s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-09: Configurable server URL for install-hook/uninstall-hook | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Step                                                             | Started (UTC)            | Completed (UTC)          | Elapsed | Work   | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| ---------------------------------------------------------------- | ------------------------ | ------------------------ | ------- | ------ | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| step-1: Scaffold the log-hub Nx project                          | 2026-11-15T13:28:20.934Z | 2026-11-15T13:29:50.440Z | 1m 30s  | 1m 30s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-2: Checksum verification module and tests                   | 2026-11-15T13:30:06.069Z | 2026-11-15T13:30:59.521Z | 53s     | 53s    | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-3a: init.ts download verify scaffold env                    | 2026-11-15T13:31:17.352Z | 2026-11-15T13:33:45.306Z | 2m 28s  | 2m 28s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-3b: serve.ts and stop.ts                                    | 2026-11-15T13:34:04.771Z | 2026-11-15T13:36:46.202Z | 2m 41s  | 2m 41s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-4: install-hook.ts                                          | 2026-11-15T13:37:03.623Z | 2026-11-15T13:44:04.110Z | 7m 0s   | 7m 0s  | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-5: uninstall-hook.ts                                        | 2026-11-15T13:45:02.414Z | 2026-11-15T13:46:02.331Z | 1m 0s   | 1m 0s  | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-6: verify.ts CI check                                       | 2026-11-15T13:46:09.940Z | 2026-11-15T13:48:27.196Z | 2m 17s  | 2m 17s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-7: Wire settings.json gitignore CI                          | 2026-11-15T13:49:05.336Z | 2026-11-15T13:49:47.312Z | 42s     | 42s    | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-8: Developer-side live verification                         | 2026-11-15T13:51:41.926Z | 2026-11-15T13:52:58.132Z | 1m 16s  | 1m 16s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-09: Configurable server URL for install-hook/uninstall-hook | 2026-11-15T14:57:51.696Z | 2026-11-15T14:57:56.882Z | 5s      | 5s     | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 
 <!-- dev-metrics-step:end -->
 
@@ -214,3 +214,11 @@ identified, not that docs were skipped; say so in a line below the table. -->
 
 | Date | Phase | Human time | AI tokens | Notes |
 | ---- | ----- | ---------- | --------- | ----- |
+
+## Completion
+
+- **Date:** 2026-11-15
+- **Archive path:** `docs/Stories/archive/[DEV-20261115-BM9L] Log Hub Session Telemetry Integration/`
+- **PR title:** `feat(log-hub): add opt-in local Log Hub server and Claude Code hook integration`
+- **External actions:** none — developer declined the TD-1 tracker-ticket offer; no tracker status to move (local DEV ID, no Jira ticket); no worklog required for this project
+- **Metrics procedural note:** `step-09` (the server-URL addendum) was implemented while Document was the active stage and left `pending` in `stat.json`, since `scripts/timing.mjs` only allows steps to start inside `implement`. At Completion, with no stage active, `stage retry --stage implement --reason scope_change` succeeded; `step-09` was properly started/verified/completed and Implement re-signed-off (developer: "Implement sign-off: yes"), then re-closed, before `complete` was run. Test/Document/Completion stage statuses were unaffected by the retry.

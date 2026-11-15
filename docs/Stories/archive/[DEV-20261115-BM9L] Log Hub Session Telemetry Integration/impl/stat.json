@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-15T12:50:58.009Z",
-  "completed_at": null,
+  "completed_at": "2026-11-15T14:58:52.037Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -69,9 +69,16 @@
           "ended_at": "2026-11-15T14:27:16.105Z",
           "trigger": "initial",
           "outcome": "completed"
+        },
+        {
+          "id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+          "started_at": "2026-11-15T14:57:45.514Z",
+          "ended_at": "2026-11-15T14:58:42.003Z",
+          "trigger": "scope_change",
+          "outcome": "completed"
         }
       ],
-      "flags": []
+      "flags": ["scope_change"]
     },
     {
       "id": "test",
@@ -103,8 +110,16 @@
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "e252311c-836b-4578-9322-95f28ebfc739",
+          "started_at": "2026-11-15T14:55:51.681Z",
+          "ended_at": "2026-11-15T14:57:16.394Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     }
   ],
@@ -277,8 +292,16 @@
       "order": 9,
       "plan_ref": "2-report.md#progress-row-9-addendum",
       "depends_on": [],
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "4c18666e-46e1-46e4-8ce2-ce168a3398df",
+          "started_at": "2026-11-15T14:57:51.696Z",
+          "ended_at": "2026-11-15T14:57:56.882Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     }
   ],
@@ -1047,6 +1070,126 @@
       "started_at": "2026-11-15T14:43:29.814Z",
       "ended_at": "2026-11-15T14:55:03.823Z",
       "last_observed_at": "2026-11-15T14:55:03.823Z"
+    },
+    {
+      "id": "32c3908c-287c-4199-9a11-ecec7c04cd73",
+      "stage_id": "completion",
+      "stage_attempt_id": "e252311c-836b-4578-9322-95f28ebfc739",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T14:55:51.681Z",
+      "ended_at": "2026-11-15T14:57:16.394Z",
+      "last_observed_at": "2026-11-15T14:57:16.394Z"
+    },
+    {
+      "id": "616c8928-5a69-46a2-944d-b6c90e13fcd6",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T14:57:45.514Z",
+      "ended_at": "2026-11-15T14:57:51.696Z",
+      "last_observed_at": "2026-11-15T14:57:51.696Z"
+    },
+    {
+      "id": "361b6fbd-4e8c-488c-b0d9-2d754554950f",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T14:57:51.696Z",
+      "ended_at": "2026-11-15T14:57:51.753Z",
+      "last_observed_at": "2026-11-15T14:57:51.753Z"
+    },
+    {
+      "id": "8f91b235-5a9b-4212-bd55-4b11231400ab",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T14:57:51.753Z",
+      "ended_at": "2026-11-15T14:57:53.277Z",
+      "last_observed_at": "2026-11-15T14:57:53.277Z"
+    },
+    {
+      "id": "f4fa350b-ef80-4e15-a472-795d9c5c6e4b",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T14:57:53.277Z",
+      "ended_at": "2026-11-15T14:57:53.327Z",
+      "last_observed_at": "2026-11-15T14:57:53.327Z"
+    },
+    {
+      "id": "454ba330-c90a-4c02-9a6d-58aa9eb2894a",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T14:57:53.327Z",
+      "ended_at": "2026-11-15T14:57:54.710Z",
+      "last_observed_at": "2026-11-15T14:57:54.710Z"
+    },
+    {
+      "id": "1b703a86-fd94-4852-a7f6-8fbf749d513c",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T14:57:54.710Z",
+      "ended_at": "2026-11-15T14:57:54.769Z",
+      "last_observed_at": "2026-11-15T14:57:54.769Z"
+    },
+    {
+      "id": "6ae8f25b-3be9-4950-9692-24920c875f91",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T14:57:54.769Z",
+      "ended_at": "2026-11-15T14:57:56.837Z",
+      "last_observed_at": "2026-11-15T14:57:56.837Z"
+    },
+    {
+      "id": "d33b31c5-fd31-486b-870f-26009720a383",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T14:57:56.837Z",
+      "ended_at": "2026-11-15T14:57:56.882Z",
+      "last_observed_at": "2026-11-15T14:57:56.882Z"
     }
   ],
   "checks": [
@@ -1630,19 +1773,106 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "1805c81f-5f9d-41ea-a835-4754b4226646",
+      "stage_id": "completion",
+      "stage_attempt_id": "e252311c-836b-4578-9322-95f28ebfc739",
+      "step": null,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T14:57:05.830Z",
+      "ended_at": "2026-11-15T14:57:05.830Z",
+      "result": "passed",
+      "evidence_ref": "developer: none",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-09-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "name": "log-hub:test (step-09 server URL addendum)",
+      "kind": "test",
+      "started_at": "2026-11-15T14:57:51.753Z",
+      "ended_at": "2026-11-15T14:57:53.277Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:test (step-09 server URL addendum)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T14:57:53.277Z"
+    },
+    {
+      "id": "step-09-typecheck-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "name": "log-hub:typecheck (step-09)",
+      "kind": "typecheck",
+      "started_at": "2026-11-15T14:57:53.327Z",
+      "ended_at": "2026-11-15T14:57:54.710Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:typecheck (step-09)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T14:57:54.710Z"
+    },
+    {
+      "id": "step-09-lint-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": {
+        "id": "step-09",
+        "attempt_id": "4c18666e-46e1-46e4-8ce2-ce168a3398df"
+      },
+      "name": "log-hub:lint (step-09)",
+      "kind": "lint",
+      "started_at": "2026-11-15T14:57:54.769Z",
+      "ended_at": "2026-11-15T14:57:56.837Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:lint (step-09)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T14:57:56.837Z"
+    },
+    {
+      "id": "d6070700-824e-4370-b07a-8a8d239fe809",
+      "stage_id": "implement",
+      "stage_attempt_id": "4b730f3d-b6b9-4b56-8b76-56584dcfb8e9",
+      "step": null,
+      "name": "Implement sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T14:58:41.949Z",
+      "ended_at": "2026-11-15T14:58:41.949Z",
+      "result": "passed",
+      "evidence_ref": "developer: Implement sign-off: yes",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T14:55:03.841Z",
+    "as_of": "2026-11-15T14:59:13.508Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 3658.2140000000004,
+    "cycle_time_seconds": 7674.028,
+    "observed_work_seconds": 3754.2950000000005,
     "observed_wait_seconds": 3197.772,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 589.998,
-    "rework_seconds": 133.60999999999999,
+    "unclassified_seconds": 722.1129999999998,
+    "rework_seconds": 139.79199999999997,
     "blocked_seconds": 0,
     "approval_wait_seconds": 2342.744,
     "failed_checks": 0,
@@ -1653,7 +1883,7 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-15T14:55:03.776Z",
+    "as_of": "2026-11-15T14:59:13.504Z",
     "source": "2-report.md",
     "source_sha256": "477e3a9b2444a7ace140f72b692891a54b5db4130509514e43c2aa8a2959e756",
     "findings": {
@@ -1725,7 +1955,7 @@
       "scopes": 2
     },
     "test_runs": {
-      "recorded": 9,
+      "recorded": 10,
       "failed": 0,
       "errors": 0,
       "interrupted": 0
