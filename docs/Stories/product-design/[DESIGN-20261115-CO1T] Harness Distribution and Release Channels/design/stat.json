@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lifecycle": "design",
-  "design_revision": 0,
+  "design_revision": 1,
   "ticket": "DESIGN-20261115-CO1T",
   "tracking_started_at": "2026-11-15T15:45:37.494Z",
   "ticket_created_at": null,
@@ -38,21 +38,36 @@
     },
     {
       "id": "frame",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "eabc5916-1cbe-4871-a9e9-59ca85f32fe1",
           "started_at": "2026-11-15T15:54:48.704Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T16:15:38.843Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "research",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "1e33f0b9-d0be-412b-99ad-900f873031a1",
+          "started_at": "2026-11-15T16:15:39.009Z",
+          "ended_at": "2026-11-15T16:39:21.377Z",
+          "trigger": "initial",
+          "outcome": "superseded"
+        },
+        {
+          "id": "428acd10-1807-4f8a-9ab3-4e5b712b5d84",
+          "started_at": "2026-11-15T16:39:21.377Z",
+          "ended_at": null,
+          "trigger": "scope_change",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "evaluate",
@@ -290,8 +305,87 @@
       "reason": "user_input",
       "detail": "Awaiting frame commit",
       "started_at": "2026-11-15T16:07:41.307Z",
+      "ended_at": "2026-11-15T16:15:38.679Z",
+      "last_observed_at": "2026-11-15T16:15:38.679Z"
+    },
+    {
+      "id": "d8a02a5c-76f0-44c2-a017-d6d2cab56922",
+      "stage_id": "frame",
+      "stage_attempt_id": "eabc5916-1cbe-4871-a9e9-59ca85f32fe1",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T16:15:38.679Z",
+      "ended_at": "2026-11-15T16:15:38.843Z",
+      "last_observed_at": "2026-11-15T16:15:38.843Z"
+    },
+    {
+      "id": "a82d7cd9-23c9-490f-83bb-69d63ff7a65d",
+      "stage_id": "research",
+      "stage_attempt_id": "1e33f0b9-d0be-412b-99ad-900f873031a1",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T16:15:39.009Z",
+      "ended_at": "2026-11-15T16:30:40.652Z",
+      "last_observed_at": "2026-11-15T16:30:40.652Z"
+    },
+    {
+      "id": "4d29754c-476d-4bf3-b40a-4b32463bf1f1",
+      "stage_id": "research",
+      "stage_attempt_id": "1e33f0b9-d0be-412b-99ad-900f873031a1",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting research sign-off",
+      "started_at": "2026-11-15T16:30:40.652Z",
+      "ended_at": "2026-11-15T16:39:21.220Z",
+      "last_observed_at": "2026-11-15T16:39:21.220Z"
+    },
+    {
+      "id": "775bf3ef-a9ed-4b15-8b27-7d32f5f17539",
+      "stage_id": "research",
+      "stage_attempt_id": "1e33f0b9-d0be-412b-99ad-900f873031a1",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T16:39:21.220Z",
+      "ended_at": "2026-11-15T16:39:21.377Z",
+      "last_observed_at": "2026-11-15T16:39:21.377Z"
+    },
+    {
+      "id": "7a42a98d-7d33-40fa-81f8-beead1aba9bf",
+      "stage_id": "research",
+      "stage_attempt_id": "428acd10-1807-4f8a-9ab3-4e5b712b5d84",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T16:39:21.377Z",
+      "ended_at": "2026-11-15T16:47:32.564Z",
+      "last_observed_at": "2026-11-15T16:47:32.564Z"
+    },
+    {
+      "id": "1f097d96-9b5b-4ea5-8e5c-b0e90b19799c",
+      "stage_id": "research",
+      "stage_attempt_id": "428acd10-1807-4f8a-9ab3-4e5b712b5d84",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting research sign-off (after EC12 rework)",
+      "started_at": "2026-11-15T16:47:32.564Z",
+      "ended_at": "2026-11-15T16:50:22.162Z",
+      "last_observed_at": "2026-11-15T16:50:22.162Z"
+    },
+    {
+      "id": "2ff8ac26-dbce-40f7-9df1-9732f6db9a82",
+      "stage_id": "research",
+      "stage_attempt_id": "428acd10-1807-4f8a-9ab3-4e5b712b5d84",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T16:50:22.162Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T16:07:41.307Z"
+      "last_observed_at": "2026-11-15T16:50:22.162Z"
     }
   ],
   "checks": [
@@ -358,22 +452,70 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "research-mermaid-parse-01",
+      "stage_id": "research",
+      "stage_attempt_id": "1e33f0b9-d0be-412b-99ad-900f873031a1",
+      "step": null,
+      "design_revision": 0,
+      "name": "Mermaid parse check",
+      "kind": "lint",
+      "started_at": "2026-11-15T16:30:40.175Z",
+      "ended_at": "2026-11-15T16:30:40.175Z",
+      "result": "passed",
+      "evidence_ref": "20/20 diagrams in 00 Frame + 4 Research files parse with mermaid.parse (mmdc render unavailable: puppeteer missing)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "research-mermaid-parse-02",
+      "stage_id": "research",
+      "stage_attempt_id": "428acd10-1807-4f8a-9ab3-4e5b712b5d84",
+      "step": null,
+      "design_revision": 1,
+      "name": "Mermaid parse check",
+      "kind": "lint",
+      "started_at": "2026-11-15T16:47:32.243Z",
+      "ended_at": "2026-11-15T16:47:32.243Z",
+      "result": "passed",
+      "evidence_ref": "20/20 diagrams parse after EC12 rework (mermaid.parse; mmdc render unavailable)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "research-signoff-01",
+      "stage_id": "research",
+      "stage_attempt_id": "428acd10-1807-4f8a-9ab3-4e5b712b5d84",
+      "step": null,
+      "design_revision": 1,
+      "name": "Research sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T16:50:22.336Z",
+      "ended_at": "2026-11-15T16:50:22.336Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'go ahead, commit research and start evaluate' — option sets (5/4/5/5) and V/E triage confirmed; V answers deferred to Evaluate Step 1b",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T16:07:41.310Z",
+    "as_of": "2026-11-15T16:50:22.618Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 169.514,
-    "observed_wait_seconds": 1153.8280000000002,
+    "observed_work_seconds": 1562.665,
+    "observed_wait_seconds": 2321.366,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.003,
-    "wait_seconds_to_date": 1153.8310000000001,
-    "unclassified_seconds": 0.4709999999999327,
-    "rework_seconds": 0,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 2321.366,
+    "unclassified_seconds": 1.0929999999998472,
+    "rework_seconds": 491.187,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 1073.462,
+    "approval_wait_seconds": 1763.628,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
