@@ -1,4 +1,5 @@
 ---
+id: e55e8bd6
 purpose: 'Settled end-to-end architecture for the Log Hub container: a repo-managed, opt-in local Log Hub server and local-scope Claude Code hook, isolated from the canonical harness and the deployed site'
 keywords: [log-hub, architecture, claude-code-hook, canonical-isolation, nx-project, local-scope]
 ---

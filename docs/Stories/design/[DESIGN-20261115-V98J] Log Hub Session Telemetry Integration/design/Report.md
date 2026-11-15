@@ -64,12 +64,12 @@ their resolution here; do not rely on conversation history for design provenance
 
 ## Status
 
-| Field  | Value                                                                                                                                                                               |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ticket | DESIGN-20261115-V98J (local ID, no tracker record)                                                                                                                                  |
-| Branch | `docs/design-20261115-v98j-log-hub-telemetry`                                                                                                                                       |
-| Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Field  | Value                                                                                                                                                                                                              |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Ticket | DESIGN-20261115-V98J (local ID, no tracker record)                                                                                                                                                                 |
+| Branch | `docs/design-20261115-v98j-log-hub-telemetry`                                                                                                                                                                      |
+| Status | 🔄 In Progress                                                                                                                                                                                                     |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏳ (skip — approved, no concerns) · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -79,7 +79,7 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 40m 59s · Wait to date: 2h 3m 3s (closed 2h 3m 3s + current 0s) · Unclassified: 1s
+Observed work: 53m 46s · Wait to date: 2h 6m 31s (closed 2h 6m 31s + current 0s) · Unclassified: 8s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -88,10 +88,10 @@ Observed work: 40m 59s · Wait to date: 2h 3m 3s (closed 2h 3m 3s + current 0s) 
 | frame (completed)             | 2026-11-15T09:44:36.952Z | 2026-11-15T09:52:49.692Z | 8m 13s      | 3m 41s  | 4m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | research (completed)          | 2026-11-15T09:52:49.844Z | 2026-11-15T11:56:19.784Z | 2h 3m 30s   | 19m 50s | 1h 43m 40s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | evaluate (completed)          | 2026-11-15T11:56:19.944Z | 2026-11-15T12:07:13.775Z | 10m 54s     | 5m 23s  | 5m 31s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (active)             | 2026-11-15T12:07:13.931Z | unavailable              | unavailable | 12m 3s  | 4m 20s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| solution (completed)          | 2026-11-15T12:07:13.931Z | 2026-11-15T12:24:49.965Z | 17m 36s     | 12m 4s  | 5m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| review-gate (completed)       | 2026-11-15T12:24:50.153Z | 2026-11-15T12:27:07.526Z | 2m 17s      | 2m 17s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (active)              | 2026-11-15T12:27:14.340Z | unavailable              | unavailable | 10m 29s | 2m 16s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
@@ -212,9 +212,9 @@ Full elaboration: `solution/Architecture.md`, `solution/Design.md`, `solution/Ef
 
 ## Gate
 
-- Approver: —
-- Draft MR: —
-- Approved: — _(a date once approved, or `declined`)_
+- Approver: developer (sole approver on this repo, self-approved)
+- Draft MR: none — developer explicitly declined a formal PR as sole approver, 2026-11-15
+- Approved: 2026-11-15
 - Decline reason: — _(filled in by Address Feedback only if declined)_
 
 ---
@@ -227,6 +227,7 @@ Full elaboration: `solution/Architecture.md`, `solution/Design.md`, `solution/Ef
 | 2026-11-15 | Research | @architect returned 6 options for Server topology (A developer-only local, B per-contributor local, F Nx-wrapped local, C hybrid, D shared internal VM, E cloud-hosted) and 5 for Repo footprint (A commit all, B gitignore + local scope, C commit marketplace + local scope, D Nx wrapper + CI verify, E personal only); developer confirmed set complete; 29 OQs triaged 9V/20E |
 | 2026-11-15 | Evaluate | Recommended C hybrid with F (Nx-wrapped local) as default for Server topology, and D wrapper with B layout for Repo footprint; WAF: 11 🟢 / 4 🟡 / 0 🔴; 2 P1 items (SHA256SUMS verify; local-scope spike)                                                                                                                                                                         |
 | 2026-11-15 | Solution | Selected artifacts written (Architecture, Design, Stack, Efforts); architect review ran (2 findings fixed, OK on re-review); WAF: 4 🟢 / 2 🟡 / 0 🔴, 1 P1 gated into Efforts WBS #4; quality gate pass; Estimate column left empty by developer choice                                                                                                                            |
+| 2026-11-15 | Publish  | MR approved by developer (sole approver, no formal PR); docs updated: System Overview.md, Containers/Log Hub.md (new), Non-Functional Concerns/Requirements.md, Engineering Guide/07 Log Hub Setup.md (new), Getting Started.md, Engineering Guide/index.md; architect review OK                                                                                                   |
 
 ---
 

@@ -12,13 +12,14 @@ Cross-cutting conventions and operational procedures for how work is planned, im
 
 The top-level articles cover conventions and setup — read [Doc Structure](./Documentation/02%20Structure.md) first for the full three-tier documentation model this repo follows. [Documentation](#documentation) holds the presentation and structural-contract articles that govern how every doc type is written. [Lifecycles](./Lifecycles/00%20Overview.md) documents the four lifecycles (Dev, Design, Skill, Architecture) that structure all work end to end — also mirrored under [Harness › Lifecycles](/Harness/03%20Lifecycles/00%20Overview.md) as part of the harness's own nav. [Infrastructure](./Infrastructure/04%20Giscus%20Setup.md) covers the one remaining manual setup procedure, Giscus comments configuration — the AWS deploy/provisioning runbooks that used to live here were retired along with the Infrastructure and Auth containers. This guide is stable reference material — it changes when a convention changes, not as the project progresses.
 
-| Page                                                                            | Holds                                                                          |
-| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| [01 Conventions](./01%20Conventions.md)                                         | Portable conventions that apply regardless of which AI tool is used            |
-| [03 Engineer Role](./03%20Engineer%20Role.md)                                   | The engineer/AI division of labour — creative direction vs. workflow execution |
-| [04 AI Coding Tool Compatibility](./04%20AI%20Coding%20Tool%20Compatibility.md) | How harness concepts map to each AI coding agent's primitives                  |
-| [05 Getting Started](./05%20Getting%20Started.md)                               | First-time setup and daily commands for the monorepo                           |
-| [06 MCP Setup](./06%20MCP%20Setup.md)                                           | Connecting Claude Code to AWS, GitHub, and Atlassian via MCP                   |
+| Page                                                                            | Holds                                                                                                                            |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| [01 Conventions](./01%20Conventions.md)                                         | Portable conventions that apply regardless of which AI tool is used                                                              |
+| [03 Engineer Role](./03%20Engineer%20Role.md)                                   | The engineer/AI division of labour — creative direction vs. workflow execution                                                   |
+| [04 AI Coding Tool Compatibility](./04%20AI%20Coding%20Tool%20Compatibility.md) | How harness concepts map to each AI coding agent's primitives                                                                    |
+| [05 Getting Started](./05%20Getting%20Started.md)                               | First-time setup and daily commands for the monorepo                                                                             |
+| [06 MCP Setup](./06%20MCP%20Setup.md)                                           | Connecting Claude Code to AWS, GitHub, and Atlassian via MCP                                                                     |
+| [07 Log Hub Setup](./07%20Log%20Hub%20Setup.md)                                 | Opt-in local Log Hub server + Claude Code hook setup for session telemetry, and the data-disclosure contributors must read first |
 
 ### Documentation
 

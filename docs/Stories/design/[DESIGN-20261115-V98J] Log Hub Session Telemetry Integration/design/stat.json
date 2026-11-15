@@ -77,31 +77,50 @@
     },
     {
       "id": "solution",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
           "started_at": "2026-11-15T12:07:13.931Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T12:24:49.965Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "dbb6d436-ee52-4790-831d-0ca1bfcc15be",
+          "started_at": "2026-11-15T12:24:50.153Z",
+          "ended_at": "2026-11-15T12:27:07.526Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "address-feedback",
-      "status": "pending",
-      "attempts": []
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "Confirmed developer approval, sole approver, no formal PR",
+      "skipped_at": "2026-11-15T12:27:07.679Z"
     },
     {
       "id": "publish",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "3bc7199a-4c83-4073-8dc3-bf1b2c275528",
+          "started_at": "2026-11-15T12:27:14.340Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "completion",
@@ -439,8 +458,76 @@
       "reason": "user_input",
       "detail": "Awaiting solution commit",
       "started_at": "2026-11-15T12:23:38.040Z",
+      "ended_at": "2026-11-15T12:24:49.818Z",
+      "last_observed_at": "2026-11-15T12:24:49.818Z"
+    },
+    {
+      "id": "f6d15b9e-2dd7-4afe-8787-713136f42b0f",
+      "stage_id": "solution",
+      "stage_attempt_id": "c3bde305-b2d5-4f1d-b610-9f5b62529df3",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T12:24:49.818Z",
+      "ended_at": "2026-11-15T12:24:49.965Z",
+      "last_observed_at": "2026-11-15T12:24:49.965Z"
+    },
+    {
+      "id": "a752b2c8-700a-47ea-b7e8-f1add7c007df",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "dbb6d436-ee52-4790-831d-0ca1bfcc15be",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T12:24:50.153Z",
+      "ended_at": "2026-11-15T12:27:07.526Z",
+      "last_observed_at": "2026-11-15T12:27:07.526Z"
+    },
+    {
+      "id": "16c7b853-8ff2-426a-a480-ef718f1a5bea",
+      "stage_id": "publish",
+      "stage_attempt_id": "3bc7199a-4c83-4073-8dc3-bf1b2c275528",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T12:27:14.340Z",
+      "ended_at": "2026-11-15T12:37:43.544Z",
+      "last_observed_at": "2026-11-15T12:37:43.544Z"
+    },
+    {
+      "id": "bf54066e-d465-4e42-9af9-0b16ce920b82",
+      "stage_id": "publish",
+      "stage_attempt_id": "3bc7199a-4c83-4073-8dc3-bf1b2c275528",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting publish sign-off",
+      "started_at": "2026-11-15T12:37:43.544Z",
+      "ended_at": "2026-11-15T12:39:59.108Z",
+      "last_observed_at": "2026-11-15T12:39:59.108Z"
+    },
+    {
+      "id": "ffadfe91-a355-4fb9-8cd1-ee4d5dd82fd3",
+      "stage_id": "publish",
+      "stage_attempt_id": "3bc7199a-4c83-4073-8dc3-bf1b2c275528",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T12:39:59.108Z",
+      "ended_at": "2026-11-15T12:39:59.695Z",
+      "last_observed_at": "2026-11-15T12:39:59.695Z"
+    },
+    {
+      "id": "7211d820-77f0-483f-8b71-4d19e2c89f6b",
+      "stage_id": "publish",
+      "stage_attempt_id": "3bc7199a-4c83-4073-8dc3-bf1b2c275528",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting publish commit",
+      "started_at": "2026-11-15T12:39:59.695Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T12:23:38.040Z"
+      "last_observed_at": "2026-11-15T12:39:59.695Z"
     }
   ],
   "checks": [
@@ -571,22 +658,54 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "gate-round-01",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "dbb6d436-ee52-4790-831d-0ca1bfcc15be",
+      "step": null,
+      "design_revision": 0,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T12:27:07.373Z",
+      "ended_at": "2026-11-15T12:27:07.373Z",
+      "result": "passed",
+      "evidence_ref": "Developer, sole approver: 'im only one approver, so approved, no feedback, move next' — no formal PR opened",
+      "source": "developer confirmation",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "publish-signoff-01",
+      "stage_id": "publish",
+      "stage_attempt_id": "3bc7199a-4c83-4073-8dc3-bf1b2c275528",
+      "step": null,
+      "design_revision": 0,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T12:39:59.259Z",
+      "ended_at": "2026-11-15T12:39:59.259Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'nice!' — confirmed 6 permanent docs, architect review OK",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T12:23:38.043Z",
+    "as_of": "2026-11-15T12:39:59.698Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 2459.223,
-    "observed_wait_seconds": 7383.237999999999,
+    "observed_work_seconds": 3226.534,
+    "observed_wait_seconds": 7590.58,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.003,
-    "wait_seconds_to_date": 7383.240999999999,
-    "unclassified_seconds": 0.9110000000006694,
+    "wait_seconds_to_date": 7590.583,
+    "unclassified_seconds": 7.913000000001077,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 7011.465999999999,
+    "approval_wait_seconds": 7147.03,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
