@@ -13,13 +13,20 @@ type: reference
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
 | Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan 🔄 · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
 
 ## Progress
 
-| #   | Step         | Status     | Notes | Test | Docs |
-| --- | ------------ | ---------- | ----- | ---- | ---- |
-| 1   | _Step title_ | ⏳ Pending |       |      |      |
+| #   | Step                                         | Status     | Notes | Test | Docs |
+| --- | -------------------------------------------- | ---------- | ----- | ---- | ---- |
+| 1   | Scaffold the log-hub Nx project              | ⏳ Pending |       |      |      |
+| 2   | Checksum verification module and tests       | ⏳ Pending |       |      |      |
+| 3   | serve.ts and stop.ts (serve, stop, upgrade)  | ⏳ Pending |       |      |      |
+| 4   | install-hook.ts (install-hook, upgrade-hook) | ⏳ Pending |       |      |      |
+| 5   | uninstall-hook.ts (uninstall-hook)           | ⏳ Pending |       |      |      |
+| 6   | verify.ts (verify) - CI-facing check         | ⏳ Pending |       |      |      |
+| 7   | Wire settings.json, gitignore and CI         | ⏳ Pending |       |      |      |
+| 8   | Developer-side live verification (Docker)    | ⏳ Pending |       |      |      |
 
 <!--
 Status values : ⏳ Pending · 🔄 Active · ✅ Done · ⚠️ Blocked · ⏭️ Skipped
@@ -32,19 +39,19 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 53s · Wait: 2m 12s · Unclassified: 1s
+Observed work: 13m 16s · Wait: 14m 32s · Unclassified: 1s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| ---------- | ------------------------ | ------------------------ | ----------- | ---- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| context    | 2026-11-15T12:50:58.009Z | 2026-11-15T12:54:03.155Z | 3m 5s       | 53s  | 2m 12s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| ceremony   | 2026-11-15T12:54:03.305Z | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| plan       | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| implement  | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| test       | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| document   | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| completion | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| context    | 2026-11-15T12:50:58.009Z | 2026-11-15T12:54:03.155Z | 3m 5s       | 53s     | 2m 12s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| ceremony   | 2026-11-15T12:54:03.305Z | 2026-11-15T13:03:56.971Z | 9m 54s      | 1m 11s  | 8m 42s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| plan       | 2026-11-15T13:03:57.123Z | unavailable              | unavailable | 11m 11s | 3m 38s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| implement  | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| test       | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| document   | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| completion | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 
-Quality (recorded inventory): findings 0 · open 0 · PR findings 0 · critical 0 · debt 0 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
+Quality (recorded inventory): findings 1 · open 0 · PR findings 0 · critical 0 · debt 0 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
 
 ## Step Metrics
@@ -53,7 +60,7 @@ Quality (recorded inventory): findings 0 · open 0 · PR findings 0 · critical 
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 53s · Wait: 2m 12s · Unclassified: 1s
+Observed work: 13m 16s · Wait: 14m 32s · Unclassified: 1s
 
 | Step | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks | Flags |
 | ---- | ------------- | --------------- | ------- | ---- | ---- | ------------ | ------------- | -------- | -------- | ------------- | ----- |
@@ -62,8 +69,9 @@ Observed work: 53s · Wait: 2m 12s · Unclassified: 1s
 
 ## Review Findings
 
-| ID  | Stage | Origin | Kind | Deviation type | Severity | Classification | Finding | Evidence | Resolution | TD  | Decision |
-| --- | ----- | ------ | ---- | -------------- | -------- | -------------- | ------- | -------- | ---------- | --- | -------- |
+| ID     | Stage | Origin     | Kind      | Deviation type | Severity | Classification | Finding                                                                                                                                                                                                                                                                          | Evidence                                                                                                                                                                                        | Resolution | TD  | Decision                                                                                                                                                                                                                                                                                                                                                                |
+| ------ | ----- | ---------- | --------- | -------------- | -------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| RF-001 | plan  | plan-audit | deviation | extension      | low      | introduced     | `solution/Stack.md` confirmed plain Node.js `.mjs` scripts at design time; plan switches to TypeScript, refined to match `apps/harness-bootstrap-e2e`'s own shape exactly: own `package.json` (`"type": "module"`), own `tsconfig.json`, plain `.ts` under `src/`, run via `tsx` | `1-plan.md` Solution "Planning decisions" bullet 4; developer: "switch to TS", then "can files be *.ts with package.json stating modules and tsconfig, same pattern we are using for e2e tests" | accepted   | —   | Developer-attributed, accepted directly in session, refined twice to match in-repo precedent exactly. No build step added; `typecheck`/`lint` targets added so `log-hub` meets the same quality bar as other TS projects. Not escalated to re-open `solution/Stack.md` since this is a within-ticket tooling choice, not a change to any settled architecture decision. |
 
 <!-- One row per underlying issue; see patterns/review-gate.md. Empty means no recorded findings, not proof of review. -->
 

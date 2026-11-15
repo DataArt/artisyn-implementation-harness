@@ -26,22 +26,30 @@
     },
     {
       "id": "ceremony",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "56136910-2b62-4823-aa0c-270385ae54e8",
           "started_at": "2026-11-15T12:54:03.305Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T13:03:56.971Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "plan",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+          "started_at": "2026-11-15T13:03:57.123Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -125,8 +133,110 @@
       "reason": "user_input",
       "detail": "Awaiting ceremony commit",
       "started_at": "2026-11-15T12:55:14.541Z",
+      "ended_at": "2026-11-15T13:03:56.824Z",
+      "last_observed_at": "2026-11-15T13:03:56.824Z"
+    },
+    {
+      "id": "3ea246cf-52f6-4190-8e4f-b6b830842fd6",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "56136910-2b62-4823-aa0c-270385ae54e8",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T13:03:56.824Z",
+      "ended_at": "2026-11-15T13:03:56.971Z",
+      "last_observed_at": "2026-11-15T13:03:56.971Z"
+    },
+    {
+      "id": "2a7bf030-1506-4811-bdf5-01a19c5cbd4f",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T13:03:57.123Z",
+      "ended_at": "2026-11-15T13:04:09.687Z",
+      "last_observed_at": "2026-11-15T13:04:09.687Z"
+    },
+    {
+      "id": "dd4df699-6a97-4bcc-881e-185c6cbe393b",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T13:04:09.687Z",
+      "ended_at": "2026-11-15T13:15:07.756Z",
+      "last_observed_at": "2026-11-15T13:15:07.756Z"
+    },
+    {
+      "id": "9831bd9f-d0c9-4e91-9bc1-6606f42e4ffe",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T13:15:07.756Z",
+      "ended_at": "2026-11-15T13:15:08.090Z",
+      "last_observed_at": "2026-11-15T13:15:08.090Z"
+    },
+    {
+      "id": "76dbdfcd-3986-4f39-9817-661d19c480a0",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting plan sign-off",
+      "started_at": "2026-11-15T13:15:08.090Z",
+      "ended_at": "2026-11-15T13:17:31.514Z",
+      "last_observed_at": "2026-11-15T13:17:31.514Z"
+    },
+    {
+      "id": "7619c6ce-9155-472e-a895-ec5cf473c49e",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T13:17:31.514Z",
+      "ended_at": "2026-11-15T13:17:31.935Z",
+      "last_observed_at": "2026-11-15T13:17:31.935Z"
+    },
+    {
+      "id": "17174da1-9639-4013-beb1-223dbf4fd3e3",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting plan sign-off",
+      "started_at": "2026-11-15T13:17:31.935Z",
+      "ended_at": "2026-11-15T13:18:46.328Z",
+      "last_observed_at": "2026-11-15T13:18:46.328Z"
+    },
+    {
+      "id": "ae93812d-123d-489d-8941-119dc6c5449b",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T13:18:46.328Z",
+      "ended_at": "2026-11-15T13:18:46.909Z",
+      "last_observed_at": "2026-11-15T13:18:46.909Z"
+    },
+    {
+      "id": "8b333d42-acef-41fd-82a4-e7bd950bd69d",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting plan commit",
+      "started_at": "2026-11-15T13:18:46.909Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T12:55:14.541Z"
+      "last_observed_at": "2026-11-15T13:18:46.909Z"
     }
   ],
   "checks": [
@@ -159,21 +269,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "plan-signoff-01",
+      "stage_id": "plan",
+      "stage_attempt_id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
+      "step": null,
+      "name": "Plan sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T13:18:46.478Z",
+      "ended_at": "2026-11-15T13:18:46.478Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'looks good!' — 8 steps, RF-001 (TS via tsx, harness-bootstrap-e2e shape) accepted, audit go",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T12:55:14.541Z",
+    "as_of": "2026-11-15T13:18:46.910Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 124.00800000000001,
-    "observed_wait_seconds": 132.374,
+    "observed_work_seconds": 796.124,
+    "observed_wait_seconds": 872.474,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "unclassified_seconds": 0.3020000000000209,
+    "open_wait_seconds": 0.001,
+    "unclassified_seconds": 0.4540000000000409,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 132.374,
+    "approval_wait_seconds": 350.19100000000003,
     "failed_checks": 0,
     "first_pass_verification_rate": null,
     "human_reported_seconds": null,
@@ -182,13 +307,13 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-15T12:55:14.380Z",
+    "as_of": "2026-11-15T13:18:46.729Z",
     "source": "2-report.md",
-    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "source_sha256": "f979bfcbeb2d170e16179660bc4fbac8a4027abcebac044e01bb46742d12894e",
     "findings": {
-      "total": 0,
+      "total": 1,
       "by_kind": {
-        "deviation": 0,
+        "deviation": 1,
         "bug": 0,
         "design": 0,
         "improve": 0,
@@ -200,11 +325,11 @@
         "critical": 0,
         "high": 0,
         "medium": 0,
-        "low": 0,
+        "low": 1,
         "info": 0
       },
       "by_classification": {
-        "introduced": 0,
+        "introduced": 1,
         "pre-existing": 0,
         "ruled-out": 0,
         "advisory": 0
@@ -212,13 +337,13 @@
       "by_resolution": {
         "open": 0,
         "fixed": 0,
-        "accepted": 0,
+        "accepted": 1,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
         "contradiction": 0,
-        "extension": 0,
+        "extension": 1,
         "omission": 0
       },
       "pr_review": {
