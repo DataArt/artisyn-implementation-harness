@@ -51,7 +51,7 @@
     },
     {
       "id": "research",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "1e33f0b9-d0be-412b-99ad-900f873031a1",
@@ -63,16 +63,24 @@
         {
           "id": "428acd10-1807-4f8a-9ab3-4e5b712b5d84",
           "started_at": "2026-11-15T16:39:21.377Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T16:50:40.353Z",
           "trigger": "scope_change",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "evaluate",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+          "started_at": "2026-11-15T16:50:40.507Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "solution",
@@ -384,8 +392,77 @@
       "kind": "work",
       "activity": "investigation",
       "started_at": "2026-11-15T16:50:22.162Z",
+      "ended_at": "2026-11-15T16:50:40.353Z",
+      "last_observed_at": "2026-11-15T16:50:40.353Z"
+    },
+    {
+      "id": "24a8eb2e-5310-443c-90a1-c369299a0850",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T16:50:40.507Z",
+      "ended_at": "2026-11-15T16:50:56.193Z",
+      "last_observed_at": "2026-11-15T16:50:56.193Z"
+    },
+    {
+      "id": "4412d9c0-2021-436c-9027-2563c2c92a95",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting viability OQ answers (Evaluate Step 1b)",
+      "started_at": "2026-11-15T16:50:56.193Z",
+      "ended_at": "2026-11-15T17:01:52.374Z",
+      "last_observed_at": "2026-11-15T17:01:52.374Z"
+    },
+    {
+      "id": "1cf66428-07c6-440e-b2aa-67385034a63e",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T17:01:52.374Z",
+      "ended_at": "2026-11-15T17:01:53.004Z",
+      "last_observed_at": "2026-11-15T17:01:53.004Z"
+    },
+    {
+      "id": "b78979df-e1ab-4866-858d-f5f18e50d72f",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off",
+      "started_at": "2026-11-15T17:01:53.004Z",
+      "ended_at": "2026-11-15T17:11:53.122Z",
+      "last_observed_at": "2026-11-15T17:11:53.122Z"
+    },
+    {
+      "id": "66901786-4efc-475d-84f3-642b30248bd2",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T17:11:53.122Z",
+      "ended_at": "2026-11-15T17:11:53.641Z",
+      "last_observed_at": "2026-11-15T17:11:53.641Z"
+    },
+    {
+      "id": "8ab8968f-0b2d-4589-8d2a-76d768dba765",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting evaluate commit",
+      "started_at": "2026-11-15T17:11:53.641Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T16:50:22.162Z"
+      "last_observed_at": "2026-11-15T17:11:53.641Z"
     }
   ],
   "checks": [
@@ -500,22 +577,70 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "evaluate-mermaid-parse-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "design_revision": 1,
+      "name": "Mermaid parse check",
+      "kind": "lint",
+      "started_at": "2026-11-15T17:01:52.518Z",
+      "ended_at": "2026-11-15T17:01:52.518Z",
+      "result": "passed",
+      "evidence_ref": "4/4 Evaluate diagrams parse",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "evaluate-waf-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "design_revision": 1,
+      "name": "Closing WAF assessment",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T17:01:52.673Z",
+      "ended_at": "2026-11-15T17:01:52.673Z",
+      "result": "passed",
+      "evidence_ref": "4 decisions assessed; 6 P1 items carried to sign-off; Report WAF block 2026-11-15",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "evaluate-signoff-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "7eab19a7-454e-4dbf-b47e-830d4d939da0",
+      "step": null,
+      "design_revision": 1,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T17:11:53.276Z",
+      "ended_at": "2026-11-15T17:11:53.276Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'looks good to me, continue' — D1 B, D2 C, D3 B+C1/D, D4 D; six WAF P1s accepted as design requirements; proposed defaults accepted for Solution",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T16:50:22.618Z",
+    "as_of": "2026-11-15T17:11:53.644Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1562.665,
-    "observed_wait_seconds": 2321.366,
+    "observed_work_seconds": 1597.691,
+    "observed_wait_seconds": 3577.665,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "wait_seconds_to_date": 2321.366,
-    "unclassified_seconds": 1.0929999999998472,
-    "rework_seconds": 491.187,
+    "open_wait_seconds": 0.003,
+    "wait_seconds_to_date": 3577.668,
+    "unclassified_seconds": 0.790999999999869,
+    "rework_seconds": 509.378,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 1763.628,
+    "approval_wait_seconds": 2363.746,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,

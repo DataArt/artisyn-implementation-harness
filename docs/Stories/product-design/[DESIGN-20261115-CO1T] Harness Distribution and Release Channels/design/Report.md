@@ -30,10 +30,10 @@ Today only a ZIP is stored under `releases/harness-bootstrap/`; consumers copy a
 ## State
 
 ```yaml
-current_stage: evaluate
-completed_stages: [context-gathering, ceremony, frame, research]
+current_stage: solution
+completed_stages: [context-gathering, ceremony, frame, research, evaluate]
 selected_artifacts: []
-next_action: 'Evaluate Step 1b: resolve 8 developer V-OQs + D3-6 spike'
+next_action: 'Solution: architecture, per-decision design, stack, efforts; 6 WAF P1s as requirements'
 context_fingerprint: ''
 ```
 
@@ -65,7 +65,7 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 | Ticket | DESIGN-20261115-CO1T                                                                                                                                                                |
 | Branch | `docs/design-20261115-co1t-harness-distribution`                                                                                                                                    |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -75,15 +75,15 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 26m 3s · Wait to date: 38m 41s (closed 38m 41s + current 0s) · Unclassified: 1s
+Observed work: 26m 37s · Wait to date: 59m 38s (closed 59m 38s + current 0s) · Unclassified: 1s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
 | context-gathering (completed) | 2026-11-15T15:45:37.642Z | 2026-11-15T15:50:53.589Z | 5m 16s      | 16s     | 4m 59s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | ceremony (completed)          | 2026-11-15T15:50:53.738Z | 2026-11-15T15:54:48.530Z | 3m 55s      | 11s     | 3m 44s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | frame (completed)             | 2026-11-15T15:54:48.704Z | 2026-11-15T16:15:38.843Z | 20m 50s     | 2m 22s  | 18m 28s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (active)             | 2026-11-15T16:15:39.009Z | unavailable              | unavailable | 23m 13s | 11m 30s | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| research (completed)          | 2026-11-15T16:15:39.009Z | 2026-11-15T16:50:40.353Z | 35m 1s      | 23m 31s | 11m 30s | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
+| evaluate (active)             | 2026-11-15T16:50:40.507Z | unavailable              | unavailable | 16s     | 20m 56s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -100,16 +100,16 @@ _From Research OQ triage (2026-11-15) — classification confirmed by the develo
 
 | #            | Open question                                                                                                                               | V/E                | Answer / status                                                                                                                                       |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| D1-1         | EC1: literal `artisyn-implementation-harness` as skill/command, or branded short form acceptable?                                           | (V)                | Open — developer                                                                                                                                      |
-| D2-1         | EC3: self-hosted marketplace, or official curated directories required?                                                                     | (V)                | Open — developer                                                                                                                                      |
-| D2-2         | GitHub Packages primary or internal mirror; is public npmjs publishing allowed?                                                             | (V)                | Open — developer + org admin                                                                                                                          |
-| D2-3         | Is the `@dataart` scope available on npmjs.com?                                                                                             | (V)                | Open — org admin                                                                                                                                      |
+| D1-1         | EC1: literal `artisyn-implementation-harness` as skill/command, or branded short form acceptable?                                           | (V)                | **Answered (developer, Evaluate 1b):** literal full name for skill and command — identity C, D out                                                    |
+| D2-1         | EC3: self-hosted marketplace, or official curated directories required?                                                                     | (V)                | **Answered:** own marketplace in this repo; official directories optional/later                                                                       |
+| D2-2         | GitHub Packages primary or internal mirror; is public npmjs publishing allowed?                                                             | (V)                | **Answered:** no public npmjs; npm only on GitHub Packages (token); anonymous via marketplace, skills.sh, ZIP                                         |
+| D2-3         | Is the `@dataart` scope available on npmjs.com?                                                                                             | (V)                | **Moot** (no npmjs). Registry shows zero `@dataart` packages                                                                                          |
 | D3-1 (≡D2-4) | Can `state/` move out of the package to a project-level state root (in scope)?                                                              | (V)                | **Answered (developer, 2026-11-15):** yes — `state/` only moves to project `.harness/` (EC12); `package:patch/` and harvest edits stay in the package |
-| D3-3         | Is consumer-side `patch harvest`/`prepare` supported?                                                                                       | (V)                | Open — developer                                                                                                                                      |
-| D3-6         | Do skills.sh / `gh skill update` wipe unknown files? (after EC12: local `package:patch/` bundles and `package:canonical/` edits, not state) | (V if D3-3 = yes)  | Open — verification spike before Evaluate matrix                                                                                                      |
-| D3-13        | `package:` recorded as a path or as name + version + channel when the package lives outside the project (plugin cache)?                     | (V for install C1) | Open — developer + @product-architect                                                                                                                 |
-| D4-Q1        | Harness CHANGELOG must stay curated prose, or commit-generated acceptable?                                                                  | (V)                | Open — developer                                                                                                                                      |
-| D4-Q2        | Human gate required before publish?                                                                                                         | (V)                | Open — developer                                                                                                                                      |
+| D3-3         | Is consumer-side `patch harvest`/`prepare` supported?                                                                                       | (V)                | **Answered:** no consumer-side harvest/prepare; consumer package may be read-only                                                                     |
+| D3-6         | Do skills.sh / `gh skill update` wipe unknown files? (after EC12: local `package:patch/` bundles and `package:canonical/` edits, not state) | (V if D3-3 = yes)  | **Resolved (spike):** skills.sh wipes and recreates the folder; `gh skill update` overwrites per file, keeps extras. Harmless now                     |
+| D3-13        | `package:` recorded as a path or as name + version + channel when the package lives outside the project (plugin cache)?                     | (V for install C1) | **Resolved by D3-3:** `package:` may be a user-level cache path; record path + name + version + channel                                               |
+| D4-Q1        | Harness CHANGELOG must stay curated prose, or commit-generated acceptable?                                                                  | (V)                | **Answered:** commit-generated CHANGELOG acceptable                                                                                                   |
+| D4-Q2        | Human gate required before publish?                                                                                                         | (V)                | **Answered:** fully automatic publish on merge, no gate                                                                                               |
 | D3-2         | Package removable after launch, or kept?                                                                                                    | (E)                | Proposed after EC12: removable for non-harvesters (state + baselines in `.harness/`); open whether allowed with unsent local bundles                  |
 | D3-10/11     | `.harness/` subfolder name; commit, ignore or split it in consumer projects                                                                 | (E)                | Open — settle before Solution; D3-11 may need a scope ruling                                                                                          |
 | D4-Q6        | One or two SKILL.md version fields?                                                                                                         | (E)                | Proposed: keep only `metadata.version`                                                                                                                |
@@ -123,6 +123,30 @@ _From Research OQ triage (2026-11-15) — classification confirmed by the develo
 _Filled in during the Evaluate phase closing step and updated by any `patterns/waf-review.md` invocation._
 
 <!-- Append dated blocks here. Each block added by Evaluate or the waf-review pattern. -->
+
+### WAF — Evaluate — 2026-11-15
+
+_Recommended options: D1 Identity — B Full brand name + time-boxed `harness-bootstrap` shim · D2 Channels — C Repo-as-marketplace + GitHub Packages npm + skills.sh/gh skill + Release ZIP · D3 Install and Update — B copy CLI primary, C1 plugin cache and D skills.sh/gh skill as native paths, one `.harness/state/` contract · D4 Release — D Nx Release independent, automatic on merge._
+
+| Pillar                 | D1  | D2  | D3  | D4  | Headline                                                                                                                |
+| ---------------------- | --- | --- | --- | --- | ----------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟢  | 🟢  | 🟢  | 🟢  | One name, one source tree, one state contract, one automatic workflow                                                   |
+| Security               | 🟢  | 🟡  | 🟢  | 🟡  | Marketplace must pin to the released tag; discovery restricted; automatic publish needs required CI + branch protection |
+| Reliability            | 🟡  | 🟢  | 🟡  | 🟡  | Old snapshot refs and state migration must resolve; version stamps must stay consistent                                 |
+| Performance Efficiency | 🟢  | 🟢  | 🟢  | 🟢  | No build step for git channels; Nx cache                                                                                |
+| Cost Optimization      | 🟢  | 🟢  | 🟢  | 🟢  | No registry account or paid listings                                                                                    |
+| Sustainability         | 🟢  | 🟢  | 🟢  | 🟢  | No committed binaries; no permanent aliases                                                                             |
+
+**P1 items (resolve before implementation):**
+
+- D1: read-time mapping for old `release:artisyn-harness-bootstrap-v*.zip` snapshot refs, with an E2E migration test.
+- D2: marketplace plugin source pinned to the released tag/version, not main head.
+- D2: `skills.sh.json` (and `gh skill` scope) restricts discovery to the harness skill folder.
+- D3: idempotent, verified migration of `package:state/` and legacy `.harness/launch/` into `.harness/state/`, with E2E coverage from a 3.5.0 install.
+- D4: automatic release runs only after required CI passes on a protected `main`.
+- D4: CI version-consistency gate across `SKILL.md`, harness `package.json`, `plugin.json` and the marketplace entry on every PR.
+
+Full elaboration: `design/02 Evaluate - Package Identity.md`, `02 Evaluate - Channels.md`, `02 Evaluate - Install and Update.md`, `02 Evaluate - Release Pipeline.md`
 
 ---
 
@@ -149,5 +173,6 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 _Filled in during Completion after implementation tickets are created._
 
-| Ticket | Summary | Tracker |
-| ------ | ------- | ------- |
+| Ticket     | Summary  | Tracker                                                                                                                                                                                                                                                                                                                                               |
+| ---------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-15 | Evaluate | Recommended D1 B (full name + time-boxed shim), D2 C (repo-as-marketplace + GH Packages npm + skills.sh/gh skill + ZIP), D3 B CLI + C1/D native paths on one `.harness/state/` contract, D4 D (Nx Release independent, automatic); WAF all 🟢 except Security 🟡 (D2, D4) and Reliability 🟡 (D1, D3, D4); 6 P1 items accepted as design requirements |
