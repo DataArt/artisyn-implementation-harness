@@ -25,21 +25,29 @@
     },
     {
       "id": "ceremony",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "d12230f6-4280-4f7b-91b0-2d8f65df38aa",
           "started_at": "2026-11-15T09:42:56.438Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T09:44:36.795Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "frame",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+          "started_at": "2026-11-15T09:44:36.952Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "research",
@@ -156,8 +164,88 @@
       "reason": "user_input",
       "detail": "Awaiting ceremony commit",
       "started_at": "2026-11-15T09:43:48.714Z",
+      "ended_at": "2026-11-15T09:44:36.659Z",
+      "last_observed_at": "2026-11-15T09:44:36.659Z"
+    },
+    {
+      "id": "f1669b41-2fc7-4d7d-97c8-739f43497592",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "d12230f6-4280-4f7b-91b0-2d8f65df38aa",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T09:44:36.659Z",
+      "ended_at": "2026-11-15T09:44:36.795Z",
+      "last_observed_at": "2026-11-15T09:44:36.795Z"
+    },
+    {
+      "id": "5c976127-1ae1-4c08-8f42-0214f1ccdc20",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T09:44:36.952Z",
+      "ended_at": "2026-11-15T09:48:16.754Z",
+      "last_observed_at": "2026-11-15T09:48:16.754Z"
+    },
+    {
+      "id": "9101679e-751c-4502-86d3-5640cc428364",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting decisions sign-off",
+      "started_at": "2026-11-15T09:48:16.754Z",
+      "ended_at": "2026-11-15T09:49:49.349Z",
+      "last_observed_at": "2026-11-15T09:49:49.349Z"
+    },
+    {
+      "id": "333d96cb-f197-431d-a160-e55badb60faa",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T09:49:49.349Z",
+      "ended_at": "2026-11-15T09:49:49.802Z",
+      "last_observed_at": "2026-11-15T09:49:49.802Z"
+    },
+    {
+      "id": "d0da0bb6-dafa-49d4-9d8c-7004a958e8d2",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting frame sign-off",
+      "started_at": "2026-11-15T09:49:49.802Z",
+      "ended_at": "2026-11-15T09:51:49.078Z",
+      "last_observed_at": "2026-11-15T09:51:49.078Z"
+    },
+    {
+      "id": "2b15e072-30ee-4b8b-8fca-bac287d38eee",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T09:51:49.078Z",
+      "ended_at": "2026-11-15T09:51:49.682Z",
+      "last_observed_at": "2026-11-15T09:51:49.682Z"
+    },
+    {
+      "id": "459d197b-2719-4cc3-ba8c-b3340c3d6b1e",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting frame commit",
+      "started_at": "2026-11-15T09:51:49.682Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T09:43:48.714Z"
+      "last_observed_at": "2026-11-15T09:51:49.682Z"
     }
   ],
   "checks": [
@@ -192,22 +280,54 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "frame-decisions-signoff-01",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame decisions sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T09:49:49.493Z",
+      "ended_at": "2026-11-15T09:49:49.493Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'confirm, two decisions' (Server topology; Repo integration footprint and canonical isolation)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "frame-signoff-01",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "design_revision": 0,
+      "name": "Frame sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T09:51:49.228Z",
+      "ended_at": "2026-11-15T09:51:49.228Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'nice! go' — 4 known ECs, 5 proposed ECs accepted, 2 decisions",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T09:43:48.715Z",
+    "as_of": "2026-11-15T09:51:49.684Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1.5430000000000001,
-    "observed_wait_seconds": 252.21699999999998,
+    "observed_work_seconds": 222.538,
+    "observed_wait_seconds": 512.0329999999999,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 252.218,
-    "unclassified_seconds": 0.28600000000000614,
+    "open_wait_seconds": 0.002,
+    "wait_seconds_to_date": 512.0349999999999,
+    "unclassified_seconds": 0.44300000000005,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 252.21699999999998,
+    "approval_wait_seconds": 464.088,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
