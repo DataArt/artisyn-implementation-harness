@@ -1,0 +1,97 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "log-hub",
+  "projectType": "application",
+  "root": "apps/log-hub",
+  "sourceRoot": "apps/log-hub/src",
+  "namedInputs": {
+    "default": ["{projectRoot}/**", "!{projectRoot}/.local/**", "sharedGlobals"]
+  },
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p tsconfig.json",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint src",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "init": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/init.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/serve.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "stop": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/stop.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "upgrade": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/serve.ts --upgrade",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "install-hook": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/install-hook.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "upgrade-hook": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/install-hook.ts --upgrade",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "uninstall-hook": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "tsx src/uninstall-hook.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "verify": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx src/verify.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "tsx --test src/*.test.ts",
+        "cwd": "{projectRoot}"
+      }
+    }
+  }
+}
