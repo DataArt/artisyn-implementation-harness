@@ -1,0 +1,157 @@
+name: Release harness
+
+# Versions, tags, publishes and attests the harness package after every merge to main. Root
+# semantic-release (release.yml) is a separate lane and ignores commits with scope `harness`.
+#
+# Off until the repository variable HARNESS_RELEASE_ENABLED is 'true'. The release commit and tag
+# are pushed to the protected `main` with HARNESS_RELEASE_TOKEN, a token of the release GitHub App
+# that is a bypass actor of the main ruleset (D-17). See the release runbook in the Engineering Guide.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  packages: write
+  id-token: write
+  attestations: write
+
+concurrency:
+  group: release-harness
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Never run for the release commit itself: skipped by [skip ci], by this actor guard
+    # (HARNESS_RELEASE_BOT is the App's bot login) and by its message.
+    if: ${{ vars.HARNESS_RELEASE_ENABLED == 'true' && github.actor != vars.HARNESS_RELEASE_BOT && !startsWith(github.event.head_commit.message, 'chore(harness-release):') }}
+    env:
+      PACKAGE: '@dataart/artisyn-implementation-harness'
+      TAG_PREFIX: artisyn-implementation-harness-v
+      GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Require the release token
+        env:
+          TOKEN: ${{ secrets.HARNESS_RELEASE_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "::error::HARNESS_RELEASE_TOKEN is missing. The release commit and tag go to the protected main, and the Actions bot cannot push there. Create the release GitHub App token secret first (see the release runbook)."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          token: ${{ secrets.HARNESS_RELEASE_TOKEN }}
+
+      - uses: ./.github/actions/setup
+
+      - name: Git identity
+        run: |
+          git config user.name "artisyn-harness-release[bot]"
+          git config user.email "artisyn-harness-release[bot]@users.noreply.github.com"
+
+      - name: Decide the version
+        id: version
+        run: |
+          set -euo pipefail
+          current() { node -p "require('./skills/implementation-harness/package.json').version"; }
+          before="$(current)"
+          yarn nx release version --projects=artisyn-implementation-harness --git-commit=false --git-tag=false
+          after="$(current)"
+          if [ "$before" != "$after" ]; then
+            echo "new=true" >> "$GITHUB_OUTPUT"
+            echo "tag=${TAG_PREFIX}${after}" >> "$GITHUB_OUTPUT"
+          else
+            # No new version. A re-run, or a later merge, still has to finish the latest release:
+            # resolve the latest harness tag reachable from origin/main (a re-run checks out the
+            # original merge commit, where no harness tag sits at HEAD).
+            latest="$(git tag --merged origin/main --list "${TAG_PREFIX}*" --sort=-version:refname | head -n 1)"
+            echo "new=false" >> "$GITHUB_OUTPUT"
+            echo "tag=${latest}" >> "$GITHUB_OUTPUT"
+            echo "No new version. Latest harness tag: ${latest:-none}"
+          fi
+
+      - name: Stamp, write the changelog, commit and tag
+        if: steps.version.outputs.new == 'true'
+        run: |
+          set -euo pipefail
+          version="${{ steps.version.outputs.tag }}"
+          version="${version#${TAG_PREFIX}}"
+          node scripts/release/stamp-harness-version.mjs
+          yarn nx release changelog "$version" --projects=artisyn-implementation-harness --git-commit=false --git-tag=false --git-push=false
+          git add -u
+          git commit -m "chore(harness-release): ${version} [skip ci]"
+          git tag "${{ steps.version.outputs.tag }}"
+          git push origin HEAD:main "${{ steps.version.outputs.tag }}"
+
+      - name: Check what is already published
+        id: state
+        if: steps.version.outputs.tag != ''
+        run: |
+          set -uo pipefail
+          tag="${{ steps.version.outputs.tag }}"
+          version="${tag#${TAG_PREFIX}}"
+          zip="${TAG_PREFIX}${version}.zip"
+          package_ok=false
+          yarn npm info "${PACKAGE}@${version}" version >/dev/null 2>&1 && package_ok=true
+          assets="$(gh release view "$tag" --json assets --jq '.assets[].name' 2>/dev/null || true)"
+          assets_ok=false
+          if echo "$assets" | grep -qx "$zip" && echo "$assets" | grep -qx "${zip}.sha256"; then assets_ok=true; fi
+          if [ "$package_ok" = true ] && [ "$assets_ok" = true ]; then
+            echo "published=true" >> "$GITHUB_OUTPUT"
+            echo "${tag} is fully published (package and release assets). Nothing to do."
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            echo "${tag}: package published=${package_ok}, release assets present=${assets_ok}"
+          fi
+
+      - name: Check out the release tag
+        if: steps.state.outputs.published == 'false'
+        run: git checkout --detach "${{ steps.version.outputs.tag }}"
+
+      - name: Build the tarball and the ZIP
+        id: build
+        if: steps.state.outputs.published == 'false'
+        run: |
+          set -euo pipefail
+          tag="${{ steps.version.outputs.tag }}"
+          version="${tag#${TAG_PREFIX}}"
+          mkdir -p dist
+          node scripts/pack-shim.mjs
+          yarn workspace "$PACKAGE" pack --out "$GITHUB_WORKSPACE/dist/${TAG_PREFIX}${version}.tgz"
+          scratch="$(mktemp -d)"
+          tar -xzf "dist/${TAG_PREFIX}${version}.tgz" -C "$scratch"
+          mv "$scratch/package" "$scratch/implementation-harness"
+          (cd "$scratch" && zip -r -X "$GITHUB_WORKSPACE/dist/${TAG_PREFIX}${version}.zip" implementation-harness)
+          (cd dist && sha256sum "${TAG_PREFIX}${version}.zip" > "${TAG_PREFIX}${version}.zip.sha256")
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to GitHub Packages
+        if: steps.state.outputs.published == 'false'
+        run: yarn workspace "$PACKAGE" npm publish --tolerate-republish
+
+      - name: Create the GitHub Release and attach the ZIP and its checksum
+        if: steps.state.outputs.published == 'false'
+        run: |
+          set -euo pipefail
+          tag="${{ steps.version.outputs.tag }}"
+          version="${{ steps.build.outputs.version }}"
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --verify-tag --title "$tag" --generate-notes
+          gh release upload "$tag" "dist/${TAG_PREFIX}${version}.zip" "dist/${TAG_PREFIX}${version}.zip.sha256" --clobber
+
+      - name: Attest the tarball
+        if: steps.state.outputs.published == 'false'
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: dist/*.tgz
+
+      - name: Attest the ZIP
+        if: steps.state.outputs.published == 'false'
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: dist/*.zip

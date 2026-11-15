@@ -36,3 +36,72 @@ jobs:
 
       - name: Log Hub canonical isolation
         run: yarn nx run log-hub:verify
+
+  # Required checks on `main` (D-17): ci, version-gate, rename-gate. The release workflow runs
+  # only after they pass.
+  version-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup
+
+      - name: Harness version is consistent across SKILL.md, plugin.json and the marketplaces
+        run: node scripts/release/stamp-harness-version.mjs --check
+
+  rename-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - name: No stray retired name, no full name used as a skill or command
+        run: node scripts/check-rename.mjs
+
+      - name: Install instructions are pinned
+        run: node scripts/check-docs.mjs
+
+      - name: Commits touching the harness use scope harness
+        run: node scripts/check-commit-scope.mjs --range origin/${{ github.base_ref }}..HEAD
+
+  harness-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - name: Copy the legacy shim into the package
+        run: node scripts/pack-shim.mjs
+
+      - name: Package contents match the allowlist
+        run: node scripts/ci/check-pack.mjs
+
+      - name: Plugin and marketplace manifests are valid
+        run: node scripts/validate-plugin.mjs
+        env:
+          CLAUDE_CMD: yarn dlx -p @anthropic-ai/claude-code claude
+
+      - name: Release dry run
+        run: yarn nx release version --projects=artisyn-implementation-harness --dry-run
+
+  harness-cli:
+    name: harness-cli (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup
+
+      - name: Install CLI, migrator and state root tests
+        shell: bash
+        run: yarn workspace @artisyn-harness/harness-bootstrap-e2e vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/legacy src/tests/unit/state-root.spec.ts

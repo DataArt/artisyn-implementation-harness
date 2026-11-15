@@ -19,5 +19,25 @@
       "cache": true
     }
   },
-  "analytics": false
+  "analytics": false,
+  "release": {
+    "projects": ["artisyn-implementation-harness"],
+    "projectsRelationship": "independent",
+    "releaseTag": {
+      "pattern": "{projectName}-v{version}"
+    },
+    "version": {
+      "conventionalCommits": true,
+      "fallbackCurrentVersionResolver": "disk"
+    },
+    "changelog": {
+      "projectChangelogs": {
+        "file": "{projectRoot}/CHANGELOG.md"
+      },
+      "automaticFromRef": true
+    },
+    "conventionalCommits": {
+      "useCommitScope": false
+    }
+  }
 }

@@ -3,7 +3,8 @@
   "version": "1.1.1",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "skills/implementation-harness"
   ],
   "type": "module",
   "packageManager": "yarn@4.9.2",
@@ -15,11 +16,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "bootstrap:client": "tsx scripts/bootstrap/bootstrap-client.mts",
-    "release:harness-bootstrap": "node scripts/release/release-harness-bootstrap.mjs"
+    "bootstrap:client": "tsx scripts/bootstrap/bootstrap-client.mts"
   },
   "devDependencies": {
     "@eslint/js": "^10",
+    "@nx/js": "23.3.1",
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^11.0.1",
