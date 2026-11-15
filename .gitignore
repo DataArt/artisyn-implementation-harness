@@ -14,6 +14,11 @@ dist/
 .secrets.*
 !.secrets.example
 
+# Log Hub: downloaded release assets, scaffolded .env, and the hook's local marketplace/config —
+# never committed; see docs/Target Architecture (HLD)/v1/Containers/Log Hub.md
+/apps/log-hub/.local/
+/.artisyn/
+
 # Temp files
 *.bak
 /tmp/

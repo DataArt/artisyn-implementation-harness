@@ -1,4 +1,5 @@
 ---
+id: a4f195ab
 purpose: "Research phase output for DESIGN-20261115-V98J Decision 1: option set for where the Log Hub server runs and how each contributor's hook reaches it, no recommendation"
 keywords: [research, log hub, server topology, telemetry, open questions, design phase]
 ---

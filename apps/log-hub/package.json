@@ -1,0 +1,11 @@
+{
+  "name": "@artisyn-harness/log-hub",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@types/node": "^24",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  }
+}

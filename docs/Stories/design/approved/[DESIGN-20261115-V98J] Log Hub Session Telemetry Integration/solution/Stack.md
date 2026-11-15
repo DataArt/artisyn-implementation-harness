@@ -1,4 +1,5 @@
 ---
+id: 35005925
 purpose: 'Confirmed technology choices for the log-hub container, with compatibility notes'
 keywords: [log-hub, stack, nx, docker, claude-code-plugin, yarn-dlx]
 ---

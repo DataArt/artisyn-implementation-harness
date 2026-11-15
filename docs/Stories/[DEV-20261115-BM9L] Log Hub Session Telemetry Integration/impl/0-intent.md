@@ -1,4 +1,5 @@
 ---
+id: 9fff53e0
 purpose: Implementation intent for DEV-20261115-BM9L — building the Log Hub container approved in DESIGN-20261115-V98J
 keywords: [log-hub, intent, telemetry, implementation]
 ---

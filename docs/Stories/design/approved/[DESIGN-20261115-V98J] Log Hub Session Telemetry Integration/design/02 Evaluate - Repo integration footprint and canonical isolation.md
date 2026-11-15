@@ -1,4 +1,5 @@
 ---
+id: 243af1b4
 purpose: 'Evaluate phase output for DESIGN-20261115-V98J Decision 2: requirements matrix, tradeoffs and recommendation for what a fresh clone contains and how the canonical harness stays unaffected; recommends a repo-owned Nx wrapper with CI verify on a gitignored, local-scope layout'
 keywords:
   [

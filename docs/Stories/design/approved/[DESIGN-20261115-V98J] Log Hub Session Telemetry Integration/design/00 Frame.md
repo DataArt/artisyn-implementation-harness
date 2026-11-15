@@ -1,3 +1,7 @@
+---
+id: d95d9810
+---
+
 # DESIGN-20261115-V98J — Log Hub Session Telemetry Integration
 
 ## Problem

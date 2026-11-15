@@ -1,4 +1,5 @@
 ---
+id: 44cef495
 purpose: Implementation plan for DEV-20261115-BM9L — building the log-hub Nx project per the approved DESIGN-20261115-V98J solution
 keywords: [log-hub, plan, nx-project, implementation]
 ---

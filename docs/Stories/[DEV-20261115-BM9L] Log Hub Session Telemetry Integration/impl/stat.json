@@ -61,14 +61,14 @@
     },
     {
       "id": "implement",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
           "started_at": "2026-11-15T13:26:30.916Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T14:27:16.105Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
@@ -92,7 +92,170 @@
       "flags": []
     }
   ],
-  "steps": [],
+  "steps": [
+    {
+      "id": "step-1",
+      "title": "Scaffold the log-hub Nx project",
+      "order": 0,
+      "plan_ref": "1-plan.md#step-1",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "7f932611-5982-465a-ba9c-7cb95f2efd79",
+          "started_at": "2026-11-15T13:28:20.934Z",
+          "ended_at": "2026-11-15T13:29:50.440Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-2",
+      "title": "Checksum verification module and tests",
+      "order": 1,
+      "plan_ref": "1-plan.md#step-2",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "3da3c3fb-f4ca-4b74-81a4-df5b829ebdbc",
+          "started_at": "2026-11-15T13:30:06.069Z",
+          "ended_at": "2026-11-15T13:30:59.521Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-3a",
+      "title": "init.ts download verify scaffold env",
+      "order": 2,
+      "plan_ref": "1-plan.md#step-3a",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "d610694d-2015-41f3-80c4-b4e774f94f63",
+          "started_at": "2026-11-15T13:31:17.352Z",
+          "ended_at": "2026-11-15T13:33:45.306Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-3b",
+      "title": "serve.ts and stop.ts",
+      "order": 3,
+      "plan_ref": "1-plan.md#step-3b",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "d2a1f943-d649-47a3-9c44-33b51119797b",
+          "started_at": "2026-11-15T13:34:04.771Z",
+          "ended_at": "2026-11-15T13:36:46.202Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-4",
+      "title": "install-hook.ts",
+      "order": 4,
+      "plan_ref": "1-plan.md#step-4",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "6addb570-a991-48ed-8087-11d5ea542d7c",
+          "started_at": "2026-11-15T13:37:03.623Z",
+          "ended_at": "2026-11-15T13:44:04.110Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-5",
+      "title": "uninstall-hook.ts",
+      "order": 5,
+      "plan_ref": "1-plan.md#step-5",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "d2c776bb-95b5-4a08-925e-7f6b5616be39",
+          "started_at": "2026-11-15T13:45:02.414Z",
+          "ended_at": "2026-11-15T13:46:02.331Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-6",
+      "title": "verify.ts CI check",
+      "order": 6,
+      "plan_ref": "1-plan.md#step-6",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "c4e84aef-96e7-4a7f-914b-90c80b9b0edd",
+          "started_at": "2026-11-15T13:46:09.940Z",
+          "ended_at": "2026-11-15T13:48:27.196Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-7",
+      "title": "Wire settings.json gitignore CI",
+      "order": 7,
+      "plan_ref": "1-plan.md#step-7",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "8d288433-68f7-4981-a6e7-5167c54169e3",
+          "started_at": "2026-11-15T13:49:05.336Z",
+          "ended_at": "2026-11-15T13:49:47.312Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-8",
+      "title": "Developer-side live verification",
+      "order": 8,
+      "plan_ref": "1-plan.md#step-8",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "28dc35ce-ce6d-4097-bed3-3d63b5deaf7b",
+          "started_at": "2026-11-15T13:51:41.926Z",
+          "ended_at": "2026-11-15T13:52:58.132Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    }
+  ],
   "intervals": [
     {
       "id": "16e8de54-97c6-41ec-a5fb-7f1d469b77f0",
@@ -318,8 +481,381 @@
       "reason": "user_input",
       "detail": "Awaiting plan commit",
       "started_at": "2026-11-15T13:26:31.239Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-15T13:26:31.239Z"
+      "ended_at": "2026-11-15T13:27:34.360Z",
+      "last_observed_at": "2026-11-15T13:27:34.360Z"
+    },
+    {
+      "id": "40dd9714-c0e7-4faa-afd1-c57c0edc12d4",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:27:34.360Z",
+      "ended_at": "2026-11-15T13:28:20.934Z",
+      "last_observed_at": "2026-11-15T13:28:20.934Z"
+    },
+    {
+      "id": "ab13e22a-12c0-4870-82e4-1e0bdb36cf52",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-1",
+        "attempt_id": "7f932611-5982-465a-ba9c-7cb95f2efd79"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:28:20.934Z",
+      "ended_at": "2026-11-15T13:29:48.459Z",
+      "last_observed_at": "2026-11-15T13:29:48.459Z"
+    },
+    {
+      "id": "79cb939f-55cc-4b5e-b99b-9be85c575ded",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-1",
+        "attempt_id": "7f932611-5982-465a-ba9c-7cb95f2efd79"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:29:48.459Z",
+      "ended_at": "2026-11-15T13:29:50.289Z",
+      "last_observed_at": "2026-11-15T13:29:50.289Z"
+    },
+    {
+      "id": "124170ae-f7e0-4f1d-8c56-95210e738151",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-1",
+        "attempt_id": "7f932611-5982-465a-ba9c-7cb95f2efd79"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:29:50.289Z",
+      "ended_at": "2026-11-15T13:29:50.440Z",
+      "last_observed_at": "2026-11-15T13:29:50.440Z"
+    },
+    {
+      "id": "f6efb813-f06f-47ec-b0bf-a5a78a75ce61",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "3da3c3fb-f4ca-4b74-81a4-df5b829ebdbc"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:30:06.069Z",
+      "ended_at": "2026-11-15T13:30:57.418Z",
+      "last_observed_at": "2026-11-15T13:30:57.418Z"
+    },
+    {
+      "id": "d1130ba8-3ac8-4fa9-a090-c98c229fbebc",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "3da3c3fb-f4ca-4b74-81a4-df5b829ebdbc"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:30:57.418Z",
+      "ended_at": "2026-11-15T13:30:59.374Z",
+      "last_observed_at": "2026-11-15T13:30:59.374Z"
+    },
+    {
+      "id": "3b1e42eb-4a49-406c-a478-ff9a3efbf68b",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "3da3c3fb-f4ca-4b74-81a4-df5b829ebdbc"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:30:59.374Z",
+      "ended_at": "2026-11-15T13:30:59.521Z",
+      "last_observed_at": "2026-11-15T13:30:59.521Z"
+    },
+    {
+      "id": "d75ebd21-3685-4f06-9faf-c21bb1a4a611",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3a",
+        "attempt_id": "d610694d-2015-41f3-80c4-b4e774f94f63"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:31:17.352Z",
+      "ended_at": "2026-11-15T13:33:42.137Z",
+      "last_observed_at": "2026-11-15T13:33:42.137Z"
+    },
+    {
+      "id": "ff54e608-061b-47c1-a469-5d53fc55b63b",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3a",
+        "attempt_id": "d610694d-2015-41f3-80c4-b4e774f94f63"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:33:42.137Z",
+      "ended_at": "2026-11-15T13:33:44.991Z",
+      "last_observed_at": "2026-11-15T13:33:44.991Z"
+    },
+    {
+      "id": "a18fc98d-77b2-456e-a02e-f07316563355",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3a",
+        "attempt_id": "d610694d-2015-41f3-80c4-b4e774f94f63"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:33:44.991Z",
+      "ended_at": "2026-11-15T13:33:45.306Z",
+      "last_observed_at": "2026-11-15T13:33:45.306Z"
+    },
+    {
+      "id": "d842674a-09f7-4eed-b9bf-12ac55032272",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3b",
+        "attempt_id": "d2a1f943-d649-47a3-9c44-33b51119797b"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:34:04.771Z",
+      "ended_at": "2026-11-15T13:36:42.794Z",
+      "last_observed_at": "2026-11-15T13:36:42.794Z"
+    },
+    {
+      "id": "6c332448-61f3-4421-94bb-8486564588b9",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3b",
+        "attempt_id": "d2a1f943-d649-47a3-9c44-33b51119797b"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:36:42.794Z",
+      "ended_at": "2026-11-15T13:36:45.884Z",
+      "last_observed_at": "2026-11-15T13:36:45.884Z"
+    },
+    {
+      "id": "9bd0336e-affe-49c2-b7a6-394c73580b6c",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3b",
+        "attempt_id": "d2a1f943-d649-47a3-9c44-33b51119797b"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:36:45.884Z",
+      "ended_at": "2026-11-15T13:36:46.202Z",
+      "last_observed_at": "2026-11-15T13:36:46.202Z"
+    },
+    {
+      "id": "27fa6020-d164-4c9f-ba36-3c262cfc5fbc",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "6addb570-a991-48ed-8087-11d5ea542d7c"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:37:03.623Z",
+      "ended_at": "2026-11-15T13:44:00.707Z",
+      "last_observed_at": "2026-11-15T13:44:00.707Z"
+    },
+    {
+      "id": "bd61ab03-931c-448d-8431-152793deaac8",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "6addb570-a991-48ed-8087-11d5ea542d7c"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:44:00.707Z",
+      "ended_at": "2026-11-15T13:44:03.800Z",
+      "last_observed_at": "2026-11-15T13:44:03.800Z"
+    },
+    {
+      "id": "e69c6a87-1230-4c82-997c-950f18218866",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "6addb570-a991-48ed-8087-11d5ea542d7c"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:44:03.800Z",
+      "ended_at": "2026-11-15T13:44:04.110Z",
+      "last_observed_at": "2026-11-15T13:44:04.110Z"
+    },
+    {
+      "id": "8948a953-2e6e-492c-a947-3318012602be",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-5",
+        "attempt_id": "d2c776bb-95b5-4a08-925e-7f6b5616be39"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:45:02.414Z",
+      "ended_at": "2026-11-15T13:45:59.047Z",
+      "last_observed_at": "2026-11-15T13:45:59.047Z"
+    },
+    {
+      "id": "6bae36cf-9e8a-46e2-b38d-f026e7c86e23",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-5",
+        "attempt_id": "d2c776bb-95b5-4a08-925e-7f6b5616be39"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:45:59.047Z",
+      "ended_at": "2026-11-15T13:46:02.179Z",
+      "last_observed_at": "2026-11-15T13:46:02.179Z"
+    },
+    {
+      "id": "bda82c64-ebb3-4691-833f-cdf45e0cc297",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-5",
+        "attempt_id": "d2c776bb-95b5-4a08-925e-7f6b5616be39"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:46:02.179Z",
+      "ended_at": "2026-11-15T13:46:02.331Z",
+      "last_observed_at": "2026-11-15T13:46:02.331Z"
+    },
+    {
+      "id": "e7a9ed96-2d11-42c7-bf72-17514f5388f5",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-6",
+        "attempt_id": "c4e84aef-96e7-4a7f-914b-90c80b9b0edd"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:46:09.940Z",
+      "ended_at": "2026-11-15T13:48:23.644Z",
+      "last_observed_at": "2026-11-15T13:48:23.644Z"
+    },
+    {
+      "id": "df7505dc-eada-497f-bc39-be01c965104f",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-6",
+        "attempt_id": "c4e84aef-96e7-4a7f-914b-90c80b9b0edd"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:48:23.644Z",
+      "ended_at": "2026-11-15T13:48:26.843Z",
+      "last_observed_at": "2026-11-15T13:48:26.843Z"
+    },
+    {
+      "id": "8ce6b8c1-a6dc-4c25-8aa7-72448a6fa098",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-6",
+        "attempt_id": "c4e84aef-96e7-4a7f-914b-90c80b9b0edd"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:48:26.843Z",
+      "ended_at": "2026-11-15T13:48:27.196Z",
+      "last_observed_at": "2026-11-15T13:48:27.196Z"
+    },
+    {
+      "id": "d28de6ad-e007-4d41-847b-e39b15adbd63",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-7",
+        "attempt_id": "8d288433-68f7-4981-a6e7-5167c54169e3"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:49:05.336Z",
+      "ended_at": "2026-11-15T13:49:44.187Z",
+      "last_observed_at": "2026-11-15T13:49:44.187Z"
+    },
+    {
+      "id": "7f26b5d4-9ae9-4790-9e81-1d738aaafcd6",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-7",
+        "attempt_id": "8d288433-68f7-4981-a6e7-5167c54169e3"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T13:49:44.187Z",
+      "ended_at": "2026-11-15T13:49:47.159Z",
+      "last_observed_at": "2026-11-15T13:49:47.159Z"
+    },
+    {
+      "id": "ddbe6a76-b45f-47ab-aacd-0af75bd5b632",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-7",
+        "attempt_id": "8d288433-68f7-4981-a6e7-5167c54169e3"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:49:47.159Z",
+      "ended_at": "2026-11-15T13:49:47.312Z",
+      "last_observed_at": "2026-11-15T13:49:47.312Z"
+    },
+    {
+      "id": "edf54463-4dd4-447e-b233-6d6dfd532395",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-8",
+        "attempt_id": "28dc35ce-ce6d-4097-bed3-3d63b5deaf7b"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:51:41.926Z",
+      "ended_at": "2026-11-15T13:52:58.132Z",
+      "last_observed_at": "2026-11-15T13:52:58.132Z"
+    },
+    {
+      "id": "104af816-36ca-4807-8971-776b9d77d70c",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting implement sign-off",
+      "started_at": "2026-11-15T13:55:04.008Z",
+      "ended_at": "2026-11-15T14:27:16.105Z",
+      "last_observed_at": "2026-11-15T14:27:16.105Z"
     }
   ],
   "checks": [
@@ -382,36 +918,383 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "step-1-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-1",
+        "attempt_id": "7f932611-5982-465a-ba9c-7cb95f2efd79"
+      },
+      "name": "yarn install + nx project registration",
+      "kind": "build",
+      "started_at": "2026-11-15T13:29:48.459Z",
+      "ended_at": "2026-11-15T13:29:50.289Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for yarn install + nx project registration",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:29:50.289Z"
+    },
+    {
+      "id": "step-2-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-2",
+        "attempt_id": "3da3c3fb-f4ca-4b74-81a4-df5b829ebdbc"
+      },
+      "name": "checksums.test.ts via nx log-hub:test",
+      "kind": "test",
+      "started_at": "2026-11-15T13:30:57.418Z",
+      "ended_at": "2026-11-15T13:30:59.374Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for checksums.test.ts via nx log-hub:test",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:30:59.374Z"
+    },
+    {
+      "id": "step-3a-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3a",
+        "attempt_id": "d610694d-2015-41f3-80c4-b4e774f94f63"
+      },
+      "name": "init.test.ts via nx log-hub:test",
+      "kind": "test",
+      "started_at": "2026-11-15T13:33:42.137Z",
+      "ended_at": "2026-11-15T13:33:44.991Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for init.test.ts via nx log-hub:test",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:33:44.991Z"
+    },
+    {
+      "id": "step-3a-live-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3a",
+        "attempt_id": "d610694d-2015-41f3-80c4-b4e774f94f63"
+      },
+      "name": "log-hub:init live run",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T13:33:45.151Z",
+      "ended_at": "2026-11-15T13:33:45.151Z",
+      "result": "passed",
+      "evidence_ref": "Live run against real GitHub release v1.4.1: checksums verified, .local/.env scaffolded with absolute out-of-tree LOG_HUB_DATA_DIR and generated secrets, second run byte-identical, .local/ correctly gitignored",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-3b-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3b",
+        "attempt_id": "d2a1f943-d649-47a3-9c44-33b51119797b"
+      },
+      "name": "serve.test.ts, stop.test.ts via nx log-hub:test",
+      "kind": "test",
+      "started_at": "2026-11-15T13:36:42.794Z",
+      "ended_at": "2026-11-15T13:36:45.884Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for serve.test.ts, stop.test.ts via nx log-hub:test",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:36:45.884Z"
+    },
+    {
+      "id": "step-3b-live-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-3b",
+        "attempt_id": "d2a1f943-d649-47a3-9c44-33b51119797b"
+      },
+      "name": "log-hub:serve/stop live run",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T13:36:46.039Z",
+      "ended_at": "2026-11-15T13:36:46.039Z",
+      "result": "passed",
+      "evidence_ref": "Docker daemon came up mid-session (Rancher Desktop finished starting in background); live-verified: serve brings up container on 127.0.0.1:5003 only (docker inspect confirms HostIp 127.0.0.1), curl returns HTTP 200; stop tears it down cleanly; re-serve works",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-4-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "6addb570-a991-48ed-8087-11d5ea542d7c"
+      },
+      "name": "install-hook.test.ts via nx log-hub:test",
+      "kind": "test",
+      "started_at": "2026-11-15T13:44:00.707Z",
+      "ended_at": "2026-11-15T13:44:03.800Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for install-hook.test.ts via nx log-hub:test",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:44:03.800Z"
+    },
+    {
+      "id": "step-4-live-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-4",
+        "attempt_id": "6addb570-a991-48ed-8087-11d5ea542d7c"
+      },
+      "name": "install-hook.ts live spike in scratch repo",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T13:44:03.953Z",
+      "ended_at": "2026-11-15T13:44:03.953Z",
+      "result": "passed",
+      "evidence_ref": "Earlier scratch-repo spike (before this script existed) ran the real installer end to end: npx required (yarn dlx rejects plain http), installer writes committed .claude/settings.json keys + user-level ~/.claude/settings.json OTEL env, uninstall reverts both cleanly, verified by diff. install-hook.ts codifies this with an unconditional (try/finally) settings.json restore, now covered by 20 passing unit tests",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-5-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-5",
+        "attempt_id": "d2c776bb-95b5-4a08-925e-7f6b5616be39"
+      },
+      "name": "uninstall-hook.test.ts via nx log-hub:test",
+      "kind": "test",
+      "started_at": "2026-11-15T13:45:59.047Z",
+      "ended_at": "2026-11-15T13:46:02.179Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for uninstall-hook.test.ts via nx log-hub:test",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:46:02.179Z"
+    },
+    {
+      "id": "step-6-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-6",
+        "attempt_id": "c4e84aef-96e7-4a7f-914b-90c80b9b0edd"
+      },
+      "name": "verify.test.ts via nx log-hub:test",
+      "kind": "test",
+      "started_at": "2026-11-15T13:48:23.644Z",
+      "ended_at": "2026-11-15T13:48:26.843Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for verify.test.ts via nx log-hub:test",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:48:26.843Z"
+    },
+    {
+      "id": "step-6-live-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-6",
+        "attempt_id": "c4e84aef-96e7-4a7f-914b-90c80b9b0edd"
+      },
+      "name": "log-hub:verify live run against real repo",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T13:48:27.037Z",
+      "ended_at": "2026-11-15T13:48:27.037Z",
+      "result": "passed",
+      "evidence_ref": "Real bug found and fixed: git check-ignore on a bare directory path that does not exist on disk falsely reports 'not ignored' for a trailing-slash pattern; fixed by probing a nested placeholder path instead. Live run against the real repo now correctly reports only the expected permissions.deny gap (Step 7 not yet applied), nothing else",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-7-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-7",
+        "attempt_id": "8d288433-68f7-4981-a6e7-5167c54169e3"
+      },
+      "name": "log-hub:verify passes against real repo",
+      "kind": "build",
+      "started_at": "2026-11-15T13:49:44.187Z",
+      "ended_at": "2026-11-15T13:49:47.159Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:verify passes against real repo",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T13:49:47.159Z"
+    },
+    {
+      "id": "step-8-live-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": {
+        "id": "step-8",
+        "attempt_id": "28dc35ce-ce6d-4097-bed3-3d63b5deaf7b"
+      },
+      "name": "Full ops-model live verification",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T13:52:57.968Z",
+      "ended_at": "2026-11-15T13:52:57.968Z",
+      "result": "passed",
+      "evidence_ref": "Docker available this session: init, serve, stop, upgrade, verify all live-verified against the real repo and the real GitHub release. install-hook/uninstall-hook live-verified against a scratch repo (not the real repo, to avoid repeated mutation of real global Claude Code settings). Final full pass: 32/32 tests, typecheck clean, lint clean, verify green, web-portal:build unaffected (391 files from web-explorer+web-docs only, per its own dependsOn config)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "b23c024f-c277-42cf-91c9-3b564bcb613d",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "name": "log-hub:test resumed verification",
+      "kind": "test",
+      "started_at": "2026-11-15T14:23:06.589Z",
+      "ended_at": "2026-11-15T14:23:06.589Z",
+      "result": "passed",
+      "evidence_ref": "yarn nx run log-hub:test (skip cache): 32/32 passed",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "e657409f-7ea5-4770-bbb4-20c8e0e1620c",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "name": "log-hub:typecheck resumed verification",
+      "kind": "typecheck",
+      "started_at": "2026-11-15T14:23:06.650Z",
+      "ended_at": "2026-11-15T14:23:06.650Z",
+      "result": "passed",
+      "evidence_ref": "yarn nx run log-hub:typecheck (skip cache): clean",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "34f613fc-891d-4c24-a1c0-b8b06ad01174",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "name": "log-hub:lint resumed verification",
+      "kind": "lint",
+      "started_at": "2026-11-15T14:23:06.705Z",
+      "ended_at": "2026-11-15T14:23:06.705Z",
+      "result": "passed",
+      "evidence_ref": "yarn nx run log-hub:lint (skip cache): clean",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "a878b8a9-43f7-4e9e-b72b-14c7f603b45f",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "name": "log-hub:verify resumed live run",
+      "kind": "build",
+      "started_at": "2026-11-15T14:23:06.756Z",
+      "ended_at": "2026-11-15T14:23:06.756Z",
+      "result": "passed",
+      "evidence_ref": "yarn nx run log-hub:verify (skip cache), live against real repo: canonical isolation holds, all checks passed",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "9c3ca5a3-ab73-4b74-8005-a06149029eb3",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "name": "Step 8 hook installation live check",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T14:23:06.814Z",
+      "ended_at": "2026-11-15T14:23:06.814Z",
+      "result": "passed",
+      "evidence_ref": "developer: hook installation worked",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "2f17d05b-a9e4-4724-a23a-bb7807d31279",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "name": "RF-003 accepted",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T14:25:47.312Z",
+      "ended_at": "2026-11-15T14:25:47.312Z",
+      "result": "passed",
+      "evidence_ref": "developer selected: accept as refinement — AC-2 wording updated to match .env.example's LOG_HUB_VERSION",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "431326c1-9230-41a8-97fe-d45c3ce415f3",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "name": "Implement sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T14:26:52.813Z",
+      "ended_at": "2026-11-15T14:26:52.813Z",
+      "result": "passed",
+      "evidence_ref": "developer: yes, move to Test",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T13:27:06.113Z",
+    "as_of": "2026-11-15T14:27:16.115Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 930.218,
-    "observed_wait_seconds": 1202.5539999999999,
+    "observed_work_seconds": 2164.9770000000003,
+    "observed_wait_seconds": 3197.772,
     "open_work_seconds": 0,
-    "open_wait_seconds": 34.874,
-    "unclassified_seconds": 0.6100000000001486,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 415.50899999999956,
     "rework_seconds": 133.60999999999999,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 410.64700000000005,
+    "approval_wait_seconds": 2342.744,
     "failed_checks": 0,
-    "first_pass_verification_rate": null,
+    "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-15T13:27:06.106Z",
+    "as_of": "2026-11-15T14:27:16.055Z",
     "source": "2-report.md",
-    "source_sha256": "3881cf151f4a11eef1d27faef4cd1793d6a1f3a72cb1a851c154ef3fac22c34c",
+    "source_sha256": "6f61a567efe23dc53beed848b99accddc19c0d70ec8171b6b52a07dd15694886",
     "findings": {
-      "total": 2,
+      "total": 3,
       "by_kind": {
-        "deviation": 2,
+        "deviation": 3,
         "bug": 0,
         "design": 0,
         "improve": 0,
@@ -422,12 +1305,12 @@
       "by_severity": {
         "critical": 0,
         "high": 0,
-        "medium": 0,
+        "medium": 1,
         "low": 2,
         "info": 0
       },
       "by_classification": {
-        "introduced": 2,
+        "introduced": 3,
         "pre-existing": 0,
         "ruled-out": 0,
         "advisory": 0
@@ -435,12 +1318,12 @@
       "by_resolution": {
         "open": 0,
         "fixed": 0,
-        "accepted": 2,
+        "accepted": 3,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
-        "contradiction": 0,
+        "contradiction": 1,
         "extension": 2,
         "omission": 0
       },
@@ -465,9 +1348,9 @@
       }
     },
     "tech_debt": {
-      "total": 0,
+      "total": 1,
       "ticketed": 0,
-      "unticketed": 0
+      "unticketed": 1
     },
     "tests": {
       "written": null,
@@ -477,7 +1360,7 @@
       "scopes": 0
     },
     "test_runs": {
-      "recorded": 0,
+      "recorded": 7,
       "failed": 0,
       "errors": 0,
       "interrupted": 0

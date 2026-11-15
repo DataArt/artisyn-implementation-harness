@@ -1,4 +1,5 @@
 ---
+id: 6ac01d9e
 purpose: 'Evaluate phase output for DESIGN-20261115-V98J Decision 1: requirements matrix, tradeoffs and recommendation for where the Log Hub server runs; recommends Hybrid with the Nx-wrapped local instance as default'
 keywords: [evaluate, log hub, server topology, telemetry, recommendation, WAF, design phase]
 ---

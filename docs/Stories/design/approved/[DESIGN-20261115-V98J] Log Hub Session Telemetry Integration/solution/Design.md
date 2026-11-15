@@ -1,4 +1,5 @@
 ---
+id: 19204dd0
 purpose: 'Internal component design for the log-hub Nx project: wrapper scripts, failure modes, and configuration/secrets handling'
 keywords: [log-hub, design, nx-project, scripts, failure-modes, configuration, secrets]
 ---

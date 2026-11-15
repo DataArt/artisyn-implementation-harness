@@ -1,4 +1,5 @@
 ---
+id: 9a298a49
 purpose: 'Research phase output for DESIGN-20261115-V98J Decision 2: option set for what a fresh clone contains after the Log Hub hook is integrated and how the canonical harness stays byte-for-byte unaffected, no recommendation'
 keywords:
   [

@@ -33,3 +33,6 @@ jobs:
 
       - name: Build (affected)
         run: yarn nx affected --target=build --configuration=ci --base=origin/${{ github.base_ref }} --head=HEAD
+
+      - name: Log Hub canonical isolation
+        run: yarn nx run log-hub:verify
