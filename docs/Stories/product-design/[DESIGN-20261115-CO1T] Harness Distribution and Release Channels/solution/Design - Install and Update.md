@@ -1,4 +1,5 @@
 ---
+id: b46d0e38
 purpose: 'Implementation design for DESIGN-20261115-CO1T decisions D-10 to D-14: the install CLI (init, update, migrate, doctor), host-native install paths, the .harness/state/ root and aliases, the consumer commit rule and the idempotent migration from 3.5.0 state'
 keywords:
   [

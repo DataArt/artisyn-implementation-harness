@@ -1,4 +1,5 @@
 ---
+id: e5bcfb7c
 purpose: 'Evaluate for DESIGN-20261115-CO1T decision 1: package identity options scored against the Frame criteria, recommending the full brand name on every layer with a time-boxed harness-bootstrap shim'
 keywords:
   [

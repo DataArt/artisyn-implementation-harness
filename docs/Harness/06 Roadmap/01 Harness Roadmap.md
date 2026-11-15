@@ -1,7 +1,7 @@
 ---
 id: 1ff56a70
 purpose: Track how the bootstrap evolves from a copied git template into a distributable, composable platform
-keywords: [roadmap, registry distribution, harness-bootstrap, gaps]
+keywords: [roadmap, registry distribution, implementation-harness, gaps]
 ---
 
 # Harness Roadmap
@@ -14,24 +14,19 @@ _How the bootstrap evolves from a git template into a distributable, composable 
 
 _From a copied git folder to a versioned, installable package._
 
-**Current state**
+**Status:** designed (DESIGN-20261115-CO1T); ships from release 4.0.0.
 
-The bootstrap is distributed as a versioned ZIP (`releases/harness-bootstrap/`, built from `.canonical-implementation-harness/`), extracted into a new repo and installed with `/harness-bootstrap launch`. `patch harvest`/`patch apply` let an installed project pull in later canonical updates. This works but:
+The harness is designed to ship through five pinned channels:
 
-- No registry — teams have to know the bootstrap exists and fetch the ZIP manually
-- No single-command upgrade — `patch apply` works, but there's no `yarn add`-style pull
+- Plugin marketplace `dataart`
+- GitHub Packages npm, with an install CLI
+- skills.sh
+- `gh skill`
+- Release ZIP
 
-**Target state**
+Releases are automatic, with a semantic version and a changelog. Existing 3.x installs get a migration path. Runtime state lives in the project's `.harness/state/`. The first release is 4.0.0.
 
-```
-yarn add @artisyn-harness/bootstrap
-```
-
-- Semantic versioning — projects pin a version and upgrade deliberately
-- Changelog — teams can see what changed and why
-- Registry — internal npm / GitHub Packages / Artifactory
-
-> Open questions: which registry, monorepo structure, CLI vs library, migration path for existing projects
+→ See [Distribution](<../09 Distribution/index.md>).
 
 ---
 

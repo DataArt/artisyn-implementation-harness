@@ -1,4 +1,5 @@
 ---
+id: 35c0b737
 purpose: 'Research for DESIGN-20261115-CO1T decision 1: package identity and naming options for renaming harness-bootstrap, with legacy handling and open questions'
 keywords:
   [

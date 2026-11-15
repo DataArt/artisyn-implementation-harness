@@ -1,4 +1,5 @@
 ---
+id: e974f3dd
 purpose: 'Design evaluation for decision 4 of DESIGN-20261115-CO1T: rates five release pipeline options and recommends Nx Release in independent mode, conventional-commit driven, publishing automatically on merge to main'
 keywords:
   [

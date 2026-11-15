@@ -1,4 +1,5 @@
 ---
+id: 8a4f953e
 purpose: 'Design research for decision 3 of DESIGN-20261115-CO1T, revised under EC12: five options for how consumers install, update and migrate the harness package with state in project .harness/, with no recommendation'
 keywords:
   [

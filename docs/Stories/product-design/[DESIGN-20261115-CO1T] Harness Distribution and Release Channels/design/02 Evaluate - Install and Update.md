@@ -1,4 +1,5 @@
 ---
+id: 12ec632a
 purpose: 'Design evaluation for decision 3 of DESIGN-20261115-CO1T: rates six install and update options and recommends the copy CLI as primary installer, with plugin cache and skill installers as channel-native paths sharing one .harness/state/ contract'
 keywords:
   [

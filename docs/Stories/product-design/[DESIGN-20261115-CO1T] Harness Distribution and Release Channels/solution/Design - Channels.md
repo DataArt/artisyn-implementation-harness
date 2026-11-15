@@ -1,4 +1,5 @@
 ---
+id: 49520d65
 purpose: 'Implementation detail for DESIGN-20261115-CO1T decisions D-05 to D-09: repo layout, the three plugin and marketplace manifests, per-channel consumer commands, artifact contents and integrity checks for the five distribution channels'
 keywords:
   [

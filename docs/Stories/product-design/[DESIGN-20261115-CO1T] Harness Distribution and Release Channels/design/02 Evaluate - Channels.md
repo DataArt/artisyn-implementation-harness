@@ -1,4 +1,5 @@
 ---
+id: f222f01e
 purpose: 'Evaluate for DESIGN-20261115-CO1T decision 2: channel portfolio options scored against the Frame criteria, recommending repo-as-marketplace with GitHub Packages npm, skills.sh, gh skill and the Release ZIP alongside'
 keywords:
   [

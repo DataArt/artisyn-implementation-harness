@@ -1,4 +1,5 @@
 ---
+id: dcca42cd
 purpose: 'Implementation detail for DESIGN-20261115-CO1T decisions D-01 to D-04: the rename map from harness-bootstrap to implementation-harness (package @dataart/artisyn-implementation-harness, plugin artisyn, marketplace dataart), the CI rename gate, the 4.x legacy shim skill and the read-time mapping that keeps patch history immutable'
 keywords:
   [

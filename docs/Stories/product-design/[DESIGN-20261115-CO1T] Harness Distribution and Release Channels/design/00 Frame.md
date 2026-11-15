@@ -1,4 +1,5 @@
 ---
+id: ebe32e04
 purpose: 'Frame for DESIGN-20261115-CO1T: problem, evaluation criteria, decisions and boundaries for harness distribution and release channels'
 keywords:
   [

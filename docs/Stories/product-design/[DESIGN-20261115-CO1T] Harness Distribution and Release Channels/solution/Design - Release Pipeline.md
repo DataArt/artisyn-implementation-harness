@@ -1,4 +1,5 @@
 ---
+id: 87e9c190
 purpose: 'Implementation design for DESIGN-20261115-CO1T decisions D-15 to D-17: the Nx Release project and config, version stamping, the release-harness workflow, the root semantic-release scope rule, branch protection, retirement of the committed ZIP flow and rollback'
 keywords:
   [

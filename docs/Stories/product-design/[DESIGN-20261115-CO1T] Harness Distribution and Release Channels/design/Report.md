@@ -1,3 +1,7 @@
+---
+id: d14b49f6
+---
+
 # Design Report — DESIGN-20261115-CO1T: Harness Distribution and Release Channels
 
 ## Context
@@ -93,7 +97,7 @@ Selected artifacts: `architecture` (integrated, single), `design` (one per decis
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 56m 23s · Wait to date: 1h 22m 33s (closed 1h 22m 33s + current 0s) · Unclassified: 10s
+Observed work: 56m 23s · Wait to date: 1h 23m 28s (closed 1h 23m 28s + current 0s) · Unclassified: 18m 38s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -105,7 +109,7 @@ Observed work: 56m 23s · Wait to date: 1h 22m 33s (closed 1h 22m 33s + current 
 | solution (completed)          | 2026-11-15T17:13:09.062Z | 2026-11-15T18:04:34.113Z | 51m 25s     | 29m 45s | 21m 40s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (completed)       | 2026-11-15T18:04:34.271Z | 2026-11-15T18:04:34.765Z | 0s          | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (active)              | 2026-11-15T18:04:43.285Z | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| publish (active)              | 2026-11-15T18:04:43.285Z | unavailable              | unavailable | 0s      | 55s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
@@ -222,6 +226,37 @@ _Target: `solution/Architecture.md` + four `solution/Design - *.md`. Last WAF pa
 Inline-authoring note: two mechanical edits to `solution/Architecture.md` (D-06 alignment; requirement coverage table) were applied by the orchestrator, recorded here per the docs-writer authoring pattern's fallback rule.
 
 ---
+
+## Publish doc impact (2026-11-15)
+
+Doc-impact list by `@product-architect`; three judgment calls settled by the developer:
+
+- **Sequencing:** publish `docs/Harness/09 Distribution/` (4 files, each marked "Applies from release 4.0.0"), Roadmap §1, and the host-only repo-URL fix in `01 Explore/02 Feature Comparison.md` and `03 Artisyn Capability Audit.md` now. Pages that tell readers what to run today switch in implementation ticket 11.
+- **Inbound path:** downstream improvements come back as issues or PRs on `DataArt/artisyn-implementation-harness`; maintainers harvest in the source repo; projects receive them through the next release and `patch apply`.
+- **Sidebar:** `@web` adds the `09 Distribution` entry in `apps/web-docs/.vitepress/config.ts` now.
+- Settled without asking: `npx` stays in consumer commands (the yarn-only rule covers this repo's toolchain); Codex command variants written as plain facts; implementation detail stays out of `docs/Harness/`.
+
+**Publish review (2026-11-15), pass 1:** `@product-architect` returned 6 mechanical corrections (token variable removed from `.npmrc` example; `gh skill` access = no token; pinning wording incl. skills.sh commit lock; release-cut wording; Roadmap status; diagram edge labels). Applied by `@docs-writer`.
+
+**Implementation note for ticket 7 (from the review):** the skills.sh install command takes no tag; pinning happens through the commit recorded in `skills-lock.json`. Ticket 7 checks whether skills.sh accepts a tag ref and, if so, documents the pinned form.
+
+**Deferred to implementation ticket 11 (must be in the ticket scope):**
+
+| Doc                                                 | Change                                                                                                                                                                 |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `docs/Harness/index.md`                             | package line → `skills/implementation-harness/`, `/implementation-harness launch`, link 09, Sections table row                                                         |
+| `docs/README.md`                                    | 09 Distribution link; package source path                                                                                                                              |
+| `docs/Harness/02 Quick Start/index.md`              | install via any channel (link 09), both command forms, `.harness/state/`, remove consumer harvest/prepare bullets                                                      |
+| `docs/Harness/04 Adoption/00 Adoption Path.md`      | Getting Started steps 1–2; Improve row (releases + `patch apply`, inbound via issues/PRs)                                                                              |
+| `docs/Harness/04 Adoption/02 Discovery Phase.md`    | step 1 install + launch command                                                                                                                                        |
+| `docs/Harness/07 Operational Graph/01 Ops Model.md` | `/implementation-harness launch                                                                                                                                        | reindex-graph`; shipping root path |
+| `docs/Harness/00 The Story/03 Challenges.md`        | command name; cross-project sharing via releases + `patch apply`                                                                                                       |
+| `docs/Harness/01 Explore/index.md`                  | package catalog path                                                                                                                                                   |
+| `docs/Harness/06 Roadmap/01 Harness Roadmap.md` §4  | registry wording; sharing via releases; inbound via issues/PRs                                                                                                         |
+| Package docs under `skills/implementation-harness/` | README, `00-overview`, `01a-launch-plan`, `08-provider-launch`, `05-patch-apply`, `06-patch-state`, `07-patch-prepare`, CHANGELOG, SKILL.md, root doc rename, new shim |
+| Engineering Guide                                   | `04 AI Coding Tool Compatibility` (+Copilot, state root), `07 Branching Strategy` (tags, bypass, scope), `05 Getting Started` (path), ruleset article                  |
+| HLD / LLD                                           | `Harness Bootstrap E2E` container + LLD 00–05 paths, release-pipeline container/section, `System Overview`, HLD index, Log Hub and Web Explorer LLD overviews          |
+| Repo                                                | `CLAUDE.md`, root `README.md`, `.github/ISSUE_TEMPLATE/bug_report.yml`, docs lint rule (no `/releases/latest`, pinned `gh skill`)                                      |
 
 ## Gate
 

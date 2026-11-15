@@ -1,4 +1,5 @@
 ---
+id: c105e074
 purpose: 'Research for DESIGN-20261115-CO1T decision 2: four channel-portfolio and packaging options for the harness, with precedent, tradeoffs and open questions, no recommendation'
 keywords:
   [
