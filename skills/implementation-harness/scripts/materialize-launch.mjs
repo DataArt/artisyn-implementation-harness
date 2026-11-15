@@ -356,8 +356,10 @@ function main() {
     );
   const root = fs.realpathSync(args.root);
   const canonical = fs.realpathSync(args.package);
-  if (!isWithin(root, canonical) || canonical === root)
-    throw new Error('Package must be a directory within the project root');
+  // The package may live outside the project (a host plugin cache): state is in the project's
+  // .harness/state, not in the package. It only must not be, or contain, the project itself.
+  if (!fs.statSync(canonical).isDirectory()) throw new Error('Package must be a directory');
+  if (isWithin(canonical, root)) throw new Error('Package cannot be or contain the project root');
   const planBytes = fs.readFileSync(args.plan);
   const plan = JSON.parse(planBytes.toString('utf8'));
   const prepared = prepare(plan, root, canonical);

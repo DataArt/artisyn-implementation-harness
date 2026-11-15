@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { sha256, pruneEmptyAncestors } from './lib/fs-safe.mjs';
+import { sha256, pruneEmptyAncestors, isWithin } from './lib/fs-safe.mjs';
 import { parseArgs } from './lib/cli.mjs';
 import { RUN_ID_RE, RUNTIME_TOKEN_RE } from './lib/constants.mjs';
 import { STATE_RELATIVE } from './lib/state-root.mjs';
@@ -71,8 +71,8 @@ function assertEvidenceMatchesRun(evidence, receipt, runId) {
 function makeOutputPathGuard(root, packageRelative) {
   return (target) => {
     if (
-      target === packageRelative ||
-      target.startsWith(packageRelative + '/') ||
+      (packageRelative !== null &&
+        (target === packageRelative || target.startsWith(packageRelative + '/'))) ||
       target === '.harness' ||
       target.startsWith('.harness/') ||
       target === '.git' ||
@@ -152,8 +152,10 @@ function main() {
     );
   const root = fs.realpathSync(args.root);
   const pkg = fs.realpathSync(args.package);
-  const packageRelative = path.relative(root, pkg).split(path.sep).join('/');
-  resolveGuardedPath(root, packageRelative);
+  // A package outside the project (a host plugin cache) has no project-relative path to guard.
+  const packageInside = isWithin(root, pkg) && pkg !== root;
+  const packageRelative = packageInside ? path.relative(root, pkg).split(path.sep).join('/') : null;
+  if (packageRelative !== null) resolveGuardedPath(root, packageRelative);
   const receipt = loadMaterializedReceipt(root, args.run);
   const evidence = JSON.parse(fs.readFileSync(args.evidence, 'utf8'));
   assertEvidenceMatchesRun(evidence, receipt, args.run);

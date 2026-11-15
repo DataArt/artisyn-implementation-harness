@@ -91,6 +91,42 @@ describe('migrator.mjs: 3.5.0 provider install', () => {
     assert.ok(fs.existsSync(path.join(legacy.packageDir, 'harness-bootstrap.md')));
   });
 
+  it('places the shim on a later run when the first run had no shim source', async () => {
+    const root = tmpDir();
+    const legacy = buildLegacyProject(root);
+
+    const first = await migrateIn(root, null);
+    assert.equal(first.status, 'migrated');
+    assert.ok(
+      fs.existsSync(path.join(legacy.packageDir, 'harness-bootstrap.md')),
+      'old package kept'
+    );
+
+    const second = await migrateIn(root);
+    assert.equal(second.status, 'shim-placed');
+    assert.equal(second.exitCode, 0);
+    assert.deepEqual(fs.readdirSync(legacy.packageDir).sort(), ['SKILL.md', 'state']);
+    assert.equal(fs.readFileSync(path.join(legacy.packageDir, 'SKILL.md'), 'utf8'), SHIM);
+
+    const before = snapshot(root);
+    const third = await migrateIn(root);
+    assert.equal(third.status, 'already-migrated');
+    assert.deepEqual(snapshot(root), before, 'once the shim is in place nothing changes');
+  });
+
+  it('keeps warning, and changes nothing, while no shim source exists', async () => {
+    const root = tmpDir();
+    buildLegacyProject(root);
+    await migrateIn(root, null);
+    const before = snapshot(root);
+
+    const again = await migrateIn(root, null);
+
+    assert.equal(again.status, 'already-migrated');
+    assert.ok(again.warnings.some((w: string) => /shim/i.test(w)));
+    assert.deepEqual(snapshot(root), before);
+  });
+
   it('is idempotent: a second run changes nothing', async () => {
     const root = tmpDir();
     buildLegacyProject(root);

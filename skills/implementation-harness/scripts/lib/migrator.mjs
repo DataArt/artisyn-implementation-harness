@@ -142,6 +142,14 @@ function readProvenance(file) {
   }
 }
 
+/** True when the old package folder still holds the old package (not the shim). */
+function isOldPackage(source) {
+  const skillFile = path.join(source.packageDir, 'SKILL.md');
+  if (!fs.existsSync(skillFile)) return false;
+  const text = fs.readFileSync(skillFile, 'utf8');
+  return /^name:\s*harness-bootstrap\s*$/m.test(text) && !/deprecated/.test(text);
+}
+
 /** Replace the old skill folder's package files with the shim, keeping `state/`. Only a folder
  * whose `SKILL.md` still names the retired skill is touched, and only its direct children.
  */
@@ -190,7 +198,21 @@ export function migrate({ root, shim = null }) {
       conflicts: [],
     };
   const pending = sources.filter((source) => !source.marked);
-  if (pending.length === 0)
+  if (pending.length === 0) {
+    // State is already migrated, but an earlier run may have had no shim to place. Place it now.
+    const stale = sources.filter((source) => source.skillFolder && isOldPackage(source));
+    if (stale.length > 0) {
+      const warnings = [];
+      for (const source of stale) replaceWithShim(root, source, shim, warnings);
+      const placed = warnings.length === 0;
+      return {
+        status: placed ? 'shim-placed' : 'already-migrated',
+        exitCode: 0,
+        imported: { files: 0, runs: [] },
+        warnings,
+        conflicts: [],
+      };
+    }
     return {
       status: 'already-migrated',
       exitCode: 0,
@@ -198,6 +220,7 @@ export function migrate({ root, shim = null }) {
       warnings: [],
       conflicts: [],
     };
+  }
 
   const { copies, conflicts, warnings, importedRuns } = planCopies(root, pending);
   if (conflicts.length > 0)
