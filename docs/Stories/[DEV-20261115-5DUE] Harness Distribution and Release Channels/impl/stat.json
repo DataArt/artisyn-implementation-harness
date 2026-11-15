@@ -1,0 +1,276 @@
+{
+  "schema_version": 2,
+  "lifecycle": "dev",
+  "ticket": "DEV-20261115-5DUE",
+  "author": "Anton Merkulov",
+  "tracking_started_at": "2026-11-15T18:32:35.604Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-15T18:32:35.756Z",
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "96786aa6-c288-4c00-9fe4-d278ae5e55de",
+          "started_at": "2026-11-15T18:32:35.756Z",
+          "ended_at": "2026-11-15T18:36:00.373Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "ceremony",
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "e178d7dd-2c8d-4b30-baf7-b43530c37436",
+          "started_at": "2026-11-15T18:36:04.110Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "plan",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "implement",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "test",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "document",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "9a565ec6-6de3-4d85-b7e0-601156bb9410",
+      "stage_id": "context",
+      "stage_attempt_id": "96786aa6-c288-4c00-9fe4-d278ae5e55de",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T18:32:35.756Z",
+      "ended_at": "2026-11-15T18:33:00.625Z",
+      "last_observed_at": "2026-11-15T18:33:00.625Z"
+    },
+    {
+      "id": "dc6bb9d9-cb44-4b21-9d1e-6f0502997eba",
+      "stage_id": "context",
+      "stage_attempt_id": "96786aa6-c288-4c00-9fe4-d278ae5e55de",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context sign-off",
+      "started_at": "2026-11-15T18:33:00.625Z",
+      "ended_at": "2026-11-15T18:36:00.373Z",
+      "last_observed_at": "2026-11-15T18:36:00.373Z"
+    },
+    {
+      "id": "66b28906-2401-42f2-955d-1aa262cb0dfc",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "e178d7dd-2c8d-4b30-baf7-b43530c37436",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T18:36:04.110Z",
+      "ended_at": "2026-11-15T18:36:04.642Z",
+      "last_observed_at": "2026-11-15T18:36:04.642Z"
+    },
+    {
+      "id": "47c45a1d-1300-496e-bb9a-cdeaf0bbf49d",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "e178d7dd-2c8d-4b30-baf7-b43530c37436",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting ceremony sign-off (branch)",
+      "started_at": "2026-11-15T18:36:04.642Z",
+      "ended_at": "2026-11-15T18:38:51.128Z",
+      "last_observed_at": "2026-11-15T18:38:51.128Z"
+    },
+    {
+      "id": "1ea4eb08-cfa2-4df6-b584-5d86b8f97788",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "e178d7dd-2c8d-4b30-baf7-b43530c37436",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T18:38:51.128Z",
+      "ended_at": "2026-11-15T18:38:51.624Z",
+      "last_observed_at": "2026-11-15T18:38:51.624Z"
+    },
+    {
+      "id": "ed4e9bdb-48c1-4f7b-9b6c-990454351c17",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "e178d7dd-2c8d-4b30-baf7-b43530c37436",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-15T18:38:51.624Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-15T18:38:51.624Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "context-signoff-01",
+      "stage_id": "context",
+      "stage_attempt_id": "96786aa6-c288-4c00-9fe4-d278ae5e55de",
+      "step": null,
+      "name": "Context sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T18:36:00.003Z",
+      "ended_at": "2026-11-15T18:36:00.003Z",
+      "result": "passed",
+      "evidence_ref": "Developer: correct (accepted all five readings)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "ceremony-signoff-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "e178d7dd-2c8d-4b30-baf7-b43530c37436",
+      "step": null,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T18:38:51.282Z",
+      "ended_at": "2026-11-15T18:38:51.282Z",
+      "result": "passed",
+      "evidence_ref": "Developer: stays on docs/design-20261115-co1t-harness-distribution",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-15T18:38:51.624Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 25.897,
+    "observed_wait_seconds": 346.234,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 3.88900000000001,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 346.234,
+    "failed_checks": 0,
+    "first_pass_verification_rate": null,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  },
+  "quality": {
+    "version": 1,
+    "as_of": "2026-11-15T18:38:51.458Z",
+    "source": "2-report.md",
+    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "findings": {
+      "total": 0,
+      "by_kind": {
+        "deviation": 0,
+        "bug": 0,
+        "design": 0,
+        "improve": 0,
+        "security": 0,
+        "performance": 0,
+        "docs": 0
+      },
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "by_classification": {
+        "introduced": 0,
+        "pre-existing": 0,
+        "ruled-out": 0,
+        "advisory": 0
+      },
+      "by_resolution": {
+        "open": 0,
+        "fixed": 0,
+        "accepted": 0,
+        "tech-debt": 0,
+        "doc-updated": 0
+      },
+      "deviations_by_type": {
+        "contradiction": 0,
+        "extension": 0,
+        "omission": 0
+      },
+      "pr_review": {
+        "total": 0,
+        "by_kind": {
+          "deviation": 0,
+          "bug": 0,
+          "design": 0,
+          "improve": 0,
+          "security": 0,
+          "performance": 0,
+          "docs": 0
+        },
+        "by_severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        }
+      }
+    },
+    "tech_debt": {
+      "total": 0,
+      "ticketed": 0,
+      "unticketed": 0
+    },
+    "tests": {
+      "written": null,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "scopes": 0
+    },
+    "test_runs": {
+      "recorded": 0,
+      "failed": 0,
+      "errors": 0,
+      "interrupted": 0
+    },
+    "closure_issues": []
+  }
+}
