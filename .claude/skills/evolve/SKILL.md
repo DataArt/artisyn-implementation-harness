@@ -1,5 +1,7 @@
 ---
 name: evolve
+metadata:
+  internal: true
 description: Improve harness skills, agents, workflows, and conventions from observed friction or a concrete improvement request. Supports reflect, triage, validate, and adopt; use for harness improvements rather than ordinary product changes.
 ---
 

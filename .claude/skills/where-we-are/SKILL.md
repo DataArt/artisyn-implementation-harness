@@ -2,6 +2,7 @@
 name: where-we-are
 metadata:
   version: 1.0.0
+  internal: true
 description: Delivery gap report (/where-we-are or "what's implemented vs designed?"). Compares HLD containers vs LLD docs and the codebase. Saves snapshot to docs/System Architecture (LLD)/where-we-are/.
 ---
 

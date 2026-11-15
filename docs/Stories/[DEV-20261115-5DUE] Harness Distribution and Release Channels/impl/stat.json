@@ -54,14 +54,14 @@
     },
     {
       "id": "implement",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "e2b31748-ada6-4aeb-bc00-3c8d67a4d3ae",
           "started_at": "2026-11-15T19:00:54.358Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T20:58:12.056Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
@@ -1717,8 +1717,8 @@
       "kind": "work",
       "activity": "implementation",
       "started_at": "2026-11-15T20:54:15.149Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-15T20:54:15.149Z"
+      "ended_at": "2026-11-15T20:58:12.056Z",
+      "last_observed_at": "2026-11-15T20:58:12.056Z"
     }
   ],
   "checks": [
@@ -3151,14 +3151,14 @@
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T20:57:58.017Z",
+    "as_of": "2026-11-15T20:58:12.073Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 4799.004,
+    "observed_work_seconds": 5035.911,
     "observed_wait_seconds": 3178.0769999999998,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 745.3320000000008,
+    "unclassified_seconds": 522.4809999999993,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 2982.104,

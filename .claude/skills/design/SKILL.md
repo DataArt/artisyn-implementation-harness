@@ -2,6 +2,7 @@
 name: design
 metadata:
   version: 6.0.0
+  internal: true
 description: >
   Full design lifecycle (/design {ticket}): Context Gathering → Ceremony → Frame
   → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish → Completion, or a

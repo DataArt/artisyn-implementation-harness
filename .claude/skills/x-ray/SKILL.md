@@ -1,5 +1,7 @@
 ---
 name: x-ray
+metadata:
+  internal: true
 description: >
   Review a diff for correctness, project conventions and architecture alignment.
   Route component checks to installed specialists, preserve independent review
