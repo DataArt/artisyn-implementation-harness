@@ -30,10 +30,10 @@ Today only a ZIP is stored under `releases/harness-bootstrap/`; consumers copy a
 ## State
 
 ```yaml
-current_stage: ceremony
-completed_stages: [context-gathering]
+current_stage: research
+completed_stages: [context-gathering, ceremony, frame]
 selected_artifacts: []
-next_action: 'Ceremony: branch checkout and first commit'
+next_action: 'Research: 4 decisions (identity, channels, install-update, release pipeline)'
 context_fingerprint: ''
 ```
 
@@ -65,7 +65,7 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 | Ticket | DESIGN-20261115-CO1T                                                                                                                                                                |
 | Branch | `docs/design-20261115-co1t-harness-distribution`                                                                                                                                    |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame 🔄 · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research 🔄 · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -75,20 +75,20 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 22s · Wait to date: 7m 23s (closed 7m 23s + current 0s) · Unclassified: 6s
+Observed work: 2m 49s · Wait to date: 19m 14s (closed 19m 14s + current 0s) · Unclassified: 1s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ---- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-15T15:45:37.642Z | 2026-11-15T15:50:53.589Z | 5m 16s      | 16s  | 4m 59s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (active)             | 2026-11-15T15:50:53.738Z | unavailable              | unavailable | 5s   | 2m 23s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (pending)               | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| research (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s   | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-15T15:45:37.642Z | 2026-11-15T15:50:53.589Z | 5m 16s      | 16s    | 4m 59s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-15T15:50:53.738Z | 2026-11-15T15:54:48.530Z | 3m 55s      | 11s    | 3m 44s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (active)                | 2026-11-15T15:54:48.704Z | unavailable              | unavailable | 2m 21s | 10m 31s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -120,8 +120,9 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date | Phase | Notes |
-| ---- | ----- | ----- |
+| Date       | Phase | Notes                                                                                                                                                                    |
+| ---------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-11-15 | Frame | 7 known requirements (EC1–EC6, EC11 added by developer), 4 proposed accepted (EC7 reworded: harness version independent of repo semantic-release); 4 decisions confirmed |
 
 ---
 
