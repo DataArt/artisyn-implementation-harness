@@ -39,7 +39,10 @@ Old values are read through a mapping and never rewritten:
 `release:artisyn-implementation-harness-v{ver}`, the root doc `harness-bootstrap.md` reads as
 `implementation-harness.md`, and `adoptors/` reads as `adaptors/`. The bytes of a baseline always
 come from `state/objects/`; apply makes no network call, and a missing baseline stops the apply
-before anything is written.
+before anything is written. Read a baseline with
+`node <package>/scripts/resolve-base.mjs --path <canonical path> --out <file>`: it applies the
+mapping above. Exit 4 means the object is missing, so stop before writing anything. Exit 3 means
+the entry is a bundle, git or local snapshot, so read it from that source instead.
 The package's templates and portable support files are authoritative. Project
 Answers, mappings, operation histories, and deployment baselines belong to this repo.
 

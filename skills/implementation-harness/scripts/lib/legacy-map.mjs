@@ -27,6 +27,16 @@ export function mapLegacyPath(value) {
     .join('/');
 }
 
+/** The names an old index may have recorded `value` under: the reverse of `mapLegacyPath`. */
+export function legacyNamesOf(value) {
+  if (value === NEW_ROOT_DOC) return [OLD_ROOT_DOC];
+  const renamed = value
+    .split('/')
+    .map((segment) => (segment === 'adaptors' ? 'adoptors' : segment))
+    .join('/');
+  return renamed === value ? [] : [renamed];
+}
+
 /** Resolve a baseline index entry to its label and bytes.
  *
  * A `state/objects/<sha>` snapshot names its object directly. A `release:` snapshot is a label
