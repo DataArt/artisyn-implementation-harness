@@ -1,3 +1,7 @@
+---
+id: 6990481c
+---
+
 # DEV-20261115-5DUE — Harness Distribution and Release Channels — Intent
 
 **Date:** 2026-11-15 · **Ticket:** local ID `DEV-20261115-5DUE` (no tracker record) · **Track:** project dev, implementing a Product design
