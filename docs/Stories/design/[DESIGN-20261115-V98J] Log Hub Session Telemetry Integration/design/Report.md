@@ -17,10 +17,10 @@ Resolved once in Context Gathering. Every later phase reads these values instead
 ## State
 
 ```yaml
-current_stage: evaluate
-completed_stages: [context-gathering, ceremony, frame, research]
+current_stage: solution
+completed_stages: [context-gathering, ceremony, frame, research, evaluate]
 selected_artifacts: []
-next_action: 'Evaluate — resolve V OQs, matrix per decision'
+next_action: 'Solution — select artifacts, Architecture + Design per decision + Stack + Efforts'
 context_fingerprint: 'project/v1-containers/log-hub-hook-2.31.1'
 ```
 
@@ -69,7 +69,7 @@ their resolution here; do not rely on conversation history for design provenance
 | Ticket | DESIGN-20261115-V98J (local ID, no tracker record)                                                                                                                                  |
 | Branch | `docs/design-20261115-v98j-log-hub-telemetry`                                                                                                                                       |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -79,15 +79,15 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 23m 31s · Wait to date: 1h 51m 0s (closed 1h 51m 0s + current 0s) · Unclassified: 1s
+Observed work: 28m 54s · Wait to date: 1h 56m 31s (closed 1h 56m 31s + current 0s) · Unclassified: 1s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- |
 | context-gathering (completed) | 2026-11-15T09:39:34.811Z | 2026-11-15T09:42:56.295Z | 3m 21s      | 1s      | 3m 21s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | ceremony (completed)          | 2026-11-15T09:42:56.438Z | 2026-11-15T09:44:36.795Z | 1m 40s      | 1s      | 1m 39s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | frame (completed)             | 2026-11-15T09:44:36.952Z | 2026-11-15T09:52:49.692Z | 8m 13s      | 3m 41s  | 4m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (active)             | 2026-11-15T09:52:49.844Z | unavailable              | unavailable | 19m 49s | 1h 41m 28s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| research (completed)          | 2026-11-15T09:52:49.844Z | 2026-11-15T11:56:19.784Z | 2h 3m 30s   | 19m 50s | 1h 43m 40s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (active)             | 2026-11-15T11:56:19.944Z | unavailable              | unavailable | 5m 22s  | 3m 19s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -140,6 +140,44 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 <!-- Append dated blocks here. Each block added by Evaluate or the waf-review pattern. -->
 
+### WAF — Evaluate — 2026-11-15 — Server topology
+
+_Recommended option: Option C — Hybrid, with Option F (Nx-wrapped per-contributor local instance) as the local default._
+
+| Pillar                 | Rating | Headline                                                                                                                                                                                                                                                                                         |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Operational Excellence | 🟡     | One-command lifecycle and pinned upgrades; no signal when the local server is stopped and uploads queue. P2: add `log-hub:status` target and document queue behaviour.                                                                                                                           |
+| Security               | 🟡     | Loopback-only Mode 1, API key and `.env` gitignored. P1: wrapper must verify `SHA256SUMS` before running `install.sh` (otherwise a committed `curl \| sh`). P2: `permissions.deny` rule for `.local/**` so a session never uploads the server `.env` (NFR-10); resolved jointly with Decision 2. |
+| Reliability            | 🟡     | Single laptop, no backup; forward-only migrations. P2: data dir outside the repo tree via `LOG_HUB_DATA_DIR`; P3: document export/import before pin bumps.                                                                                                                                       |
+| Performance Efficiency | 🟢     | Local, single user; no concern.                                                                                                                                                                                                                                                                  |
+| Cost Optimization      | 🟢     | Zero cash cost; wrapper maintenance is the only spend.                                                                                                                                                                                                                                           |
+| Sustainability         | 🟢     | Container runs only when started; `log-hub:stop` documented. P3: remind in Guide to stop when not in use.                                                                                                                                                                                        |
+
+**P1 items (resolve before implementation):**
+
+- Wrapper verifies release `SHA256SUMS` before executing `install.sh`.
+
+Full elaboration: `design/02 Evaluate - Server topology.md`
+
+### WAF — Evaluate — 2026-11-15 — Repo integration footprint and canonical isolation
+
+_Recommended option: Option D — repo-owned Nx wrapper with CI verify, using Option B's layout (gitignore `.artisyn/`, plugin registered in local scope, nothing Log-Hub-related committed except the wrapper and docs)._
+
+| Pillar                 | Rating | Headline                                                                                                                                                                                                                                                                  |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟢     | Install, upgrade, uninstall and verify are one command each; CI runs `verify`. P2: pin the installer behaviours the wrapper relies on in a test (spike D2-3/8/9) so upstream changes fail loudly.                                                                         |
+| Security               | 🟢     | Nothing third-party committed; API key and plugin registration per checkout; `verify` greps tracked config. P2: installer tarball is unsigned — document that it is fetched from the contributor's own loopback server, and record the tarball sha256 in the wrapper log. |
+| Reliability            | 🟡     | Depends on local-scope path-marketplace behaviour (D2-3). P1: run the scratch-clone spike before implementation and record the fallback (A layout) decision if it fails.                                                                                                  |
+| Performance Efficiency | 🟢     | Hooks run only where opted in.                                                                                                                                                                                                                                            |
+| Cost Optimization      | 🟢     | Small wrapper shared with Decision 1's project; one CI script.                                                                                                                                                                                                            |
+| Sustainability         | 🟢     | Fresh clones run nothing; no wasted local recording.                                                                                                                                                                                                                      |
+
+**P1 items (resolve before implementation):**
+
+- Spike D2-3/8/9 in a scratch clone before implementation; if local-scope registration fails, switch to the A layout with `verify` allowing exactly the two keys plus a written harvest exclusion rule.
+
+Full elaboration: `design/02 Evaluate - Repo integration footprint and canonical isolation.md`
+
 ---
 
 ## Gate
@@ -157,6 +195,7 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 | ---------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 2026-11-15 | Frame    | 4 known requirements, 5 proposed requirements accepted; 2 decisions confirmed (Server topology; Repo integration footprint and canonical isolation)                                                                                                                                                                                                                                |
 | 2026-11-15 | Research | @architect returned 6 options for Server topology (A developer-only local, B per-contributor local, F Nx-wrapped local, C hybrid, D shared internal VM, E cloud-hosted) and 5 for Repo footprint (A commit all, B gitignore + local scope, C commit marketplace + local scope, D Nx wrapper + CI verify, E personal only); developer confirmed set complete; 29 OQs triaged 9V/20E |
+| 2026-11-15 | Evaluate | Recommended C hybrid with F (Nx-wrapped local) as default for Server topology, and D wrapper with B layout for Repo footprint; WAF: 11 🟢 / 4 🟡 / 0 🔴; 2 P1 items (SHA256SUMS verify; local-scope spike)                                                                                                                                                                         |
 
 ---
 

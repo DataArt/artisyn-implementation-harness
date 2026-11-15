@@ -51,21 +51,29 @@
     },
     {
       "id": "research",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
           "started_at": "2026-11-15T09:52:49.844Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T11:56:19.784Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "evaluate",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+          "started_at": "2026-11-15T11:56:19.944Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "solution",
@@ -309,8 +317,65 @@
       "reason": "user_input",
       "detail": "Awaiting research commit",
       "started_at": "2026-11-15T11:54:07.360Z",
+      "ended_at": "2026-11-15T11:56:19.635Z",
+      "last_observed_at": "2026-11-15T11:56:19.635Z"
+    },
+    {
+      "id": "1cd48d42-cd59-4b48-bb3b-18c41e52bba3",
+      "stage_id": "research",
+      "stage_attempt_id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T11:56:19.635Z",
+      "ended_at": "2026-11-15T11:56:19.784Z",
+      "last_observed_at": "2026-11-15T11:56:19.784Z"
+    },
+    {
+      "id": "b0e4ee51-13f4-473d-8947-51f64b3df29e",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T11:56:19.944Z",
+      "ended_at": "2026-11-15T12:01:42.254Z",
+      "last_observed_at": "2026-11-15T12:01:42.254Z"
+    },
+    {
+      "id": "f04cf814-55c7-4e8b-ab44-d396676d2aab",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off",
+      "started_at": "2026-11-15T12:01:42.254Z",
+      "ended_at": "2026-11-15T12:05:01.150Z",
+      "last_observed_at": "2026-11-15T12:05:01.150Z"
+    },
+    {
+      "id": "e815a117-6969-4899-9dd8-02c5b05b7e72",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-15T12:05:01.150Z",
+      "ended_at": "2026-11-15T12:05:01.935Z",
+      "last_observed_at": "2026-11-15T12:05:01.935Z"
+    },
+    {
+      "id": "118b66f6-bd9d-462c-af3e-430c46562e86",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting evaluate commit",
+      "started_at": "2026-11-15T12:05:01.935Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T11:54:07.360Z"
+      "last_observed_at": "2026-11-15T12:05:01.935Z"
     }
   ],
   "checks": [
@@ -393,22 +458,54 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "evaluate-signoff-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+      "step": null,
+      "design_revision": 0,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T12:05:01.313Z",
+      "ended_at": "2026-11-15T12:05:01.313Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'ok, go next' — D1: C hybrid with F local default; D2: D wrapper with B layout; 2 P1 accepted as spikes",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "waf-evaluate-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "eb4c8c9a-6d16-4f23-9003-025f39c1ecfc",
+      "step": null,
+      "design_revision": 0,
+      "name": "WAF Evaluate",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T12:05:01.480Z",
+      "ended_at": "2026-11-15T12:05:01.480Z",
+      "result": "passed",
+      "evidence_ref": "11 green, 4 amber, 0 red; P1: SHA256SUMS verify; P1: local-scope spike — both carried to Efforts as spikes",
+      "source": "orchestrator WAF assessment",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T11:54:07.362Z",
+    "as_of": "2026-11-15T12:05:01.938Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1412.034,
-    "observed_wait_seconds": 6660.063,
+    "observed_work_seconds": 1735.278,
+    "observed_wait_seconds": 6991.2339999999995,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.002,
-    "wait_seconds_to_date": 6660.0650000000005,
-    "unclassified_seconds": 0.5949999999997526,
+    "open_wait_seconds": 0.003,
+    "wait_seconds_to_date": 6991.236999999999,
+    "unclassified_seconds": 0.7550000000007203,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 6552.253,
+    "approval_wait_seconds": 6751.148999999999,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
