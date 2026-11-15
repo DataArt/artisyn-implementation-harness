@@ -24,7 +24,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.2"
   },
   "scripts": {
     "prepack": "node ../../scripts/pack-shim.mjs"

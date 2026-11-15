@@ -1,20 +1,42 @@
 /** Text the CLI prints: version comparison, the next-step lines and the pinned update command. */
 
-const parse = (version) =>
-  String(version)
-    .split('-')[0]
-    .split('.')
-    .map((part) => Number.parseInt(part, 10) || 0);
+export const VERSION_PATTERN = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/;
 
-/** -1, 0 or 1 comparing dotted numeric versions (a pre-release suffix is ignored). */
+const parse = (version) => {
+  const [core, ...rest] = String(version).split('-');
+  return {
+    numbers: core.split('.').map((part) => Number.parseInt(part, 10) || 0),
+    pre: rest.length > 0 ? rest.join('-') : null,
+  };
+};
+
+const compareIdentifiers = (a, b) => {
+  const left = a.split('.');
+  const right = b.split('.');
+  for (let index = 0; index < Math.max(left.length, right.length); index += 1) {
+    if (left[index] === undefined) return -1;
+    if (right[index] === undefined) return 1;
+    const numeric = /^\d+$/.test(left[index]) && /^\d+$/.test(right[index]);
+    const difference = numeric
+      ? Number(left[index]) - Number(right[index])
+      : left[index].localeCompare(right[index]);
+    if (difference !== 0) return difference < 0 ? -1 : 1;
+  }
+  return 0;
+};
+
+/** -1, 0 or 1 comparing semver versions; a pre-release sorts before its release. */
 export function compareVersions(a, b) {
   const left = parse(a);
   const right = parse(b);
   for (let index = 0; index < 3; index += 1) {
-    const difference = (left[index] ?? 0) - (right[index] ?? 0);
+    const difference = (left.numbers[index] ?? 0) - (right.numbers[index] ?? 0);
     if (difference !== 0) return difference < 0 ? -1 : 1;
   }
-  return 0;
+  if (left.pre === right.pre) return 0;
+  if (left.pre === null) return 1;
+  if (right.pre === null) return -1;
+  return compareIdentifiers(left.pre, right.pre);
 }
 
 /** The command that updates an install of the recorded channel, pinned to `version`. */

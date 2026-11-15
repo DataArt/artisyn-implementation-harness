@@ -9,6 +9,9 @@ import zlib from 'node:zlib';
 const END_OF_DIRECTORY = 0x06054b50;
 const CENTRAL_ENTRY = 0x02014b50;
 const LOCAL_ENTRY = 0x04034b50;
+// Generous for a package of a few MB, small enough that a hostile archive cannot exhaust memory.
+const MAX_ENTRY_BYTES = 128 * 1024 * 1024;
+const MAX_TOTAL_BYTES = 256 * 1024 * 1024;
 
 function unsafeName(name) {
   return (
@@ -36,6 +39,7 @@ function readEntries(buffer) {
   const end = findEndOfDirectory(buffer);
   const count = buffer.readUInt16LE(end + 10);
   let offset = buffer.readUInt32LE(end + 16);
+  let total = 0;
   const entries = [];
   for (let index = 0; index < count; index += 1) {
     if (buffer.readUInt32LE(offset) !== CENTRAL_ENTRY)
@@ -50,6 +54,9 @@ function readEntries(buffer) {
     const localOffset = buffer.readUInt32LE(offset + 42);
     const name = buffer.toString('utf8', offset + 46, offset + 46 + nameLength);
     entries.push({ name, method, crc, compressedSize, size, localOffset });
+    total += size;
+    if (size > MAX_ENTRY_BYTES || total > MAX_TOTAL_BYTES)
+      throw new Error(`Archive too large: ${name} declares ${size} bytes`);
     offset += 46 + nameLength + extraLength + commentLength;
   }
   return entries;
@@ -63,8 +70,14 @@ function readData(buffer, entry) {
   const body = buffer.subarray(start, start + entry.compressedSize);
   let data;
   if (entry.method === 0) data = body;
-  else if (entry.method === 8) data = zlib.inflateRawSync(body);
-  else throw new Error(`Unsupported compression method ${entry.method} for ${entry.name}`);
+  else if (entry.method === 8) {
+    try {
+      // Never inflate past the size the directory declares: a lying header cannot exhaust memory.
+      data = zlib.inflateRawSync(body, { maxOutputLength: Math.max(entry.size, 1) });
+    } catch {
+      throw new Error(`Corrupt archive: ${entry.name} does not inflate to its declared size`);
+    }
+  } else throw new Error(`Unsupported compression method ${entry.method} for ${entry.name}`);
   if (data.length !== entry.size || zlib.crc32(data) !== entry.crc)
     throw new Error(`Corrupt archive: CRC mismatch for ${entry.name}`);
   return data;

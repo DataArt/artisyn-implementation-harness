@@ -159,6 +159,46 @@ describe('zip.mjs', () => {
   });
 });
 
+describe('zip.mjs: size limits', () => {
+  /** Overwrite the declared uncompressed size of the first central-directory entry. */
+  function declareSize(zip: Buffer, size: number): Buffer {
+    const at = zip.indexOf(Buffer.from([0x50, 0x4b, 0x01, 0x02]));
+    zip.writeUInt32LE(size, at + 24);
+    return zip;
+  }
+
+  it('does not inflate past the size the directory declares', async () => {
+    const { extractZip } = await load(lib('zip.mjs'));
+    const dest = tmpDir();
+    const lying = declareSize(buildZip({ 'a.md': 'a'.repeat(100_000) }), 10);
+
+    assert.throws(() => extractZip(lying, dest), /declared size|corrupt/i);
+    assert.deepEqual(fs.readdirSync(dest), []);
+  });
+
+  it('rejects an archive that declares an entry or a total larger than the limits', async () => {
+    const { extractZip } = await load(lib('zip.mjs'));
+    const huge = declareSize(buildZip({ 'a.md': 'hello' }), 0xffffffff);
+    assert.throws(() => extractZip(huge, tmpDir()), /too large/i);
+  });
+});
+
+describe('reporter.mjs: versions', () => {
+  it('orders pre-releases before their release and compares numerically', async () => {
+    const { compareVersions, VERSION_PATTERN } = await load(lib('reporter.mjs'));
+    assert.equal(compareVersions('4.0.0', '4.0.0'), 0);
+    assert.equal(compareVersions('4.0.0-rc.1', '4.0.0'), -1);
+    assert.equal(compareVersions('4.0.0', '4.0.0-rc.1'), 1);
+    assert.equal(compareVersions('4.0.0-rc.2', '4.0.0-rc.10'), -1);
+    assert.equal(compareVersions('3.5.0', '4.0.0'), -1);
+    assert.equal(compareVersions('10.0.0', '9.9.9'), 1);
+    assert.ok(VERSION_PATTERN.test('1.2.3'));
+    assert.ok(VERSION_PATTERN.test('1.2.3-rc.1'));
+    assert.ok(!VERSION_PATTERN.test('1.0.0/../../x'));
+    assert.ok(!VERSION_PATTERN.test('1.2'));
+  });
+});
+
 describe('CLI sources', () => {
   it('import only node: modules and relative files', () => {
     const files: string[] = [];

@@ -31,7 +31,7 @@ import {
 } from './lib/providers.mjs';
 import { placePackage, swapPackage } from './lib/placer.mjs';
 import { extractZip } from './lib/zip.mjs';
-import { compareVersions, updateCommand } from './lib/reporter.mjs';
+import { VERSION_PATTERN, compareVersions, updateCommand } from './lib/reporter.mjs';
 
 const OWN_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_RELEASE_BASE =
@@ -187,6 +187,8 @@ async function update(root, options) {
     return;
   }
   const wanted = options.version ?? own.version;
+  if (!VERSION_PATTERN.test(wanted))
+    throw new Exit(2, `--version must look like 1.2.3, got: ${wanted}`);
   if (record.channel === 'npm' && wanted !== own.version)
     throw new Exit(2, `This CLI is ${own.version}. Run: npx ${own.name}@${wanted} update`);
 

@@ -221,6 +221,17 @@ describe('update on the zip channel', () => {
     assert.equal(readJson(path.join(same.installed, 'package.json')).version, '1.0.0');
   });
 
+  it('rejects a --version that is not a plain version, before any download', async () => {
+    const { root, installed } = projectWithInstalled('1.0.0', 'zip');
+    const before = snapshot(installed);
+
+    const result = await update(root, ['--version', '1.0.0/../../x']);
+
+    assert.equal(result.status, 2);
+    assert.match(result.stderr, /--version must look like/);
+    assert.deepEqual(snapshot(installed), before);
+  });
+
   it('accepts a release base URL only over https or loopback http', async () => {
     const { root, installed } = projectWithInstalled('1.0.0', 'zip');
     const before = snapshot(installed);
