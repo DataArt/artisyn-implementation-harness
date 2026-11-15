@@ -1,0 +1,58 @@
+{
+  "schema_version": 2,
+  "bundle_id": "1e7a7422-f5f0-4a39-bb3f-9d515beae4c7",
+  "mode": "harvest",
+  "providers": ["claude"],
+  "status": "harvested",
+  "created_at": "2026-11-15T00:01:54.148024+00:00",
+  "files": [
+    {
+      "path": "canonical/docs/.og/cli.mjs",
+      "canonical_pre_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
+      "canonical_post_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": "docs/.og/cli.mjs",
+      "observed_permanent_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d"
+    },
+    {
+      "path": "canonical/docs/.og/utils.mjs",
+      "canonical_pre_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
+      "canonical_post_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "result": "harvested",
+      "provider": "claude",
+      "permanent_path": "docs/.og/utils.mjs",
+      "observed_permanent_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56"
+    },
+    {
+      "path": "SKILL.md",
+      "canonical_pre_sha256": "fbce531df0ac6fba86a25f6185bd1ccee02f2f9529bc1a2c76eca47abcae34db",
+      "canonical_post_sha256": "f926ce6680464398c1a3d6551d7d5378ee38f9c9245d4158ce14a5e703c64433",
+      "result": "harvested",
+      "provider": null,
+      "permanent_path": null,
+      "observed_permanent_sha256": null
+    },
+    {
+      "path": "CHANGELOG.md",
+      "canonical_pre_sha256": "10de1b1d2094c984f6bb061085cdc43bcbb4bda36603bdb5e9da23dd5ead2693",
+      "canonical_post_sha256": "9d9dfbfc27b2b8ea2835626694a290a1cce54c7726c88841420bf3f409cb5af5",
+      "result": "harvested",
+      "provider": null,
+      "permanent_path": null,
+      "observed_permanent_sha256": null
+    }
+  ],
+  "decisions": [
+    "Scope: docs/.og/cli.mjs and docs/.og/utils.mjs, the only harness-managed permanent files changed by the 2026-11-15 adoptions; canonical copies already identical, so canonical writes are no-ops and the operation records receipts and checkpoints.",
+    "Observed permanent hashes equal the canonical results; deployment baselines (deployed_sha256/rendered_base) are not advanced by harvest.",
+    "Package 3.4.0 -> 3.5.0 (compatible new behavior: .ogignore, plan amendment, placeholders); no template version changes in this bundle (dev/design templates untouched; INTENT-only edits are in the sibling prepare).",
+    "Requires the 3.4.0 bundles (bcbb6844 harvest, 9bb977cd prepare)."
+  ],
+  "unresolved": [],
+  "verification": {
+    "written_hashes_match_payload_after": true,
+    "bundle": "patch/20261115T000154Z-3.5.0-graph-cli-windows-and-ignore-1e7a7422-f5f0-4a39-bb3f-9d515beae4c7",
+    "graph_suite": "node --test canonical/docs/.og/cli.test.mjs 31/31 (2026-11-15, in place)"
+  }
+}

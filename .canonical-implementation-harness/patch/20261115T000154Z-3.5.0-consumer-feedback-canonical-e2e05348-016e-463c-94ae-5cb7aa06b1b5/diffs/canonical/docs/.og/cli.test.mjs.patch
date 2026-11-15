@@ -1,0 +1,38 @@
+--- a/canonical/docs/.og/cli.test.mjs
++++ b/canonical/docs/.og/cli.test.mjs
+@@ -230,6 +230,35 @@
+       0,
+       'stale match should be cleared once keywords diverge'
+     );
++  } finally {
++    fs.rmSync(dir, { recursive: true, force: true });
++  }
++});
++
++test('reindex() never indexes a path listed in docs/.ogignore, and prunes it if it was indexed before', async () => {
++  const dir = scratchDir();
++  try {
++    writeDoc(dir, 'docs/Guide/01 Mine.md', '# Mine\n');
++    const foreign = writeDoc(dir, 'docs/agents/tracker.md', '# Foreign\n');
++    writeDoc(dir, 'docs/vendor/README.md', '# Vendor\n');
++    await build({ dir });
++    assert.ok(
++      (await search({ dir, term: 'Foreign' })).length === 1,
++      'sanity: indexed before ignore'
++    );
++    writeDoc(
++      dir,
++      'docs/.ogignore',
++      '# owned by other tooling\ndocs/agents/tracker.md\ndocs/vendor/\n'
++    );
++    const result = await reindex({ dir });
++    assert.equal(result.pruned.length, 2, 'both ignored docs leave the graph');
++    assert.deepEqual(await search({ dir, term: 'Foreign' }), []);
++    assert.deepEqual(await search({ dir, term: 'Vendor' }), []);
++    assert.equal((await search({ dir, term: 'Mine' })).length, 1);
++    const before = fs.readFileSync(foreign, 'utf8');
++    await build({ dir });
++    assert.equal(fs.readFileSync(foreign, 'utf8'), before, 'an ignored file is never rewritten');
+   } finally {
+     fs.rmSync(dir, { recursive: true, force: true });
+   }

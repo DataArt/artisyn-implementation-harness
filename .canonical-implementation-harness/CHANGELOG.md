@@ -2,6 +2,24 @@
 
 All notable changes to the `harness-bootstrap` package. See `references/00-overview.md` for the full package description and versioning rules (patch/minor/major, same as `skill-authoring.md`'s "Bootstrap template versioning").
 
+## 3.5.0
+
+Consumer feedback round (Windows users of the bootstrapped harness):
+
+- Script entrypoint guards in the graph CLI and the diagram checker use `path.resolve`
+  vs `fileURLToPath`, so both run on Windows instead of exiting 0 silently.
+- Graph CLI validates `--dir` (rejects `docs/` and `docs/.og/`; scratch and empty roots
+  still work) and read-only commands fail on an unbuilt graph.
+- New `docs/.ogignore`: project-relative prefixes the graph never indexes or edits, for
+  docs owned by other tooling; documented in `reindex-graph.md`; covered by a test.
+- `materialize-launch.mjs` accepts an amended plan under the same run ID and records a
+  plan hash history, as the launch guide already instructs; per-file checks still reject
+  a changed rendering.
+- Dev and design INTENT carry rendering rules for the project's commit and branch format
+  (Q7) with a verify item.
+- Jira agent template maps the lifecycle's generic states to project state names
+  (`{{JIRA_STATE_*}}`) and treats the MCP server name as a rendering rule.
+
 ## 3.4.0
 
 - Dev Plan no longer references the host's native planning mode; the Step 5 sign-off is

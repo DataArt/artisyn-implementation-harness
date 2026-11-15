@@ -14,20 +14,26 @@ a brief confirmation.
 
 **Project key**: ND · **Jira**: `https://support.dataart.com` · **Confluence**: `<TODO: not yet provided — fill in the org's Confluence base URL, or remove this line if Confluence isn't used>`
 
-## Transition IDs
+## Workflow states and transition IDs
 
 > **TODO — unverified, do not use until filled in.** These IDs were not available when this agent
 > was deployed. Find them via `GET /rest/api/3/issue/{key}/transitions` against a real ND ticket
 > (e.g. ND-230) before using any operation that transitions an issue. Never guess or invent one.
+> The project state names below are the generic defaults; replace them with the names the
+> transitions API returns for this project's workflow.
 
-| State       | ID                   | When                                            |
-| ----------- | -------------------- | ----------------------------------------------- |
-| In Progress | `<TODO: unverified>` | Dev plan started / Design frame started         |
-| Testing     | `<TODO: unverified>` | Test phase complete, PR submitted               |
-| Done        | `<TODO: unverified>` | Document/Publish phase complete, story archived |
-| On Hold     | `<TODO: unverified>` | Blocked / parked                                |
+The lifecycle skills ask by the generic state in the first column. Map it to this
+project's own state name and transition ID; never assume the generic name exists in Jira.
 
-Never guess transition IDs — always use this table, once filled in.
+| Generic state (what skills say) | Project state name   | ID                   | When                                            |
+| ------------------------------- | -------------------- | -------------------- | ----------------------------------------------- |
+| In Progress                     | In Progress          | `<TODO: unverified>` | Dev plan started / Design frame started         |
+| Testing                         | Testing              | `<TODO: unverified>` | Test phase complete, PR submitted               |
+| Done                            | Done                 | `<TODO: unverified>` | Document/Publish phase complete, story archived |
+| On Hold                         | On Hold              | `<TODO: unverified>` | Blocked / parked                                |
+
+Never guess state names or transition IDs — always use this table, once filled in. When a
+request names a state that has no row, say so and ask instead of picking the nearest one.
 
 ## Labels
 

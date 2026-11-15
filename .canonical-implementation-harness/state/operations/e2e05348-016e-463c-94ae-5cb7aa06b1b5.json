@@ -1,0 +1,77 @@
+{
+  "schema_version": 2,
+  "bundle_id": "e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+  "mode": "prepare",
+  "providers": [],
+  "status": "prepared",
+  "created_at": "2026-11-15T00:01:54.262011+00:00",
+  "files": [
+    {
+      "path": "canonical/docs/.og/cli.test.mjs",
+      "canonical_pre_sha256": "48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
+      "canonical_post_sha256": "fde56375f92782a27d662bef79b88ceaa40c0d86d9bfceb39d77ab19710b8f7f",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "scripts/check-mermaid.mjs",
+      "canonical_pre_sha256": "da0a70c050e608aeda7931518588aaf027443ca7dcac491bbc0e4d627afccef4",
+      "canonical_post_sha256": "954291ab2b1a9654c2750992664fdd33e758fb8e5804d0f1a4bdc1826339cd40",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "scripts/materialize-launch.mjs",
+      "canonical_pre_sha256": "a7c3853f71214d3aea7a617af11fe656b48c1ff4bea23914d2ca7023f312e797",
+      "canonical_post_sha256": "9902383bfaeffe160200b37e65cc078bee9f16b241a20ffb8b7db91c21d4a2b5",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "references/reindex-graph.md",
+      "canonical_pre_sha256": "a3627a3d5fb45f85c7bd0e13568ee769b3a336f21bef1bcab71868babe5097a7",
+      "canonical_post_sha256": "91178dcb9fd5414504819e5f9b8f1c418dc25772033d388edef227295cb9990b",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "canonical/skills/dev/INTENT.md",
+      "canonical_pre_sha256": "3b5dd2c09bc2a3f9dc7348a5d4b28462902b8387f2d8a74ef397dca5e9f45c3b",
+      "canonical_post_sha256": "5e76bf47b7dbdfed00af0bd469414f50d7a7049650e7e6b80da8063340220661",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "canonical/skills/design/INTENT.md",
+      "canonical_pre_sha256": "432993b3bdd9614846e7b3bb941b73a72f46e0e8ba3f809bf64f48ad629a78e4",
+      "canonical_post_sha256": "b13d68ff8cd056246563d5c7dd875cd5be4547d165d98ddf659f368e499ccc86",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "canonical/agents/scrum-master/INTENT.md",
+      "canonical_pre_sha256": "d639c4075e820212854e4f5c1b058d96281fd2da2a6ec2472c333793f88f8589",
+      "canonical_post_sha256": "319212e939ee9bccc3514b2c51129fae4f70a2501e7955b94ed179b318a3d9a3",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "canonical/agents/scrum-master/TEMPLATE.md",
+      "canonical_pre_sha256": "3b534c7bc2d89d2520ec2bde03d9ef2be26ffc1f8f0b76dbe7f5e9344b475749",
+      "canonical_post_sha256": "02a960451e7e3a167c020bfa9a4309d576061601de42aeeed81ed6020a9ec437",
+      "result": "prepared",
+      "provider": null
+    }
+  ],
+  "decisions": [
+    "Prepare only; no permanent file read or written. This repo's installed scrum-master.md is not re-rendered here (a later apply with default state names).",
+    "Bases: recorded checkpoints, all reconstructable from commit 6193f4a (verified by hash).",
+    "scrum-master TEMPLATE version left at 2.0.0 pending the next agent-template versioning pass (the package tracks agent versions loosely; INTENT rows added)."
+  ],
+  "unresolved": [],
+  "verification": {
+    "written_hashes_match_payload_after": true,
+    "bundle": "patch/20261115T000154Z-3.5.0-consumer-feedback-canonical-e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+    "unit_suite": "developer-run harness-bootstrap-e2e:unit green 2026-11-15 (172/172 after the two spec corrections)"
+  }
+}

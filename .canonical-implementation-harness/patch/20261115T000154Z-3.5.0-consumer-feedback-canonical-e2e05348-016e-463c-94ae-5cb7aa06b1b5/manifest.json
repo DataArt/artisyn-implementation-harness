@@ -1,0 +1,107 @@
+{
+  "schema_version": 2,
+  "id": "e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+  "created_at": "2026-11-15T00:01:54.262011+00:00",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "Release 3.5.0, part 2 (prepare): direct canonical edits from the 2026-11-15 consumer-feedback round \u2014 Windows-safe guard in check-mermaid.mjs; materialize-launch.mjs accepts an amended plan under the same run ID (plan_sha256_history); reindex-graph.md documents docs/.ogignore; graph CLI test for .ogignore; dev/design INTENT rendering rules for commit and branch format (Q7); scrum-master TEMPLATE/INTENT with project state-name placeholders and the MCP server name as a rendering rule. Adopted from /evolve candidates 20261115T000200Z\u2013000600Z. Requires the sibling harvest.",
+  "package_version": "3.5.0",
+  "base_release": "3.4.0",
+  "requires": ["1e7a7422-f5f0-4a39-bb3f-9d515beae4c7"],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/cli.test.mjs",
+      "old_path": null,
+      "before_sha256": "48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
+      "after_sha256": "fde56375f92782a27d662bef79b88ceaa40c0d86d9bfceb39d77ab19710b8f7f",
+      "payload": "diffs/canonical/docs/.og/cli.test.mjs.patch",
+      "payload_sha256": "5fdad7a26497698e8cda3dd3a8d7c7ad233b3b46919aa08a5b0b34476bac7d34",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/check-mermaid.mjs",
+      "old_path": null,
+      "before_sha256": "da0a70c050e608aeda7931518588aaf027443ca7dcac491bbc0e4d627afccef4",
+      "after_sha256": "954291ab2b1a9654c2750992664fdd33e758fb8e5804d0f1a4bdc1826339cd40",
+      "payload": "diffs/scripts/check-mermaid.mjs.patch",
+      "payload_sha256": "396514f42027985a39f3a770ac889be320f63111453f8697cb1c31628677dc82",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "scripts/materialize-launch.mjs",
+      "old_path": null,
+      "before_sha256": "a7c3853f71214d3aea7a617af11fe656b48c1ff4bea23914d2ca7023f312e797",
+      "after_sha256": "9902383bfaeffe160200b37e65cc078bee9f16b241a20ffb8b7db91c21d4a2b5",
+      "payload": "diffs/scripts/materialize-launch.mjs.patch",
+      "payload_sha256": "f4837740a53cf2c0a69c39cf81908951b96a17997007e2847a65ac4bf8ebb996",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "references/reindex-graph.md",
+      "old_path": null,
+      "before_sha256": "a3627a3d5fb45f85c7bd0e13568ee769b3a336f21bef1bcab71868babe5097a7",
+      "after_sha256": "91178dcb9fd5414504819e5f9b8f1c418dc25772033d388edef227295cb9990b",
+      "payload": "diffs/references/reindex-graph.md.patch",
+      "payload_sha256": "49a20b8e963a67a20da6ee1568a9b27ed10d985fa69983bb798b919c8191ad4a",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/dev/INTENT.md",
+      "old_path": null,
+      "before_sha256": "3b5dd2c09bc2a3f9dc7348a5d4b28462902b8387f2d8a74ef397dca5e9f45c3b",
+      "after_sha256": "5e76bf47b7dbdfed00af0bd469414f50d7a7049650e7e6b80da8063340220661",
+      "payload": "diffs/canonical/skills/dev/INTENT.md.patch",
+      "payload_sha256": "de98563bd0cdd8e40ef983ee5d4108d344b96b78820eaff1eb9d12ffa547942d",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/skills/design/INTENT.md",
+      "old_path": null,
+      "before_sha256": "432993b3bdd9614846e7b3bb941b73a72f46e0e8ba3f809bf64f48ad629a78e4",
+      "after_sha256": "b13d68ff8cd056246563d5c7dd875cd5be4547d165d98ddf659f368e499ccc86",
+      "payload": "diffs/canonical/skills/design/INTENT.md.patch",
+      "payload_sha256": "10a9a0c8cc4aafecbb677bd2d2731b0c53babb230d8c783b8e204b30d7b5801e",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/scrum-master/INTENT.md",
+      "old_path": null,
+      "before_sha256": "d639c4075e820212854e4f5c1b058d96281fd2da2a6ec2472c333793f88f8589",
+      "after_sha256": "319212e939ee9bccc3514b2c51129fae4f70a2501e7955b94ed179b318a3d9a3",
+      "payload": "diffs/canonical/agents/scrum-master/INTENT.md.patch",
+      "payload_sha256": "b8ba92b859bb0c8e1438ce6ebe6b85468e66b282de5f6056143dc397a44613d1",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/agents/scrum-master/TEMPLATE.md",
+      "old_path": null,
+      "before_sha256": "3b534c7bc2d89d2520ec2bde03d9ef2be26ffc1f8f0b76dbe7f5e9344b475749",
+      "after_sha256": "02a960451e7e3a167c020bfa9a4309d576061601de42aeeed81ed6020a9ec437",
+      "payload": "diffs/canonical/agents/scrum-master/TEMPLATE.md.patch",
+      "payload_sha256": "5dc3b6aed85b0726b056cd68245cd7e972012907295dcf1fe25c10c1472bb304",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "agent",
+        "intent": "canonical/agents/scrum-master/INTENT.md",
+        "output_rule": ".claude/agents/scrum-master.md",
+        "compare": "content"
+      }
+    }
+  ]
+}

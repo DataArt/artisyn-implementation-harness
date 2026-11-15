@@ -2,10 +2,10 @@
   "schema_version": 2,
   "canonical": {
     "CHANGELOG.md": {
-      "recorded_sha256": "10de1b1d2094c984f6bb061085cdc43bcbb4bda36603bdb5e9da23dd5ead2693",
-      "snapshot": "bundle:9bb977cd-e11e-4586-b3fc-778e7b5d3473",
+      "recorded_sha256": "9d9dfbfc27b2b8ea2835626694a290a1cce54c7726c88841420bf3f409cb5af5",
+      "snapshot": "bundle:1e7a7422-f5f0-4a39-bb3f-9d515beae4c7",
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
-      "note": "prepare 20261114T230821Z: root-instructions interface"
+      "note": "harvest 20261115T000154Z: graph CLI windows guard, --dir validation, .ogignore"
     },
     "README.md": {
       "recorded_sha256": "accc8ed1c961a0375ec2f572d721a1b28766847c0bf6a2bffe3cb8dfe0af0b76",
@@ -13,10 +13,10 @@
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "SKILL.md": {
-      "recorded_sha256": "fbce531df0ac6fba86a25f6185bd1ccee02f2f9529bc1a2c76eca47abcae34db",
-      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "recorded_sha256": "f926ce6680464398c1a3d6551d7d5378ee38f9c9245d4158ce14a5e703c64433",
+      "snapshot": "bundle:1e7a7422-f5f0-4a39-bb3f-9d515beae4c7",
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
-      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
+      "note": "harvest 20261115T000154Z: graph CLI windows guard, --dir validation, .ogignore"
     },
     "canonical/adaptors/claude/browser.md": {
       "recorded_sha256": "a710499dd875ecf35f2d4cbfdaa635aa2cfbe21bfcf457826a402fbc50ab32bc",
@@ -132,12 +132,14 @@
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
     "canonical/agents/scrum-master/INTENT.md": {
-      "recorded_sha256": "d639c4075e820212854e4f5c1b058d96281fd2da2a6ec2472c333793f88f8589",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "319212e939ee9bccc3514b2c51129fae4f70a2501e7955b94ed179b318a3d9a3",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "canonical/agents/scrum-master/TEMPLATE.md": {
-      "recorded_sha256": "3b534c7bc2d89d2520ec2bde03d9ef2be26ffc1f8f0b76dbe7f5e9344b475749",
-      "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
+      "recorded_sha256": "02a960451e7e3a167c020bfa9a4309d576061601de42aeeed81ed6020a9ec437",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "canonical/docs/Engineering Guide/01 Conventions.md": {
       "recorded_sha256": "5154d3786dd6da3f765ecbfb2b6a5143416ac376b3ad3607efdbd464c55d9ee3",
@@ -221,10 +223,10 @@
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "canonical/skills/design/INTENT.md": {
-      "recorded_sha256": "432993b3bdd9614846e7b3bb941b73a72f46e0e8ba3f809bf64f48ad629a78e4",
-      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
+      "recorded_sha256": "b13d68ff8cd056246563d5c7dd875cd5be4547d165d98ddf659f368e499ccc86",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
-      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "canonical/skills/design/TEMPLATE.md": {
       "recorded_sha256": "e82dfc6bc679459b9924fa0e328dbf5d45b6efb0c13e5ecfa6262b6ace908191",
@@ -360,9 +362,9 @@
       "snapshot": "bundle:991523ee-2a51-4f30-90f4-678ab0e95243"
     },
     "canonical/skills/dev/INTENT.md": {
-      "recorded_sha256": "3b5dd2c09bc2a3f9dc7348a5d4b28462902b8387f2d8a74ef397dca5e9f45c3b",
-      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
-      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
+      "recorded_sha256": "5e76bf47b7dbdfed00af0bd469414f50d7a7049650e7e6b80da8063340220661",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "canonical/skills/dev/TEMPLATE.md": {
       "recorded_sha256": "28c413127e4702732c3e4e02907b8e05f853b9851fdeacced037690345cf564f",
@@ -728,18 +730,20 @@
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "references/reindex-graph.md": {
-      "recorded_sha256": "a3627a3d5fb45f85c7bd0e13568ee769b3a336f21bef1bcab71868babe5097a7",
-      "snapshot": "bundle:03e55a3d-60fc-46fe-b363-770421e96874"
+      "recorded_sha256": "91178dcb9fd5414504819e5f9b8f1c418dc25772033d388edef227295cb9990b",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "canonical/docs/.og/cli.mjs": {
-      "recorded_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
-      "snapshot": "bundle:bcbb6844-621e-4f82-82d9-67145e2b86fd",
-      "note": "harvest 20261114T230646Z: promoted from live files adopted via /evolve on 2026-11-14"
+      "recorded_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "snapshot": "bundle:1e7a7422-f5f0-4a39-bb3f-9d515beae4c7",
+      "note": "harvest 20261115T000154Z: graph CLI windows guard, --dir validation, .ogignore"
     },
     "canonical/docs/.og/cli.test.mjs": {
-      "recorded_sha256": "48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
-      "snapshot": "state/objects/48b583678277483d35453f2d3ec3a4baa09146e32ef34366821be9ca9a756f97",
-      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+      "recorded_sha256": "fde56375f92782a27d662bef79b88ceaa40c0d86d9bfceb39d77ab19710b8f7f",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "canonical/docs/.og/constants.mjs": {
       "recorded_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
@@ -762,8 +766,9 @@
       "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
     },
     "canonical/docs/.og/utils.mjs": {
-      "recorded_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
-      "snapshot": "bundle:4e3713c7-c1f6-4530-909c-71f087d16c43"
+      "recorded_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "snapshot": "bundle:1e7a7422-f5f0-4a39-bb3f-9d515beae4c7",
+      "note": "harvest 20261115T000154Z: graph CLI windows guard, --dir validation, .ogignore"
     },
     "canonical/adaptors/copilot/browser.md": {
       "recorded_sha256": "8c64e40642c003123d4ae6fc6c18813d81904fa9992f038caa01cc9d27d82347",
@@ -836,9 +841,10 @@
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "scripts/materialize-launch.mjs": {
-      "recorded_sha256": "a7c3853f71214d3aea7a617af11fe656b48c1ff4bea23914d2ca7023f312e797",
-      "snapshot": "state/objects/a7c3853f71214d3aea7a617af11fe656b48c1ff4bea23914d2ca7023f312e797",
-      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
+      "recorded_sha256": "9902383bfaeffe160200b37e65cc078bee9f16b241a20ffb8b7db91c21d4a2b5",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+      "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe",
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "scripts/plan-provider-launch.mjs": {
       "recorded_sha256": "941422ec6dd534442dd2083e6d84c3f94d9bd02a767262e781572cdee5f14bca",
@@ -846,9 +852,9 @@
       "bundle_id": "6630df3d-f6bf-4651-8732-8048942ad1fe"
     },
     "scripts/check-mermaid.mjs": {
-      "recorded_sha256": "da0a70c050e608aeda7931518588aaf027443ca7dcac491bbc0e4d627afccef4",
-      "snapshot": "release:artisyn-harness-bootstrap-v3.2.0.zip",
-      "note": "release ZIP v3.2.0 (first observed support-file baseline)"
+      "recorded_sha256": "954291ab2b1a9654c2750992664fdd33e758fb8e5804d0f1a4bdc1826339cd40",
+      "snapshot": "bundle:e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+      "note": "prepare 20261115T000154Z: consumer-feedback round"
     },
     "scripts/finalize-launch.mjs": {
       "recorded_sha256": "4f14b75a9685d03aebfc639562969116bc828271a08b91fb59490b8747016708",
@@ -937,11 +943,12 @@
     },
     ".claude/agents/scrum-master.md": {
       "canonical_source": "canonical/agents/scrum-master/TEMPLATE.md",
-      "canonical_sha256": "3b534c7bc2d89d2520ec2bde03d9ef2be26ffc1f8f0b76dbe7f5e9344b475749",
-      "deployed_sha256": "a9f342885149531c0312acf19d10ce37362c2565ce435ca8bdd1001f0b58db2c",
-      "rendered_base": null,
-      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history)",
-      "provider": "claude"
+      "canonical_sha256": "02a960451e7e3a167c020bfa9a4309d576061601de42aeeed81ed6020a9ec437",
+      "deployed_sha256": "b552cb63a762198e3345bab7b468ed9227209f45710802418037fe1338d2ef77",
+      "rendered_base": "b552cb63a762198e3345bab7b468ed9227209f45710802418037fe1338d2ef77",
+      "note": "baseline initialized by apply 59753801; rendered base unknown (personalization reconciled via three-way merge from git history) | canonical advanced by prepare e2e05348-016e-463c-94ae-5cb7aa06b1b5; installed file not yet re-rendered | apply 5dd0e71d-8b23-436e-af6d-db81c2517401: canonical table change applied onto the installed file",
+      "provider": "claude",
+      "retained_customization": "TODO transition IDs and notes; generic names rendered as project state names (no Jira in this repo); duplicated frontmatter block pre-existing"
     },
     ".claude/agents/web.md": {
       "canonical_source": "canonical/agents/layer/TEMPLATE.md",
@@ -2348,18 +2355,11 @@
     },
     "docs/.og/cli.mjs": {
       "canonical_source": "canonical/docs/.og/cli.mjs",
-      "canonical_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
-      "deployed_sha256": "2badf4eff930460f21f411e52e65f40d7ecfa4a0e2f1f005c282be39bf24aed2",
-      "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it)",
-      "provider": "claude",
-      "harvest_receipt": {
-        "observed_permanent_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
-        "promoted_canonical_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
-        "excluded_local_only_changes": [],
-        "bundle": "bcbb6844-621e-4f82-82d9-67145e2b86fd",
-        "observed_at": "2026-11-14T23:06:46.294821+00:00"
-      }
+      "canonical_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "deployed_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "rendered_base": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash) | harvest receipt from bundle bcbb6844-621e-4f82-82d9-67145e2b86fd; deployment baseline left as recorded (harvest never advances it) | harvest receipt from bundle 1e7a7422-f5f0-4a39-bb3f-9d515beae4c7; deployment baseline left as recorded | apply 5dd0e71d-8b23-436e-af6d-db81c2517401: baseline advanced to canonical, receipt retired",
+      "provider": "claude"
     },
     "docs/.og/constants.mjs": {
       "canonical_source": "canonical/docs/.og/constants.mjs",
@@ -2395,10 +2395,10 @@
     },
     "docs/.og/utils.mjs": {
       "canonical_source": "canonical/docs/.og/utils.mjs",
-      "canonical_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
-      "deployed_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
-      "rendered_base": null,
-      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash)",
+      "canonical_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "deployed_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "rendered_base": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "note": "deployed/verified by apply 15d8b925-5ddb-4761-919e-720d341104f9 (bundle 4e3713c7-c1f6-4530-909c-71f087d16c43) -- Test-stage fix round (04-research.md/09-publish.md: moved graph query out of delegation, @product-architect has no Bash) | harvest receipt from bundle 1e7a7422-f5f0-4a39-bb3f-9d515beae4c7; deployment baseline left as recorded | apply 5dd0e71d-8b23-436e-af6d-db81c2517401: baseline advanced to canonical, receipt retired",
       "provider": "claude"
     }
   }

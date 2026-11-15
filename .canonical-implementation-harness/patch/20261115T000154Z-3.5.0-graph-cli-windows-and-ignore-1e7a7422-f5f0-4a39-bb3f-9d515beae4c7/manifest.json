@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "id": "1e7a7422-f5f0-4a39-bb3f-9d515beae4c7",
+  "created_at": "2026-11-15T00:01:54.148024+00:00",
+  "origin": "artisyn-harness",
+  "operation": "harvest",
+  "summary": "Release 3.5.0, part 1 (harvest): operational graph CLI/utils as installed at docs/.og/ \u2014 Windows-safe entrypoint guard, --dir validation (reject docs/ and docs/.og/, keep scratch and empty roots), read-only commands fail on an unbuilt graph, docs/.ogignore support. Canonical copies were edited identically alongside the installed files; this bundle promotes them from their recorded checkpoints and records harvest receipts. Adopted from /evolve candidates 20261115T000200Z, 20261115T000300Z and the 2026-11-15 root-check correction. Version bump and CHANGELOG 3.5.0 entry ride here.",
+  "package_version": "3.5.0",
+  "base_release": "3.4.0",
+  "requires": ["bcbb6844-621e-4f82-82d9-67145e2b86fd", "9bb977cd-e11e-4586-b3fc-778e7b5d3473"],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/cli.mjs",
+      "old_path": null,
+      "before_sha256": "067fa0a15ab44bf69976c3accde4a4242e1b34e9714a382d0394192bceaa7aa5",
+      "after_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "payload": "diffs/canonical/docs/.og/cli.mjs.patch",
+      "payload_sha256": "14ad1433ad32c6ada0324168e91df78be7cf53d938c32e12811527dda0a55d1f",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc-tool",
+        "intent": null,
+        "output_rule": "docs/.og/cli.mjs",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/utils.mjs",
+      "old_path": null,
+      "before_sha256": "eafe2ff668a3fb27c856d235ab30f8615a003a369e703fd3f92f9e843dfeaad6",
+      "after_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "payload": "diffs/canonical/docs/.og/utils.mjs.patch",
+      "payload_sha256": "2743b45293b4bc76f1fa2b6505b241e5a4ed4f417f6f8c4a2e3e460d2f5dba17",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc-tool",
+        "intent": null,
+        "output_rule": "docs/.og/utils.mjs",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "SKILL.md",
+      "old_path": null,
+      "before_sha256": "fbce531df0ac6fba86a25f6185bd1ccee02f2f9529bc1a2c76eca47abcae34db",
+      "after_sha256": "f926ce6680464398c1a3d6551d7d5378ee38f9c9245d4158ce14a5e703c64433",
+      "payload": "diffs/SKILL.md.patch",
+      "payload_sha256": "fc3679612a5c29f697d07733a3d7d82ddd273bfc48c7769f18696757888dff8b",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "CHANGELOG.md",
+      "old_path": null,
+      "before_sha256": "10de1b1d2094c984f6bb061085cdc43bcbb4bda36603bdb5e9da23dd5ead2693",
+      "after_sha256": "9d9dfbfc27b2b8ea2835626694a290a1cce54c7726c88841420bf3f409cb5af5",
+      "payload": "diffs/CHANGELOG.md.patch",
+      "payload_sha256": "8538cdfe21234b0e6a6b3f95c51eb29218e48cb054f27360e63f899b6189c718",
+      "deployment": "canonical-only",
+      "mapping": null
+    }
+  ]
+}

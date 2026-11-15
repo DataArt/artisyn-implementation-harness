@@ -1,0 +1,47 @@
+--- a/canonical/docs/.og/utils.mjs
++++ b/canonical/docs/.og/utils.mjs
+@@ -79,15 +79,41 @@
+   return match ? match[1].trim() : null;
+ }
+ 
+-/** Recursively list every `.md` file under `root`, skipping `docs/.og/`. Empty if `root` is absent. */
+-export function listMarkdownFiles(root) {
++/**
++ * Read `<docsRoot>/.ogignore`: one project-relative path prefix per line
++ * (`docs/vendor/`, `docs/agents/issue-tracker.md`), `#` comments allowed.
++ * Docs matching a prefix are never indexed and never receive a frontmatter `id`,
++ * for files under `docs/` that another tool owns. Empty when the file is absent.
++ * @returns {string[]} POSIX prefixes relative to the project root
++ */
++export function readIgnoreList(docsRoot) {
++  const file = path.join(docsRoot, '.ogignore');
++  if (!fs.existsSync(file)) return [];
++  return fs
++    .readFileSync(file, 'utf8')
++    .split(/\r?\n/)
++    .map((line) => line.trim())
++    .filter((line) => line && !line.startsWith('#'))
++    .map((line) => line.replace(/\\/g, '/').replace(/^\.\//, '').replace(/\/+$/, ''));
++}
++
++/** Recursively list every `.md` file under `root` (the `docs/` folder), skipping
++ * `docs/.og/` and any path in `ignore` (project-relative POSIX prefixes, see
++ * `readIgnoreList`). Empty if `root` is absent. */
++export function listMarkdownFiles(root, ignore = []) {
+   if (!fs.existsSync(root)) return [];
++  const project = path.dirname(root);
++  const ignored = (full) => {
++    const rel = path.relative(project, full).split(path.sep).join('/');
++    return ignore.some((prefix) => rel === prefix || rel.startsWith(prefix + '/'));
++  };
+   const out = [];
+   const walk = (dir) => {
+     for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+       const full = path.join(dir, entry.name);
++      if (ignored(full)) continue;
+       if (entry.isDirectory()) {
+-        if (path.relative(root, full) === path.join('docs', '.og')) continue;
++        if (path.relative(root, full) === '.og') continue;
+         walk(full);
+       } else if (entry.isFile() && entry.name.endsWith('.md')) out.push(full);
+     }

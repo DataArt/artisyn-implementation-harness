@@ -1,0 +1,56 @@
+{
+  "schema_version": 2,
+  "bundle_id": "e2e05348-016e-463c-94ae-5cb7aa06b1b5",
+  "mode": "apply",
+  "providers": ["claude"],
+  "status": "applied",
+  "created_at": "2026-11-15T00:05:14.170860+00:00",
+  "files": [
+    {
+      "path": ".claude/agents/scrum-master.md",
+      "provider": "claude",
+      "canonical_source": "canonical/agents/scrum-master/TEMPLATE.md",
+      "canonical_sha256": "02a960451e7e3a167c020bfa9a4309d576061601de42aeeed81ed6020a9ec437",
+      "permanent_pre_sha256": "a9f342885149531c0312acf19d10ce37362c2565ce435ca8bdd1001f0b58db2c",
+      "permanent_post_sha256": "b552cb63a762198e3345bab7b468ed9227209f45710802418037fe1338d2ef77",
+      "result": "applied",
+      "retained_customizations": [
+        "duplicated frontmatter block (pre-existing)",
+        "TODO notes and `<TODO: unverified>` transition IDs",
+        "Confluence URL TODO line"
+      ]
+    },
+    {
+      "path": "docs/.og/cli.mjs",
+      "provider": "claude",
+      "canonical_source": "canonical/docs/.og/cli.mjs",
+      "canonical_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "permanent_pre_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "permanent_post_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "result": "verified-noop"
+    },
+    {
+      "path": "docs/.og/utils.mjs",
+      "provider": "claude",
+      "canonical_source": "canonical/docs/.og/utils.mjs",
+      "canonical_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "permanent_pre_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "permanent_post_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "result": "verified-noop"
+    }
+  ],
+  "applies": ["1e7a7422-f5f0-4a39-bb3f-9d515beae4c7", "e2e05348-016e-463c-94ae-5cb7aa06b1b5"],
+  "decisions": [
+    "Provider scope: claude only (the only provider installed in this repo; .agents/ and .github/agents absent).",
+    "docs/.og/cli.mjs and docs/.og/utils.mjs: installed content already equals canonical (harvest observed it); verified no-op, deployment baselines advanced, harvest receipts retired.",
+    ".claude/agents/scrum-master.md: deployed baseline matched the installed file (no local drift since baseline); the canonical table change is applied onto the installed file keeping its local TODO notes; project state names rendered as the generic defaults because this repo has no Jira (developer, 2026-11-15) and no transitions API answer exists; transition IDs stay `<TODO: unverified>`.",
+    "The developer states this repo has no Jira although the recorded answers name project ND; retiring the tracker (Q5 = none conditional) is a separate decision, not taken here.",
+    "Canonical-only entries of both bundles deploy nothing; INTENT files are never materialised."
+  ],
+  "unresolved": [],
+  "verification": {
+    "permanent_hashes_match": true,
+    "placeholders_left": 0,
+    "structure": "agent frontmatter unchanged; table has 4 rows x 4 columns"
+  }
+}
