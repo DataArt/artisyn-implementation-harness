@@ -76,6 +76,9 @@ Maintainers with push access can skip the fork and branch directly in this repo.
   merge. Nobody merges their own PR unreviewed.
 - CI must pass. A PR with failing checks won't be merged.
 - Describe what changed and why in the PR description; link the issue it addresses.
+  The pull request template walks through this.
+- A change to the website also goes through the keyboard, reduced-motion and phone-width
+  checks in [`ACCESSIBILITY.md`](ACCESSIBILITY.md).
 - A maintainer may ask for changes or close a PR that doesn't fit the project's
   direction — that isn't a judgment on the contribution's quality.
 

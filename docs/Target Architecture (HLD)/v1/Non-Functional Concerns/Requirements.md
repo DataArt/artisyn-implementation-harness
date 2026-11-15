@@ -8,7 +8,7 @@ keywords: [nfr, requirements, security, performance]
 
 ## Scope
 
-These requirements govern the platform's Web, Discuss, and Harness Bootstrap E2E containers (see `Containers/`), the CI/CD pipeline that builds and deploys them, and every actor reaching the site over HTTPS — any browser, and, for the Discuss container, GitHub accounts with or without repository permission. The site is public; no auth boundary scopes who can reach it.
+These requirements govern the platform's Web, Discuss, and Harness Bootstrap E2E containers (see `Containers/`), the CI/CD pipeline that builds and deploys them, and every actor reaching the site over HTTPS — any browser, and, for the Discuss container, GitHub accounts with or without repository permission. The site is public; no auth boundary scopes who can reach it. Accessibility requirements (`NFR-A*`) live in `Accessibility.md` in this folder.
 
 ## Requirements
 

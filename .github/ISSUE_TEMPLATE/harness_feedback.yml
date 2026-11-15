@@ -1,0 +1,58 @@
+name: Harness feedback from a consuming project
+description: You installed the harness into your own project. Tell us what rubbed, what was unclear, or what you had to patch.
+title: 'feedback: '
+labels: ['consumer-feedback']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most useful kind of report we get. Friction in a real project is what the `/evolve` lifecycle feeds on.
+        No need to propose a fix. Describing the friction precisely is enough.
+  - type: input
+    id: version
+    attributes:
+      label: Harness version
+      placeholder: '3.5.0'
+    validations:
+      required: true
+  - type: input
+    id: stack
+    attributes:
+      label: Your project's stack
+      description: Language, framework, tracker, CI. Enough to understand what the bootstrap had to detect.
+      placeholder: 'TypeScript monorepo · Jira · GitHub Actions'
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where it happened
+      options:
+        - /harness-bootstrap launch
+        - /harness-bootstrap patch
+        - /design lifecycle
+        - /dev lifecycle
+        - /evolve lifecycle
+        - /x-ray or review
+        - An agent (@architect, @docs-writer, @scrum-master, ...)
+        - Generated docs or conventions
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: What rubbed
+      description: What the harness did, what you expected, and what you did about it. Paste the relevant skill output in a code block if you have it.
+    validations:
+      required: true
+  - type: textarea
+    id: workaround
+    attributes:
+      label: Workaround or local patch
+      description: If you changed a skill, agent, or template locally, paste the diff or describe the change. This is what `/harness-bootstrap patch harvest` would pick up.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Sharing
+      options:
+        - label: The details above contain no client names, credentials, or internal URLs.
+          required: true
