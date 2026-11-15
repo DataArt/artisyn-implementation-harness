@@ -57,8 +57,8 @@ if (values.range) {
   const log = git(['log', '--no-merges', '--format=%h%x09%s', values.range]).trim();
   for (const line of log ? log.split('\n') : []) {
     const [hash, ...rest] = line.split('\t');
-    const files = git(['diff-tree', '--no-commit-id', '--name-only', '-r', '--root', hash])
-      .split('\n')
+    const files = git(['diff-tree', '--no-commit-id', '--name-only', '-r', '--root', '-z', hash])
+      .split('\0')
       .filter(Boolean);
     const found = problem(hash, rest.join('\t'), files);
     if (found) failures.push(found);
@@ -69,7 +69,7 @@ if (values.range) {
     const files =
       values.files !== undefined
         ? values.files.split(',').filter(Boolean)
-        : git(['diff', '--cached', '--name-only']).split('\n').filter(Boolean);
+        : git(['diff', '--cached', '--name-only', '-z']).split('\0').filter(Boolean);
     const found = problem('commit message', subject, files);
     if (found) failures.push(found);
   }

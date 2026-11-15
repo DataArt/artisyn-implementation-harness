@@ -47,6 +47,35 @@ describe('check-commit-scope.mjs: message mode (commit-msg hook)', () => {
   });
 });
 
+describe('check-commit-scope.mjs: file names git would quote', () => {
+  it('still sees a harness file with a non-ASCII name in range mode', () => {
+    const repo = tmpDir();
+    git(repo, ['init', '-q']);
+    write(path.join(repo, 'README.md'), 'x\n');
+    git(repo, ['add', '-A']);
+    git(repo, ['commit', '-q', '-m', 'chore: init']);
+    const base = git(repo, ['rev-parse', 'HEAD']);
+
+    write(path.join(repo, 'skills/implementation-harness/café.md'), 'one\n');
+    git(repo, ['add', '-A']);
+    git(repo, ['commit', '-q', '-m', 'fix(web-docs): wrong scope']);
+
+    const result = runNode(script, ['--range', `${base}..HEAD`, '--root', repo]);
+    assert.equal(result.status, 1, result.stdout + result.stderr);
+  });
+
+  it('still sees a staged harness file with a non-ASCII name in message mode', () => {
+    const repo = tmpDir();
+    git(repo, ['init', '-q']);
+    write(path.join(repo, 'skills/implementation-harness/café.md'), 'one\n');
+    git(repo, ['add', '-A']);
+    const message = write(path.join(repo, 'MSG'), 'fix(web-docs): wrong scope\n');
+
+    const result = runNode(script, ['--message-file', message, '--root', repo], { cwd: repo });
+    assert.equal(result.status, 1, result.stdout + result.stderr);
+  });
+});
+
 describe('check-commit-scope.mjs: range mode (CI)', () => {
   it('fails naming the offending commit and passes when all commits comply', () => {
     const repo = tmpDir();
