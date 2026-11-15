@@ -85,7 +85,7 @@ jobs:
       - name: Plugin and marketplace manifests are valid
         run: node scripts/validate-plugin.mjs
         env:
-          CLAUDE_CMD: yarn dlx -p @anthropic-ai/claude-code claude
+          CLAUDE_CMD: yarn dlx -p @anthropic-ai/claude-code@2.1.311 claude
 
       - name: Release dry run
         run: yarn nx release version --projects=artisyn-implementation-harness --dry-run

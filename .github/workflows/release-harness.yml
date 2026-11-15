@@ -4,8 +4,9 @@ name: Release harness
 # semantic-release (release.yml) is a separate lane and ignores commits with scope `harness`.
 #
 # Off until the repository variable HARNESS_RELEASE_ENABLED is 'true'. The release commit and tag
-# are pushed to the protected `main` with HARNESS_RELEASE_TOKEN, a token of the release GitHub App
-# that is a bypass actor of the main ruleset (D-17). See the release runbook in the Engineering Guide.
+# are pushed to the protected `main` with HARNESS_RELEASE_TOKEN, a fine-grained PAT of a repo admin
+# whose role is a bypass actor of the main ruleset (D-17; a GitHub App replaces it later, see the
+# release runbook in the Engineering Guide). Only the push step receives the token.
 
 on:
   push:
@@ -42,11 +43,14 @@ jobs:
             exit 1
           fi
 
+      # The tip of main, not the commit that triggered this run: a run queued behind another release
+      # (or a re-run of an old one) must see that release's commit. No credentials stay on disk.
       - uses: actions/checkout@v7
         with:
+          ref: main
           fetch-depth: 0
           fetch-tags: true
-          token: ${{ secrets.HARNESS_RELEASE_TOKEN }}
+          persist-credentials: false
 
       - uses: ./.github/actions/setup
 
@@ -78,6 +82,8 @@ jobs:
 
       - name: Stamp, write the changelog, commit and tag
         if: steps.version.outputs.new == 'true'
+        env:
+          RELEASE_TOKEN: ${{ secrets.HARNESS_RELEASE_TOKEN }}
         run: |
           set -euo pipefail
           version="${{ steps.version.outputs.tag }}"
@@ -87,7 +93,8 @@ jobs:
           git add -u
           git commit -m "chore(harness-release): ${version} [skip ci]"
           git tag "${{ steps.version.outputs.tag }}"
-          git push origin HEAD:main "${{ steps.version.outputs.tag }}"
+          # Atomic: the branch and the tag land together or not at all.
+          git push --atomic "https://x-access-token:${RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main "${{ steps.version.outputs.tag }}"
 
       - name: Check what is already published
         id: state
@@ -131,6 +138,18 @@ jobs:
           (cd dist && sha256sum "${TAG_PREFIX}${version}.zip" > "${TAG_PREFIX}${version}.zip.sha256")
           echo "version=${version}" >> "$GITHUB_OUTPUT"
 
+      - name: Attest the tarball
+        if: steps.state.outputs.published == 'false'
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: dist/*.tgz
+
+      - name: Attest the ZIP
+        if: steps.state.outputs.published == 'false'
+        uses: actions/attest-build-provenance@v3
+        with:
+          subject-path: dist/*.zip
+
       - name: Publish to GitHub Packages
         if: steps.state.outputs.published == 'false'
         run: yarn workspace "$PACKAGE" npm publish --tolerate-republish
@@ -143,15 +162,3 @@ jobs:
           version="${{ steps.build.outputs.version }}"
           gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --verify-tag --title "$tag" --generate-notes
           gh release upload "$tag" "dist/${TAG_PREFIX}${version}.zip" "dist/${TAG_PREFIX}${version}.zip.sha256" --clobber
-
-      - name: Attest the tarball
-        if: steps.state.outputs.published == 'false'
-        uses: actions/attest-build-provenance@v3
-        with:
-          subject-path: dist/*.tgz
-
-      - name: Attest the ZIP
-        if: steps.state.outputs.published == 'false'
-        uses: actions/attest-build-provenance@v3
-        with:
-          subject-path: dist/*.zip

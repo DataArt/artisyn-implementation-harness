@@ -48,6 +48,25 @@ describe('release-harness.yml', () => {
     assert.ok(text.includes('fetch-depth: 0'));
   });
 
+  it('releases from the tip of main, pushes atomically and keeps the token out of every other step', () => {
+    assert.match(text, /ref: main/);
+    assert.match(text, /persist-credentials: false/);
+    assert.match(text, /git push --atomic/);
+    // The secret is read in exactly two places: the presence check and the push step.
+    assert.equal((text.match(/secrets\.HARNESS_RELEASE_TOKEN/g) ?? []).length, 2);
+  });
+
+  it('attests before it publishes, so a failed attestation blocks the release and is retried', () => {
+    const attest = text.indexOf('actions/attest-build-provenance');
+    assert.ok(attest > 0);
+    for (const later of [
+      'npm publish --tolerate-republish',
+      'gh release create',
+      'gh release upload',
+    ])
+      assert.ok(text.indexOf(later) > attest, `${later} comes after the attest steps`);
+  });
+
   it('versions, stamps, publishes, builds the ZIP and attests tarball and ZIP', () => {
     for (const needle of [
       'nx release version',
@@ -77,6 +96,10 @@ describe('release-harness.yml', () => {
 
 describe('ci.yml', () => {
   const { text, doc } = load('ci.yml');
+
+  it('pins the plugin validator version', () => {
+    assert.match(text, /@anthropic-ai\/claude-code@\d+\.\d+\.\d+/);
+  });
 
   it('keeps the existing ci job and adds the version, rename and package gates', () => {
     for (const job of ['ci', 'version-gate', 'rename-gate', 'harness-package'])
