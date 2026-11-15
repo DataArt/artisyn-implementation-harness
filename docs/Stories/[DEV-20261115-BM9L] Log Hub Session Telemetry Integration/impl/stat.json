@@ -1,0 +1,264 @@
+{
+  "schema_version": 2,
+  "lifecycle": "dev",
+  "ticket": "DEV-20261115-BM9L",
+  "author": "Anton Merkulov",
+  "tracking_started_at": "2026-11-15T12:50:57.857Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-15T12:50:58.009Z",
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "3898f48f-f237-4d63-8dbb-e22a516bab0c",
+          "started_at": "2026-11-15T12:50:58.009Z",
+          "ended_at": "2026-11-15T12:54:03.155Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "ceremony",
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "56136910-2b62-4823-aa0c-270385ae54e8",
+          "started_at": "2026-11-15T12:54:03.305Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "plan",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "implement",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "test",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "document",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "16e8de54-97c6-41ec-a5fb-7f1d469b77f0",
+      "stage_id": "context",
+      "stage_attempt_id": "3898f48f-f237-4d63-8dbb-e22a516bab0c",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T12:50:58.009Z",
+      "ended_at": "2026-11-15T12:51:50.331Z",
+      "last_observed_at": "2026-11-15T12:51:50.331Z"
+    },
+    {
+      "id": "3ad4f461-a646-4a2a-a079-d7b8720796ae",
+      "stage_id": "context",
+      "stage_attempt_id": "3898f48f-f237-4d63-8dbb-e22a516bab0c",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context sign-off",
+      "started_at": "2026-11-15T12:51:50.331Z",
+      "ended_at": "2026-11-15T12:54:02.705Z",
+      "last_observed_at": "2026-11-15T12:54:02.705Z"
+    },
+    {
+      "id": "f669816d-e7db-4cda-9c67-515c78963609",
+      "stage_id": "context",
+      "stage_attempt_id": "3898f48f-f237-4d63-8dbb-e22a516bab0c",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T12:54:02.705Z",
+      "ended_at": "2026-11-15T12:54:03.155Z",
+      "last_observed_at": "2026-11-15T12:54:03.155Z"
+    },
+    {
+      "id": "2d2718c2-f940-4981-a877-81c59c15d345",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "56136910-2b62-4823-aa0c-270385ae54e8",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T12:54:03.305Z",
+      "ended_at": "2026-11-15T12:55:14.541Z",
+      "last_observed_at": "2026-11-15T12:55:14.541Z"
+    },
+    {
+      "id": "6f8c68d0-fdb9-47ca-8563-a332f3f65896",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "56136910-2b62-4823-aa0c-270385ae54e8",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting ceremony commit",
+      "started_at": "2026-11-15T12:55:14.541Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-15T12:55:14.541Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "context-signoff-01",
+      "stage_id": "context",
+      "stage_attempt_id": "3898f48f-f237-4d63-8dbb-e22a516bab0c",
+      "step": null,
+      "name": "Context sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T12:54:02.850Z",
+      "ended_at": "2026-11-15T12:54:02.850Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'correct'",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "ceremony-signoff-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "56136910-2b62-4823-aa0c-270385ae54e8",
+      "step": null,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T12:55:14.148Z",
+      "ended_at": "2026-11-15T12:55:14.148Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'i'll stay on this branch' — docs/design-20261115-v98j-log-hub-telemetry",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-15T12:55:14.541Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 124.00800000000001,
+    "observed_wait_seconds": 132.374,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 0.3020000000000209,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 132.374,
+    "failed_checks": 0,
+    "first_pass_verification_rate": null,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  },
+  "quality": {
+    "version": 1,
+    "as_of": "2026-11-15T12:55:14.380Z",
+    "source": "2-report.md",
+    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "findings": {
+      "total": 0,
+      "by_kind": {
+        "deviation": 0,
+        "bug": 0,
+        "design": 0,
+        "improve": 0,
+        "security": 0,
+        "performance": 0,
+        "docs": 0
+      },
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "by_classification": {
+        "introduced": 0,
+        "pre-existing": 0,
+        "ruled-out": 0,
+        "advisory": 0
+      },
+      "by_resolution": {
+        "open": 0,
+        "fixed": 0,
+        "accepted": 0,
+        "tech-debt": 0,
+        "doc-updated": 0
+      },
+      "deviations_by_type": {
+        "contradiction": 0,
+        "extension": 0,
+        "omission": 0
+      },
+      "pr_review": {
+        "total": 0,
+        "by_kind": {
+          "deviation": 0,
+          "bug": 0,
+          "design": 0,
+          "improve": 0,
+          "security": 0,
+          "performance": 0,
+          "docs": 0
+        },
+        "by_severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        }
+      }
+    },
+    "tech_debt": {
+      "total": 0,
+      "ticketed": 0,
+      "unticketed": 0
+    },
+    "tests": {
+      "written": null,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "scopes": 0
+    },
+    "test_runs": {
+      "recorded": 0,
+      "failed": 0,
+      "errors": 0,
+      "interrupted": 0
+    },
+    "closure_issues": []
+  }
+}
