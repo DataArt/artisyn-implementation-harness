@@ -13,20 +13,21 @@ type: reference
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
 | Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan 🔄 · 🔨 Implement ⏳ · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
 
 ## Progress
 
-| #   | Step                                         | Status     | Notes | Test | Docs |
-| --- | -------------------------------------------- | ---------- | ----- | ---- | ---- |
-| 1   | Scaffold the log-hub Nx project              | ⏳ Pending |       |      |      |
-| 2   | Checksum verification module and tests       | ⏳ Pending |       |      |      |
-| 3   | serve.ts and stop.ts (serve, stop, upgrade)  | ⏳ Pending |       |      |      |
-| 4   | install-hook.ts (install-hook, upgrade-hook) | ⏳ Pending |       |      |      |
-| 5   | uninstall-hook.ts (uninstall-hook)           | ⏳ Pending |       |      |      |
-| 6   | verify.ts (verify) - CI-facing check         | ⏳ Pending |       |      |      |
-| 7   | Wire settings.json, gitignore and CI         | ⏳ Pending |       |      |      |
-| 8   | Developer-side live verification (Docker)    | ⏳ Pending |       |      |      |
+| #   | Step                                             | Status     | Notes | Test | Docs |
+| --- | ------------------------------------------------ | ---------- | ----- | ---- | ---- |
+| 1   | Scaffold the log-hub Nx project                  | ⏳ Pending |       |      |      |
+| 2   | Checksum verification module and tests           | ⏳ Pending |       |      |      |
+| 3a  | init.ts (init) — download, verify, scaffold .env | ⏳ Pending |       |      |      |
+| 3b  | serve.ts and stop.ts (serve, stop, upgrade)      | ⏳ Pending |       |      |      |
+| 4   | install-hook.ts (install-hook, upgrade-hook)     | ⏳ Pending |       |      |      |
+| 5   | uninstall-hook.ts (uninstall-hook)               | ⏳ Pending |       |      |      |
+| 6   | verify.ts (verify) — CI-facing check             | ⏳ Pending |       |      |      |
+| 7   | Wire settings.json, gitignore and CI             | ⏳ Pending |       |      |      |
+| 8   | Developer-side live verification (Docker)        | ⏳ Pending |       |      |      |
 
 <!--
 Status values : ⏳ Pending · 🔄 Active · ✅ Done · ⚠️ Blocked · ⏭️ Skipped
@@ -39,14 +40,14 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 13m 16s · Wait: 19m 2s · Unclassified: 2m 14s
+Observed work: 15m 30s · Wait: 20m 3s · Unclassified: 1s
 
 | Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
 | ---------- | ------------------------ | ------------------------ | ----------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
 | context    | 2026-11-15T12:50:58.009Z | 2026-11-15T12:54:03.155Z | 3m 5s       | 53s     | 2m 12s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 | ceremony   | 2026-11-15T12:54:03.305Z | 2026-11-15T13:03:56.971Z | 9m 54s      | 1m 11s  | 8m 42s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| plan       | 2026-11-15T13:03:57.123Z | unavailable              | unavailable | 11m 12s | 8m 7s  | unavailable  | unavailable   | from_tracking_start | 2        | 0             | 🔀 scope change |
-| implement  | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| plan       | 2026-11-15T13:03:57.123Z | 2026-11-15T13:26:30.760Z | 22m 34s     | 13m 26s | 9m 8s  | unavailable  | unavailable   | from_tracking_start | 2        | 0             | 🔀 scope change |
+| implement  | 2026-11-15T13:26:30.916Z | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 | test       | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
 | document   | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
 | completion | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
@@ -60,7 +61,7 @@ Quality (recorded inventory): findings 2 · open 0 · PR findings 0 · critical 
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 13m 16s · Wait: 19m 2s · Unclassified: 2m 14s
+Observed work: 15m 30s · Wait: 20m 3s · Unclassified: 1s
 
 | Step | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks | Flags |
 | ---- | ------------- | --------------- | ------- | ---- | ---- | ------------ | ------------- | -------- | -------- | ------------- | ----- |

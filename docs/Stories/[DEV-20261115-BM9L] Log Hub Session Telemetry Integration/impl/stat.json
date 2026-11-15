@@ -40,7 +40,7 @@
     },
     {
       "id": "plan",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "bbac9ed7-006d-4053-a6d4-756231876fa0",
@@ -52,17 +52,25 @@
         {
           "id": "adbf6a23-0b66-4316-a1c6-5a10abc5c11f",
           "started_at": "2026-11-15T13:23:16.694Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T13:26:30.760Z",
           "trigger": "scope_change",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["scope_change"]
     },
     {
       "id": "implement",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+          "started_at": "2026-11-15T13:26:30.916Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -276,8 +284,42 @@
       "reason": "approval",
       "detail": "Awaiting plan sign-off (ops-model split)",
       "started_at": "2026-11-15T13:25:29.908Z",
+      "ended_at": "2026-11-15T13:26:30.364Z",
+      "last_observed_at": "2026-11-15T13:26:30.364Z"
+    },
+    {
+      "id": "9d7cfed7-b7c0-4e65-bfd1-3950f7a58be6",
+      "stage_id": "plan",
+      "stage_attempt_id": "adbf6a23-0b66-4316-a1c6-5a10abc5c11f",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T13:26:30.364Z",
+      "ended_at": "2026-11-15T13:26:30.760Z",
+      "last_observed_at": "2026-11-15T13:26:30.760Z"
+    },
+    {
+      "id": "c46aa502-f3a1-4388-9284-5313cb031e02",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-15T13:26:30.916Z",
+      "ended_at": "2026-11-15T13:26:31.239Z",
+      "last_observed_at": "2026-11-15T13:26:31.239Z"
+    },
+    {
+      "id": "b1a4bcdc-cecd-4266-9e38-689a5ee36e3f",
+      "stage_id": "implement",
+      "stage_attempt_id": "a6b0eab4-926e-4870-bf50-1c42832677f7",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting plan commit",
+      "started_at": "2026-11-15T13:26:31.239Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T13:25:29.908Z"
+      "last_observed_at": "2026-11-15T13:26:31.239Z"
     }
   ],
   "checks": [
@@ -325,21 +367,36 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "plan-signoff-02",
+      "stage_id": "plan",
+      "stage_attempt_id": "adbf6a23-0b66-4316-a1c6-5a10abc5c11f",
+      "step": null,
+      "name": "Plan sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T13:26:30.518Z",
+      "ended_at": "2026-11-15T13:26:30.518Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'yes, go' — ops-model split (init/serve) accepted as RF-002",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T13:25:29.910Z",
+    "as_of": "2026-11-15T13:27:06.113Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 929.499,
-    "observed_wait_seconds": 1142.098,
+    "observed_work_seconds": 930.218,
+    "observed_wait_seconds": 1202.5539999999999,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.002,
-    "unclassified_seconds": 0.4539999999999036,
-    "rework_seconds": 133.214,
+    "open_wait_seconds": 34.874,
+    "unclassified_seconds": 0.6100000000001486,
+    "rework_seconds": 133.60999999999999,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 350.19100000000003,
+    "approval_wait_seconds": 410.64700000000005,
     "failed_checks": 0,
     "first_pass_verification_rate": null,
     "human_reported_seconds": null,
@@ -348,7 +405,7 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-15T13:25:29.747Z",
+    "as_of": "2026-11-15T13:27:06.106Z",
     "source": "2-report.md",
     "source_sha256": "3881cf151f4a11eef1d27faef4cd1793d6a1f3a72cb1a851c154ef3fac22c34c",
     "findings": {
