@@ -89,8 +89,16 @@
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+          "started_at": "2026-11-15T14:33:31.108Z",
+          "ended_at": "2026-11-15T14:55:03.823Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     },
     {
@@ -261,6 +269,16 @@
           "outcome": "completed"
         }
       ],
+      "flags": []
+    },
+    {
+      "id": "step-09",
+      "title": "Configurable server URL for install-hook/uninstall-hook",
+      "order": 9,
+      "plan_ref": "2-report.md#progress-row-9-addendum",
+      "depends_on": [],
+      "status": "pending",
+      "attempts": [],
       "flags": []
     }
   ],
@@ -930,6 +948,105 @@
       "started_at": "2026-11-15T14:30:11.669Z",
       "ended_at": "2026-11-15T14:32:38.515Z",
       "last_observed_at": "2026-11-15T14:32:38.515Z"
+    },
+    {
+      "id": "a9564e81-fb31-4e8f-9c96-d4aad9f93463",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T14:33:31.108Z",
+      "ended_at": "2026-11-15T14:43:22.890Z",
+      "last_observed_at": "2026-11-15T14:43:22.890Z"
+    },
+    {
+      "id": "fd33f069-bc1a-412b-a1c6-cee4a34e62ba",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T14:43:22.890Z",
+      "ended_at": "2026-11-15T14:43:24.788Z",
+      "last_observed_at": "2026-11-15T14:43:24.788Z"
+    },
+    {
+      "id": "577c1b43-7555-4c89-943c-bf4c27ec95d5",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T14:43:24.788Z",
+      "ended_at": "2026-11-15T14:43:24.832Z",
+      "last_observed_at": "2026-11-15T14:43:24.832Z"
+    },
+    {
+      "id": "cccb269a-1e45-4ca6-aac1-130b04a7e8ef",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T14:43:24.832Z",
+      "ended_at": "2026-11-15T14:43:26.397Z",
+      "last_observed_at": "2026-11-15T14:43:26.397Z"
+    },
+    {
+      "id": "0ffaad76-7e12-480e-952e-b8df286221c4",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T14:43:26.397Z",
+      "ended_at": "2026-11-15T14:43:26.495Z",
+      "last_observed_at": "2026-11-15T14:43:26.495Z"
+    },
+    {
+      "id": "19f1c074-4b6f-481d-a36d-72e401f1bad0",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T14:43:26.495Z",
+      "ended_at": "2026-11-15T14:43:28.704Z",
+      "last_observed_at": "2026-11-15T14:43:28.704Z"
+    },
+    {
+      "id": "6fb0ec41-7d26-4706-8e90-a0cfe4946ad4",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T14:43:28.704Z",
+      "ended_at": "2026-11-15T14:43:28.751Z",
+      "last_observed_at": "2026-11-15T14:43:28.751Z"
+    },
+    {
+      "id": "6dc9dd49-c325-411e-aefb-2c6bf7265299",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-15T14:43:28.751Z",
+      "ended_at": "2026-11-15T14:43:29.814Z",
+      "last_observed_at": "2026-11-15T14:43:29.814Z"
+    },
+    {
+      "id": "b175fe0c-ab18-42cd-aa91-274e2d8c8c30",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T14:43:29.814Z",
+      "ended_at": "2026-11-15T14:55:03.823Z",
+      "last_observed_at": "2026-11-15T14:55:03.823Z"
     }
   ],
   "checks": [
@@ -1434,18 +1551,97 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "doc-01-test-run-01",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "name": "log-hub:test (addendum, step 9)",
+      "kind": "test",
+      "started_at": "2026-11-15T14:43:22.890Z",
+      "ended_at": "2026-11-15T14:43:24.788Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:test (addendum, step 9)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T14:43:24.788Z"
+    },
+    {
+      "id": "doc-01-typecheck-run-01",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "name": "log-hub:typecheck (addendum, step 9)",
+      "kind": "typecheck",
+      "started_at": "2026-11-15T14:43:24.832Z",
+      "ended_at": "2026-11-15T14:43:26.397Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:typecheck (addendum, step 9)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T14:43:26.397Z"
+    },
+    {
+      "id": "doc-01-lint-run-01",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "name": "log-hub:lint (addendum, step 9)",
+      "kind": "lint",
+      "started_at": "2026-11-15T14:43:26.495Z",
+      "ended_at": "2026-11-15T14:43:28.704Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:lint (addendum, step 9)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T14:43:28.704Z"
+    },
+    {
+      "id": "doc-01-build-run-01",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "name": "log-hub:verify (addendum, step 9)",
+      "kind": "build",
+      "started_at": "2026-11-15T14:43:28.751Z",
+      "ended_at": "2026-11-15T14:43:29.814Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for log-hub:verify (addendum, step 9)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-15T14:43:29.814Z"
+    },
+    {
+      "id": "a0750faf-43ea-456d-806b-937297cc2617",
+      "stage_id": "document",
+      "stage_attempt_id": "27726ca2-37da-4aa4-822c-56a21ee76eb8",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T14:54:47.980Z",
+      "ended_at": "2026-11-15T14:54:47.980Z",
+      "result": "passed",
+      "evidence_ref": "developer: Document sign-off: yes, move to Completion",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T14:32:38.526Z",
+    "as_of": "2026-11-15T14:55:03.841Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 2365.4990000000003,
+    "observed_work_seconds": 3658.2140000000004,
     "observed_wait_seconds": 3197.772,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 537.3979999999997,
+    "unclassified_seconds": 589.998,
     "rework_seconds": 133.60999999999999,
     "blocked_seconds": 0,
     "approval_wait_seconds": 2342.744,
@@ -1457,13 +1653,13 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-15T14:32:38.464Z",
+    "as_of": "2026-11-15T14:55:03.776Z",
     "source": "2-report.md",
-    "source_sha256": "d79f4ede9c78d4781758ed74b45b7269c84c07963b06f5f03c2b64a62e607c5f",
+    "source_sha256": "477e3a9b2444a7ace140f72b692891a54b5db4130509514e43c2aa8a2959e756",
     "findings": {
-      "total": 3,
+      "total": 8,
       "by_kind": {
-        "deviation": 3,
+        "deviation": 8,
         "bug": 0,
         "design": 0,
         "improve": 0,
@@ -1474,12 +1670,12 @@
       "by_severity": {
         "critical": 0,
         "high": 0,
-        "medium": 1,
-        "low": 2,
+        "medium": 5,
+        "low": 3,
         "info": 0
       },
       "by_classification": {
-        "introduced": 3,
+        "introduced": 8,
         "pre-existing": 0,
         "ruled-out": 0,
         "advisory": 0
@@ -1487,14 +1683,14 @@
       "by_resolution": {
         "open": 0,
         "fixed": 0,
-        "accepted": 3,
+        "accepted": 6,
         "tech-debt": 0,
-        "doc-updated": 0
+        "doc-updated": 2
       },
       "deviations_by_type": {
-        "contradiction": 1,
-        "extension": 2,
-        "omission": 0
+        "contradiction": 3,
+        "extension": 3,
+        "omission": 2
       },
       "pr_review": {
         "total": 0,
@@ -1529,7 +1725,7 @@
       "scopes": 2
     },
     "test_runs": {
-      "recorded": 8,
+      "recorded": 9,
       "failed": 0,
       "errors": 0,
       "interrupted": 0

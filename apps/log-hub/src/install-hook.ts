@@ -7,17 +7,43 @@ import { fileURLToPath } from 'node:url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export const DEFAULT_PROJECT_ROOT = join(__dirname, '..');
 
-const SERVER_URL = 'http://127.0.0.1:5003';
-const INSTALLER_TARBALL_URL = `${SERVER_URL}/static/artisyn-hooks-installer.tgz`;
+export const DEFAULT_SERVER_URL = 'http://127.0.0.1:5003';
 
-export const DISCLOSURE_TEXT = `Artisyn Log Hub uploads, to ${SERVER_URL}:
+/** Resolves the target server: `LOG_HUB_SERVER_URL` if set, else the loopback default. */
+export function resolveServerUrl(env: Record<string, string | undefined> = process.env): string {
+  return env.LOG_HUB_SERVER_URL?.trim() || DEFAULT_SERVER_URL;
+}
+
+function isLoopback(serverUrl: string): boolean {
+  try {
+    const { hostname } = new URL(serverUrl);
+    return hostname === '127.0.0.1' || hostname === 'localhost' || hostname === '::1';
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Disclosure text shown before every install/upgrade — recomputed per call so it always names
+ * the actual target, and adds an explicit non-loopback warning when `LOG_HUB_SERVER_URL` points
+ * elsewhere: Mode 1 (`AUTH_MODE=none`) has no authentication of its own, so a non-loopback target
+ * must already enforce access control by some other means (network policy, reverse proxy, etc).
+ */
+export function disclosureText(serverUrl: string): string {
+  const remoteWarning = isLoopback(serverUrl)
+    ? ''
+    : `\n  WARNING: ${serverUrl} is not loopback-only. Log Hub's own auth mode (Mode 1,
+  AUTH_MODE=none) has no built-in authentication — confirm this server already restricts access
+  by some other means (network policy, reverse proxy, VPN) before continuing.\n`;
+  return `Artisyn Log Hub uploads, to ${serverUrl}:
   - full Claude Code transcripts of this project (prompts, tool inputs/results, file
     contents, command output), including earlier sessions still on disk; transcripts
     are not redacted
   - git metadata (remote URL without credentials, user.name, branch) and project context
   - OpenTelemetry cost/usage records
-
+${remoteWarning}
 See "docs/Engineering Guide/07 Log Hub Setup.md" for the full disclosure.`;
+}
 
 export interface Prompter {
   confirm(message: string): Promise<boolean>;
@@ -46,17 +72,19 @@ export const readlinePrompter: Prompter = {
 };
 
 export interface HookInstallerRunner {
-  run(args: string[], cwd: string): void;
+  run(args: string[], cwd: string, tarballUrl: string): void;
 }
 
 /**
  * Runs the hook installer via `npx`. Confirmed necessary, not just preferred: `yarn dlx` refuses
  * a plain `http://` package source ("Unsafe http requests must be explicitly whitelisted") and
- * this server is loopback-only Mode 1 (Decision 2), so there is no https URL to give it instead.
+ * this server is loopback-only Mode 1 by default (Decision 2), so there is no https URL to give
+ * it instead. The tarball is always fetched from the resolved server (loopback or remote), never
+ * a separate location.
  */
 export const npxHookInstallerRunner: HookInstallerRunner = {
-  run(args, cwd) {
-    execFileSync('npx', ['--yes', '-p', INSTALLER_TARBALL_URL, 'artisyn-hooks', ...args], {
+  run(args, cwd, tarballUrl) {
+    execFileSync('npx', ['--yes', '-p', tarballUrl, 'artisyn-hooks', ...args], {
       cwd,
       stdio: 'inherit',
     });
@@ -98,6 +126,7 @@ export function extractMarketplaceName(settingsJson: string): string {
 export interface InstallHookOptions {
   mode: 'install' | 'upgrade';
   apiKey?: string;
+  serverUrl?: string;
   prompter?: Prompter;
   installerRunner?: HookInstallerRunner;
   claudeRunner?: ClaudeCliRunner;
@@ -115,8 +144,10 @@ export async function installHook(options: InstallHookOptions): Promise<void> {
   const installerRunner = options.installerRunner ?? npxHookInstallerRunner;
   const claudeRunner = options.claudeRunner ?? execFileClaudeCliRunner;
   const settingsPath = join(repoRoot, '.claude', 'settings.json');
+  const serverUrl = options.serverUrl ?? resolveServerUrl();
+  const tarballUrl = `${serverUrl}/static/artisyn-hooks-installer.tgz`;
 
-  const confirmed = await prompter.confirm(DISCLOSURE_TEXT);
+  const confirmed = await prompter.confirm(disclosureText(serverUrl));
   if (!confirmed) {
     throw new Error('install-hook: not confirmed — nothing installed.');
   }
@@ -134,9 +165,9 @@ export async function installHook(options: InstallHookOptions): Promise<void> {
   try {
     const args =
       options.mode === 'install'
-        ? ['install', '--server-url', SERVER_URL, '--api-key', apiKey ?? '', '--otel-traces=no']
+        ? ['install', '--server-url', serverUrl, '--api-key', apiKey ?? '', '--otel-traces=no']
         : ['upgrade'];
-    installerRunner.run(args, repoRoot);
+    installerRunner.run(args, repoRoot, tarballUrl);
     marketplaceName = extractMarketplaceName(readFileSync(settingsPath, 'utf8'));
   } finally {
     writeFileSync(settingsPath, preRunSnapshot);

@@ -6,6 +6,9 @@ import { join } from 'node:path';
 import {
   installHook,
   extractMarketplaceName,
+  resolveServerUrl,
+  disclosureText,
+  DEFAULT_SERVER_URL,
   type Prompter,
   type HookInstallerRunner,
   type ClaudeCliRunner,
@@ -37,6 +40,31 @@ test('extractMarketplaceName: parses the installer-chosen name', () => {
 
 test('extractMarketplaceName: throws a descriptive error when absent', () => {
   assert.throws(() => extractMarketplaceName('{}'), /could not find/);
+});
+
+test('resolveServerUrl: defaults to loopback when LOG_HUB_SERVER_URL is unset', () => {
+  assert.equal(resolveServerUrl({}), DEFAULT_SERVER_URL);
+});
+
+test('resolveServerUrl: uses LOG_HUB_SERVER_URL when set', () => {
+  assert.equal(
+    resolveServerUrl({ LOG_HUB_SERVER_URL: 'https://log-hub.example.com' }),
+    'https://log-hub.example.com'
+  );
+});
+
+test('resolveServerUrl: ignores an empty/whitespace-only override', () => {
+  assert.equal(resolveServerUrl({ LOG_HUB_SERVER_URL: '  ' }), DEFAULT_SERVER_URL);
+});
+
+test('disclosureText: no warning for the loopback default', () => {
+  assert.doesNotMatch(disclosureText(DEFAULT_SERVER_URL), /WARNING/);
+});
+
+test('disclosureText: warns when the target is not loopback', () => {
+  const text = disclosureText('https://log-hub.example.com');
+  assert.match(text, /WARNING/);
+  assert.match(text, /no built-in authentication/);
 });
 
 test('installHook: disclosure not confirmed aborts before any installer call', async () => {
@@ -144,6 +172,49 @@ test('installHook: happy path restores settings.json byte-for-byte and registers
       '--scope',
       'local',
       '-y',
+    ]);
+  });
+});
+
+test('installHook: a passed serverUrl reaches both the disclosure prompt and the installer args', async () => {
+  await withTempRepoRootAsync(async (root) => {
+    const settingsPath = join(root, '.claude', 'settings.json');
+    mkdirSync(join(root, '.claude'), { recursive: true });
+    writeFileSync(settingsPath, '{}');
+
+    let confirmedText = '';
+    const capturingPrompter: Prompter = {
+      confirm: async (message) => {
+        confirmedText = message;
+        return true;
+      },
+      ask: async () => 'k',
+    };
+    let installerArgs: string[] = [];
+    const installerRunner: HookInstallerRunner = {
+      run: (args) => {
+        installerArgs = args;
+        writeFileSync(settingsPath, '{"enabledPlugins":{"log-hub-hooks@artisyn-x":true}}');
+      },
+    };
+    const claudeRunner: ClaudeCliRunner = { run: () => {} };
+
+    await installHook({
+      mode: 'install',
+      apiKey: 'k',
+      serverUrl: 'https://log-hub.example.com',
+      prompter: capturingPrompter,
+      installerRunner,
+      claudeRunner,
+      repoRoot: root,
+    });
+
+    assert.match(confirmedText, /https:\/\/log-hub\.example\.com/);
+    assert.match(confirmedText, /WARNING/);
+    assert.deepEqual(installerArgs.slice(0, 3), [
+      'install',
+      '--server-url',
+      'https://log-hub.example.com',
     ]);
   });
 });

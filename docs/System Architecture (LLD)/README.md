@@ -15,3 +15,4 @@ Container folder index. Mirrors `docs/Target Architecture (HLD)/` container name
 | Web Portal            | [`Web Portal/`](./Web%20Portal/00.%20Overview.md)                         |
 | Discuss               | [`Discuss/`](./Discuss/00.%20Overview.md)                                 |
 | Harness Bootstrap E2E | [`Harness Bootstrap E2E/`](./Harness%20Bootstrap%20E2E/00.%20Overview.md) |
+| Log Hub               | [`Log Hub/`](./Log%20Hub/00.%20Overview.md)                               |

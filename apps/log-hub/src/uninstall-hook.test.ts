@@ -88,6 +88,22 @@ test('uninstallHook: .artisyn/ present — calls the uninstaller, then strips lo
   });
 });
 
+test('uninstallHook: tarball URL follows a passed serverUrl override', () => {
+  withTempRepoRoot((root) => {
+    mkdirSync(join(root, '.artisyn'), { recursive: true });
+
+    let tarballUrl = '';
+    const uninstallerRunner: UninstallerRunner = {
+      run: (_args, _cwd, url) => {
+        tarballUrl = url;
+      },
+    };
+    uninstallHook({ uninstallerRunner, repoRoot: root, serverUrl: 'https://log-hub.example.com' });
+
+    assert.equal(tarballUrl, 'https://log-hub.example.com/static/artisyn-hooks-installer.tgz');
+  });
+});
+
 test('uninstallHook: running twice in a row is a no-op the second time', () => {
   withTempRepoRoot((root) => {
     mkdirSync(join(root, '.artisyn'), { recursive: true });

@@ -2,19 +2,18 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { resolveServerUrl } from './install-hook.ts';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export const DEFAULT_PROJECT_ROOT = join(__dirname, '..');
 
-const INSTALLER_TARBALL_URL = 'http://127.0.0.1:5003/static/artisyn-hooks-installer.tgz';
-
 export interface UninstallerRunner {
-  run(args: string[], cwd: string): void;
+  run(args: string[], cwd: string, tarballUrl: string): void;
 }
 
 export const npxUninstallerRunner: UninstallerRunner = {
-  run(args, cwd) {
-    execFileSync('npx', ['--yes', '-p', INSTALLER_TARBALL_URL, 'artisyn-hooks', ...args], {
+  run(args, cwd, tarballUrl) {
+    execFileSync('npx', ['--yes', '-p', tarballUrl, 'artisyn-hooks', ...args], {
       cwd,
       stdio: 'inherit',
     });
@@ -86,19 +85,23 @@ export function stripLocalScopeKeys(settingsLocalPath: string): void {
 export interface UninstallHookOptions {
   uninstallerRunner?: UninstallerRunner;
   repoRoot?: string;
+  serverUrl?: string;
 }
 
 /**
  * Uninstalls the hook: runs the upstream uninstaller (a no-op if nothing is installed under
  * `.artisyn/`), then strips any local-scope keys it left behind in `.claude/settings.local.json`.
- * Safe to run twice in a row.
+ * Safe to run twice in a row. The uninstaller tarball is fetched from the same resolved server
+ * (`LOG_HUB_SERVER_URL` override, else loopback) the hook was installed against.
  */
 export function uninstallHook(options: UninstallHookOptions = {}): void {
   const repoRoot = options.repoRoot ?? findRepoRoot(DEFAULT_PROJECT_ROOT);
   const uninstallerRunner = options.uninstallerRunner ?? npxUninstallerRunner;
+  const serverUrl = options.serverUrl ?? resolveServerUrl();
+  const tarballUrl = `${serverUrl}/static/artisyn-hooks-installer.tgz`;
 
   if (existsSync(join(repoRoot, '.artisyn'))) {
-    uninstallerRunner.run(['uninstall'], repoRoot);
+    uninstallerRunner.run(['uninstall'], repoRoot, tarballUrl);
   }
 
   stripLocalScopeKeys(join(repoRoot, '.claude', 'settings.local.json'));
