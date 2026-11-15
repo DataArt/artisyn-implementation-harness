@@ -34,11 +34,11 @@ Today only a ZIP is stored under `releases/harness-bootstrap/`; consumers copy a
 ## State
 
 ```yaml
-current_stage: publish
+current_stage: done
 completed_stages:
   [context-gathering, ceremony, frame, research, evaluate, solution, review-gate, address-feedback]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'Publish: doc impact, @docs-writer updates to docs/Harness/09 Distribution + affected docs, @product-architect review'
+next_action: 'Implementation: /dev from solution/Efforts.md (ticket 1 first)'
 context_fingerprint: ''
 ```
 
@@ -86,8 +86,8 @@ Selected artifacts: `architecture` (integrated, single), `design` (one per decis
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ticket | DESIGN-20261115-CO1T                                                                                                                                                                |
 | Branch | `docs/design-20261115-co1t-harness-distribution`                                                                                                                                    |
-| Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ⏭️ · 💬 Address Feedback ⏭️ · 📤 Publish 🔄 · 🏁 Completion ⏳ |
+| Status | ✅ Complete                                                                                                                                                                         |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ⏭️ · 💬 Address Feedback ⏭️ · 📤 Publish ✅ · 🏁 Completion ✅ |
 
 ---
 
@@ -97,7 +97,7 @@ Selected artifacts: `architecture` (integrated, single), `design` (one per decis
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 56m 23s · Wait to date: 1h 23m 28s (closed 1h 23m 28s + current 0s) · Unclassified: 18m 38s
+Observed work: 1h 15m 11s · Wait to date: 1h 25m 10s (closed 1h 25m 10s + current 0s) · Unclassified: 10s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -109,8 +109,8 @@ Observed work: 56m 23s · Wait to date: 1h 23m 28s (closed 1h 23m 28s + current 
 | solution (completed)          | 2026-11-15T17:13:09.062Z | 2026-11-15T18:04:34.113Z | 51m 25s     | 29m 45s | 21m 40s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (completed)       | 2026-11-15T18:04:34.271Z | 2026-11-15T18:04:34.765Z | 0s          | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (active)              | 2026-11-15T18:04:43.285Z | unavailable              | unavailable | 0s      | 55s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (completed)           | 2026-11-15T18:04:43.285Z | 2026-11-15T18:25:24.367Z | 20m 41s     | 18m 29s | 2m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (waiting)          | 2026-11-15T18:25:24.528Z | unavailable              | unavailable | 19s     | 25s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -287,3 +287,7 @@ _Filled in during Completion after implementation tickets are created._
 | 2026-11-15 | Solution (sign-off correction) | Developer corrected the naming after seeing `plugin@marketplace` and `/plugin:skill` doubled: marketplace `dataart`, plugin `artisyn`, skill `implementation-harness`. EC1 amended in Frame; D1-1 superseded; all solution files updated by @docs-writer.                                                                                             |
 | 2026-11-15 | Solution                       | 7 artifacts (Architecture, 4 × Design, Stack, Efforts); architect review 13 findings applied; WAF solution 5 🟢 + Security 🟡, 0 P1; quality gate 7/7; estimates left empty by developer                                                                                                                                                              |
 | 2026-11-15 | Review Gate / Address Feedback | Skipped by the developer: in-session approval recorded, no draft MR                                                                                                                                                                                                                                                                                   |
+| 2026-11-15 | Publish                        | Approved in session by the developer (gate waived); docs updated: `docs/Harness/09 Distribution/` (4 new), Roadmap §1, Explore URL fixes, Terminology (3 terms), docs sidebar/nav; @product-architect review OK on pass 2; ticket-11 deferral list recorded                                                                                           |
+| 2026-11-15 | Completion                     | Archived to `docs/Stories/product-design/approved/`; implementation tickets not published (developer); no tracker sync (local design ID)                                                                                                                                                                                                              |
+
+_Implementation tickets not published (developer decision, 2026-11-15): the WBS stays in `solution/Efforts.md`._

@@ -118,21 +118,29 @@
     },
     {
       "id": "publish",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "78024a0f-013e-4a34-84da-ccc830213f9a",
           "started_at": "2026-11-15T18:04:43.285Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T18:25:24.367Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
+          "started_at": "2026-11-15T18:25:24.528Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     }
   ],
   "steps": [],
@@ -636,8 +644,65 @@
       "reason": "approval",
       "detail": "Awaiting publish sign-off",
       "started_at": "2026-11-15T18:24:07.142Z",
+      "ended_at": "2026-11-15T18:25:23.944Z",
+      "last_observed_at": "2026-11-15T18:25:23.944Z"
+    },
+    {
+      "id": "72ded99d-7d75-4840-a72f-8d9f13ad7ff9",
+      "stage_id": "publish",
+      "stage_attempt_id": "78024a0f-013e-4a34-84da-ccc830213f9a",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T18:25:23.944Z",
+      "ended_at": "2026-11-15T18:25:24.367Z",
+      "last_observed_at": "2026-11-15T18:25:24.367Z"
+    },
+    {
+      "id": "0cd97561-bcd6-45bb-90b9-e52126237647",
+      "stage_id": "completion",
+      "stage_attempt_id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T18:25:24.528Z",
+      "ended_at": "2026-11-15T18:25:42.789Z",
+      "last_observed_at": "2026-11-15T18:25:42.789Z"
+    },
+    {
+      "id": "408ca39d-3174-4790-9c93-48dfa51a2456",
+      "stage_id": "completion",
+      "stage_attempt_id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting decision on publishing implementation tickets to Jira",
+      "started_at": "2026-11-15T18:25:42.789Z",
+      "ended_at": "2026-11-15T18:26:07.498Z",
+      "last_observed_at": "2026-11-15T18:26:07.498Z"
+    },
+    {
+      "id": "48881364-7e5d-4954-954f-3507578a4125",
+      "stage_id": "completion",
+      "stage_attempt_id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T18:26:07.498Z",
+      "ended_at": "2026-11-15T18:26:07.926Z",
+      "last_observed_at": "2026-11-15T18:26:07.926Z"
+    },
+    {
+      "id": "78e6832b-5cb5-44b7-bff9-fa015d456577",
+      "stage_id": "completion",
+      "stage_attempt_id": "ca375325-1e5c-4dfc-b4a0-3945610fd81f",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting completion sign-off",
+      "started_at": "2026-11-15T18:26:07.926Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T18:24:07.142Z"
+      "last_observed_at": "2026-11-15T18:26:07.926Z"
     }
   ],
   "checks": [
@@ -944,22 +1009,38 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "publish-signoff-01",
+      "stage_id": "publish",
+      "stage_attempt_id": "78024a0f-013e-4a34-84da-ccc830213f9a",
+      "step": null,
+      "design_revision": 1,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T18:25:24.117Z",
+      "ended_at": "2026-11-15T18:25:24.117Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'done' — committed the Publish change set after reviewing the summary",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T18:24:07.144Z",
+    "as_of": "2026-11-15T18:26:08.087Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 4491.517,
-    "observed_wait_seconds": 5008.482,
+    "observed_work_seconds": 4510.629,
+    "observed_wait_seconds": 5109.9929999999995,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.002,
-    "wait_seconds_to_date": 5008.484,
-    "unclassified_seconds": 9.64899999999984,
+    "open_wait_seconds": 0.161,
+    "wait_seconds_to_date": 5110.1539999999995,
+    "unclassified_seconds": 9.810000000001368,
     "rework_seconds": 509.378,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 3049.601,
+    "approval_wait_seconds": 3151.112,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
