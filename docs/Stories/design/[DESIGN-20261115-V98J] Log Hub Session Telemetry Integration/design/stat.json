@@ -38,21 +38,29 @@
     },
     {
       "id": "frame",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
           "started_at": "2026-11-15T09:44:36.952Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T09:52:49.692Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "research",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
+          "started_at": "2026-11-15T09:52:49.844Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "evaluate",
@@ -244,8 +252,65 @@
       "reason": "user_input",
       "detail": "Awaiting frame commit",
       "started_at": "2026-11-15T09:51:49.682Z",
+      "ended_at": "2026-11-15T09:52:49.547Z",
+      "last_observed_at": "2026-11-15T09:52:49.547Z"
+    },
+    {
+      "id": "b0252d2d-da53-4a56-a98c-2af707ce532f",
+      "stage_id": "frame",
+      "stage_attempt_id": "fdfb533f-9dc5-4ad2-a634-7ad472915403",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-15T09:52:49.547Z",
+      "ended_at": "2026-11-15T09:52:49.692Z",
+      "last_observed_at": "2026-11-15T09:52:49.692Z"
+    },
+    {
+      "id": "a47f0609-ba9b-497e-b01c-7a4f3ebf3be9",
+      "stage_id": "research",
+      "stage_attempt_id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T09:52:49.844Z",
+      "ended_at": "2026-11-15T10:12:38.601Z",
+      "last_observed_at": "2026-11-15T10:12:38.601Z"
+    },
+    {
+      "id": "abf17406-01ff-47f5-b5be-8ec5303337b3",
+      "stage_id": "research",
+      "stage_attempt_id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting research sign-off",
+      "started_at": "2026-11-15T10:12:38.601Z",
+      "ended_at": "2026-11-15T11:54:06.766Z",
+      "last_observed_at": "2026-11-15T11:54:06.766Z"
+    },
+    {
+      "id": "9b097e6d-863d-43db-8800-964f02b14ea0",
+      "stage_id": "research",
+      "stage_attempt_id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-15T11:54:06.766Z",
+      "ended_at": "2026-11-15T11:54:07.360Z",
+      "last_observed_at": "2026-11-15T11:54:07.360Z"
+    },
+    {
+      "id": "0f3ef86b-4d0b-4cf2-a3d4-b98f2d664f97",
+      "stage_id": "research",
+      "stage_attempt_id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting research commit",
+      "started_at": "2026-11-15T11:54:07.360Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-15T09:51:49.682Z"
+      "last_observed_at": "2026-11-15T11:54:07.360Z"
     }
   ],
   "checks": [
@@ -312,22 +377,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "research-signoff-01",
+      "stage_id": "research",
+      "stage_attempt_id": "bb92324b-7bf4-4e8e-b4b5-66c3f5b354a3",
+      "step": null,
+      "design_revision": 0,
+      "name": "Research sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-15T11:54:06.935Z",
+      "ended_at": "2026-11-15T11:54:06.935Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'ok, go' — 11 options across 2 decisions, OQ triage 9V/20E accepted as proposed; unanswered V OQs (D1-2,3,4,11; D2-6) stay conditional",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T09:51:49.684Z",
+    "as_of": "2026-11-15T11:54:07.362Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 222.538,
-    "observed_wait_seconds": 512.0329999999999,
+    "observed_work_seconds": 1412.034,
+    "observed_wait_seconds": 6660.063,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.002,
-    "wait_seconds_to_date": 512.0349999999999,
-    "unclassified_seconds": 0.44300000000005,
+    "wait_seconds_to_date": 6660.0650000000005,
+    "unclassified_seconds": 0.5949999999997526,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 464.088,
+    "approval_wait_seconds": 6552.253,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
