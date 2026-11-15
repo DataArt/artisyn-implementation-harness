@@ -313,10 +313,14 @@ function readCheckpointCheck(value: unknown): { status: string; evidence: string
 }
 
 /** A stage receipt is recorded project-relative (`.harness/state/...`), with the `state/` alias
- * (`state/...` means `.harness/state/...`), or through the package folder (older records).
- * Anything else is resolved inside the state root.
+ * (`state/...` means `.harness/state/...`), or through the package folder (older records, whose
+ * `<package>/state/...` is the same place under the new state root). Anything else is resolved
+ * inside the state root, and the caller rejects what lands outside it.
  */
 function resolveReceiptRef(projectRoot: string, packageRelativePath: string, ref: string): string {
+  const oldState = `${packageRelativePath}/state/`;
+  if (ref.startsWith(oldState))
+    return path.resolve(projectRoot, STATE_DIR, ref.slice(oldState.length));
   if (ref.startsWith('.harness/') || ref.startsWith(packageRelativePath + '/'))
     return path.resolve(projectRoot, ref);
   if (ref.startsWith('state/')) return path.resolve(projectRoot, '.harness', ref);

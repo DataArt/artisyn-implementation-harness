@@ -80,8 +80,8 @@ export async function destroyFixture(workspace: Workspace): Promise<void> {
 }
 
 /** Copies the authoring package contents into the selected host skill directory for a
- * local fixture. Consumer installation remains a separate release-ZIP workflow.
- * Package state is not copied into a fresh test project.
+ * local fixture, leaving out what the shipped package never carries: state, `node_modules` and
+ * the Nx `project.json`. Real installs go through the install CLI (see the CLI specs).
  */
 export function installSkillPackage(workspace: Workspace, host: Provider = PROVIDERS.claude): void {
   const hostRoot = PROVIDER_DETAILS[host].skills;
@@ -89,7 +89,7 @@ export function installSkillPackage(workspace: Workspace, host: Provider = PROVI
   fs.mkdirSync(workspace.packageRoot, { recursive: true });
 
   for (const entry of fs.readdirSync(skillPackageRoot)) {
-    if (entry === 'state') continue;
+    if (entry === 'state' || entry === 'node_modules' || entry === 'project.json') continue;
     fs.cpSync(path.join(skillPackageRoot, entry), path.join(workspace.packageRoot, entry), {
       recursive: true,
     });

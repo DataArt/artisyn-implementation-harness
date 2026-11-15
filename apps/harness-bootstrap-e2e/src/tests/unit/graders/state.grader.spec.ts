@@ -125,41 +125,55 @@ it('preserves materialization-only assertions', () => {
   expect(gradeLaunchState(pkg, 'run', false).pass).toBe(true);
   expect(gradeLaunchState(pkg, 'run', true).pass).toBe(false);
 });
-it('uses the same verification contract for linked stage receipts', () => {
-  const { root, pkg } = fixture();
-  const stages = ['a', 'b', 'c'].map((stage) => receipts(root, pkg, `run-${stage}`));
-  const reportDir = path.join(projectRootOf(pkg), '.harness/state/launch/reports');
-  fs.mkdirSync(reportDir, { recursive: true });
-  fs.writeFileSync(
-    path.join(reportDir, 'latest-launch.md'),
-    '| Status | 🔄 In progress |\nRun ID / native Task IDs: `run`\n' +
-      Array.from(
-        { length: LAUNCH_STAGE_COUNT },
-        (_, i) =>
-          `| ${i + 1} | Stage | ${i < 11 ? '✅ Complete' : i === 11 ? '🔄 In progress' : '⏳ Pending'} | |`
-      ).join('\n')
-  );
-  fs.mkdirSync(path.join(projectRootOf(pkg), '.harness/state/operations'));
-  fs.writeFileSync(
-    path.join(projectRootOf(pkg), '.harness/state/operations/launch.json'),
-    JSON.stringify({
-      mode: 'launch',
-      run_id: 'run',
-      status: 'in_progress',
-      blockers: ['Independent review and Mermaid rendering unavailable'],
-      stage_receipts: stages.map((stage) =>
-        path.relative(root, path.join(stage.dir, 'materialization.json'))
-      ),
-      outputs: stages.flatMap((stage) => stage.verification.outputs),
-    })
-  );
-  expect(gradeLaunchState(pkg, 'run', true).pass).toBe(true);
-  stages[0].verification.outputs = [];
-  stages[0].save();
-  expect(gradeLaunchState(pkg, 'run', true).failures.join(' ')).toContain(
-    'exactly every permanent output'
-  );
-});
+/** How an operation record names a stage receipt: project-relative today, through the package
+ * folder (`<package>/state/...`) in older records, which maps to the same place in the state root.
+ */
+const receiptRefStyles: Array<[string, (root: string, pkg: string, dir: string) => string]> = [
+  [
+    'project-relative',
+    (root, _pkg, dir) => path.relative(root, path.join(dir, 'materialization.json')),
+  ],
+  [
+    'old package-relative',
+    (root, pkg, dir) =>
+      `${path.relative(root, pkg).split(path.sep).join('/')}/state/launch/runs/${path.basename(dir)}/materialization.json`,
+  ],
+];
+for (const [style, toRef] of receiptRefStyles) {
+  it(`uses the same verification contract for linked stage receipts (${style} refs)`, () => {
+    const { root, pkg } = fixture();
+    const stages = ['a', 'b', 'c'].map((stage) => receipts(root, pkg, `run-${stage}`));
+    const reportDir = path.join(projectRootOf(pkg), '.harness/state/launch/reports');
+    fs.mkdirSync(reportDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(reportDir, 'latest-launch.md'),
+      '| Status | 🔄 In progress |\nRun ID / native Task IDs: `run`\n' +
+        Array.from(
+          { length: LAUNCH_STAGE_COUNT },
+          (_, i) =>
+            `| ${i + 1} | Stage | ${i < 11 ? '✅ Complete' : i === 11 ? '🔄 In progress' : '⏳ Pending'} | |`
+        ).join('\n')
+    );
+    fs.mkdirSync(path.join(projectRootOf(pkg), '.harness/state/operations'));
+    fs.writeFileSync(
+      path.join(projectRootOf(pkg), '.harness/state/operations/launch.json'),
+      JSON.stringify({
+        mode: 'launch',
+        run_id: 'run',
+        status: 'in_progress',
+        blockers: ['Independent review and Mermaid rendering unavailable'],
+        stage_receipts: stages.map((stage) => toRef(root, pkg, stage.dir)),
+        outputs: stages.flatMap((stage) => stage.verification.outputs),
+      })
+    );
+    expect(gradeLaunchState(pkg, 'run', true).pass).toBe(true);
+    stages[0].verification.outputs = [];
+    stages[0].save();
+    expect(gradeLaunchState(pkg, 'run', true).failures.join(' ')).toContain(
+      'exactly every permanent output'
+    );
+  });
+}
 
 function partialFixture(format: 'compact' | 'structured' | 'legacy' = 'compact') {
   const { root, pkg } = fixture();
