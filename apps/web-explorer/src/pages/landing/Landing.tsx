@@ -5,7 +5,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
-  Braces,
   Check,
   Code2,
   Copy,
@@ -15,6 +14,7 @@ import {
   Workflow,
 } from 'lucide-react';
 import TerminalScenarios from '../../components/TerminalScenarios';
+import HeroPreview from '../../components/HeroPreview';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import SectionLink from '../../components/SectionLink';
@@ -41,6 +41,28 @@ const capabilities = [
     icon: <Sparkles size={23} />,
     title: 'Continuous learning',
     text: 'Reflections that carry useful lessons into future work.',
+  },
+];
+
+// First-viewport value statement: the three outcomes a reader should take away before scrolling.
+const pillars = [
+  {
+    icon: <Layers3 size={24} />,
+    tone: 'violet',
+    title: 'Solution Design',
+    text: 'Turn requirements into a structured, reviewable design (HLD/LLD) with architectural context and guardrails.',
+  },
+  {
+    icon: <Code2 size={24} />,
+    tone: 'blue',
+    title: 'Development',
+    text: 'Guide AI and developers through a governed, repeatable implementation flow with quality controls and handoffs.',
+  },
+  {
+    icon: <BookOpen size={24} />,
+    tone: 'teal',
+    title: 'Knowledge',
+    text: 'Design, code and documentation stay consistent with each other — one living knowledge base that humans and AI both rely on.',
   },
 ];
 
@@ -72,68 +94,63 @@ export default function Landing() {
       <Header />
 
       <main id="top">
-        <section className="hero container" aria-labelledby="hero-heading">
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-          >
-            <div className="pill-label">
-              <span className="pill-dot" /> OPEN SOURCE · AI ENGINEERING
-            </div>
-            <h1 id="hero-heading">
-              AI engineering.
-              <br />
-              <span>Structured by design.</span>
-            </h1>
-            <p className="hero-copy">
-              A portable implementation harness that guides coding assistants through defined
-              lifecycles, applies architectural conventions, and carries learning into the next
-              task.
-            </p>
-            <div className="hero-actions">
-              <SectionLink id="how-it-works" className="button button-primary">
-                Explore the lifecycle <ArrowRight size={18} />
-              </SectionLink>
-              <a
-                className="button button-outline"
-                href={repoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Code2 size={17} /> View on GitHub
-              </a>
-            </div>
-          </motion.div>
-          <div className="hero-preview">
-            <div className="code-head mono">
-              <span className="preview-dot" /> WORKFLOW PREVIEW <span className="spacer" /> ARTISYN
-              / 001
-            </div>
-            <div className="code-rows mono">
-              <p>
-                <span className="term-prompt">$</span> /harness-bootstrap launch
+        <div className="hero-band">
+          <section className="landing-hero container" aria-labelledby="hero-heading">
+            <motion.div
+              className="hero-intro"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45 }}
+            >
+              <h1 id="hero-heading">
+                AI engineering.
+                <br />
+                <span>Structured by design.</span>
+              </h1>
+              <p className="hero-copy">
+                A portable AI engineering harness that connects solution design, governed
+                implementation, and living documentation — keeping decisions, code, and knowledge
+                aligned.
               </p>
-              <p>
-                <span className="terminal-check">✓</span> Scan repo, detect stack
-              </p>
-              <p>
-                <span className="terminal-check">✓</span> Generate skills, agents, docs scaffold
-              </p>
-              <p>
-                <span className="terminal-check">✓</span> Verify, hand off clean
-              </p>
-              <p className="code-highlight">
-                <span className="terminal-chevron">›</span> Ready for /design or /dev{' '}
-                <span className="cursor" />
-              </p>
-            </div>
-            <div className="code-foot">
-              <Braces size={15} /> One command · Full harness installed <span>SIMULATED</span>
-            </div>
+              <div className="hero-actions">
+                <SectionLink id="how-it-works" className="button button-primary">
+                  Explore the lifecycle <ArrowRight size={18} />
+                </SectionLink>
+                <a
+                  className="button button-outline"
+                  href={repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Code2 size={17} /> View on GitHub
+                </a>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
+              <HeroPreview />
+            </motion.div>
+          </section>
+
+          <section className="container pillars" aria-label="What the harness delivers">
+            {pillars.map((pillar) => (
+              <article key={pillar.title} className={`pillar pillar-${pillar.tone}`}>
+                <div className="pillar-head">
+                  <div className="pillar-icon">{pillar.icon}</div>
+                  <h2>{pillar.title}</h2>
+                </div>
+                <p>{pillar.text}</p>
+              </article>
+            ))}
+          </section>
+          <div className="container">
+            <div className="hero-divider" />
           </div>
-          <div className="hero-divider" />
-        </section>
+        </div>
 
         <section id="how-it-works" className="section container" aria-labelledby="how-heading">
           <div className="section-heading">

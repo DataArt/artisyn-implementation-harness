@@ -30,5 +30,7 @@ A term stays out of this table if it's standard English, a well-known industry t
 
 ## Registry
 
-| Term | Approved form | Forbidden synonyms | Definition | Introduced in |
-| ---- | ------------- | ------------------ | ---------- | ------------- |
+| Term            | Approved form   | Forbidden synonyms                                      | Definition                                                                                                                                                                                                    | Introduced in                                                 |
+| --------------- | --------------- | ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Lifecycle strip | lifecycle strip | stage strip, stage bar, lifecycle tiles, stage row      | The static ordered list of four color-coded tiles (Design → Implement → Validate → Document) inside the Web Explorer hero's WORKFLOW PREVIEW card; `lifecycleStages` in `Landing.tsx`                         | `docs/System Architecture (LLD)/Web Explorer/00. Overview.md` |
+| Pillars         | pillars         | value cards, outcome cards, pillar cards, benefit cards | The three cards under the Web Explorer hero (Solution design, Development / implementation, Consistent documentation) that state the harness's outcomes within the first viewport; `pillars` in `Landing.tsx` | `docs/System Architecture (LLD)/Web Explorer/00. Overview.md` |

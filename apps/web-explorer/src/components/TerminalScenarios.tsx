@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -27,33 +27,8 @@ export default function TerminalScenarios() {
   const [stageIndex, setStageIndex] = useState(0);
   const [lineCount, setLineCount] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const sideRef = useRef<HTMLDivElement>(null);
+  const stepListRef = useRef<HTMLDivElement>(null);
   const terminalRef = useRef<HTMLDivElement>(null);
-
-  // Match the terminal's height to the side panel exactly, from the start,
-  // scrolling internally once content outgrows it. Pure CSS can't match a
-  // sibling's intrinsic height while also staying scrollable, so this
-  // measures it directly.
-  useLayoutEffect(() => {
-    const side = sideRef.current;
-    const terminal = terminalRef.current;
-    if (!side || !terminal) return;
-    const sync = () => {
-      if (window.matchMedia('(max-width: 700px)').matches) {
-        terminal.style.height = '';
-        return;
-      }
-      terminal.style.height = `${side.offsetHeight}px`;
-    };
-    sync();
-    const ro = new ResizeObserver(sync);
-    ro.observe(side);
-    window.addEventListener('resize', sync);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener('resize', sync);
-    };
-  }, []);
 
   const scenario = scenarios[scenarioId];
   const stages = scenario.stages;
@@ -93,6 +68,27 @@ export default function TerminalScenarios() {
     return () => clearTimeout(id);
   }, [playing, stageDone, isLastStage, stages.length]);
 
+  // The side panel has a fixed height (sized for the shortest flow) and the
+  // stage list scrolls inside it, so keep the active stage visible. Scrolls
+  // the list only — never the page.
+  useEffect(() => {
+    const list = stepListRef.current;
+    const row = list?.children[stageIndex] as HTMLElement | undefined;
+    if (!list || !row) return;
+    const top = row.offsetTop - list.offsetTop;
+    const bottom = top + row.offsetHeight;
+    if (top < list.scrollTop) list.scrollTop = top;
+    else if (bottom > list.scrollTop + list.clientHeight)
+      list.scrollTop = bottom - list.clientHeight;
+  }, [stageIndex, scenarioId]);
+
+  // The transcript is capped at the widget's fixed height, so follow the
+  // output while it plays: newest line always in view, like a real terminal.
+  useEffect(() => {
+    const t = terminalRef.current;
+    if (t) t.scrollTop = t.scrollHeight;
+  }, [lineCount, stageIndex, scenarioId]);
+
   const goTo = (i: number) => {
     setStageIndex(i);
     setLineCount(stages[i].lines.length);
@@ -130,7 +126,7 @@ export default function TerminalScenarios() {
           <span />
           <span />
         </div>
-        <span className="mono text-soft">artisyn / {scenario.label}</span>
+        <span className="mono text-soft">implementation-harness / {scenario.label}</span>
         <span className="demo-mode-tag">SIMULATED RUN</span>
       </div>
       <div className="demo-body scenario-body">
@@ -193,7 +189,7 @@ export default function TerminalScenarios() {
             {!isLast && <span className="terminal-cursor" aria-hidden="true" />}
           </div>
         </div>
-        <div ref={sideRef} className="demo-side scenario-side">
+        <div className="demo-side scenario-side">
           <div className="eyebrow">SELECT FLOW</div>
           <div className="mode-control" role="group" aria-label="Choose scenario">
             {SCENARIO_IDS.map((value) => (
@@ -208,7 +204,7 @@ export default function TerminalScenarios() {
               </button>
             ))}
           </div>
-          <div className="step-list" aria-label="Scenario stages">
+          <div ref={stepListRef} className="step-list" aria-label="Scenario stages">
             {stages.map((stage, i) => (
               <button
                 type="button"
