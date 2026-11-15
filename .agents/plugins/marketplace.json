@@ -1,0 +1,18 @@
+{
+  "name": "dataart",
+  "owner": { "name": "DataArt" },
+  "plugins": [
+    {
+      "name": "artisyn",
+      "version": "3.5.0",
+      "category": "development",
+      "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/DataArt/artisyn-implementation-harness",
+        "path": ".",
+        "ref": "artisyn-implementation-harness-v3.5.0"
+      }
+    }
+  ]
+}

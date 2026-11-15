@@ -1,0 +1,20 @@
+{
+  "name": "dataart",
+  "owner": {
+    "name": "DataArt"
+  },
+  "description": "DataArt plugins for AI-assisted engineering: the Artisyn Implementation Harness.",
+  "plugins": [
+    {
+      "name": "artisyn",
+      "version": "3.5.0",
+      "description": "Artisyn Implementation Harness: install the AI-first engineering lifecycle into a project.",
+      "category": "development",
+      "source": {
+        "source": "github",
+        "repo": "DataArt/artisyn-implementation-harness",
+        "ref": "artisyn-implementation-harness-v3.5.0"
+      }
+    }
+  ]
+}
