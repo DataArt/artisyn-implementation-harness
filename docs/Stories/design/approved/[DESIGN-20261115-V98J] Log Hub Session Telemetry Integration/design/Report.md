@@ -17,10 +17,11 @@ Resolved once in Context Gathering. Every later phase reads these values instead
 ## State
 
 ```yaml
-current_stage: review-gate
-completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution]
+current_stage: completion
+completed_stages:
+  [context-gathering, ceremony, frame, research, evaluate, solution, review-gate, publish]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'Review Gate — suggest draft MR, record approver and URL'
+next_action: 'Completion — publish implementation tickets, archive, tracker sync'
 context_fingerprint: 'project/v1-containers/log-hub-hook-2.31.1'
 ```
 
@@ -64,12 +65,12 @@ their resolution here; do not rely on conversation history for design provenance
 
 ## Status
 
-| Field  | Value                                                                                                                                                                                                              |
-| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Ticket | DESIGN-20261115-V98J (local ID, no tracker record)                                                                                                                                                                 |
-| Branch | `docs/design-20261115-v98j-log-hub-telemetry`                                                                                                                                                                      |
-| Status | 🔄 In Progress                                                                                                                                                                                                     |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏳ (skip — approved, no concerns) · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Field  | Value                                                                                                                                                                                                                 |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ticket | DESIGN-20261115-V98J (local ID, no tracker record)                                                                                                                                                                    |
+| Branch | `docs/design-20261115-v98j-log-hub-telemetry`                                                                                                                                                                         |
+| Status | ✅ Complete                                                                                                                                                                                                           |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped — approved, no concerns) · 📤 Publish ✅ · 🏁 Completion ✅ |
 
 ---
 
@@ -79,7 +80,7 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 53m 46s · Wait to date: 2h 6m 31s (closed 2h 6m 31s + current 0s) · Unclassified: 8s
+Observed work: 57m 8s · Wait to date: 2h 11m 36s (closed 2h 11m 36s + current 0s) · Unclassified: 8s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -91,8 +92,8 @@ Observed work: 53m 46s · Wait to date: 2h 6m 31s (closed 2h 6m 31s + current 0s
 | solution (completed)          | 2026-11-15T12:07:13.931Z | 2026-11-15T12:24:49.965Z | 17m 36s     | 12m 4s  | 5m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | review-gate (completed)       | 2026-11-15T12:24:50.153Z | 2026-11-15T12:27:07.526Z | 2m 17s      | 2m 17s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (active)              | 2026-11-15T12:27:14.340Z | unavailable              | unavailable | 10m 29s | 2m 16s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (completed)           | 2026-11-15T12:27:14.340Z | 2026-11-15T12:41:20.821Z | 14m 6s      | 10m 30s | 3m 37s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (active)           | 2026-11-15T12:41:20.983Z | unavailable              | unavailable | 3m 21s  | 3m 44s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 
 <!-- design-metrics:end -->
 
