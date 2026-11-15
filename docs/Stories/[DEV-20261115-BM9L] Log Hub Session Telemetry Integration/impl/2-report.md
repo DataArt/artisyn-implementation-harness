@@ -14,7 +14,7 @@ type: reference
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
 | Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test 🔄 · 📝 Document ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document 🔄 · 🏁 Completion ⏳ |
 
 ## Progress
 
@@ -45,19 +45,19 @@ New `log-hub` Nx project wraps the upstream Artisyn Log Hub release (pinned `v1.
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 36m 5s · Wait: 21m 6s · Unclassified: 6m 55s
+Observed work: 36m 59s · Wait: 53m 18s · Unclassified: 11m 24s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
-| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
-| context    | 2026-11-15T12:50:58.009Z | 2026-11-15T12:54:03.155Z | 3m 5s       | 53s     | 2m 12s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| ceremony   | 2026-11-15T12:54:03.305Z | 2026-11-15T13:03:56.971Z | 9m 54s      | 1m 11s  | 8m 42s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| plan       | 2026-11-15T13:03:57.123Z | 2026-11-15T13:26:30.760Z | 22m 34s     | 13m 26s | 9m 8s  | unavailable  | unavailable   | from_tracking_start | 2        | 0             | 🔀 scope change |
-| implement  | 2026-11-15T13:26:30.916Z | unavailable              | unavailable | 20m 35s | 1m 3s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| test       | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
-| document   | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
-| completion | unavailable              | unavailable              | unavailable | 0s      | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
+| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
+| context    | 2026-11-15T12:50:58.009Z | 2026-11-15T12:54:03.155Z | 3m 5s       | 53s     | 2m 12s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| ceremony   | 2026-11-15T12:54:03.305Z | 2026-11-15T13:03:56.971Z | 9m 54s      | 1m 11s  | 8m 42s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| plan       | 2026-11-15T13:03:57.123Z | 2026-11-15T13:26:30.760Z | 22m 34s     | 13m 26s | 9m 8s   | unavailable  | unavailable   | from_tracking_start | 2        | 0             | 🔀 scope change |
+| implement  | 2026-11-15T13:26:30.916Z | 2026-11-15T14:27:16.105Z | 1h 0m 45s   | 20m 35s | 33m 15s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| test       | 2026-11-15T14:29:17.993Z | unavailable              | unavailable | 54s     | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| document   | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| completion | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
 
-Quality (recorded inventory): findings 3 · open 0 · PR findings 0 · critical 0 · debt 1 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
+Quality (recorded inventory): findings 3 · open 0 · PR findings 0 · critical 0 · debt 1 · tests written 32 · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
 
 ## Step Metrics
@@ -66,7 +66,7 @@ Quality (recorded inventory): findings 3 · open 0 · PR findings 0 · critical 
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 36m 5s · Wait: 21m 6s · Unclassified: 6m 55s
+Observed work: 36m 59s · Wait: 53m 18s · Unclassified: 11m 24s
 
 | Step                                           | Started (UTC)            | Completed (UTC)          | Elapsed | Work   | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
 | ---------------------------------------------- | ------------------------ | ------------------------ | ------- | ------ | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
@@ -91,6 +91,8 @@ Observed work: 36m 5s · Wait: 21m 6s · Unclassified: 6m 55s
 | RF-003 | implement | implementation-review | deviation | contradiction  | medium   | introduced     | `1-plan.md` Step 1 and `AC-2` call for a committed `apps/log-hub/VERSION` file containing `1.4.1` as the single pinned-release source; the actual implementation has no `VERSION` file — `init.ts`'s `readVersion()` reads `LOG_HUB_VERSION=1.4.1` from `.env.example` instead, and `AC-2` as literally written fails (`apps/log-hub/VERSION` does not exist). Not recorded as an RF row before this resumed Implement session found it, and not mentioned in Step 1's Implementation Notes. | Resumed-session audit: `cat apps/log-hub/VERSION` → no such file; `grep LOG_HUB_VERSION apps/log-hub/src/init.ts`; `apps/log-hub/.env.example` line 6                                                                                                  | accepted   | —   | Developer-attributed, accepted directly in session at the Implement sign-off: `.env.example`'s `LOG_HUB_VERSION` is the pinned-release source instead of a separate `VERSION` file; `AC-2`'s wording updated to match (below) rather than adding a redundant file.                                                                                                      |
 
 <!-- One row per underlying issue; see patterns/review-gate.md. Empty means no recorded findings, not proof of review. -->
+
+**Test-stage review coverage:** No specialist in `CLAUDE.md`'s Agents table owns `apps/log-hub/`; reviewed inline. No architecture audit spawned — `log-hub` is a single HLD container already designed and published at `DESIGN-20261115-V98J` Publish; this implementation doesn't move any infrastructure boundary or add a cross-layer integration beyond what that design already settled. Verdict: no new findings this stage; all three existing RF rows are closed (`accepted`).
 
 ## Implementation Notes
 
@@ -164,8 +166,10 @@ Rows are added here by the Implement stage (references/04-implement.md, tech deb
 
 ## Test Results
 
-| Project | Build | Tests | Typecheck | Lint | Written | Passed | Failed | Skipped | Evidence |
-| ------- | ----- | ----- | --------- | ---- | ------- | ------ | ------ | ------- | -------- |
+| Project    | Build                                               | Tests | Typecheck | Lint | Written | Passed | Failed | Skipped | Evidence                                                                                                       |
+| ---------- | --------------------------------------------------- | ----- | --------- | ---- | ------- | ------ | ------ | ------- | -------------------------------------------------------------------------------------------------------------- |
+| log-hub    | ✅ `log-hub:verify` live, canonical isolation holds | ✅    | ✅        | ✅   | 32      | 32     | 0      | 0       | Test stage, `--skip-nx-cache`: `yarn nx run log-hub:test/typecheck/lint/verify` all green                      |
+| web-portal | ✅ 391 files, unchanged by `log-hub` (AC-12)        | —     | —         | —    | 0       | —      | —      | —       | Test stage: `yarn nx run web-portal:build --skip-nx-cache`, `find apps/web-portal/dist -type f \| wc -l` → 391 |
 
 <!-- One row per non-overlapping project/suite scope, updated to its latest run.
 Written = new test cases in this change, not files/assertions. Passed/Failed/Skipped
