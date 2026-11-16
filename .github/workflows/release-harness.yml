@@ -6,7 +6,7 @@ name: Release harness
 # Off until the repository variable HARNESS_RELEASE_ENABLED is 'true'. The release commit and tag
 # are pushed to the protected `main` with HARNESS_RELEASE_TOKEN, a fine-grained PAT of a repo admin
 # whose role is a bypass actor of the main ruleset (D-17; a GitHub App replaces it later, see the
-# release runbook in the Engineering Guide). Only the push step receives the token.
+# release runbook in the Engineering Guide). Only the presence check and the push step receive the token.
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
           TOKEN: ${{ secrets.HARNESS_RELEASE_TOKEN }}
         run: |
           if [ -z "$TOKEN" ]; then
-            echo "::error::HARNESS_RELEASE_TOKEN is missing. The release commit and tag go to the protected main, and the Actions bot cannot push there. Create the release GitHub App token secret first (see the release runbook)."
+            echo "::error::HARNESS_RELEASE_TOKEN is missing. The release commit and tag go to the protected main, and the Actions bot cannot push there. Create the HARNESS_RELEASE_TOKEN secret first (a fine-grained PAT, see the release runbook)."
             exit 1
           fi
 
@@ -72,8 +72,8 @@ jobs:
             echo "tag=${TAG_PREFIX}${after}" >> "$GITHUB_OUTPUT"
           else
             # No new version. A re-run, or a later merge, still has to finish the latest release:
-            # resolve the latest harness tag reachable from origin/main (a re-run checks out the
-            # original merge commit, where no harness tag sits at HEAD).
+            # resolve the latest harness tag reachable from origin/main (the checkout is the tip of
+            # main, where later merges may sit above the latest harness tag).
             latest="$(git tag --merged origin/main --list "${TAG_PREFIX}*" --sort=-version:refname | head -n 1)"
             echo "new=false" >> "$GITHUB_OUTPUT"
             echo "tag=${latest}" >> "$GITHUB_OUTPUT"

@@ -41,6 +41,10 @@ const RETIRED_NAME_ALLOWED = [
   'skills/harness-bootstrap', // the shim
   'docs/Stories', // story history
   'docs/.og', // generated graph
+  'docs/Harness/08 Security Scan', // dated scan reports of the old package, and the index that links them
+  'docs/Harness/09 Distribution/02 Update and Migration.md', // the migration doc's subject is the old command and the shim
+  'docs/Harness/09 Distribution/03 Versioning and Releases.md', // names the shim's 4.x lifecycle
+  'docs/Engineering Guide/Documentation/07 Terminology.md', // defines the "legacy shim" term by its real name
   'apps/harness-bootstrap-e2e/runs', // recorded agent runs
   'apps/harness-bootstrap-e2e/src/tests/unit/legacy', // tests of the legacy handling
   'apps/harness-bootstrap-e2e/src/tests/unit/cli',
