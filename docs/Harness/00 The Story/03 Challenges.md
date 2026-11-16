@@ -147,7 +147,7 @@ flowchart TD
 
 The ARB is not the problem. The gap is one level below it — at the project level, there is no shared skeleton. Every new engineer, every SA scoping a project, every team inheriting a legacy codebase pays the cost of that missing skeleton. There is no portable foundation — only starting over.
 
-**How to address this — the harness (Project Context):** the harness-bootstrap generates a consistent project-level skeleton in a single session, from Q1–Q11 answers about the specific project.
+**How to address this — the harness (Project Context):** `/implementation-harness launch` generates a consistent project-level skeleton in a single session, from Q1–Q11 answers about the specific project.
 
 > Bootstrap Once, Own Forever
 

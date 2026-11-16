@@ -1,12 +1,12 @@
 ---
 id: ca3a865c
-purpose: Design intent for the Harness Bootstrap E2E container — the test harness validating the harness-bootstrap skill
-keywords: [harness-bootstrap-e2e, testing, hld]
+purpose: Design intent for the Harness Bootstrap E2E container — the test harness validating the implementation-harness skill package and the repo's release tooling
+keywords: [harness-bootstrap-e2e, implementation-harness, testing, release-tooling, hld]
 ---
 
 # Harness Bootstrap E2E Container
 
-Test harness validating the `harness-bootstrap` skill (`.canonical-implementation-harness/`) itself: deterministic unit and integration coverage of its scripts and contracts, plus live agent E2E runs that drive the skill through real Claude or Codex CLI sessions against disposable fixture workspaces.
+Test harness validating the `implementation-harness` skill package (`skills/implementation-harness/`) and the repo's release tooling: deterministic unit and integration coverage of the package's scripts, install CLI, migrator and release gates, plus live agent E2E runs that drive the skill through real Claude or Codex CLI sessions against disposable fixture workspaces. The Nx project keeps its historical name `harness-bootstrap-e2e`.
 
 ## Baseline diagram
 
@@ -15,7 +15,7 @@ flowchart LR
     GH(["⚙️ GitHub Actions\nci.yml"]):::ci
 
     subgraph DET ["  Deterministic — Nx-cached, no live agents  "]
-        UNIT["🧪 unit\nscripts, fixtures, graders"]:::test
+        UNIT["🧪 unit\nscripts, fixtures, graders,\nstate root, CLI, migrator, release gates"]:::test
         INT["🧪 integration\nstubbed launch/patch"]:::test
     end
 
@@ -27,7 +27,7 @@ flowchart LR
         REP["📄 runs/<case>/report.json"]:::report
     end
 
-    PKG[(".canonical-implementation-harness/\nskill under test")]:::pkg
+    PKG[("skills/implementation-harness/\nskill package under test")]:::pkg
 
     GH -->|"nx affected --target=test"| UNIT
     GH --> INT
@@ -58,10 +58,10 @@ Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CL
 
 ## Responsibilities
 
-- Deterministic unit tests over the skill's own scripts, fixture/scenario helpers, and grader pass/fail logic — no live agent invocation, Nx-cached
+- Deterministic unit tests (no live agent, Nx-cached) over the package's scripts, install CLI, state-root and migration libraries, fixture/scenario helpers and grader logic, and over the repo's release tooling (stamping, scope and rename gates, pack allowlist, plugin validation, workflow definitions) — the release-tooling coverage is an accepted widening of the original package-only scope (DEV-20261115-5DUE plan sign-off)
 - Deterministic integration tests over stubbed launch plans, materialization, simulated adaptation, finalization, and cross-provider projections
 - Agent E2E cases that drive real Claude/Codex CLI sessions against disposable fixture workspaces, grade the resulting filesystem/transcript/receipt state, and persist a per-case `report.json`
-- Validates `.canonical-implementation-harness/` as a whole — scripts, canonical templates, patch harvest/prepare/apply — never the deployed site containers (Web/Discuss)
+- Validates `skills/implementation-harness/` as a whole — scripts, canonical templates, patch harvest/prepare/apply, install CLI, migration — never the deployed site containers (Web/Discuss)
 
 ## Technology
 
@@ -74,10 +74,10 @@ Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CL
 
 ## Boundary contracts
 
-- Input: fixture workspaces under `fixtures/` (seeded, disposable copies of `.canonical-implementation-harness/`'s target repositories), case/scenario definitions under `src/cases/` and `src/scenarios/`
-- Output: per-case `runs/<case>/report.json`; CI-visible pass/fail from `unit`/`integration` (via the `test` target, which `ci.yml` runs through `nx affected --target=test`, between the affected typecheck and build steps)
+- Input: fixture workspaces under `fixtures/` (seeded, disposable copies of the skill package's target repositories), case/scenario definitions under `src/cases/` and `src/scenarios/`
+- Output: per-case `runs/<case>/report.json`; CI-visible pass/fail from `unit`/`integration` (via the `test` target, which `ci.yml` runs through `nx affected --target=test`, between the affected typecheck and build steps); the `harness-cli` CI job additionally runs the install-CLI, migrator and state-root specs on Linux, macOS and Windows runners
 - Guarantee: deterministic layers (`unit`, `integration`) never invoke a live model and are Nx-cached (`cache: true` in `project.json`); agent E2E is explicitly uncached (`cache: false`) and guarded — it never runs in CI, only when a developer deliberately spends agent budget
-- Guarantee: fixtures are read-only sources — `createFixture()` copies each one into a disposable scratch workspace per case; no test target writes back into `.canonical-implementation-harness/` or a fixture's checked-in source
+- Guarantee: fixtures are read-only sources — `createFixture()` copies each one into a disposable scratch workspace per case; no test target writes back into `skills/implementation-harness/` or a fixture's checked-in source
 
 ## Key paths
 

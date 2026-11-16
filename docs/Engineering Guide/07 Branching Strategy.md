@@ -1,7 +1,17 @@
 ---
 id: 358e59f3
-purpose: The trunk-based branching model, naming conventions, and how branches map to CI/CD and environments
-keywords: [branching strategy, trunk-based, naming conventions, CI/CD, rollback]
+purpose: The trunk-based branching model, naming conventions, the two release lanes, the main ruleset, and how branches map to CI/CD and environments
+keywords:
+  [
+    branching strategy,
+    trunk-based,
+    naming conventions,
+    CI/CD,
+    release lanes,
+    ruleset,
+    squash merge,
+    rollback,
+  ]
 ---
 
 # Branching Strategy
@@ -47,33 +57,46 @@ Staging → Prod promotion chain is a reasonable future addition, not a default.
   [`01 Conventions.md`](./01%20Conventions.md)
 - **Commits:** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) —
   `<type>(<scope>): <what>`, per the same conventions doc
-- **Tags:** `vX.Y.Z` — created automatically by `semantic-release` on every merge to `main` (`.github/workflows/release.yml`), driven by Conventional Commits; never created by hand
+- **Tags:** two independent lanes, both automatic, never created by hand:
+  - `vX.Y.Z` — the repository's own version, created by `semantic-release` on merge to `main` (`.github/workflows/release.yml`). Commits with scope `harness` or `harness-release` produce no `v*` release (`release.config.js` releaseRules).
+  - `artisyn-implementation-harness-vX.Y.Z` — the harness package version, created by the harness release lane (`.github/workflows/release-harness.yml`, Nx Release). It bumps on commits that touch `skills/implementation-harness/` (`useCommitScope: false`, so Nx matches by path, not scope); the scope gate makes those commits `harness`-scoped. Its release commit is `chore(harness-release): <version> [skip ci]`. Inert until the repository variable `HARNESS_RELEASE_ENABLED` is `true` — see `08 Harness Release Runbook.md`.
 
 ## CI/CD by Branch
 
-| Trigger               | Runs                                                                                                                                                                |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, test, build for affected projects. No AWS role assumption — the AWS OIDC auth step was removed with the Infrastructure container |
-| `main` merge          | `cd.yml` — runs, but its deploy step is currently a retirement stub (no-op); no deploy mechanism exists until the GitHub Pages cutover lands                        |
-| `main` merge          | `release.yml` — `semantic-release` computes the next version from Conventional Commits, tags, and publishes a GitHub release and `CHANGELOG.md` entry               |
-| Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate                                                                                                 |
+| Trigger               | Runs                                                                                                                                                                                                       |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, test, build for affected projects. No AWS role assumption — the AWS OIDC auth step was removed with the Infrastructure container                                        |
+| `main` merge          | `cd.yml` — runs, but its deploy step is currently a retirement stub (no-op); no deploy mechanism exists until the GitHub Pages cutover lands                                                               |
+| `main` merge          | `release.yml` — `semantic-release` computes the next version from Conventional Commits, tags, and publishes a GitHub release and `CHANGELOG.md` entry (scopes `harness`/`harness-release` excluded)        |
+| `main` merge          | `release-harness.yml` — the harness package lane: Nx Release versions, stamps, tags `artisyn-implementation-harness-v*`, publishes npm + ZIP + attestations; off until `HARNESS_RELEASE_ENABLED` is `true` |
+| Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate                                                                                                                                        |
 
 See `.github/workflows/ci.yml` and `.github/workflows/cd.yml` for the current workflow definitions.
 
 ## Branch Protection
 
-`.github/CODEOWNERS` is configured, but the `main` branch protection _rule_ that actually enforces
-required reviews is not yet turned on in GitHub repo settings — a `CODEOWNERS` file with no
-protection rule requiring it is advisory only, not enforced.
+`main` is protected by a repository **ruleset** (Settings → Rules → Rulesets), not a classic
+branch protection rule. The ruleset is set up per `08 Harness Release Runbook.md`, step 1.
+`.github/CODEOWNERS` is configured, but it stays advisory until the ruleset requires Code Owner
+review.
 
-Recommended, once configured (Settings → Branches → branch protection rule for `main`):
+| Branch | Ruleset restrictions                                                                                                                                |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` | Pull request required; required checks `ci`, `version-gate`, `rename-gate`; no force-push; bypass actors: Repository admin role, GitHub Actions app |
 
-| Branch | Restrictions                                                                                        |
-| ------ | --------------------------------------------------------------------------------------------------- |
-| `main` | Direct pushes disabled; at least one Code Owner approval required; squash merge only; no force-push |
+Required status checks mirror job IDs `ci.yml` actually produces — don't require a check the
+pipeline doesn't produce. The `harness-package` and `harness-cli` jobs run on every PR but are
+advisory, not required.
 
-Required status checks should mirror what `ci.yml` actually runs (audit, lint, typecheck, build) —
-don't require a check the pipeline doesn't produce.
+The **Repository admin** bypass is interim: it carries the release PAT (`HARNESS_RELEASE_TOKEN`)
+and also lets any admin push to `main` directly, until an org GitHub App replaces it (TD-2 in the
+runbook). The **GitHub Actions** app bypass lets `release.yml` push its `chore(release)` commit.
+
+**Squash merges and the harness lane.** On a squash merge the PR title is the only commit that
+lands on `main`, so for a harness PR it is the commit Nx scores. The CI scope check runs over the
+PR's own commits, not the title, and the husky hook does not run on GitHub. Give a squash-merged
+harness PR a `harness`-scoped title of the right type (`feat(harness)!:` for a breaking change).
+See `08 Harness Release Runbook.md`, step 4.
 
 ## Rollback Strategy
 

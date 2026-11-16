@@ -6,7 +6,7 @@ keywords: [hld, index, navigation, containers]
 
 # Target Architecture (HLD)
 
-The system's design intent — what this repo's own platform (the ADLC Discovery Tool site) is built toward. Five containers: Web Explorer (promotional single-page app), Web Docs (VitePress static site), Web Portal (build-time composition of both into one deployable artifact tree, deployed to GitHub Pages), Discuss (client-side giscus comments widget), and Harness Bootstrap E2E (test harness for the `harness-bootstrap` skill).
+The system's design intent — what this repo's own platform (the ADLC Discovery Tool site) is built toward. Seven containers: Web Explorer (promotional single-page app), Web Docs (VitePress static site), Web Portal (build-time composition of both into one deployable artifact tree, deployed to GitHub Pages), Discuss (client-side giscus comments widget), Harness Bootstrap E2E (test harness for the `implementation-harness` skill package and the release tooling), Log Hub (opt-in local session-telemetry dev tooling), and Harness Release Pipeline (CI tooling that ships the harness package to its five channels).
 
 ## How This Directory Works
 
@@ -20,6 +20,8 @@ Each version lives in its own folder — see [README](./README.md) for version s
 | [v1/Containers — Web Docs](./v1/Containers/Web%20Docs.md)                                     | VitePress static documentation site                                |
 | [v1/Containers — Web Portal](./v1/Containers/Web%20Portal.md)                                 | Build-time composition into one deployable artifact tree           |
 | [v1/Containers — Discuss](./v1/Containers/Discuss.md)                                         | giscus-based comments widget                                       |
-| [v1/Containers — Harness Bootstrap E2E](./v1/Containers/Harness%20Bootstrap%20E2E.md)         | Test harness for the `harness-bootstrap` skill                     |
+| [v1/Containers — Harness Bootstrap E2E](./v1/Containers/Harness%20Bootstrap%20E2E.md)         | Test harness for the `implementation-harness` skill package        |
+| [v1/Containers — Log Hub](./v1/Containers/Log%20Hub.md)                                       | Opt-in local session-telemetry dev tooling                         |
+| [v1/Containers — Harness Release Pipeline](./v1/Containers/Harness%20Release%20Pipeline.md)   | CI tooling shipping the harness package to its five channels       |
 | [v1/Non-Functional Concerns — Requirements](./v1/Non-Functional%20Concerns/Requirements.md)   | NFRs — security, performance, and other cross-cutting requirements |
 | [v1/Non-Functional Concerns — Accessibility](./v1/Non-Functional%20Concerns/Accessibility.md) | Accessibility requirements (WCAG 2.2 AA target) for the website    |

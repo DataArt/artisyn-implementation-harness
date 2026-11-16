@@ -1,7 +1,16 @@
 ---
 id: ac73bb4d
-purpose: Map the end-to-end adoption path from first client conversation to continuous improvement
-keywords: [adoption path, pre-sales, discovery, development, operate, improve]
+purpose: Map the end-to-end adoption path from first client conversation to continuous improvement, including how a project installs and launches the harness
+keywords:
+  [
+    adoption path,
+    pre-sales,
+    discovery,
+    development,
+    operate,
+    improve,
+    implementation-harness launch,
+  ]
 ---
 
 # Adoption Path
@@ -49,9 +58,9 @@ flowchart LR
 
 ## Getting Started
 
-1. **Copy `.harness-bootstrap/`** into the project repo
-2. **Open a session** and run: `Initialise the harness for this project. Read and follow .harness-bootstrap/01 Bootstrap.md`
-3. **Answer Q1–Q11** — the harness generates skills, agents, CLAUDE.md, Engineering Guide, and HLD scaffold
+1. **Install the `implementation-harness` package** through one channel — plugin marketplace, npm install CLI, skills.sh, `gh skill` or Release ZIP ([Distribution → Install](<../09 Distribution/01 Install.md>))
+2. **Open a session** and run `/implementation-harness launch` (`/artisyn:implementation-harness launch` for plugin installs)
+3. **Answer the launch Q&A** — the harness generates skills, agents, CLAUDE.md, Engineering Guide, and HLD scaffold
 4. **Run the first `/dev` cycle** on a real ticket — the workflow is live from session one
 
 See **[01 SA Presales](01%20Pre-Sales.md)** for the pre-sales playbook, **[02 Discovery Phase](02%20Discovery%20Phase.md)** for the full discovery flow, and **[03 Development Phase](03%20Development%20Phase.md)** for day-to-day delivery.

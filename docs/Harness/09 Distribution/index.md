@@ -20,7 +20,7 @@ keywords:
 
 # Distribution
 
-> Applies from release 4.0.0. Until then, install 3.x from the versioned ZIP as described in [Quick Start](<../02 Quick Start/index.md>).
+> Applies from release 4.0.0, the first release cut by the automatic release pipeline. 3.x ZIPs are no longer published from the repository.
 
 Every harness release ships automatically to five channels, and every project installs a pinned version of the same read-only package.
 
@@ -34,7 +34,7 @@ flowchart LR
         REL["Version · changelog · tag · publish"]
     end
 
-    subgraph CH["Channels (pinned to a release)"]
+    subgraph CH["Channels (pinned)"]
         C1["Plugin marketplace dataart"]
         C2["GitHub Packages npm + install CLI"]
         C3["skills.sh"]
@@ -52,7 +52,7 @@ flowchart LR
     SRC --> REL
     REL --> C1
     REL --> C2
-    REL -->|"tag"| C3
+    REL -->|"default branch, commit recorded"| C3
     REL -->|"tag"| C4
     REL --> C5
     C1 --> PKG
@@ -107,11 +107,13 @@ The harness ships through five channels; only the npm channel needs a token.
 | 4   | `gh skill`                                                                          | No token              |
 | 5   | GitHub Release ZIP, with `.sha256` and a build attestation                          | No token              |
 
+The marketplace and `gh skill` channels read the repository at the release tag. skills.sh installs from the default branch and records the commit it resolved at install time. npm and the ZIP are artifacts the release workflow publishes. Codex and Copilot CLI marketplace values follow the official host documentation and are not yet verified on a real host.
+
 Curated third-party directories are not a channel.
 
 ## Pinning
 
-Every install pins a release: a tag, a semver version, or the commit recorded by skills.sh.
+Every install pins a version: a release tag, a semver version, or (skills.sh) the default-branch commit recorded at install time.
 
 - Marketplace entries and `gh skill` installs pin a release tag, never `main`.
 - ZIP links point at the tag's Release page, never at `/releases/latest`.
@@ -139,8 +141,8 @@ Downstream teams send improvements to the source repository; they come back to e
 
 ## In this section
 
-| Page                                                            | Contents                                                        |
-| --------------------------------------------------------------- | --------------------------------------------------------------- |
-| [01 Install](<./01 Install.md>)                                 | Install commands per channel, npm access, `init`, project state |
-| [02 Update and Migration](<./02 Update and Migration.md>)       | Update commands, `doctor`, migration from 3.x, the old command  |
-| [03 Versioning and Releases](<./03 Versioning and Releases.md>) | One version, automatic releases, integrity, rollback            |
+| Page                                                            | Contents                                                                                     |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [01 Install](<./01 Install.md>)                                 | Install commands per channel, npm access, `init` options, skills.sh discovery, project state |
+| [02 Update and Migration](<./02 Update and Migration.md>)       | Pinned update commands, `doctor`, migration from 3.x, the old command                        |
+| [03 Versioning and Releases](<./03 Versioning and Releases.md>) | One version, the release workflow and re-runs, integrity, rollback                           |

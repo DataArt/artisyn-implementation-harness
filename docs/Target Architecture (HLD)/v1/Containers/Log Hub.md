@@ -31,7 +31,7 @@ flowchart LR
     end
 
     CI["CI: ci.yml\nyarn nx run log-hub:verify\n(no Docker)"]:::ci
-    CANON["canonical/settings.json\n+ state/index.json hash"]:::canonical
+    CANON["skills/implementation-harness/\ncanonical/settings.json\n+ .harness/state/index.json hash"]:::canonical
 
     GH["GitHub Releases\nDataArt/artisyn-log-hub\ninstall.sh, docker-compose.yml, SHA256SUMS"]:::external
 
@@ -65,7 +65,7 @@ flowchart LR
 
 - Download and run a pinned release of the upstream Artisyn Log Hub server (Docker Compose, Mode 1 `AUTH_MODE=none`, loopback `127.0.0.1:5003`) on the contributor's own machine.
 - Install, upgrade and uninstall the upstream Claude Code hook plugin against that local server, registered at **local** Claude Code scope (`.claude/settings.local.json`). This never touches the committed `.claude/settings.json`.
-- Verify, in CI and on demand, that none of the above ever touches tracked settings or the canonical harness.
+- Verify, in CI and on demand, that none of the above ever touches tracked settings or the canonical harness — the canonical-hash check reads the harness source at `skills/implementation-harness/canonical/` against the project's `.harness/state/index.json`, and a missing file on either side is a finding, never a silent skip.
 - Optionally target a non-loopback server for `install-hook`/`uninstall-hook` via `LOG_HUB_SERVER_URL`, for a server already running locally or remotely — Mode 1 (`AUTH_MODE=none`) has no authentication of its own, so a non-loopback target has no built-in access control.
 
 ## Technology

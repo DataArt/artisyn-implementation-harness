@@ -1,7 +1,7 @@
 ---
 id: 1ff56a70
-purpose: Track how the bootstrap evolves from a copied git template into a distributable, composable platform
-keywords: [roadmap, registry distribution, implementation-harness, gaps]
+purpose: Track how the harness evolves from a copied git template into a distributable, composable platform — distribution implemented, later sections proposed
+keywords: [roadmap, registry distribution, implementation-harness, release pipeline, gaps]
 ---
 
 # Harness Roadmap
@@ -14,17 +14,19 @@ _How the bootstrap evolves from a git template into a distributable, composable 
 
 _From a copied git folder to a versioned, installable package._
 
-**Status:** designed (DESIGN-20261115-CO1T); ships from release 4.0.0.
+**Status:** implemented (DESIGN-20261115-CO1T, DEV-20261115-5DUE). The first release, 4.0.0, is cut by the release pipeline once it is enabled after merge.
 
-The harness is designed to ship through five pinned channels:
+The harness ships through five pinned channels:
 
 - Plugin marketplace `dataart`
-- GitHub Packages npm, with an install CLI
+- GitHub Packages npm, with the install CLI (`init`, `update`, `migrate`, `doctor`)
 - skills.sh
 - `gh skill`
-- Release ZIP
+- Release ZIP, with `.sha256` and a build attestation
 
-Releases are automatic, with a semantic version and a changelog. Existing 3.x installs get a migration path. Runtime state lives in the project's `.harness/state/`. The first release is 4.0.0.
+Releases are automatic (`release-harness.yml`, Nx Release), with one stamped semantic version and a changelog; the manual ZIP flow is retired. Existing 3.x installs migrate with `migrate`. Runtime state lives in the project's `.harness/state/`.
+
+**Open follow-up:** replace the interim release PAT with an org-level GitHub App, then split the release workflow into version and publish jobs (see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
 
 → See [Distribution](<../09 Distribution/index.md>).
 

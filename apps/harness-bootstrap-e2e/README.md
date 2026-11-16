@@ -115,8 +115,9 @@ integrations and lifecycles belong to case inputs.
 `createFixture()` copies source files into a unique scratch workspace. Tests
 never operate directly on fixture sources; unpopulated fixtures fail explicitly.
 `installSkillPackage()` copies the current authoring package into the selected
-host's skill directory and excludes package `state`. Consumer release-ZIP
-installation is a separate workflow. Scratch projects do not contain an
+host's skill directory and excludes `state/`, `node_modules` and `project.json`,
+which the shipped package never carries. Consumer installation goes through the
+distribution channels (`docs/Harness/09 Distribution/`). Scratch projects do not contain an
 `skills/implementation-harness/` authoring directory.
 
 `src/utils/providers.ts` centralizes `PROVIDERS`, the shared `Provider` type,

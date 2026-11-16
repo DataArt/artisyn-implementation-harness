@@ -1,8 +1,12 @@
+---
+id: 2d5d10cf
+---
+
 # Artisyn Implementation Harness
 
 ## Why
 
-This repo is the canonical source of the Artisyn Implementation Harness — an AI-first engineering lifecycle system (skills, agents, and conventions) that runs this platform's own development and can be bootstrapped into other projects via `.canonical-implementation-harness/` (released as a versioned ZIP under `releases/harness-bootstrap/`, installed with `/harness-bootstrap launch`). The harness tracks design work, engineering decisions, and skill patterns from design through publication.
+This repo is the canonical source of the Artisyn Implementation Harness — an AI-first engineering lifecycle system (skills, agents, and conventions) that runs this platform's own development and ships into other projects as the `implementation-harness` skill package (source `skills/implementation-harness/`, released automatically to five channels — npm on GitHub Packages, Release ZIP, plugin marketplace, skills.sh, `gh skill` — and installed with `/implementation-harness launch`; see `docs/Harness/09 Distribution/`). The harness tracks design work, engineering decisions, and skill patterns from design through publication.
 
 ## What
 
@@ -25,7 +29,9 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 | Web Explorer   | Promotional single-page app, served at the GitHub Pages project-site root | React 19 · Vite · react-router-dom |
 | Web Portal     | Composition-only Nx project, no application source — assembles Web Explorer's and Web Docs's independently-built static outputs into one deployable artifact tree for GitHub Pages | Nx composition script only |
 | Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
-| Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
+| Harness Bootstrap E2E | Test harness validating the `implementation-harness` skill package and the release tooling — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
+| Log Hub | Opt-in dev tooling: local Log Hub server (Docker Compose) plus a local-scope Claude Code hook capturing session telemetry; no presence in the deployed site | Docker Compose · TypeScript via `tsx` · Nx |
+| Harness Release Pipeline | CI tooling: `release-harness.yml` versions, publishes and attests the harness package to its five channels on push to `main` | GitHub Actions · Nx Release |
 
 Data flow: Browser → GitHub Pages (static build, deployed by GitHub Actions) — root → Web Explorer, `/docs/` → Web Docs, both composed by Web Portal. Discuss integrates client-side with giscus.app/GitHub Discussions.
 
@@ -47,7 +53,7 @@ Key constraint: the site is public — no access gate sits in front of any route
 | `/war`                | Architecture lifecycle router (`design` / `implementation` / version)  |
 | `/where-we-are`       | Delivery gap report: Designed vs Implemented vs Documented             |
 | `/x-ray`               | Full-strength, project-aware code review — heavier reviewer pass, typically run by whoever approves the MR |
-| `/harness-bootstrap`  | Harness install and cross-project patch router (`launch` / `patch harvest` / `patch prepare` / `patch apply`) |
+| `/implementation-harness` | Harness install and cross-project patch router (`launch` / `patch harvest` / `patch prepare` / `patch apply` / `reindex-graph`) |
 
 ## How
 
@@ -65,7 +71,7 @@ Evolve phases: `/evolve reflect` → `/evolve triage` → `/evolve draft` → `/
 
 Architecture: `/where-we-are` · `/war design` · `/war implementation`
 
-Harness bootstrap: `/harness-bootstrap launch` · `/harness-bootstrap patch harvest` · `/harness-bootstrap patch prepare` · `/harness-bootstrap patch apply`
+Implementation harness: `/implementation-harness launch` · `/implementation-harness patch harvest` · `/implementation-harness patch prepare` · `/implementation-harness patch apply` · `/implementation-harness reindex-graph`
 
 ### Work outside a ticket
 

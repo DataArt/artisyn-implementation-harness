@@ -1,8 +1,12 @@
+---
+id: 8ec9a00b
+---
+
 # Artisyn Implementation Harness
 
 DataArt's AI-first engineering lifecycle system — a structured workflow layered on an AI coding assistant. Instead of prompting the assistant ad-hoc, work runs through specialised, lifecycle-aware agents governed by encoded conventions (skills) and feedback loops (reflections → skill library).
 
-This repo is the harness's canonical source: it runs its own development through the harness, and the harness itself is portable — `.canonical-implementation-harness/` is the self-contained package that instantiates it in any project.
+This repo is the harness's canonical source: it runs its own development through the harness, and the harness itself is portable — `skills/implementation-harness/` is the self-contained package that instantiates it in any project, released automatically to five channels (plugin marketplace, GitHub Packages npm, skills.sh, `gh skill`, Release ZIP).
 
 ## The problem it solves
 
@@ -44,11 +48,20 @@ This repo is built at the full-harness end of that spectrum, deliberately. It is
 
 New here? Run `@onboarding` inside Claude Code — a conversational, read-only walkthrough that orients you without running any commands.
 
-Bring the harness into a new project:
+Bring the harness into a new project — install through any channel, then launch. Via the plugin marketplace:
 
+```bash
+claude plugin marketplace add DataArt/artisyn-implementation-harness
+claude plugin install artisyn@dataart
 ```
-/harness-bootstrap launch
+
+then run `/artisyn:implementation-harness launch`. Or via the npm install CLI (GitHub Packages, `read:packages` token):
+
+```bash
+npx @dataart/artisyn-implementation-harness init
 ```
+
+then run `/implementation-harness launch`. These are consumer-side commands, run in the project that installs the harness; inside this repo, use `yarn`. All five channels (incl. the anonymous Release ZIP) are in [docs/Harness/09 Distribution](<docs/Harness/09 Distribution/index.md>).
 
 Run a ticket through the harness:
 

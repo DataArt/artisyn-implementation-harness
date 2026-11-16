@@ -1,6 +1,6 @@
 ---
 id: 5b93d0e8
-purpose: Install commands per channel, npm access, what the install CLI init does, and the project state root with its commit rule
+purpose: Install commands per channel, npm access, the install CLI init options, skills.sh discovery, and the project state root with its commit rule
 keywords:
   [
     install,
@@ -19,7 +19,7 @@ keywords:
 
 # Install
 
-> Applies from release 4.0.0. Until then, install 3.x from the versioned ZIP as described in [Quick Start](<../02 Quick Start/index.md>).
+> Applies from release 4.0.0, the first release cut by the automatic release pipeline. 3.x ZIPs are no longer published from the repository.
 
 Install the package through one channel, then run `launch`; launch creates the project's `.harness/state/`.
 
@@ -59,17 +59,21 @@ flowchart LR
 
 Each channel has one install step and one launch command.
 
-| Channel               | Install                                                                                                                                                                                                               | Launch                                                                                                                          |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Code           | `claude plugin marketplace add DataArt/artisyn-implementation-harness`, then `claude plugin install artisyn@dataart`                                                                                                  | `/artisyn:implementation-harness launch`                                                                                        |
-| Codex                 | `codex plugin marketplace add DataArt/artisyn-implementation-harness`, then install `artisyn` from `/plugins`                                                                                                         | `$artisyn:implementation-harness launch` (where Codex lists plugin skills without the prefix: `$implementation-harness launch`) |
-| Copilot CLI           | `copilot plugin marketplace add DataArt/artisyn-implementation-harness`, then `copilot plugin install artisyn@dataart`                                                                                                | `/artisyn:implementation-harness launch`                                                                                        |
-| skills.sh             | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness`                                                                                                                                | `/implementation-harness launch`                                                                                                |
-| gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v<version> --agent <host> --scope project` (the `@<tag>` form is the only supported one)               | `/implementation-harness launch`                                                                                                |
-| npm (GitHub Packages) | `npx @dataart/artisyn-implementation-harness init`                                                                                                                                                                    | `/implementation-harness launch`                                                                                                |
-| ZIP                   | Download `artisyn-implementation-harness-v<version>.zip` and its `.sha256` from the tag's GitHub Release, verify the checksum, unzip into `<provider>/skills/implementation-harness/` (or run the bundled CLI `init`) | `/implementation-harness launch`                                                                                                |
+| Channel               | Install                                                                                                                                                                                                                                                                                                                | Launch                                                                                                                          |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Code           | `claude plugin marketplace add DataArt/artisyn-implementation-harness`, then `claude plugin install artisyn@dataart`                                                                                                                                                                                                   | `/artisyn:implementation-harness launch`                                                                                        |
+| Codex                 | `codex plugin marketplace add DataArt/artisyn-implementation-harness`, then install `artisyn` from `/plugins`                                                                                                                                                                                                          | `$artisyn:implementation-harness launch` (where Codex lists plugin skills without the prefix: `$implementation-harness launch`) |
+| Copilot CLI           | `copilot plugin marketplace add DataArt/artisyn-implementation-harness`, then `copilot plugin install artisyn@dataart`                                                                                                                                                                                                 | `/artisyn:implementation-harness launch`                                                                                        |
+| skills.sh             | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness`                                                                                                                                                                                                                                 | `/implementation-harness launch`                                                                                                |
+| gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v<version> --scope project` (the `@<tag>` form is the only supported one)                                                                                                                               | `/implementation-harness launch`                                                                                                |
+| npm (GitHub Packages) | `npx @dataart/artisyn-implementation-harness init`                                                                                                                                                                                                                                                                     | `/implementation-harness launch`                                                                                                |
+| ZIP                   | Download `artisyn-implementation-harness-v<version>.zip` and its `.sha256` from the tag's GitHub Release, verify the checksum, unzip into `<provider>/skills/` (`.claude/skills/`, `.agents/skills/` or `.github/skills/`) — the ZIP's top folder is already `implementation-harness/` — or run the bundled CLI `init` | `/implementation-harness launch`                                                                                                |
 
 Codex uses `$` instead of `/` for direct installs: `$implementation-harness launch`.
+
+The `npx` commands are consumer-side: run them in the project that installs the harness. Inside this repository, the yarn-only rule still applies.
+
+skills.sh discovery note: the repo's `skills.sh.json` (`paths: ["./skills"]`) only adds folders to the skills CLI's standard scan locations — it does not restrict discovery. The harness repo's own six deployed lifecycle skills stay out of the listing through `metadata.internal: true` in their frontmatter, so `npx skills add … --list` shows the harness (and, in 4.x, the shim) rather than the repo's internal skills.
 
 ## npm access
 
@@ -86,18 +90,24 @@ The npm channel needs a `read:packages` token; the token never goes into the rep
 
 ## What `init` does
 
-`init` places the package and prepares the project for launch. It requires Node 22 or newer.
+`init` places the package and prepares the project for launch. The install CLI (`bin/artisyn-implementation-harness.mjs`, commands `init`, `update`, `migrate`, `doctor`) uses only Node built-ins and requires Node 22.2 or newer.
 
-1. Detects `.claude/`, `.agents/` and `.github/`, or takes `--provider`.
-2. Places the package in the first selected provider's skills folder, in that order.
-3. Creates `.harness/state/`.
-4. Prints the launch command.
+1. Detects `.claude/`, `.agents/` and `.github/` (in that order), or takes `--provider claude|codex|copilot` (repeatable). No provider found exits 2.
+2. Places the package in the first selected provider's `skills/implementation-harness/`. A different installed version is refused unless `--force` is passed.
+3. Creates `.harness/state/`, writes its ignore entries, and records the package with `--channel npm|zip` (default `npm`).
+4. Warns when old 3.x state needs `migrate`, then prints the launch command in the provider's syntax.
+
+| Option / variable              | Effect                                                                                   |
+| ------------------------------ | ---------------------------------------------------------------------------------------- |
+| `--dir <path>`                 | Project root. Default: the git top level, else the working directory                     |
+| `ARTISYN_HARNESS_PROJECT_ROOT` | Environment override for the project root (CI and tests); checked before git             |
+| `--release-base-url <url>`     | Release origin for the zip channel's `update`. Accepts `https:` or loopback `http:` only |
 
 ## Project state
 
 Each project has one `.harness/state/` for all providers.
 
-- It is resolved from the project root: the git top level, else the working directory. It never depends on where the package lives.
+- It is resolved from the project root: `ARTISYN_HARNESS_PROJECT_ROOT`, else the git top level, else the working directory. It never depends on where the package lives, and it is never inside the package.
 - It sits beside evolve's `.harness/evolve/` and `.harness/reflections/` and does not own them.
 - Launch writes the ignore entries. It never untracks files.
 

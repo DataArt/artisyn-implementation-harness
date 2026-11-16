@@ -19,6 +19,6 @@ Research and source-level analysis of the harness, its delivery workflows, and c
 
 ## Package catalog
 
-_Known:_ the package itself (`.canonical-implementation-harness/`) lives outside `docs/`, so it isn't rendered in this site. It's browsable directly on GitHub or in a checkout.
+_Known:_ the package itself (`skills/implementation-harness/`) lives outside `docs/`, so it isn't rendered in this site. It's browsable directly on GitHub or in a checkout.
 
 _Placeholder:_ this page should eventually be a hand-authored, site-safe catalog — one entry per agent/skill, what it does, and a link to its source in the package — so people can explore the harness without leaving the site.
