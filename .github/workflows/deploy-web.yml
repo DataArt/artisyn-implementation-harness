@@ -1,8 +1,17 @@
-name: CD
+name: Deploy web
+
+# Builds the site (Web Explorer, Web Docs, composed by Web Portal) and deploys it to GitHub Pages.
+# Starts only when a push touches the site: the web apps or the docs Web Docs renders. Both make
+# web-portal affected, so the affected build always produces apps/web-portal/dist. (A change to
+# this file alone affects no project, so it is not in the filter; it takes effect on the next
+# site change.)
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'apps/web-*/**'
+      - 'docs/**'
 
 permissions:
   contents: read
@@ -26,10 +35,10 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      # Always the whole site: Pages replaces everything it serves, so a partial (affected) build
-      # would leave apps/web-portal/dist missing whenever a push did not touch the site.
+      # Affected by the whole push (every commit since the previous tip of main), not only its
+      # last commit.
       - name: Build site
-        run: yarn nx run-many --target=build --projects=web-portal --configuration=ci
+        run: yarn nx affected --target=build --configuration=ci --base=${{ github.event.before }} --head=HEAD
         env:
           VITE_GITHUB_ORG: ${{ vars.VITE_GITHUB_ORG }}
           VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
