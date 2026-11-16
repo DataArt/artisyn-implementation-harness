@@ -1,7 +1,7 @@
 ---
 id: 1ff56a70
-purpose: Track how the bootstrap evolves from a copied git template into a distributable, composable platform
-keywords: [roadmap, registry distribution, harness-bootstrap, gaps]
+purpose: Track how the harness evolves from a copied git template into a distributable, composable platform — distribution implemented, later sections proposed
+keywords: [roadmap, registry distribution, implementation-harness, release pipeline, gaps]
 ---
 
 # Harness Roadmap
@@ -14,24 +14,21 @@ _How the bootstrap evolves from a git template into a distributable, composable 
 
 _From a copied git folder to a versioned, installable package._
 
-**Current state**
+**Status:** implemented (DESIGN-20261115-CO1T, DEV-20261115-5DUE). The first release, 4.0.0, is cut by the release pipeline when PR #20 merges.
 
-The bootstrap is distributed as a versioned ZIP (`releases/harness-bootstrap/`, built from `.canonical-implementation-harness/`), extracted into a new repo and installed with `/harness-bootstrap launch`. `patch harvest`/`patch apply` let an installed project pull in later canonical updates. This works but:
+The harness ships through five pinned channels:
 
-- No registry — teams have to know the bootstrap exists and fetch the ZIP manually
-- No single-command upgrade — `patch apply` works, but there's no `yarn add`-style pull
+- Plugin marketplace `dataart`
+- GitHub Packages npm, with the install CLI (`init`, `update`, `doctor`)
+- skills.sh
+- `gh skill`
+- Release ZIP, with `.sha256` and a build attestation
 
-**Target state**
+Releases run through one workflow, with one stamped semantic version and a changelog: each PR stamps its version (`yarn harness:version`, Nx Release), `release-harness.yml` builds it on merge, and publishes it after a reviewer approves. The manual ZIP flow is retired. Runtime state lives in the project's `.harness/state/`.
 
-```
-yarn add @artisyn-harness/bootstrap
-```
+This is the repository's only release lane. Nothing pushes to `main`, so the `main` ruleset has no bypass actors (see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
 
-- Semantic versioning — projects pin a version and upgrade deliberately
-- Changelog — teams can see what changed and why
-- Registry — internal npm / GitHub Packages / Artifactory
-
-> Open questions: which registry, monorepo structure, CLI vs library, migration path for existing projects
+→ See [Distribution](<../09 Distribution/index.md>).
 
 ---
 

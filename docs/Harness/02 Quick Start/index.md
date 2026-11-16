@@ -1,38 +1,55 @@
 ---
 id: 32b4135e
-purpose: Human-facing quick start for bringing the harness into a project via /harness-bootstrap launch
-keywords: [quick start, bootstrap, onboarding, harness-bootstrap launch]
+purpose: Human-facing quick start for bringing the harness into a project — install the implementation-harness package through a channel, then run /implementation-harness launch
+keywords: [quick start, onboarding, implementation-harness launch, install, channels]
 ---
 
 # Quick Start
 
-Bring the harness into a project by pointing an AI coding assistant at `/harness-bootstrap launch`. The assistant installs skills, agents, and guide docs, personalized to that project, from a versioned release package.
+Install the `implementation-harness` package through one channel, then point an AI coding assistant at `/implementation-harness launch`. The assistant installs skills, agents, and guide docs, personalized to that project.
 
 ```mermaid
 flowchart LR
+    I["📦 Install\none channel"]:::install
     C["📋 Context\nread the project"]:::stage
     Q["❓ Q&A\nconfirm what's unclear"]:::stage
     G["⚙️ Generation\ninstall skills, agents, docs"]:::stage
     V["✅ Cleanup\nverify + report"]:::stage
 
-    C --> Q --> G --> V
+    I --> C --> Q --> G --> V
 
+    classDef install fill:#15803D,stroke:#14532D,color:#fff
     classDef stage fill:#D97706,stroke:#B45309,color:#fff
 ```
 
 ## Prerequisites
 
 - A git repository — initialize one first if the project doesn't have one yet.
-- An AI coding assistant with skill support: Claude Code, GitHub Copilot, or Codex.
-- The released package, `.canonical-implementation-harness/`, extracted into the project root. Pull the latest versioned ZIP from this repo's `releases/harness-bootstrap/`.
+- An AI coding assistant with skill support: Claude Code, Codex, or Copilot CLI.
+
+## Install
+
+Pick one channel. The two most common:
+
+```bash
+# Plugin marketplace (Claude Code)
+claude plugin marketplace add DataArt/artisyn-implementation-harness
+claude plugin install artisyn@dataart
+
+# npm install CLI (GitHub Packages, needs a read:packages token)
+npx @dataart/artisyn-implementation-harness init
+```
+
+Every channel — Codex, Copilot CLI, skills.sh, `gh skill`, and the anonymous Release ZIP — is in [Distribution → Install](<../09 Distribution/01 Install.md>).
 
 ## Run it
 
 Invoke the skill in the host's native syntax:
 
 ```
-/harness-bootstrap launch      # Claude Code or Copilot
-$harness-bootstrap launch      # Codex
+/implementation-harness launch           # Claude Code or Copilot CLI, direct install
+$implementation-harness launch           # Codex, direct install
+/artisyn:implementation-harness launch   # plugin install
 ```
 
 No arguments also triggers launch.
@@ -44,7 +61,7 @@ No arguments also triggers launch.
 - **Generation** — it installs personalized skills, agents, and guide docs under the project, plus a baseline manifest for future patch operations.
 - **Cleanup** — it verifies the install and reports what was created.
 
-Launch runs to completion in one session — it doesn't hand off mid-run and resume later. A dated report under `package:state/` records progress and the answers given.
+Launch runs to completion in one session — it doesn't hand off mid-run and resume later. A dated report under `.harness/state/launch/reports/` records progress, and `.harness/state/launch/answers.json` records the answers given.
 
 ## After launch
 
@@ -59,10 +76,10 @@ Run a ticket through the lifecycle:
 
 ## Keeping the harness current
 
-`/harness-bootstrap patch` pulls canonical updates into an already-bootstrapped project, or pushes local improvements back into the canonical source:
+Refresh the package through its channel, then run `/implementation-harness patch apply` — see [Update](<../09 Distribution/02 Update.md>). The full patch router:
 
-- `patch harvest [scope]` — generalize a permanent-file improvement into canonical files.
-- `patch prepare [scope]` — package a direct canonical edit into a portable bundle.
-- `patch apply [scope | bundle path]` — personalize canonical updates into the project.
+- `patch apply [scope | bundle path]` — personalize canonical updates into the project (consumer projects).
+- `patch harvest [scope]` — generalize a permanent-file improvement into canonical files (harness source repository only).
+- `patch prepare [scope]` — package a direct canonical edit into a portable bundle (harness source repository only).
 
 → See [03 Lifecycles](<../03 Lifecycles/00 Overview.md>) for how launch and patch fit the harness's other lifecycles.

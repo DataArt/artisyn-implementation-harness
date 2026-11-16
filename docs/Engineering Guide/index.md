@@ -20,6 +20,9 @@ The top-level articles cover conventions and setup — read [Doc Structure](./Do
 | [05 Getting Started](./05%20Getting%20Started.md)                               | First-time setup and daily commands for the monorepo                                                                             |
 | [06 MCP Setup](./06%20MCP%20Setup.md)                                           | Connecting Claude Code to AWS, GitHub, and Atlassian via MCP                                                                     |
 | [07 Log Hub Setup](./07%20Log%20Hub%20Setup.md)                                 | Opt-in local Log Hub server + Claude Code hook setup for session telemetry, and the data-disclosure contributors must read first |
+| [07 Branching Strategy](./07%20Branching%20Strategy.md)                         | Trunk-based branch flow, naming, the `main` ruleset and rollback                                                                 |
+| [08 Harness Release Runbook](./08%20Harness%20Release%20Runbook.md)             | One-time setup, per-PR `yarn harness:version`, first release and per-channel smoke checks for the harness release lane           |
+| [09 CI-CD](./09%20CI-CD.md)                                                     | Every GitHub Actions workflow, required vs advisory checks, local reproduction of each gate, and the two release lanes           |
 
 ### Documentation
 

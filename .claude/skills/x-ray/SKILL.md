@@ -1,5 +1,7 @@
 ---
 name: x-ray
+metadata:
+  internal: true
 description: >
   Review a diff for correctness, project conventions and architecture alignment.
   Route component checks to installed specialists, preserve independent review
@@ -162,7 +164,7 @@ to an Overview-only-of-substance page in that case (see its own "Critical issues
 the empty case). For inline generation, save under the identified ticket’s `interactive-review/` folder; otherwise use a project-local review folder and report its path. If no, stop here — do not build anything.
 
 > **Not yet deployed in this project:** `@interactive-demo` has no canonical template in
-> `.claude/skills/harness-bootstrap/` — it is expected to arrive via a separate harvest from a
+> `.claude/skills/implementation-harness/` — it is expected to arrive via a separate harvest from a
 > project that already has it (see `x-ray/INTENT.md`'s Conditionals). Until then, answering
 > "yes" here will fail to find the agent; say so plainly rather than trying to improvise its
 > behavior yourself.

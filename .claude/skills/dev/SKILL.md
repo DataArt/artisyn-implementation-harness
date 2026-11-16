@@ -2,6 +2,7 @@
 name: dev
 metadata:
   version: 3.1.0
+  internal: true
 description: >
   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
   → Test → Document → Completion, or a single stage via

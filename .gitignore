@@ -24,7 +24,7 @@ dist/
 /tmp/
 
 # Retained agent-e2e runs: report.json is kept, the scratch workspaces are not
-/apps/harness-bootstrap-e2e/runs/*/fixture*/
+/apps/implementation-harness-e2e/runs/*/fixture*/
 
 # CDK
 cdk.out/
@@ -51,8 +51,13 @@ cdk.out/
 .yarn/build-state.yml
 .yarn/install-state.gz
 
-# Harness bootstrap portable toolkit (not deployed harness output)
-#/.canonical-implementation-harness/
-!/.canonical-implementation-harness/state/answers.json
+# Implementation harness runtime state: generated, per-run or per-machine files.
+# Everything else under .harness/state/ is committed (index.json, registry.md,
+# launch/answers.json, launch/package.json, patch/APPLIED.md).
+.harness/state/objects/
+.harness/state/launch/runs/
+.harness/state/launch/reports/
+.harness/state/launch/package.local.json
+
 .claude/skills/internal-use-skill-plugin-security-review
 .claude/skills/deck-design-corporate

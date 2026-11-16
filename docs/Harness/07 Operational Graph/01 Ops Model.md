@@ -1,7 +1,15 @@
 ---
 id: 04bbbf49
 purpose: Describe the knowledge graph's system context and how lifecycle skills wire into it
-keywords: [knowledge graph, ops model, system context, operational-graph]
+keywords:
+  [
+    knowledge graph,
+    ops model,
+    system context,
+    operational-graph,
+    implementation-harness launch,
+    reindex-graph,
+  ]
 ---
 
 # Ops Model
@@ -16,7 +24,7 @@ flowchart TD
 
     subgraph HARNESS ["🧰 Bootstrap & lifecycle skills"]
         direction TB
-        BOOT["🚀 /harness-bootstrap launch"]:::skill
+        BOOT["🚀 /implementation-harness launch"]:::skill
         CTX["🎯 /dev context\n/design frame · research"]:::skill
         PUB["📤 /dev document\n/design publish"]:::skill
     end
@@ -118,10 +126,10 @@ Nodes are typed — each is one of the six types above. Edges are typed and dire
 
 ## Settled interfaces
 
-| Component                                | Settled interface                                                                                                                                                                                                                                                |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `cli.mjs` (+ satellites)                 | The script. Ships from the canonical shipping root `.canonical-implementation-harness/canonical/docs/.og/`, deployed into a project's `docs/.og/` by `/harness-bootstrap launch`'s Materialize stage or the standalone `/harness-bootstrap reindex-graph` route. |
-| `docs/.og/docs-operational-graph.sqlite` | The data file. Sole producer and consumer is `cli.mjs`.                                                                                                                                                                                                          |
+| Component                                | Settled interface                                                                                                                                                                                                                                                      |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cli.mjs` (+ satellites)                 | The script. Ships from the canonical shipping root `skills/implementation-harness/canonical/docs/.og/`, deployed into a project's `docs/.og/` by `/implementation-harness launch`'s Materialize stage or the standalone `/implementation-harness reindex-graph` route. |
+| `docs/.og/docs-operational-graph.sqlite` | The data file. Sole producer and consumer is `cli.mjs`.                                                                                                                                                                                                                |
 
 ## Lifecycle wiring
 
@@ -171,14 +179,14 @@ sequenceDiagram
 
 ## Bootstrap wiring
 
-The script ships from the canonical shipping root `.canonical-implementation-harness/canonical/docs/.og/`. `/harness-bootstrap launch`'s Materialize stage deploys it into the project's `docs/.og/` and runs it proactively: it assigns deterministic, collision-safe frontmatter IDs to any doc missing one and builds the initial graph in the same pass, silently on success. The standalone `/harness-bootstrap reindex-graph` route deploys and runs the same script on demand, without a full launch.
+The script ships from the canonical shipping root `skills/implementation-harness/canonical/docs/.og/`. `/implementation-harness launch`'s Materialize stage deploys it into the project's `docs/.og/` and runs it proactively: it assigns deterministic, collision-safe frontmatter IDs to any doc missing one and builds the initial graph in the same pass, silently on success. The standalone `/implementation-harness reindex-graph` route deploys and runs the same script on demand, without a full launch.
 
-`/harness-bootstrap launch` invokes the same script to seed the graph for an existing doc tree:
+`/implementation-harness launch` invokes the same script to seed the graph for an existing doc tree:
 
 ```mermaid
 sequenceDiagram
     actor Dev as Developer/Agent
-    participant Boot as /harness-bootstrap launch
+    participant Boot as /implementation-harness launch
     participant Script as cli.mjs
     participant Docs as Existing docs/
     participant DB as docs-operational-graph.sqlite

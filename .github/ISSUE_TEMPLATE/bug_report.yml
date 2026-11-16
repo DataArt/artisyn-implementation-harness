@@ -14,8 +14,8 @@ body:
       label: Area
       description: Where the bug lives.
       options:
-        - Harness skills or agents (.claude/, .canonical-implementation-harness/)
-        - Harness bootstrap (/harness-bootstrap launch or patch)
+        - Harness skills or agents (.claude/, skills/implementation-harness/)
+        - Implementation harness (/implementation-harness launch or patch)
         - Web Explorer (landing site)
         - Web Docs (documentation site)
         - CI / release tooling
@@ -26,8 +26,8 @@ body:
     id: version
     attributes:
       label: Harness version
-      description: The release you installed from, e.g. `artisyn-harness-bootstrap-v3.5.0.zip`, or the commit if you run from this repo. For the website, the page URL is enough.
-      placeholder: '3.5.0'
+      description: The release you installed from, e.g. `artisyn-implementation-harness-v4.0.0.zip`, or the commit if you run from this repo. For the website, the page URL is enough.
+      placeholder: '4.0.0'
   - type: textarea
     id: what-happened
     attributes:

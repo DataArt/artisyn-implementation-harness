@@ -1,7 +1,7 @@
 ---
 id: ec02f7b8
 purpose: Explain how the harness compresses client discovery into a working project skeleton
-keywords: [discovery phase, project skeleton, context decay]
+keywords: [discovery phase, project skeleton, context decay, implementation-harness launch]
 ---
 
 # Discovery Phase
@@ -67,7 +67,7 @@ flowchart LR
 
 ## Discovery Lifecycle (SA-Led)
 
-1. **Bootstrap the repo** — copy `.harness-bootstrap/`, answer Q1–Q11 from client context; generates agents, skills, CLAUDE.md, HLD scaffold
+1. **Bootstrap the repo** — install the `implementation-harness` package through one channel ([Distribution → Install](<../09 Distribution/01 Install.md>)), run `/implementation-harness launch`, and answer its Q&A from client context; generates agents, skills, CLAUDE.md, HLD scaffold
 2. **Run `/design frame`** on each major capability — structures problem statements, ACs, boundaries from RFP and workshop notes
 3. **Draft the HLD** — use `/design solution` to produce an initial Target Architecture from the framed capabilities
 4. **Pre-load memory** — capture key decisions, client constraints, open questions, compliance requirements as structured memory files

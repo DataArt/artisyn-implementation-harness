@@ -23,19 +23,26 @@ flowchart TB
     root --> explorer["web-explorer\napps/web-explorer"]
     root --> portal["web-portal\napps/web-portal"]
     root --> docs["docs\ndocs/"]
+    root --> harness["artisyn-implementation-harness\nskills/implementation-harness"]
 
     class site app
     class explorer app
     class portal app
     class docs content
+    class harness content
 ```
 
-| NX project     | Path                | Stack               | Purpose                                                                    |
-| -------------- | ------------------- | ------------------- | -------------------------------------------------------------------------- |
-| `web-docs`     | `apps/web-docs`     | VitePress           | Documentation site, served under `/docs/`                                  |
-| `web-explorer` | `apps/web-explorer` | React 19 · Vite     | Promotional landing page + Inside the Loop section, served at the root     |
-| `web-portal`   | `apps/web-portal`   | Nx composition only | No source — assembles `web-explorer` + `web-docs` into one deployable tree |
-| `docs`         | `docs/`             | Markdown            | Content library (implicit dep of `web-docs`)                               |
+| NX project                       | Path                              | Stack               | Purpose                                                                     |
+| -------------------------------- | --------------------------------- | ------------------- | --------------------------------------------------------------------------- |
+| `web-docs`                       | `apps/web-docs`                   | VitePress           | Documentation site, served under `/docs/`                                   |
+| `web-explorer`                   | `apps/web-explorer`               | React 19 · Vite     | Promotional landing page + Inside the Loop section, served at the root      |
+| `web-portal`                     | `apps/web-portal`                 | Nx composition only | No source — assembles `web-explorer` + `web-docs` into one deployable tree  |
+| `docs`                           | `docs/`                           | Markdown            | Content library (implicit dep of `web-docs`)                                |
+| `artisyn-implementation-harness` | `skills/implementation-harness`   | npm workspace       | The harness skill package — versioned and published by the release pipeline |
+| `implementation-harness-e2e`     | `apps/implementation-harness-e2e` | Vitest · TypeScript | Test harness for the skill package and release tooling                      |
+| `log-hub`                        | `apps/log-hub`                    | tsx scripts         | Opt-in local session-telemetry tooling (see `07 Log Hub Setup.md`)          |
+
+This repo also runs the harness on itself: its runtime state lives at `.harness/state/` (committed per the rules in `docs/Harness/09 Distribution/01 Install.md`), and the harness package is installed in projects via the channels in `docs/Harness/09 Distribution/`. Releasing the package is automated — see `08 Harness Release Runbook.md`.
 
 ---
 

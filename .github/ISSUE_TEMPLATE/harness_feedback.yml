@@ -26,8 +26,8 @@ body:
     attributes:
       label: Where it happened
       options:
-        - /harness-bootstrap launch
-        - /harness-bootstrap patch
+        - /implementation-harness launch
+        - /implementation-harness patch
         - /design lifecycle
         - /dev lifecycle
         - /evolve lifecycle
@@ -48,7 +48,7 @@ body:
     id: workaround
     attributes:
       label: Workaround or local patch
-      description: If you changed a skill, agent, or template locally, paste the diff or describe the change. This is what `/harness-bootstrap patch harvest` would pick up.
+      description: If you changed a skill, agent, or template locally, paste the diff or describe the change. This is what `/implementation-harness patch harvest` would pick up.
   - type: checkboxes
     id: consent
     attributes:

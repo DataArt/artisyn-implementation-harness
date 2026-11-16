@@ -1,7 +1,16 @@
 ---
 id: 028f0622
 purpose: Portable conventions for root context files, skill authoring, doc naming, and commit messages
-keywords: [conventions, CLAUDE.md, skill authoring, file naming, commit messages]
+keywords:
+  [
+    conventions,
+    CLAUDE.md,
+    skill authoring,
+    file naming,
+    commit messages,
+    harness scope,
+    commit-msg hook,
+  ]
 ---
 
 # Conventions
@@ -46,4 +55,17 @@ Numbers 04–08 in `Engineering Guide/` are reserved for project-specific articl
 
 ## Commit messages
 
-`<type>(<scope>): <what changed>` — types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`. Scope is the app or layer. Message explains the _why_, not the _what_.
+`<type>(<scope>): <what changed>` — types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `revert`. Scope is the app or layer. Message explains the _why_, not the _what_.
+
+**Harness scope is enforced.** A commit that touches `skills/implementation-harness/**`, `.claude-plugin/`, `.agents/plugins/` or `skills.sh.json` must use scope `harness` (the version commit uses `harness-release`). A failure names the files and the fix.
+
+| Where                       | Checks                                    | Skips                             |
+| --------------------------- | ----------------------------------------- | --------------------------------- |
+| `.husky/commit-msg` (local) | Each commit message, against staged files | `Merge …` and `Revert …` subjects |
+| CI (`ci.yml`, `docs-gate`)  | Every commit in the PR range              | Merge commits only                |
+
+CI does not skip reverts, so give a GitHub `Revert "…"` commit that touches harness files a scoped subject (`revert(harness): …`). Neither check sees a squash-merge PR title; on a squash merge the title is what lands on `main` — see `07 Branching Strategy.md`.
+
+The scope keeps harness changes apart in history and in the changelog Nx Release writes. The repository itself is not versioned; the harness release lane bumps on commits that touch `skills/implementation-harness/` (Nx matches by path, `useCommitScope: false`), and this check makes those commits `harness`-scoped.
+
+**Harness PRs carry their version.** Before merge, run `yarn harness:version` on the branch and commit the result as `chore(harness-release): <version>`. The `version-gate` check fails until the branch is stamped with the version its commits call for. See `08 Harness Release Runbook.md`, step 4.

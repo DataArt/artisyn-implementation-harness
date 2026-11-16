@@ -29,9 +29,9 @@ Doing nothing uploads nothing. Read this article in full before running `log-hub
 
 ## 1. Prerequisites
 
-| Tool                       | Install                                                    |
-| -------------------------- | ---------------------------------------------------------- |
-| Docker Engine + Compose v2 | Required only if you opt in — not required for `verify`/CI |
+| Tool                       | Install                                          |
+| -------------------------- | ------------------------------------------------ |
+| Docker Engine + Compose v2 | Required only if you opt in — not required in CI |
 
 ---
 

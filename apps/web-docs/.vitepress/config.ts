@@ -98,6 +98,7 @@ export default withMermaid(
         { text: 'Roadmap', link: '/Harness/06%20Roadmap/' },
         { text: 'Operational Graph', link: '/Harness/07%20Operational%20Graph/' },
         { text: '🔒', link: '/Harness/08%20Security%20Scan/' },
+        { text: 'Distribution', link: '/Harness/09%20Distribution/' },
       ],
 
       sidebar: {
@@ -124,6 +125,9 @@ export default withMermaid(
         ],
         '/Harness/08 Security Scan/': [
           { text: '🔒 Security Scan', items: scanSection('Harness/08 Security Scan') },
+        ],
+        '/Harness/09 Distribution/': [
+          { text: 'Distribution', items: scanSection('Harness/09 Distribution') },
         ],
         '/Harness/': [],
       },

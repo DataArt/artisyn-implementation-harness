@@ -1,7 +1,7 @@
 ---
 id: 77376e1f
 purpose: Purpose, containers, and data flow for the ADLC Discovery Tool platform
-keywords: [system-overview, containers, data-flow, hld, log-hub]
+keywords: [system-overview, containers, data-flow, hld, log-hub, harness-release-pipeline]
 ---
 
 # System Overview
@@ -12,16 +12,17 @@ ADLC Discovery Tool is a static documentation site delivering an AI-first SDLC a
 
 ## Containers
 
-| Container             | Responsibility                                                                                                                                                               | Stack                                                                                           |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Web Explorer          | Promotional single-page app                                                                                                                                                  | React 19 · Vite · Tailwind 4 · Motion                                                           |
-| Web Docs              | Static documentation site rendered from Markdown via VitePress                                                                                                               | VitePress 1.x · Vite                                                                            |
-| Web Portal            | Build-time composition of Web Explorer's and Web Docs's static builds into one deployable artifact tree — no application source, no runtime of its own                       | Nx (`nx:run-commands`) · TypeScript                                                             |
-| Discuss               | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                                                                                 | giscus (external)                                                                               |
-| Harness Bootstrap E2E | Test harness validating the `harness-bootstrap` skill — deterministic unit/integration coverage plus live agent E2E runs                                                     | Vitest · Nx · TypeScript                                                                        |
-| Log Hub               | Dev tooling: opt-in, repo-managed local Log Hub server (Docker Compose) plus a local-scope Claude Code hook that uploads session telemetry; no presence in the deployed site | Docker Compose · TypeScript scripts run via `tsx` · Nx (`nx:run-commands`) · Claude Code plugin |
+| Container                  | Responsibility                                                                                                                                                                                                                                                                                     | Stack                                                                                           |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Web Explorer               | Promotional single-page app                                                                                                                                                                                                                                                                        | React 19 · Vite · Tailwind 4 · Motion                                                           |
+| Web Docs                   | Static documentation site rendered from Markdown via VitePress                                                                                                                                                                                                                                     | VitePress 1.x · Vite                                                                            |
+| Web Portal                 | Build-time composition of Web Explorer's and Web Docs's static builds into one deployable artifact tree — no application source, no runtime of its own                                                                                                                                             | Nx (`nx:run-commands`) · TypeScript                                                             |
+| Discuss                    | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                                                                                                                                                                                                       | giscus (external)                                                                               |
+| Implementation Harness E2E | Test harness validating the `implementation-harness` skill package and the repo's release tooling — deterministic unit/integration coverage plus live agent E2E runs                                                                                                                               | Vitest · Nx · TypeScript                                                                        |
+| Log Hub                    | Dev tooling: opt-in, repo-managed local Log Hub server (Docker Compose) plus a local-scope Claude Code hook that uploads session telemetry; no presence in the deployed site                                                                                                                       | Docker Compose · TypeScript scripts run via `tsx` · Nx (`nx:run-commands`) · Claude Code plugin |
+| Harness Release Pipeline   | CI tooling and the repo's only release lane: each PR stamps the harness version (`yarn harness:version`, checked by `version-gate`); on merge `release-harness.yml` builds and attests it, and after approval in the `release` environment tags and publishes it to its five distribution channels | GitHub Actions · Nx Release                                                                     |
 
-Harness Bootstrap E2E is dev/CI tooling, not a runtime participant in the browser-facing request flow below — it tests the `harness-bootstrap` skill against disposable fixture workspaces and has no presence in the deployed site. Its deterministic layers run inside `ci.yml`; its agent E2E layer runs only from a developer's own environment. See `Containers/Harness Bootstrap E2E.md`.
+Implementation Harness E2E is dev/CI tooling, not a runtime participant in the browser-facing request flow below — it tests the `implementation-harness` skill (source `skills/implementation-harness/`) against disposable fixture workspaces and has no presence in the deployed site. Its deterministic layers run inside `ci.yml`; its agent E2E layer runs only from a developer's own environment. See `Containers/Implementation Harness E2E.md`.
 
 Log Hub is dev tooling, not a runtime participant in the browser-facing request flow below — it runs only on a contributor's own machine, is opt-in, and never runs in CI runtime or the GitHub Pages build. It is not registered in `apps/web-portal`'s composed deploy tree. See `Containers/Log Hub.md`.
 
@@ -62,13 +63,12 @@ flowchart LR
     style CI_BOX fill:#F8FAFC,stroke:#CBD5E1,color:#1E293B
 ```
 
-_Comments runtime flow (giscus/GitHub Discussions) is shown in `Containers/Discuss.md`._
-_Dev-tooling session telemetry flow (Log Hub server + local-scope hook) is shown in `Containers/Log Hub.md`._
+_Not shown here: the comments runtime flow (`Containers/Discuss.md`); the dev-tooling telemetry flow (`Containers/Log Hub.md`); and the harness release lane — CI tooling, not a request-flow participant: `release-harness.yml` builds on push to `main`, separately from this Pages deploy, and after a reviewer approves ships the npm package, the Release ZIP and the tag the marketplace and `gh skill` pin, while skills.sh installs from the default branch (`Containers/Harness Release Pipeline.md`)._
 
 ## Design principles
 
 - Region is deployment configuration — never hardcoded in source or documentation
-- Content is static — no server-side rendering, no database, no runtime compute we operate (excludes third-party client-side widgets that call external services directly from the browser, e.g. giscus; also excludes opt-in, contributor-machine-only dev tooling with no deployed-site presence, e.g. Harness Bootstrap E2E, Log Hub)
+- Content is static — no server-side rendering, no database, no runtime compute we operate (excludes third-party client-side widgets that call external services directly from the browser, e.g. giscus; also excludes opt-in, contributor-machine-only dev tooling with no deployed-site presence, e.g. Implementation Harness E2E, Log Hub)
 - Carve-out: `docs/.og/docs-operational-graph.sqlite` is a build-time-produced, read-only SQLite file queried in-browser via `sql.js` (WASM) — a first-party query engine over first-party static data, not server-side compute we operate
 
 ## Tooling

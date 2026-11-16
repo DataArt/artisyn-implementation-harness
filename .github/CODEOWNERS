@@ -5,5 +5,5 @@
 * @antonioMerkulov
 
 apps/docs-web/ @antonioMerkulov
-apps/harness-bootstrap-e2e/ @antonioMerkulov
+apps/implementation-harness-e2e/ @antonioMerkulov
 docs/ @antonioMerkulov

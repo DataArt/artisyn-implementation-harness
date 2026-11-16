@@ -1,0 +1,18 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "artisyn-implementation-harness",
+  "projectType": "library",
+  "root": "skills/implementation-harness",
+  "sourceRoot": "skills/implementation-harness",
+  "tags": ["harness"],
+  "targets": {
+    "package": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "yarn pack --dry-run",
+        "cwd": "{projectRoot}"
+      }
+    }
+  }
+}

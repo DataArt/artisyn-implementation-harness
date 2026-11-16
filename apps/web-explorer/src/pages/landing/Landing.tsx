@@ -20,7 +20,7 @@ import Footer from '../../components/Footer';
 import SectionLink from '../../components/SectionLink';
 import { repoUrl, docsUrl } from '../../env';
 
-const bootstrapCommand = '/harness-bootstrap launch';
+const bootstrapCommand = '/implementation-harness launch';
 const capabilities = [
   {
     icon: <Workflow size={23} />,

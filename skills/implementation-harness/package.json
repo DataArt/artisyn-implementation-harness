@@ -1,0 +1,28 @@
+{
+  "name": "@dataart/artisyn-implementation-harness",
+  "version": "4.0.0",
+  "description": "Artisyn Implementation Harness: the AI-first engineering lifecycle as an installable package, with an install CLI.",
+  "license": "MIT",
+  "type": "module",
+  "repository": "github:DataArt/artisyn-implementation-harness",
+  "bin": "bin/artisyn-implementation-harness.mjs",
+  "files": [
+    "SKILL.md",
+    "README.md",
+    "CHANGELOG.md",
+    "implementation-harness.md",
+    "bin/",
+    "canonical/",
+    "patch/",
+    "patterns/",
+    "references/",
+    "reports/",
+    "scripts/"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "engines": {
+    "node": ">=22.2"
+  }
+}

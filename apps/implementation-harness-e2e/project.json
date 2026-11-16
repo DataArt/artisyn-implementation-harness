@@ -1,0 +1,82 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "implementation-harness-e2e",
+  "projectType": "application",
+  "root": "apps/implementation-harness-e2e",
+  "sourceRoot": "apps/implementation-harness-e2e/src",
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**",
+      "!{projectRoot}/runs/**",
+      "{workspaceRoot}/skills/implementation-harness/package.json",
+      "{workspaceRoot}/skills/implementation-harness/bin/**",
+      "{workspaceRoot}/skills/implementation-harness/scripts/**",
+      "{workspaceRoot}/skills/implementation-harness/canonical/**",
+      "{workspaceRoot}/skills/implementation-harness/SKILL.md",
+      "{workspaceRoot}/skills/implementation-harness/references/**",
+      "sharedGlobals"
+    ]
+  },
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --noEmit -p tsconfig.json",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "eslint src fixtures/_registry.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "unit": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "vitest run --config vitest.unit.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "unit-cli": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/state-root.spec.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "integration": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": [
+        "default",
+        {
+          "env": "HB_E2E_KEEP_TMP"
+        },
+        {
+          "env": "HB_E2E_PERSIST_RUNS"
+        }
+      ],
+      "options": {
+        "command": "vitest run --config vitest.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "agent-e2e": {
+      "executor": "nx:run-commands",
+      "cache": false,
+      "options": {
+        "command": "vitest {args.mode} --config vitest.agent-e2e.config.ts src/cases/{args.case}.spec.ts",
+        "cwd": "{projectRoot}",
+        "case": "*",
+        "mode": "run"
+      }
+    },
+    "test": {
+      "dependsOn": ["unit", "integration"]
+    }
+  }
+}

@@ -14,12 +14,12 @@ export default tseslint.config(
       '**/dist/**',
       '**/cdk.out/**',
       // Agent e2e run artifacts: copied fixtures and generated workspaces, not source.
-      'apps/harness-bootstrap-e2e/runs/**',
+      'apps/implementation-harness-e2e/runs/**',
       '**/.vitepress/dist/**',
       '**/.vitepress/cache/**',
       '.nx/**',
       '.yarn/**',
-      // Workflow DSL files: the harness-bootstrap runtime injects pipeline()/agent()
+      // Workflow DSL files: the implementation-harness runtime injects pipeline()/agent()
       // and other bindings as globals at execution time, so standard no-undef checks
       // don't apply.
       '**/workflows/*.js',

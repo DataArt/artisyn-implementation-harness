@@ -2,4 +2,4 @@
 # churns on every doc change — never a meaningful text diff, never merged.
 # `binary` is shorthand for `-diff -merge -text`.
 docs/.og/docs-operational-graph.sqlite binary
-.canonical-implementation-harness/canonical/docs/.og/docs-operational-graph.sqlite binary
+skills/implementation-harness/canonical/docs/.og/docs-operational-graph.sqlite binary
