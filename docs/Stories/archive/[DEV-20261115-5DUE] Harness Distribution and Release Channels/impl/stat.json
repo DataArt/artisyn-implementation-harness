@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-15T18:32:35.756Z",
-  "completed_at": null,
+  "completed_at": "2026-11-16T12:14:20.125Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -68,28 +68,44 @@
     },
     {
       "id": "test",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "5d1a0f40-4445-4a98-9d8e-07a7925799b6",
           "started_at": "2026-11-15T21:06:07.936Z",
-          "ended_at": null,
+          "ended_at": "2026-11-15T21:28:52.282Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+          "started_at": "2026-11-15T21:29:05.063Z",
+          "ended_at": "2026-11-16T12:10:24.830Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "bd2bfc13-1134-43a8-bda4-22304edd3362",
+          "started_at": "2026-11-16T12:10:31.684Z",
+          "ended_at": "2026-11-16T12:14:20.073Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
       "flags": []
     }
   ],
@@ -2144,8 +2160,143 @@
       "kind": "work",
       "activity": "review",
       "started_at": "2026-11-15T21:26:54.790Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-15T21:26:54.790Z"
+      "ended_at": "2026-11-15T21:28:52.282Z",
+      "last_observed_at": "2026-11-15T21:28:52.282Z"
+    },
+    {
+      "id": "3d3a49a6-a5b1-4c8f-9ad2-142653cf9d6b",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T21:29:05.063Z",
+      "ended_at": "2026-11-15T21:44:00.361Z",
+      "last_observed_at": "2026-11-15T21:44:00.361Z"
+    },
+    {
+      "id": "52b72cda-4025-41a3-bb19-be74438c4220",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "HLD audit: RF-028 and RF-042 need the developer's decision",
+      "started_at": "2026-11-15T21:44:00.361Z",
+      "ended_at": "2026-11-15T21:47:50.455Z",
+      "last_observed_at": "2026-11-15T21:47:50.455Z"
+    },
+    {
+      "id": "ab87b905-62cf-4feb-9505-bc02069126d5",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-15T21:47:50.455Z",
+      "ended_at": "2026-11-16T09:46:38.284Z",
+      "last_observed_at": "2026-11-16T09:46:38.284Z"
+    },
+    {
+      "id": "01c3d151-0d24-4ab9-85c1-e42170098746",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-16T09:46:38.284Z",
+      "ended_at": "2026-11-16T09:46:40.394Z",
+      "last_observed_at": "2026-11-16T09:46:40.394Z"
+    },
+    {
+      "id": "e0d9c9a3-1642-46ba-b029-e854fd3edfc0",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-16T09:46:40.394Z",
+      "ended_at": "2026-11-16T09:46:53.524Z",
+      "last_observed_at": "2026-11-16T09:46:53.524Z"
+    },
+    {
+      "id": "8be097b7-d3ce-4c17-9cb0-6b44d6b7ca5b",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-16T09:46:53.524Z",
+      "ended_at": "2026-11-16T09:46:58.898Z",
+      "last_observed_at": "2026-11-16T09:46:58.898Z"
+    },
+    {
+      "id": "33ae2cf4-6c27-4c15-b3f6-0cbf70102259",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-16T09:46:58.898Z",
+      "ended_at": "2026-11-16T09:47:24.315Z",
+      "last_observed_at": "2026-11-16T09:47:24.315Z"
+    },
+    {
+      "id": "6c94793a-e7df-49fe-84a0-5157bc228222",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting document sign-off",
+      "started_at": "2026-11-16T09:47:24.315Z",
+      "ended_at": "2026-11-16T12:09:12.810Z",
+      "last_observed_at": "2026-11-16T12:09:12.810Z"
+    },
+    {
+      "id": "01c01857-22df-439c-a597-4af8b5d3d0a6",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-16T12:09:12.810Z",
+      "ended_at": "2026-11-16T12:10:24.830Z",
+      "last_observed_at": "2026-11-16T12:10:24.830Z"
+    },
+    {
+      "id": "953821d3-0597-4e97-866c-b62912f7b542",
+      "stage_id": "completion",
+      "stage_attempt_id": "bd2bfc13-1134-43a8-bda4-22304edd3362",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-16T12:10:31.684Z",
+      "ended_at": "2026-11-16T12:10:48.820Z",
+      "last_observed_at": "2026-11-16T12:10:48.820Z"
+    },
+    {
+      "id": "a6f2a2d2-7570-408b-a452-37eb304ff233",
+      "stage_id": "completion",
+      "stage_attempt_id": "bd2bfc13-1134-43a8-bda4-22304edd3362",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting completion sign-off",
+      "started_at": "2026-11-16T12:10:48.820Z",
+      "ended_at": "2026-11-16T12:14:19.887Z",
+      "last_observed_at": "2026-11-16T12:14:19.887Z"
+    },
+    {
+      "id": "11f6cc10-3eee-4a10-81e5-256e1a47aea0",
+      "stage_id": "completion",
+      "stage_attempt_id": "bd2bfc13-1134-43a8-bda4-22304edd3362",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-16T12:14:19.887Z",
+      "ended_at": "2026-11-16T12:14:20.073Z",
+      "last_observed_at": "2026-11-16T12:14:20.073Z"
     }
   ],
   "checks": [
@@ -4149,21 +4300,98 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "document-ac26-run-01",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "name": "AC direct: ac26",
+      "kind": "acceptance",
+      "started_at": "2026-11-16T09:46:38.284Z",
+      "ended_at": "2026-11-16T09:46:40.394Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for AC direct: ac26",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-16T09:46:40.394Z"
+    },
+    {
+      "id": "document-ac3-run-01",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "name": "AC direct: ac3",
+      "kind": "acceptance",
+      "started_at": "2026-11-16T09:46:53.524Z",
+      "ended_at": "2026-11-16T09:46:58.898Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for AC direct: ac3",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-16T09:46:58.898Z"
+    },
+    {
+      "id": "document-ac27-run-01",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "name": "AC direct: ac27",
+      "kind": "acceptance",
+      "started_at": "2026-11-16T09:47:12.408Z",
+      "ended_at": "2026-11-16T09:47:12.408Z",
+      "result": "passed",
+      "evidence_ref": "Documentation table: 31 rows done (docs/Harness incl. 09 Distribution, Quick Start, Roadmap, Adoption; Eng Guide 01/04/05/07 + new 08 runbook; HLD/LLD incl. new Harness Release Pipeline; CLAUDE.md; README). Issue templates done in Implement. Runbook covers ruleset + both bypass actors, HARNESS_RELEASE_ENABLED last, first 4.0.0 + merge method, per-channel smoke, unverified Codex/Copilot. Consistency rounds 17->8->0.",
+      "source": "agent",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "document-signoff-01",
+      "stage_id": "document",
+      "stage_attempt_id": "bd10bbd1-fc1e-47c8-817a-cf048e2c9cdb",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-16T12:09:12.861Z",
+      "ended_at": "2026-11-16T12:09:12.861Z",
+      "result": "passed",
+      "evidence_ref": "Developer 2026-11-16: \"yes, move next\"",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "completion-signoff-01",
+      "stage_id": "completion",
+      "stage_attempt_id": "bd2bfc13-1134-43a8-bda4-22304edd3362",
+      "step": null,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-16T12:14:19.938Z",
+      "ended_at": "2026-11-16T12:14:19.938Z",
+      "result": "passed",
+      "evidence_ref": "Developer 2026-11-16: \"none\" (no tech-debt tickets; tracker skipped, local ID)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-15T21:26:55.650Z",
+    "as_of": "2026-11-16T12:14:20.218Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 6014.367000000003,
-    "observed_wait_seconds": 3446.475,
+    "cycle_time_seconds": 63704.369,
+    "observed_work_seconds": 50290.359000000004,
+    "observed_wait_seconds": 12396.131000000001,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 999.2039999999974,
+    "unclassified_seconds": 1018.0309999999954,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 3250.502,
+    "approval_wait_seconds": 12200.158,
     "failed_checks": 3,
     "first_pass_verification_rate": 0.95,
     "human_reported_seconds": null,
@@ -4172,44 +4400,44 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-15T21:26:55.642Z",
+    "as_of": "2026-11-16T12:14:20.209Z",
     "source": "2-report.md",
-    "source_sha256": "78fe70d78aaf56bbb56d0ab24b3abc6d158b866e17324f5a45ff7848a78cde7c",
+    "source_sha256": "128a858d504a4072196464c2a259ce9bbe53497468c0eff7dcaaa38d67273696",
     "findings": {
-      "total": 47,
+      "total": 78,
       "by_kind": {
-        "deviation": 2,
+        "deviation": 8,
         "bug": 12,
         "design": 23,
         "improve": 3,
         "security": 5,
         "performance": 0,
-        "docs": 2
+        "docs": 27
       },
       "by_severity": {
         "critical": 0,
-        "high": 9,
-        "medium": 20,
-        "low": 16,
+        "high": 12,
+        "medium": 28,
+        "low": 36,
         "info": 2
       },
       "by_classification": {
-        "introduced": 42,
-        "pre-existing": 1,
+        "introduced": 72,
+        "pre-existing": 2,
         "ruled-out": 0,
         "advisory": 4
       },
       "by_resolution": {
-        "open": 2,
-        "fixed": 37,
-        "accepted": 7,
-        "tech-debt": 1,
-        "doc-updated": 0
+        "open": 0,
+        "fixed": 62,
+        "accepted": 11,
+        "tech-debt": 2,
+        "doc-updated": 3
       },
       "deviations_by_type": {
-        "contradiction": 0,
-        "extension": 2,
-        "omission": 0
+        "contradiction": 1,
+        "extension": 3,
+        "omission": 4
       },
       "pr_review": {
         "total": 19,
@@ -4249,6 +4477,6 @@
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": ["RF-028: open", "RF-042: open"]
+    "closure_issues": []
   }
 }

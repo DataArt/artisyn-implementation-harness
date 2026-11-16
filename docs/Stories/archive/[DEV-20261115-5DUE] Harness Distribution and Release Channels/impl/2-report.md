@@ -13,8 +13,8 @@ type: reference
 | Branch | `docs/design-20261115-co1t-harness-distribution`                                                               |
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
-| Status | 🔄 In Progress                                                                                                 |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                    |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅ |
 
 ## Progress
 
@@ -52,7 +52,7 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 13h 56m 41s · Wait: 3h 23m 5s · Unclassified: 17m 3s
+Observed work: 13h 58m 10s · Wait: 3h 26m 36s · Unclassified: 16m 58s
 
 | Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work        | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
 | ---------- | ------------------------ | ------------------------ | ----------- | ----------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
@@ -61,8 +61,8 @@ Observed work: 13h 56m 41s · Wait: 3h 23m 5s · Unclassified: 17m 3s
 | plan       | 2026-11-15T18:41:32.668Z | 2026-11-15T19:00:54.202Z | 19m 22s     | 10m 3s      | 9m 19s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 | implement  | 2026-11-15T19:00:54.358Z | 2026-11-15T20:58:12.056Z | 1h 57m 18s  | 1h 13m 27s  | 35m 19s    | unavailable  | unavailable   | from_tracking_start | 1        | 2             | ⚠️ failed check |
 | test       | 2026-11-15T21:06:07.936Z | 2026-11-15T21:28:52.282Z | 22m 44s     | 18m 16s     | 4m 28s     | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
-| document   | 2026-11-15T21:29:05.063Z | unavailable              | unavailable | 12h 14m 29s | 2h 25m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| completion | unavailable              | unavailable              | unavailable | 0s          | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| document   | 2026-11-15T21:29:05.063Z | 2026-11-16T12:10:24.830Z | 14h 41m 20s | 12h 15m 41s | 2h 25m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| completion | 2026-11-16T12:10:31.684Z | 2026-11-16T12:14:20.073Z | 3m 48s      | 17s         | 3m 31s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 
 Quality (recorded inventory): findings 78 · open 0 · PR findings 19 · critical 0 · debt 3 · tests written 135 · latest failed cases unavailable · failed test runs 2. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
@@ -73,7 +73,7 @@ Quality (recorded inventory): findings 78 · open 0 · PR findings 19 · critica
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 13h 56m 41s · Wait: 3h 23m 5s · Unclassified: 17m 3s
+Observed work: 13h 58m 10s · Wait: 3h 26m 36s · Unclassified: 16m 58s
 
 | Step                                                                  | Started (UTC)            | Completed (UTC)          | Elapsed | Work    | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
 | --------------------------------------------------------------------- | ------------------------ | ------------------------ | ------- | ------- | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
@@ -381,6 +381,13 @@ is touched; Done is ticked as @docs-writer returns each row. Tier is one from
 Documentation/02 Structure.md. Action: new · updated · retired. Why points at the
 plan Solution, an implementation note or an RF row. Empty means no doc impact was
 identified, not that docs were skipped; say so in a line below the table. -->
+
+## Completion
+
+- **Date:** 2026-11-16
+- **Archive:** `docs/Stories/archive/[DEV-20261115-5DUE] Harness Distribution and Release Channels/`
+- **PR:** `feat(harness)!: distribute the harness as implementation-harness through five release channels` (link added once opened)
+- **External actions:** tracker skipped (local ID, no tracker record); tech-debt tickets: none created (developer: "none"); TD-1..TD-3 stay as local rows
 
 ## Efforts Spent
 
