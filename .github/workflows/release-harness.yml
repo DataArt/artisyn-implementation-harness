@@ -50,6 +50,12 @@ jobs:
           if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
             # Released by an earlier merge (this merge did not change the harness), or a re-run:
             # finish whatever that release is missing.
+            # A tag that lacks harness changes of this commit means a PR merged with a version
+            # that was already released (stamped before the previous release was tagged).
+            if ! git diff --quiet "${tag}" "${GITHUB_SHA}" -- skills/implementation-harness; then
+              echo "::error::${tag} is already released, but this commit changes the harness after it. Run yarn harness:version on a new branch and merge the stamp."
+              exit 1
+            fi
             echo "${tag} exists. Checking that it is fully published."
           else
             # A ruleset on branches does not cover tags, so GITHUB_TOKEN can create it.

@@ -84,6 +84,10 @@ describe('release-harness.yml', () => {
 
   it('finishes an existing tag instead of failing, so a re-run or a later merge still publishes', () => {
     assert.match(text, /rev-parse -q --verify "refs\/tags/);
+    assert.match(
+      text,
+      /git diff --quiet "\$\{tag\}" "\$\{GITHUB_SHA\}" -- skills\/implementation-harness/
+    );
     assert.match(text, /yarn npm info/);
     assert.match(text, /gh release view/);
     assert.match(text, /fully published|already published/i);

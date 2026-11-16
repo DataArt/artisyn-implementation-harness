@@ -106,7 +106,7 @@ The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` s
 - the changelog has no entry for that version;
 - the changelog has an entry for a version this branch does not release.
 
-**Two PRs, one version.** The ruleset requires the branch to be up to date. When two PRs claim the same version, the first merges and gets the tag; the second must update from `main` and re-run `yarn harness:version`. If the second PR updates in the few seconds before the first merge's tag exists, its check runs against the old tag. Re-run the check once the tag exists.
+**Two PRs, one version.** The ruleset requires the branch to be up to date. When two PRs claim the same version, the first merges and gets the tag; the second must update from `main` and re-run `yarn harness:version`. If the second PR updates in the few seconds before the first merge's tag exists, its check can pass with the version the first PR already took. The merge workflow catches this: when the tag exists but the merged commit changes the harness after it, the run fails. Fix it with a new branch that runs `yarn harness:version` and merges the stamp.
 
 **Squash title.** The version comes from the PR's own commits, which husky and the CI scope check (`check-commit-scope.mjs --range`) both check. The squash title no longer decides the version. Still give it a `harness`-scoped Conventional Commit subject, so the root `v*` lane ignores it.
 
