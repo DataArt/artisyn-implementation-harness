@@ -37,11 +37,11 @@ describe('check-commit-scope.mjs: message mode (commit-msg hook)', () => {
   });
 
   it('accepts scope harness-release for the stamped release commit', () => {
-    assert.equal(checkMessage('chore(harness-release): 4.0.0 [skip ci]', [HARNESS_FILE]).status, 0);
+    assert.equal(checkMessage('chore(harness-release): 4.0.0', [HARNESS_FILE]).status, 0);
   });
 
-  it('treats the shim and the plugin manifests as harness files too', () => {
-    for (const file of ['skills/harness-bootstrap/SKILL.md', '.claude-plugin/plugin.json']) {
+  it('treats the plugin manifests as harness files too', () => {
+    for (const file of ['.claude-plugin/plugin.json', '.agents/plugins/marketplace.json']) {
       assert.equal(checkMessage('feat(web-docs): x', [file]).status, 1, file);
     }
   });

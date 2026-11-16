@@ -5,5 +5,5 @@
   "author": { "name": "DataArt" },
   "repository": "https://github.com/DataArt/artisyn-implementation-harness",
   "license": "MIT",
-  "skills": ["./skills/implementation-harness", "./skills/harness-bootstrap"]
+  "skills": ["./skills/implementation-harness"]
 }

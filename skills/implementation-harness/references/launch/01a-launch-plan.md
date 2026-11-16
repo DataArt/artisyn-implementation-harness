@@ -15,9 +15,7 @@ for generated state to `.gitignore` and does not untrack files as a side effect.
 The harness source repository keeps its authoritative package tracked.
 
 Keep answers, reports, plans and receipts in `.harness/state/launch/` (alias `state/launch/`).
-First check for state from an older install: a `state/` folder inside a package, or
-`.harness/launch/`. If you find any, run the package's `bin/artisyn-implementation-harness.mjs
-migrate` and continue from `.harness/state/`. Record the package in
+Record the package in
 `.harness/state/launch/package.json` (name, version, channel) and `package.local.json` (this
 machine's path): for a marketplace, skills.sh or gh skill install, pass `--channel` to
 `materialize-launch.mjs`; the install CLI writes both files itself. Keep patch inventory,
@@ -33,10 +31,7 @@ For a new run, copy `package:reports/report.template.md` to
 Record run ID, package version, plan/operation-record paths, decisions, and evidence.
 Remove unused patch-mode example tables from the new launch report so its Progress
 section contains exactly the 14 launch rows. Mirror native tracking on these rows.
-Load permanent `answers.json` first. If absent, import the newest populated legacy
-`package:reports/` Answers, recording provenance and `historical` status; preserve
-legacy originals. Revalidate historical answers before plan use. Legacy package patch,
-state and registry records are also read-only migration fallbacks.
+Load permanent `answers.json` first.
 Persist each resolved answer immediately in both `answers.json` and this run's report;
 record verified outputs immediately. Leave templates and prior reports intact.
 

@@ -1,5 +1,5 @@
-/** Install CLI commands end to end on scratch projects: init, update (npm and zip channels),
- * migrate and doctor. Covers plan AC-12, AC-13, AC-14 (Design - Install and Update, D-10, D-11).
+/** Install CLI commands end to end on scratch projects: init, update (npm and zip channels)
+ * and doctor. Covers plan AC-12, AC-13, AC-14 (Design - Install and Update, D-10, D-11).
  */
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -18,7 +18,6 @@ import {
   write,
   writeAll,
 } from '../helpers/harness.ts';
-import { buildLegacyProject } from '../legacy/legacy-3.5.0.ts';
 
 const NAME = '@dataart/artisyn-implementation-harness';
 const ownVersion: string = JSON.parse(
@@ -249,36 +248,6 @@ describe('update on the zip channel', () => {
   });
 });
 
-describe('migrate', () => {
-  it('migrates a 3.5.0 install, reports it and places the shim from the sibling folder', () => {
-    const root = tmpDir();
-    const legacy = buildLegacyProject(root);
-
-    const result = cli(['migrate'], root);
-
-    assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout, /migrated/i);
-    assert.ok(fs.existsSync(path.join(root, '.harness/state/index.json')));
-    assert.deepEqual(fs.readdirSync(legacy.packageDir).sort(), ['SKILL.md', 'state']);
-    assert.match(fs.readFileSync(path.join(legacy.packageDir, 'SKILL.md'), 'utf8'), /deprecated/);
-  });
-
-  it('exits 4 on a conflict and moves nothing', () => {
-    const root = tmpDir();
-    buildLegacyProject(root);
-    write(
-      path.join(root, '.harness/launch/runs/run-a/materialization.json'),
-      '{"different":true}\n'
-    );
-    const before = snapshot(root);
-
-    const result = cli(['migrate'], root);
-
-    assert.equal(result.status, 4);
-    assert.deepEqual(snapshot(root), before);
-  });
-});
-
 describe('doctor', () => {
   it('reports providers, versions, channel and state for a healthy install', () => {
     const { root } = projectWithInstalled(ownVersion, 'npm');
@@ -307,67 +276,5 @@ describe('doctor', () => {
 
     assert.equal(result.status, 1);
     assert.match(result.stdout, /skew/i);
-  });
-
-  it('flags pending migration and a legacy state folder next to the shim', () => {
-    const root = tmpDir();
-    const legacy = buildLegacyProject(root);
-
-    const pending = cli(['doctor'], root);
-    assert.equal(pending.status, 1);
-    assert.match(pending.stdout, /migrat/i);
-
-    cli(['migrate'], root);
-    const after = cli(['doctor'], root);
-    assert.match(after.stdout, /legacy/i);
-    assert.match(after.stdout, new RegExp(path.basename(legacy.stateDir)));
-  });
-});
-
-describe('shim lookup (tarball and ZIP copy, git channels, no source)', () => {
-  /** A copy of the package outside `skills/`, so no sibling shim folder exists next to it. */
-  function copiedCli(withLegacyCopy: boolean) {
-    const copy = path.join(tmpDir(), 'implementation-harness');
-    fs.cpSync(pkgRoot, copy, {
-      recursive: true,
-      filter: (source) => !source.includes(`${path.sep}legacy`),
-    });
-    if (withLegacyCopy)
-      write(
-        path.join(copy, 'legacy/harness-bootstrap/SKILL.md'),
-        '---\nname: harness-bootstrap\n---\nLEGACY COPY\n'
-      );
-    return path.join(copy, 'bin/artisyn-implementation-harness.mjs');
-  }
-
-  it('prefers the legacy/ copy shipped in the tarball and ZIP', () => {
-    const root = tmpDir();
-    const legacy = buildLegacyProject(root);
-
-    const result = runNode(copiedCli(true), ['migrate'], {
-      cwd: root,
-      env: { ARTISYN_HARNESS_PROJECT_ROOT: root },
-    });
-
-    assert.equal(result.status, 0, result.stderr);
-    assert.match(fs.readFileSync(path.join(legacy.packageDir, 'SKILL.md'), 'utf8'), /LEGACY COPY/);
-  });
-
-  it('skips the replacement and warns when no shim source exists, and doctor warns too', () => {
-    const root = tmpDir();
-    const legacy = buildLegacyProject(root);
-    const entry = copiedCli(false);
-    const env = { ARTISYN_HARNESS_PROJECT_ROOT: root };
-
-    const result = runNode(entry, ['migrate'], { cwd: root, env });
-
-    assert.equal(result.status, 0, result.stderr);
-    assert.match(result.stdout + result.stderr, /shim/i);
-    assert.ok(
-      fs.existsSync(path.join(legacy.packageDir, 'harness-bootstrap.md')),
-      'old files untouched'
-    );
-    const doctor = runNode(entry, ['doctor'], { cwd: root, env });
-    assert.match(doctor.stdout, /shim/i);
   });
 });

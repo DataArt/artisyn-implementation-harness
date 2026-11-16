@@ -83,9 +83,6 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Copy the legacy shim into the package
-        run: node scripts/pack-shim.mjs
-
       - name: Package contents match the allowlist
         run: node scripts/ci/check-pack.mjs
 
@@ -114,6 +111,6 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Install CLI, migrator and state root tests
+      - name: Install CLI and state root tests
         shell: bash
-        run: yarn workspace @artisyn-harness/harness-bootstrap-e2e vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/legacy src/tests/unit/state-root.spec.ts
+        run: yarn workspace @artisyn-harness/harness-bootstrap-e2e vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/state-root.spec.ts

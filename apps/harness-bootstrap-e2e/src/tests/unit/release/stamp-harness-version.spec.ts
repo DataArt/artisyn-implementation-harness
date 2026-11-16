@@ -52,7 +52,6 @@ function project(packageVersion: string, stamped: string) {
       version: packageVersion,
     }),
     'skills/implementation-harness/SKILL.md': skillMd('implementation-harness', stamped),
-    'skills/harness-bootstrap/SKILL.md': skillMd('harness-bootstrap', stamped),
     '.claude-plugin/plugin.json': JSON.stringify({ name: 'artisyn', version: stamped }, null, 2),
     '.claude-plugin/marketplace.json': claudeMarketplace(stamped, TAG(stamped)),
     '.agents/plugins/marketplace.json': codexMarketplace(stamped, TAG(stamped)),
@@ -69,10 +68,7 @@ describe('stamp-harness-version.mjs', () => {
     const result = runNode(script, ['--root', root]);
 
     assert.equal(result.status, 0, result.stderr);
-    for (const rel of [
-      'skills/implementation-harness/SKILL.md',
-      'skills/harness-bootstrap/SKILL.md',
-    ]) {
+    for (const rel of ['skills/implementation-harness/SKILL.md']) {
       const text = fs.readFileSync(path.join(root, rel), 'utf8');
       assert.match(text, /version: "?4\.0\.0"?/);
       assert.ok(text.includes('Body stays.'));
@@ -99,11 +95,6 @@ describe('stamp-harness-version.mjs', () => {
         writeAll(r, {
           'skills/implementation-harness/SKILL.md': skillMd('implementation-harness', '1.0.0'),
         }),
-    ],
-    [
-      'shim SKILL.md',
-      (r) =>
-        writeAll(r, { 'skills/harness-bootstrap/SKILL.md': skillMd('harness-bootstrap', '1.0.0') }),
     ],
     [
       'plugin.json',

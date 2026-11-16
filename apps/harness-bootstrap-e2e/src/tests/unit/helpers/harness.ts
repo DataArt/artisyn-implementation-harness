@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any -- dynamic imports of untyped .mjs modules */
-/** Shared helpers for the release-tooling, state-root, migrator and install-CLI unit tests.
+/** Shared helpers for the release-tooling, state-root and install-CLI unit tests.
  * Everything runs in scratch directories; nothing writes into the real workspace.
  */
 import crypto from 'node:crypto';
@@ -13,7 +13,6 @@ import { workspaceRoot } from '../../../utils/paths.ts';
 
 export { workspaceRoot };
 export const pkgRoot = path.join(workspaceRoot, 'skills/implementation-harness');
-export const shimRoot = path.join(workspaceRoot, 'skills/harness-bootstrap');
 export const cliEntry = path.join(pkgRoot, 'bin/artisyn-implementation-harness.mjs');
 export const repoScript = (rel: string) => path.join(workspaceRoot, rel);
 

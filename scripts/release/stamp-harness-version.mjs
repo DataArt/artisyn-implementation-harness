@@ -2,7 +2,7 @@
 /** Stamp the harness version into every file that carries it, or check that they all agree.
  *
  * `skills/implementation-harness/package.json` is the one version source. The stamp writes it into
- * the SKILL.md frontmatter of the harness and the shim, `plugin.json`, and both marketplace files
+ * the harness SKILL.md frontmatter, `plugin.json`, and both marketplace files
  * (their `version` and their `ref`, the release tag). `--check` writes nothing and exits 1 on any
  * mismatch; it is the version gate on every PR. Values are replaced in place, so formatting stays.
  */
@@ -43,8 +43,7 @@ function addJson(file, name, pattern, expected) {
     write: (text) => text.replace(pattern, expected),
   });
 }
-function addSkill(file, optional = false) {
-  if (optional && !fs.existsSync(path.join(root, file))) return;
+function addSkill(file) {
   fields.push({
     file,
     name: 'metadata.version',
@@ -58,7 +57,6 @@ function addSkill(file, optional = false) {
 }
 
 addSkill('skills/implementation-harness/SKILL.md');
-addSkill('skills/harness-bootstrap/SKILL.md', true); // gone from 5.0.0
 addJson('.claude-plugin/plugin.json', 'version', JSON_VERSION, version);
 for (const file of ['.claude-plugin/marketplace.json', '.agents/plugins/marketplace.json']) {
   addJson(file, 'plugins[0].version', JSON_VERSION, version);

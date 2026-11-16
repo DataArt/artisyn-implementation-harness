@@ -66,12 +66,7 @@ describe('release-harness.yml', () => {
   });
 
   it('publishes, builds the ZIP and attests tarball and ZIP, but does not version', () => {
-    for (const needle of [
-      'npm publish --tolerate-republish',
-      'pack-shim.mjs',
-      '.sha256',
-      'gh release upload',
-    ])
+    for (const needle of ['npm publish --tolerate-republish', '.sha256', 'gh release upload'])
       assert.ok(text.includes(needle), needle);
     for (const absent of [
       'nx release version',

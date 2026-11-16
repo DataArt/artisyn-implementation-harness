@@ -35,9 +35,7 @@ adaptation and verification. Permanent provider files remain editable project ar
 Launch answers, plans, receipts and reports live in `.harness/state/launch/` in the project.
 The package is read-only and can be replaced at any time; it never holds state. Patch
 inventory, baselines and operation records live in `.harness/state/` too. Launch adds
-ignore entries for the generated files and never untracks anything. Older installs kept
-state inside the package: `migrate` (or the first launch or patch apply) copies it to
-`.harness/state/` and keeps the old copy, marked as migrated. See
+ignore entries for the generated files and never untracks anything. See
 `references/patch/06-patch-state.md` for the layout and the commit rule.
 Never record secret values.
 

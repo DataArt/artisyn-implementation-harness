@@ -131,8 +131,7 @@ label them passed to force closure.
 
 On resume, retain adapted files and inspect receipts; do not rematerialize over them.
 Use a new linked run for a changed plan. State lives in the project, so replacing the package
-never touches it. Legacy `.harness/launch/` records and package-local `state/` folders are
-copied over by `migrate`.
+never touches it.
 
 ## Checkpoint when Stage E is externally blocked
 

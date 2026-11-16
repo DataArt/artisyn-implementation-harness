@@ -603,7 +603,7 @@
       "recorded_sha256": "4f64f7fb6f0bf539ee5185122f3f1545234d75453a9763025f0322661f8dfd38",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },
-    "harness-bootstrap.md": {
+    "implementation-harness.md": {
       "recorded_sha256": "50d1ebc143add4082e787d0f6a8c0d01b84cbe5ea11fda23a77b353d9728affd",
       "snapshot": "bundle:63cc5487-12a1-4dc8-9841-6752e0372404"
     },

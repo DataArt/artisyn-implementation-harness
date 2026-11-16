@@ -1,7 +1,7 @@
 /** Smoke tests on the real artifacts, built the way the release workflow builds them: the npm
  * tarball from `yarn pack`, and a ZIP made from it. They install and update with the CLI that ships
  * inside each artifact, and check the skills.sh layout. Covers review finding RF-039 and the design's
- * per-channel smoke obligation (D-05). Names the retired package on purpose (the shim).
+ * per-channel smoke obligation (D-05).
  */
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -12,7 +12,6 @@ import { afterAll, beforeAll, describe, it } from 'vitest';
 import { parse } from 'yaml';
 import {
   pkgRoot,
-  repoScript,
   runNode,
   runNodeAsync,
   sha256,
@@ -20,7 +19,6 @@ import {
   tmpDir,
   workspaceRoot,
 } from '../helpers/harness.ts';
-import { buildLegacyProject } from '../legacy/legacy-3.5.0.ts';
 
 const ownVersion: string = JSON.parse(
   fs.readFileSync(path.join(pkgRoot, 'package.json'), 'utf8')
@@ -40,7 +38,6 @@ let artifactCli = '';
 
 beforeAll(() => {
   const dist = tmpDir('smoke-dist-');
-  sh(process.execPath, [repoScript('scripts/pack-shim.mjs')], workspaceRoot);
   tarball = path.join(dist, 'harness.tgz');
   sh('yarn', ['pack', '--out', tarball], pkgRoot);
   extracted = tmpDir('smoke-extracted-');
@@ -50,7 +47,7 @@ beforeAll(() => {
 }, 120_000);
 
 describe('the npm tarball', () => {
-  it('carries the CLI, the shim copy and the package files, and no state or Nx files', () => {
+  it('carries the CLI and the package files, and no state or Nx files', () => {
     const files = sh('tar', ['-tzf', path.basename(tarball)], path.dirname(tarball))
       .split('\n')
       .filter(Boolean);
@@ -58,7 +55,6 @@ describe('the npm tarball', () => {
       'package/package.json',
       'package/SKILL.md',
       'package/bin/artisyn-implementation-harness.mjs',
-      'package/legacy/harness-bootstrap/SKILL.md',
     ])
       assert.ok(files.includes(required), `${required} is in the tarball`);
     assert.ok(!files.some((file) => /\/state\//.test(file)), 'no state');
@@ -79,21 +75,6 @@ describe('the npm tarball', () => {
 
     const doctor = runNode(artifactCli, ['doctor'], { cwd: project, env });
     assert.equal(doctor.status, 0, doctor.stdout + doctor.stderr);
-  });
-
-  it('migrates a 3.5.0 install and places the shim from the copy it ships', () => {
-    const project = tmpDir();
-    const legacy = buildLegacyProject(project);
-
-    const result = runNode(artifactCli, ['migrate'], {
-      cwd: project,
-      env: { ARTISYN_HARNESS_PROJECT_ROOT: project },
-    });
-
-    assert.equal(result.status, 0, result.stderr);
-    assert.deepEqual(fs.readdirSync(legacy.packageDir).sort(), ['SKILL.md', 'state']);
-    assert.match(fs.readFileSync(path.join(legacy.packageDir, 'SKILL.md'), 'utf8'), /deprecated/);
-    assert.ok(fs.existsSync(path.join(project, '.harness/state/index.json')));
   });
 });
 
@@ -173,7 +154,7 @@ describe('the skills.sh layout', () => {
       metadata?: { internal?: boolean };
     };
 
-  it('offers exactly the harness skill and the shim under skills/, each named after its folder', () => {
+  it('offers exactly the harness skill under skills/, named after its folder', () => {
     const folders = fs
       .readdirSync(path.join(workspaceRoot, 'skills'), { withFileTypes: true })
       .filter(
@@ -183,7 +164,7 @@ describe('the skills.sh layout', () => {
       )
       .map((entry) => entry.name)
       .sort();
-    assert.deepEqual(folders, ['harness-bootstrap', 'implementation-harness']);
+    assert.deepEqual(folders, ['implementation-harness']);
     for (const folder of folders)
       assert.equal(
         frontmatter(path.join(workspaceRoot, 'skills', folder, 'SKILL.md')).name,

@@ -111,7 +111,7 @@ Reports persist progress across sessions and accompany available native tracking
 
 For patch operations, create `.harness/state/launch/reports/<timestamp>-<mode>.md` from
 the package report template. Load `.harness/state/launch/answers.json` and the latest local
-report; legacy package reports are a migration fallback. Use the mode's
+report. Use the mode's
 three progress rows, recording scope, the resolved provider scope, manifest ID,
 decisions, and per-file outcomes. A project can have several providers installed at
 once: name the providers the run deployed to or harvested from, never "both" by

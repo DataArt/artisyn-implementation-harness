@@ -97,7 +97,6 @@ jobs:
           tag="${{ steps.version.outputs.tag }}"
           version="${tag#${TAG_PREFIX}}"
           mkdir -p dist
-          node scripts/pack-shim.mjs
           yarn workspace "$PACKAGE" pack --out "$GITHUB_WORKSPACE/dist/${TAG_PREFIX}${version}.tgz"
           scratch="$(mktemp -d)"
           tar -xzf "dist/${TAG_PREFIX}${version}.tgz" -C "$scratch"

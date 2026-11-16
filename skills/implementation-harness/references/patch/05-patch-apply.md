@@ -6,8 +6,7 @@ folder patch operations read from or write into for portable content, aside from
 narrow set of `canonical-only` package-internal files (see `06-patch-state.md`).
 Bookkeeping aliases `registry.md`, `project-patch/`, and `state/` refer to the
 project's `.harness/state/` directory defined in the state contract.
-If the project still has state inside an old package folder, run `migrate` first (see Patch
-State). Use `.harness/state/launch/answers.json` and local reports for project knowns. Read each
+Use `.harness/state/launch/answers.json` and local reports for project knowns. Read each
 baseline with `scripts/resolve-base.mjs` (see Patch State); a missing baseline stops the apply
 before any write.
 

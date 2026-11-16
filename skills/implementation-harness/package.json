@@ -13,7 +13,6 @@
     "implementation-harness.md",
     "bin/",
     "canonical/",
-    "legacy/",
     "patch/",
     "patterns/",
     "references/",
@@ -25,8 +24,5 @@
   },
   "engines": {
     "node": ">=22.2"
-  },
-  "scripts": {
-    "prepack": "node ../../scripts/pack-shim.mjs"
   }
 }

@@ -25,7 +25,6 @@ const root = path.resolve(values.root ?? process.cwd());
 
 const HARNESS_PATHS = [
   /^skills\/implementation-harness\//,
-  /^skills\/harness-bootstrap\//,
   /^\.claude-plugin\//,
   /^\.agents\/plugins\//,
   /^skills\.sh\.json$/,

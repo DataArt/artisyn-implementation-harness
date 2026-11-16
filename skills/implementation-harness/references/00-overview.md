@@ -41,7 +41,6 @@ All bootstrap bookkeeping lives in `.harness/state/` in the project: launch answ
 plans, receipts, dated reports, deployment mappings, synchronization baselines and local
 patch bundles. The package never holds state, so it can be replaced when the toolkit is
 refreshed. The state root is resolved from the project root, never from the package path.
-Records from older installs are copied over by `migrate`, which keeps the old copy.
 
 Updates carry unified diffs; additions carry full canonical files. Applying updates
 requires the expected canonical base or an explicit reconciliation. Never transfer

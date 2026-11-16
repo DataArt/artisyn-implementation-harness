@@ -3,7 +3,6 @@
  * files the npm tarball and the release ZIP will carry. This fails when a required file is
  * missing or when anything outside the allowlist, or anything forbidden, would ship.
  */
-import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -23,7 +22,6 @@ const ALLOWED_TOP = new Set([
   'implementation-harness.md',
   'bin',
   'canonical',
-  'legacy',
   'patch',
   'patterns',
   'references',
@@ -31,9 +29,6 @@ const ALLOWED_TOP = new Set([
   'scripts',
 ]);
 const REQUIRED = ['package.json', 'SKILL.md', 'bin/artisyn-implementation-harness.mjs'];
-// The shim copy (made by scripts/pack-shim.mjs) is required while the shim exists; it goes in 5.0.0.
-if (fs.existsSync(path.join(root, 'skills/harness-bootstrap/SKILL.md')))
-  REQUIRED.push('legacy/harness-bootstrap/SKILL.md');
 const FORBIDDEN = [
   /(^|\/)state(\/|$)/,
   /(^|\/)\.DS_Store$/,

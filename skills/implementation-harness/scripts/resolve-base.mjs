@@ -3,16 +3,14 @@
  *
  *   resolve-base.mjs --path <canonical path> [--root <project>] [--out <file>]
  *
- * Old records are read through the legacy mapping (old release labels, the old root doc, the old
- * `adoptors/` folder); nothing is rewritten and no network call is made. The bytes always come from
- * `objects/`. Exit codes: 0 resolved; 2 usage or no such baseline entry; 3 the entry is not
+ * No network call is made; the bytes always come from `objects/`. Exit codes: 0 resolved; 2 usage or no such baseline entry; 3 the entry is not
  * object-backed (a `bundle:`, `git:` or `local:` snapshot: resolve it from its own source); 4 the
  * baseline object is missing (stop before writing anything).
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { legacyNamesOf, mapLegacyPath, resolveBase } from './lib/legacy-map.mjs';
+import { resolveBase } from './lib/baseline.mjs';
 import { resolveProjectRoot, stateDirOf } from './lib/state-root.mjs';
 
 const { values } = parseArgs({
@@ -34,10 +32,8 @@ if (!fs.existsSync(indexFile)) {
 }
 
 const canonical = JSON.parse(fs.readFileSync(indexFile, 'utf8')).canonical ?? {};
-const key = [values.path, mapLegacyPath(values.path), ...legacyNamesOf(values.path)].find(
-  (candidate) => canonical[candidate]
-);
-if (!key) {
+const key = values.path;
+if (!canonical[key]) {
   console.error(`No baseline entry for ${values.path}`);
   process.exit(2);
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/** Install CLI for the Artisyn Implementation Harness: init, update, migrate, doctor.
+/** Install CLI for the Artisyn Implementation Harness: init, update, doctor.
  *
  * It places the package in a provider skills folder and keeps the project's `.harness/state/`
  * and `package:` records in step. It does not run launch or patch apply. Node >= 22, `node:`
@@ -19,7 +19,6 @@ import {
   stateDirOf,
   writePackageRecord,
 } from '../scripts/lib/state-root.mjs';
-import { detectSources, migrate } from '../scripts/lib/migrator.mjs';
 import {
   PACKAGE_FOLDER,
   PROVIDER_NAMES,
@@ -44,8 +43,7 @@ const USAGE = `Usage: artisyn-implementation-harness <command> [options]
 Commands
   init      Place the package in the first selected provider's skills folder and create .harness/state/
   update    Replace the installed package with the version of this CLI (npm) or a release ZIP (zip)
-  migrate   Copy state from an older install into .harness/state/
-  doctor    Report installed packages, versions, state health and pending migration
+  doctor    Report installed packages, versions and state health
 
 Options
   --dir <path>               Project root (default: git top level, else the working directory)
@@ -84,18 +82,6 @@ function installedFolders(root) {
     provider,
     dir: path.join(root, skillsFolder(provider), PACKAGE_FOLDER),
   })).filter(({ dir }) => fs.existsSync(dir));
-}
-
-/** The shim text: shipped copy first (tarball and ZIP), then the sibling folder (git channels and
- * the source tree). `null` when neither exists.
- */
-function findShim() {
-  const candidates = [
-    path.join(OWN_DIR, 'legacy', 'harness-bootstrap', 'SKILL.md'),
-    path.join(OWN_DIR, '..', 'harness-bootstrap', 'SKILL.md'),
-  ];
-  const found = candidates.find((file) => fs.existsSync(file));
-  return found ? fs.readFileSync(found, 'utf8') : null;
 }
 
 function validateReleaseBase(raw) {
@@ -161,8 +147,6 @@ function init(root, options) {
     `${alreadyInstalled ? 'Already installed' : 'Installed'} ${own.name} ${own.version} in ${relative(root, target)}`
   );
   say('State root: .harness/state/');
-  if (detectSources(root).some((source) => !source.marked))
-    say('Old state found. Run `migrate` before the first launch.');
   say(`Next: run \`${launchCommand(provider)}\``);
 }
 
@@ -244,23 +228,6 @@ async function updateFromRelease({ target, wanted, base }) {
   }
 }
 
-// -------------------------------------------------------------------------------- migrate
-
-function runMigrate(root) {
-  const result = migrate({ root, shim: findShim() });
-  say(`migrate: ${result.status}`);
-  if (result.status === 'migrated')
-    say(
-      `Copied ${result.imported.files} file(s) into .harness/state/; old state is kept and marked.`
-    );
-  for (const text of result.warnings) warn(`warning: ${text}`);
-  for (const conflict of result.conflicts)
-    warn(`conflict: ${conflict.path} (from ${conflict.source})`);
-  if (result.status === 'conflict' || result.status === 'aborted')
-    warn('Nothing was moved. Resolve the conflict and run `migrate` again.');
-  process.exitCode = result.exitCode;
-}
-
 // --------------------------------------------------------------------------------- doctor
 
 function doctor(root) {
@@ -310,23 +277,6 @@ function doctor(root) {
   );
   if (!fs.existsSync(stateDirOf(root))) problem('.harness/state/ does not exist');
 
-  const sources = detectSources(root);
-  for (const source of sources.filter((s) => !s.marked))
-    problem(`pending migration: old state in ${relative(root, source.dir)}; run \`migrate\``);
-  for (const source of sources.filter((s) => s.marked && s.kind === 'package')) {
-    say(
-      `  legacy state still present: ${relative(root, source.dir)} (delete it when you no longer need it)`
-    );
-    const skillFile = source.skillFolder ? path.join(source.packageDir, 'SKILL.md') : null;
-    if (
-      skillFile &&
-      fs.existsSync(skillFile) &&
-      !/deprecated/.test(fs.readFileSync(skillFile, 'utf8'))
-    )
-      say(
-        `  warning: ${relative(root, source.packageDir)} is still the old package; no shim was placed. Run \`migrate\` with a package that carries the shim.`
-      );
-  }
   say(problems === 0 ? 'OK' : `${problems} problem(s) found`);
   process.exitCode = problems === 0 ? 0 : 1;
 }
@@ -367,8 +317,6 @@ async function main(argv) {
       return init(root, options);
     case 'update':
       return update(root, options);
-    case 'migrate':
-      return runMigrate(root);
     case 'doctor':
       return doctor(root);
     default:
