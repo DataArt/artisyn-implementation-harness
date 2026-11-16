@@ -22,6 +22,31 @@ describe('release-harness.yml', () => {
   const npmjs = jobs['publish-npmjs'];
   const steps = (job: Record<string, any>) => JSON.stringify(job.steps); // eslint-disable-line @typescript-eslint/no-explicit-any
 
+  it('starts only for the package, its channel manifests or itself, or by hand', () => {
+    assert.deepEqual(doc.on.push.paths, [
+      'skills/implementation-harness/**',
+      '.claude-plugin/**',
+      '.agents/plugins/**',
+      'skills.sh.json',
+      '.github/workflows/release-harness.yml',
+    ]);
+    assert.ok('workflow_dispatch' in doc.on);
+  });
+
+  it('keeps the paths filter in step with the harness files of the commit scope rule', () => {
+    const scope = fs.readFileSync(
+      path.join(workspaceRoot, 'scripts/check-commit-scope.mjs'),
+      'utf8'
+    );
+    for (const prefix of [
+      'skills\\/implementation-harness\\/',
+      '\\.claude-plugin\\/',
+      '\\.agents\\/plugins\\/',
+      'skills\\.sh\\.json',
+    ])
+      assert.ok(scope.includes(prefix), prefix);
+  });
+
   it('runs on push to main with one concurrency group and no enable flag', () => {
     assert.deepEqual(doc.on.push.branches, ['main']);
     const group = typeof doc.concurrency === 'string' ? doc.concurrency : doc.concurrency.group;

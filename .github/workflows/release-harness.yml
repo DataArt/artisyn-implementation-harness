@@ -14,10 +14,21 @@ name: Release harness
 #                            first, so an immutable release gets its assets before it is published)
 #   publish-npmjs            stub: npmjs.com is not a channel yet; it reports and publishes nothing
 # The publish jobs run in parallel after approval; each can be re-run on its own.
+#
+# Only a push that touches the package or its channel manifests starts it (the same paths the
+# commit scope rule calls harness files), plus this workflow itself. A site-only merge starts
+# nothing. To finish a release without a new merge, re-run its run or start this workflow by hand.
 
 on:
   push:
     branches: [main]
+    paths:
+      - 'skills/implementation-harness/**'
+      - '.claude-plugin/**'
+      - '.agents/plugins/**'
+      - 'skills.sh.json'
+      - '.github/workflows/release-harness.yml'
+  workflow_dispatch:
 
 permissions: {}
 
