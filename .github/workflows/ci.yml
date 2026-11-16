@@ -114,4 +114,4 @@ jobs:
 
       - name: Install CLI and state root tests
         shell: bash
-        run: yarn workspace @artisyn-harness/implementation-harness-e2e vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/state-root.spec.ts
+        run: yarn nx run implementation-harness-e2e:unit-cli

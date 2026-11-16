@@ -8,6 +8,8 @@
     "default": [
       "{projectRoot}/**",
       "!{projectRoot}/runs/**",
+      "{workspaceRoot}/skills/implementation-harness/package.json",
+      "{workspaceRoot}/skills/implementation-harness/bin/**",
       "{workspaceRoot}/skills/implementation-harness/scripts/**",
       "{workspaceRoot}/skills/implementation-harness/canonical/**",
       "{workspaceRoot}/skills/implementation-harness/SKILL.md",
@@ -35,6 +37,14 @@
       "cache": true,
       "options": {
         "command": "vitest run --config vitest.unit.config.ts",
+        "cwd": "{projectRoot}"
+      }
+    },
+    "unit-cli": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/state-root.spec.ts",
         "cwd": "{projectRoot}"
       }
     },
