@@ -1,4 +1,4 @@
-# Harness Bootstrap
+# Implementation Harness
 
 **Version:** 7.5.0 · [Changelog](CHANGELOG.md)
 

@@ -11,7 +11,7 @@ description: >
   /implementation-harness patch harvest|prepare|apply.
 ---
 
-# Harness bootstrap
+# Implementation harness
 
 # SKILL METADATA
 

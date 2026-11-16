@@ -4,7 +4,7 @@ description: Blank structure for a fresh /implementation-harness run — copy to
 type: reference
 ---
 
-# Harness Bootstrap — Report
+# Implementation Harness — Report
 
 | Field           | Value                                                          |
 | --------------- | -------------------------------------------------------------- |
