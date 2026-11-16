@@ -16,7 +16,7 @@ See `docs/Engineering Guide/01 Conventions.md`.
 
 **Critical — violating either of these is a hard stop:**
 
-- **Guarded commands** — never run directly; present as instructions for the developer: `cdk deploy`, `git push`, `yarn nx run harness-bootstrap-e2e:agent-e2e` (spends real agent budget — the developer starts it)
+- **Guarded commands** — never run directly; present as instructions for the developer: `cdk deploy`, `git push`, `yarn nx run implementation-harness-e2e:agent-e2e` (spends real agent budget — the developer starts it)
 - **Region** — must never appear hardcoded in source or documentation anywhere; it is deployment configuration only
 
 Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: `<type>/short-description`. Package manager: `yarn` — never `npm` or `npx`.

@@ -6,7 +6,7 @@ import { PROVIDERS } from '../../utils/providers.ts';
 /** Regression test for the provider planner/materializer/finalizer pipeline:
  * builds a real plan against a copy of this package and drives the CLI
  * scripts end to end in an isolated fake project. Run via
- * `nx run harness-bootstrap-e2e:unit` (or `vitest run --config vitest.unit.config.ts`).
+ * `nx run implementation-harness-e2e:unit` (or `vitest run --config vitest.unit.config.ts`).
  */
 import assert from 'node:assert/strict';
 import fs from 'node:fs';

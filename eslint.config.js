@@ -14,7 +14,7 @@ export default tseslint.config(
       '**/dist/**',
       '**/cdk.out/**',
       // Agent e2e run artifacts: copied fixtures and generated workspaces, not source.
-      'apps/harness-bootstrap-e2e/runs/**',
+      'apps/implementation-harness-e2e/runs/**',
       '**/.vitepress/dist/**',
       '**/.vitepress/cache/**',
       '.nx/**',

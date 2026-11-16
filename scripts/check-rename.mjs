@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Rename gate (D-01). Two rules over the repository's files:
  *
- *   1. The retired name `harness-bootstrap` appears only where history or migration needs it.
+ *   1. The retired name `harness-bootstrap` appears only in history (it was never published).
  *   2. The full name `artisyn-implementation-harness` is only a package, repo, tag, ZIP or bin
  *      name. It is never a skill, folder or command (the skill is `implementation-harness`).
  *
@@ -32,35 +32,18 @@ const skipped = (file) =>
   file.split('/').some((segment) => SKIP_SEGMENTS.has(segment)) ||
   file.includes('.vitepress/cache/');
 
-/** Places where the retired name is expected. Directory prefixes and exact files. */
+/** Places where the retired name is history: directory prefixes and exact files. */
 const RETIRED_NAME_ALLOWED = [
   'skills/implementation-harness/patch', // immutable bundle history
   '.harness/state', // recorded run history
   '.harness/evolve',
   '.harness/reflections',
-  'skills/harness-bootstrap', // the shim
   'docs/Stories', // story history
   'docs/.og', // generated graph
   'docs/Harness/08 Security Scan', // dated scan reports of the old package, and the index that links them
-  'docs/Harness/09 Distribution/02 Update and Migration.md', // the migration doc's subject is the old command and the shim
-  'docs/Harness/09 Distribution/03 Versioning and Releases.md', // names the shim's 4.x lifecycle
-  'docs/Engineering Guide/Documentation/07 Terminology.md', // defines the "legacy shim" term by its real name
-  'apps/harness-bootstrap-e2e/runs', // recorded agent runs
-  'apps/harness-bootstrap-e2e/src/tests/unit/legacy', // tests of the legacy handling
-  'apps/harness-bootstrap-e2e/src/tests/unit/cli',
-  'apps/harness-bootstrap-e2e/src/tests/unit/release',
-  'apps/harness-bootstrap-e2e/src/tests/unit/helpers',
-  // Code and docs whose job is the migration from the retired name:
-  'skills/implementation-harness/bin',
-  'skills/implementation-harness/scripts/lib/legacy-map.mjs',
-  'skills/implementation-harness/scripts/lib/migrator.mjs',
-  'skills/implementation-harness/references/patch/06-patch-state.md',
-  'scripts/pack-shim.mjs',
-  'scripts/check-rename.mjs',
-  'scripts/check-commit-scope.mjs',
-  '.claude-plugin/plugin.json', // lists the shim skill
-  'scripts/release/stamp-harness-version.mjs', // stamps the shim
-  'scripts/ci/check-pack.mjs', // requires the shim in the package
+  'apps/implementation-harness-e2e/runs', // recorded agent runs
+  'scripts/check-rename.mjs', // this gate
+  'apps/implementation-harness-e2e/src/tests/unit/release/check-rename.spec.ts', // its spec
 ];
 const RETIRED_NAME_ALLOWED_BASENAMES = ['CHANGELOG.md']; // released history entries
 
@@ -69,19 +52,18 @@ const FULL_NAME_ALLOWED = [
   'docs/Stories',
   'docs/.og',
   'scripts/check-rename.mjs',
-  'apps/harness-bootstrap-e2e/src/tests/unit/release/check-rename.spec.ts',
+  'apps/implementation-harness-e2e/src/tests/unit/release/check-rename.spec.ts',
 ];
 const DOCS_SCOPE = ['docs', 'CLAUDE.md', 'README.md'];
 
 const inList = (relative, list) =>
   list.some((entry) => relative === entry || relative.startsWith(`${entry}/`));
 
-// The retired name, but not the E2E project `harness-bootstrap-e2e`.
-const RETIRED = /harness-bootstrap(?!-e2e)/;
+const RETIRED = /harness-bootstrap/;
 // The full name used as a command, a folder or a skill name. A command is followed by a route
 // word, so the GitHub Pages base path `/artisyn-implementation-harness/` and the package, repo,
 // tag, ZIP and bin forms do not match.
-const ROUTE = '(?:launch|patch|reindex-graph|migrate)';
+const ROUTE = '(?:launch|patch|reindex-graph)';
 const FULL_NAME_AS_NAME = [
   new RegExp(`(?<![\\w@./-])/artisyn-implementation-harness\\s+${ROUTE}\\b`), // slash command
   new RegExp(`\\$artisyn-implementation-harness\\s+${ROUTE}\\b`), // Codex command

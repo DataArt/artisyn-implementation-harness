@@ -149,7 +149,7 @@ Reproduce each CI gate locally from the repo root with Node 24. The package mana
 | `version-gate`    | `git fetch --tags` · `node scripts/release/stamp-harness-version.mjs --check` · `node scripts/release/version-harness.mjs --check`                                                                                                                             |
 | `rename-gate`     | `node scripts/check-rename.mjs` · `node scripts/check-docs.mjs` · `node scripts/check-commit-scope.mjs --range origin/main..HEAD`                                                                                                                              |
 | `harness-package` | `node scripts/pack-shim.mjs` · `node scripts/ci/check-pack.mjs` · `CLAUDE_CMD="yarn dlx --quiet -p @anthropic-ai/claude-code@2.1.311 claude" node scripts/validate-plugin.mjs` · `yarn nx release version --projects=artisyn-implementation-harness --dry-run` |
-| `harness-cli`     | `yarn workspace @artisyn-harness/harness-bootstrap-e2e vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/legacy src/tests/unit/state-root.spec.ts`                                                                                   |
+| `harness-cli`     | `yarn workspace @artisyn-harness/implementation-harness-e2e vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/legacy src/tests/unit/state-root.spec.ts`                                                                              |
 | gitleaks          | A local gitleaks binary: `gitleaks git --config .gitleaks.toml --redact --log-opts="--all" .`                                                                                                                                                                  |
 
 `version-harness.mjs --check` needs the harness tags locally; it computes the version from the latest `artisyn-implementation-harness-v*` tag reachable from HEAD.
@@ -175,7 +175,7 @@ The root lane has an open point (TD-5). `@semantic-release/git` pushes the `chor
 
 CI never runs a guarded command; the developer starts each one.
 
-- `yarn nx run harness-bootstrap-e2e:agent-e2e` spends real agent budget. It never runs in CI.
+- `yarn nx run implementation-harness-e2e:agent-e2e` spends real agent budget. It never runs in CI.
 - `git push`, including the runbook's baseline tag push.
 
 A region is deployment configuration only. Never hardcode one in a workflow, script or doc.

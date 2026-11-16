@@ -1,9 +1,9 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "name": "harness-bootstrap-e2e",
+  "name": "implementation-harness-e2e",
   "projectType": "application",
-  "root": "apps/harness-bootstrap-e2e",
-  "sourceRoot": "apps/harness-bootstrap-e2e/src",
+  "root": "apps/implementation-harness-e2e",
+  "sourceRoot": "apps/implementation-harness-e2e/src",
   "namedInputs": {
     "default": [
       "{projectRoot}/**",

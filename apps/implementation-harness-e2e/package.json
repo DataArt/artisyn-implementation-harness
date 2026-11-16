@@ -1,5 +1,5 @@
 {
-  "name": "@artisyn-harness/harness-bootstrap-e2e",
+  "name": "@artisyn-harness/implementation-harness-e2e",
   "version": "0.0.0",
   "private": true,
   "type": "module",

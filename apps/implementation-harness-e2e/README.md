@@ -1,4 +1,4 @@
-# harness-bootstrap-e2e
+# implementation-harness-e2e
 
 Tests for the `implementation-harness` authoring package in
 `skills/implementation-harness/`. Deterministic tests exercise scripts and
@@ -26,17 +26,17 @@ and model usage from the developer's environment.
 Run from the repository root:
 
 ```sh
-yarn nx run harness-bootstrap-e2e:typecheck
-yarn nx run harness-bootstrap-e2e:lint
-yarn nx run harness-bootstrap-e2e:test
-yarn nx run harness-bootstrap-e2e:unit
-yarn nx run harness-bootstrap-e2e:integration
+yarn nx run implementation-harness-e2e:typecheck
+yarn nx run implementation-harness-e2e:lint
+yarn nx run implementation-harness-e2e:test
+yarn nx run implementation-harness-e2e:unit
+yarn nx run implementation-harness-e2e:integration
 ```
 
 Cached deterministic runs can finish quickly. To execute them again:
 
 ```sh
-yarn nx run harness-bootstrap-e2e:test --skip-nx-cache
+yarn nx run implementation-harness-e2e:test --skip-nx-cache
 ```
 
 ## Directory layout
@@ -197,16 +197,16 @@ need implementation. A combined bootstrap → design → dev scenario is future 
 List cases before executing them:
 
 ```sh
-yarn nx run harness-bootstrap-e2e:agent-e2e --mode=list
-yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield --mode=list
+yarn nx run implementation-harness-e2e:agent-e2e --mode=list
+yarn nx run implementation-harness-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield --mode=list
 ```
 
 Run a selected case:
 
 ```sh
-yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-claude-from-scratch-greenfield
-yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
-yarn nx run harness-bootstrap-e2e:agent-e2e --case=patch-prepare-apply
+yarn nx run implementation-harness-e2e:agent-e2e --case=boot-claude-from-scratch-greenfield
+yarn nx run implementation-harness-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
+yarn nx run implementation-harness-e2e:agent-e2e --case=patch-prepare-apply
 ```
 
 Omitting `--case` selects all E2E specs, including the live patch workflow and
@@ -214,7 +214,7 @@ pending feature-flow tests. `--mode=list` does not invoke agents. Do not use
 `--dry-run` as a listing substitute: this `nx:run-commands` target does not provide
 that guarantee.
 
-From `apps/harness-bootstrap-e2e`, a spec can also be run directly:
+From `apps/implementation-harness-e2e`, a spec can also be run directly:
 
 ```sh
 yarn vitest run --config vitest.agent-e2e.config.ts src/cases/boot-codex-from-scratch-greenfield.spec.ts
@@ -329,8 +329,8 @@ after themselves; they create fixtures constantly and would otherwise bury
 retained layout for a debugging session:
 
 ```sh
-yarn nx run harness-bootstrap-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
-HB_E2E_KEEP_TMP=1 yarn nx run harness-bootstrap-e2e:integration --skip-nx-cache
+yarn nx run implementation-harness-e2e:agent-e2e --case=boot-codex-from-scratch-greenfield
+HB_E2E_KEEP_TMP=1 yarn nx run implementation-harness-e2e:integration --skip-nx-cache
 ```
 
 For bootstrap, inspect these paths under the host's
@@ -343,7 +343,7 @@ inside `fixture/`:
 - `state/operations/`: recorded output hashes, local checks and external gates.
 
 Each execution creates a fresh workspace. Run directories accumulate until
-removed manually (`rm -rf apps/harness-bootstrap-e2e/runs`); the newest
+removed manually (`rm -rf apps/implementation-harness-e2e/runs`); the newest
 timestamp is the most recent run.
 
 ## Deterministic integration coverage

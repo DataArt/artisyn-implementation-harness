@@ -25,25 +25,28 @@ describe('check-rename.mjs: rule 1, the retired name', () => {
     assert.ok(result.stdout.includes('apps/web/a.ts'));
   });
 
-  it('allows the places the design lists', () => {
+  it('allows the history places only', () => {
     const result = gate({
       'skills/implementation-harness/patch/b1/files/x.md': 'harness-bootstrap\n',
       '.harness/state/index.json': 'harness-bootstrap\n',
       '.harness/evolve/x/y.md': 'harness-bootstrap\n',
       '.harness/reflections/x.md': 'harness-bootstrap\n',
-      'skills/harness-bootstrap/SKILL.md': 'harness-bootstrap\n',
       'docs/Stories/archive/s/impl/report.md': 'harness-bootstrap\n',
       'docs/.og/graph.mmd': 'harness-bootstrap\n',
-      'apps/harness-bootstrap-e2e/runs/2026/report.json': 'harness-bootstrap\n',
-      'apps/harness-bootstrap-e2e/src/tests/unit/legacy/x.ts': 'harness-bootstrap\n',
+      'apps/implementation-harness-e2e/runs/2026/report.json': 'harness-bootstrap\n',
       'CHANGELOG.md': '## 3.5.0\n- harness-bootstrap history\n',
     });
     assert.equal(result.status, 0, result.stdout + result.stderr);
   });
 
-  it('allows the E2E project name harness-bootstrap-e2e anywhere', () => {
-    const result = gate({ 'CLAUDE.md': 'run yarn nx run harness-bootstrap-e2e:unit\n' });
-    assert.equal(result.status, 0, result.stdout + result.stderr);
+  it('flags the old E2E project name and the shim folder: nothing of the old name is kept', () => {
+    const result = gate({
+      'CLAUDE.md': 'run yarn nx run harness-bootstrap-e2e:unit\n',
+      'skills/harness-bootstrap/SKILL.md': 'x\n',
+    });
+    assert.equal(result.status, 1);
+    assert.ok(result.stdout.includes('CLAUDE.md:1'));
+    assert.ok(result.stdout.includes('skills/harness-bootstrap/SKILL.md: path names'));
   });
 
   it('skips node_modules and .git', () => {

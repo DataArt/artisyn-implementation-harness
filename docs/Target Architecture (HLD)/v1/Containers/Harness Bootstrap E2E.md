@@ -1,12 +1,12 @@
 ---
 id: ca3a865c
 purpose: Design intent for the Harness Bootstrap E2E container — the test harness validating the implementation-harness skill package and the repo's release tooling
-keywords: [harness-bootstrap-e2e, implementation-harness, testing, release-tooling, hld]
+keywords: [implementation-harness-e2e, implementation-harness, testing, release-tooling, hld]
 ---
 
 # Harness Bootstrap E2E Container
 
-Test harness validating the `implementation-harness` skill package (`skills/implementation-harness/`) and the repo's release tooling: deterministic unit and integration coverage of the package's scripts, install CLI, migrator and release gates, plus live agent E2E runs that drive the skill through real Claude or Codex CLI sessions against disposable fixture workspaces. The Nx project keeps its historical name `harness-bootstrap-e2e`.
+Test harness validating the `implementation-harness` skill package (`skills/implementation-harness/`) and the repo's release tooling: deterministic unit and integration coverage of the package's scripts, install CLI, migrator and release gates, plus live agent E2E runs that drive the skill through real Claude or Codex CLI sessions against disposable fixture workspaces. The Nx project keeps its historical name `implementation-harness-e2e`.
 
 ## Baseline diagram
 
@@ -54,7 +54,7 @@ flowchart LR
     style AGENT fill:#EEF2FF,stroke:#4338CA,color:#1e1b4b
 ```
 
-Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CLI authentication and model usage (`yarn nx run harness-bootstrap-e2e:agent-e2e`, a guarded command).
+Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CLI authentication and model usage (`yarn nx run implementation-harness-e2e:agent-e2e`, a guarded command).
 
 ## Responsibilities
 
@@ -81,14 +81,14 @@ Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CL
 
 ## Key paths
 
-| Path                                            | Purpose                                                      |
-| ----------------------------------------------- | ------------------------------------------------------------ |
-| `apps/harness-bootstrap-e2e/fixtures/`          | Deterministic launch/patch baseline + greenfield fixtures    |
-| `apps/harness-bootstrap-e2e/src/cases/`         | Agent E2E case specs                                         |
-| `apps/harness-bootstrap-e2e/src/scenarios/`     | What each case runs and checks                               |
-| `apps/harness-bootstrap-e2e/src/engine/`        | The only stateful layer — step loop, grading, report writing |
-| `apps/harness-bootstrap-e2e/src/graders/`       | Filesystem/transcript/receipt checks, grouped by concern     |
-| `apps/harness-bootstrap-e2e/src/agent-runners/` | Claude/Codex CLI adapters                                    |
+| Path                                                 | Purpose                                                      |
+| ---------------------------------------------------- | ------------------------------------------------------------ |
+| `apps/implementation-harness-e2e/fixtures/`          | Deterministic launch/patch baseline + greenfield fixtures    |
+| `apps/implementation-harness-e2e/src/cases/`         | Agent E2E case specs                                         |
+| `apps/implementation-harness-e2e/src/scenarios/`     | What each case runs and checks                               |
+| `apps/implementation-harness-e2e/src/engine/`        | The only stateful layer — step loop, grading, report writing |
+| `apps/implementation-harness-e2e/src/graders/`       | Filesystem/transcript/receipt checks, grouped by concern     |
+| `apps/implementation-harness-e2e/src/agent-runners/` | Claude/Codex CLI adapters                                    |
 
 ## Constraints
 

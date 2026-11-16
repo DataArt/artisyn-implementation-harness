@@ -248,9 +248,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@artisyn-harness/harness-bootstrap-e2e@workspace:apps/harness-bootstrap-e2e":
+"@artisyn-harness/implementation-harness-e2e@workspace:apps/implementation-harness-e2e":
   version: 0.0.0-use.local
-  resolution: "@artisyn-harness/harness-bootstrap-e2e@workspace:apps/harness-bootstrap-e2e"
+  resolution: "@artisyn-harness/implementation-harness-e2e@workspace:apps/implementation-harness-e2e"
   dependencies:
     "@types/diff": "npm:^5.0.0"
     "@types/node": "npm:^24"

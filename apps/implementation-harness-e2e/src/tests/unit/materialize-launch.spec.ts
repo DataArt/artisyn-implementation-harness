@@ -4,7 +4,7 @@
  * materialize-launch.mjs's own runtime validation doesn't already catch. */
 /** Regression test for materialize-launch.mjs: exercises materialization in an
  * isolated fake project; no real harness writes. Run via
- * `nx run harness-bootstrap-e2e:unit` (or `vitest run --config vitest.unit.config.ts`).
+ * `nx run implementation-harness-e2e:unit` (or `vitest run --config vitest.unit.config.ts`).
  */
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
