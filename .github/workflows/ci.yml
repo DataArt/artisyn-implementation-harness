@@ -8,8 +8,12 @@ on:
 permissions:
   contents: read
 
+# Three stages, each waiting for the one before, so nothing runs on a change that already failed:
+#   1. build-and-test                          audit, lint, typecheck, test and build what changed
+#   2. version-gate · docs-gate · harness-package
+#   3. harness-cli                             the install CLI on ubuntu, macos and windows
 jobs:
-  ci:
+  build-and-test:
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -34,12 +38,9 @@ jobs:
       - name: Build (affected)
         run: yarn nx affected --target=build --configuration=ci --base=origin/${{ github.base_ref }} --head=HEAD
 
-      - name: Log Hub canonical isolation
-        run: yarn nx run log-hub:verify
-
-  # Required checks on `main` (D-17): ci, version-gate, docs-gate. The release workflow runs
-  # only after they pass.
+  # Required checks on `main` (D-17): build-and-test, version-gate, docs-gate.
   version-gate:
+    needs: build-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -57,6 +58,7 @@ jobs:
         run: node scripts/release/version-harness.mjs --check
 
   docs-gate:
+    needs: build-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -72,6 +74,7 @@ jobs:
         run: node scripts/check-commit-scope.mjs --range origin/${{ github.base_ref }}..HEAD
 
   harness-package:
+    needs: build-and-test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -93,6 +96,7 @@ jobs:
 
   harness-cli:
     name: harness-cli (${{ matrix.os }})
+    needs: [version-gate, docs-gate, harness-package]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false

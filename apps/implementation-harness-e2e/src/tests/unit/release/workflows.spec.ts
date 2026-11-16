@@ -147,9 +147,13 @@ describe('ci.yml', () => {
     assert.match(text, /@anthropic-ai\/claude-code@\d+\.\d+\.\d+/);
   });
 
-  it('keeps the existing ci job and adds the version, rename and package gates', () => {
-    for (const job of ['ci', 'version-gate', 'docs-gate', 'harness-package'])
-      assert.ok(doc.jobs[job], job);
+  it('runs in three stages: build-and-test, then the gates and the package check, then the CLI', () => {
+    const jobs = doc.jobs as Record<string, Record<string, any>>; // eslint-disable-line @typescript-eslint/no-explicit-any
+    assert.equal(jobs['build-and-test'].needs, undefined, 'stage 1 starts first');
+    assert.equal(jobs.ci, undefined, 'the old job name is gone');
+    for (const job of ['version-gate', 'docs-gate', 'harness-package'])
+      assert.equal(jobs[job].needs, 'build-and-test', job);
+    assert.deepEqual(jobs['harness-cli'].needs, ['version-gate', 'docs-gate', 'harness-package']);
   });
 
   it('runs the gates the design names', () => {
