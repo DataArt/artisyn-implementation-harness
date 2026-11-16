@@ -12,7 +12,8 @@ name: Release harness
 #   publish-github-packages  publishes the npm package to GitHub Packages
 #   publish-github           publishes the GitHub Release with the ZIP and its checksum (draft
 #                            first, so an immutable release gets its assets before it is published)
-# The two publish jobs run in parallel after approval; either can be re-run on its own.
+#   publish-npmjs            stub: npmjs.com is not a channel yet; it reports and publishes nothing
+# The publish jobs run in parallel after approval; each can be re-run on its own.
 
 on:
   push:
@@ -207,3 +208,20 @@ jobs:
           else
             echo "${TAG} is already published; its assets stay as they are."
           fi
+
+  # Stub for a future npmjs.com channel. It publishes nothing yet. To make it real:
+  #   1. The @dataart scope must exist on npmjs.com, owned by DataArt.
+  #   2. Add this repository and workflow as a trusted publisher of the package on npmjs.com, so no
+  #      token is stored: the job gets `id-token: write` and publishes with provenance.
+  #   3. Publish to https://registry.npmjs.org, overriding the package's publishConfig registry
+  #      (GitHub Packages) for this job only, then update the distribution docs and the smoke list.
+  publish-npmjs:
+    needs: [build, release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - name: Publish to npmjs.com (stub)
+        run: echo "::notice::npmjs.com publishing is not set up yet; ${PACKAGE}@${VERSION} was not published there."

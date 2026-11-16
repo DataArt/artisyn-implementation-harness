@@ -19,6 +19,7 @@ describe('release-harness.yml', () => {
   const { build, release } = jobs;
   const packages = jobs['publish-github-packages'];
   const github = jobs['publish-github'];
+  const npmjs = jobs['publish-npmjs'];
   const steps = (job: Record<string, any>) => JSON.stringify(job.steps); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   it('runs on push to main with one concurrency group and no enable flag', () => {
@@ -29,19 +30,20 @@ describe('release-harness.yml', () => {
     assert.equal(build.if, undefined, 'build always runs');
   });
 
-  it('builds, waits for approval in the release environment, then publishes GitHub Packages and the GitHub Release in parallel', () => {
+  it('builds, waits for approval in the release environment, then runs the publish jobs in parallel', () => {
     assert.deepEqual(Object.keys(jobs), [
       'build',
       'release',
       'publish-github-packages',
       'publish-github',
+      'publish-npmjs',
     ]);
     assert.equal(release.needs, 'build');
     assert.equal(release.environment, 'release');
     assert.match(String(release.if), /needs\.build\.outputs\.publish == 'true'/);
-    for (const job of [packages, github]) {
+    for (const job of [packages, github, npmjs]) {
       assert.deepEqual(job.needs, ['build', 'release']);
-      assert.equal(job.environment, undefined, 'one approval covers both channels');
+      assert.equal(job.environment, undefined, 'one approval covers every channel');
     }
   });
 
@@ -56,6 +58,7 @@ describe('release-harness.yml', () => {
     assert.deepEqual(release.permissions, { contents: 'write' });
     assert.deepEqual(packages.permissions, { contents: 'read', packages: 'write' });
     assert.deepEqual(github.permissions, { contents: 'write' });
+    assert.deepEqual(npmjs.permissions, { contents: 'read' });
   });
 
   it('never pushes to main and needs no release token', () => {
@@ -94,6 +97,12 @@ describe('release-harness.yml', () => {
     assert.match(g, /download-artifact/);
     assert.match(g, /gh release create/);
     assert.ok(!g.includes('npm publish'));
+  });
+
+  it('keeps npmjs.com as a stub that publishes nothing', () => {
+    const n = steps(npmjs);
+    assert.match(n, /not set up yet/);
+    assert.ok(!n.includes('npm publish'), 'no publish');
   });
 
   it('publishes the release from a draft, so an immutable release gets its assets first', () => {
