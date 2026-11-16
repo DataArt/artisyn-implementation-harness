@@ -1,6 +1,6 @@
 ---
 id: 8912decf
-purpose: 'Design intent for the Harness Release Pipeline container: the PR stamps the harness version, an automatic build on merge attests it, and after a reviewer approves the release environment one publish job tags it and opens all five channels at once'
+purpose: 'Design intent for the Harness Release Pipeline container: the PR stamps the harness version, an automatic build on merge attests it, and after a reviewer approves the release environment a release job tags it and two parallel publish jobs open all five channels at once'
 keywords:
   [
     harness-release-pipeline,
@@ -15,7 +15,7 @@ keywords:
 
 # Harness Release Pipeline Container
 
-The harness is versioned in the PR, built on merge and published after a reviewer approves. The PR stamps the version. After the squash merge, an automatic build produces and attests the npm tarball and the Release ZIP. A publish job then waits in the `release` environment; on approval it creates the tag and publishes, so every channel opens at the same moment. It is the repository's only release lane, and it never pushes to `main`. Like Implementation Harness E2E, this is CI tooling, with no presence in the deployed site.
+The harness is versioned in the PR, built on merge and published after a reviewer approves. The PR stamps the version. After the squash merge, an automatic build produces and attests the npm tarball and the Release ZIP. A `release` job then waits in the `release` environment; on approval it creates the tag, and two parallel publish jobs publish, so every channel opens at the same moment. It is the repository's only release lane, and it never pushes to `main`. Like Implementation Harness E2E, this is CI tooling, with no presence in the deployed site.
 
 ## Baseline diagram
 
@@ -28,8 +28,8 @@ flowchart LR
 
     subgraph PIPE ["  release-harness.yml — GITHUB_TOKEN only  "]
         BUILD["📦 build (automatic)\ntarball + ZIP + sha256\nattest · run artifact"]:::pipe
-        GATE{{"🔒 Approval\nenvironment release"}}:::gate
-        PUB["🚀 publish\ntag via API · npm · Release"]:::pipe
+        GATE{{"🔒 release (approval)\ntag via API"}}:::gate
+        PUB["🚀 publish-npm · publish-github\nparallel, each re-runnable"]:::pipe
     end
 
     subgraph CH ["  Channels  "]
@@ -60,7 +60,7 @@ flowchart LR
 
 - On the feature branch: compute the version from the latest harness tag and the conventional commits after it (Nx Release; the repository itself is not versioned), stamp every shipped manifest, write the changelog entry (`yarn harness:version`); on every PR, `version-gate` checks the stamp and blocks harness PRs while a release waits for approval
 - On every merge (`build`): when the version is not fully published, build and attest the npm tarball and the Release ZIP + `.sha256` and keep them as a run artifact
-- After approval (`publish`): create the tag `artisyn-implementation-harness-v<version>` through the API, publish to GitHub Packages, and publish the GitHub Release with the ZIP and `.sha256`
+- After approval: `release` creates the tag `artisyn-implementation-harness-v<version>` through the API; then, in parallel, `publish-npm` publishes to GitHub Packages and `publish-github` publishes the GitHub Release with the ZIP and `.sha256`
 
 ## Boundary contracts
 

@@ -19,7 +19,7 @@ keywords:
 
 # Harness Release Runbook
 
-The harness is versioned in the PR, built on merge and published after a reviewer approves. The developer stamps the version on the feature branch. After the squash merge, `release-harness.yml` builds and attests that version automatically. The publish job then waits in the `release` environment; once a reviewer approves, it creates the tag and publishes to every channel at once. It is the repository's only release lane. No workflow commits or pushes to `main`, so releases need no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
+The harness is versioned in the PR, built on merge and published after a reviewer approves. The developer stamps the version on the feature branch. After the squash merge, `release-harness.yml` builds and attests that version automatically. The `release` job then waits in the `release` environment; once a reviewer approves, it creates the tag, and two publish jobs publish to every channel at once. It is the repository's only release lane. No workflow commits or pushes to `main`, so releases need no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
 
 ```mermaid
 flowchart TB
@@ -37,11 +37,15 @@ flowchart TB
     subgraph MERGE ["  On merge to main  "]
         BUILD["5️⃣ build job (automatic)\ntarball · ZIP + sha256 · attest\nartifact harness-release"]:::release
         APPROVE{{"6️⃣ Reviewer approves\nthe release deployment"}}:::gate
-        PUB["publish job\ntag via API · npm · GitHub Release"]:::release
+        TAG["release job\ntag via API"]:::release
+        NPM["publish-npm job\nGitHub Packages"]:::release
+        GHR["publish-github job\nGitHub Release"]:::release
         SMOKE["8️⃣ Smoke every channel"]:::release
     end
 
-    RS --> ENV --> BT --> HV --> VG -->|"squash merge"| BUILD --> APPROVE --> PUB --> SMOKE
+    RS --> ENV --> BT --> HV --> VG -->|"squash merge"| BUILD --> APPROVE --> TAG
+    TAG --> NPM --> SMOKE
+    TAG --> GHR --> SMOKE
 
     classDef setup fill:#DBEAFE,stroke:#2563EB,color:#1e3a8a
     classDef pr fill:#FEF3C7,stroke:#D97706,color:#78350f
@@ -73,7 +77,7 @@ The release needs no secret. The old flow used a `HARNESS_RELEASE_TOKEN` secret 
 
 ## 2. The `release` environment
 
-The publish job runs in the environment `release`; its required reviewers are the approval gate. Create it before PR #20 merges. If it does not exist, GitHub creates it on first use with no protection, and the publish runs without approval.
+The `release` job runs in the environment `release`; its required reviewers are the approval gate. Create it before PR #20 merges. If it does not exist, GitHub creates it on first use with no protection, and the release runs without approval.
 
 | Setting (Settings → Environments → `release`) | Value                                          |
 | --------------------------------------------- | ---------------------------------------------- |
@@ -81,7 +85,7 @@ The publish job runs in the environment `release`; its required reviewers are th
 | Prevent self-review                           | Optional: the person who merged cannot approve |
 | Deployment branches and tags                  | Optional: selected branches, `main` only       |
 
-Also recommended: enable immutable releases (Settings → General → Releases). The publish job creates the Release as a draft, uploads the ZIP and `.sha256`, and only then publishes it, so the assets are in place before the Release becomes immutable.
+Also recommended: enable immutable releases (Settings → General → Releases). The `publish-github` job creates the Release as a draft, uploads the ZIP and `.sha256`, and only then publishes it, so the assets are in place before the Release becomes immutable.
 
 ## 3. Baseline tag
 
@@ -119,7 +123,7 @@ The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` s
 - the changelog has no entry for that version;
 - the changelog has an entry for a version this branch does not release.
 
-**Two PRs, one version.** The ruleset requires the branch to be up to date. When two PRs claim the same version, the first merges and, once approved, gets the tag; the second must update from `main` and re-run `yarn harness:version`. The tag exists only after approval, so while a release waits, `version-gate` fails every PR that changes the harness: `main` carries a version that is not released yet. Approve the waiting release, then re-run the check and `yarn harness:version`. PRs that don't touch the harness are not blocked. As a backstop, the build and publish jobs stop when the version's tag already exists and the commit changes the harness after it.
+**Two PRs, one version.** The ruleset requires the branch to be up to date. When two PRs claim the same version, the first merges and, once approved, gets the tag; the second must update from `main` and re-run `yarn harness:version`. The tag exists only after approval, so while a release waits, `version-gate` fails every PR that changes the harness: `main` carries a version that is not released yet. Approve the waiting release, then re-run the check and `yarn harness:version`. PRs that don't touch the harness are not blocked. As a backstop, the `build` and `release` jobs stop when the version's tag already exists and the commit changes the harness after it.
 
 **Squash title.** The version comes from the PR's own commits, which husky and the CI scope check (`check-commit-scope.mjs --range`) both check. The squash title no longer decides the version. Still give it a `harness`-scoped Conventional Commit subject, so harness changes stand apart in history and the changelog.
 
@@ -129,30 +133,29 @@ Changelog entries link to the PR's commit hashes. After the squash merge those c
 
 On every push to `main`, the `build` job reads the version from `skills/implementation-harness/package.json` at the pushed commit and decides what to do:
 
-| State                                                                      | Action                                                                                                                                    |
-| -------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Tag exists and the commit changes `skills/implementation-harness` after it | Fails: a PR merged a version that is already released                                                                                     |
-| npm version exists and a non-draft Release carries the ZIP and `.sha256`   | Prints "fully published" and ends green; the publish job is skipped, no approval is asked                                                 |
-| Anything is missing                                                        | Builds the tarball, the ZIP and its `.sha256`, attests both, keeps them as artifact `harness-release`; the publish job waits for approval |
+| State                                                                      | Action                                                                                                                                      |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tag exists and the commit changes `skills/implementation-harness` after it | Fails: a PR merged a version that is already released                                                                                       |
+| npm version exists and a non-draft Release carries the ZIP and `.sha256`   | Prints "fully published" and ends green; the later jobs are skipped, no approval is asked                                                   |
+| Anything is missing                                                        | Builds the tarball, the ZIP and its `.sha256`, attests both, keeps them as artifact `harness-release`; the `release` job waits for approval |
 
 A merge that does not change the harness carries a released version, so it ends in the second row. A failed attestation fails the build, and nothing is published.
 
 ## 6. Approve the publish
 
-Approve the `release` deployment to publish. Open the run in Actions, choose **Review deployments**, select `release` and approve. The publish job then:
+Approve the `release` deployment to publish. Open the run in Actions, choose **Review deployments**, select `release` and approve. One approval starts three jobs:
 
-| Step           | What it does                                                                                                 |
-| -------------- | ------------------------------------------------------------------------------------------------------------ |
-| Download       | Takes the `harness-release` artifact from the build job                                                      |
-| Tag            | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API, unless it exists   |
-| npm            | `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages |
-| GitHub Release | Creates a draft, uploads the ZIP and `.sha256`, then publishes it                                            |
+| Job              | What it does                                                                                                                                                                 |
+| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `release`        | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited |
+| `publish-npm`    | After `release`: `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages                                                |
+| `publish-github` | After `release`: downloads the `harness-release` artifact, creates a draft Release, uploads the ZIP and `.sha256`, then publishes it                                         |
 
-The tag appears only now, so npm, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
+The two publish jobs run in parallel. The tag appears only now, so npm, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
 
 Until approval, the marketplace manifests on `main` pin a tag that does not exist yet. Marketplace and `gh skill` installs of the new version fail in that window (accepted 2026-11-16). The site deploy (`cd.yml`) does not wait for the approval.
 
-**Re-run.** A failed or rejected run is safe to re-run; it finishes only what is missing. An existing tag stays, npm skips a version that is already there, and an already-published Release keeps its assets.
+**Re-run.** A failed or rejected run is safe to re-run; it finishes only what is missing. An existing tag stays, npm skips a version that is already there, and an already-published Release keeps its assets. When only one publish job fails, use **Re-run failed jobs**: it re-runs that job alone, without a new approval.
 
 ## 7. First release: 4.0.0
 
@@ -160,14 +163,14 @@ PR #20 is already stamped 4.0.0 (commit `c7f326b`). With steps 1 to 3 done, squa
 
 `feat(harness)!: ship implementation-harness through five channels and keep its state in .harness/state`
 
-The build job builds and attests 4.0.0. Approve the `release` deployment (step 6); the publish job tags `artisyn-implementation-harness-v4.0.0` and publishes. Two known windows exist until it finishes (accepted at plan sign-off, 2026-11-15):
+The build job builds and attests 4.0.0. Approve the `release` deployment (step 6); the `release` job tags `artisyn-implementation-harness-v4.0.0` and the two publish jobs publish. Two known windows exist until it finishes (accepted at plan sign-off, 2026-11-15):
 
-- The marketplace manifests on `main` pin a tag that does not exist until the publish job creates it (RF-012). Marketplace installs work once 4.0.0 is tagged.
+- The marketplace manifests on `main` pin a tag that does not exist until the `release` job creates it (RF-012). Marketplace installs work once 4.0.0 is tagged.
 - The committed 3.5.0 ZIPs are deleted, so no 3.5.0 ZIP is downloadable until 4.0.0 is released (RF-013); the files remain in git history.
 
 ## 8. Per-channel smoke checklist
 
-In a scratch consumer project (not this repo), after the publish job goes green. The `npx` commands below are consumer-side, so the yarn-only rule for this repo does not apply to them:
+In a scratch consumer project (not this repo), after both publish jobs go green. The `npx` commands below are consumer-side, so the yarn-only rule for this repo does not apply to them:
 
 | Channel     | Check                                                                                                                                                                    |
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -187,4 +190,4 @@ Versioning in the PR replaces the release commit that design decisions D-15, D-1
 
 The root semantic-release lane is retired (2026-11-16): `release.yml`, `release.config.js` and the semantic-release packages are deleted. With it gone, TD-5 is fully done and the GitHub Actions bypass that RF-042 asked for is no longer needed.
 
-The release splits into an automatic build job and a publish job behind the `release` environment (agreed with the developer 2026-11-16). This replaces the fully automatic publish of design answer D4-Q2: the site deploy and the package release stay separate, and a reviewer decides when a built version reaches the channels.
+The release splits into an automatic build job and an approved `release` job behind the `release` environment, followed by two publish jobs (agreed with the developer 2026-11-16). This replaces the fully automatic publish of design answer D4-Q2: the site deploy and the package release stay separate, and a reviewer decides when a built version reaches the channels.
