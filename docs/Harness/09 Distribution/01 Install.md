@@ -115,11 +115,13 @@ No token needed.
 Claude Code:
 
 ```bash
-claude plugin marketplace add DataArt/artisyn-implementation-harness
-claude plugin install artisyn@dataart
+claude plugin marketplace add DataArt/artisyn-implementation-harness --scope project
+claude plugin install artisyn@dataart --scope project
 ```
 
 Then run `/artisyn:implementation-harness launch`.
+
+`--scope project` declares the marketplace and the plugin in the project's `.claude/settings.json`, so everyone who opens the project gets the same plugin. Without it, both go to your user settings and apply to all your projects, but not to your teammates.
 
 The marketplace pins a release tag. A new version appears only after its release is approved and published.
 

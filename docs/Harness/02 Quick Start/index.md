@@ -33,8 +33,8 @@ Pick one channel. The two most common:
 
 ```bash
 # Plugin marketplace (Claude Code)
-claude plugin marketplace add DataArt/artisyn-implementation-harness
-claude plugin install artisyn@dataart
+claude plugin marketplace add DataArt/artisyn-implementation-harness --scope project
+claude plugin install artisyn@dataart --scope project
 
 # GitHub Packages npm (needs a read:packages token and the .npmrc from the Install page)
 npx @dataart/artisyn-implementation-harness@4.0.0 init
