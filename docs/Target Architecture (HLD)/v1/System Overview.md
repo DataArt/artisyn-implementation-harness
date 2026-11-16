@@ -35,7 +35,7 @@ flowchart LR
 
     GH["📦 GitHub Repo\nmain branch"]:::repo
 
-    subgraph CI_BOX ["  GitHub Actions — Deploy web (push touching apps/web-* or docs/)  "]
+    subgraph CI_BOX ["  GitHub Actions — Deploy web (every push to main; deploys when the site is affected)  "]
         EXP_BUILD["⚙️ web-explorer:build"]:::ci
         DOCS_BUILD["⚙️ web-docs:build"]:::ci
         PORTAL_BUILD["⚙️ web-portal:build\n(assemble + assert)"]:::ci

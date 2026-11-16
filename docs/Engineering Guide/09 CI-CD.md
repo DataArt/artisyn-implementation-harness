@@ -21,7 +21,7 @@ keywords:
 
 # CI/CD
 
-Pull requests to `main` run the checks; a merge to `main` that touches the site deploys it to GitHub Pages and, separately, builds the harness release, which publishes only after a reviewer approves. Four workflows in `.github/workflows/` do all of it. Nothing deploys or publishes from a branch, and no workflow pushes to `main`.
+Pull requests to `main` run the checks; a merge to `main` that affects the site deploys it to GitHub Pages and, separately, builds the harness release, which publishes only after a reviewer approves. Four workflows in `.github/workflows/` do all of it. Nothing deploys or publishes from a branch, and no workflow pushes to `main`.
 
 ```mermaid
 flowchart LR
@@ -33,7 +33,7 @@ flowchart LR
     subgraph WF ["  Workflows  "]
         CI["ci.yml\nbuild-and-test → version-gate · docs-gate\n· harness-package → harness-cli"]:::gate
         GL["gitleaks.yml\nscan"]:::advisory
-        CD["deploy-web.yml\ndeploy\n(site paths only)"]:::deploy
+        CD["deploy-web.yml\ndeploy\n(only when the site is affected)"]:::deploy
         RHB["release-harness.yml\nbuild · attest"]:::release
         APP{{"Approval\nenvironment release"}}:::approval
         RHR["release-harness.yml\nrelease: tag via API"]:::release
@@ -118,22 +118,23 @@ The `dev` environment on the `build-and-test` job exists for the ruleset's "depl
 
 ### `deploy-web.yml` — Deploy web
 
-`deploy-web.yml` (workflow name `Deploy web`) builds the site and deploys it to GitHub Pages on a push to `main` that touches `apps/web-*/**` or `docs/**`. A harness-only or other non-site push starts no deploy. One job, `deploy`, in the `github-pages` environment, with `contents: read`, `pages: write` and `id-token: write`. Concurrency group `pages` queues deploys and never cancels one in progress.
+`deploy-web.yml` (workflow name `Deploy web`) runs on every push to `main`. Nx decides what to build, and the workflow deploys only when the build produced the site. One job, `deploy`, in the `github-pages` environment, with `contents: read`, `pages: write` and `id-token: write`. Concurrency group `pages` queues deploys and never cancels one in progress.
 
-| Step            | What it does                                                                                                                       |
-| --------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Build site      | `yarn nx affected --target=build --configuration=ci --base=${{ github.event.before }} --head=HEAD`, with four repository variables |
-| Configure Pages | `actions/configure-pages@v5`                                                                                                       |
-| Upload artifact | `actions/upload-pages-artifact@v4`, path `apps/web-portal/dist` (the composed Web Explorer + Web Docs tree)                        |
-| Deploy          | `actions/deploy-pages@v4`                                                                                                          |
+| Step                              | What it does                                                                                                                                                              |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Build site                        | `yarn nx affected --target=build --configuration=ci --head=HEAD`, with `--base` set to the previous tip of `main` (the push's `before` commit); four repository variables |
+| Check the build produced the site | Sets `built` to true when `apps/web-portal/dist` exists; otherwise logs the notice "The site is not affected by this push; nothing to deploy."                            |
+| Configure Pages                   | `actions/configure-pages@v5`; only when `built` is true                                                                                                                   |
+| Upload artifact                   | `actions/upload-pages-artifact@v4`, path `apps/web-portal/dist` (the composed Web Explorer + Web Docs tree); only when `built` is true                                    |
+| Deploy to GitHub Pages            | `actions/deploy-pages@v4`; only when `built` is true                                                                                                                      |
 
 The build reads repository variables `VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`. Vite inlines them at build time; the `ci` build configuration loads no `.env` file. See [Giscus Setup](./Infrastructure/04%20Giscus%20Setup.md) for their values.
 
-The paths filter and the affected build fit together. A change under `apps/web-*/**` or `docs/**` makes `web-portal` affected in Nx, so every run builds `web-portal` and `apps/web-portal/dist` exists. `web-portal:build` depends on `web-explorer:build` and `web-docs:build`, so the whole site is rebuilt. Pages replaces everything it serves on each deploy, so it needs the full tree.
+Nx decides whether the site is affected. A change to anything the site depends on makes `web-portal` affected: the web apps, `docs/`, `package.json`, shared config. Then the build produces `apps/web-portal/dist` and the run deploys. `web-portal:build` depends on `web-explorer:build` and `web-docs:build`, so the whole site is rebuilt. Pages replaces everything it serves on each deploy, so it needs the full tree.
 
-The affected range is the whole push: `--base` is `github.event.before`, the previous tip of `main`. A multi-commit push is built in full, not only its last commit.
+When the push does not affect `web-portal`, there is no `dist`. The Pages steps are skipped and the run ends with the notice above. The run does not fail.
 
-The workflow file is not in the paths filter. A change to it alone affects no Nx project, so the build would produce no `dist`. An edit to `deploy-web.yml` takes effect on the next site change. How the tree is assembled: [Web Portal LLD](../System%20Architecture%20%28LLD%29/Web%20Portal/00.%20Overview.md).
+The affected range is the whole push: `--base` is the push's `before` commit, the previous tip of `main`. A multi-commit push is built in full, not only its last commit. How the tree is assembled: [Web Portal LLD](../System%20Architecture%20%28LLD%29/Web%20Portal/00.%20Overview.md).
 
 ### `release-harness.yml` — harness release lane
 

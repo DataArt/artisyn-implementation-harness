@@ -17,7 +17,7 @@ keywords:
 # Branching Strategy
 
 The branching workflow is **trunk-based**, aligned with this project's actual CI/CD automation
-(`ci.yml` on pull request, `deploy-web.yml` on a merge to `main` that touches the site). There is one long-lived branch — `main` —
+(`ci.yml` on pull request, `deploy-web.yml` on every merge to `main`, deploying when the site is affected). There is one long-lived branch — `main` —
 and all work happens on short-lived branches cut from it and merged straight back in. Every change
 reaches `main`, and the deployed site, through a pull request.
 
@@ -42,10 +42,10 @@ to render; scope the id to the actual branch or ticket.
 
 ## Environment Mapping
 
-| Branch Type        | Environment Target  | Notes                                                                                                                                                 |
-| ------------------ | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main`             | `github-pages`      | `deploy-web.yml` builds affected projects and deploys `apps/web-portal/dist` to GitHub Pages on every merge that touches `apps/web-*/**` or `docs/**` |
-| `feat/*` / `fix/*` | `dev` (checks only) | `ci.yml`'s `build-and-test` job runs in the `dev` environment and deploys nothing; no preview site per branch                                         |
+| Branch Type        | Environment Target  | Notes                                                                                                                                        |
+| ------------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main`             | `github-pages`      | `deploy-web.yml` runs on every merge, builds affected projects and deploys `apps/web-portal/dist` to GitHub Pages when the build produced it |
+| `feat/*` / `fix/*` | `dev` (checks only) | `ci.yml`'s `build-and-test` job runs in the `dev` environment and deploys nothing; no preview site per branch                                |
 
 There is no `develop`, `staging` or `production` branch. Three GitHub Actions environments exist:
 `dev`, which the ruleset requires as a deployment on every PR; `github-pages`, the live site; and
@@ -63,8 +63,9 @@ There is no `develop`, `staging` or `production` branch. Three GitHub Actions en
 
 ## CI/CD by Branch
 
-A PR to `main` runs `ci.yml` and `gitleaks.yml`. A merge to `main` runs `gitleaks.yml`. A merge that touches
-`apps/web-*/**` or `docs/**` also runs `deploy-web.yml` (the GitHub Pages deploy). A merge that
+A PR to `main` runs `ci.yml` and `gitleaks.yml`. A merge to `main` runs `gitleaks.yml` and `deploy-web.yml` (the GitHub Pages deploy).
+`deploy-web.yml` deploys only when Nx finds the site affected; otherwise it ends with a notice and
+deploys nothing. A merge that
 touches the harness also runs the harness release lane (`release-harness.yml`: build on merge,
 publish after approval; the deploy does not wait for it). A hotfix is
 a `fix/*` branch off `main` with the same PR gate. Workflows, jobs, required checks and how to run
@@ -100,7 +101,7 @@ in history and the changelog. See `08 Harness Release Runbook.md`, step 4.
 ## Rollback Strategy
 
 Roll the site back by reverting on `main`. Open a PR that reverts the bad change and merge it.
-The revert touches the site, so `deploy-web.yml` builds and deploys the reverted tree like any
+The revert affects the site, so `deploy-web.yml` builds and deploys the reverted tree like any
 other site merge. `deploy-web.yml` has no manual trigger and no deploy-by-ref input. Re-running an
 earlier `Deploy web` run from the Actions tab rebuilds and redeploys that run's push. The next
 site merge deploys over it.
