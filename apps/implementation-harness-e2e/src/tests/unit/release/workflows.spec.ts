@@ -17,7 +17,7 @@ describe('release-harness.yml', () => {
   const { text, doc } = load('release-harness.yml');
   const jobs = doc.jobs as Record<string, Record<string, any>>; // eslint-disable-line @typescript-eslint/no-explicit-any
   const { build, release } = jobs;
-  const npm = jobs['publish-npm'];
+  const packages = jobs['publish-github-packages'];
   const github = jobs['publish-github'];
   const steps = (job: Record<string, any>) => JSON.stringify(job.steps); // eslint-disable-line @typescript-eslint/no-explicit-any
 
@@ -29,12 +29,17 @@ describe('release-harness.yml', () => {
     assert.equal(build.if, undefined, 'build always runs');
   });
 
-  it('builds, waits for approval in the release environment, then publishes npm and GitHub in parallel', () => {
-    assert.deepEqual(Object.keys(jobs), ['build', 'release', 'publish-npm', 'publish-github']);
+  it('builds, waits for approval in the release environment, then publishes GitHub Packages and the GitHub Release in parallel', () => {
+    assert.deepEqual(Object.keys(jobs), [
+      'build',
+      'release',
+      'publish-github-packages',
+      'publish-github',
+    ]);
     assert.equal(release.needs, 'build');
     assert.equal(release.environment, 'release');
     assert.match(String(release.if), /needs\.build\.outputs\.publish == 'true'/);
-    for (const job of [npm, github]) {
+    for (const job of [packages, github]) {
       assert.deepEqual(job.needs, ['build', 'release']);
       assert.equal(job.environment, undefined, 'one approval covers both channels');
     }
@@ -49,7 +54,7 @@ describe('release-harness.yml', () => {
       attestations: 'write',
     });
     assert.deepEqual(release.permissions, { contents: 'write' });
-    assert.deepEqual(npm.permissions, { contents: 'read', packages: 'write' });
+    assert.deepEqual(packages.permissions, { contents: 'read', packages: 'write' });
     assert.deepEqual(github.permissions, { contents: 'write' });
   });
 
@@ -82,9 +87,9 @@ describe('release-harness.yml', () => {
     assert.match(r, /while this run waited/);
   });
 
-  it('publishes npm and the GitHub Release in their own jobs', () => {
-    assert.match(steps(npm), /npm publish --tolerate-republish/);
-    assert.ok(!steps(npm).includes('gh release'));
+  it('publishes GitHub Packages and the GitHub Release in their own jobs', () => {
+    assert.match(steps(packages), /npm publish --tolerate-republish/);
+    assert.ok(!steps(packages).includes('gh release'));
     const g = steps(github);
     assert.match(g, /download-artifact/);
     assert.match(g, /gh release create/);

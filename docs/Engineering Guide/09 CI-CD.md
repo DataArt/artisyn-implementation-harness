@@ -36,7 +36,7 @@ flowchart LR
         RHB["release-harness.yml\nbuild · attest"]:::release
         APP{{"Approval\nenvironment release"}}:::approval
         RHR["release-harness.yml\nrelease: tag via API"]:::release
-        RHN["release-harness.yml\npublish-npm"]:::release
+        RHN["release-harness.yml\npublish-github-packages"]:::release
         RHG["release-harness.yml\npublish-github"]:::release
     end
 
@@ -106,12 +106,12 @@ The build covers only projects affected by the merged commit (`--base=HEAD~1`). 
 
 `release-harness.yml` builds the harness version that `main` carries on every push to `main`, and publishes it after a reviewer approves the `release` environment. The PR already chose that version: the developer runs `yarn harness:version` on the branch, and `version-gate` checks it. The workflow never commits or pushes to `main`. Top-level `permissions: {}`; each job gets only what it needs. Concurrency group `release-harness`, no cancel.
 
-| Job              | Runs                                                                  | Permissions                                                          | What it does                                                                                                                                                                                                                                            |
-| ---------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `build`          | Every push to `main`, no condition                                    | `contents: read`, `packages: read`, `id-token`, `attestations` write | Reads the version from `skills/implementation-harness/package.json`; skips when npm has it and a non-draft Release carries the ZIP and `.sha256`; otherwise builds the tarball, the ZIP and `.sha256`, attests both, uploads artifact `harness-release` |
-| `release`        | `needs: build`, only when something is missing; environment `release` | `contents: write`                                                    | Waits for approval; creates `artisyn-implementation-harness-v<version>` on `GITHUB_SHA` through `gh api`; stops if another run released this version from a different commit while it waited                                                            |
-| `publish-npm`    | `needs: [build, release]`                                             | `contents: read`, `packages: write`                                  | `yarn workspace … npm publish --tolerate-republish` to GitHub Packages                                                                                                                                                                                  |
-| `publish-github` | `needs: [build, release]`; no checkout                                | `contents: write`                                                    | Downloads artifact `harness-release`; creates a draft Release, uploads the ZIP and `.sha256`, publishes it                                                                                                                                              |
+| Job                       | Runs                                                                  | Permissions                                                          | What it does                                                                                                                                                                                                                                            |
+| ------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `build`                   | Every push to `main`, no condition                                    | `contents: read`, `packages: read`, `id-token`, `attestations` write | Reads the version from `skills/implementation-harness/package.json`; skips when npm has it and a non-draft Release carries the ZIP and `.sha256`; otherwise builds the tarball, the ZIP and `.sha256`, attests both, uploads artifact `harness-release` |
+| `release`                 | `needs: build`, only when something is missing; environment `release` | `contents: write`                                                    | Waits for approval; creates `artisyn-implementation-harness-v<version>` on `GITHUB_SHA` through `gh api`; stops if another run released this version from a different commit while it waited                                                            |
+| `publish-github-packages` | `needs: [build, release]`                                             | `contents: read`, `packages: write`                                  | `yarn workspace … npm publish --tolerate-republish` to GitHub Packages                                                                                                                                                                                  |
+| `publish-github`          | `needs: [build, release]`; no checkout                                | `contents: write`                                                    | Downloads artifact `harness-release`; creates a draft Release, uploads the ZIP and `.sha256`, publishes it                                                                                                                                              |
 
 The two publish jobs run in parallel after the one approval.
 
@@ -178,16 +178,16 @@ Reproduce each CI gate locally from the repo root with Node 24. The package mana
 
 The harness lane is the repository's only release lane. The repository itself is not versioned: there are no `v*` tags, and the root `CHANGELOG.md` is frozen history.
 
-| Aspect           | Harness lane                                                                                                    |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| Workflow         | `release-harness.yml`                                                                                           |
-| Tool             | Nx Release (`nx.json` `release` block) via `version-harness.mjs`                                                |
-| Version decided  | In the PR, by `yarn harness:version`; checked by `version-gate`                                                 |
-| Commits counted  | Commits touching `skills/implementation-harness/` (by path, `useCommitScope: false`)                            |
-| Tag              | `artisyn-implementation-harness-vX.Y.Z`                                                                         |
-| Outputs          | npm on GitHub Packages, ZIP + `.sha256`, build attestations, GitHub Release                                     |
-| Writes to `main` | No: tag created through the API                                                                                 |
-| Runs             | `build` on every push to `main`, no enable switch; `release`, `publish-npm` and `publish-github` after approval |
+| Aspect           | Harness lane                                                                                                                |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Workflow         | `release-harness.yml`                                                                                                       |
+| Tool             | Nx Release (`nx.json` `release` block) via `version-harness.mjs`                                                            |
+| Version decided  | In the PR, by `yarn harness:version`; checked by `version-gate`                                                             |
+| Commits counted  | Commits touching `skills/implementation-harness/` (by path, `useCommitScope: false`)                                        |
+| Tag              | `artisyn-implementation-harness-vX.Y.Z`                                                                                     |
+| Outputs          | npm on GitHub Packages, ZIP + `.sha256`, build attestations, GitHub Release                                                 |
+| Writes to `main` | No: tag created through the API                                                                                             |
+| Runs             | `build` on every push to `main`, no enable switch; `release`, `publish-github-packages` and `publish-github` after approval |
 
 Nothing pushes to `main`, so the ruleset needs no bypass actor. Branch rulesets do not cover tags, packages or releases. The `harness` / `harness-release` scope rule stays so harness changes stand apart in history and the changelog.
 

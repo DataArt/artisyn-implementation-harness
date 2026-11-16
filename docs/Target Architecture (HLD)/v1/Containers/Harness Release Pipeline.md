@@ -29,7 +29,7 @@ flowchart LR
     subgraph PIPE ["  release-harness.yml — GITHUB_TOKEN only  "]
         BUILD["📦 build (automatic)\ntarball + ZIP + sha256\nattest · run artifact"]:::pipe
         GATE{{"🔒 release (approval)\ntag via API"}}:::gate
-        PUB["🚀 publish-npm · publish-github\nparallel, each re-runnable"]:::pipe
+        PUB["🚀 publish-github-packages · publish-github\nparallel, each re-runnable"]:::pipe
     end
 
     subgraph CH ["  Channels  "]
@@ -60,7 +60,7 @@ flowchart LR
 
 - On the feature branch: compute the version from the latest harness tag and the conventional commits after it (Nx Release; the repository itself is not versioned), stamp every shipped manifest, write the changelog entry (`yarn harness:version`); on every PR, `version-gate` checks the stamp and blocks harness PRs while a release waits for approval
 - On every merge (`build`): when the version is not fully published, build and attest the npm tarball and the Release ZIP + `.sha256` and keep them as a run artifact
-- After approval: `release` creates the tag `artisyn-implementation-harness-v<version>` through the API; then, in parallel, `publish-npm` publishes to GitHub Packages and `publish-github` publishes the GitHub Release with the ZIP and `.sha256`
+- After approval: `release` creates the tag `artisyn-implementation-harness-v<version>` through the API; then, in parallel, `publish-github-packages` publishes to GitHub Packages and `publish-github` publishes the GitHub Release with the ZIP and `.sha256`
 
 ## Boundary contracts
 

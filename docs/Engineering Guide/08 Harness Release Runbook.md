@@ -38,7 +38,7 @@ flowchart TB
         BUILD["5️⃣ build job (automatic)\ntarball · ZIP + sha256 · attest\nartifact harness-release"]:::release
         APPROVE{{"6️⃣ Reviewer approves\nthe release deployment"}}:::gate
         TAG["release job\ntag via API"]:::release
-        NPM["publish-npm job\nGitHub Packages"]:::release
+        NPM["publish-github-packages job\nGitHub Packages"]:::release
         GHR["publish-github job\nGitHub Release"]:::release
         SMOKE["8️⃣ Smoke every channel"]:::release
     end
@@ -145,11 +145,11 @@ A merge that does not change the harness carries a released version, so it ends 
 
 Approve the `release` deployment to publish. Open the run in Actions, choose **Review deployments**, select `release` and approve. One approval starts three jobs:
 
-| Job              | What it does                                                                                                                                                                 |
-| ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `release`        | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited |
-| `publish-npm`    | After `release`: `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages                                                |
-| `publish-github` | After `release`: downloads the `harness-release` artifact, creates a draft Release, uploads the ZIP and `.sha256`, then publishes it                                         |
+| Job                       | What it does                                                                                                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `release`                 | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited |
+| `publish-github-packages` | After `release`: `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages                                                |
+| `publish-github`          | After `release`: downloads the `harness-release` artifact, creates a draft Release, uploads the ZIP and `.sha256`, then publishes it                                         |
 
 The two publish jobs run in parallel. The tag appears only now, so npm, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
 

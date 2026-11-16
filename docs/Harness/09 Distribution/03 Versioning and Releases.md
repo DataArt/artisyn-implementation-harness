@@ -74,7 +74,7 @@ The PR carries its own version; the merge builds it, and a reviewer decides when
 - Every push to the protected `main` runs `.github/workflows/release-harness.yml`. It never commits to `main`.
 - The `build` job reads the version from `package.json`. If that version is already fully published, it stops. Otherwise it builds the npm tarball and the ZIP with its `.sha256`, and attests both.
 - The `release` job waits for a required reviewer of the `release` environment to approve.
-- After approval it creates the tag `artisyn-implementation-harness-v{version}`. Then two jobs run in parallel: `publish-npm` publishes the npm version on GitHub Packages, and `publish-github` publishes the GitHub Release with the ZIP and `.sha256` attached. The tag appears only now, so every channel opens at the same moment.
+- After approval it creates the tag `artisyn-implementation-harness-v{version}`. Then two jobs run in parallel: `publish-github-packages` publishes the npm version on GitHub Packages, and `publish-github` publishes the GitHub Release with the ZIP and `.sha256` attached. The tag appears only now, so every channel opens at the same moment.
 - Until approval, marketplace and `gh skill` installs of the new version fail: `main`'s manifests already pin the new tag, which does not exist yet.
 - A re-run is safe: it finishes only what is missing, and an already-published Release keeps its assets. A failed publish job can be re-run on its own.
 

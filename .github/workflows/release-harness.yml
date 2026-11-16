@@ -5,12 +5,13 @@ name: Release harness
 # version-gate in ci.yml), so this workflow never commits or pushes to main and runs with
 # GITHUB_TOKEN only, no bypass actor needed. Nx Release is the repository's only release lane.
 #
-#   build           automatic: build the tarball and the ZIP, attest them, keep them as an artifact
-#   release         waits for approval in the `release` environment, then creates the tag through
-#                   the API, so every channel opens at once
-#   publish-npm     publishes the package to GitHub Packages
-#   publish-github  publishes the GitHub Release with the ZIP and its checksum (draft first, so an
-#                   immutable release gets its assets before it is published)
+#   build                    automatic: build the tarball and the ZIP, attest them, keep them as an
+#                            artifact
+#   release                  waits for approval in the `release` environment, then creates the tag
+#                            through the API, so every channel opens at once
+#   publish-github-packages  publishes the npm package to GitHub Packages
+#   publish-github           publishes the GitHub Release with the ZIP and its checksum (draft
+#                            first, so an immutable release gets its assets before it is published)
 # The two publish jobs run in parallel after approval; either can be re-run on its own.
 
 on:
@@ -158,7 +159,7 @@ jobs:
             echo "Tagged ${GITHUB_SHA} as ${TAG}."
           fi
 
-  publish-npm:
+  publish-github-packages:
     needs: [build, release]
     runs-on: ubuntu-latest
     permissions:
