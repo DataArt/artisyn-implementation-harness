@@ -105,6 +105,13 @@ describe('release-harness.yml', () => {
     assert.ok(!n.includes('npm publish'), 'no publish');
   });
 
+  it('uses the changelog entry of the version as the release notes, as semantic-release did', () => {
+    assert.match(steps(build), /release-notes\.md/);
+    assert.match(steps(build), /CHANGELOG\.md has no entry/);
+    assert.match(steps(github), /--notes-file dist\/release-notes\.md/);
+    assert.ok(!text.includes('--generate-notes'));
+  });
+
   it('publishes the release from a draft, so an immutable release gets its assets first', () => {
     const g = steps(github);
     assert.match(g, /--draft --title/);

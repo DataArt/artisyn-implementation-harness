@@ -103,6 +103,16 @@ jobs:
           mv "$scratch/package" "$scratch/implementation-harness"
           (cd "$scratch" && zip -r -X "$GITHUB_WORKSPACE/dist/${name}.zip" implementation-harness)
           (cd dist && sha256sum "${name}.zip" > "${name}.zip.sha256")
+          # The release notes are this version's changelog entry, as semantic-release did it.
+          version="${{ steps.version.outputs.version }}"
+          awk -v v="$version" '
+            /^##? / { if (found) exit; if ($0 ~ "^## \\[?" v "[] ]") found = 1 }
+            found { print }
+          ' skills/implementation-harness/CHANGELOG.md > dist/release-notes.md
+          if [ ! -s dist/release-notes.md ]; then
+            echo "::error::skills/implementation-harness/CHANGELOG.md has no entry for ${version}."
+            exit 1
+          fi
 
       - name: Attest the tarball
         if: steps.state.outputs.publish == 'true'
@@ -200,7 +210,7 @@ jobs:
           set -euo pipefail
           zip="dist/${TAG_PREFIX}${VERSION}.zip"
           if ! gh release view "$TAG" >/dev/null 2>&1; then
-            gh release create "$TAG" --verify-tag --draft --title "$TAG" --generate-notes
+            gh release create "$TAG" --verify-tag --draft --title "$TAG" --notes-file dist/release-notes.md
           fi
           if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft)" = true ]; then
             gh release upload "$TAG" "$zip" "${zip}.sha256" --clobber

@@ -1,6 +1,7 @@
 /** Versioning on the PR (TD-5): `yarn harness:version` stamps the version the commits call for,
  * and `--check` is the version gate. A fake Nx stands in for `nx release`: it writes the version
- * named by FAKE_NEXT and a changelog entry, the way Nx replaces an entry of the same version.
+ * named by FAKE_NEXT and a changelog entry in the renderer's `## [<version>](…)` form,
+ * replacing an entry of the same version the way Nx does.
  */
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -23,8 +24,8 @@ if (sub === 'version') {
   fs.writeFileSync(file, JSON.stringify(pkg, null, 2) + '\\n');
 } else if (sub === 'changelog') {
   const file = 'skills/implementation-harness/CHANGELOG.md';
-  const text = fs.readFileSync(file, 'utf8').replace(new RegExp('^# ' + version + ' [\\\\s\\\\S]*?(?=^# )', 'm'), '');
-  fs.writeFileSync(file, '# ' + version + ' (today)\\n\\n- a change\\n\\n' + text);
+  const text = fs.readFileSync(file, 'utf8').replace(new RegExp('^## \\\\[' + version + '\\\\][\\\\s\\\\S]*?(?=^##? )', 'm'), '');
+  fs.writeFileSync(file, '## [' + version + '](https://x/compare) (today)\\n\\n### Features\\n\\n- a change\\n\\n' + text);
 } else process.exit(2);
 `;
 
@@ -78,7 +79,7 @@ describe('version-harness.mjs', () => {
       read(root, '.claude-plugin/marketplace.json'),
       /artisyn-implementation-harness-v4\.1\.0/
     );
-    assert.equal(read(root, CHANGELOG).match(/^# 4\.1\.0/gm)?.length, 1);
+    assert.equal(read(root, CHANGELOG).match(/^## \[4\.1\.0\]/gm)?.length, 1);
   });
 
   it('drops a stale entry when later commits change the version', () => {
@@ -86,8 +87,8 @@ describe('version-harness.mjs', () => {
     assert.equal(versionHarness(root, nx, '4.0.1').status, 0);
     assert.equal(versionHarness(root, nx, '4.1.0').status, 0);
     const changelog = read(root, CHANGELOG);
-    assert.match(changelog, /^# 4\.1\.0/m);
-    assert.doesNotMatch(changelog, /^# 4\.0\.1/m);
+    assert.match(changelog, /^## \[4\.1\.0\]/m);
+    assert.doesNotMatch(changelog, /^## \[4\.0\.1\]/m);
     assert.match(changelog, /## 3\.5\.0/, 'the curated history stays');
   });
 

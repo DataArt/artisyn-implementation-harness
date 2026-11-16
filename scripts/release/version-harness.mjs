@@ -92,18 +92,21 @@ const changesHarness = () =>
   git(['diff', '--quiet', `${values.base}...HEAD`, '--', 'skills/implementation-harness'])
     .status !== 0;
 
-/** Changelog sections are `# <version> (<date>)`; the curated history below them has no version. */
-const ENTRY = /^# (\d+\.\d+\.\d+)\b.*$/gm;
+/** An entry heading, as scripts/release/changelog-renderer.mjs writes it: `## [<version>](<compare
+ * link>) (<date>)`, or `## <version> (<date>)` for a first release. The curated history uses
+ * `## <version>` too, but those versions are all released, so they never count as unreleased. */
+const VERSION_HEAD = /^## \[?(\d+\.\d+\.\d+)\b/;
+const ENTRY = new RegExp(VERSION_HEAD.source, 'gm');
 const unreleasedEntries = (text, released) =>
   [...text.matchAll(ENTRY)].map((m) => m[1]).filter((version) => greater(version, released));
 
 /** Drop entries for versions above the last release that are not this one: left by an earlier run. */
 function dropStaleEntries(released, next) {
   const text = fs.readFileSync(CHANGELOG, 'utf8');
-  const heads = [...text.matchAll(/^# .*$/gm)];
+  const heads = [...text.matchAll(/^##? .*$/gm)];
   let kept = text;
   for (let i = heads.length - 1; i >= 0; i--) {
-    const version = /^# (\d+\.\d+\.\d+)\b/.exec(heads[i][0])?.[1];
+    const version = VERSION_HEAD.exec(heads[i][0])?.[1];
     if (!version || version === next || !greater(version, released)) continue;
     const end = i + 1 < heads.length ? heads[i + 1].index : kept.length;
     kept = kept.slice(0, heads[i].index) + kept.slice(end);

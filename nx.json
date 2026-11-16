@@ -32,7 +32,8 @@
     },
     "changelog": {
       "projectChangelogs": {
-        "file": "{projectRoot}/CHANGELOG.md"
+        "file": "{projectRoot}/CHANGELOG.md",
+        "renderer": "{workspaceRoot}/scripts/release/changelog-renderer.mjs"
       },
       "automaticFromRef": true
     },
