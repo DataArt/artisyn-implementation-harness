@@ -1,12 +1,12 @@
 name: Release harness
 
-# Versions, tags, publishes and attests the harness package after every merge to main. Root
-# semantic-release (release.yml) is a separate lane and ignores commits with scope `harness`.
+# Tags, publishes and attests the harness version that main carries, after every merge. The PR
+# already chose and stamped that version (`yarn harness:version`, checked by version-gate in
+# ci.yml), so this workflow never commits or pushes to main: it creates the tag through the API and
+# everything runs with GITHUB_TOKEN, no bypass actor needed (TD-5). Root semantic-release
+# (release.yml) is a separate lane and ignores commits with scope `harness`.
 #
-# Off until the repository variable HARNESS_RELEASE_ENABLED is 'true'. The release commit and tag
-# are pushed to the protected `main` with HARNESS_RELEASE_TOKEN, a fine-grained PAT of a repo admin
-# whose role is a bypass actor of the main ruleset (D-17; a GitHub App replaces it later, see the
-# release runbook in the Engineering Guide). Only the presence check and the push step receive the token.
+# Off until the repository variable HARNESS_RELEASE_ENABLED is 'true'.
 
 on:
   push:
@@ -25,80 +25,42 @@ concurrency:
 jobs:
   release:
     runs-on: ubuntu-latest
-    # Never run for the release commit itself: skipped by [skip ci], by this actor guard
-    # (HARNESS_RELEASE_BOT is the App's bot login) and by its message.
-    if: ${{ vars.HARNESS_RELEASE_ENABLED == 'true' && github.actor != vars.HARNESS_RELEASE_BOT && !startsWith(github.event.head_commit.message, 'chore(harness-release):') }}
+    if: ${{ vars.HARNESS_RELEASE_ENABLED == 'true' }}
     env:
       PACKAGE: '@dataart/artisyn-implementation-harness'
       TAG_PREFIX: artisyn-implementation-harness-v
       GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - name: Require the release token
-        env:
-          TOKEN: ${{ secrets.HARNESS_RELEASE_TOKEN }}
-        run: |
-          if [ -z "$TOKEN" ]; then
-            echo "::error::HARNESS_RELEASE_TOKEN is missing. The release commit and tag go to the protected main, and the Actions bot cannot push there. Create the HARNESS_RELEASE_TOKEN secret first (a fine-grained PAT, see the release runbook)."
-            exit 1
-          fi
-
-      # The tip of main, not the commit that triggered this run: a run queued behind another release
-      # (or a re-run of an old one) must see that release's commit. No credentials stay on disk.
+      # The commit that triggered this run, with every tag. No credentials stay on disk.
       - uses: actions/checkout@v7
         with:
-          ref: main
           fetch-depth: 0
           fetch-tags: true
           persist-credentials: false
 
       - uses: ./.github/actions/setup
 
-      - name: Git identity
-        run: |
-          git config user.name "artisyn-harness-release[bot]"
-          git config user.email "artisyn-harness-release[bot]@users.noreply.github.com"
-
-      - name: Decide the version
+      - name: Tag the version this commit carries
         id: version
         run: |
           set -euo pipefail
-          current() { node -p "require('./skills/implementation-harness/package.json').version"; }
-          before="$(current)"
-          yarn nx release version --projects=artisyn-implementation-harness --git-commit=false --git-tag=false
-          after="$(current)"
-          if [ "$before" != "$after" ]; then
-            echo "new=true" >> "$GITHUB_OUTPUT"
-            echo "tag=${TAG_PREFIX}${after}" >> "$GITHUB_OUTPUT"
+          version="$(node -p "require('./skills/implementation-harness/package.json').version")"
+          tag="${TAG_PREFIX}${version}"
+          if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
+            # Released by an earlier merge (this merge did not change the harness), or a re-run:
+            # finish whatever that release is missing.
+            echo "${tag} exists. Checking that it is fully published."
           else
-            # No new version. A re-run, or a later merge, still has to finish the latest release:
-            # resolve the latest harness tag reachable from origin/main (the checkout is the tip of
-            # main, where later merges may sit above the latest harness tag).
-            latest="$(git tag --merged origin/main --list "${TAG_PREFIX}*" --sort=-version:refname | head -n 1)"
-            echo "new=false" >> "$GITHUB_OUTPUT"
-            echo "tag=${latest}" >> "$GITHUB_OUTPUT"
-            echo "No new version. Latest harness tag: ${latest:-none}"
+            # A ruleset on branches does not cover tags, so GITHUB_TOKEN can create it.
+            gh api "repos/${GITHUB_REPOSITORY}/git/refs" -f ref="refs/tags/${tag}" -f sha="${GITHUB_SHA}" >/dev/null
+            git tag "${tag}" "${GITHUB_SHA}"
+            echo "Tagged ${GITHUB_SHA} as ${tag}."
           fi
-
-      - name: Stamp, write the changelog, commit and tag
-        if: steps.version.outputs.new == 'true'
-        env:
-          RELEASE_TOKEN: ${{ secrets.HARNESS_RELEASE_TOKEN }}
-        run: |
-          set -euo pipefail
-          version="${{ steps.version.outputs.tag }}"
-          version="${version#${TAG_PREFIX}}"
-          node scripts/release/stamp-harness-version.mjs
-          yarn nx release changelog "$version" --projects=artisyn-implementation-harness --git-commit=false --git-tag=false --git-push=false
-          git add -u
-          git commit -m "chore(harness-release): ${version} [skip ci]"
-          git tag "${{ steps.version.outputs.tag }}"
-          # Atomic: the branch and the tag land together or not at all.
-          git push --atomic "https://x-access-token:${RELEASE_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main "${{ steps.version.outputs.tag }}"
+          echo "tag=${tag}" >> "$GITHUB_OUTPUT"
 
       - name: Check what is already published
         id: state
-        if: steps.version.outputs.tag != ''
         run: |
           set -uo pipefail
           tag="${{ steps.version.outputs.tag }}"

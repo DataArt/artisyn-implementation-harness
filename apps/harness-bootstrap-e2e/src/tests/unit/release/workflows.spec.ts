@@ -32,28 +32,26 @@ describe('release-harness.yml', () => {
     });
   });
 
-  it('is off until HARNESS_RELEASE_ENABLED is set and ignores its own release commit', () => {
+  it('is off until HARNESS_RELEASE_ENABLED is set', () => {
     for (const job of jobs) {
       const condition = String(job.if ?? '');
       assert.ok(condition.includes("vars.HARNESS_RELEASE_ENABLED == 'true'"), condition);
-      assert.ok(condition.includes('github.actor'), 'actor guard');
     }
-    assert.ok(text.includes('[skip ci]'));
   });
 
-  it('checks out with the release token, fails fast without it and has no github.token fallback', () => {
-    assert.ok(text.includes('secrets.HARNESS_RELEASE_TOKEN'));
-    assert.match(text, /HARNESS_RELEASE_TOKEN[^\n]*(missing|not set|empty)/i);
-    assert.ok(!/HARNESS_RELEASE_TOKEN\s*\|\|\s*(github|secrets)\.(github_)?token/i.test(text));
+  it('never pushes to main and needs no release token (TD-5)', () => {
+    assert.ok(!text.includes('HARNESS_RELEASE_TOKEN'));
+    assert.ok(!/git push/.test(text), 'no push');
+    assert.ok(!/git commit/.test(text), 'no commit');
+    assert.match(text, /persist-credentials: false/);
     assert.ok(text.includes('fetch-depth: 0'));
   });
 
-  it('releases from the tip of main, pushes atomically and keeps the token out of every other step', () => {
-    assert.match(text, /ref: main/);
-    assert.match(text, /persist-credentials: false/);
-    assert.match(text, /git push --atomic/);
-    // The secret is read in exactly two places: the presence check and the push step.
-    assert.equal((text.match(/secrets\.HARNESS_RELEASE_TOKEN/g) ?? []).length, 2);
+  it('tags the commit that triggered the run through the API when the tag is new', () => {
+    assert.match(text, /gh api "repos\/\$\{GITHUB_REPOSITORY\}\/git\/refs"/);
+    assert.match(text, /refs\/tags\/\$\{tag\}/);
+    assert.match(text, /GITHUB_SHA/);
+    assert.match(text, /skills\/implementation-harness\/package\.json/);
   });
 
   it('attests before it publishes, so a failed attestation blocks the release and is retried', () => {
@@ -67,29 +65,27 @@ describe('release-harness.yml', () => {
       assert.ok(text.indexOf(later) > attest, `${later} comes after the attest steps`);
   });
 
-  it('versions, stamps, publishes, builds the ZIP and attests tarball and ZIP', () => {
+  it('publishes, builds the ZIP and attests tarball and ZIP, but does not version', () => {
     for (const needle of [
-      'nx release version',
-      'stamp-harness-version.mjs',
-      'nx release changelog',
       'npm publish --tolerate-republish',
       'pack-shim.mjs',
       '.sha256',
       'gh release upload',
     ])
       assert.ok(text.includes(needle), needle);
+    for (const absent of [
+      'nx release version',
+      'nx release changelog',
+      'stamp-harness-version.mjs',
+    ])
+      assert.ok(!text.includes(absent), `${absent} runs on the PR, not here`);
     assert.ok((text.match(/attest-build-provenance/g) ?? []).length >= 2, 'tarball and ZIP');
   });
 
-  it('resolves the latest harness tag reachable from origin/main so a re-run still publishes', () => {
-    assert.ok(text.includes('artisyn-implementation-harness-v'));
-    assert.match(text, /origin\/main/);
-    assert.match(text, /--merged/);
+  it('finishes an existing tag instead of failing, so a re-run or a later merge still publishes', () => {
+    assert.match(text, /rev-parse -q --verify "refs\/tags/);
     assert.match(text, /yarn npm info/);
     assert.match(text, /gh release view/);
-  });
-
-  it('exits early only when nothing new and the latest tag is fully published', () => {
     assert.match(text, /fully published|already published/i);
   });
 });
@@ -109,6 +105,7 @@ describe('ci.yml', () => {
   it('runs the gates the design names', () => {
     for (const needle of [
       'stamp-harness-version.mjs --check',
+      'version-harness.mjs --check',
       'check-rename.mjs',
       'check-docs.mjs',
       'check-pack.mjs',

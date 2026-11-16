@@ -43,11 +43,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - uses: ./.github/actions/setup
 
       - name: Harness version is consistent across SKILL.md, plugin.json and the marketplaces
         run: node scripts/release/stamp-harness-version.mjs --check
+
+      # The PR carries its own release: the version its commits call for, stamped by
+      # `yarn harness:version`. The merge workflow only tags and publishes it (TD-5).
+      - name: Harness is stamped with the version its commits call for
+        run: node scripts/release/version-harness.mjs --check
 
   rename-gate:
     runs-on: ubuntu-latest
