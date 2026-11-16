@@ -20,9 +20,9 @@ keywords:
 
 # Distribution
 
-> Applies from release 4.0.0, the first release cut by the automatic release pipeline.
+> Applies from release 4.0.0, the first release cut by the release pipeline.
 
-Every harness release ships automatically to five channels, and every project installs a pinned version of the same read-only package.
+Every approved harness release ships to five channels at once, and every project installs a pinned version of the same read-only package.
 
 ```mermaid
 flowchart LR
@@ -30,8 +30,8 @@ flowchart LR
         SRC["Harness source"]
     end
 
-    subgraph PIPE["Release (automatic on merge)"]
-        REL["Version · changelog · tag · publish"]
+    subgraph PIPE["Release (build on merge, publish after approval)"]
+        REL["Version in PR · build · approve · tag · publish"]
     end
 
     subgraph CH["Channels (pinned)"]

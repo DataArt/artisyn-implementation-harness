@@ -6,7 +6,7 @@ id: 8ec9a00b
 
 DataArt's AI-first engineering lifecycle system — a structured workflow layered on an AI coding assistant. Instead of prompting the assistant ad-hoc, work runs through specialised, lifecycle-aware agents governed by encoded conventions (skills) and feedback loops (reflections → skill library).
 
-This repo is the harness's canonical source: it runs its own development through the harness, and the harness itself is portable — `skills/implementation-harness/` is the self-contained package that instantiates it in any project, released automatically to five channels (plugin marketplace, GitHub Packages npm, skills.sh, `gh skill`, Release ZIP).
+This repo is the harness's canonical source: it runs its own development through the harness, and the harness itself is portable — `skills/implementation-harness/` is the self-contained package that instantiates it in any project, built on every merge and released after approval to five channels (plugin marketplace, GitHub Packages npm, skills.sh, `gh skill`, Release ZIP).
 
 ## The problem it solves
 

@@ -19,7 +19,7 @@ keywords:
 
 # Install
 
-> Applies from release 4.0.0, the first release cut by the automatic release pipeline.
+> Applies from release 4.0.0, the first release cut by the release pipeline.
 
 Install the package through one channel, then run `launch`; launch creates the project's `.harness/state/`.
 

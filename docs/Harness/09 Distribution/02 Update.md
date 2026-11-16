@@ -16,7 +16,7 @@ keywords:
 
 # Update
 
-> Applies from release 4.0.0, the first release cut by the automatic release pipeline.
+> Applies from release 4.0.0, the first release cut by the release pipeline.
 
 Update the package through the channel it came from, then run `patch apply`.
 

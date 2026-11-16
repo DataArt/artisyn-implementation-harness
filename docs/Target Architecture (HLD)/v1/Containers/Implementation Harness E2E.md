@@ -58,7 +58,7 @@ Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CL
 
 ## Responsibilities
 
-- Deterministic unit tests (no live agent, Nx-cached) over the package's scripts, install CLI, state-root and baseline libraries, fixture/scenario helpers and grader logic, and over the repo's release tooling (stamping, scope and rename gates, pack allowlist, plugin validation, workflow definitions) — the release-tooling coverage is an accepted widening of the original package-only scope (DEV-20261115-5DUE plan sign-off)
+- Deterministic unit tests (no live agent, Nx-cached) over the package's scripts, install CLI, state-root and baseline libraries, fixture/scenario helpers and grader logic, and over the repo's release tooling (stamping, scope and docs gates, pack allowlist, plugin validation, workflow definitions) — the release-tooling coverage is an accepted widening of the original package-only scope (DEV-20261115-5DUE plan sign-off)
 - Deterministic integration tests over stubbed launch plans, materialization, simulated adaptation, finalization, and cross-provider projections
 - Agent E2E cases that drive real Claude/Codex CLI sessions against disposable fixture workspaces, grade the resulting filesystem/transcript/receipt state, and persist a per-case `report.json`
 - Validates `skills/implementation-harness/` as a whole — scripts, canonical templates, patch harvest/prepare/apply, install CLI — never the deployed site containers (Web/Discuss)

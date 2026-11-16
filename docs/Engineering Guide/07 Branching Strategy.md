@@ -47,8 +47,9 @@ to render; scope the id to the actual branch or ticket.
 | `main`             | `github-pages`      | `cd.yml` builds affected projects and deploys `apps/web-portal/dist` to GitHub Pages on every merge |
 | `feat/*` / `fix/*` | `dev` (checks only) | `ci.yml`'s `ci` job runs in the `dev` environment and deploys nothing; no preview site per branch   |
 
-There is no `develop`, `staging` or `production` branch. Two GitHub Actions environments exist:
-`dev`, which the ruleset requires as a deployment on every PR, and `github-pages`, the live site.
+There is no `develop`, `staging` or `production` branch. Three GitHub Actions environments exist:
+`dev`, which the ruleset requires as a deployment on every PR; `github-pages`, the live site; and
+`release`, whose required reviewers approve each harness publish. None maps to a branch.
 
 ## Naming Conventions
 
@@ -56,14 +57,15 @@ There is no `develop`, `staging` or `production` branch. Two GitHub Actions envi
   [`01 Conventions.md`](./01%20Conventions.md)
 - **Commits:** [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/#summary) —
   `<type>(<scope>): <what>`, per the same conventions doc
-- **Tags:** one release lane, automatic, never created by hand. The repository itself is not
+- **Tags:** one release lane, never created by hand. The repository itself is not
   versioned: there are no `vX.Y.Z` tags, and the root `CHANGELOG.md` is frozen history.
-  - `artisyn-implementation-harness-vX.Y.Z` — the harness package version. The PR picks and stamps it: the developer runs `yarn harness:version` on the branch and commits `chore(harness-release): <version>`. Nx Release bumps on commits that touch `skills/implementation-harness/` (`useCommitScope: false`, so Nx matches by path, not scope); the scope gate makes those commits `harness`-scoped. On merge, the harness release lane (`.github/workflows/release-harness.yml`) creates the tag through the API and publishes; it never pushes to `main`. It runs on every merge — see `08 Harness Release Runbook.md`.
+  - `artisyn-implementation-harness-vX.Y.Z` — the harness package version. The PR picks and stamps it: the developer runs `yarn harness:version` on the branch and commits `chore(harness-release): <version>`. Nx Release bumps on commits that touch `skills/implementation-harness/` (`useCommitScope: false`, so Nx matches by path, not scope); the scope gate makes those commits `harness`-scoped. On every merge, the harness release lane (`.github/workflows/release-harness.yml`) builds and attests the version. After a reviewer approves the `release` environment, it creates the tag through the API and publishes. It never pushes to `main` — see `08 Harness Release Runbook.md`.
 
 ## CI/CD by Branch
 
 A PR to `main` runs `ci.yml` and `gitleaks.yml`. A merge to `main` runs `cd.yml` (the GitHub Pages
-deploy), `gitleaks.yml`, and the harness release lane (`release-harness.yml`). A hotfix is
+deploy), `gitleaks.yml`, and the harness release lane (`release-harness.yml`: build on merge,
+publish after approval; the deploy does not wait for it). A hotfix is
 a `fix/*` branch off `main` with the same PR gate. Workflows, jobs, required checks and how to run
 each gate locally: [09 CI-CD](./09%20CI-CD.md).
 
@@ -74,9 +76,9 @@ branch protection rule. The ruleset is set up per `08 Harness Release Runbook.md
 `.github/CODEOWNERS` is configured, but it stays advisory until the ruleset requires Code Owner
 review.
 
-| Branch | Ruleset restrictions                                                                                                                                                                                                                                              |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `ci`, `version-gate`, `rename-gate` with the branch up to date; no bypass actors |
+| Branch | Ruleset restrictions                                                                                                                                                                                                                                            |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `ci`, `version-gate`, `docs-gate` with the branch up to date; no bypass actors |
 
 Required status checks mirror job IDs `ci.yml` actually produces — don't require a check the
 pipeline doesn't produce. The `harness-package` and `harness-cli` jobs run on every PR but are
@@ -92,7 +94,7 @@ remove both.
 PR title. The title does not decide the harness version: the PR's own commits do, and
 `version-gate` checks that the branch is stamped with it. Still give a harness PR a
 `harness`-scoped title (`feat(harness)!:` for a breaking change), so harness changes stand apart
-in history and the changelog. See `08 Harness Release Runbook.md`, step 3.
+in history and the changelog. See `08 Harness Release Runbook.md`, step 4.
 
 ## Rollback Strategy
 

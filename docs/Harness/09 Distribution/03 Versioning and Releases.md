@@ -1,6 +1,6 @@
 ---
 id: e2d58b91
-purpose: The harness version contract — one stamped semantic version, the automatic release workflow and its re-run behaviour, per-channel integrity and attestations, and rollback
+purpose: The harness version contract — one stamped semantic version, the release workflow (automatic build on merge, publish after approval) and its re-run behaviour, per-channel integrity and attestations, and rollback
 keywords:
   [
     versioning,
@@ -20,16 +20,18 @@ keywords:
 
 # Versioning and Releases
 
-> Applies from release 4.0.0, the first release cut by the automatic release pipeline.
+> Applies from release 4.0.0, the first release cut by the release pipeline.
 
-The harness has one semantic version. The PR stamps it, and the merge to `main` publishes it automatically.
+The harness has one semantic version. The PR stamps it, the merge to `main` builds it, and a reviewer's approval publishes it.
 
 ```mermaid
 flowchart LR
     V["PR: yarn harness:version\nbump from commit types, changelog, manifests"]
     C["Required checks pass\nincl. version-gate"]
     M["Squash merge to protected main"]
-    R["Release run: tag + publish"]
+    B["Build: tarball + ZIP, attest"]
+    A{{"Approval\nenvironment release"}}
+    R["Publish: tag + npm + Release"]
 
     subgraph OUT["Release outputs"]
         T["Tag artisyn-implementation-harness-v{version}"]
@@ -38,7 +40,7 @@ flowchart LR
         MK["Marketplace entries pinned to the tag"]
     end
 
-    V --> C --> M --> R
+    V --> C --> M --> B --> A --> R
     R --> T
     R --> GR
     R --> N
@@ -46,9 +48,11 @@ flowchart LR
 
     classDef source fill:#dbeafe,stroke:#1d4ed8,color:#172554
     classDef pipeline fill:#fef3c7,stroke:#b45309,color:#78350f
+    classDef gate fill:#fce7f3,stroke:#be185d,color:#831843
     classDef channel fill:#dcfce7,stroke:#15803d,color:#14532d
     class V,M source
-    class C,R pipeline
+    class C,B,R pipeline
+    class A gate
     class T,GR,N,MK channel
     style OUT fill:#f0fdf4,stroke:#15803d
 ```
@@ -63,15 +67,16 @@ The harness version is the only version the repository releases; the repository 
 
 ## How releases happen
 
-The PR carries its own version; the merge only tags and publishes it. Nobody publishes by hand.
+The PR carries its own version; the merge builds it, and a reviewer decides when it is published. Nobody publishes by hand.
 
 - On the feature branch, the developer runs `yarn harness:version`. Conventional-commit types since the latest harness tag decide the bump (Nx Release, independent mode). It stamps the manifests and writes the release entry in the package's `CHANGELOG.md`. The developer commits this as `chore(harness-release): <version>`.
 - The required `version-gate` check fails any PR that is not stamped with the version its commits call for.
-- Every push to the protected `main` runs `.github/workflows/release-harness.yml`.
-- It reads the version from `package.json` and creates the tag `artisyn-implementation-harness-v{version}` if it does not exist. It never commits to `main`.
-- It builds the npm tarball and the ZIP with its `.sha256`, and attests both before anything is published.
-- It publishes the npm version on GitHub Packages and creates the GitHub Release with the ZIP and `.sha256` attached.
-- A re-run is safe: when the tag exists, it checks whether the npm version and the Release assets already exist, says "fully published" and stops if so, and otherwise finishes only what is missing.
+- Every push to the protected `main` runs `.github/workflows/release-harness.yml`. It never commits to `main`.
+- The `build` job reads the version from `package.json`. If that version is already fully published, it stops. Otherwise it builds the npm tarball and the ZIP with its `.sha256`, and attests both.
+- The `publish` job waits for a required reviewer of the `release` environment to approve.
+- After approval it creates the tag `artisyn-implementation-harness-v{version}`, publishes the npm version on GitHub Packages, and publishes the GitHub Release with the ZIP and `.sha256` attached. The tag appears only now, so every channel opens at the same moment.
+- Until approval, marketplace and `gh skill` installs of the new version fail: `main`'s manifests already pin the new tag, which does not exist yet.
+- A re-run is safe: it finishes only what is missing, and an already-published Release keeps its assets.
 
 Setup and first-release steps are in the [Harness Release Runbook](<../../Engineering Guide/08 Harness Release Runbook.md>).
 
