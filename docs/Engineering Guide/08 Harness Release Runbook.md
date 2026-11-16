@@ -1,89 +1,140 @@
 ---
 id: bbd79b2b
-purpose: 'Developer/admin runbook for the harness release lane: ruleset and bypass actors, secrets and variables, the first 4.0.0 release, the per-channel smoke checklist and the GitHub App follow-up'
+purpose: 'Developer/admin runbook for the harness release lane: ruleset checks, the baseline tag, the enable flag, the per-PR yarn harness:version step, the first 4.0.0 release and the per-channel smoke checklist'
 keywords:
   [
     release runbook,
-    HARNESS_RELEASE_TOKEN,
+    harness:version,
+    version-harness.mjs,
     HARNESS_RELEASE_ENABLED,
     ruleset,
-    bypass actor,
+    baseline tag,
     smoke checklist,
-    github app,
     harness release,
   ]
 ---
 
 # Harness Release Runbook
 
-One-time setup makes `release-harness.yml` able to push to the protected `main`; after that, releases are fully automatic. Do the steps in order — the enable flag comes last.
+The harness is versioned in the PR and published on merge. The developer stamps the version on the feature branch; after the squash merge, `release-harness.yml` tags that version and publishes it. The workflow never commits or pushes to `main`, so it needs no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
 
 ```mermaid
 flowchart LR
-    RS["1️⃣ Ruleset on main\nPR + checks + 2 bypass actors"]:::setup
-    TK["2️⃣ Secret\nHARNESS_RELEASE_TOKEN (PAT)"]:::setup
-    EN["3️⃣ Variable\nHARNESS_RELEASE_ENABLED=true\n(set LAST)"]:::setup
-    REL["4️⃣ First release\nmerge cuts 4.0.0"]:::release
-    SMOKE["5️⃣ Smoke every channel"]:::release
-    APP["Later: org GitHub App\n(TD-2, then TD-3)"]:::debt
+    subgraph SETUP ["  One-time setup  "]
+        RS["1️⃣ Ruleset on main\nadd the 3 required checks"]:::setup
+        BT["2️⃣ Push the baseline tag\nartisyn-implementation-harness-v3.5.0"]:::setup
+        EN["3️⃣ Variable\nHARNESS_RELEASE_ENABLED=true"]:::setup
+    end
 
-    RS --> TK --> EN --> REL --> SMOKE -.-> APP
+    subgraph PR ["  Every harness PR  "]
+        HV["4️⃣ yarn harness:version\ncommit chore(harness-release): v"]:::pr
+        VG["version-gate\nversion-harness.mjs --check"]:::pr
+    end
+
+    subgraph MERGE ["  On merge to main  "]
+        TAG["Tag via API\nGITHUB_TOKEN"]:::release
+        PUB["Build · attest · publish\nnpm + GitHub Release"]:::release
+        SMOKE["5️⃣ Smoke every channel"]:::release
+    end
+
+    RS --> BT --> EN --> HV --> VG -->|"squash merge"| TAG --> PUB --> SMOKE
 
     classDef setup fill:#DBEAFE,stroke:#2563EB,color:#1e3a8a
+    classDef pr fill:#FEF3C7,stroke:#D97706,color:#78350f
     classDef release fill:#DCFCE7,stroke:#15803D,color:#14532D
-    classDef debt fill:#FEF3C7,stroke:#D97706,color:#78350f
+    style SETUP fill:#EFF6FF,stroke:#2563EB
+    style PR fill:#FFFBEB,stroke:#D97706
+    style MERGE fill:#F0FDF4,stroke:#15803D
 ```
 
 ## 1. Ruleset on `main`
 
 One ruleset (Settings → Rules → Rulesets) targets the default branch. It already exists; check it against this list and add what is missing:
 
-| Rule                     | Setting                                                                                     | State on 2026-11-16 |
-| ------------------------ | ------------------------------------------------------------------------------------------- | ------------------- |
-| Pull request             | 1 approval, approval of the last push, conversations resolved; merge method **squash only** | set                 |
-| Linear history           | required                                                                                    | set                 |
-| Deletion, force push     | blocked                                                                                     | set                 |
-| Deployment               | environment `dev` (the `ci` job deploys to it)                                              | set                 |
-| Status checks            | `ci`, `version-gate`, `rename-gate` (job IDs from `ci.yml`)                                 | **missing — add**   |
-| Bypass: PAT owner (user) | mode **Always** — the interim actor behind the release PAT (TD-2)                           | set                 |
-| Bypass: GitHub Actions   | mode **Always** — lets the root `release.yml` push its `chore(release)` commit (RF-042)     | **missing — add**   |
+| Rule                   | Setting                                                                                     | State on 2026-11-16 |
+| ---------------------- | ------------------------------------------------------------------------------------------- | ------------------- |
+| Pull request           | 1 approval, approval of the last push, conversations resolved; merge method **squash only** | set                 |
+| Linear history         | required                                                                                    | set                 |
+| Deletion, force push   | blocked                                                                                     | set                 |
+| Deployment             | environment `dev` (the `ci` job deploys to it)                                              | set                 |
+| Status checks          | `ci`, `version-gate`, `rename-gate` (job IDs from `ci.yml`); branch must be up to date      | **empty — add**     |
+| Bypass: GitHub Actions | mode **Always** — lets the root `release.yml` push its `chore(release)` commit (RF-042)     | **missing — add**   |
 
-The bypass actor is the **user who owns the PAT**, not the Repository admin role, so only that one account can push past the rules. If the bypass picker does not offer the GitHub Actions app, the root lane stays blocked until TD-5 removes its push.
+The harness lane needs no bypass. Branch rulesets do not cover tags, packages or releases, so `GITHUB_TOKEN` can create the tag through the API, publish and create the Release.
 
-`GITHUB_TOKEN` (`${{ github.token }}` in a workflow) never bypasses a ruleset unless the GitHub Actions app is a bypass actor. It can still create tags through the API, publish packages and create releases, because rulesets on branches do not cover those.
+The root lane still needs the GitHub Actions bypass: `release.yml` (semantic-release with `@semantic-release/git`) pushes `chore(release)` to `main` with `GITHUB_TOKEN`, and the ruleset blocks that push without it. This is the open part of TD-5. If the bypass picker does not offer the GitHub Actions app, the root lane stays blocked.
 
-## 2. Secret: `HARNESS_RELEASE_TOKEN`
+The live ruleset also has a user bypass for the account that owned the old release PAT. Releases no longer need it. Keep or remove it as you see fit.
 
-A fine-grained PAT of a repository admin, scoped to this repository only:
+## 2. Baseline tag
 
-| Setting     | Value                                                   |
-| ----------- | ------------------------------------------------------- |
-| Permissions | Contents: read and write · Metadata: read               |
-| Expiry      | 1 year at most — put the renewal date in a calendar now |
-| Stored as   | Repository Actions secret `HARNESS_RELEASE_TOKEN`       |
+Nx computes each version from the latest `artisyn-implementation-harness-v*` tag reachable from HEAD. The baseline tag `artisyn-implementation-harness-v3.5.0` sits on `c8d82c9`, the tip of `main` before PR #20. Push it once, before `version-gate` can pass on PR #20 (`git push` is a guarded command; the developer runs it):
 
-The workflow reads it in exactly two steps (presence check and push); everything else runs with the default `GITHUB_TOKEN`. Leave the repository variable `HARNESS_RELEASE_BOT` **unset** until a GitHub App exists — it is the actor guard for the App's bot login, and setting it to anything else does nothing useful.
+```bash
+git push origin artisyn-implementation-harness-v3.5.0
+```
 
-## 3. Enable the lane — last
+## 3. Enable the lane
 
-Set the repository variable `HARNESS_RELEASE_ENABLED` to `true` only after the ruleset and the secret are in place. Until then the workflow is inert on every push.
+Set the repository variable `HARNESS_RELEASE_ENABLED` to `true`. Until then the workflow is inert on every push. No secret is needed.
 
-## 4. First release: 4.0.0
+The old flow used a `HARNESS_RELEASE_TOKEN` secret and a `HARNESS_RELEASE_BOT` variable. Nothing reads them now. Delete the secret if it was created; leave the variable unset.
 
-The ruleset allows squash merges only, so the PR title becomes the one commit on `main` and is the commit Nx scores. Merge the distribution PR with exactly this title:
+## 4. Every harness PR: `yarn harness:version`
+
+Before you open or merge a PR that changes the harness, stamp its version on the feature branch:
+
+```bash
+yarn harness:version
+git commit -am "chore(harness-release): <version>"
+```
+
+Then push like any other commit. `scripts/release/version-harness.mjs` does the work:
+
+| Step    | What it does                                                                                                                      |
+| ------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Compute | Latest harness tag reachable from HEAD + the conventional commits after it (Nx Release). A re-run gives the same version          |
+| Stamp   | `skills/implementation-harness/package.json`, then every manifest through `stamp-harness-version.mjs`                             |
+| Log     | Writes or replaces the changelog entry; drops entries for unreleased versions left by earlier runs. Entries link the PR's commits |
+| No bump | When the commits call for no release, it changes nothing and says so                                                              |
+
+The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` starts no workflows, so the PR head would have no checks. The ruleset also requires approval of the last push.
+
+`version-gate` in `ci.yml` runs `node scripts/release/version-harness.mjs --check` (full history, `fetch-depth: 0`). It fails when:
+
+- the branch is not stamped with the computed version;
+- the changelog has no entry for that version;
+- the changelog has an entry for a version this branch does not release.
+
+**Two PRs, one version.** The ruleset requires the branch to be up to date. When two PRs claim the same version, the first merges and gets the tag; the second must update from `main` and re-run `yarn harness:version`. If the second PR updates in the few seconds before the first merge's tag exists, its check runs against the old tag. Re-run the check once the tag exists.
+
+**Squash title.** The version comes from the PR's own commits, which husky and the CI scope check (`check-commit-scope.mjs --range`) both check. The squash title no longer decides the version. Still give it a `harness`-scoped Conventional Commit subject, so the root `v*` lane ignores it.
+
+Changelog entries link to the PR's commit hashes. After the squash merge those commits stay reachable on GitHub through the PR.
+
+## 5. On merge: what the workflow does
+
+On push to `main`, `release-harness.yml` reads the version from `skills/implementation-harness/package.json` at the pushed commit:
+
+| Tag state          | Action                                                                                                   |
+| ------------------ | -------------------------------------------------------------------------------------------------------- |
+| Tag does not exist | Creates it on `GITHUB_SHA` through `gh api repos/$GITHUB_REPOSITORY/git/refs`, then builds and publishes |
+| Tag exists         | A merge that did not change the harness, or a re-run: finishes only what that release is missing         |
+
+It builds the tarball, the ZIP and its `.sha256`, attests both, publishes to GitHub Packages and creates the GitHub Release. A failed attestation blocks publish. A failed run is safe to re-run.
+
+## 6. First release: 4.0.0
+
+PR #20 is already stamped 4.0.0 (commit `c7f326b`). With steps 1–3 done, squash-merge it with a `harness`-scoped subject, for example:
 
 `feat(harness)!: rename the package to implementation-harness and keep its state in .harness/state`
 
-The same holds for every harness PR: its title must be a `harness`-scoped Conventional Commit of the right type. The CI scope check (`check-commit-scope.mjs --range`, run by `ci.yml`) checks the PR's own commits, not the title, and the husky hook does not run on GitHub, so a wrong title goes unchecked.
+The workflow then tags `artisyn-implementation-harness-v4.0.0` and publishes 4.0.0. Two known windows exist until that run finishes (accepted at plan sign-off, 2026-11-15):
 
-With the breaking commit on `main`, the first run versions the harness from 3.5.0 to exactly 4.0.0, stamps the manifests, pushes `chore(harness-release): 4.0.0 [skip ci]` plus the tag, publishes npm, attaches the ZIP + `.sha256` and attests both artifacts. Two known windows exist until that run finishes (both accepted at plan sign-off, 2026-11-15):
-
-- The marketplace manifests on `main` pin a tag that does not exist until the first release stamps it (RF-012) — marketplace installs work only after 4.0.0 is out.
+- The marketplace manifests on `main` pin a tag that does not exist until the workflow creates it (RF-012). Marketplace installs work once 4.0.0 is tagged.
 - The committed 3.5.0 ZIPs are deleted, so no 3.5.0 ZIP is downloadable until 4.0.0 is released (RF-013); the files remain in git history.
 
-A failed run is safe to re-run: it checks what is already published and finishes only the missing artifacts.
-
-## 5. Per-channel smoke checklist
+## 7. Per-channel smoke checklist
 
 In a scratch consumer project (not this repo), after the release run goes green. The `npx` commands below are consumer-side, so the yarn-only rule for this repo does not apply to them:
 
@@ -99,20 +150,6 @@ In a scratch consumer project (not this repo), after the release run goes green.
 
 The marketplace agent E2E (`yarn nx run harness-bootstrap-e2e:agent-e2e`) is a guarded command — it spends real agent budget, so the developer starts it; it never runs in CI.
 
-## Follow-up: GitHub App (TD-2, TD-3)
+## Decision record
 
-The PAT is interim — creating a GitHub App needs organisation permissions. When an org owner is available:
-
-1. Create the release GitHub App at org level, install it on this repository, and add it as the ruleset bypass actor (then remove the PAT owner's user bypass).
-2. Switch the workflow to a run-time token (`actions/create-github-app-token`), set `HARNESS_RELEASE_BOT` to the App's bot login, and delete the PAT.
-3. Split the workflow into a version job (contents write) and a publish job (contents write for `gh release create/upload`, packages, `id-token`, `attestations`) — today one job holds all four permissions for every step (TD-3).
-
-## Planned: version in the PR, publish on merge (TD-5)
-
-The PAT, the App and the bypass exist only because the release pushes a commit to `main`. The agreed replacement (2026-11-16) never does:
-
-1. On the feature branch, the developer runs `yarn nx release version` and pushes the stamped `package.json`, manifests and changelog like any other commit.
-2. A required CI check confirms the stamped version is exactly what the PR's commits call for. The ruleset requires the branch to be up to date, so when two PRs claim the same version, the second one re-stamps after the first merges.
-3. On push to `main`, if the version has no tag yet, the workflow creates the tag through the API, then builds, attests and publishes. Every step runs with `GITHUB_TOKEN`.
-
-The version commit is pushed by the developer, not by CI: a commit pushed with `GITHUB_TOKEN` starts no workflows, so the PR's head would have no checks. semantic-release cannot do step 1, because it never releases from a pull request. This changes design decisions D-15, D-16 and D-17.
+Versioning in the PR replaces the release commit that design decisions D-15, D-16 and D-17 put on `main` (TD-5, 2026-11-16). It also resolves TD-2 and TD-3: with no push to `main`, the PAT, the planned GitHub App and the version/publish job split have no purpose.

@@ -57,7 +57,7 @@ Numbers 04–08 in `Engineering Guide/` are reserved for project-specific articl
 
 `<type>(<scope>): <what changed>` — types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `revert`. Scope is the app or layer. Message explains the _why_, not the _what_.
 
-**Harness scope is enforced.** A commit that touches `skills/implementation-harness/**`, the legacy shim skill under `skills/`, `.claude-plugin/`, `.agents/plugins/` or `skills.sh.json` must use scope `harness` (the release pipeline's own commit uses `harness-release`). A failure names the files and the fix.
+**Harness scope is enforced.** A commit that touches `skills/implementation-harness/**`, the legacy shim skill under `skills/`, `.claude-plugin/`, `.agents/plugins/` or `skills.sh.json` must use scope `harness` (the version commit uses `harness-release`). A failure names the files and the fix.
 
 | Where                        | Checks                                    | Skips                             |
 | ---------------------------- | ----------------------------------------- | --------------------------------- |
@@ -67,3 +67,5 @@ Numbers 04–08 in `Engineering Guide/` are reserved for project-specific articl
 CI does not skip reverts, so give a GitHub `Revert "…"` commit that touches harness files a scoped subject (`revert(harness): …`). Neither check sees a squash-merge PR title; on a squash merge the title is what lands on `main` — see `07 Branching Strategy.md`.
 
 Scopes `harness` and `harness-release` produce no root `v*` release. The harness release lane bumps on commits that touch `skills/implementation-harness/` (Nx matches by path, `useCommitScope: false`), and this check makes those commits `harness`-scoped.
+
+**Harness PRs carry their version.** Before merge, run `yarn harness:version` on the branch and commit the result as `chore(harness-release): <version>`. The `version-gate` check fails until the branch is stamped with the version its commits call for. See `08 Harness Release Runbook.md`, step 4.

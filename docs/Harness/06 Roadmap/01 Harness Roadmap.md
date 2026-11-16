@@ -24,9 +24,9 @@ The harness ships through five pinned channels:
 - `gh skill`
 - Release ZIP, with `.sha256` and a build attestation
 
-Releases are automatic (`release-harness.yml`, Nx Release), with one stamped semantic version and a changelog; the manual ZIP flow is retired. Existing 3.x installs migrate with `migrate`. Runtime state lives in the project's `.harness/state/`.
+Releases are automatic, with one stamped semantic version and a changelog: each PR stamps its version (`yarn harness:version`, Nx Release), and `release-harness.yml` tags and publishes it on merge. The manual ZIP flow is retired. Existing 3.x installs migrate with `migrate`. Runtime state lives in the project's `.harness/state/`.
 
-**Open follow-up:** replace the interim release PAT with an org-level GitHub App, then split the release workflow into version and publish jobs (see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
+**Open follow-up:** the root `v*` lane (`release.yml`) still pushes a `chore(release)` commit to `main` and needs the GitHub Actions app as a ruleset bypass actor (TD-5; see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
 
 → See [Distribution](<../09 Distribution/index.md>).
 

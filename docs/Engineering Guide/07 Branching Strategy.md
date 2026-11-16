@@ -59,7 +59,7 @@ Staging → Prod promotion chain is a reasonable future addition, not a default.
   `<type>(<scope>): <what>`, per the same conventions doc
 - **Tags:** two independent lanes, both automatic, never created by hand:
   - `vX.Y.Z` — the repository's own version, created by `semantic-release` on merge to `main` (`.github/workflows/release.yml`). Commits with scope `harness` or `harness-release` produce no `v*` release (`release.config.js` releaseRules).
-  - `artisyn-implementation-harness-vX.Y.Z` — the harness package version, created by the harness release lane (`.github/workflows/release-harness.yml`, Nx Release). It bumps on commits that touch `skills/implementation-harness/` (`useCommitScope: false`, so Nx matches by path, not scope); the scope gate makes those commits `harness`-scoped. Its release commit is `chore(harness-release): <version> [skip ci]`. Inert until the repository variable `HARNESS_RELEASE_ENABLED` is `true` — see `08 Harness Release Runbook.md`.
+  - `artisyn-implementation-harness-vX.Y.Z` — the harness package version. The PR picks and stamps it: the developer runs `yarn harness:version` on the branch and commits `chore(harness-release): <version>`. Nx Release bumps on commits that touch `skills/implementation-harness/` (`useCommitScope: false`, so Nx matches by path, not scope); the scope gate makes those commits `harness`-scoped. On merge, the harness release lane (`.github/workflows/release-harness.yml`) creates the tag through the API and publishes; it never pushes to `main`. Inert until the repository variable `HARNESS_RELEASE_ENABLED` is `true` — see `08 Harness Release Runbook.md`.
 
 ## CI/CD by Branch
 
@@ -68,7 +68,7 @@ Staging → Prod promotion chain is a reasonable future addition, not a default.
 | `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, test, build for affected projects. No AWS role assumption — the AWS OIDC auth step was removed with the Infrastructure container                                        |
 | `main` merge          | `cd.yml` — runs, but its deploy step is currently a retirement stub (no-op); no deploy mechanism exists until the GitHub Pages cutover lands                                                               |
 | `main` merge          | `release.yml` — `semantic-release` computes the next version from Conventional Commits, tags, and publishes a GitHub release and `CHANGELOG.md` entry (scopes `harness`/`harness-release` excluded)        |
-| `main` merge          | `release-harness.yml` — the harness package lane: Nx Release versions, stamps, tags `artisyn-implementation-harness-v*`, publishes npm + ZIP + attestations; off until `HARNESS_RELEASE_ENABLED` is `true` |
+| `main` merge          | `release-harness.yml` — the harness package lane: tags the version the PR stamped (`artisyn-implementation-harness-v*`), publishes npm + ZIP + attestations; off until `HARNESS_RELEASE_ENABLED` is `true` |
 | Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate                                                                                                                                        |
 
 See `.github/workflows/ci.yml` and `.github/workflows/cd.yml` for the current workflow definitions.
@@ -80,25 +80,26 @@ branch protection rule. The ruleset is set up per `08 Harness Release Runbook.md
 `.github/CODEOWNERS` is configured, but it stays advisory until the ruleset requires Code Owner
 review.
 
-| Branch | Ruleset restrictions                                                                                                                                                                                                                                                                    |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `ci`, `version-gate`, `rename-gate`; bypass actors: the release PAT's owner (user), GitHub Actions app |
+| Branch | Ruleset restrictions                                                                                                                                                                                                                                                              |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `ci`, `version-gate`, `rename-gate` with the branch up to date; bypass actor: GitHub Actions app |
 
 Required status checks mirror job IDs `ci.yml` actually produces — don't require a check the
 pipeline doesn't produce. The `harness-package` and `harness-cli` jobs run on every PR but are
 advisory, not required. On 2026-11-16 the live ruleset had no required checks and no GitHub
 Actions bypass yet; runbook step 1 lists what to add.
 
-The **user** bypass is interim: it is the account that owns the release PAT
-(`HARNESS_RELEASE_TOKEN`), and it also lets that account push to `main` directly, until an org
-GitHub App replaces it (TD-2 in the runbook). The **GitHub Actions** app bypass lets `release.yml`
-push its `chore(release)` commit; `GITHUB_TOKEN` cannot cross the ruleset without it.
+The harness lane needs no bypass: it never pushes to `main`, and branch rulesets do not cover the
+tag it creates. The **GitHub Actions** app bypass is for the root lane only: `release.yml` pushes
+its `chore(release)` commit with `GITHUB_TOKEN`, which cannot cross the ruleset without it (the
+open part of TD-5). The live ruleset still lists the user who owned the old release PAT as a
+bypass actor; releases no longer need it.
 
 **Squash merges and the harness lane.** Every PR lands as one squash commit whose subject is the
-PR title, so for a harness PR the title is the commit Nx scores. The CI scope check runs over the
-PR's own commits, not the title, and the husky hook does not run on GitHub. Give a harness PR a
-`harness`-scoped title of the right type (`feat(harness)!:` for a breaking change). See
-`08 Harness Release Runbook.md`, step 4.
+PR title. The title does not decide the harness version: the PR's own commits do, and
+`version-gate` checks that the branch is stamped with it. Still give a harness PR a
+`harness`-scoped title (`feat(harness)!:` for a breaking change), so the root `v*` lane ignores
+it. See `08 Harness Release Runbook.md`, step 4.
 
 ## Rollback Strategy
 

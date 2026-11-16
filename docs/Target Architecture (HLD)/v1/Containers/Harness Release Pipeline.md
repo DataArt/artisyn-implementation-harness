@@ -1,33 +1,24 @@
 ---
 id: 8912decf
-purpose: 'Design intent for the Harness Release Pipeline container: one automatic pipeline that versions, publishes and attests the harness package to its five channels'
-keywords:
-  [
-    harness-release-pipeline,
-    hld,
-    release,
-    channels,
-    nx-release,
-    github-packages,
-    attestation,
-    HARNESS_RELEASE_TOKEN,
-  ]
+purpose: 'Design intent for the Harness Release Pipeline container: the PR stamps the harness version, and one automatic run on merge tags, publishes and attests it to its five channels'
+keywords: [harness-release-pipeline, release, version-harness, version-gate, attestation]
 ---
 
 # Harness Release Pipeline Container
 
-One automatic pipeline releases the harness package: every push to `main` that bumps the harness version produces the tag, the npm package, the Release ZIP and the attestations in a single run, with no manual publish step. Like Harness Bootstrap E2E, this is CI tooling, with no presence in the deployed site.
+The harness is versioned in the PR and published on merge. The PR stamps the version; after the squash merge, one automatic run tags that version and produces the npm package, the Release ZIP and the attestations, with no manual publish step and no push to `main`. Like Harness Bootstrap E2E, this is CI tooling, with no presence in the deployed site.
 
 ## Baseline diagram
 
 ```mermaid
 flowchart LR
-    GH["📦 GitHub Repo\npush to main"]:::source
+    subgraph PR ["  Feature branch (developer)  "]
+        HV["⚙️ yarn harness:version\nNx Release + stamp + changelog"]:::source
+        VG["✅ version-gate\nversion-harness.mjs --check"]:::source
+    end
 
-    subgraph PIPE ["  release-harness.yml — one run  "]
-        VER["⚙️ Version + changelog\nNx Release, conventional commits"]:::pipe
-        STAMP["🏷️ Stamp manifests\nSKILL.md · plugin.json · marketplace"]:::pipe
-        PUSH["🔐 Commit + tag\natomic push with HARNESS_RELEASE_TOKEN"]:::pipe
+    subgraph PIPE ["  release-harness.yml — on merge, GITHUB_TOKEN only  "]
+        TAG["🏷️ Tag via API\nversion from package.json"]:::pipe
         BUILD["📦 Build tarball + ZIP + sha256"]:::pipe
         ATT["✅ Attest tarball + ZIP"]:::pipe
         PUB["🚀 Publish npm + GitHub Release"]:::pipe
@@ -42,38 +33,42 @@ flowchart LR
 
     RSR["Root semantic-release lane (v*)\nignores scopes harness, harness-release"]:::separate
 
-    GH --> VER --> STAMP --> PUSH --> BUILD --> ATT --> PUB
+    MAIN["📦 Protected main\nsquash merge"]:::source
+
+    HV --> VG --> MAIN --> TAG --> BUILD --> ATT --> PUB
     PUB --> NPM
     PUB --> REL
-    PUSH -.->|"tag ref"| MK
-    GH -.-> SKS
-    GH -.-> RSR
+    TAG -.->|"tag ref"| MK
+    MAIN -.-> SKS
+    MAIN -.-> RSR
 
     classDef source fill:#DBEAFE,stroke:#1D4ED8,color:#172554
     classDef pipe fill:#FEF3C7,stroke:#B45309,color:#78350F
     classDef channel fill:#DCFCE7,stroke:#15803D,color:#14532D
     classDef separate fill:#E2E8F0,stroke:#475569,color:#0F172A
+    style PR fill:#EFF6FF,stroke:#1D4ED8
     style PIPE fill:#FFFBEB,stroke:#B45309
     style CH fill:#F0FDF4,stroke:#15803D
 ```
 
 ## Responsibilities
 
-- Version the harness from conventional commits (Nx Release, independent of the repo's `v*` version), write the changelog, stamp every shipped manifest
-- Push the release commit `chore(harness-release): <version> [skip ci]` and the tag `artisyn-implementation-harness-v<version>` atomically to the protected `main`
-- Build, attest and publish the npm tarball and the Release ZIP + `.sha256`
-- Stay inert until the repository variable `HARNESS_RELEASE_ENABLED` is `true`; never retrigger on its own release commit
+- On the feature branch: compute the version from the latest harness tag and the conventional commits after it (Nx Release, independent of the repo's `v*` version), stamp every shipped manifest, write the changelog entry (`yarn harness:version`)
+- On every PR: fail `version-gate` unless the branch is stamped with the computed version and its changelog entry
+- On merge: create the tag `artisyn-implementation-harness-v<version>` through the API, then build, attest and publish the npm tarball and the Release ZIP + `.sha256`
+- Stay inert until the repository variable `HARNESS_RELEASE_ENABLED` is `true`
 
 ## Boundary contracts
 
-- Input: merges to `main` whose commits touch `skills/implementation-harness/` (the scope gate makes those commits `harness`-scoped); the harness `package.json` is the single version source
+- Input: the harness `package.json` at the merged commit is the single version source; the PR's commits that touch `skills/implementation-harness/` (scope-gated to `harness`) decide it
 - Output: the channels in `docs/Harness/09 Distribution/index.md` — npm (token-gated), Release ZIP + `.sha256` + attestation (anonymous), the tag the marketplace and `gh skill` pin; skills.sh installs from the default branch and records the resolved commit
-- Guarantee: a re-run finishes only the missing artifacts; a failed attestation blocks publish; the root semantic-release lane ignores scopes `harness` and `harness-release`
+- Guarantee: an existing tag means "finish what is missing" — a merge that did not change the harness or a re-run publishes nothing new; a failed attestation blocks publish; the root semantic-release lane ignores scopes `harness` and `harness-release`
 - Guarantee: integrity per channel — npm registry integrity; ZIP `.sha256`, checked by the install CLI on `update` and by hand on a first ZIP install; attestations verifiable with `gh attestation verify`
 
 ## Constraints
 
 - Releases happen only through this pipeline; the manual ZIP flow is retired
-- The `main` ruleset requires a PR and the `ci`, `version-gate` and `rename-gate` checks
-- The release push crosses the ruleset through a bypass actor — interim a repo-admin PAT, target an org GitHub App; only the presence check and the push step read that credential (token model: LLD, runbook TD-2)
+- The `main` ruleset requires a PR, an up-to-date branch and the `ci`, `version-gate` and `rename-gate` checks; two PRs claiming the same version cannot both merge without the second re-stamping
+- The version commit is pushed by the developer: a commit pushed with `GITHUB_TOKEN` starts no workflows, and the ruleset requires approval of the last push
+- The pipeline never commits or pushes to `main` and runs only with `GITHUB_TOKEN`; it needs no PAT, GitHub App or ruleset bypass (TD-5, 2026-11-16)
 - Operation: `docs/Engineering Guide/08 Harness Release Runbook.md`. Implementation: `docs/System Architecture (LLD)/Harness Release Pipeline/00. Overview.md`
