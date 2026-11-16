@@ -5,11 +5,13 @@ name: Release harness
 # version-gate in ci.yml), so this workflow never commits or pushes to main and runs with
 # GITHUB_TOKEN only, no bypass actor needed. Nx Release is the repository's only release lane.
 #
-#   build    automatic: build the tarball and the ZIP, attest them, keep them as a run artifact
-#   publish  waits for approval in the `release` environment, then creates the tag through the API
-#            (so every channel opens at once), publishes to GitHub Packages and publishes the
-#            GitHub Release with the ZIP and its checksum (draft first, so an immutable release
-#            gets its assets before it is published)
+#   build           automatic: build the tarball and the ZIP, attest them, keep them as an artifact
+#   release         waits for approval in the `release` environment, then creates the tag through
+#                   the API, so every channel opens at once
+#   publish-npm     publishes the package to GitHub Packages
+#   publish-github  publishes the GitHub Release with the ZIP and its checksum (draft first, so an
+#                   immutable release gets its assets before it is published)
+# The two publish jobs run in parallel after approval; either can be re-run on its own.
 
 on:
   push:
@@ -120,7 +122,8 @@ jobs:
           path: dist/
           if-no-files-found: error
 
-  publish:
+  # Approval gate. The tag is created only here, so every channel opens at once.
+  release:
     needs: build
     if: needs.build.outputs.publish == 'true'
     runs-on: ubuntu-latest
@@ -128,25 +131,15 @@ jobs:
     environment: release
     permissions:
       contents: write
-      packages: write
     env:
-      GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       TAG: ${{ needs.build.outputs.tag }}
-      VERSION: ${{ needs.build.outputs.version }}
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
           fetch-tags: true
           persist-credentials: false
-
-      - uses: ./.github/actions/setup
-
-      - uses: actions/download-artifact@v4
-        with:
-          name: harness-release
-          path: dist/
 
       - name: Create the tag through the API
         run: |
@@ -165,9 +158,41 @@ jobs:
             echo "Tagged ${GITHUB_SHA} as ${TAG}."
           fi
 
+  publish-npm:
+    needs: [build, release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: ./.github/actions/setup
+
       - name: Publish to GitHub Packages
         run: yarn workspace "$PACKAGE" npm publish --tolerate-republish
 
+  publish-github:
+    needs: [build, release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_REPO: ${{ github.repository }}
+      TAG: ${{ needs.build.outputs.tag }}
+      VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: harness-release
+          path: dist/
+
+      # Draft first, so an immutable release gets its assets before it is published.
       - name: Publish the GitHub Release with the ZIP and its checksum
         run: |
           set -euo pipefail

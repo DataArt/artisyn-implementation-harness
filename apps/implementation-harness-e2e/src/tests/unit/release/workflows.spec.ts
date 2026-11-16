@@ -15,7 +15,10 @@ const load = (name: string) => {
 
 describe('release-harness.yml', () => {
   const { text, doc } = load('release-harness.yml');
-  const { build, publish } = doc.jobs as Record<string, Record<string, any>>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  const jobs = doc.jobs as Record<string, Record<string, any>>; // eslint-disable-line @typescript-eslint/no-explicit-any
+  const { build, release } = jobs;
+  const npm = jobs['publish-npm'];
+  const github = jobs['publish-github'];
   const steps = (job: Record<string, any>) => JSON.stringify(job.steps); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   it('runs on push to main with one concurrency group and no enable flag', () => {
@@ -26,11 +29,15 @@ describe('release-harness.yml', () => {
     assert.equal(build.if, undefined, 'build always runs');
   });
 
-  it('splits into an automatic build job and a publish job that waits for the release environment', () => {
-    assert.deepEqual(Object.keys(doc.jobs), ['build', 'publish']);
-    assert.equal(publish.needs, 'build');
-    assert.equal(publish.environment, 'release');
-    assert.match(String(publish.if), /needs\.build\.outputs\.publish == 'true'/);
+  it('builds, waits for approval in the release environment, then publishes npm and GitHub in parallel', () => {
+    assert.deepEqual(Object.keys(jobs), ['build', 'release', 'publish-npm', 'publish-github']);
+    assert.equal(release.needs, 'build');
+    assert.equal(release.environment, 'release');
+    assert.match(String(release.if), /needs\.build\.outputs\.publish == 'true'/);
+    for (const job of [npm, github]) {
+      assert.deepEqual(job.needs, ['build', 'release']);
+      assert.equal(job.environment, undefined, 'one approval covers both channels');
+    }
   });
 
   it('grants nothing by default and each job only what it needs', () => {
@@ -41,7 +48,9 @@ describe('release-harness.yml', () => {
       'id-token': 'write',
       attestations: 'write',
     });
-    assert.deepEqual(publish.permissions, { contents: 'write', packages: 'write' });
+    assert.deepEqual(release.permissions, { contents: 'write' });
+    assert.deepEqual(npm.permissions, { contents: 'read', packages: 'write' });
+    assert.deepEqual(github.permissions, { contents: 'write' });
   });
 
   it('never pushes to main and needs no release token', () => {
@@ -60,33 +69,32 @@ describe('release-harness.yml', () => {
       assert.ok(!b.includes(absent), `${absent} waits for approval`);
   });
 
-  it('creates the tag through the API only after approval, then publishes npm and the release', () => {
-    const p = steps(publish);
-    const order = [
-      'download-artifact',
-      'git/refs',
-      'npm publish --tolerate-republish',
-      'gh release create',
-    ];
-    let last = -1;
-    for (const needle of order) {
-      const at = p.indexOf(needle);
-      assert.ok(at > last, `${needle} comes after the previous step`);
-      last = at;
-    }
-    assert.match(p, /GITHUB_SHA/);
+  it('creates the tag through the API in the approval job only', () => {
+    const r = steps(release);
+    assert.match(r, /git\/refs/);
+    assert.match(r, /GITHUB_SHA/);
+    assert.ok(!r.includes('npm publish') && !r.includes('gh release'), 'the gate only tags');
   });
 
-  it('stops at publish when another run released the version while this one waited', () => {
-    const p = steps(publish);
-    assert.match(p, /git diff --quiet/);
-    assert.match(p, /while this run waited/);
+  it('stops at the gate when another run released the version while this one waited', () => {
+    const r = steps(release);
+    assert.match(r, /git diff --quiet/);
+    assert.match(r, /while this run waited/);
+  });
+
+  it('publishes npm and the GitHub Release in their own jobs', () => {
+    assert.match(steps(npm), /npm publish --tolerate-republish/);
+    assert.ok(!steps(npm).includes('gh release'));
+    const g = steps(github);
+    assert.match(g, /download-artifact/);
+    assert.match(g, /gh release create/);
+    assert.ok(!g.includes('npm publish'));
   });
 
   it('publishes the release from a draft, so an immutable release gets its assets first', () => {
-    const p = steps(publish);
-    assert.match(p, /--draft --title/);
-    assert.ok(p.indexOf('gh release upload') < p.indexOf('--draft=false'));
+    const g = steps(github);
+    assert.match(g, /--draft --title/);
+    assert.ok(g.indexOf('gh release upload') < g.indexOf('--draft=false'));
   });
 
   it('does not version: the PR stamped the version', () => {
