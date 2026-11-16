@@ -36,11 +36,11 @@ Pick one channel. The two most common:
 claude plugin marketplace add DataArt/artisyn-implementation-harness
 claude plugin install artisyn@dataart
 
-# npm install CLI (GitHub Packages, needs a read:packages token)
-npx @dataart/artisyn-implementation-harness init
+# GitHub Packages npm (needs a read:packages token and the .npmrc from the Install page)
+npx @dataart/artisyn-implementation-harness@4.0.0 init
 ```
 
-Every channel — Codex, Copilot CLI, skills.sh, `gh skill`, and the anonymous Release ZIP — is in [Distribution → Install](<../09 Distribution/01 Install.md>).
+Use the version you want in place of `4.0.0`. The `.npmrc` setup and every other channel (Codex, Copilot CLI, skills.sh, `gh skill`, Release ZIP) are in [Distribution → Install](<../09 Distribution/01 Install.md>).
 
 ## Run it
 

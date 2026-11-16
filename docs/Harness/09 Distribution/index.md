@@ -141,8 +141,8 @@ Downstream teams send improvements to the source repository; they come back to e
 
 ## In this section
 
-| Page                                                            | Contents                                                                                     |
-| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| [01 Install](<./01 Install.md>)                                 | Install commands per channel, npm access, `init` options, skills.sh discovery, project state |
-| [02 Update](<./02 Update.md>)                                   | Pinned update commands, CLI update rules, `doctor`, baselines in `patch apply`               |
-| [03 Versioning and Releases](<./03 Versioning and Releases.md>) | One version, the release workflow and re-runs, integrity, rollback                           |
+| Page                                                            | Contents                                                                                        |
+| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [01 Install](<./01 Install.md>)                                 | Install checklist per channel, checking and verifying an install, `init` options, project state |
+| [02 Update](<./02 Update.md>)                                   | Pinned update commands, CLI update rules, `doctor`, baselines in `patch apply`                  |
+| [03 Versioning and Releases](<./03 Versioning and Releases.md>) | One version, the release workflow and re-runs, integrity, rollback                              |
