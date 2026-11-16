@@ -1,6 +1,5 @@
 # Implementation Harness
 
-test
 The harness is a portable set of canonical skills, agents, and documentation templates. Launch installs a project-specific version of that set. Harvest and
 apply keep the canonical sources and permanent project files connected afterward.
 
