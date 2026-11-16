@@ -107,6 +107,12 @@ The PAT is interim — creating a GitHub App needs organisation permissions. Whe
 2. Switch the workflow to a run-time token (`actions/create-github-app-token`), set `HARNESS_RELEASE_BOT` to the App's bot login, and delete the PAT.
 3. Split the workflow into a version job (contents write) and a publish job (contents write for `gh release create/upload`, packages, `id-token`, `attestations`) — today one job holds all four permissions for every step (TD-3).
 
-## Alternative: tag-only release (TD-5)
+## Planned: version in the PR, publish on merge (TD-5)
 
-The PAT, the App and the bypass exist only because the release pushes a commit to `main`. A release that never pushes to `main` needs none of them: stamp the versions in the runner, commit them on no branch, point the release tag at that commit through the API, and publish from the tag. Every step then runs with `GITHUB_TOKEN`. The trade-off is that `main` keeps the previous version in its manifests and changelog. This changes design decisions D-15, D-16 and D-17, so it needs its own design pass before any work.
+The PAT, the App and the bypass exist only because the release pushes a commit to `main`. The agreed replacement (2026-11-16) never does:
+
+1. On the feature branch, the developer runs `yarn nx release version` and pushes the stamped `package.json`, manifests and changelog like any other commit.
+2. A required CI check confirms the stamped version is exactly what the PR's commits call for. The ruleset requires the branch to be up to date, so when two PRs claim the same version, the second one re-stamps after the first merges.
+3. On push to `main`, if the version has no tag yet, the workflow creates the tag through the API, then builds, attests and publishes. Every step runs with `GITHUB_TOKEN`.
+
+The version commit is pushed by the developer, not by CI: a commit pushed with `GITHUB_TOKEN` starts no workflows, so the PR's head would have no checks. semantic-release cannot do step 1, because it never releases from a pull request. This changes design decisions D-15, D-16 and D-17.
