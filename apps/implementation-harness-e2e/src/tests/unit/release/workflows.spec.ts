@@ -113,7 +113,7 @@ describe('ci.yml', () => {
   });
 
   it('keeps the existing ci job and adds the version, rename and package gates', () => {
-    for (const job of ['ci', 'version-gate', 'rename-gate', 'harness-package'])
+    for (const job of ['ci', 'version-gate', 'docs-gate', 'harness-package'])
       assert.ok(doc.jobs[job], job);
   });
 
@@ -121,7 +121,6 @@ describe('ci.yml', () => {
     for (const needle of [
       'stamp-harness-version.mjs --check',
       'version-harness.mjs --check',
-      'check-rename.mjs',
       'check-docs.mjs',
       'check-pack.mjs',
       'validate-plugin.mjs',

@@ -37,7 +37,7 @@ jobs:
       - name: Log Hub canonical isolation
         run: yarn nx run log-hub:verify
 
-  # Required checks on `main` (D-17): ci, version-gate, rename-gate. The release workflow runs
+  # Required checks on `main` (D-17): ci, version-gate, docs-gate. The release workflow runs
   # only after they pass.
   version-gate:
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
       - name: Harness is stamped with the version its commits call for
         run: node scripts/release/version-harness.mjs --check
 
-  rename-gate:
+  docs-gate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -65,10 +65,7 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: No stray retired name, no full name used as a skill or command
-        run: node scripts/check-rename.mjs
-
-      - name: Install instructions are pinned
+      - name: Install instructions are pinned and name the skill correctly
         run: node scripts/check-docs.mjs
 
       - name: Commits touching the harness use scope harness
