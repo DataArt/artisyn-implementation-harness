@@ -1,33 +1,45 @@
 name: Release harness
 
-# Tags, publishes and attests the harness version that main carries, after every merge. The PR
-# already chose and stamped that version (`yarn harness:version`, checked by version-gate in
-# ci.yml), so this workflow never commits or pushes to main: it creates the tag through the API and
-# everything runs with GITHUB_TOKEN, no bypass actor needed (TD-5). This is the repository's only
-# release lane: the root `v*` lane (semantic-release) is retired.
+# Builds the harness version that main carries after every merge, and publishes it once a reviewer
+# approves. The PR already chose and stamped that version (`yarn harness:version`, checked by
+# version-gate in ci.yml), so this workflow never commits or pushes to main and runs with
+# GITHUB_TOKEN only, no bypass actor needed. Nx Release is the repository's only release lane.
+#
+#   build    automatic: build the tarball and the ZIP, attest them, keep them as a run artifact
+#   publish  waits for approval in the `release` environment, then creates the tag through the API
+#            (so every channel opens at once), publishes to GitHub Packages and publishes the
+#            GitHub Release with the ZIP and its checksum (draft first, so an immutable release
+#            gets its assets before it is published)
 
 on:
   push:
     branches: [main]
 
-permissions:
-  contents: write
-  packages: write
-  id-token: write
-  attestations: write
+permissions: {}
 
 concurrency:
   group: release-harness
   cancel-in-progress: false
 
+env:
+  PACKAGE: '@dataart/artisyn-implementation-harness'
+  TAG_PREFIX: artisyn-implementation-harness-v
+
 jobs:
-  release:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      id-token: write
+      attestations: write
     env:
-      PACKAGE: '@dataart/artisyn-implementation-harness'
-      TAG_PREFIX: artisyn-implementation-harness-v
       GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+      version: ${{ steps.version.outputs.version }}
+      publish: ${{ steps.state.outputs.publish }}
     steps:
       # The commit that triggered this run, with every tag. No credentials stay on disk.
       - uses: actions/checkout@v7
@@ -38,28 +50,22 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      - name: Tag the version this commit carries
+      - name: Read the version this commit carries
         id: version
         run: |
           set -euo pipefail
           version="$(node -p "require('./skills/implementation-harness/package.json').version")"
           tag="${TAG_PREFIX}${version}"
-          if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
-            # Released by an earlier merge (this merge did not change the harness), or a re-run:
-            # finish whatever that release is missing.
-            # A tag that lacks harness changes of this commit means a PR merged with a version
-            # that was already released (stamped before the previous release was tagged).
-            if ! git diff --quiet "${tag}" "${GITHUB_SHA}" -- skills/implementation-harness; then
-              echo "::error::${tag} is already released, but this commit changes the harness after it. Run yarn harness:version on a new branch and merge the stamp."
-              exit 1
-            fi
-            echo "${tag} exists. Checking that it is fully published."
-          else
-            # A ruleset on branches does not cover tags, so GITHUB_TOKEN can create it.
-            gh api "repos/${GITHUB_REPOSITORY}/git/refs" -f ref="refs/tags/${tag}" -f sha="${GITHUB_SHA}" >/dev/null
-            git tag "${tag}" "${GITHUB_SHA}"
-            echo "Tagged ${GITHUB_SHA} as ${tag}."
+          # An existing tag means an earlier merge released this version, or this is a re-run:
+          # finish whatever that release is missing. A tag that lacks harness changes of this commit
+          # means a PR merged with a version that was already released (stamped before the
+          # previous release was tagged).
+          if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null &&
+            ! git diff --quiet "${tag}" "${GITHUB_SHA}" -- skills/implementation-harness; then
+            echo "::error::${tag} is already released, but this commit changes the harness after it. Run yarn harness:version on a new branch and merge the stamp."
+            exit 1
           fi
+          echo "version=${version}" >> "$GITHUB_OUTPUT"
           echo "tag=${tag}" >> "$GITHUB_OUTPUT"
 
       - name: Check what is already published
@@ -67,62 +73,103 @@ jobs:
         run: |
           set -uo pipefail
           tag="${{ steps.version.outputs.tag }}"
-          version="${tag#${TAG_PREFIX}}"
+          version="${{ steps.version.outputs.version }}"
           zip="${TAG_PREFIX}${version}.zip"
           package_ok=false
           yarn npm info "${PACKAGE}@${version}" version >/dev/null 2>&1 && package_ok=true
-          assets="$(gh release view "$tag" --json assets --jq '.assets[].name' 2>/dev/null || true)"
-          assets_ok=false
-          if echo "$assets" | grep -qx "$zip" && echo "$assets" | grep -qx "${zip}.sha256"; then assets_ok=true; fi
-          if [ "$package_ok" = true ] && [ "$assets_ok" = true ]; then
-            echo "published=true" >> "$GITHUB_OUTPUT"
-            echo "${tag} is fully published (package and release assets). Nothing to do."
+          # Published (not a draft) and carrying the ZIP and its checksum.
+          release_ok="$(gh release view "$tag" --json isDraft,assets --jq "(.isDraft | not) and ([.assets[].name] | index(\"${zip}\") != null and index(\"${zip}.sha256\") != null)" 2>/dev/null || echo false)"
+          if [ "$package_ok" = true ] && [ "$release_ok" = true ]; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            echo "${tag} is fully published (package and release). Nothing to do."
           else
-            echo "published=false" >> "$GITHUB_OUTPUT"
-            echo "${tag}: package published=${package_ok}, release assets present=${assets_ok}"
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+            echo "${tag}: package published=${package_ok}, release published with assets=${release_ok}"
           fi
 
-      - name: Check out the release tag
-        if: steps.state.outputs.published == 'false'
-        run: git checkout --detach "${{ steps.version.outputs.tag }}"
-
       - name: Build the tarball and the ZIP
-        id: build
-        if: steps.state.outputs.published == 'false'
+        if: steps.state.outputs.publish == 'true'
         run: |
           set -euo pipefail
-          tag="${{ steps.version.outputs.tag }}"
-          version="${tag#${TAG_PREFIX}}"
+          name="${TAG_PREFIX}${{ steps.version.outputs.version }}"
           mkdir -p dist
-          yarn workspace "$PACKAGE" pack --out "$GITHUB_WORKSPACE/dist/${TAG_PREFIX}${version}.tgz"
+          yarn workspace "$PACKAGE" pack --out "$GITHUB_WORKSPACE/dist/${name}.tgz"
           scratch="$(mktemp -d)"
-          tar -xzf "dist/${TAG_PREFIX}${version}.tgz" -C "$scratch"
+          tar -xzf "dist/${name}.tgz" -C "$scratch"
           mv "$scratch/package" "$scratch/implementation-harness"
-          (cd "$scratch" && zip -r -X "$GITHUB_WORKSPACE/dist/${TAG_PREFIX}${version}.zip" implementation-harness)
-          (cd dist && sha256sum "${TAG_PREFIX}${version}.zip" > "${TAG_PREFIX}${version}.zip.sha256")
-          echo "version=${version}" >> "$GITHUB_OUTPUT"
+          (cd "$scratch" && zip -r -X "$GITHUB_WORKSPACE/dist/${name}.zip" implementation-harness)
+          (cd dist && sha256sum "${name}.zip" > "${name}.zip.sha256")
 
       - name: Attest the tarball
-        if: steps.state.outputs.published == 'false'
+        if: steps.state.outputs.publish == 'true'
         uses: actions/attest-build-provenance@v3
         with:
           subject-path: dist/*.tgz
 
       - name: Attest the ZIP
-        if: steps.state.outputs.published == 'false'
+        if: steps.state.outputs.publish == 'true'
         uses: actions/attest-build-provenance@v3
         with:
           subject-path: dist/*.zip
 
-      - name: Publish to GitHub Packages
-        if: steps.state.outputs.published == 'false'
-        run: yarn workspace "$PACKAGE" npm publish --tolerate-republish
+      - name: Keep the artifacts for the publish job
+        if: steps.state.outputs.publish == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: harness-release
+          path: dist/
+          if-no-files-found: error
 
-      - name: Create the GitHub Release and attach the ZIP and its checksum
-        if: steps.state.outputs.published == 'false'
+  publish:
+    needs: build
+    if: needs.build.outputs.publish == 'true'
+    runs-on: ubuntu-latest
+    # Required reviewers on this environment make the run wait for approval here.
+    environment: release
+    permissions:
+      contents: write
+      packages: write
+    env:
+      GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TAG: ${{ needs.build.outputs.tag }}
+      VERSION: ${{ needs.build.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - uses: ./.github/actions/setup
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: harness-release
+          path: dist/
+
+      - name: Create the tag through the API
         run: |
           set -euo pipefail
-          tag="${{ steps.version.outputs.tag }}"
-          version="${{ steps.build.outputs.version }}"
-          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --verify-tag --title "$tag" --generate-notes
-          gh release upload "$tag" "dist/${TAG_PREFIX}${version}.zip" "dist/${TAG_PREFIX}${version}.zip.sha256" --clobber
+          # A ruleset on branches does not cover tags, so GITHUB_TOKEN can create it.
+          if gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG}" >/dev/null 2>&1; then
+            echo "${TAG} exists."
+          else
+            gh api "repos/${GITHUB_REPOSITORY}/git/refs" -f ref="refs/tags/${TAG}" -f sha="${GITHUB_SHA}" >/dev/null
+            echo "Tagged ${GITHUB_SHA} as ${TAG}."
+          fi
+
+      - name: Publish to GitHub Packages
+        run: yarn workspace "$PACKAGE" npm publish --tolerate-republish
+
+      - name: Publish the GitHub Release with the ZIP and its checksum
+        run: |
+          set -euo pipefail
+          zip="dist/${TAG_PREFIX}${VERSION}.zip"
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --verify-tag --draft --title "$TAG" --generate-notes
+          fi
+          if [ "$(gh release view "$TAG" --json isDraft --jq .isDraft)" = true ]; then
+            gh release upload "$TAG" "$zip" "${zip}.sha256" --clobber
+            gh release edit "$TAG" --draft=false
+          else
+            echo "${TAG} is already published; its assets stay as they are."
+          fi
