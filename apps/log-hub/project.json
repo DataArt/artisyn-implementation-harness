@@ -78,13 +78,6 @@
         "cwd": "{projectRoot}"
       }
     },
-    "verify": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "tsx src/verify.ts",
-        "cwd": "{projectRoot}"
-      }
-    },
     "test": {
       "executor": "nx:run-commands",
       "cache": true,
