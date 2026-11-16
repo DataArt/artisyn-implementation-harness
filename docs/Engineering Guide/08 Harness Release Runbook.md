@@ -36,14 +36,21 @@ flowchart LR
 
 ## 1. Ruleset on `main`
 
-Create one ruleset (Settings → Rules → Rulesets) targeting `main`:
+One ruleset (Settings → Rules → Rulesets) targets the default branch. It already exists; check it against this list and add what is missing:
 
-- Require a pull request before merging.
-- Block force pushes.
-- Require status checks: `ci`, `version-gate`, `rename-gate` (job IDs from `ci.yml`).
-- Bypass actors, both with mode **Always**:
-  - **Repository admin** role — the interim actor behind the release PAT (TD-2); it also lets any admin push to `main` directly, which is the accepted trade-off until an org GitHub App exists (decided 2026-11-15).
-  - **GitHub Actions** app — so the root release lane (`release.yml`) keeps pushing its `chore(release)` commit with `GITHUB_TOKEN` (RF-042, accepted 2026-11-15).
+| Rule                     | Setting                                                                                     | State on 2026-11-16 |
+| ------------------------ | ------------------------------------------------------------------------------------------- | ------------------- |
+| Pull request             | 1 approval, approval of the last push, conversations resolved; merge method **squash only** | set                 |
+| Linear history           | required                                                                                    | set                 |
+| Deletion, force push     | blocked                                                                                     | set                 |
+| Deployment               | environment `dev` (the `ci` job deploys to it)                                              | set                 |
+| Status checks            | `ci`, `version-gate`, `rename-gate` (job IDs from `ci.yml`)                                 | **missing — add**   |
+| Bypass: PAT owner (user) | mode **Always** — the interim actor behind the release PAT (TD-2)                           | set                 |
+| Bypass: GitHub Actions   | mode **Always** — lets the root `release.yml` push its `chore(release)` commit (RF-042)     | **missing — add**   |
+
+The bypass actor is the **user who owns the PAT**, not the Repository admin role, so only that one account can push past the rules. If the bypass picker does not offer the GitHub Actions app, the root lane stays blocked until TD-5 removes its push.
+
+`GITHUB_TOKEN` (`${{ github.token }}` in a workflow) never bypasses a ruleset unless the GitHub Actions app is a bypass actor. It can still create tags through the API, publish packages and create releases, because rulesets on branches do not cover those.
 
 ## 2. Secret: `HARNESS_RELEASE_TOKEN`
 
@@ -63,12 +70,11 @@ Set the repository variable `HARNESS_RELEASE_ENABLED` to `true` only after the r
 
 ## 4. First release: 4.0.0
 
-The distribution PR must land so that a `feat(harness)!:` commit reaches `main`:
+The ruleset allows squash merges only, so the PR title becomes the one commit on `main` and is the commit Nx scores. Merge the distribution PR with exactly this title:
 
-- a merge commit (keeps the rename commit `f1b9849`) or a rebase merge (keeps a rewritten copy with the same subject); or
-- a squash merge with the PR title `feat(harness)!: rename the package to implementation-harness and keep its state in .harness/state`.
+`feat(harness)!: rename the package to implementation-harness and keep its state in .harness/state`
 
-On a squash merge the PR title becomes the only commit on `main`, so it is the commit Nx scores. That holds for every squash-merged harness PR. The CI scope check (`check-commit-scope.mjs --range`, run by `ci.yml`) checks the PR's own commits, not the title, and the husky hook does not run on GitHub, so a wrong squash title goes unchecked.
+The same holds for every harness PR: its title must be a `harness`-scoped Conventional Commit of the right type. The CI scope check (`check-commit-scope.mjs --range`, run by `ci.yml`) checks the PR's own commits, not the title, and the husky hook does not run on GitHub, so a wrong title goes unchecked.
 
 With the breaking commit on `main`, the first run versions the harness from 3.5.0 to exactly 4.0.0, stamps the manifests, pushes `chore(harness-release): 4.0.0 [skip ci]` plus the tag, publishes npm, attaches the ZIP + `.sha256` and attests both artifacts. Two known windows exist until that run finishes (both accepted at plan sign-off, 2026-11-15):
 
@@ -97,6 +103,10 @@ The marketplace agent E2E (`yarn nx run harness-bootstrap-e2e:agent-e2e`) is a g
 
 The PAT is interim — creating a GitHub App needs organisation permissions. When an org owner is available:
 
-1. Create the release GitHub App at org level, install it on this repository, and add it as the ruleset bypass actor (then remove the Repository admin bypass).
+1. Create the release GitHub App at org level, install it on this repository, and add it as the ruleset bypass actor (then remove the PAT owner's user bypass).
 2. Switch the workflow to a run-time token (`actions/create-github-app-token`), set `HARNESS_RELEASE_BOT` to the App's bot login, and delete the PAT.
 3. Split the workflow into a version job (contents write) and a publish job (contents write for `gh release create/upload`, packages, `id-token`, `attestations`) — today one job holds all four permissions for every step (TD-3).
+
+## Alternative: tag-only release (TD-5)
+
+The PAT, the App and the bypass exist only because the release pushes a commit to `main`. A release that never pushes to `main` needs none of them: stamp the versions in the runner, commit them on no branch, point the release tag at that commit through the API, and publish from the tag. Every step then runs with `GITHUB_TOKEN`. The trade-off is that `main` keeps the previous version in its manifests and changelog. This changes design decisions D-15, D-16 and D-17, so it needs its own design pass before any work.

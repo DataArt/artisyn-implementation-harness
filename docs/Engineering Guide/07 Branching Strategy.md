@@ -80,23 +80,25 @@ branch protection rule. The ruleset is set up per `08 Harness Release Runbook.md
 `.github/CODEOWNERS` is configured, but it stays advisory until the ruleset requires Code Owner
 review.
 
-| Branch | Ruleset restrictions                                                                                                                                |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main` | Pull request required; required checks `ci`, `version-gate`, `rename-gate`; no force-push; bypass actors: Repository admin role, GitHub Actions app |
+| Branch | Ruleset restrictions                                                                                                                                                                                                                                                                    |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `ci`, `version-gate`, `rename-gate`; bypass actors: the release PAT's owner (user), GitHub Actions app |
 
 Required status checks mirror job IDs `ci.yml` actually produces — don't require a check the
 pipeline doesn't produce. The `harness-package` and `harness-cli` jobs run on every PR but are
-advisory, not required.
+advisory, not required. On 2026-11-16 the live ruleset had no required checks and no GitHub
+Actions bypass yet; runbook step 1 lists what to add.
 
-The **Repository admin** bypass is interim: it carries the release PAT (`HARNESS_RELEASE_TOKEN`)
-and also lets any admin push to `main` directly, until an org GitHub App replaces it (TD-2 in the
-runbook). The **GitHub Actions** app bypass lets `release.yml` push its `chore(release)` commit.
+The **user** bypass is interim: it is the account that owns the release PAT
+(`HARNESS_RELEASE_TOKEN`), and it also lets that account push to `main` directly, until an org
+GitHub App replaces it (TD-2 in the runbook). The **GitHub Actions** app bypass lets `release.yml`
+push its `chore(release)` commit; `GITHUB_TOKEN` cannot cross the ruleset without it.
 
-**Squash merges and the harness lane.** On a squash merge the PR title is the only commit that
-lands on `main`, so for a harness PR it is the commit Nx scores. The CI scope check runs over the
-PR's own commits, not the title, and the husky hook does not run on GitHub. Give a squash-merged
-harness PR a `harness`-scoped title of the right type (`feat(harness)!:` for a breaking change).
-See `08 Harness Release Runbook.md`, step 4.
+**Squash merges and the harness lane.** Every PR lands as one squash commit whose subject is the
+PR title, so for a harness PR the title is the commit Nx scores. The CI scope check runs over the
+PR's own commits, not the title, and the husky hook does not run on GitHub. Give a harness PR a
+`harness`-scoped title of the right type (`feat(harness)!:` for a breaking change). See
+`08 Harness Release Runbook.md`, step 4.
 
 ## Rollback Strategy
 
