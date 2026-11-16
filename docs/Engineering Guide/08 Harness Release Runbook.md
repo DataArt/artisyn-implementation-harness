@@ -172,7 +172,7 @@ Approve the `release` deployment to publish. Open the run in Actions, choose **R
 
 The three publish jobs run in parallel. The tag appears only now, so npm on GitHub Packages, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
 
-Until approval, the marketplace manifests on `main` pin a tag that does not exist yet. Marketplace and `gh skill` installs of the new version fail in that window (accepted 2026-11-16). The site deploy (`cd.yml`) does not wait for the approval.
+Until approval, the marketplace manifests on `main` pin a tag that does not exist yet. Marketplace and `gh skill` installs of the new version fail in that window (accepted 2026-11-16). The site deploy (`deploy-web.yml`) does not wait for the approval.
 
 **Re-run.** A failed or rejected run is safe to re-run; it finishes only what is missing. An existing tag stays, GitHub Packages skips a version that is already there, and an already-published Release keeps its assets. When only one publish job fails, use **Re-run failed jobs**: it re-runs that job alone, without a new approval.
 

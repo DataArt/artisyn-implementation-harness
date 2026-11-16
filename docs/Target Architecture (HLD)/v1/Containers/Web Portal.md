@@ -64,7 +64,7 @@ flowchart TD
 - Guarantee: `build` target declares `outputs: ["{projectRoot}/dist"]`
 - Guarantee: the assemble script throws a descriptive error — failing the Nx target and CI — if `dist/index.html` or `dist/docs/index.html` is missing after the copy; there is no partial-deploy failure mode
 - `project.json` declares `implicitDependencies: ["web-explorer", "web-docs"]` (the project-graph edge `nx affected` needs) and the `build` target declares `dependsOn: ["web-explorer:build", "web-docs:build"]` (task ordering only, a separate concern from the graph edge) — the same `implicitDependencies` pattern `apps/web-docs/project.json` already used before this container existed
-- Output feeds `.github/workflows/cd.yml`'s `actions/upload-pages-artifact`, whose `path` is `apps/web-portal/dist`; `nx affected --target=build` is unchanged as a command but now also builds `web-portal` via the project graph
+- Output feeds `.github/workflows/deploy-web.yml`'s `actions/upload-pages-artifact`, whose `path` is `apps/web-portal/dist`; the workflow starts only on a push to `main` touching `apps/web-*/**` or `docs/**`, both of which make `web-portal` affected, so its `nx affected --target=build` over the whole push always builds `web-portal`
 
 ## Constraints
 

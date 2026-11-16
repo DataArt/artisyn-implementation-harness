@@ -6,7 +6,8 @@ keywords:
     CI/CD,
     GitHub Actions,
     ci.yml,
-    cd.yml,
+    deploy-web.yml,
+    Deploy web,
     gitleaks,
     release-harness.yml,
     required checks,
@@ -20,7 +21,7 @@ keywords:
 
 # CI/CD
 
-Pull requests to `main` run the checks; a merge to `main` deploys the site to GitHub Pages and, separately, builds the harness release, which publishes only after a reviewer approves. Four workflows in `.github/workflows/` do all of it. Nothing deploys or publishes from a branch, and no workflow pushes to `main`.
+Pull requests to `main` run the checks; a merge to `main` that touches the site deploys it to GitHub Pages and, separately, builds the harness release, which publishes only after a reviewer approves. Four workflows in `.github/workflows/` do all of it. Nothing deploys or publishes from a branch, and no workflow pushes to `main`.
 
 ```mermaid
 flowchart LR
@@ -32,7 +33,7 @@ flowchart LR
     subgraph WF ["  Workflows  "]
         CI["ci.yml\nbuild-and-test → version-gate · docs-gate\n· harness-package → harness-cli"]:::gate
         GL["gitleaks.yml\nscan"]:::advisory
-        CD["cd.yml\ndeploy"]:::deploy
+        CD["deploy-web.yml\ndeploy\n(site paths only)"]:::deploy
         RHB["release-harness.yml\nbuild · attest"]:::release
         APP{{"Approval\nenvironment release"}}:::approval
         RHR["release-harness.yml\nrelease: tag via API"]:::release
@@ -115,20 +116,24 @@ The `dev` environment on the `build-and-test` job exists for the ruleset's "depl
 
 `gitleaks.yml` scans the full git history on every pull request to `main` and every push to `main`. One job, `scan`, with `contents: read`. It downloads the MIT gitleaks binary at a pinned version (`GITLEAKS_VERSION`), verifies its `GITLEAKS_SHA256` with `sha256sum -c`, then runs `gitleaks git --config .gitleaks.toml --redact --log-opts="--all"`. The official gitleaks action is not used: it needs a license key for organization repos. No secrets.
 
-### `cd.yml` — GitHub Pages deploy
+### `deploy-web.yml` — Deploy web
 
-`cd.yml` builds the site and deploys it to GitHub Pages on every push to `main`. One job, `deploy`, in the `github-pages` environment, with `contents: read`, `pages: write` and `id-token: write`. Concurrency group `pages` queues deploys and never cancels one in progress.
+`deploy-web.yml` (workflow name `Deploy web`) builds the site and deploys it to GitHub Pages on a push to `main` that touches `apps/web-*/**` or `docs/**`. A harness-only or other non-site push starts no deploy. One job, `deploy`, in the `github-pages` environment, with `contents: read`, `pages: write` and `id-token: write`. Concurrency group `pages` queues deploys and never cancels one in progress.
 
-| Step            | What it does                                                                                                |
-| --------------- | ----------------------------------------------------------------------------------------------------------- |
-| Build site      | `yarn nx run-many --target=build --projects=web-portal --configuration=ci`, with four repository variables  |
-| Configure Pages | `actions/configure-pages@v5`                                                                                |
-| Upload artifact | `actions/upload-pages-artifact@v4`, path `apps/web-portal/dist` (the composed Web Explorer + Web Docs tree) |
-| Deploy          | `actions/deploy-pages@v4`                                                                                   |
+| Step            | What it does                                                                                                                       |
+| --------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Build site      | `yarn nx affected --target=build --configuration=ci --base=${{ github.event.before }} --head=HEAD`, with four repository variables |
+| Configure Pages | `actions/configure-pages@v5`                                                                                                       |
+| Upload artifact | `actions/upload-pages-artifact@v4`, path `apps/web-portal/dist` (the composed Web Explorer + Web Docs tree)                        |
+| Deploy          | `actions/deploy-pages@v4`                                                                                                          |
 
 The build reads repository variables `VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`. Vite inlines them at build time; the `ci` build configuration loads no `.env` file. See [Giscus Setup](./Infrastructure/04%20Giscus%20Setup.md) for their values.
 
-Every push builds the whole site: `web-portal:build` depends on `web-explorer:build` and `web-docs:build` (with its `ci` configuration), so `apps/web-portal/dist` always exists. Pages replaces everything it serves on each deploy, so a partial build cannot work: an earlier affected-only build left `dist` missing on a push that did not touch the site, and saw only the last commit of a multi-commit push. How the tree is assembled: [Web Portal LLD](../System%20Architecture%20%28LLD%29/Web%20Portal/00.%20Overview.md).
+The paths filter and the affected build fit together. A change under `apps/web-*/**` or `docs/**` makes `web-portal` affected in Nx, so every run builds `web-portal` and `apps/web-portal/dist` exists. `web-portal:build` depends on `web-explorer:build` and `web-docs:build`, so the whole site is rebuilt. Pages replaces everything it serves on each deploy, so it needs the full tree.
+
+The affected range is the whole push: `--base` is `github.event.before`, the previous tip of `main`. A multi-commit push is built in full, not only its last commit.
+
+The workflow file is not in the paths filter. A change to it alone affects no Nx project, so the build would produce no `dist`. An edit to `deploy-web.yml` takes effect on the next site change. How the tree is assembled: [Web Portal LLD](../System%20Architecture%20%28LLD%29/Web%20Portal/00.%20Overview.md).
 
 ### `release-harness.yml` — harness release lane
 
@@ -152,7 +157,7 @@ The three publish jobs run in parallel after the one approval. What makes `publi
 
 Fix that failure with a new branch that runs `yarn harness:version` and merges the stamp. Step-by-step operation: [08 Harness Release Runbook](./08%20Harness%20Release%20Runbook.md). Internals: [Harness Release Pipeline LLD](../System%20Architecture%20%28LLD%29/Harness%20Release%20Pipeline/00.%20Overview.md).
 
-`cd.yml` and `release-harness.yml` are independent. The site deploys on merge whether or not the release is approved.
+`deploy-web.yml` and `release-harness.yml` are independent. A site change deploys on merge whether or not the release is approved.
 
 ## Environments
 
@@ -161,7 +166,7 @@ Three GitHub Actions environments exist; only `release` gates a job on a person.
 | Environment    | Used by                             | Protection                                                                                                                          |
 | -------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | `dev`          | `ci.yml` job `build-and-test`       | None; the ruleset requires a deployment to it on every PR. The job deploys nothing                                                  |
-| `github-pages` | `cd.yml` job `deploy`               | The live site                                                                                                                       |
+| `github-pages` | `deploy-web.yml` job `deploy`       | The live site                                                                                                                       |
 | `release`      | `release-harness.yml` job `release` | Required reviewers: the tag and every publish job wait for approval. Setup: [runbook](./08%20Harness%20Release%20Runbook.md) step 2 |
 
 `release` must exist with reviewers before the first harness merge. GitHub creates a missing environment on first use with no protection, and the release would run without approval.
