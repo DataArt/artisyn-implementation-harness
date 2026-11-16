@@ -6,7 +6,10 @@
  * manifest (stamp-harness-version.mjs) and the changelog entry; the developer commits them as
  * `chore(harness-release): <version>` and pushes like any commit. `--check` keeps nothing it
  * writes and exits 1 when the branch is not stamped with the computed version; it is the version
- * gate on every PR. After the merge, release-harness.yml tags and publishes the version main carries.
+ * gate on every PR. It also fails while the base branch (`--base`, default origin/main) carries a
+ * version that is not released yet and this branch changes the harness: that release is waiting
+ * for approval, and its tag is what the next version is computed from. After the merge,
+ * release-harness.yml builds the version main carries and, once approved, tags and publishes it.
  * Set NX_CMD to run Nx another way (the tests use a fake).
  */
 import fs from 'node:fs';
@@ -16,7 +19,11 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
 const { values } = parseArgs({
-  options: { root: { type: 'string' }, check: { type: 'boolean', default: false } },
+  options: {
+    root: { type: 'string' },
+    check: { type: 'boolean', default: false },
+    base: { type: 'string', default: 'origin/main' },
+  },
 });
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(values.root ?? path.join(scriptDir, '..', '..'));
@@ -72,6 +79,19 @@ function latestTagVersion() {
   return tag.slice(TAG_PREFIX.length);
 }
 
+const git = (args) => spawnSync('git', args, { cwd: root, encoding: 'utf8' });
+
+/** The version the base branch carries when it is above the last release: merged, not yet tagged. */
+function pendingOnBase(released) {
+  const shown = git(['show', `${values.base}:skills/implementation-harness/package.json`]);
+  if (shown.status !== 0) return null; // no such base, or no package there yet
+  const version = JSON.parse(shown.stdout).version;
+  return greater(version, released) ? version : null;
+}
+const changesHarness = () =>
+  git(['diff', '--quiet', `${values.base}...HEAD`, '--', 'skills/implementation-harness'])
+    .status !== 0;
+
 /** Changelog sections are `# <version> (<date>)`; the curated history below them has no version. */
 const ENTRY = /^# (\d+\.\d+\.\d+)\b.*$/gm;
 const unreleasedEntries = (text, released) =>
@@ -105,6 +125,13 @@ if (values.check) {
     fs.writeFileSync(PACKAGE_JSON, original);
   }
   const problems = [];
+  const pending = pendingOnBase(released);
+  if (pending && changesHarness()) {
+    console.error(
+      `version-harness: ${values.base} carries ${pending}, which is not released yet. Approve its release in the \`release\` environment, then re-run this check.`
+    );
+    process.exit(1);
+  }
   if (stamped !== next)
     problems.push(
       `the harness is stamped ${stamped}, but its commits since ${released} make it ${next}`

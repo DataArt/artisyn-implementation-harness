@@ -137,6 +137,8 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
+          fetch-depth: 0
+          fetch-tags: true
           persist-credentials: false
 
       - uses: ./.github/actions/setup
@@ -150,7 +152,13 @@ jobs:
         run: |
           set -euo pipefail
           # A ruleset on branches does not cover tags, so GITHUB_TOKEN can create it.
-          if gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG}" >/dev/null 2>&1; then
+          if git fetch -q origin "refs/tags/${TAG}:refs/tags/${TAG}" 2>/dev/null; then
+            # Another run released this version while this one waited for approval. Publishing
+            # now would skip this commit's harness changes, so stop instead.
+            if ! git diff --quiet "${TAG}" "${GITHUB_SHA}" -- skills/implementation-harness; then
+              echo "::error::${TAG} was released from another commit while this run waited, and this commit changes the harness after it. Run yarn harness:version on a new branch and merge the stamp."
+              exit 1
+            fi
             echo "${TAG} exists."
           else
             gh api "repos/${GITHUB_REPOSITORY}/git/refs" -f ref="refs/tags/${TAG}" -f sha="${GITHUB_SHA}" >/dev/null

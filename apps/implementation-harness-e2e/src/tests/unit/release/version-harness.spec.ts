@@ -132,4 +132,40 @@ describe('version-harness.mjs', () => {
     assert.equal(result.status, 1);
     assert.match(result.stderr, /git fetch --tags/);
   });
+
+  describe('while the base branch carries an unreleased version', () => {
+    /** main has merged 4.1.0 (stamped, not tagged yet); this branch starts there. */
+    function pendingRepo() {
+      const { root, nx } = repo('4.0.0');
+      versionHarness(root, nx, '4.1.0');
+      git(root, ['add', '-A']);
+      git(root, ['commit', '-q', '-m', 'chore(harness-release): 4.1.0']);
+      git(root, ['branch', 'base']);
+      return { root, nx };
+    }
+
+    it('fails a branch that changes the harness, before anything else', () => {
+      const { root, nx } = pendingRepo();
+      write(path.join(root, 'skills/implementation-harness/other.md'), 'y');
+      git(root, ['add', '-A']);
+      git(root, ['commit', '-q', '-m', 'fix(harness): another change']);
+
+      const result = versionHarness(root, nx, '4.1.0', ['--check', '--base', 'base']);
+
+      assert.equal(result.status, 1);
+      assert.match(result.stderr, /base carries 4\.1\.0, which is not released yet/);
+      assert.match(result.stderr, /release` environment/);
+    });
+
+    it('passes a branch that does not touch the harness', () => {
+      const { root, nx } = pendingRepo();
+      write(path.join(root, 'docs/a.md'), 'x');
+      git(root, ['add', '-A']);
+      git(root, ['commit', '-q', '-m', 'docs: a page']);
+
+      const result = versionHarness(root, nx, '4.1.0', ['--check', '--base', 'base']);
+
+      assert.equal(result.status, 0, result.stdout + result.stderr);
+    });
+  });
 });

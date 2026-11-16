@@ -77,6 +77,12 @@ describe('release-harness.yml', () => {
     assert.match(p, /GITHUB_SHA/);
   });
 
+  it('stops at publish when another run released the version while this one waited', () => {
+    const p = steps(publish);
+    assert.match(p, /git diff --quiet/);
+    assert.match(p, /while this run waited/);
+  });
+
   it('publishes the release from a draft, so an immutable release gets its assets first', () => {
     const p = steps(publish);
     assert.match(p, /--draft --title/);
