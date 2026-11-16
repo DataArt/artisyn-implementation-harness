@@ -2,7 +2,7 @@
 name: harness-bootstrap
 description: Deprecated name of the Artisyn Implementation Harness. Prints the migration steps and stops.
 metadata:
-  version: '3.5.0'
+  version: '4.0.0'
   deprecated: 'true'
   removed-in: '5.0.0'
 ---

@@ -1,6 +1,6 @@
 {
   "name": "artisyn",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "description": "Artisyn Implementation Harness: install the AI-first engineering lifecycle into a project.",
   "author": { "name": "DataArt" },
   "repository": "https://github.com/DataArt/artisyn-implementation-harness",
