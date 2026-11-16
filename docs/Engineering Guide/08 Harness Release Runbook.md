@@ -1,6 +1,6 @@
 ---
 id: bbd79b2b
-purpose: 'Developer/admin runbook for the harness release lane: ruleset checks, the release environment with required reviewers, the baseline tag, the per-PR yarn harness:version step, the automatic build on merge, the approval that starts publish, the first 4.0.0 release and the per-channel smoke checklist'
+purpose: 'Developer/admin runbook for the harness release lane: ruleset checks, the release environment with required reviewers, the baseline tag, the per-PR yarn harness:version step, the automatic build on merge, the approval that starts publish, the publish-npmjs stub and its npmjs.com setup, the first 4.0.0 release and the per-channel smoke checklist'
 keywords:
   [
     release runbook,
@@ -19,7 +19,7 @@ keywords:
 
 # Harness Release Runbook
 
-The harness is versioned in the PR, built on merge and published after a reviewer approves. The developer stamps the version on the feature branch. After the squash merge, `release-harness.yml` builds and attests that version automatically. The `release` job then waits in the `release` environment; once a reviewer approves, it creates the tag, and two publish jobs publish to every channel at once. It is the repository's only release lane. No workflow commits or pushes to `main`, so releases need no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
+The harness is versioned in the PR, built on merge and published after a reviewer approves. The developer stamps the version on the feature branch. After the squash merge, `release-harness.yml` builds and attests that version automatically. The `release` job then waits in the `release` environment; once a reviewer approves, it creates the tag, and `publish-github-packages` and `publish-github` publish to every channel at once. It is the repository's only release lane. No workflow commits or pushes to `main`, so releases need no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
 
 ```mermaid
 flowchart TB
@@ -40,17 +40,20 @@ flowchart TB
         TAG["release job\ntag via API"]:::release
         NPM["publish-github-packages job\nGitHub Packages"]:::release
         GHR["publish-github job\nGitHub Release"]:::release
+        STUB["publish-npmjs job (stub)\npublishes nothing"]:::stub
         SMOKE["8️⃣ Smoke every channel"]:::release
     end
 
     RS --> ENV --> BT --> HV --> VG -->|"squash merge"| BUILD --> APPROVE --> TAG
     TAG --> NPM --> SMOKE
     TAG --> GHR --> SMOKE
+    TAG --> STUB
 
     classDef setup fill:#DBEAFE,stroke:#2563EB,color:#1e3a8a
     classDef pr fill:#FEF3C7,stroke:#D97706,color:#78350f
     classDef gate fill:#FCE7F3,stroke:#BE185D,color:#831843
     classDef release fill:#DCFCE7,stroke:#15803D,color:#14532D
+    classDef stub fill:#F1F5F9,stroke:#94A3B8,color:#334155
     style SETUP fill:#EFF6FF,stroke:#2563EB
     style PR fill:#FFFBEB,stroke:#D97706
     style MERGE fill:#F0FDF4,stroke:#15803D
@@ -133,29 +136,38 @@ Changelog entries link to the PR's commit hashes. After the squash merge those c
 
 On every push to `main`, the `build` job reads the version from `skills/implementation-harness/package.json` at the pushed commit and decides what to do:
 
-| State                                                                      | Action                                                                                                                                      |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tag exists and the commit changes `skills/implementation-harness` after it | Fails: a PR merged a version that is already released                                                                                       |
-| npm version exists and a non-draft Release carries the ZIP and `.sha256`   | Prints "fully published" and ends green; the later jobs are skipped, no approval is asked                                                   |
-| Anything is missing                                                        | Builds the tarball, the ZIP and its `.sha256`, attests both, keeps them as artifact `harness-release`; the `release` job waits for approval |
+| State                                                                                 | Action                                                                                                                                      |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Tag exists and the commit changes `skills/implementation-harness` after it            | Fails: a PR merged a version that is already released                                                                                       |
+| GitHub Packages has the version and a non-draft Release carries the ZIP and `.sha256` | Prints "fully published" and ends green; the later jobs are skipped, no approval is asked                                                   |
+| Anything is missing                                                                   | Builds the tarball, the ZIP and its `.sha256`, attests both, keeps them as artifact `harness-release`; the `release` job waits for approval |
 
 A merge that does not change the harness carries a released version, so it ends in the second row. A failed attestation fails the build, and nothing is published.
 
 ## 6. Approve the publish
 
-Approve the `release` deployment to publish. Open the run in Actions, choose **Review deployments**, select `release` and approve. One approval starts three jobs:
+Approve the `release` deployment to publish. Open the run in Actions, choose **Review deployments**, select `release` and approve. One approval starts four jobs:
 
 | Job                       | What it does                                                                                                                                                                 |
 | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `release`                 | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited |
 | `publish-github-packages` | After `release`: `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages                                                |
 | `publish-github`          | After `release`: downloads the `harness-release` artifact, creates a draft Release, uploads the ZIP and `.sha256`, then publishes it                                         |
+| `publish-npmjs` (stub)    | After `release`: publishes nothing; prints a notice that npmjs.com publishing is not set up                                                                                  |
 
-The two publish jobs run in parallel. The tag appears only now, so npm, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
+The three publish jobs run in parallel. The tag appears only now, so npm on GitHub Packages, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
 
 Until approval, the marketplace manifests on `main` pin a tag that does not exist yet. Marketplace and `gh skill` installs of the new version fail in that window (accepted 2026-11-16). The site deploy (`cd.yml`) does not wait for the approval.
 
-**Re-run.** A failed or rejected run is safe to re-run; it finishes only what is missing. An existing tag stays, npm skips a version that is already there, and an already-published Release keeps its assets. When only one publish job fails, use **Re-run failed jobs**: it re-runs that job alone, without a new approval.
+**Re-run.** A failed or rejected run is safe to re-run; it finishes only what is missing. An existing tag stays, GitHub Packages skips a version that is already there, and an already-published Release keeps its assets. When only one publish job fails, use **Re-run failed jobs**: it re-runs that job alone, without a new approval.
+
+**npmjs.com (future).** `publish-npmjs` is not a channel. The harness still ships through five channels, and npm installs come from GitHub Packages. To make the job publish:
+
+1. The `@dataart` scope exists on npmjs.com, owned by DataArt.
+2. This repository and `release-harness.yml` are a trusted publisher of the package on npmjs.com. No token is stored: the job gets `id-token: write` and publishes with provenance.
+3. The job publishes to `https://registry.npmjs.org`, overriding the package's `publishConfig` registry (GitHub Packages) for that job only.
+
+Then update the distribution docs and the smoke checklist (step 8).
 
 ## 7. First release: 4.0.0
 
@@ -163,24 +175,24 @@ PR #20 is already stamped 4.0.0 (commit `c7f326b`). With steps 1 to 3 done, squa
 
 `feat(harness)!: ship implementation-harness through five channels and keep its state in .harness/state`
 
-The build job builds and attests 4.0.0. Approve the `release` deployment (step 6); the `release` job tags `artisyn-implementation-harness-v4.0.0` and the two publish jobs publish. Two known windows exist until it finishes (accepted at plan sign-off, 2026-11-15):
+The build job builds and attests 4.0.0. Approve the `release` deployment (step 6); the `release` job tags `artisyn-implementation-harness-v4.0.0` and the publish jobs publish. Two known windows exist until it finishes (accepted at plan sign-off, 2026-11-15):
 
 - The marketplace manifests on `main` pin a tag that does not exist until the `release` job creates it (RF-012). Marketplace installs work once 4.0.0 is tagged.
 - The committed 3.5.0 ZIPs are deleted, so no 3.5.0 ZIP is downloadable until 4.0.0 is released (RF-013); the files remain in git history.
 
 ## 8. Per-channel smoke checklist
 
-In a scratch consumer project (not this repo), after both publish jobs go green. The `npx` commands below are consumer-side, so the yarn-only rule for this repo does not apply to them:
+In a scratch consumer project (not this repo), after `publish-github-packages` and `publish-github` go green. The `npx` commands below are consumer-side, so the yarn-only rule for this repo does not apply to them:
 
-| Channel     | Check                                                                                                                                                                    |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| npm         | `.npmrc` scope + `read:packages` token, then `npx @dataart/artisyn-implementation-harness init` places the package and prints the launch command                         |
-| ZIP         | Download `artisyn-implementation-harness-v4.0.0.zip` + `.sha256` from the tag's Release, verify the checksum, install (unzip or the bundled CLI `init`)                  |
-| Claude      | `claude plugin marketplace add DataArt/artisyn-implementation-harness` → `claude plugin install artisyn@dataart` → `/artisyn:implementation-harness launch` responds     |
-| Codex       | Install `artisyn` from the Codex marketplace — the manifest values (`policy.authentication: NONE`, `git-subdir` source) are unverified on a real host; confirm them here |
-| Copilot CLI | Install via the Copilot marketplace flow — Copilot's reading of the Claude manifest is unverified on a real host; confirm it here                                        |
-| skills.sh   | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness` installs exactly that skill                                                       |
-| gh skill    | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v4.0.0 --scope project` (pinned form only)                |
+| Channel               | Check                                                                                                                                                                    |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| npm (GitHub Packages) | `.npmrc` scope + `read:packages` token, then `npx @dataart/artisyn-implementation-harness init` places the package and prints the launch command                         |
+| ZIP                   | Download `artisyn-implementation-harness-v4.0.0.zip` + `.sha256` from the tag's Release, verify the checksum, install (unzip or the bundled CLI `init`)                  |
+| Claude                | `claude plugin marketplace add DataArt/artisyn-implementation-harness` → `claude plugin install artisyn@dataart` → `/artisyn:implementation-harness launch` responds     |
+| Codex                 | Install `artisyn` from the Codex marketplace — the manifest values (`policy.authentication: NONE`, `git-subdir` source) are unverified on a real host; confirm them here |
+| Copilot CLI           | Install via the Copilot marketplace flow — Copilot's reading of the Claude manifest is unverified on a real host; confirm it here                                        |
+| skills.sh             | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness` installs exactly that skill                                                       |
+| gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v4.0.0 --scope project` (pinned form only)                |
 
 The marketplace agent E2E (`yarn nx run implementation-harness-e2e:agent-e2e`) is a guarded command — it spends real agent budget, so the developer starts it; it never runs in CI.
 
