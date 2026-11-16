@@ -75,6 +75,6 @@ flowchart LR
 - Releases happen only through this pipeline; the manual ZIP flow and the root semantic-release lane are retired
 - Publish requires approval from a required reviewer of the `release` environment; the site deploy (`cd.yml`) is separate and does not wait for it
 - Between merge and approval, the marketplace manifests on `main` pin a tag that does not exist yet, so marketplace and `gh skill` installs of the new version fail in that window (accepted 2026-11-16)
-- The `main` ruleset requires a PR, an up-to-date branch and the `ci`, `version-gate` and `docs-gate` checks, and has no bypass actors
+- The `main` ruleset requires a PR, an up-to-date branch and the `build-and-test`, `version-gate` and `docs-gate` checks, and has no bypass actors
 - The developer pushes the version commit (a `GITHUB_TOKEN` push starts no workflows); no workflow commits or pushes to `main`; the pipeline runs only with `GITHUB_TOKEN`, scoped per job, and needs no PAT, GitHub App or ruleset bypass (TD-5, 2026-11-16)
 - Operation: `docs/Engineering Guide/08 Harness Release Runbook.md`. Implementation: `docs/System Architecture (LLD)/Harness Release Pipeline/00. Overview.md`

@@ -42,10 +42,10 @@ to render; scope the id to the actual branch or ticket.
 
 ## Environment Mapping
 
-| Branch Type        | Environment Target  | Notes                                                                                               |
-| ------------------ | ------------------- | --------------------------------------------------------------------------------------------------- |
-| `main`             | `github-pages`      | `cd.yml` builds affected projects and deploys `apps/web-portal/dist` to GitHub Pages on every merge |
-| `feat/*` / `fix/*` | `dev` (checks only) | `ci.yml`'s `ci` job runs in the `dev` environment and deploys nothing; no preview site per branch   |
+| Branch Type        | Environment Target  | Notes                                                                                                         |
+| ------------------ | ------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `main`             | `github-pages`      | `cd.yml` builds affected projects and deploys `apps/web-portal/dist` to GitHub Pages on every merge           |
+| `feat/*` / `fix/*` | `dev` (checks only) | `ci.yml`'s `build-and-test` job runs in the `dev` environment and deploys nothing; no preview site per branch |
 
 There is no `develop`, `staging` or `production` branch. Three GitHub Actions environments exist:
 `dev`, which the ruleset requires as a deployment on every PR; `github-pages`, the live site; and
@@ -76,9 +76,9 @@ branch protection rule. The ruleset is set up per `08 Harness Release Runbook.md
 `.github/CODEOWNERS` is configured, but it stays advisory until the ruleset requires Code Owner
 review.
 
-| Branch | Ruleset restrictions                                                                                                                                                                                                                                            |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `ci`, `version-gate`, `docs-gate` with the branch up to date; no bypass actors |
+| Branch | Ruleset restrictions                                                                                                                                                                                                                                                        |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `build-and-test`, `version-gate`, `docs-gate` with the branch up to date; no bypass actors |
 
 Required status checks mirror job IDs `ci.yml` actually produces — don't require a check the
 pipeline doesn't produce. The `harness-package` and `harness-cli` jobs run on every PR but are

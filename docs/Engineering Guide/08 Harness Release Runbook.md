@@ -70,8 +70,8 @@ One ruleset (Settings → Rules → Rulesets) targets the default branch. It alr
 | Pull request         | 1 approval, approval of the last push, conversations resolved; merge method **squash only** | set                 |
 | Linear history       | required                                                                                    | set                 |
 | Deletion, force push | blocked                                                                                     | set                 |
-| Deployment           | environment `dev` (the `ci` job deploys to it)                                              | set                 |
-| Status checks        | `ci`, `version-gate`, `docs-gate` (job IDs from `ci.yml`); branch must be up to date        | **empty — add**     |
+| Deployment           | environment `dev` (the `build-and-test` job deploys to it)                                  | set                 |
+| Status checks        | `build-and-test`, `version-gate`, `docs-gate` (job IDs from `ci.yml`); branch up to date    | **empty — add**     |
 | Bypass actors        | none                                                                                        | **remove all**      |
 
 The ruleset needs no bypass actors. No workflow pushes to `main`, and branch rulesets do not cover tags, packages or releases, so `GITHUB_TOKEN` can create the tag through the API, publish and create the Release.

@@ -15,12 +15,13 @@ sessions in disposable projects.
 | Layer       | Nx target     | Coverage                                                                                           | Live agents | Nx caching |
 | ----------- | ------------- | -------------------------------------------------------------------------------------------------- | ----------- | ---------- |
 | Unit        | `unit`        | Materializer/provider scripts, fixture and scenario helpers, grader pass/fail behavior             | No          | Enabled    |
+| Unit (CLI)  | `unit-cli`    | The install CLI and state-root specs only; `ci.yml`'s `harness-cli` job runs it on three OSes      | No          | Enabled    |
 | Integration | `integration` | Stubbed launch plans, materialization, simulated adaptation, finalization and provider projections | No          | Enabled    |
 | Agent E2E   | `agent-e2e`   | Real bootstrap reasoning and patch prepare/apply across projects                                   | Yes         | Disabled   |
 
 The `test` target depends on `unit` and `integration`. The pull-request workflow
 in [ci.yml](../../.github/workflows/ci.yml) runs affected `test` targets between
-typecheck and build. Live agent E2E runs are separate and use CLI authentication
+typecheck and build, in the `build-and-test` job. Live agent E2E runs are separate and use CLI authentication
 and model usage from the developer's environment.
 
 Run from the repository root:
@@ -30,6 +31,7 @@ yarn nx run implementation-harness-e2e:typecheck
 yarn nx run implementation-harness-e2e:lint
 yarn nx run implementation-harness-e2e:test
 yarn nx run implementation-harness-e2e:unit
+yarn nx run implementation-harness-e2e:unit-cli
 yarn nx run implementation-harness-e2e:integration
 ```
 

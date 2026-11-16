@@ -1,6 +1,6 @@
 ---
 id: 6d1a1114
-purpose: "The single home for this repo's CI/CD: every GitHub Actions workflow, its jobs, permissions and credentials, the environments (dev, github-pages, release), required vs advisory checks, how to reproduce each gate locally, and the one release lane with its approval gate and the publish-npmjs stub"
+purpose: "The single home for this repo's CI/CD: every GitHub Actions workflow, its jobs and the three ci.yml stages, permissions and credentials, the environments (dev, github-pages, release), required vs advisory checks, how to reproduce each gate locally, and the one release lane with its approval gate and the publish-npmjs stub"
 keywords:
   [
     CI/CD,
@@ -30,7 +30,7 @@ flowchart LR
     end
 
     subgraph WF ["  Workflows  "]
-        CI["ci.yml\nci · version-gate · docs-gate\nharness-package · harness-cli"]:::gate
+        CI["ci.yml\nbuild-and-test → version-gate · docs-gate\n· harness-package → harness-cli"]:::gate
         GL["gitleaks.yml\nscan"]:::advisory
         CD["cd.yml\ndeploy"]:::deploy
         RHB["release-harness.yml\nbuild · attest"]:::release
@@ -75,15 +75,41 @@ Every job that installs dependencies uses the composite action `.github/actions/
 
 `ci.yml` runs on every pull request to `main` (`opened`, `synchronize`, `reopened`). Workflow permission is `contents: read`. It reads no secrets and no repository variables. Every job checks out full history (`fetch-depth: 0`) except `harness-cli`.
 
-| Job               | Runner                    | What it checks                                                                                                                                                                                                                                                                                                                                                                 |
-| ----------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ci`              | ubuntu, environment `dev` | `yarn npm audit --all --severity moderate`; `nx affected` lint, typecheck, test and build (`--configuration=ci`) against `origin/<base>`; `yarn nx run log-hub:verify` (Log Hub canonical isolation)                                                                                                                                                                           |
-| `version-gate`    | ubuntu                    | `stamp-harness-version.mjs --check` (every manifest carries the `package.json` version); `version-harness.mjs --check` (the branch is stamped with the version its commits call for, with a matching changelog entry)                                                                                                                                                          |
-| `docs-gate`       | ubuntu                    | `check-docs.mjs` (install instructions pinned, no `/releases/latest` links; the full name `artisyn-implementation-harness` is never a skill, folder or command, across `docs`, the READMEs, `CLAUDE.md`, `skills`, `.claude`, `.agents`, `.claude-plugin`, `.github`); `check-commit-scope.mjs --range origin/<base>..HEAD` (commits touching the harness use scope `harness`) |
-| `harness-package` | ubuntu                    | `ci/check-pack.mjs` (package contents match the allowlist); `validate-plugin.mjs` with a pinned `@anthropic-ai/claude-code` via `yarn dlx`; `nx release version --dry-run` for the harness project                                                                                                                                                                             |
-| `harness-cli`     | ubuntu, macOS, Windows    | Vitest specs for the install CLI and the state root (`vitest.unit.config.ts`). On Windows a first step runs `git config --system core.longpaths true`, because patch bundle paths exceed 260 characters                                                                                                                                                                        |
+The jobs run in three stages. Each stage waits for the one before it (`needs`), so nothing runs on a change that already failed.
 
-The `dev` environment on the `ci` job exists for the ruleset's "deployment to `dev`" rule. The job deploys nothing.
+```mermaid
+flowchart LR
+    subgraph S1 ["  Stage 1  "]
+        BT["build-and-test\naudit · affected lint, typecheck,\ntest, build"]:::gate
+    end
+    subgraph S2 ["  Stage 2 — needs build-and-test  "]
+        VG["version-gate"]:::gate
+        DG["docs-gate"]:::gate
+        HP["harness-package"]:::advisory
+    end
+    subgraph S3 ["  Stage 3 — needs all of stage 2  "]
+        HC["harness-cli\nubuntu · macos · windows"]:::advisory
+    end
+
+    BT --> VG & DG & HP
+    VG & DG & HP --> HC
+
+    classDef gate fill:#FEF3C7,stroke:#D97706,color:#78350f
+    classDef advisory fill:#F1F5F9,stroke:#94A3B8,color:#334155
+    style S1 fill:#FFFBEB,stroke:#D97706
+    style S2 fill:#FFFBEB,stroke:#D97706
+    style S3 fill:#F8FAFC,stroke:#94A3B8
+```
+
+| Job               | Stage | Runner                    | What it checks                                                                                                                                                                                                                                                                                                                                                                 |
+| ----------------- | ----- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `build-and-test`  | 1     | ubuntu, environment `dev` | `yarn npm audit --all --severity moderate`; `nx affected` lint, typecheck, test and build (`--configuration=ci`) against `origin/<base>`                                                                                                                                                                                                                                       |
+| `version-gate`    | 2     | ubuntu                    | `stamp-harness-version.mjs --check` (every manifest carries the `package.json` version); `version-harness.mjs --check` (the branch is stamped with the version its commits call for, with a matching changelog entry)                                                                                                                                                          |
+| `docs-gate`       | 2     | ubuntu                    | `check-docs.mjs` (install instructions pinned, no `/releases/latest` links; the full name `artisyn-implementation-harness` is never a skill, folder or command, across `docs`, the READMEs, `CLAUDE.md`, `skills`, `.claude`, `.agents`, `.claude-plugin`, `.github`); `check-commit-scope.mjs --range origin/<base>..HEAD` (commits touching the harness use scope `harness`) |
+| `harness-package` | 2     | ubuntu                    | `ci/check-pack.mjs` (package contents match the allowlist); `validate-plugin.mjs` with a pinned `@anthropic-ai/claude-code` via `yarn dlx`; `nx release version --dry-run` for the harness project                                                                                                                                                                             |
+| `harness-cli`     | 3     | ubuntu, macOS, Windows    | `yarn nx run implementation-harness-e2e:unit-cli`: the Vitest specs for the install CLI and the state root. On Windows a first step runs `git config --system core.longpaths true`, because patch bundle paths exceed 260 characters                                                                                                                                           |
+
+The `dev` environment on the `build-and-test` job exists for the ruleset's "deployment to `dev`" rule. The job deploys nothing.
 
 ### `gitleaks.yml` — secret scan
 
@@ -134,7 +160,7 @@ Three GitHub Actions environments exist; only `release` gates a job on a person.
 
 | Environment    | Used by                             | Protection                                                                                                                          |
 | -------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| `dev`          | `ci.yml` job `ci`                   | None; the ruleset requires a deployment to it on every PR. The job deploys nothing                                                  |
+| `dev`          | `ci.yml` job `build-and-test`       | None; the ruleset requires a deployment to it on every PR. The job deploys nothing                                                  |
 | `github-pages` | `cd.yml` job `deploy`               | The live site                                                                                                                       |
 | `release`      | `release-harness.yml` job `release` | Required reviewers: the tag and every publish job wait for approval. Setup: [runbook](./08%20Harness%20Release%20Runbook.md) step 2 |
 
@@ -142,11 +168,11 @@ Three GitHub Actions environments exist; only `release` gates a job on a person.
 
 ## Required and advisory checks
 
-The target required checks on `main` are `ci`, `version-gate` and `docs-gate`. They are the job IDs `ci.yml` produces. Everything else reports on the PR but does not block the merge.
+The target required checks on `main` are `build-and-test`, `version-gate` and `docs-gate`. They are the job IDs `ci.yml` produces. Everything else reports on the PR but does not block the merge.
 
 | Check                                    | Status   |
 | ---------------------------------------- | -------- |
-| `ci`                                     | required |
+| `build-and-test`                         | required |
 | `version-gate`                           | required |
 | `docs-gate`                              | required |
 | `harness-package`                        | advisory |
@@ -168,11 +194,11 @@ Reproduce each CI gate locally from the repo root with Node 24. The package mana
 
 | Gate              | Local command                                                                                                                                                                                                                   |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ci`              | `yarn npm audit --all --severity moderate` · `yarn nx affected --target=lint --base=origin/main --head=HEAD` (same for `typecheck`, `test`, and `build --configuration=ci`) · `yarn nx run log-hub:verify`                      |
+| `build-and-test`  | `yarn npm audit --all --severity moderate` · `yarn nx affected --target=lint --base=origin/main --head=HEAD` (same for `typecheck`, `test`, and `build --configuration=ci`)                                                     |
 | `version-gate`    | `git fetch --tags` · `node scripts/release/stamp-harness-version.mjs --check` · `node scripts/release/version-harness.mjs --check`                                                                                              |
 | `docs-gate`       | `node scripts/check-docs.mjs` · `node scripts/check-commit-scope.mjs --range origin/main..HEAD`                                                                                                                                 |
 | `harness-package` | `node scripts/ci/check-pack.mjs` · `CLAUDE_CMD="yarn dlx --quiet -p @anthropic-ai/claude-code@2.1.311 claude" node scripts/validate-plugin.mjs` · `yarn nx release version --projects=artisyn-implementation-harness --dry-run` |
-| `harness-cli`     | `yarn workspace @artisyn-harness/implementation-harness-e2e vitest run --config vitest.unit.config.ts src/tests/unit/cli src/tests/unit/state-root.spec.ts`                                                                     |
+| `harness-cli`     | `yarn nx run implementation-harness-e2e:unit-cli`                                                                                                                                                                               |
 | gitleaks          | A local gitleaks binary: `gitleaks git --config .gitleaks.toml --redact --log-opts="--all" .`                                                                                                                                   |
 
 `version-harness.mjs --check` needs the harness tags locally; it computes the version from the latest `artisyn-implementation-harness-v*` tag reachable from HEAD.
