@@ -37,7 +37,7 @@ flowchart TD
     NPM["1 · GitHub Packages (npm)"]
     ZIP["2 · Release ZIP"]
     GHS["5 · gh skill"]
-    SSH["4 · skills.sh (default branch)"]
+    SSH["4 · skills.sh (available soon)"]
     L["Run the launch command"]
 
     Q1 -->|yes| MP
@@ -112,7 +112,11 @@ No token needed.
 
 ## 3. Plugin marketplace
 
-Claude Code:
+All three hosts read the same marketplace, `dataart`, and install the same plugin, `artisyn`. The
+marketplace pins a release tag, so a new version appears only after its release is approved and
+published.
+
+### Claude Code
 
 ```bash
 claude plugin marketplace add DataArt/artisyn-implementation-harness --scope project
@@ -121,18 +125,33 @@ claude plugin install artisyn@dataart --scope project
 
 Then run `/artisyn:implementation-harness launch`.
 
-`--scope project` declares the marketplace and the plugin in the project's `.claude/settings.json`, so everyone who opens the project gets the same plugin. Without it, both go to your user settings and apply to all your projects, but not to your teammates.
+`--scope project` declares the marketplace and the plugin in the project's `.claude/settings.json`,
+so everyone who opens the project gets the same plugin. Without it, both go to your user settings
+and apply to all your projects, but not to your teammates.
 
-The marketplace pins a release tag. A new version appears only after its release is approved and published.
+### Codex
 
-Other hosts read the same marketplace `dataart`:
+```bash
+codex plugin marketplace add DataArt/artisyn-implementation-harness
+```
 
-| Host        | Install                                                                                                                | Launch                                                                                                              |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| Codex       | `codex plugin marketplace add DataArt/artisyn-implementation-harness`, then install `artisyn` from `/plugins`          | `$artisyn:implementation-harness launch` (or `$implementation-harness launch` if Codex lists it without the prefix) |
-| Copilot CLI | `copilot plugin marketplace add DataArt/artisyn-implementation-harness`, then `copilot plugin install artisyn@dataart` | `/artisyn:implementation-harness launch`                                                                            |
+Then install `artisyn` from `/plugins`, and run `$artisyn:implementation-harness launch` (or
+`$implementation-harness launch` if Codex lists the skill without the prefix).
 
-## 4. skills.sh
+### Copilot CLI
+
+```bash
+copilot plugin marketplace add DataArt/artisyn-implementation-harness
+copilot plugin install artisyn@dataart
+```
+
+Then run `/artisyn:implementation-harness launch`.
+
+The Codex and Copilot steps are not yet verified on a real host (see Known limits).
+
+## 4. skills.sh (available soon)
+
+The harness is not listed on skills.sh yet. Once it is, install it with:
 
 ```bash
 npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness
