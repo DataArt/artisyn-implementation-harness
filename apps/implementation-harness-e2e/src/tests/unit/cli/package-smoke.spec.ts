@@ -148,8 +148,9 @@ describe.skipIf(!hasZip)('the release ZIP', () => {
 });
 
 describe('the skills.sh layout', () => {
+  // A Windows checkout has CRLF line endings.
   const frontmatter = (file: string) =>
-    parse(/^---\n([\s\S]*?)\n---\n/.exec(fs.readFileSync(file, 'utf8'))![1]) as {
+    parse(/^---\r?\n([\s\S]*?)\r?\n---\r?\n/.exec(fs.readFileSync(file, 'utf8'))![1]) as {
       name: string;
       metadata?: { internal?: boolean };
     };
