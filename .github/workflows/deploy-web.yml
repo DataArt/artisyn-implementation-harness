@@ -1,17 +1,13 @@
 name: Deploy web
 
 # Builds the site (Web Explorer, Web Docs, composed by Web Portal) and deploys it to GitHub Pages.
-# Starts only when a push touches the site: the web apps or the docs Web Docs renders. Both make
-# web-portal affected, so the affected build always produces apps/web-portal/dist. (A change to
-# this file alone affects no project, so it is not in the filter; it takes effect on the next
-# site change.)
+# Nx decides what to build: the affected projects of the whole push. When web-portal is not among
+# them (a push that does not touch the site), there is no apps/web-portal/dist and the Pages steps
+# are skipped, so nothing is deployed.
 
 on:
   push:
     branches: [main]
-    paths:
-      - 'apps/web-*/**'
-      - 'docs/**'
 
 permissions:
   contents: read
@@ -45,14 +41,27 @@ jobs:
           VITE_GISCUS_REPO_ID: ${{ vars.VITE_GISCUS_REPO_ID }}
           VITE_GISCUS_CATEGORY_ID: ${{ vars.VITE_GISCUS_CATEGORY_ID }}
 
+      - name: Check the build produced the site
+        id: site
+        run: |
+          if [ -d apps/web-portal/dist ]; then
+            echo "built=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "built=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::The site is not affected by this push; nothing to deploy."
+          fi
+
       - name: Configure Pages
+        if: steps.site.outputs.built == 'true'
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
+        if: steps.site.outputs.built == 'true'
         uses: actions/upload-pages-artifact@v4
         with:
           path: apps/web-portal/dist
 
       - name: Deploy to GitHub Pages
+        if: steps.site.outputs.built == 'true'
         id: deployment
         uses: actions/deploy-pages@v4
