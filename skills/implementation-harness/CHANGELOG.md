@@ -1,27 +1,19 @@
-# 4.0.0 (2026-11-16)
+## [4.0.0](https://github.com/DataArt/artisyn-implementation-harness/compare/artisyn-implementation-harness-v3.5.0...artisyn-implementation-harness-v4.0.0) (2026-11-16)
 
-### 🚀 Features
+### ⚠ BREAKING CHANGES
 
-- **harness:** read baselines through the legacy mapping ([2e5ae28](https://github.com/DataArt/artisyn-implementation-harness/commit/2e5ae28))
-- **harness:** add the install CLI, migrator, legacy shim and npm package ([1e50817](https://github.com/DataArt/artisyn-implementation-harness/commit/1e50817))
-- ⚠️ **harness:** rename the package to implementation-harness and keep its state in .harness/state ([f1b9849](https://github.com/DataArt/artisyn-implementation-harness/commit/f1b9849))
+- **harness:** the skill and command are now implementation-harness (the old name is served by a shim from the next commit), the package lives at skills/implementation-harness/, and state is read from and written to .harness/state/ instead of <package>/state/. Existing installs migrate with the install CLI or on the first launch.
 
-### 🩹 Fixes
+### Features
 
-- **harness:** harden the install CLI ([a9165ca](https://github.com/DataArt/artisyn-implementation-harness/commit/a9165ca))
-- **harness:** launch from a package outside the project and place the shim on a later migrate ([d6fabc0](https://github.com/DataArt/artisyn-implementation-harness/commit/d6fabc0))
+- **harness:** add the install CLI, migrator, legacy shim and npm package ([1e50817](https://github.com/DataArt/artisyn-implementation-harness/commit/1e50817e955c2cb4582cdcf43bba15901d584abe))
+- **harness:** read baselines through the legacy mapping ([2e5ae28](https://github.com/DataArt/artisyn-implementation-harness/commit/2e5ae2851a3d1e42e698c0cafff766e41cbc54fa))
+- **harness:** rename the package to implementation-harness and keep its state in .harness/state ([f1b9849](https://github.com/DataArt/artisyn-implementation-harness/commit/f1b98491a21c1025d45d4a3a5d9405d0e025e237))
 
-### ⚠️ Breaking Changes
+### Bug Fixes
 
-- **harness:** rename the package to implementation-harness and keep its state in .harness/state ([f1b9849](https://github.com/DataArt/artisyn-implementation-harness/commit/f1b9849))
-  the skill and command are now implementation-harness (the old name is served
-  by a shim from the next commit), the package lives at skills/implementation-harness/, and state
-  is read from and written to .harness/state/ instead of <package>/state/. Existing installs
-  migrate with the install CLI or on the first launch.
-
-### ❤️ Thank You
-
-- Anton Merkulov
+- **harness:** harden the install CLI ([a9165ca](https://github.com/DataArt/artisyn-implementation-harness/commit/a9165ca2fbc4a09d54dab7068c280dacbd633d03))
+- **harness:** launch from a package outside the project and place the shim on a later migrate ([d6fabc0](https://github.com/DataArt/artisyn-implementation-harness/commit/d6fabc0a3c1cd94e7da679f67f739806387fa197))
 
 # Curated history (3.5.0 and earlier)
 
