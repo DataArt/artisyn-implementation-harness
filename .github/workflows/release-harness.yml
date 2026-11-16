@@ -3,8 +3,8 @@ name: Release harness
 # Tags, publishes and attests the harness version that main carries, after every merge. The PR
 # already chose and stamped that version (`yarn harness:version`, checked by version-gate in
 # ci.yml), so this workflow never commits or pushes to main: it creates the tag through the API and
-# everything runs with GITHUB_TOKEN, no bypass actor needed (TD-5). Root semantic-release
-# (release.yml) is a separate lane and ignores commits with scope `harness`.
+# everything runs with GITHUB_TOKEN, no bypass actor needed (TD-5). This is the repository's only
+# release lane: the root `v*` lane (semantic-release) is retired.
 #
 # Off until the repository variable HARNESS_RELEASE_ENABLED is 'true'.
 

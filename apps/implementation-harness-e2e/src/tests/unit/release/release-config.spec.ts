@@ -1,56 +1,11 @@
-/** Release configuration: the root semantic-release lane ignores harness commits (even
- * breaking ones) and the harness package releases through Nx Release in independent mode.
- * Covers plan AC-20 and part of AC-21.
+/** Release configuration: Nx Release is the only release lane. It releases the harness package in
+ * independent mode, and the retired root semantic-release lane stays gone. Covers part of AC-21.
  */
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { describe, it } from 'vitest';
-import { load, workspaceRoot } from '../helpers/harness.ts';
-
-type Plugin = string | [string, Record<string, unknown>];
-
-async function analyze(message: string): Promise<string | null> {
-  const config = (await load(path.join(workspaceRoot, 'release.config.js'))).default as {
-    plugins: Plugin[];
-  };
-  const entry = config.plugins.find(
-    (plugin) => Array.isArray(plugin) && plugin[0] === '@semantic-release/commit-analyzer'
-  ) as [string, Record<string, unknown>];
-  // A variable specifier keeps TypeScript from asking for declarations of this untyped package.
-  const analyzerModule = '@semantic-release/commit-analyzer';
-  const { analyzeCommits } = (await import(analyzerModule)) as {
-    analyzeCommits: (
-      pluginConfig: Record<string, unknown>,
-      context: Record<string, unknown>
-    ) => Promise<string | null>;
-  };
-  return analyzeCommits(entry[1], {
-    cwd: workspaceRoot,
-    commits: [{ hash: 'abc1234', message }],
-    logger: { log() {}, error() {} },
-  });
-}
-
-describe('root semantic-release rules', () => {
-  const ignored = [
-    'feat(harness): add install cli',
-    'fix(harness): handle empty state',
-    'feat(harness)!: rename the package',
-    'feat(harness): drop the old layout\n\nBREAKING CHANGE: state moved to .harness/state',
-    'chore(harness-release): 4.0.0 [skip ci]',
-  ];
-  for (const message of ignored) {
-    it(`does not release for ${JSON.stringify(message)}`, async () => {
-      assert.equal(await analyze(message), null);
-    });
-  }
-
-  it('still releases for other scopes', async () => {
-    assert.equal(await analyze('feat(web-docs): add page'), 'minor');
-    assert.equal(await analyze('fix(web-explorer): spacing'), 'patch');
-  });
-});
+import { workspaceRoot } from '../helpers/harness.ts';
 
 describe('Nx Release configuration', () => {
   const nx = JSON.parse(fs.readFileSync(path.join(workspaceRoot, 'nx.json'), 'utf8'));
@@ -74,5 +29,18 @@ describe('Nx Release configuration', () => {
 
   it('falls back to the version on disk when no tag exists yet', () => {
     assert.equal(nx.release.version.fallbackCurrentVersionResolver, 'disk');
+  });
+});
+
+describe('the retired root lane', () => {
+  it('has no semantic-release workflow, config or dependency', () => {
+    assert.ok(!fs.existsSync(path.join(workspaceRoot, '.github/workflows/release.yml')));
+    assert.ok(!fs.existsSync(path.join(workspaceRoot, 'release.config.js')));
+    const pkg = JSON.parse(fs.readFileSync(path.join(workspaceRoot, 'package.json'), 'utf8'));
+    const deps = Object.keys({ ...pkg.dependencies, ...pkg.devDependencies });
+    assert.deepEqual(
+      deps.filter((name) => name.includes('semantic-release')),
+      []
+    );
   });
 });

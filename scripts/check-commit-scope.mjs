@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /** Every commit that touches the harness package carries scope `harness` (or `harness-release`
- * for the release commit), so the repository's own semantic-release ignores it and Nx Release
- * versions it.
+ * for the version commit), so harness changes stand apart in the history and in the changelog
+ * Nx Release writes from them.
  *
  * Message mode, for the `commit-msg` hook:
  *   check-commit-scope.mjs --message-file FILE [--files a,b]   (files default to the staged ones)
