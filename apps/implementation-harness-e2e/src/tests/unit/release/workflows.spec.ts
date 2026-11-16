@@ -32,11 +32,9 @@ describe('release-harness.yml', () => {
     });
   });
 
-  it('is off until HARNESS_RELEASE_ENABLED is set', () => {
-    for (const job of jobs) {
-      const condition = String(job.if ?? '');
-      assert.ok(condition.includes("vars.HARNESS_RELEASE_ENABLED == 'true'"), condition);
-    }
+  it('always runs: no enable flag or job condition', () => {
+    assert.ok(!text.includes('HARNESS_RELEASE_ENABLED'));
+    for (const job of jobs) assert.equal(job.if, undefined);
   });
 
   it('never pushes to main and needs no release token (TD-5)', () => {
