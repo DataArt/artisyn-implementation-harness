@@ -26,8 +26,10 @@ jobs:
 
       - uses: ./.github/actions/setup
 
+      # Always the whole site: Pages replaces everything it serves, so a partial (affected) build
+      # would leave apps/web-portal/dist missing whenever a push did not touch the site.
       - name: Build site
-        run: yarn nx affected --target=build --configuration=ci --base=HEAD~1 --head=HEAD
+        run: yarn nx run-many --target=build --projects=web-portal --configuration=ci
         env:
           VITE_GITHUB_ORG: ${{ vars.VITE_GITHUB_ORG }}
           VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}

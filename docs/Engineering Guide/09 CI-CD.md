@@ -119,16 +119,16 @@ The `dev` environment on the `build-and-test` job exists for the ruleset's "depl
 
 `cd.yml` builds the site and deploys it to GitHub Pages on every push to `main`. One job, `deploy`, in the `github-pages` environment, with `contents: read`, `pages: write` and `id-token: write`. Concurrency group `pages` queues deploys and never cancels one in progress.
 
-| Step            | What it does                                                                                                   |
-| --------------- | -------------------------------------------------------------------------------------------------------------- |
-| Build site      | `yarn nx affected --target=build --configuration=ci --base=HEAD~1 --head=HEAD`, with four repository variables |
-| Configure Pages | `actions/configure-pages@v5`                                                                                   |
-| Upload artifact | `actions/upload-pages-artifact@v4`, path `apps/web-portal/dist` (the composed Web Explorer + Web Docs tree)    |
-| Deploy          | `actions/deploy-pages@v4`                                                                                      |
+| Step            | What it does                                                                                                |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| Build site      | `yarn nx run-many --target=build --projects=web-portal --configuration=ci`, with four repository variables  |
+| Configure Pages | `actions/configure-pages@v5`                                                                                |
+| Upload artifact | `actions/upload-pages-artifact@v4`, path `apps/web-portal/dist` (the composed Web Explorer + Web Docs tree) |
+| Deploy          | `actions/deploy-pages@v4`                                                                                   |
 
 The build reads repository variables `VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID`. Vite inlines them at build time; the `ci` build configuration loads no `.env` file. See [Giscus Setup](./Infrastructure/04%20Giscus%20Setup.md) for their values.
 
-The build covers only projects affected by the merged commit (`--base=HEAD~1`). `apps/web-portal/dist` exists only when `web-portal` was affected; `web-portal` is affected whenever Web Explorer or Web Docs changes. How the tree is assembled: [Web Portal LLD](../System%20Architecture%20%28LLD%29/Web%20Portal/00.%20Overview.md).
+Every push builds the whole site: `web-portal:build` depends on `web-explorer:build` and `web-docs:build` (with its `ci` configuration), so `apps/web-portal/dist` always exists. Pages replaces everything it serves on each deploy, so a partial build cannot work: an earlier affected-only build left `dist` missing on a push that did not touch the site, and saw only the last commit of a multi-commit push. How the tree is assembled: [Web Portal LLD](../System%20Architecture%20%28LLD%29/Web%20Portal/00.%20Overview.md).
 
 ### `release-harness.yml` — harness release lane
 
