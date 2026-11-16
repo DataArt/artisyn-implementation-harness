@@ -15,6 +15,8 @@ const IGNORE_ENTRIES = [
   '.harness/state/launch/reports/',
   '.harness/state/launch/package.local.json',
 ];
+// Native realpath expands Windows 8.3 short names (RUNNER~1), which git never returns.
+const real = (file: string) => fs.realpathSync.native(file);
 
 describe('state-root.mjs: project root resolution', () => {
   it('prefers ARTISYN_HARNESS_PROJECT_ROOT, then the git top level, then cwd', async () => {
@@ -30,8 +32,8 @@ describe('state-root.mjs: project root resolution', () => {
       resolveProjectRoot({ env: { ARTISYN_HARNESS_PROJECT_ROOT: forced }, cwd: nested }),
       forced
     );
-    assert.equal(fs.realpathSync(resolveProjectRoot({ env: {}, cwd: nested })), repo);
-    assert.equal(fs.realpathSync(resolveProjectRoot({ env: {}, cwd: plain })), plain);
+    assert.equal(real(resolveProjectRoot({ env: {}, cwd: nested })), real(repo));
+    assert.equal(real(resolveProjectRoot({ env: {}, cwd: plain })), real(plain));
   });
 
   it('never resolves from the package path or a provider folder', async () => {
@@ -40,7 +42,7 @@ describe('state-root.mjs: project root resolution', () => {
     git(repo, ['init', '-q']);
     const inside = path.join(repo, '.claude/skills/implementation-harness/scripts');
     fs.mkdirSync(inside, { recursive: true });
-    assert.equal(fs.realpathSync(resolveProjectRoot({ env: {}, cwd: inside })), repo);
+    assert.equal(real(resolveProjectRoot({ env: {}, cwd: inside })), real(repo));
   });
 });
 

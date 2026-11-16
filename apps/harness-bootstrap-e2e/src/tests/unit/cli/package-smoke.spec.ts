@@ -44,13 +44,16 @@ beforeAll(() => {
   tarball = path.join(dist, 'harness.tgz');
   sh('yarn', ['pack', '--out', tarball], pkgRoot);
   extracted = tmpDir('smoke-extracted-');
-  sh('tar', ['-xzf', tarball, '-C', extracted], dist);
+  // The archive goes by a relative name: GNU tar on Windows reads `C:\…` in -f as a remote host.
+  sh('tar', ['-xzf', path.basename(tarball), '-C', extracted], dist);
   artifactCli = path.join(extracted, 'package/bin/artisyn-implementation-harness.mjs');
 }, 120_000);
 
 describe('the npm tarball', () => {
   it('carries the CLI, the shim copy and the package files, and no state or Nx files', () => {
-    const files = sh('tar', ['-tzf', tarball], path.dirname(tarball)).split('\n').filter(Boolean);
+    const files = sh('tar', ['-tzf', path.basename(tarball)], path.dirname(tarball))
+      .split('\n')
+      .filter(Boolean);
     for (const required of [
       'package/package.json',
       'package/SKILL.md',
