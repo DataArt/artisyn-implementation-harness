@@ -18,8 +18,8 @@ keywords:
 
 The branching workflow is **trunk-based**, aligned with this project's actual CI/CD automation
 (`ci.yml` on pull request, `cd.yml` on merge to `main`). There is one long-lived branch — `main` —
-and all work happens on short-lived branches cut from it and merged straight back in. Nothing
-reaches the deployed site without passing through the PR's required CI checks first.
+and all work happens on short-lived branches cut from it and merged straight back in. Every change
+reaches `main`, and the deployed site, through a pull request.
 
 ## Flow
 
@@ -42,14 +42,13 @@ to render; scope the id to the actual branch or ticket.
 
 ## Environment Mapping
 
-| Branch Type        | Environment Target | Notes                                                                                                                                                                                                                  |
-| ------------------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main`             | `dev`              | `cd.yml` runs on every merge, but its deploy step is currently a retirement stub (no-op) — the AWS deploy mechanism was removed with the Infrastructure container, and no replacement (GitHub Pages) deploy exists yet |
-| `feat/*` / `fix/*` | None (PR only)     | Validated by `ci.yml`; no preview environment is provisioned per branch                                                                                                                                                |
+| Branch Type        | Environment Target  | Notes                                                                                               |
+| ------------------ | ------------------- | --------------------------------------------------------------------------------------------------- |
+| `main`             | `github-pages`      | `cd.yml` builds affected projects and deploys `apps/web-portal/dist` to GitHub Pages on every merge |
+| `feat/*` / `fix/*` | `dev` (checks only) | `ci.yml`'s `ci` job runs in the `dev` environment and deploys nothing; no preview site per branch   |
 
-There is no separate `develop`/`staging`/`production` branch or environment today — one GitHub
-Actions environment (`dev`) backs the whole pipeline, though it currently deploys nothing. A Dev →
-Staging → Prod promotion chain is a reasonable future addition, not a default.
+There is no `develop`, `staging` or `production` branch. Two GitHub Actions environments exist:
+`dev`, which the ruleset requires as a deployment on every PR, and `github-pages`, the live site.
 
 ## Naming Conventions
 
@@ -63,15 +62,10 @@ Staging → Prod promotion chain is a reasonable future addition, not a default.
 
 ## CI/CD by Branch
 
-| Trigger               | Runs                                                                                                                                                                                                       |
-| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `feat/*` / `fix/*` PR | `ci.yml` — audit, lint, typecheck, test, build for affected projects. No AWS role assumption — the AWS OIDC auth step was removed with the Infrastructure container                                        |
-| `main` merge          | `cd.yml` — runs, but its deploy step is currently a retirement stub (no-op); no deploy mechanism exists until the GitHub Pages cutover lands                                                               |
-| `main` merge          | `release.yml` — `semantic-release` computes the next version from Conventional Commits, tags, and publishes a GitHub release and `CHANGELOG.md` entry (scopes `harness`/`harness-release` excluded)        |
-| `main` merge          | `release-harness.yml` — the harness package lane: tags the version the PR stamped (`artisyn-implementation-harness-v*`), publishes npm + ZIP + attestations; off until `HARNESS_RELEASE_ENABLED` is `true` |
-| Hotfixes              | No separate branch type — a `fix/*` branch off `main`, same PR gate                                                                                                                                        |
-
-See `.github/workflows/ci.yml` and `.github/workflows/cd.yml` for the current workflow definitions.
+A PR to `main` runs `ci.yml` and `gitleaks.yml`. A merge to `main` runs `cd.yml` (the GitHub Pages
+deploy), `gitleaks.yml`, and both release lanes (`release.yml`, `release-harness.yml`). A hotfix is
+a `fix/*` branch off `main` with the same PR gate. Workflows, jobs, required checks and how to run
+each gate locally: [09 CI-CD](./09%20CI-CD.md).
 
 ## Branch Protection
 
@@ -103,13 +97,17 @@ it. See `08 Harness Release Runbook.md`, step 4.
 
 ## Rollback Strategy
 
-`semantic-release` still tags every merge to `main` with `vX.Y.Z`, giving each release a traceable
-point in history and a generated `CHANGELOG.md` entry. `cd.yml` currently has no deploy to roll
-back — its deploy step is a retirement stub pending the GitHub Pages cutover. A rollback strategy
-for the actual deploy mechanism is undefined until that cutover lands.
+Roll the site back by reverting on `main`. Open a PR that reverts the bad change and merge it;
+`cd.yml` builds and deploys the reverted tree like any other merge. `cd.yml` has no manual trigger
+and no deploy-by-ref input. Re-running an earlier `cd.yml` run from the Actions tab rebuilds that
+run's commit, but it uploads a site only if that commit affected `web-portal`, and the next merge
+deploys over it.
+
+Release tags are traceable points, not rollback switches. `semantic-release` tags root releases
+`vX.Y.Z` with a `CHANGELOG.md` entry. The harness lane has no unpublish step: fix forward with
+a new version through `yarn harness:version`.
 
 ## Related
 
 - [`01 Conventions.md`](./01%20Conventions.md) — branch/commit naming format
-- `.github/workflows/ci.yml` / `.github/workflows/cd.yml` — the CI/CD workflow implementation
-  this doc describes
+- [`09 CI-CD.md`](./09%20CI-CD.md) — every workflow, its checks, and the two release lanes

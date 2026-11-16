@@ -19,7 +19,7 @@ keywords:
 The harness is versioned in the PR and published on merge. The developer stamps the version on the feature branch; after the squash merge, `release-harness.yml` tags that version and publishes it. The workflow never commits or pushes to `main`, so it needs no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
 
 ```mermaid
-flowchart LR
+flowchart TB
     subgraph SETUP ["  One-time setup  "]
         RS["1️⃣ Ruleset on main\nadd the 3 required checks"]:::setup
         BT["2️⃣ Push the baseline tag\nartisyn-implementation-harness-v3.5.0"]:::setup
