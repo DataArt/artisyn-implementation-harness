@@ -60,6 +60,19 @@ describe('validate-plugin.mjs', () => {
     assert.match(result.stderr, /name is required/);
   });
 
+  it('reads the report after install log lines a package runner prints first', () => {
+    // `yarn dlx` writes its install log to stdout before the validator's JSON.
+    const log = '➤ YN0000: · Yarn 4.9.2\n➤ YN0000: ┌ Resolution step\n➤ YN0000: └ Completed\n';
+    const clean = { success: true, manifest: section(), contents: [section([], [rootWarning])] };
+    const passed = run(log + JSON.stringify(clean, null, 2));
+    assert.equal(passed.status, 0, passed.stdout + passed.stderr);
+
+    const broken = { success: false, manifest: section([{ message: 'name is required' }]) };
+    const failed = run(log + JSON.stringify(broken));
+    assert.equal(failed.status, 1);
+    assert.match(failed.stderr, /name is required/);
+  });
+
   it('fails when the validator prints no JSON', () => {
     const result = run('not json', 2);
     assert.equal(result.status, 1);

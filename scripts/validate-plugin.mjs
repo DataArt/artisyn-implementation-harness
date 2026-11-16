@@ -4,7 +4,7 @@
  * `--strict` alone cannot pass here: the repo root is the plugin root and holds a CLAUDE.md, which
  * the validator warns about. That one warning is expected. Every other warning and every error
  * fails the run. Set CLAUDE_CMD to run the validator another way, for example
- * `yarn dlx -p @anthropic-ai/claude-code claude`.
+ * `yarn dlx --quiet -p @anthropic-ai/claude-code claude`.
  */
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -29,9 +29,11 @@ function validate(target) {
     cwd: root,
     encoding: 'utf8',
   });
+  // A package runner (`yarn dlx`) may print install log lines before the report.
+  const start = run.stdout.search(/^\{/m);
   let report;
   try {
-    report = JSON.parse(run.stdout);
+    report = JSON.parse(start === -1 ? run.stdout : run.stdout.slice(start));
   } catch {
     return [
       `${target}: no JSON report (exit ${run.status}): ${(run.stderr || run.stdout).trim().slice(0, 200)}`,
