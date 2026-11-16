@@ -11,7 +11,7 @@ type: reference
 | ------ | -------------------------------------------------------------------------------------------------------------- |
 | Ticket | DEV-20261115-5DUE                                                                                              |
 | Branch | `docs/design-20261115-co1t-harness-distribution`                                                               |
-| PR     | —                                                                                                              |
+| PR     | [#20](https://github.com/DataArt/artisyn-implementation-harness/pull/20)                                       |
 | Author | Anton Merkulov                                                                                                 |
 | Status | ✅ Complete                                                                                                    |
 | Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅ |
@@ -386,7 +386,7 @@ identified, not that docs were skipped; say so in a line below the table. -->
 
 - **Date:** 2026-11-16
 - **Archive:** `docs/Stories/archive/[DEV-20261115-5DUE] Harness Distribution and Release Channels/`
-- **PR:** `feat(harness)!: distribute the harness as implementation-harness through five release channels` (link added once opened)
+- **PR:** `feat(harness)!: distribute the harness as implementation-harness through five release channels` — [#20](https://github.com/DataArt/artisyn-implementation-harness/pull/20)
 - **External actions:** tracker skipped (local ID, no tracker record); tech-debt tickets: none created (developer: "none"); TD-1..TD-3 stay as local rows
 
 ## Efforts Spent
