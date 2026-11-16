@@ -14,6 +14,8 @@ keywords:
     baseline tag,
     smoke checklist,
     harness release,
+    changelog,
+    release notes,
   ]
 ---
 
@@ -130,6 +132,18 @@ The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` s
 
 **Squash title.** The version comes from the PR's own commits, which husky and the CI scope check (`check-commit-scope.mjs --range`) both check. The squash title no longer decides the version. Still give it a `harness`-scoped Conventional Commit subject, so harness changes stand apart in history and the changelog.
 
+**The changelog entry.** `scripts/release/changelog-renderer.mjs` writes it in the format semantic-release used (the root `CHANGELOG.md` has old examples):
+
+```markdown
+## [4.1.0](https://github.com/DataArt/artisyn-implementation-harness/compare/artisyn-implementation-harness-v4.0.0...artisyn-implementation-harness-v4.1.0) (2026-11-20)
+
+### Features
+
+- **harness:** <subject> ([abc1234](https://github.com/DataArt/artisyn-implementation-harness/commit/<hash>))
+```
+
+Sections come in this order: `⚠ BREAKING CHANGES`, `Features`, `Bug Fixes`, `Performance Improvements`, `Reverts`. Bullets are sorted by scope, then subject. Commits of hidden types (refactor, docs, chore, ci, test, …) are left out. Re-running `yarn harness:version` replaces the entry of the same version.
+
 Changelog entries link to the PR's commit hashes. After the squash merge those commits stay reachable on GitHub through the PR.
 
 ## 5. On merge: the build job
@@ -141,6 +155,7 @@ On every push to `main`, the `build` job reads the version from `skills/implemen
 | Tag exists and the commit changes `skills/implementation-harness` after it            | Fails: a PR merged a version that is already released                                                                                       |
 | GitHub Packages has the version and a non-draft Release carries the ZIP and `.sha256` | Prints "fully published" and ends green; the later jobs are skipped, no approval is asked                                                   |
 | Anything is missing                                                                   | Builds the tarball, the ZIP and its `.sha256`, attests both, keeps them as artifact `harness-release`; the `release` job waits for approval |
+| The changelog has no entry for the version                                            | Fails: `release-notes.md` is extracted from that entry                                                                                      |
 
 A merge that does not change the harness carries a released version, so it ends in the second row. A failed attestation fails the build, and nothing is published.
 
@@ -148,12 +163,12 @@ A merge that does not change the harness carries a released version, so it ends 
 
 Approve the `release` deployment to publish. Open the run in Actions, choose **Review deployments**, select `release` and approve. One approval starts four jobs:
 
-| Job                       | What it does                                                                                                                                                                 |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `release`                 | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited |
-| `publish-github-packages` | After `release`: `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages                                                |
-| `publish-github`          | After `release`: downloads the `harness-release` artifact, creates a draft Release, uploads the ZIP and `.sha256`, then publishes it                                         |
-| `publish-npmjs` (stub)    | After `release`: publishes nothing; prints a notice that npmjs.com publishing is not set up                                                                                  |
+| Job                       | What it does                                                                                                                                                                                              |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `release`                 | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited                              |
+| `publish-github-packages` | After `release`: `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages                                                                             |
+| `publish-github`          | After `release`: downloads the `harness-release` artifact, creates a draft Release with the version's changelog entry as its notes (`release-notes.md`), uploads the ZIP and `.sha256`, then publishes it |
+| `publish-npmjs` (stub)    | After `release`: publishes nothing; prints a notice that npmjs.com publishing is not set up                                                                                                               |
 
 The three publish jobs run in parallel. The tag appears only now, so npm on GitHub Packages, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
 

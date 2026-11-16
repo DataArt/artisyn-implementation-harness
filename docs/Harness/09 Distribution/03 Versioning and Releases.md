@@ -7,6 +7,7 @@ keywords:
     semantic version,
     releases,
     changelog,
+    release notes,
     release tag,
     integrity,
     sha256,
@@ -69,12 +70,12 @@ The harness version is the only version the repository releases; the repository 
 
 The PR carries its own version; the merge builds it, and a reviewer decides when it is published. Nobody publishes by hand.
 
-- On the feature branch, the developer runs `yarn harness:version`. Conventional-commit types since the latest harness tag decide the bump (Nx Release, independent mode). It stamps the manifests and writes the release entry in the package's `CHANGELOG.md`. The developer commits this as `chore(harness-release): <version>`.
+- On the feature branch, the developer runs `yarn harness:version`. Conventional-commit types since the latest harness tag decide the bump (Nx Release, independent mode). It stamps the manifests and writes the release entry in the package's `CHANGELOG.md`. The entry has the format semantic-release used: a `## [<version>]` heading with a compare link and date, then breaking changes, features, bug fixes, performance improvements and reverts, each bullet linking its commit. The developer commits this as `chore(harness-release): <version>`.
 - The required `version-gate` check fails any PR that is not stamped with the version its commits call for.
 - Every push to the protected `main` runs `.github/workflows/release-harness.yml`. It never commits to `main`.
 - The `build` job reads the version from `package.json`. If that version is already fully published, it stops. Otherwise it builds the npm tarball and the ZIP with its `.sha256`, and attests both.
 - The `release` job waits for a required reviewer of the `release` environment to approve.
-- After approval it creates the tag `artisyn-implementation-harness-v{version}`. Then two jobs run in parallel: `publish-github-packages` publishes the npm version on GitHub Packages, and `publish-github` publishes the GitHub Release with the ZIP and `.sha256` attached. The tag appears only now, so every channel opens at the same moment.
+- After approval it creates the tag `artisyn-implementation-harness-v{version}`. Then two jobs run in parallel: `publish-github-packages` publishes the npm version on GitHub Packages, and `publish-github` publishes the GitHub Release with the ZIP and `.sha256` attached. The Release notes are the version's changelog entry. The tag appears only now, so every channel opens at the same moment.
 - Until approval, marketplace and `gh skill` installs of the new version fail: `main`'s manifests already pin the new tag, which does not exist yet.
 - A re-run is safe: it finishes only what is missing, and an already-published Release keeps its assets. A failed publish job can be re-run on its own.
 

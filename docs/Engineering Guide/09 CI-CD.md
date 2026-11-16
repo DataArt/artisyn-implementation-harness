@@ -188,7 +188,9 @@ The harness lane is the repository's only release lane. The repository itself is
 | Version decided  | In the PR, by `yarn harness:version`; checked by `version-gate`                                                                                       |
 | Commits counted  | Commits touching `skills/implementation-harness/` (by path, `useCommitScope: false`)                                                                  |
 | Tag              | `artisyn-implementation-harness-vX.Y.Z`                                                                                                               |
+| Changelog        | Harness `CHANGELOG.md`, written in the PR by `scripts/release/changelog-renderer.mjs` in the semantic-release format                                  |
 | Outputs          | npm on GitHub Packages, ZIP + `.sha256`, build attestations, GitHub Release                                                                           |
+| Release notes    | The version's changelog entry, extracted by `build` as `release-notes.md` and passed with `--notes-file`                                              |
 | Writes to `main` | No: tag created through the API                                                                                                                       |
 | Runs             | `build` on every push to `main`, no enable switch; `release`, `publish-github-packages`, `publish-github` and the `publish-npmjs` stub after approval |
 
