@@ -6,7 +6,7 @@ keywords: [log-hub, hld, claude-code-hook, local-scope, dev-tooling, LOG_HUB_SER
 
 # Log Hub Container
 
-Dev-tooling container capturing Claude Code session telemetry. A contributor who opts in runs a pinned, checksum-verified release of the upstream [Artisyn Log Hub](https://github.com/DataArt/artisyn-log-hub) server on their own machine (Docker Compose, loopback-only), then registers a Claude Code hook against it at local Claude Code scope. It runs only on a contributor's own machine, never in CI runtime, never in the GitHub Pages build, and is not registered in `apps/web-portal`'s composed deploy tree — the same precedent as the Harness Bootstrap E2E container.
+Dev-tooling container capturing Claude Code session telemetry. A contributor who opts in runs a pinned, checksum-verified release of the upstream [Artisyn Log Hub](https://github.com/DataArt/artisyn-log-hub) server on their own machine (Docker Compose, loopback-only), then registers a Claude Code hook against it at local Claude Code scope. It runs only on a contributor's own machine, never in CI runtime, never in the GitHub Pages build, and is not registered in `apps/web-portal`'s composed deploy tree — the same precedent as the Implementation Harness E2E container.
 
 ## Baseline diagram
 

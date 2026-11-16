@@ -29,9 +29,9 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 | Web Explorer   | Promotional single-page app, served at the GitHub Pages project-site root | React 19 · Vite · react-router-dom |
 | Web Portal     | Composition-only Nx project, no application source — assembles Web Explorer's and Web Docs's independently-built static outputs into one deployable artifact tree for GitHub Pages | Nx composition script only |
 | Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
-| Harness Bootstrap E2E | Test harness validating the `implementation-harness` skill package and the release tooling — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
+| Implementation Harness E2E | Test harness validating the `implementation-harness` skill package and the release tooling — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
 | Log Hub | Opt-in dev tooling: local Log Hub server (Docker Compose) plus a local-scope Claude Code hook capturing session telemetry; no presence in the deployed site | Docker Compose · TypeScript via `tsx` · Nx |
-| Harness Release Pipeline | CI tooling: each PR stamps the harness version (`yarn harness:version`); on push to `main`, `release-harness.yml` tags, publishes and attests it to the five channels | GitHub Actions · Nx Release |
+| Harness Release Pipeline | CI tooling and the repo's only release lane: each PR stamps the harness version (`yarn harness:version`); on push to `main`, `release-harness.yml` tags, publishes and attests it to the five channels | GitHub Actions · Nx Release |
 
 Data flow: Browser → GitHub Pages (static build, deployed by GitHub Actions) — root → Web Explorer, `/docs/` → Web Docs, both composed by Web Portal. Discuss integrates client-side with giscus.app/GitHub Discussions.
 

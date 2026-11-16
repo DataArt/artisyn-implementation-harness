@@ -42,7 +42,7 @@ Read `docs/Target Architecture (HLD)/README.md` to find the active version (`<VE
 | Web Docs               | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web Docs.md` (+ `Discuss.md` for the client-side giscus comments widget embedded in it) | `apps/web-docs/`              |
 | Web Explorer           | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web Explorer.md`                                                                        | `apps/web-explorer/`          |
 | Web Portal             | `docs/Target Architecture (HLD)/<VERSION>/Containers/Web Portal.md`                                                                          | `apps/web-portal/` (composition only, no source) |
-| Harness Bootstrap E2E  | `docs/Target Architecture (HLD)/<VERSION>/Containers/Harness Bootstrap E2E.md`                                                               | `apps/implementation-harness-e2e/` |
+| Implementation Harness E2E | `docs/Target Architecture (HLD)/<VERSION>/Containers/Implementation Harness E2E.md`                                                               | `apps/implementation-harness-e2e/` |
 
 ---
 

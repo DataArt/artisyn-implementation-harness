@@ -25,7 +25,7 @@ _Placeholder:_ a fuller narrative (why it exists, what problem it solves, how it
 | [06 Roadmap](<./06 Roadmap/index.md>)                     | Where the harness itself is headed                                                                |
 | [07 Operational Graph](<./07 Operational Graph/index.md>) | The deterministic doc-tier operational graph — node/edge model and lifecycle wiring               |
 | [08 Security Scan](<./08 Security Scan/index.md>)         | Dated InfoSec security-scan reports against this repo's own skills, agents, and MCP configuration |
-| [09 Distribution](<./09 Distribution/index.md>)           | Package identity, the five pinned channels, install, update, migration and versioning             |
+| [09 Distribution](<./09 Distribution/index.md>)           | Package identity, the five pinned channels, install, update and versioning                        |
 
 ## The package
 

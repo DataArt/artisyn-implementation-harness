@@ -1,6 +1,6 @@
 ---
 id: e2d58b91
-purpose: The harness version contract — one stamped semantic version, the automatic release workflow and its re-run behaviour, per-channel integrity and attestations, rollback and the legacy command end of life
+purpose: The harness version contract — one stamped semantic version, the automatic release workflow and its re-run behaviour, per-channel integrity and attestations, and rollback
 keywords:
   [
     versioning,
@@ -12,17 +12,15 @@ keywords:
     sha256,
     build attestation,
     release-harness.yml,
-    HARNESS_RELEASE_ENABLED,
     version stamping,
     rollback,
-    harness-bootstrap shim,
     implementation-harness,
   ]
 ---
 
 # Versioning and Releases
 
-> Applies from release 4.0.0, the first release cut by the automatic release pipeline. 3.x ZIPs are no longer published from the repository.
+> Applies from release 4.0.0, the first release cut by the automatic release pipeline.
 
 The harness has one semantic version. The PR stamps it, and the merge to `main` publishes it automatically.
 
@@ -57,11 +55,11 @@ flowchart LR
 
 ## One version
 
-The harness version is independent of the repository's own `v*` version.
+The harness version is the only version the repository releases; the repository itself is not versioned.
 
-- The single source is `skills/implementation-harness/package.json`. `yarn harness:version` stamps it into the `SKILL.md` frontmatter of the harness and the shim, `.claude-plugin/plugin.json`, and both marketplace files (version and tag `ref`); a CI gate fails any PR where they disagree.
-- Commits that touch the harness use scope `harness`; the root `v*` lane ignores them.
-- The first release under the new name is 4.0.0, cut from the breaking `feat(harness)!:` rename commit.
+- The single source is `skills/implementation-harness/package.json`. `yarn harness:version` stamps it into the harness `SKILL.md` frontmatter, `.claude-plugin/plugin.json`, and both marketplace files (version and tag `ref`); a CI gate fails any PR where they disagree.
+- Commits that touch the harness use scope `harness`, so harness changes stand apart in history and the changelog.
+- The first release is 4.0.0.
 
 ## How releases happen
 
@@ -69,7 +67,7 @@ The PR carries its own version; the merge only tags and publishes it. Nobody pub
 
 - On the feature branch, the developer runs `yarn harness:version`. Conventional-commit types since the latest harness tag decide the bump (Nx Release, independent mode). It stamps the manifests and writes the release entry in the package's `CHANGELOG.md`. The developer commits this as `chore(harness-release): <version>`.
 - The required `version-gate` check fails any PR that is not stamped with the version its commits call for.
-- A push to the protected `main` runs `.github/workflows/release-harness.yml`. It is off until the repository variable `HARNESS_RELEASE_ENABLED` is `true`.
+- Every push to the protected `main` runs `.github/workflows/release-harness.yml`.
 - It reads the version from `package.json` and creates the tag `artisyn-implementation-harness-v{version}` if it does not exist. It never commits to `main`.
 - It builds the npm tarball and the ZIP with its `.sha256`, and attests both before anything is published.
 - It publishes the npm version on GitHub Packages and creates the GitHub Release with the ZIP and `.sha256` attached.
@@ -97,7 +95,3 @@ Rollback moves npm and the marketplace back to the previous good version.
 | npm         | The bad version is deprecated and the `latest` dist-tag moves back. |
 | Marketplace | A patch release re-pins the entries to the previous tag.            |
 | Consumers   | Stay on their pinned tag until they choose to move.                 |
-
-## Legacy command end of life
-
-The `harness-bootstrap` shim ships in 4.x and is removed in 5.0.0. See [The old command](<./02 Update and Migration.md#the-old-command>).

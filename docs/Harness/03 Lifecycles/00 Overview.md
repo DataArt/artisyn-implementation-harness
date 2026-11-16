@@ -4,7 +4,7 @@ purpose: Summarize the four harness lifecycles, how they interact, and when to u
 keywords: [lifecycle overview, dev, design, evolve, architecture]
 ---
 
-# Harness Bootstrap — Lifecycle Overview
+# Implementation Harness — Lifecycle Overview
 
 _The four lifecycles, how they interact, and when to use each one._
 

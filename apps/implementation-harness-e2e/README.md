@@ -7,8 +7,8 @@ sessions in disposable projects.
 
 ## Links
 
-→ `docs/Target Architecture (HLD)/v1/Containers/Harness Bootstrap E2E.md` — HLD for this container (responsibilities, technology, boundary contracts)
-→ `docs/System Architecture (LLD)/Harness Bootstrap E2E/00. Overview.md` — LLD: fixtures, cases/scenarios, engine, agent-runners, graders
+→ `docs/Target Architecture (HLD)/v1/Containers/Implementation Harness E2E.md` — HLD for this container (responsibilities, technology, boundary contracts)
+→ `docs/System Architecture (LLD)/Implementation Harness E2E/00. Overview.md` — LLD: fixtures, cases/scenarios, engine, agent-runners, graders
 
 ## Test layers and CI
 

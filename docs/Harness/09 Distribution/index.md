@@ -20,7 +20,7 @@ keywords:
 
 # Distribution
 
-> Applies from release 4.0.0, the first release cut by the automatic release pipeline. 3.x ZIPs are no longer published from the repository.
+> Applies from release 4.0.0, the first release cut by the automatic release pipeline.
 
 Every harness release ships automatically to five channels, and every project installs a pinned version of the same read-only package.
 
@@ -117,7 +117,7 @@ Every install pins a version: a release tag, a semver version, or (skills.sh) th
 
 - Marketplace entries and `gh skill` installs pin a release tag, never `main`.
 - ZIP links point at the tag's Release page, never at `/releases/latest`.
-- The repository's own `v*` releases have nothing to do with harness installs.
+- The harness tag is the only release tag the repository creates; the repository itself is not versioned.
 
 ## Install contract
 
@@ -144,5 +144,5 @@ Downstream teams send improvements to the source repository; they come back to e
 | Page                                                            | Contents                                                                                     |
 | --------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
 | [01 Install](<./01 Install.md>)                                 | Install commands per channel, npm access, `init` options, skills.sh discovery, project state |
-| [02 Update and Migration](<./02 Update and Migration.md>)       | Pinned update commands, `doctor`, migration from 3.x, the old command                        |
+| [02 Update](<./02 Update.md>)                                   | Pinned update commands, CLI update rules, `doctor`, baselines in `patch apply`               |
 | [03 Versioning and Releases](<./03 Versioning and Releases.md>) | One version, the release workflow and re-runs, integrity, rollback                           |

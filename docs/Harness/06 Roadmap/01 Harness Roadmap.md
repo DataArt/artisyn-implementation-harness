@@ -14,19 +14,19 @@ _How the bootstrap evolves from a git template into a distributable, composable 
 
 _From a copied git folder to a versioned, installable package._
 
-**Status:** implemented (DESIGN-20261115-CO1T, DEV-20261115-5DUE). The first release, 4.0.0, is cut by the release pipeline once it is enabled after merge.
+**Status:** implemented (DESIGN-20261115-CO1T, DEV-20261115-5DUE). The first release, 4.0.0, is cut by the release pipeline when PR #20 merges.
 
 The harness ships through five pinned channels:
 
 - Plugin marketplace `dataart`
-- GitHub Packages npm, with the install CLI (`init`, `update`, `migrate`, `doctor`)
+- GitHub Packages npm, with the install CLI (`init`, `update`, `doctor`)
 - skills.sh
 - `gh skill`
 - Release ZIP, with `.sha256` and a build attestation
 
-Releases are automatic, with one stamped semantic version and a changelog: each PR stamps its version (`yarn harness:version`, Nx Release), and `release-harness.yml` tags and publishes it on merge. The manual ZIP flow is retired. Existing 3.x installs migrate with `migrate`. Runtime state lives in the project's `.harness/state/`.
+Releases are automatic, with one stamped semantic version and a changelog: each PR stamps its version (`yarn harness:version`, Nx Release), and `release-harness.yml` tags and publishes it on merge. The manual ZIP flow is retired. Runtime state lives in the project's `.harness/state/`.
 
-**Open follow-up:** the root `v*` lane (`release.yml`) still pushes a `chore(release)` commit to `main` and needs the GitHub Actions app as a ruleset bypass actor (TD-5; see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
+This is the repository's only release lane. Nothing pushes to `main`, so the `main` ruleset has no bypass actors (see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
 
 → See [Distribution](<../09 Distribution/index.md>).
 

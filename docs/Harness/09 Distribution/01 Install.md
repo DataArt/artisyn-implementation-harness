@@ -19,7 +19,7 @@ keywords:
 
 # Install
 
-> Applies from release 4.0.0, the first release cut by the automatic release pipeline. 3.x ZIPs are no longer published from the repository.
+> Applies from release 4.0.0, the first release cut by the automatic release pipeline.
 
 Install the package through one channel, then run `launch`; launch creates the project's `.harness/state/`.
 
@@ -73,7 +73,7 @@ Codex uses `$` instead of `/` for direct installs: `$implementation-harness laun
 
 The `npx` commands are consumer-side: run them in the project that installs the harness. Inside this repository, the yarn-only rule still applies.
 
-skills.sh discovery note: the repo's `skills.sh.json` (`paths: ["./skills"]`) only adds folders to the skills CLI's standard scan locations — it does not restrict discovery. The harness repo's own six deployed lifecycle skills stay out of the listing through `metadata.internal: true` in their frontmatter, so `npx skills add … --list` shows the harness (and, in 4.x, the shim) rather than the repo's internal skills.
+skills.sh discovery note: the repo's `skills.sh.json` (`paths: ["./skills"]`) only adds folders to the skills CLI's standard scan locations — it does not restrict discovery. The harness repo's own six deployed lifecycle skills stay out of the listing through `metadata.internal: true` in their frontmatter, so `npx skills add … --list` shows only the `implementation-harness` skill rather than the repo's internal skills.
 
 ## npm access
 
@@ -90,12 +90,12 @@ The npm channel needs a `read:packages` token; the token never goes into the rep
 
 ## What `init` does
 
-`init` places the package and prepares the project for launch. The install CLI (`bin/artisyn-implementation-harness.mjs`, commands `init`, `update`, `migrate`, `doctor`) uses only Node built-ins and requires Node 22.2 or newer.
+`init` places the package and prepares the project for launch. The install CLI (`bin/artisyn-implementation-harness.mjs`, commands `init`, `update`, `doctor`) uses only Node built-ins and requires Node 22.2 or newer.
 
 1. Detects `.claude/`, `.agents/` and `.github/` (in that order), or takes `--provider claude|codex|copilot` (repeatable). No provider found exits 2.
 2. Places the package in the first selected provider's `skills/implementation-harness/`. A different installed version is refused unless `--force` is passed.
 3. Creates `.harness/state/`, writes its ignore entries, and records the package with `--channel npm|zip` (default `npm`).
-4. Warns when old 3.x state needs `migrate`, then prints the launch command in the provider's syntax.
+4. Prints the launch command in the provider's syntax.
 
 | Option / variable              | Effect                                                                                   |
 | ------------------------------ | ---------------------------------------------------------------------------------------- |
@@ -125,4 +125,4 @@ Each project has one `.harness/state/` for all providers.
 
 `launch/package.json` records the installed package as `{name, version, channel}`. `launch/package.local.json` records the per-machine package path; launch re-creates it when it is missing.
 
-→ Next: [Update and Migration](<./02 Update and Migration.md>).
+→ Next: [Update](<./02 Update.md>).

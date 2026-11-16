@@ -76,7 +76,7 @@ Run a ticket through the lifecycle:
 
 ## Keeping the harness current
 
-Refresh the package through its channel, then run `/implementation-harness patch apply` — see [Update and Migration](<../09 Distribution/02 Update and Migration.md>). The full patch router:
+Refresh the package through its channel, then run `/implementation-harness patch apply` — see [Update](<../09 Distribution/02 Update.md>). The full patch router:
 
 - `patch apply [scope | bundle path]` — personalize canonical updates into the project (consumer projects).
 - `patch harvest [scope]` — generalize a permanent-file improvement into canonical files (harness source repository only).
