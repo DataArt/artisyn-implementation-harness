@@ -85,12 +85,12 @@ Setup and first-release steps are in the [Harness Release Runbook](<../../Engine
 
 Each channel has its own integrity check.
 
-| Channel                                           | How it is verified                                                                             |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| npm                                               | Registry integrity, checked by npm on install                                                  |
-| ZIP                                               | `.sha256` next to the asset, checked by the CLI and the manual guide                           |
-| Git channels (marketplace, skills.sh, `gh skill`) | The pinned tag or commit                                                                       |
-| Build attestation                                 | Provenance for the tarball and the ZIP, verifiable by maintainers with `gh attestation verify` |
+| Channel                                           | How it is verified                                                                                                                                                         |
+| ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| npm                                               | Registry integrity, checked by npm on install. The release checks that it equals the attested tarball                                                                      |
+| ZIP                                               | `.sha256` next to the asset, checked by the CLI and the manual guide                                                                                                       |
+| Git channels (marketplace, skills.sh, `gh skill`) | The pinned tag or commit                                                                                                                                                   |
+| Build attestation                                 | Provenance for the tarball and the ZIP, verifiable by maintainers with `gh attestation verify`. The package on GitHub Packages is the attested tarball, so it verifies too |
 
 ## Rollback
 

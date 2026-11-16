@@ -68,7 +68,7 @@ flowchart LR
 - Output: the channels in `docs/Harness/09 Distribution/index.md` — npm (token-gated), Release ZIP + `.sha256` + attestation (anonymous), the tag the marketplace and `gh skill` pin; skills.sh installs from the default branch and records the resolved commit
 - Guarantee: a fully published version publishes nothing and asks no approval; a re-run finishes only what is missing; a failed attestation blocks publish
 - Guarantee: the tag is created only after approval, so all channels open at once; the Release is published from a draft after its assets are attached, so it is complete when GitHub immutable releases freeze it
-- Guarantee: integrity per channel — npm registry integrity; ZIP `.sha256`, checked by the install CLI on `update` and by hand on a first ZIP install; attestations verifiable with `gh attestation verify`
+- Guarantee: integrity per channel — npm registry integrity, checked at publish to equal the attested tarball; ZIP `.sha256`, checked by the install CLI on `update` and by hand on a first ZIP install; attestations verifiable with `gh attestation verify`
 
 ## Constraints
 

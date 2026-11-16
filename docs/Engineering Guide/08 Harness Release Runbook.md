@@ -100,7 +100,7 @@ Nx computes each version from the latest `artisyn-implementation-harness-v*` tag
 git push origin artisyn-implementation-harness-v3.5.0
 ```
 
-The release workflow has no enable switch: it runs on every push to `main`. Finish steps 1 to 3 before the first harness PR merges.
+The release workflow has no enable switch: it runs on a push to `main` that touches `skills/implementation-harness/`, `.claude-plugin/`, `.agents/plugins/`, `skills.sh.json` or the workflow itself (a site-only merge starts nothing), or a manual run. Finish steps 1 to 3 before the first harness PR merges.
 
 ## 4. Every harness PR: `yarn harness:version`
 
@@ -148,7 +148,7 @@ Changelog entries link to the PR's commit hashes. After the squash merge those c
 
 ## 5. On merge: the build job
 
-On every push to `main`, the `build` job reads the version from `skills/implementation-harness/package.json` at the pushed commit and decides what to do:
+On each run, the `build` job reads the version from `skills/implementation-harness/package.json` at the pushed commit and decides what to do:
 
 | State                                                                                 | Action                                                                                                                                      |
 | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -163,12 +163,12 @@ A merge that does not change the harness carries a released version, so it ends 
 
 Approve the `release` deployment to publish. Open the run in Actions, choose **Review deployments**, select `release` and approve. One approval starts four jobs:
 
-| Job                       | What it does                                                                                                                                                                                              |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `release`                 | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited                              |
-| `publish-github-packages` | After `release`: `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish` to GitHub Packages                                                                             |
-| `publish-github`          | After `release`: downloads the `harness-release` artifact, creates a draft Release with the version's changelog entry as its notes (`release-notes.md`), uploads the ZIP and `.sha256`, then publishes it |
-| `publish-npmjs` (stub)    | After `release`: publishes nothing; prints a notice that npmjs.com publishing is not set up                                                                                                               |
+| Job                       | What it does                                                                                                                                                                                                                                                                                                                     |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `release`                 | Creates `artisyn-implementation-harness-v<version>` on the merged commit through the API. Stops if another run released this version from a different commit while it waited                                                                                                                                                     |
+| `publish-github-packages` | After `release`: downloads the `harness-release` artifact, packs the package again and fails if it differs from the attested tarball (`cmp`), runs `yarn workspace @dataart/artisyn-implementation-harness npm publish --tolerate-republish`, then fails unless the registry's `dist.integrity` is the attested tarball's sha512 |
+| `publish-github`          | After `release`: downloads the `harness-release` artifact, creates a draft Release with the version's changelog entry as its notes (`release-notes.md`), uploads the ZIP and `.sha256`, then publishes it                                                                                                                        |
+| `publish-npmjs` (stub)    | After `release`: publishes nothing; prints a notice that npmjs.com publishing is not set up                                                                                                                                                                                                                                      |
 
 The three publish jobs run in parallel. The tag appears only now, so npm on GitHub Packages, the Release ZIP, the marketplace, `gh skill` and skills.sh pins all open at the same moment.
 
@@ -199,15 +199,16 @@ The build job builds and attests 4.0.0. Approve the `release` deployment (step 6
 
 In a scratch consumer project (not this repo), after `publish-github-packages` and `publish-github` go green. The `npx` commands below are consumer-side, so the yarn-only rule for this repo does not apply to them:
 
-| Channel               | Check                                                                                                                                                                    |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| npm (GitHub Packages) | `.npmrc` scope + `read:packages` token, then `npx @dataart/artisyn-implementation-harness init` places the package and prints the launch command                         |
-| ZIP                   | Download `artisyn-implementation-harness-v4.0.0.zip` + `.sha256` from the tag's Release, verify the checksum, install (unzip or the bundled CLI `init`)                  |
-| Claude                | `claude plugin marketplace add DataArt/artisyn-implementation-harness` → `claude plugin install artisyn@dataart` → `/artisyn:implementation-harness launch` responds     |
-| Codex                 | Install `artisyn` from the Codex marketplace — the manifest values (`policy.authentication: NONE`, `git-subdir` source) are unverified on a real host; confirm them here |
-| Copilot CLI           | Install via the Copilot marketplace flow — Copilot's reading of the Claude manifest is unverified on a real host; confirm it here                                        |
-| skills.sh             | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness` installs exactly that skill                                                       |
-| gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v4.0.0 --scope project` (pinned form only)                |
+| Channel               | Check                                                                                                                                                                                                                                                                             |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| npm (GitHub Packages) | `.npmrc` scope + `read:packages` token, then `npx @dataart/artisyn-implementation-harness init` places the package and prints the launch command                                                                                                                                  |
+| ZIP                   | Download `artisyn-implementation-harness-v4.0.0.zip` + `.sha256` from the tag's Release, verify the checksum, install (unzip or the bundled CLI `init`)                                                                                                                           |
+| Claude                | `claude plugin marketplace add DataArt/artisyn-implementation-harness` → `claude plugin install artisyn@dataart` → `/artisyn:implementation-harness launch` responds                                                                                                              |
+| Codex                 | Install `artisyn` from the Codex marketplace — the manifest values (`policy.authentication: NONE`, `git-subdir` source) are unverified on a real host; confirm them here                                                                                                          |
+| Copilot CLI           | Install via the Copilot marketplace flow — Copilot's reading of the Claude manifest is unverified on a real host; confirm it here                                                                                                                                                 |
+| skills.sh             | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness` installs exactly that skill                                                                                                                                                                |
+| Attestations          | `gh attestation verify artisyn-implementation-harness-v4.0.0.zip --repo DataArt/artisyn-implementation-harness` passes; so does the npm tarball fetched with `npm pack @dataart/artisyn-implementation-harness@4.0.0` (the release job already proved it is the attested tarball) |
+| gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v4.0.0 --scope project` (pinned form only)                                                                                                                         |
 
 The marketplace agent E2E (`yarn nx run implementation-harness-e2e:agent-e2e`) is a guarded command — it spends real agent budget, so the developer starts it; it never runs in CI.
 
