@@ -112,6 +112,23 @@ describe('release-harness.yml', () => {
     assert.ok(!text.includes('--generate-notes'));
   });
 
+  it('publishes the attested tarball to GitHub Packages and proves it before and after', () => {
+    const p = steps(packages);
+    const order = [
+      'download-artifact',
+      'cmp -s',
+      'npm publish --tolerate-republish',
+      'dist.integrity',
+    ];
+    let last = -1;
+    for (const needle of order) {
+      const at = p.indexOf(needle);
+      assert.ok(at > last, `${needle} comes after the previous step`);
+      last = at;
+    }
+    assert.match(p, /sha512/);
+  });
+
   it('publishes the release from a draft, so an immutable release gets its assets first', () => {
     const g = steps(github);
     assert.match(g, /--draft --title/);

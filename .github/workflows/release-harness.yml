@@ -178,6 +178,7 @@ jobs:
       packages: write
     env:
       GITHUB_PACKAGES_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      VERSION: ${{ needs.build.outputs.version }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -185,8 +186,37 @@ jobs:
 
       - uses: ./.github/actions/setup
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: harness-release
+          path: dist/
+
+      # `yarn npm publish` packs the workspace itself; it cannot upload a file. Yarn packs
+      # reproducibly, and this job runs on the same runner image as build, so its pack must be
+      # byte-identical to the attested tarball. Check that before publishing, and check the
+      # registry's integrity after, so the package on GitHub Packages is the attested one.
+      - name: Check the package packs to the attested tarball
+        run: |
+          set -euo pipefail
+          yarn workspace "$PACKAGE" pack --out "$RUNNER_TEMP/repack.tgz"
+          if ! cmp -s "dist/${TAG_PREFIX}${VERSION}.tgz" "$RUNNER_TEMP/repack.tgz"; then
+            echo "::error::The package does not pack to the attested tarball; publishing would ship unattested bytes."
+            exit 1
+          fi
+
       - name: Publish to GitHub Packages
         run: yarn workspace "$PACKAGE" npm publish --tolerate-republish
+
+      - name: Check the registry holds the attested tarball
+        run: |
+          set -euo pipefail
+          expected="$(node -e 'const c = require("node:crypto"), f = require("node:fs"); console.log("sha512-" + c.createHash("sha512").update(f.readFileSync(process.argv[1])).digest("base64"))' "dist/${TAG_PREFIX}${VERSION}.tgz")"
+          actual="$(yarn npm info "${PACKAGE}@${VERSION}" --fields dist --json | node -e 'let s = ""; process.stdin.on("data", (d) => (s += d)).on("end", () => console.log(JSON.parse(s).dist.integrity))')"
+          if [ "$expected" != "$actual" ]; then
+            echo "::error::GitHub Packages holds ${PACKAGE}@${VERSION} with integrity ${actual}, but the attested tarball is ${expected}."
+            exit 1
+          fi
+          echo "GitHub Packages holds the attested tarball (${actual})."
 
   publish-github:
     needs: [build, release]
