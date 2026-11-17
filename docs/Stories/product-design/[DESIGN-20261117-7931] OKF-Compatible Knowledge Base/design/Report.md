@@ -9,10 +9,10 @@ Developer intent (free-form, no tracker ticket): design an Open Knowledge Format
 ## State
 
 ```yaml
-current_stage: research
-completed_stages: [context-gathering, ceremony, frame]
+current_stage: evaluate
+completed_stages: [context-gathering, ceremony, frame, research]
 selected_artifacts: []
-next_action: 'Frame commit, then Research (3 decisions)'
+next_action: 'Research commit, then Evaluate (4 decisions; resolve Assumptions #18-19 at Step 1b)'
 context_fingerprint: ''
 ```
 
@@ -53,7 +53,7 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 | Ticket | DESIGN-20261117-7931                                                                                                                                                                |
 | Branch | `docs/design-20261117-7931-okf-knowledge-base`                                                                                                                                      |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research 🔄 · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIGN-20261117-7931 ·`), mirrored in this report.
 
@@ -65,20 +65,20 @@ Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIG
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 3m 34s · Wait to date: 15m 26s (closed 15m 26s + current 0s) · Unclassified: 0s
+Observed work: 20m 15s · Wait to date: 56m 40s (closed 56m 40s + current 0s) · Unclassified: 0s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------ | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-17T21:07:28.950Z | 2026-11-17T21:11:52.035Z | 4m 23s      | 6s     | 4m 17s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-17T21:11:52.087Z | 2026-11-17T21:15:15.472Z | 3m 23s      | 5s     | 3m 18s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (active)                | 2026-11-17T21:15:15.525Z | unavailable              | unavailable | 3m 23s | 7m 51s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-17T21:07:28.950Z | 2026-11-17T21:11:52.035Z | 4m 23s      | 6s      | 4m 17s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-17T21:11:52.087Z | 2026-11-17T21:15:15.472Z | 3m 23s      | 5s      | 3m 18s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-17T21:15:15.525Z | 2026-11-17T21:28:15.597Z | 13m 0s      | 3m 23s  | 9m 37s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (active)             | 2026-11-17T21:28:15.648Z | unavailable              | unavailable | 16m 40s | 39m 28s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -86,8 +86,30 @@ Observed work: 3m 34s · Wait to date: 15m 26s (closed 15m 26s + current 0s) · 
 
 _Filled in during Research OQ triage. One row per open question answered or classified._
 
-| #   | Open question | V/E | Answer / status |
-| --- | ------------- | --- | --------------- |
+_From Research OQ triage (2026-11-17). Viability rows and developer decisions; Evaluation-input rows stay in each `01 Research - *.md` Open Questions table._
+
+| #   | Open question                                                                                      | V/E | Answer / status                                                                                                                                                                                                                                                |
+| --- | -------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Must the source tree conform in place (vs a generated export)?                                     | (V) | Resolved (developer): yes, in place. A pure export is out.                                                                                                                                                                                                     |
+| 2   | May the additive-only schema Compatibility rule be amended?                                        | (V) | Resolved (developer): yes, the DB structure is subject to change.                                                                                                                                                                                              |
+| 3   | May `patch apply` rewrite consumer frontmatter?                                                    | (V) | Resolved (developer): yes, through an explicit migration instruction (restructure frontmatter, migrate DB, reindex), never silently.                                                                                                                           |
+| 4   | May OG write frontmatter keys other than `id`?                                                     | (V) | Resolved (developer): yes, e.g. stamp `type`.                                                                                                                                                                                                                  |
+| 5   | Are `docs/Stories/` inside an OKF bundle?                                                          | (V) | Resolved (developer): inside; every Story `.md` carries `type`.                                                                                                                                                                                                |
+| 6   | Should `reindex`/`build` exit non-zero on scope violations?                                        | (V) | Resolved (developer): no. They report in JSON and exit 0; only `index` fails loudly.                                                                                                                                                                           |
+| 7   | Target frontmatter format (D1)                                                                     | (V) | Resolved (developer): OKF names: `type`, `title`, `description` (ex `purpose`), `tags` (ex `keywords`), plus `generated: {by, at}` (creation) and `updated: {by, at}` (last meaningful update, harness extension). No `timestamp`. `id` stays as OG extra key. |
+| 8   | Bring OKF `generated` into scope?                                                                  | (V) | Resolved (developer): yes; Frame boundary amended. Other trust fields stay out.                                                                                                                                                                                |
+| 9   | Who writes time values; `by` actor values                                                          | (V) | Proposed and accepted: writers write `updated`; OG never stamps time; migration seeds from git dates. `by` uses process/producer actors only, never `human:<id>` (public site).                                                                                |
+| 10  | `type` vocabulary and ownership                                                                    | (V) | Proposed and accepted: descriptive per-kind values with a per-bundle fallback; templates carry it for Stories; OG stamps once from a canonical path map, then the author owns it. Exact list fixed in Evaluate.                                                |
+| 11  | Require `description`/`tags` beyond OKF?                                                           | (V) | Proposed and accepted: yes, keep today's Principles rule.                                                                                                                                                                                                      |
+| 12  | Scope of "knowledge base" / bundle roots                                                           | (V) | Resolved (developer): developer proposed five tier bundles (HLD, LLD, Stories, Engineering Guide, Product) as candidate Option 6.                                                                                                                              |
+| 13  | Product tier folder name in canonical OG                                                           | (V) | Resolved (developer): set per project at harness launch; OG reads it from launch configuration. Recorded as a fix.                                                                                                                                             |
+| 14  | EC2/EC3 "never": every caller, no project override?                                                | (V) | Proposed and accepted: every caller of the OG module; no override for `index.md`. Scope guard Option A needs `assign` guarded; Option C needs `index.md` hardcoded.                                                                                            |
+| 15  | Untiered docs under `docs/` stay in the graph?                                                     | (V) | Proposed and accepted: yes. Scope guard Option D needs an explicit extra-path list.                                                                                                                                                                            |
+| 16  | Can migration run before the first guarded build prunes?                                           | (V) | Verified: not today. Options without a prune safety net cannot meet EC7 in consuming projects.                                                                                                                                                                 |
+| 17  | Migration cases                                                                                    | (V) | Resolved (developer): greenfield (nothing), older harness (migrate), already migrated (no-op); idempotent.                                                                                                                                                     |
+| 18  | How the patch migration runs (given `05-patch-apply.md` §2) and which signal detects project state | (V) | Open: resolve at Evaluate Step 1b. All options conditional on it.                                                                                                                                                                                              |
+| 19  | VitePress rewrites vs `srcExclude`; file-relative links under rewrites                             | (V) | Partly verified (VitePress 1.6.4 supports parameterized rewrites). Bundle options 1, 3, 5 conditional on a spike in Evaluate.                                                                                                                                  |
+| 20  | Node 24 `node:sqlite` ALTER support; `path.matchesGlob`                                            | (V) | Verified: SQLite 3.53.3 supports RENAME/DROP COLUMN; `path.matchesGlob` matches `**/index.md`.                                                                                                                                                                 |
 
 ---
 
@@ -110,9 +132,10 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date       | Phase | Notes                                                                                                                                                     |
-| ---------- | ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-17 | Frame | 6 known requirements, 4 proposed requirements accepted (EC7–EC10); 3 decisions confirmed: Frontmatter and graph schema, OKF bundle layout, OG scope guard |
+| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-17 | Frame    | 6 known requirements, 4 proposed requirements accepted (EC7–EC10); 3 decisions confirmed: Frontmatter and graph schema, OKF bundle layout, OG scope guard                                                                                                                                                                                                                             |
+| 2026-11-17 | Research | @product-architect returned options for 4 decisions: D1 Target frontmatter format (A–D, B+ developer direction), D2 Graph schema and migration (5, re-scoped after split), D3 OKF bundle layout (6 incl. developer Option 6 five tier bundles), D4 OG scope guard (A–D). Decision split reworked from 3 to 4 at sign-off; OKF v0.2 spec re-verified; developer confirmed set complete |
 
 ---
 
