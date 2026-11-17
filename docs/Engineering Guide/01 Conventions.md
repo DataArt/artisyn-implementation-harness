@@ -59,10 +59,10 @@ Numbers 04–08 in `Engineering Guide/` are reserved for project-specific articl
 
 **Harness scope is enforced.** A commit that touches `skills/implementation-harness/**`, `skills/.claude-plugin/`, `.claude-plugin/`, `.agents/plugins/`, `.github/plugin/` or `skills.sh.json` must use scope `harness` (the version commit uses `harness-release`). A failure names the files and the fix.
 
-| Where                       | Checks                                    | Skips                             |
-| --------------------------- | ----------------------------------------- | --------------------------------- |
-| `.husky/commit-msg` (local) | Each commit message, against staged files | `Merge …` and `Revert …` subjects |
-| CI (`ci.yml`, `docs-gate`)  | Every commit in the PR range              | Merge commits only                |
+| Where                          | Checks                                    | Skips                             |
+| ------------------------------ | ----------------------------------------- | --------------------------------- |
+| `.husky/commit-msg` (local)    | Each commit message, against staged files | `Merge …` and `Revert …` subjects |
+| CI (`ci-web.yml`, `docs-gate`) | Every commit in the PR range              | Merge commits only                |
 
 CI does not skip reverts, so give a GitHub `Revert "…"` commit that touches harness files a scoped subject (`revert(harness): …`). Neither check sees a squash-merge PR title; on a squash merge the title is what lands on `main` — see `07 Branching Strategy.md`.
 

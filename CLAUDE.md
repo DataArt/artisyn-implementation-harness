@@ -31,7 +31,7 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 | Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
 | Implementation Harness E2E | Test harness validating the `implementation-harness` skill package and the release tooling — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |
 | Log Hub | Opt-in dev tooling: local Log Hub server (Docker Compose) plus a local-scope Claude Code hook capturing session telemetry; no presence in the deployed site | Docker Compose · TypeScript via `tsx` · Nx |
-| Harness Release Pipeline | CI tooling and the repo's only release lane: each PR stamps the harness version (`yarn harness:version`); on push to `main`, `release-harness.yml` builds and attests it; after a reviewer approves the `release` environment, it tags and publishes it to the five channels | GitHub Actions · Nx Release |
+| Harness Release Pipeline | CI tooling and the repo's only release lane: each PR stamps the harness version (`yarn harness:version`); on push to `main`, `deploy-harness.yml` builds and attests it; after a reviewer approves the `release` environment, it tags and publishes it to the five channels | GitHub Actions · Nx Release |
 
 Data flow: Browser → GitHub Pages (static build, deployed by GitHub Actions) — root → Web Explorer, `/docs/` → Web Docs, both composed by Web Portal. Discuss integrates client-side with giscus.app/GitHub Discussions.
 

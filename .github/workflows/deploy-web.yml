@@ -2,8 +2,11 @@ name: Deploy web
 
 # Builds the site (Web Explorer, Web Docs, composed by Web Portal) and deploys it to GitHub Pages.
 # Nx decides what to build: the affected projects of the whole push. When web-portal is not among
-# them (a push that does not touch the site), there is no apps/web-portal/dist and the Pages steps
-# are skipped, so nothing is deployed.
+# them (a push that does not touch the site), there is no apps/web-portal/dist and the deploy job
+# is skipped, so nothing is deployed.
+#
+#   build    environment `web` (the site's build variables): build and upload the Pages artifact
+#   deploy   environment `github-pages`: publish the artifact
 
 on:
   push:
@@ -17,13 +20,14 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    environment: github-pages
+    environment: web
     permissions:
       contents: read
-      pages: write
-      id-token: write
+      actions: read
+    outputs:
+      built: ${{ steps.site.outputs.built }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -31,10 +35,26 @@ jobs:
 
       - uses: ./.github/actions/setup
 
-      # Affected by the whole push (every commit since the previous tip of main), not only its
-      # last commit.
+      # Build what changed since the last successful run, not only this push: the `pages` group
+      # keeps one pending run and replaces it on the next push, and a failed run deploys nothing,
+      # so a site change in a replaced or failed push would otherwise never reach the site.
+      - name: Find the last successful deploy
+        id: base
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ github.event.before }}
+        run: |
+          set -u
+          base="$(gh run list --repo "$GITHUB_REPOSITORY" --workflow deploy-web.yml --branch main \
+            --event push --status success --limit 1 --json headSha --jq '.[0].headSha // empty' || true)"
+          if [ -z "$base" ] || ! git merge-base --is-ancestor "$base" HEAD 2>/dev/null; then
+            echo "::notice::No earlier successful run on this history; building this push's range."
+            base="$BEFORE"
+          fi
+          echo "sha=$base" >> "$GITHUB_OUTPUT"
+
       - name: Build site
-        run: yarn nx affected --target=build --configuration=ci --base=${{ github.event.before }} --head=HEAD
+        run: yarn nx affected --target=build --configuration=ci --base=${{ steps.base.outputs.sha }} --head=HEAD
         env:
           VITE_GITHUB_ORG: ${{ vars.VITE_GITHUB_ORG }}
           VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
@@ -51,17 +71,26 @@ jobs:
             echo "::notice::The site is not affected by this push; nothing to deploy."
           fi
 
-      - name: Configure Pages
-        if: steps.site.outputs.built == 'true'
-        uses: actions/configure-pages@v5
-
       - name: Upload artifact
         if: steps.site.outputs.built == 'true'
         uses: actions/upload-pages-artifact@v4
         with:
           path: apps/web-portal/dist
 
+  deploy:
+    needs: build
+    if: needs.build.outputs.built == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Deploy to GitHub Pages
-        if: steps.site.outputs.built == 'true'
         id: deployment
         uses: actions/deploy-pages@v4

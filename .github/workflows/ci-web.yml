@@ -1,0 +1,99 @@
+name: CI web
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# A new push to a PR cancels the run for the commit it replaces. A push to main gets its own group
+# per commit, so its scan is never cancelled.
+concurrency:
+  group: ci-web-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# Three jobs in parallel on every PR; only gitleaks on a push to main:
+#   build-and-test   audit, lint, typecheck, test and build what changed
+#   docs-gate        install instructions and commit scopes, across the whole repo
+#   gitleaks         secret scan of the full history. The push run catches what reaches main
+#                    without a clean PR scan: a bypass push, or a merge past a red advisory scan.
+jobs:
+  # Required check on `main` (D-17). The `web` environment is the deployment the ruleset requires
+  # and holds the site's build variables; the job deploys nothing.
+  build-and-test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    environment: web
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - name: Audit
+        run: yarn npm audit --all --severity moderate
+
+      - name: Lint (affected)
+        run: yarn nx affected --target=lint --base=origin/${{ github.base_ref }} --head=HEAD
+
+      - name: Typecheck (affected)
+        run: yarn nx affected --target=typecheck --base=origin/${{ github.base_ref }} --head=HEAD
+
+      - name: Test (affected)
+        run: yarn nx affected --target=test --base=origin/${{ github.base_ref }} --head=HEAD
+
+      - name: Build (affected)
+        run: yarn nx affected --target=build --configuration=ci --base=origin/${{ github.base_ref }} --head=HEAD
+        env:
+          VITE_GITHUB_ORG: ${{ vars.VITE_GITHUB_ORG }}
+          VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
+          VITE_GISCUS_REPO_ID: ${{ vars.VITE_GISCUS_REPO_ID }}
+          VITE_GISCUS_CATEGORY_ID: ${{ vars.VITE_GISCUS_CATEGORY_ID }}
+
+  # Required check on `main` (D-17).
+  docs-gate:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - name: Install instructions are pinned and name the skill correctly
+        run: node scripts/check-docs.mjs
+
+      - name: Commits touching the harness use scope harness
+        run: node scripts/check-commit-scope.mjs --range origin/${{ github.base_ref }}..HEAD
+
+  # Runs the MIT gitleaks binary directly: the official gitleaks-action needs a license key for
+  # organization repos.
+  gitleaks:
+    runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: 8.30.1
+      GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install gitleaks
+        run: |
+          set -eu
+          archive="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          curl -fsSL -o "$RUNNER_TEMP/$archive" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/${archive}"
+          echo "${GITLEAKS_SHA256}  $RUNNER_TEMP/$archive" | sha256sum -c -
+          tar -xzf "$RUNNER_TEMP/$archive" -C "$RUNNER_TEMP" gitleaks
+
+      # --all covers every fetched branch, not only this PR: a secret on any branch fails every
+      # scan until it is removed or allowlisted in .gitleaks.toml.
+      - name: Scan the full history
+        run: $RUNNER_TEMP/gitleaks git --config .gitleaks.toml --redact --verbose --no-banner --log-opts="--all" .

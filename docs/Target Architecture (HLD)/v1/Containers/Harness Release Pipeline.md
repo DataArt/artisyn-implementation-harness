@@ -26,7 +26,7 @@ flowchart LR
         VG["✅ version-gate\nversion-harness.mjs --check"]:::source
     end
 
-    subgraph PIPE ["  release-harness.yml — GITHUB_TOKEN only  "]
+    subgraph PIPE ["  deploy-harness.yml — GITHUB_TOKEN only  "]
         BUILD["📦 build (automatic)\ntarball + ZIP + sha256\nattest · run artifact"]:::pipe
         GATE{{"🔒 release (approval)\ntag via API"}}:::gate
         PUB["🚀 publish-github-packages · publish-github\nparallel, each re-runnable"]:::pipe
@@ -58,7 +58,7 @@ flowchart LR
 
 ## Responsibilities
 
-- On the feature branch: compute the version from the latest harness tag and the conventional commits after it (Nx Release; the repository itself is not versioned), stamp every shipped manifest, write the changelog entry (`yarn harness:version`); on every PR, `version-gate` checks the stamp and blocks harness PRs while a release waits for approval
+- On the feature branch: compute the version from the latest harness tag and the conventional commits after it (Nx Release; the repository itself is not versioned), stamp every shipped manifest, write the changelog entry (`yarn harness:version`); on every PR that touches the harness, its tooling or CI, `version-gate` checks the stamp and blocks harness PRs while a release waits for approval
 - On every merge (`build`): when the version is not fully published, build and attest the npm tarball and the Release ZIP + `.sha256` and keep them as a run artifact
 - After approval: `release` creates the tag `artisyn-implementation-harness-v<version>` through the API; then, in parallel, `publish-github-packages` publishes to GitHub Packages and `publish-github` publishes the GitHub Release with the ZIP and `.sha256`
 
@@ -75,6 +75,6 @@ flowchart LR
 - Releases happen only through this pipeline; the manual ZIP flow and the root semantic-release lane are retired
 - Publish requires approval from a required reviewer of the `release` environment; the site deploy (`deploy-web.yml`) is separate and does not wait for it
 - Between merge and approval, the marketplace manifests on `main` pin a tag that does not exist yet, so marketplace and `gh skill` installs of the new version fail in that window (accepted 2026-11-16)
-- The `main` ruleset requires a PR, an up-to-date branch and the `build-and-test`, `version-gate` and `docs-gate` checks, and has no bypass actors
+- Target: the `main` ruleset requires a PR, an up-to-date branch, a deployment to the `web` environment and the `build-and-test`, `docs-gate` (`ci-web.yml`) and `version-gate`, `harness-package`, `harness-unit` (`ci-harness.yml`) checks with source GitHub Actions, and has no bypass actors (D-17 named the first three; extended 2026-11-17). GitHub applies the up-to-date rule only when at least one check is required; on 2026-11-17 the check list was empty and one bypass actor remained, so neither the up-to-date rule nor the no-bypass rule held yet (operation: runbook step 1); `harness-cli` stays advisory so one flaky OS runner cannot block a merge; `ci-harness.yml` starts on every PR and runs its harness checks only when the PR touches the harness, its tooling or CI, so its required checks always report (a skipped job reports success)
 - The developer pushes the version commit (a `GITHUB_TOKEN` push starts no workflows); no workflow commits or pushes to `main`; the pipeline runs only with `GITHUB_TOKEN`, scoped per job, and needs no PAT, GitHub App or ruleset bypass (TD-5, 2026-11-16)
 - Operation: `docs/Engineering Guide/08 Harness Release Runbook.md`. Implementation: `docs/System Architecture (LLD)/Harness Release Pipeline/00. Overview.md`

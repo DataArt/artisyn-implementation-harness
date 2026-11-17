@@ -66,7 +66,7 @@ Nav is 8 fixed items in `config.ts`, pointing into `Harness/` subsections plus a
 - Output: static HTML/CSS/JS in `apps/web-docs/.vitepress/dist/` — copied into `apps/web-portal/dist/docs/` by Web Portal's composition step, which is what `actions/upload-pages-artifact` and `actions/deploy-pages` actually publish. `docs-operational-graph.sqlite` is copied into `dist/` by `config.ts`'s `buildEnd` hook as an additional static output
 - Runtime dependencies: `cytoscape` and `sql.js` render and live-query the operational graph on the Graph Explorer page; the WASM database fetch path is base-aware, resolved via `import.meta.env.BASE_URL`, so it resolves correctly under the `/<repo>/docs/` prefix
 - Guarantee: `web-docs:build` fails the build on any dead internal link, since `ignoreDeadLinks` is not set in `config.ts` (NFR-5)
-- Build-time config values (`VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, giscus repo/category IDs) are resolved at build time from `.env.dev` locally or GitHub Actions repository variables in CI — never read at request time, since the served artifact has no server runtime
+- Build-time config values (`VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, giscus repo/category IDs) are resolved at build time from `.env.dev` locally or the variables of the `web` GitHub Actions environment in CI — never read at request time, since the served artifact has no server runtime
 
 ## Constraints
 

@@ -1,6 +1,6 @@
 ---
 id: bbd79b2b
-purpose: 'Developer/admin runbook for the harness release lane: ruleset checks, the release environment with required reviewers, the baseline tag, the per-PR yarn harness:version step, the automatic build on merge, the approval that starts publish, the publish-npmjs stub and its npmjs.com setup, the first 4.0.0 release and the per-channel smoke checklist'
+purpose: 'Developer/admin runbook for the harness release lane (deploy-harness.yml): ruleset checks and the web environment, the release environment with required reviewers, the baseline tag, the per-PR yarn harness:version step, the automatic build on merge, the approval that starts publish, the publish-npmjs stub and its npmjs.com setup, the first 4.0.0 release and the per-channel smoke checklist'
 keywords:
   [
     release runbook,
@@ -21,12 +21,12 @@ keywords:
 
 # Harness Release Runbook
 
-The harness is versioned in the PR, built on merge and published after a reviewer approves. The developer stamps the version on the feature branch. After the squash merge, `release-harness.yml` builds and attests that version automatically. The `release` job then waits in the `release` environment; once a reviewer approves, it creates the tag, and `publish-github-packages` and `publish-github` publish to every channel at once. It is the repository's only release lane. No workflow commits or pushes to `main`, so releases need no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
+The harness is versioned in the PR, built on merge and published after a reviewer approves. The developer stamps the version on the feature branch. After the squash merge, `deploy-harness.yml` builds and attests that version automatically. The `release` job then waits in the `release` environment; once a reviewer approves, it creates the tag, and `publish-github-packages` and `publish-github` publish to every channel at once. It is the repository's only release lane. No workflow commits or pushes to `main`, so releases need no PAT, no GitHub App and no ruleset bypass (TD-5, agreed 2026-11-16).
 
 ```mermaid
 flowchart TB
     subgraph SETUP ["  One-time setup  "]
-        RS["1️⃣ Ruleset on main\nadd the 3 required checks\nremove the bypass actors"]:::setup
+        RS["1️⃣ Ruleset on main\nadd the 5 required checks\nremove the bypass actors"]:::setup
         ENV["2️⃣ Environment release\nrequired reviewers"]:::setup
         BT["3️⃣ Push the baseline tag\nartisyn-implementation-harness-v3.5.0"]:::setup
     end
@@ -65,30 +65,50 @@ flowchart TB
 
 One ruleset (Settings → Rules → Rulesets) targets the default branch. It already exists; check it against this list and add what is missing:
 
-| Rule                 | Setting                                                                                     | State on 2026-11-16 |
-| -------------------- | ------------------------------------------------------------------------------------------- | ------------------- |
-| Pull request         | 1 approval, approval of the last push, conversations resolved; merge method **squash only** | set                 |
-| Linear history       | required                                                                                    | set                 |
-| Deletion, force push | blocked                                                                                     | set                 |
-| Deployment           | environment `dev` (the `build-and-test` job deploys to it)                                  | set                 |
-| Status checks        | `build-and-test`, `version-gate`, `docs-gate` (job IDs from `ci.yml`); branch up to date    | **empty — add**     |
-| Bypass actors        | none                                                                                        | **remove all**      |
+| Rule                 | Setting                                                                                                                                                                                                                                | State on 2026-11-17                                                                 |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Pull request         | 1 approval, approval of the last push, conversations resolved; merge method **squash only**                                                                                                                                            | set                                                                                 |
+| Linear history       | required                                                                                                                                                                                                                               | set                                                                                 |
+| Deletion, force push | blocked                                                                                                                                                                                                                                | set                                                                                 |
+| Deployment           | environment `web` (the `build-and-test` job deploys to it)                                                                                                                                                                             | set (switched from `dev` at 20:33)                                                  |
+| Status checks        | `build-and-test`, `docs-gate` (`ci-web.yml`); `version-gate`, `harness-package`, `harness-unit` (`ci-harness.yml`); each with source **GitHub Actions**; branch up to date. Not `harness-cli (<os>)` or `gitleaks`: they stay advisory | **empty — add**; "branch up to date" is set but not applied while the list is empty |
+| Bypass actors        | none                                                                                                                                                                                                                                   | **one left, mode "always" — remove**                                                |
+
+The same day, GitHub native secret scanning and push protection were disabled on the repository (Settings → Code security). They are free on a public repository and block a push that carries a secret; the `gitleaks` push scan only detects one after the fact. Enabling them is the developer's call (see the cutover list).
+
+**The `web` environment.** `web` has no protection rules. It is the deployment the ruleset requires, and it holds the variables `VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, `VITE_GISCUS_REPO_ID` and `VITE_GISCUS_CATEGORY_ID` that `ci-web.yml` and `deploy-web.yml` build the site with (values: [Giscus Setup](./Infrastructure/04%20Giscus%20Setup.md)). Move to it in this order, around the merge that brings in `ci-web.yml`:
+
+1. Create `web` with the four variables. Done on 2026-11-17.
+2. Merge or update every open PR you can before the switch (see below).
+3. Switch the ruleset's required deployment from `dev` to `web`. Done on 2026-11-17 at 20:33.
+4. Add the five required checks, and set each check's source to **GitHub Actions**. Without a source, anyone with write access can post a commit status with the same name and turn the check green. Add them only once no open PR still runs the old `ci.yml`: `harness-unit` does not exist there, so requiring it blocks a PR such as #18 until it merges or gets a fresh run. Until the checks exist, GitHub does not apply "branch up to date" either (it needs at least one required check), so the "Two PRs, one version" protection in step 4 is off.
+5. Only if a trusted publisher was ever configured for the package on npmjs.com: point it at `deploy-harness.yml` (step 6). `publish-npmjs` is still a stub, so usually there is nothing to change.
+6. After the merge, delete the repository-level `VITE_*` variables and the `dev` environment. Its variables were unused AWS leftovers.
+7. The developer's action, not yet done: enable GitHub native secret scanning and push protection (Settings → Code security).
+
+**PRs opened before the switch.** Now that the ruleset requires `web`, a PR whose last run used the old workflow has only a `dev` deployment, and the merge is blocked; once the checks are added it also lacks `harness-unit`. **Re-run** does not fix it: a re-run uses the workflow definition of that run and deploys to `dev` again. Give the PR a new run on the new workflows: update it from `main` and push, or close and reopen it.
+
+On 2026-11-17, `web` existed with its variables and the ruleset required it; the repository-level `VITE_*` variables and `dev` still existed, and the required-check list was still empty. `main` still ran the old `ci.yml`, which deploys to `dev`, so until this change merges every PR other than this one is blocked; PR #18 showed "blocked".
+
+D-17 named three required checks; on 2026-11-17 the set was extended with `harness-package` and `harness-unit`. Like `version-gate`, both run on harness PRs (and when `changes` fails) and are skipped on other PRs, where a skipped job reports success.
 
 The ruleset needs no bypass actors. No workflow pushes to `main`, and branch rulesets do not cover tags, packages or releases, so `GITHUB_TOKEN` can create the tag through the API, publish and create the Release.
 
-On 2026-11-16 the live ruleset listed two bypass actors: the GitHub Actions app and the user who owned the old release PAT. Remove both.
+On 2026-11-16 the live ruleset listed two bypass actors: the GitHub Actions app and the user who owned the old release PAT. On 2026-11-17 one remained, with bypass mode "always". Remove all of them. Until then a bypass push skips every PR check; the `gitleaks` job of `ci-web.yml` detects a secret in it on push to `main`, but only after the fact: the repository is public, so the secret is exposed at once ([09 CI-CD](./09%20CI-CD.md)).
 
-The release needs no secret. The old flow used a `HARNESS_RELEASE_TOKEN` secret and a `HARNESS_RELEASE_BOT` variable; nothing reads them now. Delete the secret if it was created; leave the variable unset.
+The release needs no secret. The old flow used a `HARNESS_RELEASE_TOKEN` secret and a `HARNESS_RELEASE_BOT` variable; nothing reads them now. The secret was deleted on 2026-11-17; leave the variable unset. Deleting the secret does not revoke the token behind it: its owner revokes it under Settings → Developer settings → Personal access tokens.
 
 ## 2. The `release` environment
 
 The `release` job runs in the environment `release`; its required reviewers are the approval gate. Create it before PR #20 merges. If it does not exist, GitHub creates it on first use with no protection, and the release runs without approval.
 
-| Setting (Settings → Environments → `release`) | Value                                          |
-| --------------------------------------------- | ---------------------------------------------- |
-| Required reviewers                            | The maintainers who may release the harness    |
-| Prevent self-review                           | Optional: the person who merged cannot approve |
-| Deployment branches and tags                  | Optional: selected branches, `main` only       |
+| Setting (Settings → Environments → `release`) | Value                                           |
+| --------------------------------------------- | ----------------------------------------------- |
+| Required reviewers                            | The maintainers who may release the harness     |
+| Prevent self-review                           | Optional: the person who merged cannot approve  |
+| Deployment branches and tags                  | Selected branches, `main` only (set 2026-11-17) |
+
+The branch rule matters because `deploy-harness.yml` can be started by hand from any branch. Without it, an approved run from a branch would tag that branch's commit and publish its version. With it, a run from any other branch fails before anyone is asked to approve.
 
 Also recommended: enable immutable releases (Settings → General → Releases). The `publish-github` job creates the Release as a draft, uploads the ZIP and `.sha256`, and only then publishes it, so the assets are in place before the Release becomes immutable.
 
@@ -122,13 +142,13 @@ Then push like any other commit. `scripts/release/version-harness.mjs` does the 
 
 The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` starts no workflows, so the PR head would have no checks. The ruleset also requires approval of the last push.
 
-`version-gate` in `ci.yml` runs `node scripts/release/version-harness.mjs --check` (full history, `fetch-depth: 0`). It fails when:
+`version-gate` in `ci-harness.yml` runs `node scripts/release/version-harness.mjs --check` (full history, `fetch-depth: 0`) on every PR that touches the harness paths of its `changes` job; on other PRs it is skipped. It fails when:
 
 - the branch is not stamped with the computed version;
 - the changelog has no entry for that version;
 - the changelog has an entry for a version this branch does not release.
 
-**Two PRs, one version.** The ruleset requires the branch to be up to date. When two PRs claim the same version, the first merges and, once approved, gets the tag; the second must update from `main` and re-run `yarn harness:version`. The tag exists only after approval, so while a release waits, `version-gate` fails every PR that changes the harness: `main` carries a version that is not released yet. Approve the waiting release, then re-run the check and `yarn harness:version`. PRs that don't touch the harness are not blocked. As a backstop, the `build` and `release` jobs stop when the version's tag already exists and the commit changes the harness after it.
+**Two PRs, one version.** The ruleset requires the branch to be up to date (GitHub applies this only once at least one required check exists; see step 1, cutover item 4). When two PRs claim the same version, the first merges and, once approved, gets the tag; the second must update from `main` and re-run `yarn harness:version`. The tag exists only after approval, so while a release waits, `version-gate` fails every PR that changes the harness: `main` carries a version that is not released yet. Approve the waiting release, then re-run the check and `yarn harness:version`. PRs that don't touch the harness are not blocked. As a backstop, the `build` and `release` jobs stop when the version's tag already exists and the commit changes the harness after it.
 
 **Plugin and marketplace changes.** Nx Release counts only commits that touch `skills/implementation-harness/`. A PR that changes only `skills/.claude-plugin/plugin.json` or a marketplace file gets no new version. Hosts still read `main`'s marketplace files, and those point at the release tag. So ship a plugin layout or marketplace source change in a harness release: include a real `fix(harness)` or `feat(harness)` change inside the package. Otherwise hosts fetch a tag that does not match the new layout.
 
@@ -181,7 +201,7 @@ Until approval, the marketplace manifests on `main` pin a tag that does not exis
 **npmjs.com (future).** `publish-npmjs` is not a channel. The harness still ships through five channels, and npm installs come from GitHub Packages. To make the job publish:
 
 1. The `@dataart` scope exists on npmjs.com, owned by DataArt.
-2. This repository and `release-harness.yml` are a trusted publisher of the package on npmjs.com. No token is stored: the job gets `id-token: write` and publishes with provenance.
+2. This repository and `deploy-harness.yml` are a trusted publisher of the package on npmjs.com. The setting names the workflow file, so it must say `deploy-harness.yml`. If a publisher was ever set up under the old `release-harness.yml` name, update it. No token is stored: the job gets `id-token: write` and publishes with provenance.
 3. The job publishes to `https://registry.npmjs.org`, overriding the package's `publishConfig` registry (GitHub Packages) for that job only.
 
 Then update the distribution docs and the smoke checklist (step 8).
