@@ -44,7 +44,11 @@
     "build": {
       "executor": "nx:run-commands",
       "cache": true,
-      "inputs": ["default", "^default"],
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/skills/implementation-harness/package.json"
+      ],
       "outputs": ["{projectRoot}/dist"],
       "options": {
         "command": "bash scripts/ci/web-explorer-build.sh"

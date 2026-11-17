@@ -23,6 +23,7 @@ export default function Header() {
           <SectionLink id="capabilities">Capabilities</SectionLink>
           <Link to="/inside-the-loop">Inside the loop</Link>
           <Link to="/docs-flow">Docs flow</Link>
+          <Link to="/get-started">Get started</Link>
           <a href={docsUrl} target="_blank" rel="noopener noreferrer">
             Docs <ArrowUpRight size={13} />
           </a>
