@@ -96,8 +96,6 @@ copilot plugin marketplace add DataArt/artisyn-implementation-harness
 copilot plugin install artisyn@dataart
 ```
 
-The Codex and Copilot steps are not yet verified on a real host (see Known limits).
-
 ## 4. npmjs.com (available soon)
 
 The package is not published to npmjs.com yet. Once it is, no token or `.npmrc` is needed.
@@ -182,7 +180,6 @@ To check the install itself, run the install CLI's `doctor` (channels 4–6): it
 
 ## Known limits
 
-- The Codex and Copilot CLI marketplace entries are not yet verified on a real host. Report problems as an issue on `DataArt/artisyn-implementation-harness`.
 - On Windows, keep the project path short. Paths inside the package reach about 165 characters; the Windows limit is 260.
 
 ## Verifying a download

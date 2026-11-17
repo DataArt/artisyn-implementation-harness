@@ -107,7 +107,7 @@ The harness ships through five channels; only the npm channel needs a token.
 | 4   | `gh skill`                                                                          | No token              |
 | 5   | GitHub Release ZIP, with `.sha256` and a build attestation                          | No token              |
 
-The marketplace and `gh skill` channels read the repository at the release tag. skills.sh installs from the default branch and records the commit it resolved at install time. npm and the ZIP are artifacts the release workflow publishes. Codex and Copilot CLI marketplace values follow the official host documentation and are not yet verified on a real host.
+The marketplace and `gh skill` channels read the repository at the release tag. skills.sh installs from the default branch and records the commit it resolved at install time. npm and the ZIP are artifacts the release workflow publishes. Codex and Copilot CLI marketplace values follow the official host documentation.
 
 Curated third-party directories are not a channel.
 
