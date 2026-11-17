@@ -49,9 +49,10 @@ project answers, secrets, or personalized baselines as canonical payloads.
 ## Versioning
 
 The package follows semver. `package.json` in the package folder is the one version source.
-A release stamps it into `SKILL.md` (`metadata.version`), the plugin manifest and both
-marketplace files, and a CI gate fails on any mismatch, so do not edit those versions by
-hand. `CHANGELOG.md` is generated from conventional commits with scope `harness`, below its
+A release stamps it into `SKILL.md` (`metadata.version`), the plugin manifest and the three
+marketplace files (Claude, Codex, Copilot), and a CI gate fails on any mismatch, so do not
+edit those versions by hand. The plugin root is the source repository's `skills/` folder, so
+a marketplace install holds only this package, not the repository. `CHANGELOG.md` is generated from conventional commits with scope `harness`, below its
 curated-history line. A breaking change, such as a rename or a state move, raises the major
 version. Commits that touch the package use scope `harness` so the repository's own release
 ignores them.

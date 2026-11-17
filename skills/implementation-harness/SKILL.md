@@ -1,7 +1,7 @@
 ---
 name: implementation-harness
 metadata:
-  version: 4.0.1
+  version: 4.0.2
 description: >
   Install the portable AI-dev harness, rebuild its operational graph standalone,
   harvest project skill improvements into its canonical templates, package direct

@@ -25,8 +25,10 @@ describe('release-harness.yml', () => {
   it('starts only for the package, its channel manifests or itself, or by hand', () => {
     assert.deepEqual(doc.on.push.paths, [
       'skills/implementation-harness/**',
+      'skills/.claude-plugin/**',
       '.claude-plugin/**',
       '.agents/plugins/**',
+      '.github/plugin/**',
       'skills.sh.json',
       '.github/workflows/release-harness.yml',
     ]);
@@ -40,8 +42,10 @@ describe('release-harness.yml', () => {
     );
     for (const prefix of [
       'skills\\/implementation-harness\\/',
+      'skills\\/\\.claude-plugin\\/',
       '\\.claude-plugin\\/',
       '\\.agents\\/plugins\\/',
+      '\\.github\\/plugin\\/',
       'skills\\.sh\\.json',
     ])
       assert.ok(scope.includes(prefix), prefix);

@@ -24,8 +24,10 @@ on:
     branches: [main]
     paths:
       - 'skills/implementation-harness/**'
+      - 'skills/.claude-plugin/**'
       - '.claude-plugin/**'
       - '.agents/plugins/**'
+      - '.github/plugin/**'
       - 'skills.sh.json'
       - '.github/workflows/release-harness.yml'
   workflow_dispatch:

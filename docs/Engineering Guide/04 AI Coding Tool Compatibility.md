@@ -38,7 +38,7 @@ skills folder. See `docs/Harness/09 Distribution/01 Install.md` for the per-chan
 The Copilot column comes from the canonical manifest
 (`skills/implementation-harness/canonical/manifest.json`, provider `copilot`). The manifest
 paths and the Copilot reading of the marketplace manifest follow the official host
-documentation. Neither is verified on a real Copilot CLI host yet.
+documentation.
 
 Shared documentation is written once for every selected provider. Where a doc shows a
 command, it uses a leading skill-invocation prefix — `/` in Claude, `$` in Codex — and

@@ -1,0 +1,68 @@
+/* Get Started page — gs- prefix, same reasoning as the other lazily loaded
+   page styles: unscoped rules from inside-the-loop.css stay active after a
+   visitor returns from that route. */
+
+.gs-page{padding:40px 28px 90px;max-width:1200px}
+
+/* Config panel */
+.gs-config{position:relative;display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:0;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.gs-config-group{padding:22px 24px 24px;min-width:0}
+.gs-config-group+.gs-config-group{border-left:1px solid var(--line)}
+.gs-config-head{display:flex;gap:12px;align-items:center;color:var(--accent);margin-bottom:16px}
+.gs-config-head strong{color:var(--ink);font-size:16px;letter-spacing:-.015em}
+.gs-toggles{display:flex;flex-wrap:wrap;gap:8px}
+.gs-toggle{display:inline-flex;align-items:center;gap:7px;border:1px solid #313B48;border-radius:9px;padding:10px 14px;background:var(--surface2);color:#C3CEDA;font-size:13px;font-weight:620;transition:border-color .15s,color .15s,background .15s}
+.gs-toggle:hover{border-color:#5A6778;color:#fff}
+.gs-toggle.is-active{border-color:var(--accent);color:#fff;background:rgba(124,108,240,.14);box-shadow:0 0 0 1px var(--accent) inset,0 0 18px rgba(124,108,240,.18)}
+.gs-toggle em{font-style:normal;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:#EBBE6E;border:1px solid rgba(235,190,110,.4);border-radius:5px;padding:1px 5px}
+
+/* Version + share chips, pinned to the config panel's top-right corner */
+.gs-corner{position:absolute;top:12px;right:12px;display:flex;gap:6px}
+.gs-chip{display:inline-flex;align-items:center;gap:5px;border:1px solid #313B48;border-radius:6px;padding:4px 8px;background:var(--surface2);color:var(--muted);font-size:11px;font-weight:600;white-space:nowrap;transition:border-color .15s,color .15s}
+.gs-chip:hover{border-color:var(--accent);color:var(--accent)}
+.gs-version{font-family:"JetBrains Mono",SFMono-Regular,Consolas,monospace}
+.gs-share.is-copied{border-color:#1F8F7E;color:var(--accent2)}
+
+/* Steps */
+.gs-steps{margin-top:44px;display:flex;flex-direction:column}
+.gs-step{display:grid;grid-template-columns:54px 110px minmax(0,1fr);gap:0 24px;padding-bottom:10px}
+.gs-step-rail{display:flex;flex-direction:column;align-items:center;gap:10px}
+.gs-step-num{flex:0 0 auto;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(124,108,240,.18);border:1px solid var(--accent);color:#CFC8FF;font-size:13px;font-weight:750;font-variant-numeric:tabular-nums}
+.gs-step-line{flex:1;width:1px;background:linear-gradient(180deg,var(--accent),#27313D)}
+.gs-step:last-child .gs-step-line{display:none}
+.gs-step-icon{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;background:var(--surface2);border:1px solid #333E4D;color:#CBD6E2;margin-bottom:14px}
+.gs-step-info{display:flex;flex-direction:column;align-items:center;text-align:center}
+.gs-step-info h3{font-size:24px;letter-spacing:-.03em;margin:0}
+.gs-step-cards{display:flex;flex-direction:column;gap:14px;padding-bottom:30px;min-width:0}
+
+/* Command card */
+.gs-card{border:1px solid #2B3542;border-radius:12px;background:#0D131B;overflow:hidden}
+.gs-card-top{display:flex;align-items:center;gap:9px;padding:12px 18px;border-bottom:1px solid #222D3A;background:#121A25;font-size:12px;color:#9FAEC0;font-weight:600}
+.gs-card-top svg{color:var(--accent)}
+.gs-card-body{display:flex;align-items:center;gap:14px;padding:16px 18px}
+.gs-code{flex:1;min-width:0;margin:0;font-size:13px;line-height:1.9;color:#DCE4EC;white-space:pre-wrap;overflow-wrap:anywhere}
+.gs-code-head{color:var(--accent);font-weight:700}
+.gs-copy{flex:0 0 auto;align-self:flex-start;display:inline-flex;align-items:center;gap:6px;border:1px solid #3B3268;border-radius:7px;padding:8px 11px;background:#1E1A33;color:var(--accent);font-size:12px;transition:border-color .15s,color .15s}
+.gs-copy:hover{border-color:var(--accent)}
+.gs-copy.is-copied{color:var(--accent2);border-color:#1F8F7E;background:#0F2A26}
+.gs-card-note{margin:0;padding:11px 18px 13px;border-top:1px solid #222D3A;font-size:12.5px;line-height:1.6;color:#8FA0B1}
+
+.gs-version-note{margin-top:8px;font-size:13px;color:var(--muted)}
+.gs-version-note a{color:var(--accent);font-weight:650}
+.gs-version-note code{color:#DCE4EC}
+
+@media(max-width:800px){
+  .gs-config{grid-template-columns:1fr}
+  .gs-config-group+.gs-config-group{border-left:0;border-top:1px solid var(--line)}
+}
+@media(max-width:700px){
+  .gs-page{padding:40px 18px 70px}
+  .gs-corner{position:static;justify-content:flex-end;padding:12px 12px 0}
+  .gs-step{grid-template-columns:1fr;gap:0}
+  .gs-step-rail{flex-direction:row;grid-row:auto;margin-bottom:14px}
+  .gs-step-line{width:auto;flex:1;height:1px;background:linear-gradient(90deg,var(--accent),#27313D)}
+  .gs-step-info{grid-column:1;align-items:flex-start;text-align:left}
+  .gs-step-cards{grid-column:1}
+  .gs-card-body{flex-direction:column;align-items:stretch}
+  .gs-copy{align-self:flex-end}
+}

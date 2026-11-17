@@ -22,6 +22,10 @@ const Comic = lazy(() => import('./pages/comic/Comic'));
 // Also lazy: pulls in @xyflow/react, same reasoning as InsideTheLoopRoutes.
 const DocsFlow = lazy(() => import('./pages/docs-flow/DocsFlow'));
 
+// Also lazy: keeps the install-guide configurator and its command matrix out
+// of the landing chunk.
+const GetStarted = lazy(() => import('./pages/get-started/GetStarted'));
+
 // HashRouter, not BrowserRouter: this app is served as a static artifact
 // (composed by Web Portal — see docs/Target Architecture (HLD)/v1/Containers/
 // Web Portal.md) with no server to rewrite a deep link like /inside-the-loop
@@ -45,6 +49,14 @@ createRoot(document.getElementById('root')!).render(
           element={
             <Suspense fallback={null}>
               <Comic />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/get-started"
+          element={
+            <Suspense fallback={null}>
+              <GetStarted />
             </Suspense>
           }
         />

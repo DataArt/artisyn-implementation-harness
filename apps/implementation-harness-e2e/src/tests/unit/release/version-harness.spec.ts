@@ -45,9 +45,14 @@ function repo(released: string) {
     [PACKAGE_JSON]: JSON.stringify({ name: '@dataart/x', version: released }, null, 2) + '\n',
     [CHANGELOG]: '# Curated history (3.5.0 and earlier)\n\n## 3.5.0\n\n- by hand\n',
     'skills/implementation-harness/SKILL.md': skillMd(released),
-    '.claude-plugin/plugin.json': JSON.stringify({ name: 'artisyn', version: released }, null, 2),
+    'skills/.claude-plugin/plugin.json': JSON.stringify(
+      { name: 'artisyn', version: released },
+      null,
+      2
+    ),
     '.claude-plugin/marketplace.json': marketplace(released),
     '.agents/plugins/marketplace.json': marketplace(released),
+    '.github/plugin/marketplace.json': marketplace(released),
   });
   git(root, ['init', '-q']);
   git(root, ['add', '-A']);

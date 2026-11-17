@@ -57,7 +57,7 @@ Numbers 04–08 in `Engineering Guide/` are reserved for project-specific articl
 
 `<type>(<scope>): <what changed>` — types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `revert`. Scope is the app or layer. Message explains the _why_, not the _what_.
 
-**Harness scope is enforced.** A commit that touches `skills/implementation-harness/**`, `.claude-plugin/`, `.agents/plugins/` or `skills.sh.json` must use scope `harness` (the version commit uses `harness-release`). A failure names the files and the fix.
+**Harness scope is enforced.** A commit that touches `skills/implementation-harness/**`, `skills/.claude-plugin/`, `.claude-plugin/`, `.agents/plugins/`, `.github/plugin/` or `skills.sh.json` must use scope `harness` (the version commit uses `harness-release`). A failure names the files and the fix.
 
 | Where                       | Checks                                    | Skips                             |
 | --------------------------- | ----------------------------------------- | --------------------------------- |

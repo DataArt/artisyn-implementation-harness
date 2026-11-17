@@ -25,8 +25,10 @@ const root = path.resolve(values.root ?? process.cwd());
 
 const HARNESS_PATHS = [
   /^skills\/implementation-harness\//,
+  /^skills\/\.claude-plugin\//,
   /^\.claude-plugin\//,
   /^\.agents\/plugins\//,
+  /^\.github\/plugin\//,
   /^skills\.sh\.json$/,
 ];
 const ALLOWED_SCOPES = new Set(['harness', 'harness-release']);

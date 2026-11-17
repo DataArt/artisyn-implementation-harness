@@ -44,24 +44,28 @@ Anthropic's research, [Harness design for long-running application development](
 
 This repo is built at the full-harness end of that spectrum, deliberately. It is not the right tool for a single quick throwaway prompt — reach for this when the work spans multiple tickets, multiple contributors, or a codebase that needs to stay coherent over time.
 
+## Install in your project
+
+The harness ships as one package, `implementation-harness`, through six channels. Pick one; they
+all install the same thing, and its state lives in your project's `.harness/state/`. Run these in
+the project that installs the harness (inside this repo, use `yarn`).
+
+| Channel                    | Install                                                                                                                                             | Needs                        |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------- |
+| skills.sh (available soon) | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness`                                                              | nothing                      |
+| gh skill                   | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v4.0.0 --scope project`              | GitHub CLI                   |
+| Claude plugin marketplace  | `claude plugin marketplace add DataArt/artisyn-implementation-harness --scope project` then `claude plugin install artisyn@dataart --scope project` | Claude Code                  |
+| npmjs.com (available soon) | `npx @dataart/artisyn-implementation-harness@4.0.0 init`                                                                                            | nothing                      |
+| GitHub Packages (npm)      | `npx @dataart/artisyn-implementation-harness@4.0.0 init`                                                                                            | a token with `read:packages` |
+| Release ZIP                | download the ZIP and its `.sha256` from the [v4.0.0 release](https://github.com/DataArt/artisyn-implementation-harness/releases), verify, unzip     | nothing                      |
+
+Then run `/implementation-harness launch` (from the marketplace: `/artisyn:implementation-harness launch`).
+The [install guide](<docs/Harness/09 Distribution/01 Install.md>) has each channel step by step, how
+to verify a download, and how to update.
+
 ## How to work with it
 
 New here? Run `@onboarding` inside Claude Code — a conversational, read-only walkthrough that orients you without running any commands.
-
-Bring the harness into a new project — install through any channel, then launch. Via the plugin marketplace:
-
-```bash
-claude plugin marketplace add DataArt/artisyn-implementation-harness
-claude plugin install artisyn@dataart
-```
-
-then run `/artisyn:implementation-harness launch`. Or via the npm install CLI (GitHub Packages, `read:packages` token):
-
-```bash
-npx @dataart/artisyn-implementation-harness init
-```
-
-then run `/implementation-harness launch`. These are consumer-side commands, run in the project that installs the harness; inside this repo, use `yarn`. All five channels (incl. the anonymous Release ZIP) are in [docs/Harness/09 Distribution](<docs/Harness/09 Distribution/index.md>).
 
 Run a ticket through the harness:
 
