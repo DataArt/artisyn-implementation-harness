@@ -10,7 +10,7 @@
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/DataArt/artisyn-implementation-harness",
-        "path": ".",
+        "path": "skills",
         "ref": "artisyn-implementation-harness-v4.0.1"
       }
     }

@@ -100,7 +100,7 @@ Nx computes each version from the latest `artisyn-implementation-harness-v*` tag
 git push origin artisyn-implementation-harness-v3.5.0
 ```
 
-The release workflow has no enable switch: it runs on a push to `main` that touches `skills/implementation-harness/`, `.claude-plugin/`, `.agents/plugins/`, `skills.sh.json` or the workflow itself (a site-only merge starts nothing), or a manual run. Finish steps 1 to 3 before the first harness PR merges.
+The release workflow has no enable switch: it runs on a push to `main` that touches `skills/implementation-harness/`, `skills/.claude-plugin/`, `.claude-plugin/`, `.agents/plugins/`, `.github/plugin/`, `skills.sh.json` or the workflow itself (a site-only merge starts nothing), or a manual run. Finish steps 1 to 3 before the first harness PR merges.
 
 ## 4. Every harness PR: `yarn harness:version`
 
@@ -129,6 +129,8 @@ The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` s
 - the changelog has an entry for a version this branch does not release.
 
 **Two PRs, one version.** The ruleset requires the branch to be up to date. When two PRs claim the same version, the first merges and, once approved, gets the tag; the second must update from `main` and re-run `yarn harness:version`. The tag exists only after approval, so while a release waits, `version-gate` fails every PR that changes the harness: `main` carries a version that is not released yet. Approve the waiting release, then re-run the check and `yarn harness:version`. PRs that don't touch the harness are not blocked. As a backstop, the `build` and `release` jobs stop when the version's tag already exists and the commit changes the harness after it.
+
+**Plugin and marketplace changes.** Nx Release counts only commits that touch `skills/implementation-harness/`. A PR that changes only `skills/.claude-plugin/plugin.json` or a marketplace file gets no new version. Hosts still read `main`'s marketplace files, and those point at the release tag. So ship a plugin layout or marketplace source change in a harness release: include a real `fix(harness)` or `feat(harness)` change inside the package. Otherwise hosts fetch a tag that does not match the new layout.
 
 **Squash title.** The version comes from the PR's own commits, which husky and the CI scope check (`check-commit-scope.mjs --range`) both check. The squash title no longer decides the version. Still give it a `harness`-scoped Conventional Commit subject, so harness changes stand apart in history and the changelog.
 
@@ -204,8 +206,8 @@ In a scratch consumer project (not this repo), after `publish-github-packages` a
 | npm (GitHub Packages) | `.npmrc` scope + `read:packages` token, then `npx @dataart/artisyn-implementation-harness init` places the package and prints the launch command                                                                                                                                  |
 | ZIP                   | Download `artisyn-implementation-harness-v4.0.0.zip` + `.sha256` from the tag's Release, verify the checksum, install (unzip or the bundled CLI `init`)                                                                                                                           |
 | Claude                | `claude plugin marketplace add DataArt/artisyn-implementation-harness --scope project` → `claude plugin install artisyn@dataart --scope project` → `/artisyn:implementation-harness launch` responds                                                                              |
-| Codex                 | Install `artisyn` from the Codex marketplace — the manifest values (`policy.authentication: NONE`, `git-subdir` source) are unverified on a real host; confirm them here                                                                                                          |
-| Copilot CLI           | Install via the Copilot marketplace flow — Copilot's reading of the Claude manifest is unverified on a real host; confirm it here                                                                                                                                                 |
+| Codex                 | Install `artisyn` from the Codex marketplace — the manifest values (`policy.authentication: NONE`, `git-subdir` source with `path: "skills"`) are unverified on a real host; confirm them here                                                                                    |
+| Copilot CLI           | Install via the Copilot marketplace flow — Copilot reads `.github/plugin/marketplace.json` (`github` source with `path: "skills"`); this is unverified on a real host; confirm it here                                                                                            |
 | skills.sh             | `npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness` installs exactly that skill                                                                                                                                                                |
 | Attestations          | `gh attestation verify artisyn-implementation-harness-v4.0.0.zip --repo DataArt/artisyn-implementation-harness` passes; so does the npm tarball fetched with `npm pack @dataart/artisyn-implementation-harness@4.0.0` (the release job already proved it is the attested tarball) |
 | gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v4.0.0 --scope project` (pinned form only)                                                                                                                         |

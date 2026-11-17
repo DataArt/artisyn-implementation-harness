@@ -41,7 +41,12 @@ describe('check-commit-scope.mjs: message mode (commit-msg hook)', () => {
   });
 
   it('treats the plugin manifests as harness files too', () => {
-    for (const file of ['.claude-plugin/plugin.json', '.agents/plugins/marketplace.json']) {
+    for (const file of [
+      'skills/.claude-plugin/plugin.json',
+      '.claude-plugin/marketplace.json',
+      '.agents/plugins/marketplace.json',
+      '.github/plugin/marketplace.json',
+    ]) {
       assert.equal(checkMessage('feat(web-docs): x', [file]).status, 1, file);
     }
   });

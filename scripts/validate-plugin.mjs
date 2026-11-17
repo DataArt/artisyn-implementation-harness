@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /** Validate the plugin and marketplace manifests with `claude plugin validate`, strictly.
  *
- * `--strict` alone cannot pass here: the repo root is the plugin root and holds a CLAUDE.md, which
- * the validator warns about. That one warning is expected. Every other warning and every error
- * fails the run. Set CLAUDE_CMD to run the validator another way, for example
- * `yarn dlx --quiet -p @anthropic-ai/claude-code claude`.
+ * The plugin root is `skills/`, so a marketplace install copies only the harness skill, not the
+ * repository. Every warning and every error fails the run. Set CLAUDE_CMD to run the validator
+ * another way, for example `yarn dlx --quiet -p @anthropic-ai/claude-code claude`.
  */
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
@@ -16,13 +15,7 @@ const root = path.resolve(
   values.root ?? path.join(path.dirname(fileURLToPath(import.meta.url)), '..')
 );
 const [bin, ...baseArgs] = (process.env.CLAUDE_CMD ?? 'claude').split(/\s+/).filter(Boolean);
-const TARGETS = ['.', '.claude-plugin/plugin.json'];
-
-const EXPECTED_WARNINGS = [{ path: 'root', includes: 'CLAUDE.md at the plugin root' }];
-const isExpected = (warning) =>
-  EXPECTED_WARNINGS.some(
-    (entry) => warning.path === entry.path && String(warning.message).includes(entry.includes)
-  );
+const TARGETS = ['.', 'skills', '.github/plugin/marketplace.json'];
 
 function validate(target) {
   const run = spawnSync(bin, [...baseArgs, 'plugin', 'validate', '--json', target], {
@@ -46,8 +39,7 @@ function validate(target) {
     for (const error of section.errors ?? [])
       failures.push(`${target}: error in ${label}: ${error.message ?? JSON.stringify(error)}`);
     for (const warning of section.warnings ?? [])
-      if (!isExpected(warning))
-        failures.push(`${target}: warning in ${label}: ${warning.path}: ${warning.message}`);
+      failures.push(`${target}: warning in ${label}: ${warning.path}: ${warning.message}`);
   }
   if (report.success === false && failures.length === 0)
     failures.push(`${target}: validator reported failure`);

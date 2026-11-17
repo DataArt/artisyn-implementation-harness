@@ -21,7 +21,27 @@ const claudeMarketplace = (version: string, ref: string) =>
         {
           name: 'artisyn',
           version,
-          source: { source: 'github', repo: 'DataArt/artisyn-implementation-harness', ref },
+          source: {
+            source: 'git-subdir',
+            url: 'https://github.com/DataArt/artisyn-implementation-harness',
+            path: 'skills',
+            ref,
+          },
+        },
+      ],
+    },
+    null,
+    2
+  );
+const copilotMarketplace = (version: string, ref: string) =>
+  JSON.stringify(
+    {
+      name: 'dataart',
+      plugins: [
+        {
+          name: 'artisyn',
+          version,
+          source: { source: 'github', repo: 'DataArt/r', path: 'skills', ref },
         },
       ],
     },
@@ -36,7 +56,7 @@ const codexMarketplace = (version: string, ref: string) =>
         {
           name: 'artisyn',
           version,
-          source: { source: 'git-subdir', url: 'https://example.test/r', path: '.', ref },
+          source: { source: 'git-subdir', url: 'https://example.test/r', path: 'skills', ref },
         },
       ],
     },
@@ -52,9 +72,14 @@ function project(packageVersion: string, stamped: string) {
       version: packageVersion,
     }),
     'skills/implementation-harness/SKILL.md': skillMd('implementation-harness', stamped),
-    '.claude-plugin/plugin.json': JSON.stringify({ name: 'artisyn', version: stamped }, null, 2),
+    'skills/.claude-plugin/plugin.json': JSON.stringify(
+      { name: 'artisyn', version: stamped },
+      null,
+      2
+    ),
     '.claude-plugin/marketplace.json': claudeMarketplace(stamped, TAG(stamped)),
     '.agents/plugins/marketplace.json': codexMarketplace(stamped, TAG(stamped)),
+    '.github/plugin/marketplace.json': copilotMarketplace(stamped, TAG(stamped)),
   });
   return root;
 }
@@ -74,8 +99,12 @@ describe('stamp-harness-version.mjs', () => {
       assert.ok(text.includes('Body stays.'));
       assert.ok(text.includes('description: test skill'));
     }
-    assert.equal(readJson(root, '.claude-plugin/plugin.json').version, '4.0.0');
-    for (const rel of ['.claude-plugin/marketplace.json', '.agents/plugins/marketplace.json']) {
+    assert.equal(readJson(root, 'skills/.claude-plugin/plugin.json').version, '4.0.0');
+    for (const rel of [
+      '.claude-plugin/marketplace.json',
+      '.agents/plugins/marketplace.json',
+      '.github/plugin/marketplace.json',
+    ]) {
       const entry = readJson(root, rel).plugins[0];
       assert.equal(entry.version, '4.0.0', rel);
       assert.equal(entry.source.ref, TAG('4.0.0'), rel);
@@ -100,7 +129,10 @@ describe('stamp-harness-version.mjs', () => {
       'plugin.json',
       (r) =>
         writeAll(r, {
-          '.claude-plugin/plugin.json': JSON.stringify({ name: 'artisyn', version: '1.0.0' }),
+          'skills/.claude-plugin/plugin.json': JSON.stringify({
+            name: 'artisyn',
+            version: '1.0.0',
+          }),
         }),
     ],
     [
@@ -125,6 +157,18 @@ describe('stamp-harness-version.mjs', () => {
       'codex marketplace ref',
       (r) => writeAll(r, { '.agents/plugins/marketplace.json': codexMarketplace('4.0.0', 'main') }),
     ],
+    [
+      'copilot marketplace version',
+      (r) =>
+        writeAll(r, {
+          '.github/plugin/marketplace.json': copilotMarketplace('1.0.0', TAG('4.0.0')),
+        }),
+    ],
+    [
+      'copilot marketplace ref',
+      (r) =>
+        writeAll(r, { '.github/plugin/marketplace.json': copilotMarketplace('4.0.0', 'main') }),
+    ],
   ];
   for (const [label, apply] of tamper) {
     it(`--check exits 1 when ${label} drifts`, () => {
@@ -140,8 +184,9 @@ describe('stamp-harness-version.mjs', () => {
 
   it('--check does not modify any file', () => {
     const root = project('4.0.0', '3.5.0');
-    const before = fs.readFileSync(path.join(root, '.claude-plugin/plugin.json'), 'utf8');
+    const manifest = path.join(root, 'skills/.claude-plugin/plugin.json');
+    const before = fs.readFileSync(manifest, 'utf8');
     runNode(script, ['--check', '--root', root]);
-    assert.equal(fs.readFileSync(path.join(root, '.claude-plugin/plugin.json'), 'utf8'), before);
+    assert.equal(fs.readFileSync(manifest, 'utf8'), before);
   });
 });

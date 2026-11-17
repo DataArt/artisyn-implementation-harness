@@ -62,7 +62,7 @@ flowchart LR
 
 The harness version is the only version the repository releases; the repository itself is not versioned.
 
-- The single source is `skills/implementation-harness/package.json`. `yarn harness:version` stamps it into the harness `SKILL.md` frontmatter, `.claude-plugin/plugin.json`, and both marketplace files (version and tag `ref`); a CI gate fails any PR where they disagree.
+- The single source is `skills/implementation-harness/package.json`. `yarn harness:version` stamps it into the harness `SKILL.md` frontmatter, `skills/.claude-plugin/plugin.json`, and the three marketplace files (version and tag `ref`); a CI gate fails any PR where they disagree.
 - Commits that touch the harness use scope `harness`, so harness changes stand apart in history and the changelog.
 - The first release is 4.0.0.
 

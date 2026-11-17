@@ -11,8 +11,9 @@
       "description": "Artisyn Implementation Harness: install the AI-first engineering lifecycle into a project.",
       "category": "development",
       "source": {
-        "source": "github",
-        "repo": "DataArt/artisyn-implementation-harness",
+        "source": "git-subdir",
+        "url": "https://github.com/DataArt/artisyn-implementation-harness",
+        "path": "skills",
         "ref": "artisyn-implementation-harness-v4.0.1"
       }
     }

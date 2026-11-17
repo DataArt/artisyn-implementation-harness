@@ -1,5 +1,5 @@
-/** The strict plugin validation wrapper: errors and unexpected warnings fail, the one expected
- * root CLAUDE.md warning does not. Uses a fake `claude` that prints a canned JSON report.
+/** The strict plugin validation wrapper: every error and every warning fails the run. Uses a fake
+ * `claude` that prints a canned JSON report.
  */
 import assert from 'node:assert/strict';
 import path from 'node:path';
@@ -18,26 +18,18 @@ function run(report: unknown, exitCode = 0) {
 }
 
 const section = (errors: unknown[] = [], warnings: unknown[] = []) => ({
-  file: '/x/.claude-plugin/plugin.json',
+  file: '/x/skills/.claude-plugin/plugin.json',
   errors,
   warnings,
 });
-const rootWarning = {
-  path: 'root',
-  message: 'CLAUDE.md at the plugin root is not loaded as project context.',
-};
 
 describe('validate-plugin.mjs', () => {
-  it('passes a clean report, including the expected root CLAUDE.md warning', () => {
-    const result = run({
-      success: true,
-      manifest: section(),
-      contents: [section([], [rootWarning])],
-    });
+  it('passes a clean report', () => {
+    const result = run({ success: true, manifest: section(), contents: [section()] });
     assert.equal(result.status, 0, result.stdout + result.stderr);
   });
 
-  it('fails on an unexpected warning and names it', () => {
+  it('fails on any warning and names it', () => {
     const result = run({
       success: true,
       manifest: section(
@@ -63,7 +55,7 @@ describe('validate-plugin.mjs', () => {
   it('reads the report after install log lines a package runner prints first', () => {
     // `yarn dlx` writes its install log to stdout before the validator's JSON.
     const log = '➤ YN0000: · Yarn 4.9.2\n➤ YN0000: ┌ Resolution step\n➤ YN0000: └ Completed\n';
-    const clean = { success: true, manifest: section(), contents: [section([], [rootWarning])] };
+    const clean = { success: true, manifest: section(), contents: [section()] };
     const passed = run(log + JSON.stringify(clean, null, 2));
     assert.equal(passed.status, 0, passed.stdout + passed.stderr);
 

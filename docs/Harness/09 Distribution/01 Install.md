@@ -66,7 +66,7 @@ All three hosts read the same marketplace, `dataart`, and install the same plugi
 marketplace pins a release tag, so a new version appears only after its release is approved and
 published.
 
-**Lands in:** the host's plugin cache, outside the project — for Claude Code, `~/.claude/plugins/cache/dataart/artisyn/<version>/`. The project itself only records the marketplace and plugin references.
+**Lands in:** the host's plugin cache, outside the project — for Claude Code, `~/.claude/plugins/cache/dataart/artisyn/<version>/`. The cache holds only the harness skill package, not the repository. The project itself only records the marketplace and plugin references.
 
 ### Install
 
@@ -148,7 +148,7 @@ No token needed. The attestation check in step 3 uses the [GitHub CLI](https://c
 ### Install
 
 1. On the [releases page](https://github.com/DataArt/artisyn-implementation-harness/releases), open the release for the version, e.g. [v4.0.0](https://github.com/DataArt/artisyn-implementation-harness/releases/tag/artisyn-implementation-harness-v4.0.0).
-2. Download `artisyn-implementation-harness-v4.0.0.zip` and `artisyn-implementation-harness-v4.0.0.zip.sha256`.
+2. Download `artisyn-implementation-harness-v4.0.0.zip` and `artisyn-implementation-harness-v4.0.0.zip.sha256`. Don't use GitHub's "Source code (zip)": it is the whole repository.
 3. Verify:
 
    ```bash
