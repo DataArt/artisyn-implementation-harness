@@ -4,14 +4,14 @@
   "plugins": [
     {
       "name": "artisyn",
-      "version": "4.0.2",
+      "version": "4.1.0",
       "category": "development",
       "policy": { "installation": "AVAILABLE", "authentication": "NONE" },
       "source": {
         "source": "git-subdir",
         "url": "https://github.com/DataArt/artisyn-implementation-harness",
         "path": "skills",
-        "ref": "artisyn-implementation-harness-v4.0.2"
+        "ref": "v4.1.0"
       }
     }
   ]

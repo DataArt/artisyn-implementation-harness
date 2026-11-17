@@ -7,14 +7,14 @@
   "plugins": [
     {
       "name": "artisyn",
-      "version": "4.0.2",
+      "version": "4.1.0",
       "description": "Artisyn Implementation Harness: install the AI-first engineering lifecycle into a project.",
       "category": "development",
       "source": {
         "source": "github",
         "repo": "DataArt/artisyn-implementation-harness",
         "path": "skills",
-        "ref": "artisyn-implementation-harness-v4.0.2"
+        "ref": "v4.1.0"
       }
     }
   ]

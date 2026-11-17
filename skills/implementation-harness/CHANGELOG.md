@@ -1,3 +1,9 @@
+## [4.1.0](https://github.com/DataArt/artisyn-implementation-harness/compare/v4.0.2...v4.1.0) (2026-11-17)
+
+### Features
+
+- **harness:** tag releases v<version> ([e243196](https://github.com/DataArt/artisyn-implementation-harness/commit/e243196c7919f602f14ad4683cbecae5f551ca9b))
+
 ## [4.0.2](https://github.com/DataArt/artisyn-implementation-harness/compare/artisyn-implementation-harness-v4.0.1...artisyn-implementation-harness-v4.0.2) (2026-11-17)
 
 ### Bug Fixes

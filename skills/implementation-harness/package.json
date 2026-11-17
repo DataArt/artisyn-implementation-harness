@@ -1,6 +1,6 @@
 {
   "name": "@dataart/artisyn-implementation-harness",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "Artisyn Implementation Harness: the AI-first engineering lifecycle as an installable package, with an install CLI.",
   "license": "MIT",
   "type": "module",
