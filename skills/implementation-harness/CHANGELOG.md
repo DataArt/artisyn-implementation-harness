@@ -1,3 +1,9 @@
+## [4.0.2](https://github.com/DataArt/artisyn-implementation-harness/compare/artisyn-implementation-harness-v4.0.1...artisyn-implementation-harness-v4.0.2) (2026-11-17)
+
+### Bug Fixes
+
+- **harness:** ship only the skill in the marketplace plugin ([4962282](https://github.com/DataArt/artisyn-implementation-harness/commit/4962282a6d9d4a3b2eed1769d700df9ad9ffc81e))
+
 ## [4.0.1](https://github.com/DataArt/artisyn-implementation-harness/compare/artisyn-implementation-harness-v4.0.0...artisyn-implementation-harness-v4.0.1) (2026-11-16)
 
 ### Bug Fixes
