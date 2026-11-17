@@ -9,7 +9,7 @@ import { describe, it } from 'vitest';
 import { repoScript, runNode, tmpDir, writeAll } from '../helpers/harness.ts';
 
 const script = repoScript('scripts/release/stamp-harness-version.mjs');
-const TAG = (version: string) => `artisyn-implementation-harness-v${version}`;
+const TAG = (version: string) => `v${version}`;
 
 const skillMd = (name: string, version: string) =>
   `---\nname: ${name}\ndescription: test skill\nmetadata:\n  version: "${version}"\n---\n\nBody stays.\n`;

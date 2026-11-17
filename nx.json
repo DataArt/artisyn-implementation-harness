@@ -24,7 +24,7 @@
     "projects": ["artisyn-implementation-harness"],
     "projectsRelationship": "independent",
     "releaseTag": {
-      "pattern": "{projectName}-v{version}"
+      "pattern": "v{version}"
     },
     "version": {
       "conventionalCommits": true,

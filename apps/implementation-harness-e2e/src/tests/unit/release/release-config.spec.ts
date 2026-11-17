@@ -13,7 +13,7 @@ describe('Nx Release configuration', () => {
   it('releases only the harness project, independently, with the harness tag pattern', () => {
     assert.deepEqual(nx.release.projects, ['artisyn-implementation-harness']);
     assert.equal(nx.release.projectsRelationship, 'independent');
-    assert.equal(nx.release.releaseTag.pattern, '{projectName}-v{version}');
+    assert.equal(nx.release.releaseTag.pattern, 'v{version}');
   });
 
   it('derives the version from conventional commits and writes the project changelog', () => {

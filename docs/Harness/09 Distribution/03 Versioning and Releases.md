@@ -1,6 +1,6 @@
 ---
 id: e2d58b91
-purpose: The harness version contract — one stamped semantic version, the release workflow (automatic build on merge, publish after approval) and its re-run behaviour, per-channel integrity and attestations, and rollback
+purpose: The harness version contract — one stamped semantic version, the v<version> release tag (long tags up to 4.0.2, the v4.0.2 bridge tag), the release workflow (automatic build on merge, publish after approval) and its re-run behaviour, per-channel integrity and attestations, and rollback
 keywords:
   [
     versioning,
@@ -9,6 +9,7 @@ keywords:
     changelog,
     release notes,
     release tag,
+    bridge tag,
     integrity,
     sha256,
     build attestation,
@@ -35,7 +36,7 @@ flowchart LR
     R["Release: tag, then npm and Release in parallel"]
 
     subgraph OUT["Release outputs"]
-        T["Tag artisyn-implementation-harness-v{version}"]
+        T["Tag v{version}"]
         GR["GitHub Release: ZIP · .sha256 · build attestation"]
         N["npm version on GitHub Packages"]
         MK["Marketplace entries pinned to the tag"]
@@ -66,6 +67,21 @@ The harness version is the only version the repository releases; the repository 
 - Commits that touch the harness use scope `harness`, so harness changes stand apart in history and the changelog.
 - The first release is 4.0.0.
 
+## Release tag
+
+From the release after 4.0.2, a harness release is tagged `v<version>`, e.g. `v4.1.0` (decided 2026-11-17). Releases up to 4.0.2 keep their long tags, `artisyn-implementation-harness-v<version>`; nothing is renamed.
+
+| Item                   | Format                                                                                         | Example (4.1.0)                                                        |
+| ---------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Tag and GitHub Release | `v<version>` (Nx Release `releaseTag.pattern` `v{version}`)                                    | `v4.1.0`                                                               |
+| Release assets         | Descriptive file names: `artisyn-implementation-harness-v<version>.zip`, `.zip.sha256`, `.tgz` | `…/releases/download/v4.1.0/artisyn-implementation-harness-v4.1.0.zip` |
+| Marketplace `ref`      | The tag                                                                                        | `v4.1.0`                                                               |
+| `gh skill` pin         | `implementation-harness@<tag>`                                                                 | `implementation-harness@v4.1.0`                                        |
+
+**Bridge tag `v4.0.2`.** Nx Release computes the next version from the newest `v*` tag reachable from `HEAD`. Without a bridge, that would be the old `v1.1.1` from before the current release scheme, and the next version would be computed from 1.1.1. So `v4.0.2` is added on the commit that `artisyn-implementation-harness-v4.0.2` points to. It has no GitHub Release of its own. The next release is expected to be 4.1.0.
+
+**Install CLI compatibility.** The install CLI uses `v<version>` for versions above 4.0.2 and the long tag for 4.0.2 and earlier, so `update --version 4.0.2` still finds the old release. A ZIP install whose CLI is 4.0.2 or earlier builds the old tag URL, so its `update` cannot fetch 4.1.0 or later; it updates once by hand ([Update](./02%20Update.md)). The npm, marketplace, `gh skill` and skills.sh channels are unaffected.
+
 ## How releases happen
 
 The PR carries its own version; the merge builds it, and a reviewer decides when it is published. Nobody publishes by hand.
@@ -75,7 +91,7 @@ The PR carries its own version; the merge builds it, and a reviewer decides when
 - Every push to the protected `main` that touches the harness or its channel manifests runs `.github/workflows/deploy-harness.yml` (workflow name `Deploy harness`). It never commits to `main`.
 - The `build` job reads the version from `package.json`. If that version is already fully published, it stops. Otherwise it builds the npm tarball and the ZIP with its `.sha256`, and attests both.
 - The `release` job waits for a required reviewer of the `release` environment to approve.
-- After approval it creates the tag `artisyn-implementation-harness-v{version}`. Then two jobs run in parallel: `publish-github-packages` publishes the npm version on GitHub Packages, and `publish-github` publishes the GitHub Release with the ZIP and `.sha256` attached. The Release notes are the version's changelog entry. The tag appears only now, so every channel opens at the same moment.
+- After approval it creates the tag `v{version}`. Then two jobs run in parallel: `publish-github-packages` publishes the npm version on GitHub Packages, and `publish-github` publishes the GitHub Release with the ZIP and `.sha256` attached. The Release notes are the version's changelog entry. The tag appears only now, so every channel opens at the same moment.
 - Until approval, marketplace and `gh skill` installs of the new version fail: `main`'s manifests already pin the new tag, which does not exist yet.
 - A re-run is safe: it finishes only what is missing, and an already-published Release keeps its assets. A failed publish job can be re-run on its own.
 

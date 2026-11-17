@@ -34,7 +34,7 @@ Pick one channel. Every channel installs the same package. The project's state l
 | 5   | GitHub Packages (npm)      | You have a GitHub token with `read:packages`                   |
 | 6   | Release ZIP                | You want verified files and no token                           |
 
-The examples use version `4.0.0`. Put the version you want in its place — `4.0.0` or higher. All released versions are on the [releases page](https://github.com/DataArt/artisyn-implementation-harness/releases).
+The examples use version `4.1.0`. Put the version you want in its place — `4.0.0` or higher. All released versions are on the [releases page](https://github.com/DataArt/artisyn-implementation-harness/releases).
 
 Run the commands below in the project that installs the harness. Inside the harness source repository, use `yarn` instead of `npm`/`npx`.
 
@@ -57,8 +57,10 @@ You need the [GitHub CLI](https://cli.github.com/).
 Pin the release tag with `@`:
 
 ```bash
-gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v4.0.0 --scope project
+gh skill install DataArt/artisyn-implementation-harness implementation-harness@v4.1.0 --scope project
 ```
+
+Releases from 4.1.0 are tagged `v<version>`; releases up to 4.0.2 use the long tag `artisyn-implementation-harness-v<version>` ([Versioning and Releases](./03%20Versioning%20and%20Releases.md#release-tag)).
 
 ## 3. Plugin marketplace
 
@@ -105,8 +107,8 @@ The package is not published to npmjs.com yet. Once it is, no token or `.npmrc` 
 ### Install
 
 ```bash
-npx @dataart/artisyn-implementation-harness@4.0.0 init
-npx @dataart/artisyn-implementation-harness@4.0.0 doctor
+npx @dataart/artisyn-implementation-harness@4.1.0 init
+npx @dataart/artisyn-implementation-harness@4.1.0 doctor
 ```
 
 ## 5. GitHub Packages (npm)
@@ -133,8 +135,8 @@ export GITHUB_TOKEN=github_pat_...
 Install and check:
 
 ```bash
-npx @dataart/artisyn-implementation-harness@4.0.0 init
-npx @dataart/artisyn-implementation-harness@4.0.0 doctor
+npx @dataart/artisyn-implementation-harness@4.1.0 init
+npx @dataart/artisyn-implementation-harness@4.1.0 doctor
 ```
 
 ## 6. Release ZIP
@@ -145,13 +147,13 @@ No token needed. The attestation check in step 3 uses the [GitHub CLI](https://c
 
 ### Install
 
-1. On the [releases page](https://github.com/DataArt/artisyn-implementation-harness/releases), open the release for the version, e.g. [v4.0.0](https://github.com/DataArt/artisyn-implementation-harness/releases/tag/artisyn-implementation-harness-v4.0.0).
-2. Download `artisyn-implementation-harness-v4.0.0.zip` and `artisyn-implementation-harness-v4.0.0.zip.sha256`. Don't use GitHub's "Source code (zip)": it is the whole repository.
+1. On the [releases page](https://github.com/DataArt/artisyn-implementation-harness/releases), open the release for the version, e.g. [v4.1.0](https://github.com/DataArt/artisyn-implementation-harness/releases/tag/v4.1.0). Releases up to 4.0.2 are under their long tag, e.g. `artisyn-implementation-harness-v4.0.2`.
+2. Download `artisyn-implementation-harness-v4.1.0.zip` and `artisyn-implementation-harness-v4.1.0.zip.sha256`. The tag is short, but the files keep their descriptive names. Don't use GitHub's "Source code (zip)": it is the whole repository.
 3. Verify:
 
    ```bash
-   shasum -a 256 -c artisyn-implementation-harness-v4.0.0.zip.sha256
-   gh attestation verify artisyn-implementation-harness-v4.0.0.zip --repo DataArt/artisyn-implementation-harness
+   shasum -a 256 -c artisyn-implementation-harness-v4.1.0.zip.sha256
+   gh attestation verify artisyn-implementation-harness-v4.1.0.zip --repo DataArt/artisyn-implementation-harness
    ```
 
 4. Install one of two ways:
@@ -189,7 +191,7 @@ Every release artifact has a build attestation from the release workflow.
 | Artifact              | How to verify                                                                                                                                                                                                              |
 | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Release ZIP           | `shasum -a 256 -c` on the `.sha256` file, then `gh attestation verify` on the ZIP (channel 6, Install step 3)                                                                                                              |
-| GitHub Packages (npm) | The published package is the attested tarball. Fetch it with `npm pack @dataart/artisyn-implementation-harness@4.0.0`, then run `gh attestation verify` on the `.tgz` with `--repo DataArt/artisyn-implementation-harness` |
+| GitHub Packages (npm) | The published package is the attested tarball. Fetch it with `npm pack @dataart/artisyn-implementation-harness@4.1.0`, then run `gh attestation verify` on the `.tgz` with `--repo DataArt/artisyn-implementation-harness` |
 
 ## Install CLI options
 

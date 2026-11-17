@@ -30,7 +30,13 @@ import {
 } from './lib/providers.mjs';
 import { placePackage, swapPackage } from './lib/placer.mjs';
 import { extractZip } from './lib/zip.mjs';
-import { VERSION_PATTERN, compareVersions, updateCommand } from './lib/reporter.mjs';
+import {
+  VERSION_PATTERN,
+  compareVersions,
+  releaseAsset,
+  releaseTag,
+  updateCommand,
+} from './lib/reporter.mjs';
 
 const OWN_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DEFAULT_RELEASE_BASE =
@@ -198,16 +204,17 @@ async function update(root, options) {
 }
 
 async function updateFromRelease({ target, wanted, base }) {
-  const tag = `artisyn-implementation-harness-v${wanted}`;
+  const tag = releaseTag(wanted);
+  const asset = releaseAsset(wanted);
   const origin = base ?? DEFAULT_RELEASE_BASE;
-  const zipUrl = `${origin}/${tag}/${tag}.zip`;
+  const zipUrl = `${origin}/${tag}/${asset}.zip`;
   const zip = await download(zipUrl);
   const expected = (await download(`${zipUrl}.sha256`)).toString('utf8').trim().split(/\s+/)[0];
   const actual = createHash('sha256').update(zip).digest('hex');
   if (!/^[a-f0-9]{64}$/.test(expected) || expected !== actual)
     throw new Exit(
       1,
-      `sha256 mismatch for ${tag}.zip: expected ${expected}, got ${actual}. The installed package is unchanged.`
+      `sha256 mismatch for ${asset}.zip: expected ${expected}, got ${actual}. The installed package is unchanged.`
     );
 
   const parent = path.dirname(target);

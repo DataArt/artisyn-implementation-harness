@@ -40,7 +40,10 @@ concurrency:
 
 env:
   PACKAGE: '@dataart/artisyn-implementation-harness'
-  TAG_PREFIX: artisyn-implementation-harness-v
+  # Releases are tagged v<version> (up to 4.0.2 they were artisyn-implementation-harness-v<version>).
+  # The ZIP and the tarball keep the descriptive name.
+  TAG_PREFIX: v
+  ASSET_PREFIX: artisyn-implementation-harness-v
 
 jobs:
   build:
@@ -100,7 +103,7 @@ jobs:
           set -uo pipefail
           tag="${{ steps.version.outputs.tag }}"
           version="${{ steps.version.outputs.version }}"
-          zip="${TAG_PREFIX}${version}.zip"
+          zip="${ASSET_PREFIX}${version}.zip"
           package_ok=false
           yarn npm info "${PACKAGE}@${version}" version >/dev/null 2>&1 && package_ok=true
           # Published (not a draft) and carrying the ZIP and its checksum.
@@ -117,7 +120,7 @@ jobs:
         if: steps.state.outputs.publish == 'true'
         run: |
           set -euo pipefail
-          name="${TAG_PREFIX}${{ steps.version.outputs.version }}"
+          name="${ASSET_PREFIX}${{ steps.version.outputs.version }}"
           mkdir -p dist
           yarn workspace "$PACKAGE" pack --out "$GITHUB_WORKSPACE/dist/${name}.tgz"
           scratch="$(mktemp -d)"
@@ -221,7 +224,7 @@ jobs:
         run: |
           set -euo pipefail
           yarn workspace "$PACKAGE" pack --out "$RUNNER_TEMP/repack.tgz"
-          if ! cmp -s "dist/${TAG_PREFIX}${VERSION}.tgz" "$RUNNER_TEMP/repack.tgz"; then
+          if ! cmp -s "dist/${ASSET_PREFIX}${VERSION}.tgz" "$RUNNER_TEMP/repack.tgz"; then
             echo "::error::The package does not pack to the attested tarball; publishing would ship unattested bytes."
             exit 1
           fi
@@ -232,7 +235,7 @@ jobs:
       - name: Check the registry holds the attested tarball
         run: |
           set -euo pipefail
-          expected="$(node -e 'const c = require("node:crypto"), f = require("node:fs"); console.log("sha512-" + c.createHash("sha512").update(f.readFileSync(process.argv[1])).digest("base64"))' "dist/${TAG_PREFIX}${VERSION}.tgz")"
+          expected="$(node -e 'const c = require("node:crypto"), f = require("node:fs"); console.log("sha512-" + c.createHash("sha512").update(f.readFileSync(process.argv[1])).digest("base64"))' "dist/${ASSET_PREFIX}${VERSION}.tgz")"
           actual="$(yarn npm info "${PACKAGE}@${VERSION}" --fields dist --json | node -e 'let s = ""; process.stdin.on("data", (d) => (s += d)).on("end", () => console.log(JSON.parse(s).dist.integrity))')"
           if [ "$expected" != "$actual" ]; then
             echo "::error::GitHub Packages holds ${PACKAGE}@${VERSION} with integrity ${actual}, but the attested tarball is ${expected}."
@@ -260,7 +263,7 @@ jobs:
       - name: Publish the GitHub Release with the ZIP and its checksum
         run: |
           set -euo pipefail
-          zip="dist/${TAG_PREFIX}${VERSION}.zip"
+          zip="dist/${ASSET_PREFIX}${VERSION}.zip"
           if ! gh release view "$TAG" >/dev/null 2>&1; then
             gh release create "$TAG" --verify-tag --draft --title "$TAG" --notes-file dist/release-notes.md
           fi

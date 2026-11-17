@@ -1,6 +1,6 @@
 ---
 id: a07f6c3d
-purpose: Update commands per channel, the install CLI update rules, doctor, and how patch apply reads baselines after an update
+purpose: Update commands per channel, the one-time manual update for ZIP installs on 4.0.2 or earlier after the switch to v<version> tags, the install CLI update rules, doctor, and how patch apply reads baselines after an update
 keywords:
   [
     update,
@@ -45,15 +45,19 @@ flowchart LR
 
 Each channel refreshes the package with its own pinned command; `doctor` prints the one for the recorded channel.
 
-| Channel               | Update                                                                                                                                                                                                         |
-| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Code           | `claude plugin update artisyn@dataart`                                                                                                                                                                         |
-| Codex                 | `codex plugin marketplace upgrade`                                                                                                                                                                             |
-| Copilot CLI           | `copilot plugin update artisyn`                                                                                                                                                                                |
-| skills.sh             | `npx skills update`                                                                                                                                                                                            |
-| gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v<version> --scope project`                                                                     |
-| npm (GitHub Packages) | `npx @dataart/artisyn-implementation-harness@<version> update` — the CLI updates to its own version, so pin the version you want                                                                               |
-| ZIP                   | Download `artisyn-implementation-harness-v<version>.zip` and its `.sha256` from that tag's Release, or run the bundled CLI: `node <package>/bin/artisyn-implementation-harness.mjs update --version <version>` |
+| Channel               | Update                                                                                                                                                                                                       |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Claude Code           | `claude plugin update artisyn@dataart`                                                                                                                                                                       |
+| Codex                 | `codex plugin marketplace upgrade`                                                                                                                                                                           |
+| Copilot CLI           | `copilot plugin update artisyn`                                                                                                                                                                              |
+| skills.sh             | `npx skills update`                                                                                                                                                                                          |
+| gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@v4.1.0 --scope project` (pin the tag of the version you want)                                                                |
+| npm (GitHub Packages) | `npx @dataart/artisyn-implementation-harness@<version> update` — the CLI updates to its own version, so pin the version you want                                                                             |
+| ZIP                   | Download `artisyn-implementation-harness-v4.1.0.zip` and its `.sha256` from the `v4.1.0` Release, or run the bundled CLI: `node <package>/bin/artisyn-implementation-harness.mjs update --version <version>` |
+
+Releases from 4.1.0 are tagged `v<version>`; releases up to 4.0.2 keep the long tag `artisyn-implementation-harness-v<version>`. The CLI picks the right tag for the version you ask for, so `update --version 4.0.2` still finds the old release.
+
+**One-time manual update for ZIP installs on 4.0.2 or earlier.** A ZIP install whose CLI is 4.0.2 or earlier builds the old long-tag URL, so its `update` cannot fetch 4.1.0 or later. Update it once by hand: download `artisyn-implementation-harness-v4.1.0.zip` and its `.sha256` from the `v4.1.0` release on the [releases page](https://github.com/DataArt/artisyn-implementation-harness/releases) and install it as in [Install](./01%20Install.md), or run `npx @dataart/artisyn-implementation-harness@4.1.0 update` from GitHub Packages. After that, `update` works again. The npm, marketplace, `gh skill` and skills.sh channels are unaffected.
 
 After every update, run `/implementation-harness patch apply`. Plugin installs use `/artisyn:implementation-harness patch apply`.
 
@@ -76,13 +80,13 @@ The CLI verifies the new package before it replaces the installed one.
 
 `npx @dataart/artisyn-implementation-harness doctor` reports the health of an install and exits 1 when it finds a problem.
 
-| Reports      | Detail                                                                    |
-| ------------ | ------------------------------------------------------------------------- |
-| Package      | Location and version per provider                                         |
-| Version skew | Different package versions across providers                               |
-| Record       | The recorded package and whether it can be found on this machine          |
-| State        | Whether `.harness/state/` exists                                          |
-| Commands     | The pinned update command for the recorded channel and the launch command |
+| Reports      | Detail                                                                                                                                                            |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Package      | Location and version per provider                                                                                                                                 |
+| Version skew | Different package versions across providers                                                                                                                       |
+| Record       | The recorded package and whether it can be found on this machine                                                                                                  |
+| State        | Whether `.harness/state/` exists                                                                                                                                  |
+| Commands     | The pinned update command for the recorded channel and the launch command; for a ZIP install, the update hint names the release tag and the asset file separately |
 
 ## Baselines in patch apply
 

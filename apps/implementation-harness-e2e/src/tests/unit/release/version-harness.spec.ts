@@ -10,7 +10,7 @@ import { describe, it } from 'vitest';
 import { git, repoScript, runNode, tmpDir, write, writeAll } from '../helpers/harness.ts';
 
 const script = repoScript('scripts/release/version-harness.mjs');
-const TAG = (version: string) => `artisyn-implementation-harness-v${version}`;
+const TAG = (version: string) => `v${version}`;
 const PACKAGE_JSON = 'skills/implementation-harness/package.json';
 const CHANGELOG = 'skills/implementation-harness/CHANGELOG.md';
 
@@ -80,10 +80,7 @@ describe('version-harness.mjs', () => {
       assert.equal(result.status, 0, result.stdout + result.stderr);
     }
     assert.equal(JSON.parse(read(root, PACKAGE_JSON)).version, '4.1.0');
-    assert.match(
-      read(root, '.claude-plugin/marketplace.json'),
-      /artisyn-implementation-harness-v4\.1\.0/
-    );
+    assert.match(read(root, '.claude-plugin/marketplace.json'), /"ref": "v4\.1\.0"/);
     assert.equal(read(root, CHANGELOG).match(/^## \[4\.1\.0\]/gm)?.length, 1);
   });
 

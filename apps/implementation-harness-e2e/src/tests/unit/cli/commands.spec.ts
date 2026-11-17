@@ -142,9 +142,8 @@ describe('update on the zip channel', () => {
     () => new Promise<void>((resolve) => (server ? server.close(() => resolve()) : resolve()))
   );
 
-  async function serveRelease(version: string, { corrupt = false } = {}) {
-    const tag = `artisyn-implementation-harness-v${version}`;
-    const zipName = `${tag}.zip`;
+  async function serveRelease(version: string, { corrupt = false, tag = `v${version}` } = {}) {
+    const zipName = `artisyn-implementation-harness-v${version}.zip`;
     const zip = buildZip({
       'implementation-harness/package.json': JSON.stringify({ name: NAME, version }),
       'implementation-harness/SKILL.md': `---\nname: implementation-harness\nmetadata:\n  version: ${version}\n---\n`,
@@ -186,6 +185,16 @@ describe('update on the zip channel', () => {
     );
   });
 
+  it('fetches a release up to 4.0.2 from its long artisyn-implementation-harness-v tag', async () => {
+    const { root, installed } = projectWithInstalled('1.0.0', 'zip');
+    const base = await serveRelease('4.0.2', { tag: 'artisyn-implementation-harness-v4.0.2' });
+
+    const result = await update(root, ['--version', '4.0.2', '--release-base-url', base]);
+
+    assert.equal(result.status, 0, result.stderr);
+    assert.equal(readJson(path.join(installed, 'package.json')).version, '4.0.2');
+  });
+
   it('aborts on a checksum mismatch and leaves the installed package unchanged', async () => {
     const { root, installed } = projectWithInstalled('1.0.0', 'zip');
     const base = await serveRelease('9.9.9', { corrupt: true });
@@ -200,7 +209,7 @@ describe('update on the zip channel', () => {
 
   it('is a no-op at the same version and exits 3 on a downgrade without --force', async () => {
     const same = projectWithInstalled('2.0.0', 'zip');
-    const base = await serveRelease('1.0.0');
+    const base = await serveRelease('1.0.0', { tag: 'artisyn-implementation-harness-v1.0.0' });
 
     const noop = await update(same.root, ['--version', '2.0.0', '--release-base-url', base]);
     assert.equal(noop.status, 0, noop.stderr);

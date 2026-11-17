@@ -30,7 +30,7 @@ const root = path.resolve(values.root ?? path.join(scriptDir, '..', '..'));
 const onWindows = process.platform === 'win32';
 
 const PROJECT = 'artisyn-implementation-harness';
-const TAG_PREFIX = `${PROJECT}-v`;
+const TAG_PREFIX = 'v';
 const PACKAGE_JSON = path.join(root, 'skills/implementation-harness/package.json');
 const CHANGELOG = path.join(root, 'skills/implementation-harness/CHANGELOG.md');
 const [nxBin, ...nxBase] = (process.env.NX_CMD ?? 'yarn nx').split(/\s+/).filter(Boolean);

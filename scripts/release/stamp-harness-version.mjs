@@ -20,7 +20,7 @@ const root = path.resolve(
 const read = (relative) => fs.readFileSync(path.join(root, relative), 'utf8');
 
 const version = JSON.parse(read('skills/implementation-harness/package.json')).version;
-const tag = `artisyn-implementation-harness-v${version}`;
+const tag = `v${version}`;
 
 // Each pattern matches only the value itself, so a replace swaps the value and nothing else.
 const JSON_VERSION = /(?<="version"\s*:\s*")[^"]*(?=")/;

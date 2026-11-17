@@ -11,6 +11,7 @@ import { spawnSync } from 'node:child_process';
 import { afterAll, beforeAll, describe, it } from 'vitest';
 import { parse } from 'yaml';
 import {
+  load,
   pkgRoot,
   runNode,
   runNodeAsync,
@@ -90,13 +91,15 @@ describe.skipIf(!hasZip)('the release ZIP', () => {
     fs.cpSync(path.join(extracted, 'package'), path.join(scratch, 'implementation-harness'), {
       recursive: true,
     });
-    const tag = `artisyn-implementation-harness-v${ownVersion}`;
-    const zipFile = path.join(tmpDir('smoke-zip-out-'), `${tag}.zip`);
+    const { releaseTag, releaseAsset } = await load(path.join(pkgRoot, 'bin/lib/reporter.mjs'));
+    const tag = releaseTag(ownVersion);
+    const asset = releaseAsset(ownVersion);
+    const zipFile = path.join(tmpDir('smoke-zip-out-'), `${asset}.zip`);
     sh('zip', ['-r', '-X', zipFile, 'implementation-harness'], scratch);
     const zip = fs.readFileSync(zipFile);
     server = http.createServer((req, res) => {
-      if (req.url === `/${tag}/${tag}.zip`) res.end(zip);
-      else if (req.url === `/${tag}/${tag}.zip.sha256`) res.end(`${sha256(zip)}  ${tag}.zip\n`);
+      if (req.url === `/${tag}/${asset}.zip`) res.end(zip);
+      else if (req.url === `/${tag}/${asset}.zip.sha256`) res.end(`${sha256(zip)}  ${asset}.zip\n`);
       else {
         res.statusCode = 404;
         res.end();

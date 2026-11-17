@@ -20,7 +20,7 @@ import changelogRenderer from 'nx/release/changelog-renderer';
 const DefaultChangelogRenderer = changelogRenderer.default ?? changelogRenderer;
 
 const REPO_URL = 'https://github.com/DataArt/artisyn-implementation-harness';
-const TAG_PREFIX = 'artisyn-implementation-harness-v';
+const TAG_PREFIX = 'v';
 const SECTIONS = [
   ['feat', 'Features'],
   ['fix', 'Bug Fixes'],

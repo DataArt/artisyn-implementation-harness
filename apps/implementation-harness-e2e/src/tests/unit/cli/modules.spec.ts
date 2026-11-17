@@ -197,6 +197,18 @@ describe('reporter.mjs: versions', () => {
     assert.ok(!VERSION_PATTERN.test('1.0.0/../../x'));
     assert.ok(!VERSION_PATTERN.test('1.2'));
   });
+
+  it('tags releases v<version>, keeping the long tag up to 4.0.2 and the long asset name', async () => {
+    const { releaseTag, releaseAsset, updateCommand } = await load(lib('reporter.mjs'));
+    assert.equal(releaseTag('4.1.0'), 'v4.1.0');
+    assert.equal(releaseTag('4.0.3'), 'v4.0.3');
+    assert.equal(releaseTag('4.0.2'), 'artisyn-implementation-harness-v4.0.2');
+    assert.equal(releaseTag('3.5.0'), 'artisyn-implementation-harness-v3.5.0');
+    assert.equal(releaseAsset('4.1.0'), 'artisyn-implementation-harness-v4.1.0');
+    const zip = updateCommand({ channel: 'zip', name: 'x', version: '4.1.0' });
+    assert.match(zip, /download artisyn-implementation-harness-v4\.1\.0\.zip and /);
+    assert.match(zip, /Release tagged v4\.1\.0,/);
+  });
 });
 
 describe('CLI sources', () => {

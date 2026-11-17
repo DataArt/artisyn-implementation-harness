@@ -9,6 +9,13 @@ export type ProviderId = 'claude' | 'codex' | 'copilot';
 export type ChannelId = 'skills-sh' | 'marketplace' | 'gh-skill' | 'npmjs' | 'gh-packages' | 'zip';
 
 export const VERSION = __HARNESS_VERSION__;
+
+/** Releases are tagged v<version>; up to 4.0.2 they were artisyn-implementation-harness-v<version>. */
+const longTag = (version: string) => {
+  const [major, minor, patch] = version.split(/[.-]/).map(Number);
+  return major < 4 || (major === 4 && minor === 0 && patch <= 2);
+};
+export const TAG = longTag(VERSION) ? `artisyn-implementation-harness-v${VERSION}` : `v${VERSION}`;
 export const RELEASES_URL = 'https://github.com/DataArt/artisyn-implementation-harness/releases';
 
 export interface Provider {
@@ -110,7 +117,7 @@ export function installBlocks(channel: Channel, provider: Provider): CommandBloc
         {
           kind: 'terminal',
           label: 'Run in your terminal (needs the GitHub CLI)',
-          code: `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v${VERSION} --scope project`,
+          code: `gh skill install DataArt/artisyn-implementation-harness implementation-harness@${TAG} --scope project`,
           note: 'Lands in .github/skills/implementation-harness/, pinned to the release tag.',
         },
       ];
@@ -176,8 +183,8 @@ export function installBlocks(channel: Channel, provider: Provider): CommandBloc
           kind: 'terminal',
           label: 'Download the release',
           code:
-            `curl -LO ${RELEASES_URL}/download/artisyn-implementation-harness-v${VERSION}/${zip}\n` +
-            `curl -LO ${RELEASES_URL}/download/artisyn-implementation-harness-v${VERSION}/${zip}.sha256`,
+            `curl -LO ${RELEASES_URL}/download/${TAG}/${zip}\n` +
+            `curl -LO ${RELEASES_URL}/download/${TAG}/${zip}.sha256`,
           note: 'Downloads the ZIP and its .sha256 from the release tag. You can also get both from the releases page.',
         },
         {
@@ -239,7 +246,7 @@ export function updateBlocks(channel: Channel, provider: Provider): CommandBlock
       pkg = {
         kind: 'terminal',
         label: 'Update the skill',
-        code: `gh skill install DataArt/artisyn-implementation-harness implementation-harness@artisyn-implementation-harness-v${VERSION} --scope project`,
+        code: `gh skill install DataArt/artisyn-implementation-harness implementation-harness@${TAG} --scope project`,
         note: 'Re-run the install pinned to the new release tag.',
       };
       break;

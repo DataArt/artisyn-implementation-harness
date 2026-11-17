@@ -39,14 +39,27 @@ export function compareVersions(a, b) {
   return compareIdentifiers(left.pre, right.pre);
 }
 
+/** Releases up to this version were tagged `artisyn-implementation-harness-v<version>`. */
+const LAST_LONG_TAG = '4.0.2';
+
+/** The git tag of a release: `v<version>`, or the long form for releases up to 4.0.2. */
+export const releaseTag = (version) =>
+  compareVersions(version, LAST_LONG_TAG) <= 0
+    ? `artisyn-implementation-harness-v${version}`
+    : `v${version}`;
+
+/** The base name of a release's ZIP and tarball, the same for every release. */
+export const releaseAsset = (version) => `artisyn-implementation-harness-v${version}`;
+
 /** The command that updates an install of the recorded channel, pinned to `version`. */
 export function updateCommand({ channel, name, version, provider = 'claude' }) {
-  const tag = `artisyn-implementation-harness-v${version}`;
+  const tag = releaseTag(version);
+  const asset = releaseAsset(version);
   switch (channel) {
     case 'npm':
       return `npx ${name}@${version} update`;
     case 'zip':
-      return `download ${tag}.zip and ${tag}.zip.sha256 from the GitHub Release tagged ${tag}, or run the bundled CLI: node <package>/bin/artisyn-implementation-harness.mjs update --version ${version}`;
+      return `download ${asset}.zip and ${asset}.zip.sha256 from the GitHub Release tagged ${tag}, or run the bundled CLI: node <package>/bin/artisyn-implementation-harness.mjs update --version ${version}`;
     case 'marketplace':
       return provider === 'codex'
         ? 'codex plugin marketplace upgrade'

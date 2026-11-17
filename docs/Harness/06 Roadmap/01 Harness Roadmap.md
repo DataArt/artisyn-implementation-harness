@@ -26,7 +26,7 @@ The harness ships through five pinned channels:
 
 Releases run through one workflow, with one stamped semantic version and a changelog: each PR stamps its version (`yarn harness:version`, Nx Release), `deploy-harness.yml` builds it on merge, and publishes it after a reviewer approves. The manual ZIP flow is retired. Runtime state lives in the project's `.harness/state/`.
 
-This is the repository's only release lane. Nothing pushes to `main`, so the `main` ruleset has no bypass actors (see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
+This is the repository's only release lane. No workflow pushes to `main`, so the release lane needs no ruleset bypass (see the [release runbook](<../../Engineering Guide/08 Harness Release Runbook.md>)).
 
 → See [Distribution](<../09 Distribution/index.md>).
 
