@@ -12,7 +12,7 @@ _Manual runbook for wiring up or reconfiguring the comments widget._
 
 ## When you need this
 
-If comments show "giscus is not installed on this repository" (or the widget doesn't render at all), either this setup was never done, or `VITE_GITHUB_ORG` / `VITE_GITHUB_REPO` / `VITE_GISCUS_REPO_ID` / `VITE_GISCUS_CATEGORY_ID` are missing or wrong — check those first: `apps/web-docs/.env.<env>` for local builds, the repository variables of the same names for the deployed site.
+If comments show "giscus is not installed on this repository" (or the widget doesn't render at all), either this setup was never done, or `VITE_GITHUB_ORG` / `VITE_GITHUB_REPO` / `VITE_GISCUS_REPO_ID` / `VITE_GISCUS_CATEGORY_ID` are missing or wrong — check those first: `apps/web-docs/.env.<env>` for local builds, the variables of the same names in the `web` GitHub Actions environment for the deployed site.
 
 ---
 
@@ -59,7 +59,7 @@ gh api graphql -f query='
 
 ---
 
-## Step 5 — Wire the values into `apps/web-docs/.env.<env>` and the repository variables
+## Step 5 — Wire the values into `apps/web-docs/.env.<env>` and the `web` environment
 
 ```
 VITE_GITHUB_ORG=<org>
@@ -70,10 +70,10 @@ VITE_GISCUS_CATEGORY_ID=<value from Step 4>
 
 These are `VITE_`-prefixed because Vite inlines them at **build time**, not deploy time. Set them in two places:
 
-| Build                         | Where the values come from                                                                                                                                                                                                                                                      |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Local (`dev` / `prod` config) | `apps/web-docs/.env.dev` or `.env.prod`, loaded by the `envFile` of `web-docs:build` and `web-docs:serve`                                                                                                                                                                       |
-| Deployed site (`ci` config)   | Repository variables `VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, `VITE_GISCUS_REPO_ID`, `VITE_GISCUS_CATEGORY_ID` (Settings → Secrets and variables → Actions → Variables), passed to the build step of `.github/workflows/deploy-web.yml`; the `ci` configuration loads no env file |
+| Build                              | Where the values come from                                                                                                                                                                                                                                                                                                                              |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Local (`dev` / `prod` config)      | `apps/web-docs/.env.dev` or `.env.prod`, loaded by the `envFile` of `web-docs:build` and `web-docs:serve`                                                                                                                                                                                                                                               |
+| CI and deployed site (`ci` config) | Variables `VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, `VITE_GISCUS_REPO_ID`, `VITE_GISCUS_CATEGORY_ID` of the `web` environment (Settings → Environments → `web` → Environment variables), passed to the build step of `.github/workflows/ci-web.yml` (every PR) and `.github/workflows/deploy-web.yml` (on merge); the `ci` configuration loads no env file |
 
 `web-docs:deploy`, `web-docs:env-push` and `web-docs:env-pull` are retirement stubs that print a message and exit 0; they are not the deploy path. `deploy-web.yml` runs on every push to `main`, builds `web-docs` via `nx affected` when the push affects the site, and deploys the `web-portal:build` output to GitHub Pages — see [09 CI-CD](../09%20CI-CD.md).
 

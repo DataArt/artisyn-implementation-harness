@@ -1,0 +1,134 @@
+name: CI harness
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: read
+
+# A new push to the PR cancels the run for the commit it replaces.
+concurrency:
+  group: ci-harness-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+# Runs alongside ci-web.yml. The paths filter lives in the `changes` job, not in `on:`:
+# version-gate is a required check, and a required check whose workflow never starts blocks the
+# merge, while a job skipped by `if:` reports success. A job skipped because a job it needs failed
+# reports success too, so the gates also run whenever `changes` does not succeed.
+#   1. changes                                         does the PR touch the harness, its tooling
+#                                                      or the CI that checks it?
+#   2. version-gate · harness-package · harness-unit   only when it does
+#   3. harness-cli                                     the install CLI on ubuntu, macos and windows
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      harness: ${{ steps.filter.outputs.harness }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # Covers the harness files of deploy-harness.yml and the commit scope rule (all of skills/,
+      # which also holds the skill folders the package smoke spec checks), the project's own
+      # skills under .claude/skills/ (the same spec checks they stay internal), what the jobs below
+      # run or test (the root scripts the e2e unit specs cover), the workflows and setup action
+      # those specs pin or the CLI matrix installs with, and the toolchain. --no-renames lists both
+      # sides of a rename, so moving a file out of a harness path still counts. A git error counts
+      # as a harness change.
+      - name: Detect harness changes
+        id: filter
+        run: |
+          set -u
+          paths='^(skills/|\.claude/skills/|\.claude-plugin/|\.agents/plugins/|\.github/plugin/|skills\.sh\.json$|\.github/workflows/|\.github/actions/|scripts/release/|scripts/ci/check-pack\.mjs$|scripts/validate-plugin\.mjs$|scripts/check-commit-scope\.mjs$|scripts/check-docs\.mjs$|apps/implementation-harness-e2e/|nx\.json$|package\.json$|yarn\.lock$|\.yarnrc\.yml$|\.yarn/)'
+          if ! changed=$(git diff --no-renames --name-only "origin/${{ github.base_ref }}...HEAD"); then
+            echo "harness=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::Could not list the changed files; running the harness checks."
+          elif printf '%s\n' "$changed" | grep -Eq "$paths"; then
+            echo "harness=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "harness=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::The PR does not touch the harness; the harness checks are skipped."
+          fi
+
+  # Required check on `main` (D-17).
+  version-gate:
+    needs: changes
+    if: ${{ !cancelled() && (needs.changes.result != 'success' || needs.changes.outputs.harness == 'true') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - name: Harness version is consistent across SKILL.md, plugin.json and the marketplaces
+        run: node scripts/release/stamp-harness-version.mjs --check
+
+      # The PR carries its own release: the version its commits call for, stamped by
+      # `yarn harness:version`. The merge workflow only tags and publishes it (TD-5).
+      - name: Harness is stamped with the version its commits call for
+        run: node scripts/release/version-harness.mjs --check
+
+  # Required check on `main` (D-17, extended 2026-11-17).
+  harness-package:
+    needs: changes
+    if: ${{ !cancelled() && (needs.changes.result != 'success' || needs.changes.outputs.harness == 'true') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - name: Package contents match the allowlist
+        run: node scripts/ci/check-pack.mjs
+
+      - name: Plugin and marketplace manifests are valid
+        run: node scripts/validate-plugin.mjs
+        env:
+          CLAUDE_CMD: yarn dlx --quiet -p @anthropic-ai/claude-code@2.1.311 claude
+
+      - name: Release dry run
+        run: yarn nx release version --projects=artisyn-implementation-harness --dry-run
+
+  # Nx does not count .github/ or the root scripts/ as inputs of implementation-harness-e2e, so
+  # ci-web's affected test run skips its unit specs (the workflow and release tests among them)
+  # on a PR that only changes those. Required check on `main` (D-17, extended 2026-11-17).
+  harness-unit:
+    needs: changes
+    if: ${{ !cancelled() && (needs.changes.result != 'success' || needs.changes.outputs.harness == 'true') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup
+
+      - name: E2E unit specs
+        run: yarn nx run implementation-harness-e2e:unit
+
+  harness-cli:
+    name: harness-cli (${{ matrix.os }})
+    needs: [version-gate, harness-package]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      # Patch bundle paths exceed the 260-character Windows limit; git needs long paths before checkout.
+      - name: Allow long paths on Windows
+        if: runner.os == 'Windows'
+        run: git config --system core.longpaths true
+
+      - uses: actions/checkout@v7
+
+      - uses: ./.github/actions/setup
+
+      - name: Install CLI and state root tests
+        shell: bash
+        run: yarn nx run implementation-harness-e2e:unit-cli

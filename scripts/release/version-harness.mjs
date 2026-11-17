@@ -9,7 +9,7 @@
  * gate on every PR. It also fails while the base branch (`--base`, default origin/main) carries a
  * version that is not released yet and this branch changes the harness: that release is waiting
  * for approval, and its tag is what the next version is computed from. After the merge,
- * release-harness.yml builds the version main carries and, once approved, tags and publishes it.
+ * deploy-harness.yml builds the version main carries and, once approved, tags and publishes it.
  * Set NX_CMD to run Nx another way (the tests use a fake).
  */
 import fs from 'node:fs';

@@ -1,8 +1,8 @@
-name: Release harness
+name: Deploy harness
 
 # Builds the harness version that main carries after every merge, and publishes it once a reviewer
 # approves. The PR already chose and stamped that version (`yarn harness:version`, checked by
-# version-gate in ci.yml), so this workflow never commits or pushes to main and runs with
+# version-gate in ci-harness.yml), so this workflow never commits or pushes to main and runs with
 # GITHUB_TOKEN only, no bypass actor needed. Nx Release is the repository's only release lane.
 #
 #   build                    automatic: build the tarball and the ZIP, attest them, keep them as an
@@ -29,13 +29,13 @@ on:
       - '.agents/plugins/**'
       - '.github/plugin/**'
       - 'skills.sh.json'
-      - '.github/workflows/release-harness.yml'
+      - '.github/workflows/deploy-harness.yml'
   workflow_dispatch:
 
 permissions: {}
 
 concurrency:
-  group: release-harness
+  group: deploy-harness
   cancel-in-progress: false
 
 env:
@@ -58,6 +58,15 @@ jobs:
       version: ${{ steps.version.outputs.version }}
       publish: ${{ steps.state.outputs.publish }}
     steps:
+      # A manual run can start from any branch. The `release` environment only accepts `main`, but
+      # this job would still build and attest that branch's package first.
+      - name: Only main is released
+        run: |
+          if [ "${GITHUB_REF}" != "refs/heads/main" ]; then
+            echo "::error::Deploy harness runs from main only (this run: ${GITHUB_REF})."
+            exit 1
+          fi
+
       # The commit that triggered this run, with every tag. No credentials stay on disk.
       - uses: actions/checkout@v7
         with:

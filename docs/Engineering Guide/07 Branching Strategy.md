@@ -17,7 +17,7 @@ keywords:
 # Branching Strategy
 
 The branching workflow is **trunk-based**, aligned with this project's actual CI/CD automation
-(`ci.yml` on pull request, `deploy-web.yml` on every merge to `main`, deploying when the site is affected). There is one long-lived branch — `main` —
+(`ci-web.yml` and `ci-harness.yml` on pull request, `deploy-web.yml` on every merge to `main`, deploying when the site is affected). There is one long-lived branch — `main` —
 and all work happens on short-lived branches cut from it and merged straight back in. Every change
 reaches `main`, and the deployed site, through a pull request.
 
@@ -45,11 +45,14 @@ to render; scope the id to the actual branch or ticket.
 | Branch Type        | Environment Target  | Notes                                                                                                                                        |
 | ------------------ | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `main`             | `github-pages`      | `deploy-web.yml` runs on every merge, builds affected projects and deploys `apps/web-portal/dist` to GitHub Pages when the build produced it |
-| `feat/*` / `fix/*` | `dev` (checks only) | `ci.yml`'s `build-and-test` job runs in the `dev` environment and deploys nothing; no preview site per branch                                |
+| `feat/*` / `fix/*` | `web` (checks only) | `ci-web.yml`'s `build-and-test` job runs in the `web` environment and deploys nothing; no preview site per branch                            |
 
-There is no `develop`, `staging` or `production` branch. Three GitHub Actions environments exist:
-`dev`, which the ruleset requires as a deployment on every PR; `github-pages`, the live site; and
-`release`, whose required reviewers approve each harness publish. None maps to a branch.
+There is no `develop`, `staging` or `production` branch. The target is three GitHub Actions
+environments: `web`, which holds the site's build variables and which the ruleset requires as a
+deployment on every PR; `github-pages`, the live site; and `release`, whose required reviewers
+approve each harness publish. None maps to a branch. On 2026-11-17 a fourth, the old `dev`
+environment, still existed; the ruleset's required deployment was switched from `dev` to `web`
+that day, and `dev` is deleted after the merge (runbook step 1).
 
 ## Naming Conventions
 
@@ -59,14 +62,17 @@ There is no `develop`, `staging` or `production` branch. Three GitHub Actions en
   `<type>(<scope>): <what>`, per the same conventions doc
 - **Tags:** one release lane, never created by hand. The repository itself is not
   versioned: there are no `vX.Y.Z` tags, and the root `CHANGELOG.md` is frozen history.
-  - `artisyn-implementation-harness-vX.Y.Z` — the harness package version. The PR picks and stamps it: the developer runs `yarn harness:version` on the branch and commits `chore(harness-release): <version>`. Nx Release bumps on commits that touch `skills/implementation-harness/` (`useCommitScope: false`, so Nx matches by path, not scope); the scope gate makes those commits `harness`-scoped. On every merge, the harness release lane (`.github/workflows/release-harness.yml`) builds and attests the version. After a reviewer approves the `release` environment, it creates the tag through the API and publishes. It never pushes to `main` — see `08 Harness Release Runbook.md`.
+  - `artisyn-implementation-harness-vX.Y.Z` — the harness package version. The PR picks and stamps it: the developer runs `yarn harness:version` on the branch and commits `chore(harness-release): <version>`. Nx Release bumps on commits that touch `skills/implementation-harness/` (`useCommitScope: false`, so Nx matches by path, not scope); the scope gate makes those commits `harness`-scoped. On every merge, the harness release lane (`.github/workflows/deploy-harness.yml`) builds and attests the version. After a reviewer approves the `release` environment, it creates the tag through the API and publishes. It never pushes to `main` — see `08 Harness Release Runbook.md`.
 
 ## CI/CD by Branch
 
-A PR to `main` runs `ci.yml` and `gitleaks.yml`. A merge to `main` runs `gitleaks.yml` and `deploy-web.yml` (the GitHub Pages deploy).
+A PR to `main` runs `ci-web.yml` (build, test, `docs-gate` and the secret scan, on every PR) and
+`ci-harness.yml` (the harness gates, only when the PR touches the harness) side by side. A merge to
+`main` runs `ci-web.yml`'s `gitleaks` job (the full-history secret scan; no other `ci-web.yml` job
+runs on push) and `deploy-web.yml` (the GitHub Pages deploy).
 `deploy-web.yml` deploys only when Nx finds the site affected; otherwise it ends with a notice and
 deploys nothing. A merge that
-touches the harness also runs the harness release lane (`release-harness.yml`: build on merge,
+touches the harness also runs the harness release lane (`deploy-harness.yml`: build on merge,
 publish after approval; the deploy does not wait for it). A hotfix is
 a `fix/*` branch off `main` with the same PR gate. Workflows, jobs, required checks and how to run
 each gate locally: [09 CI-CD](./09%20CI-CD.md).
@@ -78,19 +84,28 @@ branch protection rule. The ruleset is set up per `08 Harness Release Runbook.md
 `.github/CODEOWNERS` is configured, but it stays advisory until the ruleset requires Code Owner
 review.
 
-| Branch | Ruleset restrictions                                                                                                                                                                                                                                                        |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `dev` deployment; required checks `build-and-test`, `version-gate`, `docs-gate` with the branch up to date; no bypass actors |
+| Branch | Ruleset restrictions                                                                                                                                                                                                                                                                                           |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `main` | Pull request with 1 approval, last-push approval and resolved conversations; **squash merge only**; linear history; no deletion or force-push; `web` deployment; required checks `build-and-test`, `docs-gate`, `version-gate`, `harness-package`, `harness-unit` with the branch up to date; no bypass actors |
 
-Required status checks mirror job IDs `ci.yml` actually produces — don't require a check the
-pipeline doesn't produce. The `harness-package` and `harness-cli` jobs run on every PR but are
-advisory, not required. On 2026-11-16 the live ruleset had no required checks yet; runbook step 1
-lists what to add.
+Required status checks mirror job IDs the PR workflows actually produce (`build-and-test` and
+`docs-gate` from `ci-web.yml`; `version-gate`, `harness-package` and `harness-unit` from
+`ci-harness.yml`) — don't require a check the pipeline doesn't produce. D-17 named the first three;
+the set was extended on 2026-11-17 with `harness-package` and `harness-unit`. The three
+`ci-harness.yml` checks are skipped on a PR that does not touch the harness, and a skipped job
+reports success. `harness-cli (<os>)` stays advisory, so one flaky macOS or Windows runner can't
+block a merge; `gitleaks` and `changes` are advisory too. On 2026-11-17 the live ruleset's
+required deployment was switched from `dev` to `web` at 20:33, but its required-check list was
+still empty. With no required check, GitHub does not apply the "branch up to date" setting either.
+`main` still ran the old `ci.yml`, which deploys to `dev`, so until this change merges every other
+PR is blocked. Runbook step 1 adds all five checks.
 
 The ruleset needs no bypass actors. No workflow pushes to `main`, and branch rulesets do not
 cover the tag the harness lane creates. On 2026-11-16 the live ruleset still listed two bypass
-actors, the GitHub Actions app and the user who owned the old release PAT; runbook step 1 says to
-remove both.
+actors, the GitHub Actions app and the user who owned the old release PAT; on 2026-11-17 one
+remained, with bypass mode "always". Runbook step 1 says to remove all of them. A bypass push skips the
+PR checks; the `gitleaks` push run on `main` detects a secret in it only after the fact, since the
+public repository exposes it at once ([09 CI-CD](./09%20CI-CD.md)).
 
 **Squash merges and the harness lane.** Every PR lands as one squash commit whose subject is the
 PR title. The title does not decide the harness version: the PR's own commits do, and

@@ -12,7 +12,7 @@ Test harness validating the `implementation-harness` skill package (`skills/impl
 
 ```mermaid
 flowchart LR
-    GH(["⚙️ GitHub Actions\nci.yml"]):::ci
+    GH(["⚙️ GitHub Actions\nci-web.yml · ci-harness.yml"]):::ci
 
     subgraph DET ["  Deterministic — Nx-cached, no live agents  "]
         UNIT["🧪 unit\nscripts, fixtures, graders,\nstate root, baseline, CLI, release gates"]:::test
@@ -54,7 +54,7 @@ flowchart LR
     style AGENT fill:#EEF2FF,stroke:#4338CA,color:#1e1b4b
 ```
 
-Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CLI authentication and model usage (`yarn nx run implementation-harness-e2e:agent-e2e`, a guarded command).
+Agent E2E runs are not triggered by any CI workflow — they use the developer's own CLI authentication and model usage (`yarn nx run implementation-harness-e2e:agent-e2e`, a guarded command).
 
 ## Responsibilities
 
@@ -75,7 +75,7 @@ Agent E2E runs are not triggered by `ci.yml` — they use the developer's own CL
 ## Boundary contracts
 
 - Input: fixture workspaces under `fixtures/` (seeded, disposable copies of the skill package's target repositories), case/scenario definitions under `src/cases/` and `src/scenarios/`
-- Output: per-case `runs/<case>/report.json`; CI-visible pass/fail from `unit`/`integration` (via the `test` target, which `ci.yml` runs through `nx affected --target=test`, between the affected typecheck and build steps); the `harness-cli` CI job additionally runs the install-CLI and state-root specs (target `unit-cli`) on Linux, macOS and Windows runners
+- Output: per-case `runs/<case>/report.json`; CI-visible pass/fail from `unit`/`integration` (via the `test` target, which `ci-web.yml`'s `build-and-test` job runs through `nx affected --target=test`, between the affected typecheck and build steps); on PRs that touch the harness, its tooling or CI, `ci-harness.yml` also runs the `unit` specs directly (job `harness-unit`, since Nx does not count `.github/` or the root `scripts/` as this project's inputs) and the install-CLI and state-root specs (job `harness-cli`, target `unit-cli`) on Linux, macOS and Windows runners
 - Guarantee: deterministic layers (`unit`, `integration`) never invoke a live model and are Nx-cached (`cache: true` in `project.json`); agent E2E is explicitly uncached (`cache: false`) and guarded — it never runs in CI, only when a developer deliberately spends agent budget
 - Guarantee: fixtures are read-only sources — `createFixture()` copies each one into a disposable scratch workspace per case; no test target writes back into `skills/implementation-harness/` or a fixture's checked-in source
 
