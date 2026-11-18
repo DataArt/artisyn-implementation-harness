@@ -29,6 +29,12 @@ const OG_FILES = [
   'docs-operational-graph.sqlite',
 ];
 
+/** B+ frontmatter for a fixture doc, so `migrate --check` reports nothing pending
+ * and the unattended run never reaches Step 0b's confirmation prompt. */
+const fixtureFrontmatter = (title: string, extra = ''): string =>
+  `---\ntype: Reference\ntitle: ${title}\n${extra}generated: { by: process:e2e-fixture, at: 2026-01-01T00:00:00Z }\n` +
+  `updated: { by: process:e2e-fixture, at: 2026-01-01T00:00:00Z }\n---\n\n`;
+
 function runNode(args: string[], cwd: string): void {
   const outcome = spawnSync('node', args, { cwd, encoding: 'utf8' });
   if (outcome.status !== 0)
@@ -48,16 +54,23 @@ async function seedMaterializedGraph({ grade }: StepContext): Promise<void> {
   const ogDest = path.join(workspace.root, OG_DIR);
   fs.mkdirSync(ogDest, { recursive: true });
   for (const file of OG_FILES) fs.copyFileSync(path.join(ogSrc, file), path.join(ogDest, file));
+  fs.copyFileSync(path.join(ogSrc, 'gitignore'), path.join(ogDest, '.gitignore'));
+  fs.writeFileSync(path.join(ogDest, 'og.config.json'), '{}\n');
   runNode([path.join(ogDest, 'cli.mjs'), 'build', '--dir', workspace.root], workspace.root);
   fs.writeFileSync(
     path.join(workspace.root, REFERENCE_TARGET),
-    '# Reindex Reference Target\n\nA second fixture doc for the content-reference scan to point at.\n'
+    fixtureFrontmatter(
+      'Reindex Reference Target',
+      'description: A second fixture doc for the content-reference scan\ntags: [fixture]\n'
+    ) +
+      '# Reindex Reference Target\n\nA second fixture doc for the content-reference scan to point at.\n'
   );
   runNode([path.join(ogDest, 'cli.mjs'), 'build', '--dir', workspace.root], workspace.root);
   grade.artifacts.set(SQLITE_BEFORE, fs.readFileSync(path.join(workspace.root, DB_FILE)));
   fs.writeFileSync(
     path.join(workspace.root, NEW_DOC),
-    `# Reindex Fixture Doc\n\nAdded after the graph was already materialized. Implements ` +
+    fixtureFrontmatter('Reindex Fixture Doc') +
+      `# Reindex Fixture Doc\n\nAdded after the graph was already materialized. Implements ` +
       `[Reindex Reference Target](./Reindex%20Reference%20Target.md).\n`
   );
 }
@@ -80,15 +93,15 @@ const reindexGraphPickedUpNewDoc = (): GraderBinding => (c) => {
 
 /** The second thing this scenario proves: `reindex-graph`'s default run
  * includes the intelligent frontmatter scan (reference's Step 2), not just
- * the deterministic build — the fixture doc has neither `purpose:` nor
- * `keywords:` to start, and nothing but the agent reading its content can
+ * the deterministic build — the fixture doc has neither `description:` nor
+ * `tags:` to start, and nothing but the agent reading its content can
  * write them (`cli.mjs` never derives or writes either itself). */
 const reindexGraphWroteFrontmatter = (): GraderBinding => (c) => {
   const docPath = path.join(c.workspaces[0].root, NEW_DOC);
   const content = fs.readFileSync(docPath, 'utf8');
   const failures: string[] = [];
-  if (!/^purpose:/m.test(content)) failures.push(`${NEW_DOC} has no purpose: frontmatter`);
-  if (!/^keywords:/m.test(content)) failures.push(`${NEW_DOC} has no keywords: frontmatter`);
+  if (!/^description:/m.test(content)) failures.push(`${NEW_DOC} has no description: frontmatter`);
+  if (!/^tags:/m.test(content)) failures.push(`${NEW_DOC} has no tags: frontmatter`);
   return result('reindex-graph/wrote-frontmatter', failures);
 };
 
