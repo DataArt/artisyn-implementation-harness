@@ -47,7 +47,7 @@ The design is already approved. What is left is to build and ship it, in the des
   own docs. Index pages move their content to `00 Overview.md`, and nav and `docs/README.md`
   links follow. `docs/index.md` stays unchanged. Graph Explorer and the tier-sync CI script
   drop `AppReadme`. The site still builds.
-- **A "Dogfood" page inI'd like to stay Web Explorer** that explains the delivery loop, with this repo's
+- **A "Dogfood" page in Web Explorer** that explains the delivery loop, with this repo's
   migration as the worked example.
 
 "Done" for each item is the matching row in the design's `Efforts.md` "Done when" table.
@@ -60,7 +60,7 @@ The design is already approved. What is left is to build and ship it, in the des
   contract and a new `index.md` rule.
 - **HLD containers** (v1): **Implementation Harness E2E** (`cli.test.mjs` sits in the
   canonical package; its unit and live scenarios check the flows), **Harness Release Pipeline**
-  (the major version stamp), **Web Docs** (VitePress nav, Graph Explorer, migrated docs) and
+  (the version stamp; minor, see "Developer decisions at sign-off"), **Web Docs** (VitePress nav, Graph Explorer, migrated docs) and
   **Web Explorer** (the Dogfood page). The canonical package itself has no separate container.
   It is the product that the E2E and Release containers test and ship. This matches how the
   previous OG design (`DESIGN-20261102-Q5MU`) was mapped.
