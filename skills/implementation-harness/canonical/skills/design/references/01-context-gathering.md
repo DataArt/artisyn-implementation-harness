@@ -107,7 +107,7 @@ Create the story folder under the Stories root resolved in Step 3:
 (`{{DESIGN_STORIES_ROOT}}[{TICKET}] {name}/design/`) for every subsequent stage
 and metrics command.
 
-Create `design/Report.md` now using `{{provider:skills_root}}/design/templates/report.md`,
+Create `design/Report.md` now using `{{provider:skills_root}}/design/templates/report.md` (replace the template's own meta block with the fenced `yaml` frontmatter under it, without the fences),
 with `Phase` set to
 `🎯 Context Gathering 🔄 · 🚀 Ceremony ⏳ · 📋 Frame ⏳ · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳`.
 

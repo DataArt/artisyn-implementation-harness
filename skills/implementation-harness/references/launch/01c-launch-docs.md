@@ -81,6 +81,31 @@ inside that version. No numeric prefixes or initial WAR folder. For shared produ
 context, reserve its README plus one agreed/default `Architecture/` folder; invent no
 further structure. Present verified LLD/HLD summaries at their dependency boundaries.
 
+## D.6 — Knowledge base layout (OKF)
+
+The docs tree is an Open Knowledge Format (OKF) 0.2 knowledge base. Each tier root is
+one bundle: `Target Architecture (HLD)/`, `System Architecture (LLD)/`,
+`Engineering Guide/`, `Stories/`, and the Product folder when Q10c names one.
+
+1. Write `project:docs/.og/og.config.json` from Q10c: `{"productDir": "docs/<folder>"}`,
+   or `{}` when Q10b is Project-scoped or Q10c is `none`. OG reads the Product tier from
+   this file. Patches never overwrite it.
+2. Create `index.md` in every bundle root this launch created. Its only frontmatter key
+   is `okf_version: '0.2'`. Its body is `# Section` headings with
+   `- [Title](relative-url) - description` bullets, one per doc launch wrote at that
+   level. Create the Product bundle root only when Q10c names a folder.
+3. A section `index.md` (any other folder) has no frontmatter, only headings and link
+   bullets. Put any overview prose in `00 Overview.md` in the same folder, never in
+   `index.md`.
+4. Every other doc launch writes uses the B+ frontmatter from installed
+   `Documentation/01 Principles.md`: `type`, `title`, `description`, `tags`,
+   `generated` and `updated`, with `by: artisyn-harness/<major.minor>`.
+5. A project whose `docs/` already held docs before launch is migrated in
+   [Reindex graph](../reindex-graph.md) Step 0b, after the developer confirms the
+   dry-run summary.
+
+Reserve every file this step writes in `derived_outputs`, like D.1–D.5.
+
 ## Plan reconciliation for D.1–D.5 outputs
 
 The Stage-3 JSON plan is frozen before D.1–D.5 run, so none of their outputs exist in
