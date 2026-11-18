@@ -9,10 +9,11 @@ Developer intent (free-form, no tracker ticket): design an Open Knowledge Format
 ## State
 
 ```yaml
-current_stage: review-gate
-completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution]
+current_stage: publish
+completed_stages:
+  [context-gathering, ceremony, frame, research, evaluate, solution, review-gate, address-feedback]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'Review Gate: open draft MR'
+next_action: 'Publish: update docs/Harness and terminology'
 context_fingerprint: ''
 ```
 
@@ -48,12 +49,12 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 
 ## Status
 
-| Field  | Value                                                                                                                                                                               |
-| ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Ticket | DESIGN-20261117-7931                                                                                                                                                                |
-| Branch | `docs/design-20261117-7931-okf-knowledge-base`                                                                                                                                      |
-| Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Field  | Value                                                                                                                                                                                         |
+| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ticket | DESIGN-20261117-7931                                                                                                                                                                          |
+| Branch | `docs/design-20261117-7931-okf-knowledge-base`                                                                                                                                                |
+| Status | 🔄 In Progress                                                                                                                                                                                |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIGN-20261117-7931 ·`), mirrored in this report.
 
@@ -65,20 +66,20 @@ Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIG
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 11h 42m 19s · Wait to date: 2h 30m 30s (closed 1h 10m 2s + current 1h 20m 28s) · Unclassified: 0s
+Observed work: 11h 42m 25s · Wait to date: 2h 35m 15s (closed 2h 35m 15s + current 0s) · Unclassified: 36s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work        | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ----------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-17T21:07:28.950Z | 2026-11-17T21:11:52.035Z | 4m 23s      | 6s          | 4m 17s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-17T21:11:52.087Z | 2026-11-17T21:15:15.472Z | 3m 23s      | 5s          | 3m 18s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (completed)             | 2026-11-17T21:15:15.525Z | 2026-11-17T21:28:15.597Z | 13m 0s      | 3m 23s      | 9m 37s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (completed)          | 2026-11-17T21:28:15.648Z | 2026-11-17T22:26:35.425Z | 58m 20s     | 16m 40s     | 41m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (completed)          | 2026-11-17T22:26:35.469Z | 2026-11-17T22:42:34.790Z | 15m 59s     | 4m 49s      | 11m 10s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (waiting)            | 2026-11-17T22:42:34.850Z | unavailable              | unavailable | 11h 17m 16s | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work        | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ----------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-17T21:07:28.950Z | 2026-11-17T21:11:52.035Z | 4m 23s      | 6s          | 4m 17s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-17T21:11:52.087Z | 2026-11-17T21:15:15.472Z | 3m 23s      | 5s          | 3m 18s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-17T21:15:15.525Z | 2026-11-17T21:28:15.597Z | 13m 0s      | 3m 23s      | 9m 37s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (completed)          | 2026-11-17T21:28:15.648Z | 2026-11-17T22:26:35.425Z | 58m 20s     | 16m 40s     | 41m 39s    | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (completed)          | 2026-11-17T22:26:35.469Z | 2026-11-17T22:42:34.790Z | 15m 59s     | 4m 49s      | 11m 10s    | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (completed)          | 2026-11-17T22:42:34.850Z | 2026-11-18T11:25:03.321Z | 12h 42m 28s | 11h 17m 16s | 1h 25m 13s | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
+| review-gate (completed)       | 2026-11-18T11:25:09.114Z | 2026-11-18T11:25:44.943Z | 36s         | 6s          | 0s         | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
+| address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s          | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s          | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s          | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -261,9 +262,9 @@ _Target: `solution/Architecture.md` + four `solution/Design - *.md` files. Two `
 
 ## Gate
 
-- Approver: —
-- Draft MR: —
-- Approved: — _(a date once approved, or `declined`)_
+- Approver: Anton Merkulov (sole approver)
+- Draft MR: — (skipped by developer: sole approver, approved in chat)
+- Approved: 2026-11-18
 - Decline reason: — _(filled in by Address Feedback only if declined)_
 
 ---

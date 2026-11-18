@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lifecycle": "design",
-  "design_revision": 0,
+  "design_revision": 1,
   "ticket": "DESIGN-20261117-7931",
   "tracking_started_at": "2026-11-17T21:07:28.911Z",
   "ticket_created_at": null,
@@ -77,26 +77,44 @@
     },
     {
       "id": "solution",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "96a9300d-2526-438b-95da-d2be2952dcd6",
           "started_at": "2026-11-17T22:42:34.850Z",
-          "ended_at": null,
+          "ended_at": "2026-11-18T11:25:03.321Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "95379bfd-9444-4f95-897d-51463248a10a",
+          "started_at": "2026-11-18T11:25:09.114Z",
+          "ended_at": "2026-11-18T11:25:09.164Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        },
+        {
+          "id": "5685919e-6a52-4cd9-8501-8c9b658b50b9",
+          "started_at": "2026-11-18T11:25:39.124Z",
+          "ended_at": "2026-11-18T11:25:44.943Z",
+          "trigger": "reopened",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "address-feedback",
-      "status": "pending",
-      "attempts": []
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "Sole approver approved in chat 2026-11-18",
+      "skipped_at": "2026-11-18T11:25:44.995Z"
     },
     {
       "id": "publish",
@@ -509,8 +527,30 @@
       "reason": "user_input",
       "detail": "Awaiting solution commit",
       "started_at": "2026-11-18T11:20:18.357Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-18T11:20:18.357Z"
+      "ended_at": "2026-11-18T11:25:03.321Z",
+      "last_observed_at": "2026-11-18T11:25:03.321Z"
+    },
+    {
+      "id": "caee855e-9431-4d64-b4ec-af8d54829898",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "95379bfd-9444-4f95-897d-51463248a10a",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-18T11:25:09.114Z",
+      "ended_at": "2026-11-18T11:25:09.164Z",
+      "last_observed_at": "2026-11-18T11:25:09.164Z"
+    },
+    {
+      "id": "f1cd84a0-beb1-4694-aded-7c4fd83ed883",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "5685919e-6a52-4cd9-8501-8c9b658b50b9",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-18T11:25:39.124Z",
+      "ended_at": "2026-11-18T11:25:44.943Z",
+      "last_observed_at": "2026-11-18T11:25:44.943Z"
     }
   ],
   "checks": [
@@ -673,24 +713,40 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "gate-round-01",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "5685919e-6a52-4cd9-8501-8c9b658b50b9",
+      "step": null,
+      "design_revision": 1,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T11:25:44.898Z",
+      "ended_at": "2026-11-18T11:25:44.898Z",
+      "result": "passed",
+      "evidence_ref": "Sole approver approved in chat 2026-11-18 after commit ccc119b; no MR opened (developer chose to skip review)",
+      "source": "developer confirmation",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-18T11:20:18.358Z",
+    "as_of": "2026-11-18T11:25:45.054Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 42139.441,
-    "observed_wait_seconds": 9029.706,
+    "observed_work_seconds": 42145.310000000005,
+    "observed_wait_seconds": 9314.67,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 9029.707,
-    "unclassified_seconds": 0.2990000000010914,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 9314.67,
+    "unclassified_seconds": 36.16299999999137,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 8593.872,
     "failed_checks": 1,
-    "first_pass_verification_rate": 0.8333333333333334,
+    "first_pass_verification_rate": 0.8571428571428571,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
