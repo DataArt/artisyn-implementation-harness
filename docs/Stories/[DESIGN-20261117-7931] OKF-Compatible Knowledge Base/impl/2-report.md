@@ -13,22 +13,22 @@ Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#7, one per stage), 
 
 ## Progress
 
-| #   | Step                                                        | Status     | Notes | Test | Docs |
-| --- | ----------------------------------------------------------- | ---------- | ----- | ---- | ---- |
-| 1   | Tests: canonical OG cases for AC-1 to AC-8                  | ⏳ Pending |       |      |      |
-| 2   | Canonical OG: scope guard and retirements                   | ⏳ Pending |       |      |      |
-| 3   | Canonical OG: frontmatter parser, B+ writer, type map       | ⏳ Pending |       |      |      |
-| 4   | Canonical OG: schema v1, config, CLI renames                | ⏳ Pending |       |      |      |
-| 5   | Canonical OG: check command                                 | ⏳ Pending |       |      |      |
-| 6   | Canonical OG: migrate command                               | ⏳ Pending |       |      |      |
-| 7   | Canonical harness flows: launch, reindex-graph, patch apply | ⏳ Pending |       |      |      |
-| 8   | Canonical docs flow: writers, rules, templates              | ⏳ Pending |       |      |      |
-| 9   | Implementation Harness E2E: follow the key rename           | ⏳ Pending |       |      |      |
-| 10  | Release: commit, minor version stamp, patch prepare         | ⏳ Pending |       |      |      |
-| 11  | This repo: patch apply                                      | ⏳ Pending |       |      |      |
-| 12  | This repo: reindex-graph migration                          | ⏳ Pending |       |      |      |
-| 13  | Web Docs: nav and README links                              | ⏳ Pending |       |      |      |
-| 14  | Web Explorer: Dogfood page                                  | ⏳ Pending |       |      |      |
+| #   | Step                                                        | Status     | Notes                                                              | Test | Docs |
+| --- | ----------------------------------------------------------- | ---------- | ------------------------------------------------------------------ | ---- | ---- |
+| 1   | Tests: canonical OG cases for AC-1 to AC-8                  | ✅ Done    | 96 cases; 73 red for expected reasons                              |      |      |
+| 2   | Canonical OG: scope guard and retirements                   | ✅ Done    | AC-1/AC-2 green (1 waits on Step 3 parser)                         |      |      |
+| 3   | Canonical OG: frontmatter parser, B+ writer, type map       | ✅ Done    | Parser/writer/type map green; golden 173 docs                      |      |      |
+| 4   | Canonical OG: schema v1, config, CLI renames                | ✅ Done    | Schema v1, config, renames green; seed v1                          |      |      |
+| 5   | Canonical OG: check command                                 | ✅ Done    | check green                                                        |      |      |
+| 6   | Canonical OG: migrate command                               | ✅ Done    | 96/96 green; scratch dogfood run clean                             |      |      |
+| 7   | Canonical harness flows: launch, reindex-graph, patch apply | ✅ Done    | References + manifest; 98/98, unit-cli 44/44                       |      |      |
+| 8   | Canonical docs flow: writers, rules, templates              | ✅ Done    | B+ rules in canonical docs flow; Terminology kept empty (see note) |      |      |
+| 9   | Implementation Harness E2E: follow the key rename           | ✅ Done    | E2E fixture/assertion/grader; unit 319, unit-cli 44, integration 5 |      |      |
+| 10  | Release: commit, minor version stamp, patch prepare         | 🔄 Active  | Waiting for developer commits before the version stamp             |      |      |
+| 11  | This repo: patch apply                                      | ⏳ Pending |                                                                    |      |      |
+| 12  | This repo: reindex-graph migration                          | ⏳ Pending |                                                                    |      |      |
+| 13  | Web Docs: nav and README links                              | ⏳ Pending |                                                                    |      |      |
+| 14  | Web Explorer: Dogfood page                                  | ⏳ Pending |                                                                    |      |      |
 
 <!--
 Status values : ⏳ Pending · 🔄 Active · ✅ Done · ⚠️ Blocked · ⏭️ Skipped
@@ -41,19 +41,19 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 21m 48s · Wait: 9m 7s · Unclassified: 16s
+Observed work: 55m 13s · Wait: 3h 5m 18s · Unclassified: 2m 49s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait   | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| ---------- | ------------------------ | ------------------------ | ----------- | ------ | ------ | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| context    | 2026-11-18T13:21:21.058Z | 2026-11-18T13:27:33.993Z | 6m 13s      | 2m 38s | 3m 35s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| ceremony   | 2026-11-18T13:27:42.955Z | 2026-11-18T13:33:19.761Z | 5m 37s      | 5s     | 5m 32s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| plan       | 2026-11-18T13:33:27.013Z | unavailable              | unavailable | 19m 5s | 0s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| implement  | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| test       | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| document   | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| completion | unavailable              | unavailable              | unavailable | 0s     | 0s     | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| context    | 2026-11-18T13:21:21.058Z | 2026-11-18T13:27:33.993Z | 6m 13s      | 2m 38s  | 3m 35s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| ceremony   | 2026-11-18T13:27:42.955Z | 2026-11-18T13:33:19.761Z | 5m 37s      | 5s      | 5m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| plan       | 2026-11-18T13:33:27.013Z | 2026-11-18T16:48:43.098Z | 3h 15m 16s  | 19m 5s  | 2h 56m 11s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| implement  | 2026-11-18T16:48:52.113Z | unavailable              | unavailable | 33m 25s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| test       | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| document   | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| completion | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 
-Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical 0 · debt 0 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
+Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical 0 · debt 2 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
 
 ## Step Metrics
@@ -62,10 +62,24 @@ Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 21m 48s · Wait: 9m 7s · Unclassified: 16s
+Observed work: 55m 13s · Wait: 3h 5m 18s · Unclassified: 2m 49s
 
-| Step | Started (UTC) | Completed (UTC) | Elapsed | Work | Wait | Input tokens | Output tokens | Coverage | Attempts | Failed checks | Flags |
-| ---- | ------------- | --------------- | ------- | ---- | ---- | ------------ | ------------- | -------- | -------- | ------------- | ----- |
+| Step                                                                 | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| -------------------------------------------------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| step-01: Tests: canonical OG cases for AC-1 to AC-8                  | 2026-11-18T16:49:02.129Z | 2026-11-18T16:56:35.184Z | 7m 33s      | 7m 33s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-02: Canonical OG: scope guard and retirements                   | 2026-11-18T16:56:35.240Z | 2026-11-18T16:59:16.398Z | 2m 41s      | 2m 41s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-03: Canonical OG: frontmatter parser, B+ writer, type map       | 2026-11-18T16:59:16.454Z | 2026-11-18T17:03:51.996Z | 4m 36s      | 4m 36s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-04: Canonical OG: schema v1, config, CLI renames                | 2026-11-18T17:03:52.073Z | 2026-11-18T17:03:52.181Z | 0s          | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-05: Canonical OG: check command                                 | 2026-11-18T17:03:52.232Z | 2026-11-18T17:06:09.479Z | 2m 17s      | 2m 17s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-06: Canonical OG: migrate command                               | 2026-11-18T17:06:09.541Z | 2026-11-18T17:15:40.179Z | 9m 31s      | 9m 31s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-07: Canonical harness flows: launch, reindex-graph, patch apply | 2026-11-18T17:15:40.233Z | 2026-11-18T17:18:30.967Z | 2m 51s      | 2m 51s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-08: Canonical docs flow: writers, rules, templates              | 2026-11-18T17:18:31.013Z | 2026-11-18T17:20:17.462Z | 1m 46s      | 1m 46s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-09: Implementation Harness E2E: follow the key rename           | 2026-11-18T17:20:17.516Z | 2026-11-18T17:22:17.614Z | 2m 0s       | 2m 0s  | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-10: Release: commit, minor version stamp, patch prepare         | 2026-11-18T17:24:40.029Z | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-11: This repo: patch apply                                      | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| step-12: This repo: reindex-graph migration                          | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| step-13: Web Docs: nav and README links                              | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| step-14: Web Explorer: Dogfood page                                  | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 
 <!-- dev-metrics-step:end -->
 
@@ -100,12 +114,115 @@ Observed work: 21m 48s · Wait: 9m 7s · Unclassified: 16s
 
 ## Implementation Notes
 
-_Added for every step — a brief confirmation for smooth steps, detailed notes for surprises, workarounds, or decisions made._
+### Step 1 — Tests: canonical OG cases for AC-1 to AC-8
+
+Rewrote `canonical/docs/.og/cli.test.mjs`. The existing cases now follow the v1 contract: five edge types, `description`/`tags`, and `list --missing description,tags`. New cases cover AC-1 to AC-8: scope guard, prune safety, parser forms, golden round-trip, Prettier stability, `type` stamping, read-compat, schema states, config, `migrate` fixtures backed by git, and `check`. New symbols are reached through namespace imports, so a missing export fails only its own case, not the whole file. First run: 96 tests, 23 pass (unchanged behaviour), 73 fail for the expected reasons. An editor formatter rewrapped the file on save, which is why it is 1,491 lines.
+
+### Step 2 — Canonical OG: scope guard and retirements
+
+- `utils.mjs`: added `inScope` with the four rules and stable `Out of scope [<rule>]` messages. Split the walker into `walkMarkdownFiles` (raw) and `listMarkdownFiles` (in-scope only).
+- `docs.mjs`: `assign` checks scope first. The `AppReadme` branch is removed. `pruneExcept` is replaced by `staleExcept` and `remove`, so the CLI can report before it deletes.
+- `edges.mjs`: added `authoredTouching`.
+- `cli.mjs`: `index` checks the edge type and the `--to` scope before `assign`. `reindex` returns `scopeViolations` and `orphanedAuthored`, and keeps the row of a reserved file that still carries its id.
+- `constants.mjs`: `impl-to-readme`, `APP_README_PATTERN` and `TIER_COLORS.AppReadme` are removed. Added a static `TIER_NAMES` (planned for Step 4, needed by the AC-2 case) and a `RETIRED_EDGE_TYPE` constant for `migrate`.
+- Result: 34 of 96 pass. All AC-1 and AC-2 cases pass except one that only needs the Step 3 parser.
+
+### Step 3 — Canonical OG: frontmatter parser, B+ writer, type map
+
+- `utils.mjs`: added the hand-written YAML-subset `parseFrontmatter`. It handles the BOM and CRLF, and reports an error per rejected key (with its file line) while keeping the other keys. Added `writeFrontmatter`: B+ order, Prettier-stable quoting (double quotes when the value contains `'`), number-like strings quoted, and long lists wrapped the way Prettier does. `readFrontmatter` and `writeAdditiveId` now sit on top of them.
+- `constants.mjs`: added `TYPE_MAP`, `TYPE_FALLBACK`, `UNTIERED_TYPE` and `OKF_VERSION`.
+- `docs.mjs`: added `typeFor` with glob matching. `assign({stampType})` is the `index --doc` path: it refuses unsupported YAML, naming the line, and stamps a missing `type`. Bulk runs write `id` only and return parse errors. Read-compat applies: `description ?? purpose`, `tags ?? keywords`.
+- `reindex` reports `frontmatterErrors`.
+- Steps 3 and 4 landed in the same edit, because both rewrite `DocsStore.assign`. Each step's cases were verified separately.
+- Golden: 173 tagged docs round-trip. 41 wrapped lists that the old parser read as empty now parse non-empty; the design estimated about 50, and 41 is the current count. Only `docs/index.md`, which has nested YAML, is rejected.
+
+### Step 4 — Canonical OG: schema v1, config, CLI renames
+
+- `schema.mjs`: v1 DDL, `SCHEMA_VERSION = 1`, and the seven v0→v1 statements.
+- `cli.mjs` `ensureSchema`:
+  - A new DB is created at v1.
+  - A v0 DB is copied to `docs-operational-graph.v0.bak.sqlite`, then migrated in one transaction. A failing statement rolls back and the error names it.
+  - A DB newer than this OG is refused untouched.
+- `docs.mjs`: `loadConfig` validates `productDir` (under `docs/`, not `docs/.og`, no overlap with another tier root) and reports `invalidConfig`. Tier roots match with a trailing `/`. `TIER_PATH_PREFIXES` is replaced by `TIER_ROOTS` plus the configured Product root.
+- `index` refuses a path under an invalid `productDir`, naming `invalidConfig`. `reindex` reports `invalidConfig`.
+- CLI renames: `list --missing description,tags`, and `search` and keyword-match use `tags`.
+- Added canonical `docs/.og/gitignore` (no dot; see RF-005). The seed DB was regenerated at v1.
+
+### Step 5 — Canonical OG: check command
+
+- `cli.mjs` `check --dir`: reads files only; never writes or opens the DB.
+  - `missingFields` (type, description, tags).
+  - `brokenIndexEntries`: file-relative bullet targets that do not exist; external and site-absolute links are skipped.
+  - `unlistedConcepts`: only in folders that have an `index.md`; the docs root is excluded.
+  - `unversionedBundles`: present tier roots, with the Product root only when configured.
+  - `frontmatterErrors` and `counts`.
+  - Results are sorted, so the output is stable. `docs/index.md` is never reported.
+- `utils.mjs`: added `parseIndexBullets`, `isContentBearing`, `resolveLink`, `linkTargetExists` and `encodeLinkPath`, shared with `migrate`.
+- CLI usage now lists `check` and `migrate`.
+
+### Step 6 — Canonical OG: migrate command
+
+- `cli.mjs` `migrate --dir [--check] [--dry-run] [--allow-dirty]`. One `planMigration` drives all three modes, so `--check` pending, the `--dry-run` report and the real run's writes always agree. Steps, in the design order:
+  1. Config from the stored answers: `.harness/state/answers.json` first, then `state/launch/`. Q10b Project-scoped or Q10c "none" gives `{}`. A Q10c value counts only when it names an existing folder.
+  2. Index prose moves to `00 Overview.md`, which carries the old id. Navigation bullets follow: overview first, then concept docs in file-name order, without duplicates.
+  3. `impl-to-readme` edges are re-typed to `references`, merging duplicates.
+  4. Frontmatter is rewritten to B+, seeded from `git log --follow --format=%aI` (UTC `Z`, or now when a file has no history). Only OG-era docs are rewritten: those with `purpose`/`keywords`, no `type`, or template meta.
+  5. OG keys are stripped from every `index.md` line by line. This doubles as the fallback for unparseable frontmatter.
+  6. Bundle roots get `okf_version: '0.2'`.
+  7. Stray ids outside `docs/` are removed via `git ls-files`.
+  8. Reindex.
+  9. Report.
+- Safeguards: the clean check uses `git status -z` and covers `.md` under `docs/` (not `docs/.og/`) plus stray-id targets. `docs/index.md` is never touched. `pending` is recomputed after a real run.
+- `edges.mjs`: added `counts()` and `retype()`. `utils.mjs`: added `isLinkBullet`, `isHeading` and `splitFrontmatter`. `docs.mjs`: `configFrom` was split out of `loadConfig`.
+- Scratch dogfood run on a copy of this repo's `docs/` with `og.config.json`:
+  - Exactly the design's 11 `00 Overview.md` pages were created, plus Stories and LLD bundle-root indexes.
+  - Authored edges stayed at 217, with no merge and nothing orphaned. `docs/index.md` was unchanged and the stray README id was removed.
+  - A second run after commit changed 0 files.
+  - `check` showed 0 for every category except 31 missing descriptions, which Step 12's writer review will fill.
+- Fix found in the scratch run: a blank line separated the overview bullet from the other bullets. Blank lines between bullets are now removed.
+- Note for Step 12: the Engineering Guide index keeps its old section headings with nothing under them. This follows the design's rule ("keeps its headings and link bullets"); the writer review will tidy it.
+
+### Step 7 — Canonical harness flows: launch, reindex-graph, patch apply
+
+- `references/reindex-graph.md`:
+  - Step 0 deploys `gitignore` as `.gitignore` and never copies over `og.config.json`.
+  - New Step 0b: `migrate --check`, then the `missingConfig` prompt (folder or none), then the `invalidConfig` report, then dry-run summary and confirmation, then `migrate` (`--allow-dirty` only from launch). On exit 1 it stops and skips Step 1. On decline it still builds and checks, and reports "migration pending".
+  - Step 1 lists the new build report keys and prints `check`.
+  - 2a uses `list --missing description,tags`, the B+ keys and the `needsWriter` docs. On a refresh, 2a runs for those docs only.
+  - Five edge types; completion evidence updated.
+- `references/launch/02-launch-questions.md`: Q10c now asks for the folder path (or `none`) and says it becomes `productDir` (RF-017).
+- `references/launch/01c-launch-docs.md`: new D.6 for the OKF layout: `og.config.json`, versioned bundle-root `index.md` files (Product only with a folder), section `index.md` without frontmatter, overview prose in `00 Overview.md`, and B+ for every launch doc. Projects with existing docs migrate via Reindex graph Step 0b.
+- `references/launch/01d-launch-graph-verify.md`: greenfield expects `migrate --check` not pending. Brownfield gets the dry-run, confirmation and `--allow-dirty`. Evidence now includes the `check` counts.
+- `references/launch/01b-launch-install.md` and `references/patch/05-patch-apply.md` apply `deployRenames`. Patch apply's report ends with "run reindex-graph next" when `docs/.og/` changed; apply never migrates.
+- `canonical/manifest.json`: added `deployRenames` (`docs/.og/gitignore` → `docs/.og/.gitignore`). `scripts/lib/manifest.mjs` validates it as safe relative paths (RF-019).
+- `cli.test.mjs`: two greenfield fixtures, `{}` and a `productDir`: zero `check` findings, 4 or 5 versioned roots, `migrate --check` not pending. Suite 98/98; `unit-cli` 44/44.
+
+### Step 8 — Canonical docs flow: writers, rules, templates
+
+- Canonical `Documentation/01 Principles.md`: the "Operational graph frontmatter" rule is now the B+ contract (key order, owners, `by` actors, UTC `Z`, quoting). Added rules for `index.md` as navigation (bundle root `okf_version`, bullets kept current, overview prose in `00 Overview.md`, root created with the first doc in a bundle, no `log.md`, `docs/index.md` excepted) and for template meta.
+- Canonical `Lifecycles/05 Documents Flow.md`: the App README row says it is recorded in `2-report.md` with no graph edge. Added the archive frontmatter-only exception and a Navigation paragraph.
+- Canonical `agents/docs-writer/TEMPLATE.md`: a "Frontmatter and navigation" paragraph.
+- Templates: the six `.md` templates in design and dev keep their meta block and gain a second block with the new doc's B+ frontmatter (`type` from the type map, `process:<lifecycle>-<stage>` actors). Each copy step now says to drop the first block: dev context (report, plus the `Dev Intent` frontmatter for `0-intent.md`), dev plan, design context, frame, research and evaluate.
+- dev `06-document.md` Step 4: three `impl-to-*` types; an app README update is recorded in the report only, with no `index` call. The delegation names B+ and `index.md` upkeep. design `09-publish.md` gains item 7 (B+ and `index.md` bullets).
+- **Divergence from the plan, Terminology:** canonical `07 Terminology.md` stays an empty registry. Launch D.0 seeds it per project and skips seeding when rows exist, so shipping this repo's 7 OKF rows in canonical would block every new project's seeding. The terms stay in this repo's local registry (added at Publish). Raised at the Implement sign-off.
+
+### Step 9 — Implementation Harness E2E: follow the key rename
+
+- `scenarios/reindex-graph.ts`:
+  - The grader asserts `description:`/`tags:` instead of `purpose:`/`keywords:`.
+  - `seedMaterializedGraph` now deploys `gitignore` as `.gitignore`, writes `og.config.json` = `{}`, and gives both fixture docs B+ frontmatter (`type`, `title`, `generated`, `updated`; the reference target also has `description`/`tags`). `migrate --check` is therefore not pending, so the unattended agent run meets no Step 0b prompt (RF-007).
+  - The new doc still lacks `description`/`tags`, so the agent's 2a pass is what the grader proves.
+- `graders/docs-adoption.grader.ts`: `gradeDocsGraphAdopted` requires `docs/.og/.gitignore` and fails on a literal `docs/.og/gitignore`, plus a new spec case (RF-022).
+- Results: typecheck passes, `unit` 319/319, `unit-cli` 44/44, `integration` 5/5. The live `agent-e2e` (reindex-graph and bootstrap) is the developer's, because it is guarded.
+- Tech debt: TD-1 (`answers.json` path mismatch) and TD-2 (`cli.test.mjs` not in CI).
+- Environment note: `yarn nx run … --skip-nx-cache` fails in Nx itself (`hashArray is not a function` under WASI) on this machine. Runs without the flag work.
 
 ## Tech Debt
 
-| #   | Description | Type | Tracker | Finding | Owner | Next action |
-| --- | ----------- | ---- | ------- | ------- | ----- | ----------- |
+| #    | Description                                                                                                                                                                                                                    | Type    | Tracker | Finding | Owner               | Next action                                                                                      |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | ------- | ------- | ------------------- | ------------------------------------------------------------------------------------------------ |
+| TD-1 | Launch and patch-state references name `.harness/state/launch/answers.json`, but this repo keeps answers at `.harness/state/answers.json`. `migrate` reads both, so nothing breaks, but the docs and the state layout disagree | cleanup | —       | —       | Harness maintainers | Pick one path; update `01a-launch-plan.md`, `06-patch-state.md` and any writer, or move the file |
+| TD-2 | Canonical `docs/.og/cli.test.mjs` (98 cases) runs only by hand; no Nx target or CI workflow runs it                                                                                                                            | cleanup | —       | —       | Harness maintainers | Add an Nx target (e.g. `implementation-harness:og-test`) and call it from `ci-harness.yml`       |
 
 <!--
 Type values: blocker · dependency · cleanup · security · performance · ux
