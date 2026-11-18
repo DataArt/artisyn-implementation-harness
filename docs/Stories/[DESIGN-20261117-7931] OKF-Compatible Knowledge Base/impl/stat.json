@@ -1,0 +1,265 @@
+{
+  "schema_version": 2,
+  "lifecycle": "dev",
+  "ticket": "DESIGN-20261117-7931",
+  "author": "Anton Merkulov",
+  "tracking_started_at": "2026-11-18T13:21:21.014Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-18T13:21:21.058Z",
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "e349735d-fa59-4962-bd4a-f1ec40110522",
+          "started_at": "2026-11-18T13:21:21.058Z",
+          "ended_at": "2026-11-18T13:27:33.993Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "ceremony",
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "d121a771-a791-490c-b220-a2ecf4174405",
+          "started_at": "2026-11-18T13:27:42.955Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "plan",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "implement",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "test",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "document",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": [],
+      "flags": []
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "e000757f-75fb-4baa-bf36-c89a4b28eafc",
+      "stage_id": "context",
+      "stage_attempt_id": "e349735d-fa59-4962-bd4a-f1ec40110522",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-18T13:21:21.058Z",
+      "ended_at": "2026-11-18T13:23:59.424Z",
+      "last_observed_at": "2026-11-18T13:23:59.424Z"
+    },
+    {
+      "id": "24ff732a-575b-4650-ad31-5e8797ccc4ef",
+      "stage_id": "context",
+      "stage_attempt_id": "e349735d-fa59-4962-bd4a-f1ec40110522",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context sign-off",
+      "started_at": "2026-11-18T13:23:59.424Z",
+      "ended_at": "2026-11-18T13:27:33.993Z",
+      "last_observed_at": "2026-11-18T13:27:33.993Z"
+    },
+    {
+      "id": "2e8421a7-f6b0-4490-9d17-c9b94443182f",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "d121a771-a791-490c-b220-a2ecf4174405",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-18T13:27:42.955Z",
+      "ended_at": "2026-11-18T13:27:47.748Z",
+      "last_observed_at": "2026-11-18T13:27:47.748Z"
+    },
+    {
+      "id": "d1f157b3-e94f-4a36-b134-8fc964c68342",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "d121a771-a791-490c-b220-a2ecf4174405",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting ceremony sign-off (branch checkout)",
+      "started_at": "2026-11-18T13:27:47.748Z",
+      "ended_at": "2026-11-18T13:29:15.923Z",
+      "last_observed_at": "2026-11-18T13:29:15.923Z"
+    },
+    {
+      "id": "8ec4b12d-37d5-4b5c-9a03-0c1d49b7d67d",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "d121a771-a791-490c-b220-a2ecf4174405",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting commit",
+      "started_at": "2026-11-18T13:29:15.923Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-18T13:29:15.923Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "context-signoff-01",
+      "stage_id": "context",
+      "stage_attempt_id": "e349735d-fa59-4962-bd4a-f1ec40110522",
+      "step": null,
+      "name": "Context sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T13:27:33.875Z",
+      "ended_at": "2026-11-18T13:27:33.875Z",
+      "result": "passed",
+      "evidence_ref": "i think this is not major release... rathe minor / the rest is ok",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "ceremony-signoff-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "d121a771-a791-490c-b220-a2ecf4174405",
+      "step": null,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T13:29:15.815Z",
+      "ended_at": "2026-11-18T13:29:15.815Z",
+      "result": "passed",
+      "evidence_ref": "i d like to stay on this branch (docs/design-20261117-7931-okf-knowledge-base)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-18T13:29:15.923Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 163.15900000000002,
+    "observed_wait_seconds": 302.74399999999997,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0,
+    "unclassified_seconds": 9.006000000000029,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 302.74399999999997,
+    "failed_checks": 0,
+    "first_pass_verification_rate": null,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  },
+  "quality": {
+    "version": 1,
+    "as_of": "2026-11-18T13:29:15.869Z",
+    "source": "2-report.md",
+    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "findings": {
+      "total": 0,
+      "by_kind": {
+        "deviation": 0,
+        "bug": 0,
+        "design": 0,
+        "improve": 0,
+        "security": 0,
+        "performance": 0,
+        "docs": 0
+      },
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0,
+        "info": 0
+      },
+      "by_classification": {
+        "introduced": 0,
+        "pre-existing": 0,
+        "ruled-out": 0,
+        "advisory": 0
+      },
+      "by_resolution": {
+        "open": 0,
+        "fixed": 0,
+        "accepted": 0,
+        "tech-debt": 0,
+        "doc-updated": 0
+      },
+      "deviations_by_type": {
+        "contradiction": 0,
+        "extension": 0,
+        "omission": 0
+      },
+      "pr_review": {
+        "total": 0,
+        "by_kind": {
+          "deviation": 0,
+          "bug": 0,
+          "design": 0,
+          "improve": 0,
+          "security": 0,
+          "performance": 0,
+          "docs": 0
+        },
+        "by_severity": {
+          "critical": 0,
+          "high": 0,
+          "medium": 0,
+          "low": 0,
+          "info": 0
+        }
+      }
+    },
+    "tech_debt": {
+      "total": 0,
+      "ticketed": 0,
+      "unticketed": 0
+    },
+    "tests": {
+      "written": null,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "scopes": 0
+    },
+    "test_runs": {
+      "recorded": 0,
+      "failed": 0,
+      "errors": 0,
+      "interrupted": 0
+    },
+    "closure_issues": []
+  }
+}
