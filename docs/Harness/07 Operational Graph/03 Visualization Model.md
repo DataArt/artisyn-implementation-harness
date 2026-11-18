@@ -30,6 +30,8 @@ The IDE-side representation shares the same data source. Its exact rendering mec
 
 ## Node coloring
 
+> Applies from the major harness release that introduces OG schema v1.
+
 The populated graph colors nodes by tier, reusing the palette already established for Mermaid diagrams across this repo:
 
 | Tier             | Color                                                  |
@@ -38,8 +40,9 @@ The populated graph colors nodes by tier, reusing the palette already establishe
 | LLD              | `#0E7490` (teal)                                       |
 | EngineeringGuide | `#065F46` (green)                                      |
 | Story / Product  | `#D97706` (Story, amber) / `#7C3AED` (Product, purple) |
-| AppReadme        | `#4B5563` (grey)                                       |
 
 ## Compatibility rule
 
-The docs-site page's data-access layer depends only on the stable `docs`/`edges` schema and the `(from_id, to_id, edge_type)` composite-uniqueness contract defined in `02 Storage and Build Model.md`. Additive schema changes do not break this page.
+> Applies from the major harness release that introduces OG schema v1.
+
+The docs-site page reads only `docs.id`, `tier`, `path` and `title`, plus the `edges` contract: the `(from_id, to_id, edge_type)` composite uniqueness defined in `02 Storage and Build Model.md`. Schema v1 keeps these names.

@@ -118,8 +118,16 @@
     },
     {
       "id": "publish",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "8567e78b-2fec-4365-b739-0966dad612ca",
+          "started_at": "2026-11-18T11:45:12.370Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "completion",
@@ -551,6 +559,41 @@
       "started_at": "2026-11-18T11:25:39.124Z",
       "ended_at": "2026-11-18T11:25:44.943Z",
       "last_observed_at": "2026-11-18T11:25:44.943Z"
+    },
+    {
+      "id": "06184bc8-e1ef-441e-96e0-1380e5dd47ae",
+      "stage_id": "publish",
+      "stage_attempt_id": "8567e78b-2fec-4365-b739-0966dad612ca",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-18T11:45:12.370Z",
+      "ended_at": "2026-11-18T12:16:32.183Z",
+      "last_observed_at": "2026-11-18T12:16:32.183Z"
+    },
+    {
+      "id": "856c52d9-4692-422d-97cb-506560ae5e33",
+      "stage_id": "publish",
+      "stage_attempt_id": "8567e78b-2fec-4365-b739-0966dad612ca",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting publish sign-off",
+      "started_at": "2026-11-18T12:16:32.183Z",
+      "ended_at": "2026-11-18T13:11:44.656Z",
+      "last_observed_at": "2026-11-18T13:11:44.656Z"
+    },
+    {
+      "id": "993593b2-7b11-4253-a827-8cbfaa624320",
+      "stage_id": "publish",
+      "stage_attempt_id": "8567e78b-2fec-4365-b739-0966dad612ca",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting publish commit",
+      "started_at": "2026-11-18T13:11:44.656Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-18T13:11:44.656Z"
     }
   ],
   "checks": [
@@ -729,24 +772,56 @@
       "source": "developer confirmation",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "publish-architect-review-01",
+      "stage_id": "publish",
+      "stage_attempt_id": "8567e78b-2fec-4365-b739-0966dad612ca",
+      "step": null,
+      "design_revision": 1,
+      "name": "Publish architect review",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T12:16:32.057Z",
+      "ended_at": "2026-11-18T12:16:32.057Z",
+      "result": "passed",
+      "evidence_ref": "Pass 1: 4 corrections + 2 qualifiers applied; pass 2 OK, 2026-11-18",
+      "source": "@product-architect",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "publish-signoff-01",
+      "stage_id": "publish",
+      "stage_attempt_id": "8567e78b-2fec-4365-b739-0966dad612ca",
+      "step": null,
+      "design_revision": 1,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T13:11:44.469Z",
+      "ended_at": "2026-11-18T13:11:44.469Z",
+      "result": "passed",
+      "evidence_ref": "Developer reply 2026-11-18: 'go next'",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-18T11:25:45.054Z",
+    "as_of": "2026-11-18T13:11:44.657Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 42145.310000000005,
-    "observed_wait_seconds": 9314.67,
+    "observed_work_seconds": 44025.12300000001,
+    "observed_wait_seconds": 12627.143,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "wait_seconds_to_date": 9314.67,
-    "unclassified_seconds": 36.16299999999137,
+    "open_wait_seconds": 0.001,
+    "wait_seconds_to_date": 12627.144,
+    "unclassified_seconds": 1203.4789999999923,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 8593.872,
+    "approval_wait_seconds": 11906.345,
     "failed_checks": 1,
-    "first_pass_verification_rate": 0.8571428571428571,
+    "first_pass_verification_rate": 0.875,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"

@@ -14,18 +14,18 @@ _Placeholder:_ a fuller narrative (why it exists, what problem it solves, how it
 
 ## Sections
 
-| Section                                                   | Holds                                                                                             |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
-| [00 The Story](<./00 The Story/index.md>)                 | The why behind the platform — the industry-wide story and the mindset shift adopting it requires  |
-| [01 Explore](<./01 Explore/index.md>)                     | A browsable tour of the harness's agents, skills, and lifecycles                                  |
-| [02 Quick Start](<./02 Quick Start/index.md>)             | How to bring the harness into a project                                                           |
-| [03 Lifecycles](<./03 Lifecycles/00 Overview.md>)         | The four lifecycles (Dev, Design, Skill, Architecture) that structure all work                    |
-| [04 Adoption](<./04 Adoption/00 Adoption Path.md>)        | Pre-Sales → Discovery → Development → Operate → Improve — the full adoption path                  |
-| [05 Principles](<./05 Principles/index.md>)               | The beliefs the harness is built on                                                               |
-| [06 Roadmap](<./06 Roadmap/index.md>)                     | Where the harness itself is headed                                                                |
-| [07 Operational Graph](<./07 Operational Graph/index.md>) | The deterministic doc-tier operational graph — node/edge model and lifecycle wiring               |
-| [08 Security Scan](<./08 Security Scan/index.md>)         | Dated InfoSec security-scan reports against this repo's own skills, agents, and MCP configuration |
-| [09 Distribution](<./09 Distribution/index.md>)           | Package identity, the five pinned channels, install, update and versioning                        |
+| Section                                                   | Holds                                                                                                              |
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| [00 The Story](<./00 The Story/index.md>)                 | The why behind the platform — the industry-wide story and the mindset shift adopting it requires                   |
+| [01 Explore](<./01 Explore/index.md>)                     | A browsable tour of the harness's agents, skills, and lifecycles                                                   |
+| [02 Quick Start](<./02 Quick Start/index.md>)             | How to bring the harness into a project                                                                            |
+| [03 Lifecycles](<./03 Lifecycles/00 Overview.md>)         | The four lifecycles (Dev, Design, Skill, Architecture) that structure all work                                     |
+| [04 Adoption](<./04 Adoption/00 Adoption Path.md>)        | Pre-Sales → Discovery → Development → Operate → Improve — the full adoption path                                   |
+| [05 Principles](<./05 Principles/index.md>)               | The beliefs the harness is built on                                                                                |
+| [06 Roadmap](<./06 Roadmap/index.md>)                     | Where the harness itself is headed                                                                                 |
+| [07 Operational Graph](<./07 Operational Graph/index.md>) | The deterministic doc-tier operational graph — node/edge model, lifecycle wiring and the OKF knowledge base format |
+| [08 Security Scan](<./08 Security Scan/index.md>)         | Dated InfoSec security-scan reports against this repo's own skills, agents, and MCP configuration                  |
+| [09 Distribution](<./09 Distribution/index.md>)           | Package identity, the five pinned channels, install, update and versioning                                         |
 
 ## The package
 

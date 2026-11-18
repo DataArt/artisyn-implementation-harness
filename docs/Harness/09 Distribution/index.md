@@ -44,7 +44,7 @@ flowchart LR
 
     subgraph CONS["Consumer project"]
         PKG["Installed package (read-only)"]
-        L["launch / patch apply"]
+        L["launch · patch apply · reindex-graph"]
         ST[".harness/state/"]
         PF["Permanent project files"]
     end
@@ -123,13 +123,13 @@ Every install pins a version: a release tag, a semver version, or (skills.sh) th
 
 The installed package is read-only and replaceable; everything a project owns lives in the project.
 
-| Rule             | Contract                                                                       |
-| ---------------- | ------------------------------------------------------------------------------ |
-| Package          | Read-only and replaceable. It can be removed after launch.                     |
-| Consumer project | Runs `launch` and `patch apply` only.                                          |
-| Source repo      | `patch harvest` and `patch prepare` run only in the harness source repository. |
-| Update           | Refresh the package through its channel, then run `patch apply`.               |
-| Runtime state    | Lives in the project at `.harness/state/`.                                     |
+| Rule             | Contract                                                                                               |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| Package          | Read-only and replaceable. It can be removed after launch.                                             |
+| Consumer project | Runs `launch`, `patch apply` and `reindex-graph`.                                                      |
+| Source repo      | `patch harvest` and `patch prepare` run only in the harness source repository.                         |
+| Update           | Refresh the package through its channel, then run `patch apply`, then `reindex-graph` when OG changed. |
+| Runtime state    | Lives in the project at `.harness/state/`.                                                             |
 
 ## Improvements from projects
 
@@ -141,8 +141,8 @@ Downstream teams send improvements to the source repository; they come back to e
 
 ## In this section
 
-| Page                                                            | Contents                                                                                        |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [01 Install](<./01 Install.md>)                                 | Install checklist per channel, checking and verifying an install, `init` options, project state |
-| [02 Update](<./02 Update.md>)                                   | Pinned update commands, CLI update rules, `doctor`, baselines in `patch apply`                  |
-| [03 Versioning and Releases](<./03 Versioning and Releases.md>) | One version, the release workflow and re-runs, integrity, rollback                              |
+| Page                                                            | Contents                                                                                                 |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| [01 Install](<./01 Install.md>)                                 | Install checklist per channel, checking and verifying an install, `init` options, project state          |
+| [02 Update](<./02 Update.md>)                                   | Pinned update commands, CLI update rules, `doctor`, baselines in `patch apply`, the `reindex-graph` step |
+| [03 Versioning and Releases](<./03 Versioning and Releases.md>) | One version, the release workflow and re-runs, integrity, rollback                                       |

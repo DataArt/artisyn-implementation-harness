@@ -1,4 +1,5 @@
 ---
+id: b3462f6a
 purpose: 'Architecture for DESIGN-20261117-7931: the settled end-to-end solution that makes the harness docs an OKF 0.2 knowledge base — B+ frontmatter, OG schema v1 with migrate and check, five tier bundles and the OG scope guard'
 keywords:
   [

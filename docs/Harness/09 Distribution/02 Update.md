@@ -8,6 +8,7 @@ keywords:
     doctor,
     install cli,
     patch apply,
+    reindex-graph,
     harness state,
     baseline,
     patch bundles,
@@ -18,17 +19,19 @@ keywords:
 
 > Applies from release 4.0.0, the first release cut by the release pipeline.
 
-Update the package through the channel it came from, then run `patch apply`.
+Update the package through the channel it came from, then run `patch apply`. When `patch apply` reports that OG files changed, run `reindex-graph`.
 
 ```mermaid
 flowchart LR
     CH["Channel update command\n(doctor prints it)"]
     PKG["Installed package\n(read-only, replaced)"]
     PA["patch apply"]
+    RG["reindex-graph\n(when OG files changed)"]
     ST[".harness/state/\nobjects/ baselines"]
     PF["Permanent project files"]
 
     CH --> PKG --> PA
+    PA --> RG
     ST -->|"base bytes"| PA
     PA --> PF
     PA -->|"new baselines"| ST
@@ -37,7 +40,7 @@ flowchart LR
     classDef consumer fill:#ede9fe,stroke:#6d28d9,color:#3b0764
     classDef state fill:#fce7f3,stroke:#be185d,color:#831843
     class CH channel
-    class PKG,PA consumer
+    class PKG,PA,RG consumer
     class ST,PF state
 ```
 
@@ -60,6 +63,8 @@ Releases from 4.1.0 are tagged `v<version>`; releases up to 4.0.2 keep the long 
 **One-time manual update for ZIP installs on 4.0.2 or earlier.** A ZIP install whose CLI is 4.0.2 or earlier builds the old long-tag URL, so its `update` cannot fetch 4.1.0 or later. Update it once by hand: download `artisyn-implementation-harness-v4.1.0.zip` and its `.sha256` from the `v4.1.0` release on the [releases page](https://github.com/DataArt/artisyn-implementation-harness/releases) and install it as in [Install](./01%20Install.md), or run `npx @dataart/artisyn-implementation-harness@4.1.0 update` from GitHub Packages. After that, `update` works again. The npm, marketplace, `gh skill` and skills.sh channels are unaffected.
 
 After every update, run `/implementation-harness patch apply`. Plugin installs use `/artisyn:implementation-harness patch apply`.
+
+When `patch apply` reports that OG files changed, run `/implementation-harness reindex-graph` (plugin installs: `/artisyn:implementation-harness reindex-graph`). From the major harness release that introduces OG schema v1, it also runs any pending docs migration after a dry-run and your confirmation. See [Ops Model → Bootstrap and upgrade wiring](<../07 Operational Graph/01 Ops Model.md#bootstrap-and-upgrade-wiring>).
 
 Host-native installs (marketplace, skills.sh, `gh skill`) record their channel when launch runs with `--channel`; the CLI's `update` on those installs only prints the host command above.
 

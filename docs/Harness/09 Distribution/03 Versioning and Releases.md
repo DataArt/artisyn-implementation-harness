@@ -112,8 +112,8 @@ Each channel has its own integrity check.
 
 Rollback moves npm and the marketplace back to the previous good version.
 
-| Channel     | Rollback                                                            |
-| ----------- | ------------------------------------------------------------------- |
-| npm         | The bad version is deprecated and the `latest` dist-tag moves back. |
-| Marketplace | A patch release re-pins the entries to the previous tag.            |
-| Consumers   | Stay on their pinned tag until they choose to move.                 |
+| Channel     | Rollback                                                                                                                                                                        |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| npm         | The bad version is deprecated and the `latest` dist-tag moves back.                                                                                                             |
+| Marketplace | A patch release re-pins the entries to the previous tag.                                                                                                                        |
+| Consumers   | Stay on their pinned tag until they choose to move. Rolling back across an OG schema change restores the pre-migration DB (the v0 backup or git) together with the old OG code. |

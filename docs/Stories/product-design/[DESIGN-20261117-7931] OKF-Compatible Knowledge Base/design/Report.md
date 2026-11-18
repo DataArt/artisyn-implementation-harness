@@ -9,11 +9,21 @@ Developer intent (free-form, no tracker ticket): design an Open Knowledge Format
 ## State
 
 ```yaml
-current_stage: publish
+current_stage: completion
 completed_stages:
-  [context-gathering, ceremony, frame, research, evaluate, solution, review-gate, address-feedback]
+  [
+    context-gathering,
+    ceremony,
+    frame,
+    research,
+    evaluate,
+    solution,
+    review-gate,
+    address-feedback,
+    publish,
+  ]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'Publish: update docs/Harness and terminology'
+next_action: 'Completion: implementation tickets, archive, PR'
 context_fingerprint: ''
 ```
 
@@ -54,7 +64,7 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 | Ticket | DESIGN-20261117-7931                                                                                                                                                                          |
 | Branch | `docs/design-20261117-7931-okf-knowledge-base`                                                                                                                                                |
 | Status | 🔄 In Progress                                                                                                                                                                                |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ (skipped) · 📤 Publish ✅ · 🏁 Completion 🔄 |
 
 Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIGN-20261117-7931 ·`), mirrored in this report.
 
@@ -66,7 +76,7 @@ Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIG
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 11h 42m 25s · Wait to date: 2h 35m 15s (closed 2h 35m 15s + current 0s) · Unclassified: 36s
+Observed work: 12h 13m 45s · Wait to date: 3h 30m 27s (closed 2h 35m 15s + current 55m 12s) · Unclassified: 20m 3s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work        | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ----------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -78,7 +88,7 @@ Observed work: 11h 42m 25s · Wait to date: 2h 35m 15s (closed 2h 35m 15s + curr
 | solution (completed)          | 2026-11-17T22:42:34.850Z | 2026-11-18T11:25:03.321Z | 12h 42m 28s | 11h 17m 16s | 1h 25m 13s | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
 | review-gate (completed)       | 2026-11-18T11:25:09.114Z | 2026-11-18T11:25:44.943Z | 36s         | 6s          | 0s         | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s          | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s          | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (waiting)             | 2026-11-18T11:45:12.370Z | unavailable              | unavailable | 31m 20s     | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | completion (pending)          | unavailable              | unavailable              | unavailable | 0s          | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
@@ -271,12 +281,13 @@ _Target: `solution/Architecture.md` + four `solution/Design - *.md` files. Two `
 
 ## Efforts
 
-| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                                                 |
-| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-17 | Frame    | 6 known requirements, 4 proposed requirements accepted (EC7–EC10); 3 decisions confirmed: Frontmatter and graph schema, OKF bundle layout, OG scope guard                                                                                                                                                                                                                             |
-| 2026-11-17 | Research | @product-architect returned options for 4 decisions: D1 Target frontmatter format (A–D, B+ developer direction), D2 Graph schema and migration (5, re-scoped after split), D3 OKF bundle layout (6 incl. developer Option 6 five tier bundles), D4 OG scope guard (A–D). Decision split reworked from 3 to 4 at sign-off; OKF v0.2 spec re-verified; developer confirmed set complete |
-| 2026-11-17 | Evaluate | Recommended D1 B+ (generated + updated), D2 Option 2 with tier/type columns and read-compat window, D3 Option 6 five tier bundles, D4 Option B scope predicate at assign; WAF: D1 Reliability 🟡, D2 Reliability 🟡, D3 OpEx 🟡, rest 🟢; 0 P1 items; Assumption #18 confirmed by developer                                                                                           |
-| 2026-11-18 | Solution | Selected artifacts written: Architecture, Design x4, Stack, Efforts (WBS 1–9). @product-architect: 2 passes, 20 + 6 findings resolved (N1 and D-home decided by developer). WAF: pass, all 🟢, 0 P1, 1 P3. Quality gate: pass (Mermaid checked structurally, no renderer). Estimates skipped by developer                                                                             |
+| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ---------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-17 | Frame    | 6 known requirements, 4 proposed requirements accepted (EC7–EC10); 3 decisions confirmed: Frontmatter and graph schema, OKF bundle layout, OG scope guard                                                                                                                                                                                                                                                                        |
+| 2026-11-17 | Research | @product-architect returned options for 4 decisions: D1 Target frontmatter format (A–D, B+ developer direction), D2 Graph schema and migration (5, re-scoped after split), D3 OKF bundle layout (6 incl. developer Option 6 five tier bundles), D4 OG scope guard (A–D). Decision split reworked from 3 to 4 at sign-off; OKF v0.2 spec re-verified; developer confirmed set complete                                            |
+| 2026-11-17 | Evaluate | Recommended D1 B+ (generated + updated), D2 Option 2 with tier/type columns and read-compat window, D3 Option 6 five tier bundles, D4 Option B scope predicate at assign; WAF: D1 Reliability 🟡, D2 Reliability 🟡, D3 OpEx 🟡, rest 🟢; 0 P1 items; Assumption #18 confirmed by developer                                                                                                                                      |
+| 2026-11-18 | Solution | Selected artifacts written: Architecture, Design x4, Stack, Efforts (WBS 1–9). @product-architect: 2 passes, 20 + 6 findings resolved (N1 and D-home decided by developer). WAF: pass, all 🟢, 0 P1, 1 P3. Quality gate: pass (Mermaid checked structurally, no renderer). Estimates skipped by developer                                                                                                                        |
+| 2026-11-18 | Publish  | Approved by Anton Merkulov (sole approver, no MR). Docs updated: new `07 Operational Graph/05 Knowledge Base Format.md`; `07/01 Ops Model`, `07/02 Storage and Build Model`, `07/03 Visualization Model`, `07/index`; `03 Lifecycles/05 Documents Flow`; `09 Distribution/02 Update`, `09/index`, `09/03 Versioning and Releases`; `02 Quick Start/index`; `Harness/index`; 7 Terminology rows. @product-architect: 2 passes, OK |
 
 ---
 
