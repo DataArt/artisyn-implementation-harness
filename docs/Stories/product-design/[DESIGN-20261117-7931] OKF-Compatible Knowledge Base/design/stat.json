@@ -64,21 +64,29 @@
     },
     {
       "id": "evaluate",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "28fe80a6-a71d-4575-8f3d-455c3030cf0f",
           "started_at": "2026-11-17T22:26:35.469Z",
-          "ended_at": null,
+          "ended_at": "2026-11-17T22:42:34.790Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "solution",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+          "started_at": "2026-11-17T22:42:34.850Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "review-gate",
@@ -455,8 +463,54 @@
       "reason": "user_input",
       "detail": "Awaiting evaluate commit",
       "started_at": "2026-11-17T22:41:02.442Z",
+      "ended_at": "2026-11-17T22:42:34.731Z",
+      "last_observed_at": "2026-11-17T22:42:34.731Z"
+    },
+    {
+      "id": "d6490860-d20f-43fe-9cc3-3f019b1a6296",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "28fe80a6-a71d-4575-8f3d-455c3030cf0f",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-17T22:42:34.731Z",
+      "ended_at": "2026-11-17T22:42:34.790Z",
+      "last_observed_at": "2026-11-17T22:42:34.790Z"
+    },
+    {
+      "id": "d5dac6ee-e0c6-4d6b-af86-d090ab0e7212",
+      "stage_id": "solution",
+      "stage_attempt_id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-17T22:42:34.850Z",
+      "ended_at": "2026-11-18T09:59:50.480Z",
+      "last_observed_at": "2026-11-18T09:59:50.480Z"
+    },
+    {
+      "id": "2744bf83-e030-4aa5-b927-65cbdfb42646",
+      "stage_id": "solution",
+      "stage_attempt_id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting solution sign-off and estimates",
+      "started_at": "2026-11-18T09:59:50.480Z",
+      "ended_at": "2026-11-18T11:20:18.357Z",
+      "last_observed_at": "2026-11-18T11:20:18.357Z"
+    },
+    {
+      "id": "7c539db7-ca9f-4702-a3e9-35baa1f6e5e6",
+      "stage_id": "solution",
+      "stage_attempt_id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting solution commit",
+      "started_at": "2026-11-18T11:20:18.357Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-17T22:41:02.442Z"
+      "last_observed_at": "2026-11-18T11:20:18.357Z"
     }
   ],
   "checks": [
@@ -555,24 +609,88 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "solution-architect-review-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution architect review",
+      "kind": "acceptance",
+      "started_at": "2026-11-17T22:59:56.131Z",
+      "ended_at": "2026-11-17T22:59:56.131Z",
+      "result": "failed",
+      "evidence_ref": "20 findings (10 decision, 10 mechanical); WAF Reliability red, 4 P1. Developer agreed all 11 proposed resolutions; rework 1 applied.",
+      "source": "@product-architect",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-architect-review-02",
+      "stage_id": "solution",
+      "stage_attempt_id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution architect review",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T09:59:50.339Z",
+      "ended_at": "2026-11-18T09:59:50.339Z",
+      "result": "passed",
+      "evidence_ref": "Pass 2: all 20 findings resolved; N1 decided by developer, N2-N6 applied; docs/index.md untouched by developer decision",
+      "source": "@product-architect",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-quality-gate-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution quality gate",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T09:59:50.383Z",
+      "ended_at": "2026-11-18T09:59:50.383Z",
+      "result": "passed",
+      "evidence_ref": "Report.md Solution Quality Gate: pass; Mermaid render limitation, structural check 16/16 clean; links resolve",
+      "source": "orchestrator",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "solution-signoff-01",
+      "stage_id": "solution",
+      "stage_attempt_id": "96a9300d-2526-438b-95da-d2be2952dcd6",
+      "step": null,
+      "design_revision": 0,
+      "name": "Solution sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T11:20:05.713Z",
+      "ended_at": "2026-11-18T11:20:05.713Z",
+      "result": "passed",
+      "evidence_ref": "Developer reply 2026-11-18: 'skip efforts, continue' — artifacts approved, estimates skipped",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-17T22:41:02.443Z",
+    "as_of": "2026-11-18T11:20:18.358Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1503.752,
-    "observed_wait_seconds": 4109.54,
+    "observed_work_seconds": 42139.441,
+    "observed_wait_seconds": 9029.706,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 4109.541,
-    "unclassified_seconds": 0.23900000000069122,
+    "wait_seconds_to_date": 9029.707,
+    "unclassified_seconds": 0.2990000000010914,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 3765.995,
-    "failed_checks": 0,
-    "first_pass_verification_rate": 1,
+    "approval_wait_seconds": 8593.872,
+    "failed_checks": 1,
+    "first_pass_verification_rate": 0.8333333333333334,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"

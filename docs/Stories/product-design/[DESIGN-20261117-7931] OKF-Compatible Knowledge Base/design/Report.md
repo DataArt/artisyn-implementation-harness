@@ -9,10 +9,10 @@ Developer intent (free-form, no tracker ticket): design an Open Knowledge Format
 ## State
 
 ```yaml
-current_stage: solution
-completed_stages: [context-gathering, ceremony, frame, research, evaluate]
-selected_artifacts: []
-next_action: 'Evaluate commit, then Solution'
+current_stage: review-gate
+completed_stages: [context-gathering, ceremony, frame, research, evaluate, solution]
+selected_artifacts: [architecture, design, stack, efforts]
+next_action: 'Review Gate: open draft MR'
 context_fingerprint: ''
 ```
 
@@ -53,7 +53,7 @@ Update this block whenever a phase starts, completes, or is invalidated. The
 | Ticket | DESIGN-20261117-7931                                                                                                                                                                |
 | Branch | `docs/design-20261117-7931-okf-knowledge-base`                                                                                                                                      |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIGN-20261117-7931 ·`), mirrored in this report.
 
@@ -65,20 +65,20 @@ Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#10, prefixed `DESIG
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 25m 3s · Wait to date: 1h 8m 30s (closed 1h 8m 30s + current 0s) · Unclassified: 1s
+Observed work: 11h 42m 19s · Wait to date: 2h 30m 30s (closed 1h 10m 2s + current 1h 20m 28s) · Unclassified: 0s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-17T21:07:28.950Z | 2026-11-17T21:11:52.035Z | 4m 23s      | 6s      | 4m 17s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-17T21:11:52.087Z | 2026-11-17T21:15:15.472Z | 3m 23s      | 5s      | 3m 18s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (completed)             | 2026-11-17T21:15:15.525Z | 2026-11-17T21:28:15.597Z | 13m 0s      | 3m 23s  | 9m 37s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (completed)          | 2026-11-17T21:28:15.648Z | 2026-11-17T22:26:35.425Z | 58m 20s     | 16m 40s | 41m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (active)             | 2026-11-17T22:26:35.469Z | unavailable              | unavailable | 4m 48s  | 9m 38s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work        | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ----------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-17T21:07:28.950Z | 2026-11-17T21:11:52.035Z | 4m 23s      | 6s          | 4m 17s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-17T21:11:52.087Z | 2026-11-17T21:15:15.472Z | 3m 23s      | 5s          | 3m 18s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-17T21:15:15.525Z | 2026-11-17T21:28:15.597Z | 13m 0s      | 3m 23s      | 9m 37s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (completed)          | 2026-11-17T21:28:15.648Z | 2026-11-17T22:26:35.425Z | 58m 20s     | 16m 40s     | 41m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (completed)          | 2026-11-17T22:26:35.469Z | 2026-11-17T22:42:34.790Z | 15m 59s     | 4m 49s      | 11m 10s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| solution (waiting)            | 2026-11-17T22:42:34.850Z | unavailable              | unavailable | 11h 17m 16s | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s          | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -110,6 +110,41 @@ _From Research OQ triage (2026-11-17). Viability rows and developer decisions; E
 | 18  | How the patch migration runs (given `05-patch-apply.md` §2) and which signal detects project state | (V) | Resolved (developer confirmed at Evaluate sign-off, 2026-11-17): the DB schema migrates inside OG on open via `PRAGMA user_version` (edges preserved). A deterministic `cli.mjs migrate` rewrites frontmatter, detected by OG-era keys (`purpose`/`keywords`) in scope. `reindex-graph` runs `migrate` when pending, before `build`. OG reads old and new key names until migrated, so CI builds never lose data. Greenfield starts at v1; migrated projects no-op. Product folder: the launch Q10c answer is written to a small OG config file. |
 | 19  | VitePress rewrites vs `srcExclude`; file-relative links under rewrites                             | (V) | Partly verified (VitePress 1.6.4 supports parameterized rewrites). Evaluate Step 1b: bundle options 1, 3, 5 stay conditional on a rewrites spike. Option 6 does not use rewrites.                                                                                                                                                                                                                                                                                                                                                                |
 | 20  | Node 24 `node:sqlite` ALTER support; `path.matchesGlob`                                            | (V) | Verified: SQLite 3.53.3 supports RENAME/DROP COLUMN; `path.matchesGlob` matches `**/index.md`.                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+
+---
+
+## Solution Concern Scan
+
+_Solution Step 1b, 2026-11-17. Auto-approved: every concern resolves from confirmed decisions (Evaluate sign-off, Assumptions 1–20)._
+
+| Concern                      | Rating         | Evidence / where addressed                                                                                                                  |
+| ---------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Boundaries and ownership     | Material       | OG write scope, launch, reindex-graph, patch apply, docs flow change responsibilities. `solution/Architecture.md`.                          |
+| User and business behavior   | Informational  | Writers (`@docs-writer`, lifecycle steps) follow a new frontmatter and `index.md` rule. `Design - Target Frontmatter Format.md`.            |
+| Data and state               | Material       | Schema v1, frontmatter rewrite of every doc, index-page id move. `Design - Graph Schema and Migration.md`, `Design - OKF Bundle Layout.md`. |
+| Interfaces and compatibility | Material       | CLI renames, new `migrate`/`check`, `og.config.json`, frontmatter contract, retired edge type. Design files.                                |
+| Security and privacy         | Informational  | Path guard at the sink; no `human:<id>` on a public site (NFR: no access gate). Architecture decisions.                                     |
+| Reliability and recovery     | Material       | Idempotent migration, prune safety, read-compat window, clean-worktree precondition, newer-DB error. Architecture + Design.                 |
+| Performance and capacity     | Not applicable | ~190 small markdown files; frontmatter-only parsing.                                                                                        |
+| Operations and delivery      | Material       | Canonical-first delivery, patch → reindex-graph trigger, launch config. `solution/Efforts.md`.                                              |
+| Cost and licensing           | Not applicable | No new dependency or service.                                                                                                               |
+| Compliance and policy        | Informational  | Public site; actor rule covers it.                                                                                                          |
+| Evolution and migration      | Material       | Three project states, `okf_version` pin, read-compat window removal at next major. Design + Efforts.                                        |
+
+Selected interfaces: `architecture` (OG, launch, reindex-graph, patch and docs-flow responsibilities change), `design` (four per-decision files: format, schema and migration, bundle layout, scope guard), `stack` (OKF 0.2 pin, `node:sqlite` version constraint, no-dependency parser), `efforts` (canonical-first delivery, migration, rollback). None omitted.
+
+## Solution Quality Gate
+
+_2026-11-18. Result: pass, with one recorded limitation._
+
+| Check                                                                           | Result                                                                                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framed requirements EC1–EC10 mapped to decisions and verification               | Pass — `solution/Architecture.md` decision register and Verification rows. Efforts item 9 is a developer-requested addition outside the ECs.                                                                                                             |
+| Material concerns addressed                                                     | Pass — every material row in the concern scan maps to a selected artifact.                                                                                                                                                                               |
+| No rationale, rejected options or placeholders in solution files                | Pass — rationale stays in `design/02 Evaluate - *.md`; the only options summary is Architecture's Considered Options appendix.                                                                                                                           |
+| Architecture.md is the E2E record; supporting files add no conflicting decision | Pass — confirmed by the second `@product-architect` pass plus the N1–N6 and wording fixes.                                                                                                                                                               |
+| Mermaid diagrams render                                                         | Limitation — `mmdc` is installed but `puppeteer` is missing, and `mermaid.parse` needs a DOM (`jsdom` absent). Fallback: structural syntax check on all 16 diagrams (block balance, defined classes, no `;` and no bare `<word>` in labels): 0 problems. |
+| Relative links resolve                                                          | Pass — every link outside code fences resolves; fenced example `index.md` links are relative to their example bundle.                                                                                                                                    |
 
 ---
 
@@ -203,6 +238,25 @@ _Recommended option: Option B, one scope predicate at the single write path._
 
 Full elaboration: `design/02 Evaluate - OG Scope Guard.md`
 
+### WAF — Solution — 2026-11-18
+
+_Target: `solution/Architecture.md` + four `solution/Design - *.md` files. Two `@product-architect` review passes: pass 1 found 20 findings (Reliability 🔴, 4 P1); the developer agreed all resolutions; pass 2 confirmed all 20 resolved and raised N1–N6; N1 decided by the developer (migrate writes navigation bullets), N2–N6 applied; `docs/index.md` kept untouched by developer decision._
+
+| Pillar                 | Rating | Headline                                                                                                                                                                                                            |
+| ---------------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟢     | One trigger (`reindex-graph`) with dry-run confirmation, stop on refusal, decline path, Product folder asked before the dry-run, `check` report every run.                                                          |
+| Security               | 🟢     | Path guard at the single write sink; config-independent reserved-name rule; `productDir` validated; no personal identities in public frontmatter.                                                                   |
+| Reliability            | 🟢     | `.md`-only clean check, v0 backup before on-open migration, line-level strip fallback, `type` stamped only by `index --doc`/`migrate`, edge merge counted, prune keeps rows while ids remain, idempotent `migrate`. |
+| Performance Efficiency | 🟢     | Frontmatter-only parsing; one-time migration cost acceptable.                                                                                                                                                       |
+| Cost Optimization      | 🟢     | No new dependency or service.                                                                                                                                                                                       |
+| Sustainability         | 🟢     | Prettier-tolerant parser and `check`; no time churn.                                                                                                                                                                |
+
+**P1 items (resolve before implementation):**
+
+- None.
+
+**P2/P3:** P3 — `docs/index.md` keeps `purpose`/`keywords`; after the read-compat window ends (the following major) OG no longer reads its description unless a writer renames those keys.
+
 ---
 
 ## Gate
@@ -221,6 +275,7 @@ Full elaboration: `design/02 Evaluate - OG Scope Guard.md`
 | 2026-11-17 | Frame    | 6 known requirements, 4 proposed requirements accepted (EC7–EC10); 3 decisions confirmed: Frontmatter and graph schema, OKF bundle layout, OG scope guard                                                                                                                                                                                                                             |
 | 2026-11-17 | Research | @product-architect returned options for 4 decisions: D1 Target frontmatter format (A–D, B+ developer direction), D2 Graph schema and migration (5, re-scoped after split), D3 OKF bundle layout (6 incl. developer Option 6 five tier bundles), D4 OG scope guard (A–D). Decision split reworked from 3 to 4 at sign-off; OKF v0.2 spec re-verified; developer confirmed set complete |
 | 2026-11-17 | Evaluate | Recommended D1 B+ (generated + updated), D2 Option 2 with tier/type columns and read-compat window, D3 Option 6 five tier bundles, D4 Option B scope predicate at assign; WAF: D1 Reliability 🟡, D2 Reliability 🟡, D3 OpEx 🟡, rest 🟢; 0 P1 items; Assumption #18 confirmed by developer                                                                                           |
+| 2026-11-18 | Solution | Selected artifacts written: Architecture, Design x4, Stack, Efforts (WBS 1–9). @product-architect: 2 passes, 20 + 6 findings resolved (N1 and D-home decided by developer). WAF: pass, all 🟢, 0 P1, 1 P3. Quality gate: pass (Mermaid checked structurally, no renderer). Estimates skipped by developer                                                                             |
 
 ---
 
