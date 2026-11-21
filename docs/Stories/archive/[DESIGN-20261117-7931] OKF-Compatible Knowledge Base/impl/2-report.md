@@ -16,8 +16,8 @@ updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 | Branch | `docs/design-20261117-7931-okf-knowledge-base` _(design branch, kept by developer decision)_                   |
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
-| Status | 🔄 In Progress                                                                                                 |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                    |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅ |
 
 Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#7, one per stage), mirrored in this report.
 
@@ -51,7 +51,7 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 2h 8m 49s · Wait: 77h 51m 48s · Unclassified: 25m 36s
+Observed work: 2h 10m 2s · Wait: 77h 54m 46s · Unclassified: 25m 44s
 
 | Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait        | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
 | ---------- | ------------------------ | ------------------------ | ----------- | ------- | ----------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
@@ -60,8 +60,8 @@ Observed work: 2h 8m 49s · Wait: 77h 51m 48s · Unclassified: 25m 36s
 | plan       | 2026-11-18T13:33:27.013Z | 2026-11-18T16:48:43.098Z | 3h 15m 16s  | 19m 5s  | 2h 56m 11s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 | implement  | 2026-11-18T16:48:52.113Z | 2026-11-21T20:28:46.532Z | 75h 39m 54s | 58m 38s | 74h 38m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 | test       | 2026-11-21T20:38:00.005Z | 2026-11-21T21:07:54.430Z | 29m 54s     | 26m 33s | 3m 22s      | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
-| document   | 2026-11-21T21:21:13.584Z | unavailable              | unavailable | 21m 51s | 4m 29s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| completion | unavailable              | unavailable              | unavailable | 0s      | 0s          | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| document   | 2026-11-21T21:21:13.584Z | 2026-11-21T21:48:11.708Z | 26m 58s     | 22m 29s | 4m 29s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| completion | 2026-11-21T21:48:20.413Z | 2026-11-21T21:51:52.883Z | 3m 32s      | 34s     | 2m 58s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 
 Quality (recorded inventory): findings 80 · open 0 · PR findings 36 · critical 0 · debt 7 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
@@ -72,7 +72,7 @@ Quality (recorded inventory): findings 80 · open 0 · PR findings 36 · critica
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 2h 8m 49s · Wait: 77h 51m 48s · Unclassified: 25m 36s
+Observed work: 2h 10m 2s · Wait: 77h 54m 46s · Unclassified: 25m 44s
 
 | Step                                                                 | Started (UTC)            | Completed (UTC)          | Elapsed    | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
 | -------------------------------------------------------------------- | ------------------------ | ------------------------ | ---------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
@@ -395,6 +395,14 @@ Tracker: fill in once a task is created (e.g. ND-XX), otherwise —
 | `Harness/07 Operational Graph/05 Knowledge Base Format.md` (and `02 Storage and Build Model.md` if it states the rule) | Product   | updated | `migrate` ignores fenced code when splitting an index page; frontmatter writer double-quotes values with newlines and accepts `---` with trailing spaces (TD-3, RF-042..054)             | ✅   |
 
 Closure ran clean: three consistency rounds (10, 3, then 0 findings), every RF row is fixed, accepted, tech-debt or doc-updated, every TD row has an owner and next action, and `quality validate` passes. Steps 1–9 changed canonical sources that ship as package docs, so their Docs column is `—`; the permanent docs changed by Steps 10–14 are in the table above.
+
+## Completion
+
+- **Date:** 2026-11-21
+- **Archive:** `docs/Stories/archive/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/`
+- **PR title:** `feat(harness): okf-compatible knowledge base with og scope guard, schema v1, migrate and check (4.2.0)`
+- **Tracker:** none (local design ID, no tracker record)
+- **External actions:** none (developer, 2026-11-21: "none"); TD-1, TD-4..TD-7 stay as local rows
 
 ## Efforts Spent
 

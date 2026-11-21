@@ -16,12 +16,12 @@ updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 - **Date**: 2026-11-18
 - **Sources**:
   - The spec is the approved Product-track design. It is not copied here:
-    [`solution/Architecture.md`](../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/solution/Architecture.md),
+    [`solution/Architecture.md`](../../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/solution/Architecture.md),
     the four `solution/Design - *.md` files, `solution/Stack.md`, and
-    [`solution/Efforts.md`](../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/solution/Efforts.md),
+    [`solution/Efforts.md`](../../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/solution/Efforts.md),
     which gives WBS 1–9 and a "Done when" row for each item.
-  - [`design/00 Frame.md`](../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/design/00%20Frame.md)
-    for EC1–EC10, and [`design/Report.md`](../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/design/Report.md)
+  - [`design/00 Frame.md`](../../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/design/00%20Frame.md)
+    for EC1–EC10, and [`design/Report.md`](../../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/design/Report.md)
     for the developer's decisions (Assumptions 1–20).
   - The Product docs already published by the design: `docs/Harness/07 Operational Graph/`
     (including the new `05 Knowledge Base Format.md`), `03 Lifecycles/05 Documents Flow.md`

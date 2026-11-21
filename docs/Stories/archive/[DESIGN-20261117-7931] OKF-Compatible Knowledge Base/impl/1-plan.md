@@ -20,7 +20,7 @@ updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ## Solution
 
 Build the approved design
-([Architecture.md](../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/solution/Architecture.md)
+([Architecture.md](../../../product-design/approved/[DESIGN-20261117-7931]%20OKF-Compatible%20Knowledge%20Base/solution/Architecture.md)
 and its four Design files) in its fixed delivery order. First the canonical OG
 (`skills/implementation-harness/canonical/docs/.og/`) gets the scope guard, the B+ parser and
 writer, schema v1, and the `check` and `migrate` commands, all test-first in the existing
