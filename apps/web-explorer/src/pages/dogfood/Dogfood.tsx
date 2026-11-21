@@ -95,8 +95,9 @@ export default function Dogfood() {
             ))}
           </div>
           <p className="df-note">
-            Running it here also found two defects in the new migrate command before any other
-            project met them. They are logged for the next patch release.
+            Running it here first also caught bugs in the new migrate command, such as code-block
+            comments turning into empty headings, before any other project met them. They are fixed
+            in 4.2.0 itself.
           </p>
         </section>
 

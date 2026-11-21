@@ -7,7 +7,8 @@ import graph from './graph.json';
  * A self-contained view of this repo's operational graph: one dot per doc,
  * ringed by tier (Product at the centre), with the authored edges between them.
  * `graph.json` is a snapshot of `docs/.og/docs-operational-graph.sqlite` taken
- * after the 4.2.0 migration; regenerate it when the snapshot should move on.
+ * after the 4.2.0 migration; regenerate it with
+ * `node apps/web-explorer/scripts/export-dogfood-graph.mjs`.
  */
 
 type Node = { id: string; tier: string; title: string; path: string };
@@ -29,8 +30,11 @@ const SIZE = 560;
 const C = SIZE / 2;
 const RADII = [52, 100, 140, 180, 236, 268];
 
+// The docs site publishes everything under docs/ except Stories/ (srcExclude).
 const docHref = (path: string) =>
-  docsUrl + path.split('/').map(encodeURIComponent).join('/').replace(/\.md$/, '.html');
+  path.startsWith('Stories/')
+    ? null
+    : docsUrl + path.split('/').map(encodeURIComponent).join('/').replace(/\.md$/, '.html');
 
 function layout() {
   const pos = new Map<string, { x: number; y: number; r: number; color: string }>();
@@ -60,15 +64,24 @@ export default function GraphExplorer() {
   const active = hover ?? pinned;
 
   const visible = (id: string) => !hidden.has(byId.get(id)!.tier);
+  const activeEdges = useMemo(
+    () =>
+      active
+        ? edges.filter(
+            ([f, t]) =>
+              (f === active || t === active) &&
+              !hidden.has(byId.get(f)!.tier) &&
+              !hidden.has(byId.get(t)!.tier)
+          )
+        : [],
+    [active, hidden, byId]
+  );
   const linked = useMemo(() => {
     if (!active) return null;
     const set = new Set([active]);
-    for (const [f, t] of edges) {
-      if (f === active) set.add(t);
-      if (t === active) set.add(f);
-    }
+    for (const [f, t] of activeEdges) set.add(f === active ? t : f);
     return set;
-  }, [active]);
+  }, [active, activeEdges]);
 
   const counts = useMemo(() => {
     const m = new Map<string, number>();
@@ -76,16 +89,24 @@ export default function GraphExplorer() {
     return m;
   }, []);
 
-  const toggleTier = (name: string) =>
+  const toggleTier = (name: string) => {
+    const hiding = !hidden.has(name);
     setHidden((prev) => {
       const next = new Set(prev);
       if (next.has(name)) next.delete(name);
       else next.add(name);
       return next;
     });
+    if (hiding && pinned && byId.get(pinned)!.tier === name) setPinned(null);
+    setHover(null);
+  };
 
   const activeNode = active ? byId.get(active) : null;
-  const activeEdges = active ? edges.filter(([f, t]) => f === active || t === active) : [];
+  const activeHref = activeNode ? docHref(activeNode.path) : null;
+  const neighbours = activeNode
+    ? [...new Set(activeEdges.map(([f, t]) => (f === active ? t : f)))].map((id) => byId.get(id)!)
+    : [];
+  const tierLabel = (name: string) => tiers.find((t) => t.name === name)?.label ?? name;
 
   return (
     <div className="df-gx">
@@ -94,7 +115,7 @@ export default function GraphExplorer() {
           viewBox={`0 0 ${SIZE} ${SIZE}`}
           role="img"
           aria-label={`Operational graph: ${nodes.length} docs and ${edges.length} authored edges in concentric tier rings`}
-          onMouseLeave={() => setHover(null)}
+          onPointerLeave={() => setHover(null)}
         >
           {RADII.map((r) => (
             <circle key={r} cx={C} cy={C} r={r} className="df-gx-ring" />
@@ -127,7 +148,7 @@ export default function GraphExplorer() {
                 r={n.id === active ? p.r + 2.5 : p.r}
                 fill={p.color}
                 className={dim ? 'df-gx-node is-dim' : 'df-gx-node'}
-                onMouseEnter={() => setHover(n.id)}
+                onPointerEnter={(e) => e.pointerType === 'mouse' && setHover(n.id)}
                 onClick={() => setPinned((cur) => (cur === n.id ? null : n.id))}
               >
                 <title>{n.title}</title>
@@ -158,9 +179,7 @@ export default function GraphExplorer() {
         <div className="df-gx-detail" aria-live="polite">
           {activeNode ? (
             <>
-              <span className="df-gx-tier">
-                {tiers.find((t) => t.name === activeNode.tier)?.label}
-              </span>
+              <span className="df-gx-tier">{tierLabel(activeNode.tier)}</span>
               <strong>{activeNode.title}</strong>
               <code>{activeNode.path}</code>
               <p>
@@ -168,16 +187,58 @@ export default function GraphExplorer() {
                 {activeEdges.length > 0 &&
                   `: ${[...new Set(activeEdges.map((e) => e[2]))].join(', ')}`}
               </p>
-              <a href={docHref(activeNode.path)} target="_blank" rel="noopener noreferrer">
-                Open doc <ArrowUpRight size={13} />
-              </a>
+              {neighbours.length > 0 && (
+                <ul className="df-gx-neighbours" aria-label="Linked docs">
+                  {neighbours.map((n) => (
+                    <li key={n.id}>
+                      <button type="button" onClick={() => setPinned(n.id)}>
+                        {n.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {activeHref ? (
+                <a href={activeHref} target="_blank" rel="noopener noreferrer">
+                  Open doc <ArrowUpRight size={13} />
+                </a>
+              ) : (
+                <p className="df-gx-hint">Stories are not published on the docs site.</p>
+              )}
             </>
           ) : (
             <p className="df-gx-hint">
-              Hover a dot to see a doc and its links. Click to pin it. Click a tier to hide it.
+              Hover a dot to see a doc and its links. Click or tap to pin it. Click a tier to hide
+              it. Keyboard users can pick a doc from the list below.
             </p>
           )}
         </div>
+
+        <details className="df-gx-list">
+          <summary>All docs as a list</summary>
+          {tiers
+            .filter((t) => !hidden.has(t.name))
+            .map((t) => (
+              <div key={t.name}>
+                <h4>{t.label}</h4>
+                <ul>
+                  {nodes
+                    .filter((n) => n.tier === t.name)
+                    .map((n) => (
+                      <li key={n.id}>
+                        <button
+                          type="button"
+                          aria-pressed={pinned === n.id}
+                          onClick={() => setPinned((cur) => (cur === n.id ? null : n.id))}
+                        >
+                          {n.title}
+                        </button>
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))}
+        </details>
       </aside>
     </div>
   );
