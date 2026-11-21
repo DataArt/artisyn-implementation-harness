@@ -1,0 +1,11 @@
+--- a/canonical/skills/dev/references/03-plan.md
++++ b/canonical/skills/dev/references/03-plan.md
+@@ -68,7 +68,7 @@ Summarize relevant constraints and continue. Ask only about material missing con
+ 
+ ## Step 2 — Plan content rules
+ 
+-Use `templates/plan.md` as is; its structure is strict. Three parts, in order:
++Use `templates/plan.md` as is; its structure is strict. Replace the template's own meta block with the fenced `yaml` frontmatter under it, without the fences (Documentation Principles, "Templates"). Three parts, in order:
+ `## Solution`, `## Acceptance Criteria` (and optional `## Dependencies`), `## Steps`.
+ 
+ **Solution.** One short paragraph: the approach, why it fits the intent and the

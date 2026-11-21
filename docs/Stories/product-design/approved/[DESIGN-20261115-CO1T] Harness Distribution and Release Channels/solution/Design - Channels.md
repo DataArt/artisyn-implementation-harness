@@ -1,7 +1,9 @@
 ---
 id: 49520d65
-purpose: 'Implementation detail for DESIGN-20261115-CO1T decisions D-05 to D-09: repo layout, the three plugin and marketplace manifests, per-channel consumer commands, artifact contents and integrity checks for the five distribution channels'
-keywords:
+type: Solution Design
+title: 'DESIGN-20261115-CO1T — Design: Channels'
+description: 'Implementation detail for DESIGN-20261115-CO1T decisions D-05 to D-09: repo layout, the three plugin and marketplace manifests, per-channel consumer commands, artifact contents and integrity checks for the five distribution channels'
+tags:
   [
     design,
     solution,
@@ -16,6 +18,8 @@ keywords:
     attestation,
     artisyn-implementation-harness,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T — Design: Channels

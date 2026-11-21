@@ -1,12 +1,18 @@
 ---
 id: 9bf56f85
-purpose: Describe the IDE-side and docs-site graph surfaces that share the knowledge graph's data file
-keywords: [knowledge graph, visualization, graph page, data-access pattern]
+type: Product Concept
+title: Visualization Model
+description: Describe the IDE-side and docs-site graph surfaces that share the knowledge graph's data file
+tags: [knowledge graph, visualization, graph page, data-access pattern]
+generated: { by: process:okf-migration, at: 2026-11-02T14:35:32Z }
+updated: { by: process:dev-document, at: 2026-11-21T22:20:00Z }
 ---
 
 # Visualization Model
 
-An IDE-side representation and a docs-site graph page are both required — neither is optional, and neither is a separate export or derived copy. Both share the one SQLite data file as their single source of truth.
+Two graph surfaces are required, and both read the one SQLite data file as their single source of truth: the docs-site Graph Explorer and the IDE-side `docs/.og/graph.mmd`, which `build` regenerates from that file. Neither required surface uses a separate export or a hand-maintained copy.
+
+Web Explorer's Dogfood page is the one allowed exception: it renders `apps/web-explorer/src/pages/dogfood/graph.json`, a derived, non-authoritative copy that a developer refreshes by hand with the export script (see [Compatibility rule](#compatibility-rule)).
 
 ## Data-access pattern
 
@@ -24,11 +30,13 @@ sequenceDiagram
     Page-->>Browser: interactive graph
 ```
 
-The docs-site page fetches the shared data file and queries it directly in the browser, client-side, with no server round-trip and no separate JSON export. The specific browser-side query technology and the specific graph-rendering library are not fixed by this model.
+The docs-site page fetches the shared data file and queries it directly in the browser, client-side, with no server round-trip and no JSON export in between. The specific browser-side query technology and the specific graph-rendering library are not fixed by this model.
 
-The IDE-side representation shares the same data source. Its exact rendering mechanism is not fixed by this model either — only that it exists and reads from the same file, not a derived copy.
+The IDE-side representation, `docs/.og/graph.mmd`, comes from the same data file: `build` regenerates it on every run, so nobody edits or refreshes it by hand.
 
 ## Node coloring
+
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 The populated graph colors nodes by tier, reusing the palette already established for Mermaid diagrams across this repo:
 
@@ -38,8 +46,11 @@ The populated graph colors nodes by tier, reusing the palette already establishe
 | LLD              | `#0E7490` (teal)                                       |
 | EngineeringGuide | `#065F46` (green)                                      |
 | Story / Product  | `#D97706` (Story, amber) / `#7C3AED` (Product, purple) |
-| AppReadme        | `#4B5563` (grey)                                       |
 
 ## Compatibility rule
 
-The docs-site page's data-access layer depends only on the stable `docs`/`edges` schema and the `(from_id, to_id, edge_type)` composite-uniqueness contract defined in `02 Storage and Build Model.md`. Additive schema changes do not break this page.
+> Applies from harness 4.2.0, which introduces OG schema v1.
+
+The docs-site page reads only `docs.id`, `tier`, `path` and `title`, plus the `edges` contract: the `(from_id, to_id, edge_type)` composite uniqueness defined in `02 Storage and Build Model.md`. Schema v1 keeps these names.
+
+Web Explorer's `apps/web-explorer/scripts/export-dogfood-graph.mjs` also reads the DB: `docs.id`, `tier`, `title` and `path`, and `edges.from_id`, `to_id` and `edge_type` where `derived = 0`. A schema change must keep this script working too.

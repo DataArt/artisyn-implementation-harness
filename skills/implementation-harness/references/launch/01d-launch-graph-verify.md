@@ -9,8 +9,16 @@ build, and (on a first install only) the intelligent scan are entirely that
 reference's job, including deciding for itself whether this is a first install or
 a refresh. Nothing is restated here.
 
+Reindex graph's Step 0b runs `migrate --check`. On a greenfield launch it must report
+`pending: false`; if it does not, D.6 missed something, so fix the docs rather than
+migrating them. Into a project whose `docs/` predates the harness, it shows the
+`migrate --dry-run` summary, asks the developer to confirm, then runs
+`migrate --allow-dirty`. Reindex graph's Step 1 prints the `check` report; a launch
+leaves zero `unversionedBundles` and zero docs missing `type`.
+
 **Completion evidence:** whatever [Reindex graph](../reindex-graph.md)'s own
-completion evidence requires for the step(s) that ran. Runs before Cleanup
+completion evidence requires for the step(s) that ran, plus the `migrate --check`
+result and the `check` counts. Runs before Cleanup
 specifically so `project:docs/.og/`'s files are in scope for Final audit's
 hash/baseline recording below.
 

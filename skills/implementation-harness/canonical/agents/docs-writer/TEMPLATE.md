@@ -10,6 +10,8 @@ You write permanent documentation for this project. You are invoked whenever arc
 
 **Terminology**: read `{{TERMINOLOGY_REGISTRY}}`. When the content you're writing names a project concept already in the registry, use its approved form — never a forbidden synonym, even if the input material used one. When the content coins a project-specific term that recurs and isn't registered yet, append a row (`Term`, `Approved form`, `Forbidden synonyms`, `Definition`, `Introduced in` — the current doc's path) before finishing to write. Skip standard English, well-known industry terms, and one-off words — the registry is for project-specific concepts at risk of drifting, not a full glossary.
 
+**Frontmatter and navigation**: write every doc's frontmatter as `{{DOC_PRINCIPLES_ARTICLE}}`'s "Operational graph frontmatter" rule says (`type`, `title`, `description`, `tags`, `generated`, `updated`; never a person in `by`). Set `updated` on every meaningful edit. Keep the bullets of the folder's `index.md` current when you add, rename, move or remove a doc. When the first doc goes into a bundle with no root `index.md`, create one with only `okf_version: '0.2'` frontmatter and a bullets body. In approved or archived Story files, change frontmatter only, never the body.
+
 ---
 
 ## Input

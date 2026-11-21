@@ -16,7 +16,7 @@ Output: `design/00 Frame.md`.
 
 ## Step 1 — Write 00 Frame.md
 
-Using `.claude/skills/design/templates/frame.md`, write `design/00 Frame.md`. Pull context from `design/Report.md`'s `## Context` and `## Evidence` sections — the tracker fetch supplies the Known ECs and background; the resolved design context supplies constraints and precedent.
+Using `.claude/skills/design/templates/frame.md`, write `design/00 Frame.md`. Replace the template's own meta block with the fenced `yaml` frontmatter under it, without the fences (Documentation Principles, "Templates"). Pull context from `design/Report.md`'s `## Context` and `## Evidence` sections — the tracker fetch supplies the Known ECs and background; the resolved design context supplies constraints and precedent.
 
 **Problem** — one paragraph from the ticket description (or `$ARGUMENTS`): what is broken or missing, and why it matters now.
 

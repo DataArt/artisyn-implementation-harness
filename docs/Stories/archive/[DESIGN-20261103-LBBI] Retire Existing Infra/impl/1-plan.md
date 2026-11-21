@@ -1,8 +1,11 @@
 ---
 id: be290d53
-name: Dev Plan
-description: Implementation plan for retiring the Auth and Infrastructure containers' code (Efforts.md item 5, code-only slice)
-type: reference
+type: Implementation Plan
+title: 'DESIGN-20261103-LBBI: Retire Existing Infra — Plan'
+description: Implementation plan for deleting the Auth and Infrastructure containers and stripping AWS steps from CI/CD
+tags: [implementation plan, infra retirement, aws, ci-cd, github pages]
+generated: { by: process:okf-migration, at: 2026-11-03T16:08:37Z }
+updated: { by: process:okf-migration, at: 2026-11-03T17:06:54Z }
 ---
 
 # DESIGN-20261103-LBBI: Retire Existing Infra — Plan

@@ -1,7 +1,11 @@
 ---
 id: ad9f962f
-purpose: Guide Solution Architects on using the harness to compress discovery and de-risk delivery during pre-sales
-keywords: [pre-sales, solution architect, early context shaping]
+type: Product Concept
+title: SA Pre-Sales Playbook
+description: Guide Solution Architects on using the harness to compress discovery and de-risk delivery during pre-sales
+tags: [pre-sales, solution architect, early context shaping]
+generated: { by: process:okf-migration, at: 2026-08-18T00:00:46Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # SA Pre-Sales Playbook

@@ -1,8 +1,12 @@
 ---
 id: 96b8a360
+type: Product Concept
+title: Artisyn Capability Audit
+description: Source-level audit of Artisyn's entry points, agents, and scripts, with evidence and implementation gaps
+tags: [capability audit, functional inventory, source evidence, implementation gaps]
+generated: { by: process:okf-migration, at: 2026-09-17T16:48:52Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 aside: false
-purpose: Source-level audit of Artisyn's entry points, agents, and scripts, with evidence and implementation gaps
-keywords: [capability audit, functional inventory, source evidence, implementation gaps]
 ---
 
 # Artisyn Capability Audit

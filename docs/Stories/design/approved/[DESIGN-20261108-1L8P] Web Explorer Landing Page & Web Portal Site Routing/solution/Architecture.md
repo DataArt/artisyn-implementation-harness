@@ -1,7 +1,11 @@
 ---
 id: 27f15cce
-purpose: 'Settled solution for DESIGN-20261108-1L8P: Web Explorer and Web Portal containers added to the Web layer, with Web Docs renamed and re-based'
-keywords: [web-explorer, web-portal, web-docs, github-pages, nx composition, architecture]
+type: Solution Architecture
+title: DESIGN-20261108-1L8P — Solution Architecture
+description: 'Settled solution for DESIGN-20261108-1L8P: Web Explorer and Web Portal containers added to the Web layer, with Web Docs renamed and re-based'
+tags: [web-explorer, web-portal, web-docs, github-pages, nx composition, architecture]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P — Solution Architecture

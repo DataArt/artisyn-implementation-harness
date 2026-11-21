@@ -1,8 +1,11 @@
 ---
 id: c084e865
-name: Design Report Template
-description: Template for design/Report.md — the living design report, idempotency anchor, and WAF findings store
-type: reference
+type: Design Report
+title: 'Design Report — DESIGN-20261115-V98J: Log Hub Session Telemetry Integration'
+description: Design run record for the Log Hub session telemetry integration, with context, stage state and review outcomes
+tags: [design report, log hub, telemetry, dev tooling]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # Design Report — DESIGN-20261115-V98J: Log Hub Session Telemetry Integration

@@ -1,0 +1,8 @@
+--- a/canonical/docs/Engineering Guide/Lifecycles/00 Overview.md	
++++ b/canonical/docs/Engineering Guide/Lifecycles/00 Overview.md	
+@@ -1,4 +1,4 @@
+-# Harness Bootstrap — Lifecycle Overview
++# Implementation Harness — Lifecycle Overview
+ 
+ _The four lifecycles, how they interact, and when to use each one._
+ 

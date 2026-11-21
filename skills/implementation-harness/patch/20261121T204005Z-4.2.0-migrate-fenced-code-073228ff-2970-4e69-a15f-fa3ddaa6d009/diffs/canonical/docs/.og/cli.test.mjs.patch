@@ -1,0 +1,35 @@
+--- a/canonical/docs/.og/cli.test.mjs
++++ b/canonical/docs/.og/cli.test.mjs
+@@ -1411,6 +1411,32 @@ test('migrate takes an older-harness project to the target state and preserves a
+   });
+ });
+ 
++test('migrate ignores headings and bullets inside fenced code blocks of an index page', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    writeDoc(
++      dir,
++      'docs/Harness/05 Principles/index.md',
++      '---\nid: prin0001\npurpose: The beliefs\nkeywords: [principles]\n---\n\n# Principles\n\nInstall it:\n\n```bash\n# Plugin marketplace\n- [not a bullet](nowhere.md)\n```\n\n~~~\n## also not a heading\n~~~\n\n## Real heading\n\n- [Concept](../01%20Concept.md) - A concept\n'
++    );
++    commitAll(dir, 'fenced index');
++    await og.migrate({ dir });
++
++    const index = fs.readFileSync(path.join(dir, 'docs/Harness/05 Principles/index.md'), 'utf8');
++    assert.doesNotMatch(index, /Plugin marketplace/);
++    assert.doesNotMatch(index, /also not a heading/);
++    assert.doesNotMatch(index, /not a bullet/);
++    assert.match(index, /^## Real heading$/m);
++
++    const overview = fs.readFileSync(
++      path.join(dir, 'docs/Harness/05 Principles/00 Overview.md'),
++      'utf8'
++    );
++    assert.match(overview, /```bash\n# Plugin marketplace\n- \[not a bullet\]\(nowhere\.md\)\n```/);
++    assert.match(overview, /~~~\n## also not a heading\n~~~/);
++  });
++});
++
+ test('migrate is idempotent: a second run on a committed tree changes nothing', async () => {
+   await withDir(async (dir) => {
+     olderHarnessFixture(dir);

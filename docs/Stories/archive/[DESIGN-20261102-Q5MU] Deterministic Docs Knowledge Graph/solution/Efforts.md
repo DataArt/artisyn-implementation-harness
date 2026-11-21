@@ -1,7 +1,11 @@
 ---
 id: 78c316e8
-purpose: Single-ticket work breakdown and ordered build sequence for implementing the deterministic docs knowledge graph
-keywords: [efforts, WBS, docs-graph, build-sequence]
+type: Solution Efforts
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Efforts'
+description: Single-ticket work breakdown and ordered build sequence for implementing the deterministic docs knowledge graph
+tags: [efforts, WBS, docs-graph, build-sequence]
+generated: { by: process:okf-migration, at: 2026-11-02T13:47:44Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Efforts

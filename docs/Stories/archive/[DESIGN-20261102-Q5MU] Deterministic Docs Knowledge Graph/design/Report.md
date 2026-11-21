@@ -1,7 +1,11 @@
 ---
 id: 6a3f0e7a
-purpose: Design-lifecycle run record (state, evidence, metrics, WAF, gate) for the Deterministic Docs Knowledge Graph ticket
-keywords: [design-report, docs-graph, lifecycle-tracking]
+type: Design Report
+title: 'Design Report — DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph'
+description: Design-lifecycle run record (state, evidence, metrics, WAF, gate) for the Deterministic Docs Knowledge Graph ticket
+tags: [design-report, docs-graph, lifecycle-tracking]
+generated: { by: process:okf-migration, at: 2026-11-02T08:56:15Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # Design Report — DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph

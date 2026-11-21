@@ -1,7 +1,9 @@
 ---
 id: ac73bb4d
-purpose: Map the end-to-end adoption path from first client conversation to continuous improvement, including how a project installs and launches the harness
-keywords:
+type: Product Concept
+title: Adoption Path
+description: Map the end-to-end adoption path from first client conversation to continuous improvement, including how a project installs and launches the harness
+tags:
   [
     adoption path,
     pre-sales,
@@ -11,6 +13,8 @@ keywords:
     improve,
     implementation-harness launch,
   ]
+generated: { by: process:okf-migration, at: 2026-08-18T00:00:46Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Adoption Path

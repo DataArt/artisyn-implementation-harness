@@ -1,15 +1,14 @@
 // Fails loudly if apps/web-docs's hand-duplicated TIER_COLORS (Graph Explorer's
-// Cytoscape stylesheet) drifts from the canonical tier taxonomy in
+// Cytoscape stylesheet) drifts from the canonical TIER_NAMES in
 // docs/.og/constants.mjs. The web build intentionally doesn't import the
-// canonical module at runtime (TD-7 in DESIGN-20261102-Q5MU's report), so this
-// is a build-time text check instead of a real import — regenerate this script
-// if either file's shape changes enough to break the regex below.
+// canonical module at runtime (TD-7 in DESIGN-20261102-Q5MU's report), so the
+// TIER_COLORS side is a text match — regenerate this script if
+// cytoscapeStyle.ts's shape changes enough to break the regex below.
 import fs from 'node:fs';
 import path from 'node:path';
-import { TIER_PATH_PREFIXES, APP_README_PATTERN } from '../../docs/.og/constants.mjs';
+import { TIER_NAMES } from '../../docs/.og/constants.mjs';
 
-const canonicalTiers = new Set(TIER_PATH_PREFIXES.map(([, tier]) => tier));
-if (APP_README_PATTERN) canonicalTiers.add('AppReadme');
+const canonicalTiers = new Set(TIER_NAMES);
 
 const stylePath = path.resolve(
   import.meta.dirname,

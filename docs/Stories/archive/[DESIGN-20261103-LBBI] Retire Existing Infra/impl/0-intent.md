@@ -1,7 +1,11 @@
 ---
 id: 30b06f20
-purpose: "Intent for retiring the Infrastructure and Auth containers' code (WBS item 5 of the GitHub Pages migration design), code-only"
-keywords: [github-pages, infra-retirement, auth-retirement, intent]
+type: Dev Intent
+title: 'DESIGN-20261103-LBBI: Retire Existing Infra — Intent'
+description: Intent for retiring the Infrastructure and Auth containers' code (WBS item 5 of the GitHub Pages migration design), code-only
+tags: [github-pages, infra-retirement, auth-retirement, intent]
+generated: { by: process:okf-migration, at: 2026-11-03T15:49:10Z }
+updated: { by: process:okf-migration, at: 2026-11-03T17:06:54Z }
 ---
 
 # DESIGN-20261103-LBBI: Retire Existing Infra — Intent

@@ -1,7 +1,11 @@
 ---
 id: 64576e6c
-purpose: Research options for the build mechanism that produces and refreshes the docs knowledge graph
-keywords: [design-q5mu, knowledge-graph, research, infra-footprint]
+type: Design Research
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Representation / infra footprint'
+description: Research options for the build mechanism that produces and refreshes the docs knowledge graph
+tags: [design-q5mu, knowledge-graph, research, infra-footprint]
+generated: { by: process:okf-migration, at: 2026-11-02T12:40:11Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Representation / infra footprint

@@ -1,7 +1,11 @@
 ---
 id: 808ed797
-purpose: Required C4 component abstraction and the five semantic coverage keys an LLD component doc must satisfy
-keywords: [LLD intent, C4 component, coverage keys, implementation evidence]
+type: Guide
+title: LLD Intent
+description: Required C4 component abstraction and the five semantic coverage keys an LLD component doc must satisfy
+tags: [LLD intent, C4 component, coverage keys, implementation evidence]
+generated: { by: process:okf-migration, at: 2026-09-14T23:13:59Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # LLD Intent

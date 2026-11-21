@@ -1,7 +1,11 @@
 ---
 id: 6ac01d9e
-purpose: 'Evaluate phase output for DESIGN-20261115-V98J Decision 1: requirements matrix, tradeoffs and recommendation for where the Log Hub server runs; recommends Hybrid with the Nx-wrapped local instance as default'
-keywords: [evaluate, log hub, server topology, telemetry, recommendation, WAF, design phase]
+type: Design Evaluation
+title: 'DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Evaluate: Server topology'
+description: 'Evaluate phase output for DESIGN-20261115-V98J Decision 1: requirements matrix, tradeoffs and recommendation for where the Log Hub server runs; recommends Hybrid with the Nx-wrapped local instance as default'
+tags: [evaluate, log hub, server topology, telemetry, recommendation, WAF, design phase]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Evaluate: Server topology

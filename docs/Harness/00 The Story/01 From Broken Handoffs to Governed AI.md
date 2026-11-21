@@ -1,7 +1,11 @@
 ---
 id: 9359b9ee
-purpose: Tells the three-act story of broken handoffs, unwired AI, and the governed human/AI balance
-keywords: [story, handoffs, governance, ai-assisted]
+type: Product Concept
+title: From Broken Handoffs to Governed AI
+description: Tells the three-act story of broken handoffs, unwired AI, and the governed human/AI balance
+tags: [story, handoffs, governance, ai-assisted]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-14T23:59:35Z }
 ---
 
 # From Broken Handoffs to Governed AI

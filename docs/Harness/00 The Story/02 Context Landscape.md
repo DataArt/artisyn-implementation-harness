@@ -1,7 +1,11 @@
 ---
 id: 8f03ef24
-purpose: Describes the layers of product context and the project-context gap no one owns by default
-keywords: [context, story, project-context]
+type: Product Concept
+title: The Context Landscape
+description: Describes the layers of product context and the project-context gap no one owns by default
+tags: [context, story, project-context]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-03T09:43:19Z }
 ---
 
 # The Context Landscape

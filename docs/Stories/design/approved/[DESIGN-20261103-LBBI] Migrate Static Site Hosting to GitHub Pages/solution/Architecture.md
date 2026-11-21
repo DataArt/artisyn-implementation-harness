@@ -1,7 +1,9 @@
 ---
 id: 3d9bb1d9
-purpose: 'Authoritative end-to-end solution for migrating static site hosting from AWS CloudFront/S3/Lambda@Edge to GitHub Pages — settled decisions, container changes, flows, and decommission sequence'
-keywords:
+type: Solution Architecture
+title: 'DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Solution'
+description: Authoritative end-to-end solution for migrating static site hosting from AWS CloudFront/S3/Lambda@Edge to GitHub Pages — settled decisions, container changes, flows, and decommission sequence
+tags:
   [
     github-pages,
     hosting-migration,
@@ -11,6 +13,8 @@ keywords:
     vitepress-base-path,
     csp-meta-tag,
   ]
+generated: { by: process:okf-migration, at: 2026-11-03T14:56:47Z }
+updated: { by: process:okf-migration, at: 2026-11-03T15:36:47Z }
 ---
 
 # DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Solution

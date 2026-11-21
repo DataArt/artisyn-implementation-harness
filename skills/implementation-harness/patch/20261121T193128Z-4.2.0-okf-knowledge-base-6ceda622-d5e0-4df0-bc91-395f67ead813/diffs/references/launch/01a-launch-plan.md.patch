@@ -1,0 +1,60 @@
+--- a/references/launch/01a-launch-plan.md
++++ b/references/launch/01a-launch-plan.md
+@@ -6,33 +6,32 @@ Stage sequence and tracking live in [01-launch.md](01-launch.md).
+ 
+ **First launch action:** select one or more of `claude`, `codex`, and `copilot`, reusing an explicit
+ selection already supplied by the developer. Record Q6 before provider output planning.
+-`package:` is the installed bootstrap package directory, independent of the selected targets;
+-use one package/state directory for all selected providers. In consumer projects, install it by
+-extracting the released ZIP archive; do not copy the source-repository directory. In a consumer project, add
+-`/<package-relative-path>/` to .gitignore; the toolkit and its local launch history
+-are disposable after verification. Do not untrack files as a side effect of launch.
++`package:` is the installed bootstrap package, independent of the selected targets; use one
++package and one state root (`.harness/state/`) for all selected providers. In consumer projects,
++install it from a release channel (marketplace, skills.sh, gh skill, the npm install CLI or the
++release ZIP); do not copy the source-repository directory. The package is read-only and can be
++replaced or removed after a verified launch; the state stays. Launch adds the ignore entries
++for generated state to `.gitignore` and does not untrack files as a side effect.
+ The harness source repository keeps its authoritative package tracked.
+ 
+-Keep answers, reports, plans and receipts in `package:state/launch/`. Exclude state
+-from release archives and preserve it when updating the toolkit. Existing project
+-Legacy `.harness/` records are read-only migration inputs: copy/revalidate needed data
+-into `package:state/` with provenance; do not write new data there. Keep patch
+-inventory, bundles, and baselines under `package:state/` as specified in Patch State.
++Keep answers, reports, plans and receipts in `.harness/state/launch/` (alias `state/launch/`).
++Record the package in
++`.harness/state/launch/package.json` (name, version, channel) and `package.local.json` (this
++machine's path): for a marketplace, skills.sh or gh skill install, pass `--channel` to
++`materialize-launch.mjs`; the install CLI writes both files itself. Keep patch inventory,
++bundles, and baselines under `.harness/state/` as specified in Patch State.
+ 
+-Read the newest incomplete `package:state/launch/reports/*-launch.md` and its operation record.
++Read the newest incomplete `.harness/state/launch/reports/*-launch.md` and its operation record.
+ Match tracked tasks by the recorded run ID. Resume that run, asking only if multiple
+ runs or restart intent are ambiguous. Recheck input/output hashes before reusing
+ completed work; retain verified independent results.
+ 
+ For a new run, copy `package:reports/report.template.md` to
+-`package:state/launch/reports/<UTC YYYY-MM-DD-HHMMSS>-launch.md`, keeping launch progress rows.
++`.harness/state/launch/reports/<UTC YYYY-MM-DD-HHMMSS>-launch.md`, keeping launch progress rows.
+ Record run ID, package version, plan/operation-record paths, decisions, and evidence.
+ Remove unused patch-mode example tables from the new launch report so its Progress
+ section contains exactly the 14 launch rows. Mirror native tracking on these rows.
+-Load permanent `answers.json` first. If absent, import the newest populated legacy
+-`package:reports/` Answers, recording provenance and `historical` status; preserve
+-legacy originals. Revalidate historical answers before plan use. Legacy package patch,
+-state and registry records are also read-only migration fallbacks.
++Load permanent `answers.json` first.
+ Persist each resolved answer immediately in both `answers.json` and this run's report;
+ record verified outputs immediately. Leave templates and prior reports intact.
+ 
+@@ -105,7 +104,7 @@ and references found in templates: patterns and flat rule files. Each
+ companion gets its own entry; a filename glob alone is not a companion inventory.
+ Missing dependencies and destination collisions are planning errors.
+ 
+-Store immutable JSON at `package:state/launch/runs/<run_id>/plan.json`; use a new linked
++Store immutable JSON at `.harness/state/launch/runs/<run_id>/plan.json`; use a new linked
+ run ID only to split A/B/C materialization into separate verified stage receipts, or
+ for a later block whose inputs are unresolved. This is the only sanctioned use of a
+ linked run ID: D.1–D.5's own `derived_outputs` reservations are never a new linked run

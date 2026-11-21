@@ -1,7 +1,11 @@
 ---
 id: a4a4a0af
-purpose: 'Frames the GitHub Pages hosting migration: problem, evaluation criteria, scope, and constraints'
-keywords: [github-pages, hosting-migration, frame, cloudfront, basic-auth, cdk]
+type: Design Frame
+title: DESIGN-20261103-LBBI — Migrate Static Site Hosting to GitHub Pages
+description: 'Frames the GitHub Pages hosting migration: problem, evaluation criteria, scope, and constraints'
+tags: [github-pages, hosting-migration, frame, cloudfront, basic-auth, cdk]
+generated: { by: process:okf-migration, at: 2026-11-03T13:31:37Z }
+updated: { by: process:okf-migration, at: 2026-11-03T16:28:50Z }
 ---
 
 # DESIGN-20261103-LBBI — Migrate Static Site Hosting to GitHub Pages

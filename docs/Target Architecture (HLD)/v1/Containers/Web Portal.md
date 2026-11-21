@@ -1,7 +1,11 @@
 ---
 id: 6b2f1e4a
-purpose: Design intent for the Web Portal container — the composition-only Nx project that assembles Web Explorer and Web Docs into one deployable artifact tree
-keywords: [web-portal, nx composition, github-pages, hld]
+type: Container
+title: Web Portal Container
+description: Design intent for the Web Portal container — the composition-only Nx project that assembles Web Explorer and Web Docs into one deployable artifact tree
+tags: [web-portal, nx composition, github-pages, hld]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-16T22:10:02Z }
 ---
 
 # Web Portal Container

@@ -1,7 +1,9 @@
 ---
 id: bbd79b2b
-purpose: 'Developer/admin runbook for the harness release lane (deploy-harness.yml): the main ruleset (web deployment, five required checks, the accepted owner bypass) and the 2026-11-17 cutover record, the release environment with required reviewers, the v<version> tag format and the v4.0.2 bridge tag, the per-PR yarn harness:version step, the automatic build on merge, the approval that starts publish, the publish-npmjs stub and its npmjs.com setup, the first 4.0.0 release and the per-channel smoke checklist'
-keywords:
+type: Guide
+title: Harness Release Runbook
+description: 'Developer/admin runbook for the harness release lane (deploy-harness.yml): the main ruleset (web deployment, five required checks, the accepted owner bypass) and the 2026-11-17 cutover record, the release environment with required reviewers, the v<version> tag format and the v4.0.2 bridge tag, the per-PR yarn harness:version step, the automatic build on merge, the approval that starts publish, the publish-npmjs stub and its npmjs.com setup, the first 4.0.0 release and the per-channel smoke checklist'
+tags:
   [
     release runbook,
     harness:version,
@@ -17,6 +19,8 @@ keywords:
     changelog,
     release notes,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
 ---
 
 # Harness Release Runbook

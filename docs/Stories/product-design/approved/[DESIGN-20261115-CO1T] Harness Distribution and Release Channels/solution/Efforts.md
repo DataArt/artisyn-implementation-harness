@@ -1,7 +1,9 @@
 ---
 id: 49d09587
-purpose: 'Efforts for DESIGN-20261115-CO1T: the work breakdown, sequencing, rollout, rollback and risks for delivering harness distribution and release channels; estimates are filled in by the developer'
-keywords:
+type: Solution Efforts
+title: DESIGN-20261115-CO1T — Efforts
+description: 'Efforts for DESIGN-20261115-CO1T: the work breakdown, sequencing, rollout, rollback and risks for delivering harness distribution and release channels; estimates are filled in by the developer'
+tags:
   [
     design,
     solution,
@@ -16,6 +18,8 @@ keywords:
     artisyn-implementation-harness,
     migration,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T — Efforts

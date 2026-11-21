@@ -1,8 +1,11 @@
 ---
 id: a4b4cd98
-name: Design Report Template
-description: Template for design/Report.md — the living design report, idempotency anchor, and WAF findings store
-type: reference
+type: Design Report
+title: 'Design Report — DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing'
+description: Design run record for the Web Explorer landing page and Web Portal routing, with context, stage state and WAF review
+tags: [design report, web explorer, web portal, github pages, waf review]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # Design Report — DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing

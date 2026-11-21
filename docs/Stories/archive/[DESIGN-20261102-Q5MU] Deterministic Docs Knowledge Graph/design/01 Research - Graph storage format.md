@@ -1,7 +1,11 @@
 ---
 id: 79b72c69
-purpose: Research options for how the deterministic doc-relation index is stored, independent of topology, infra, or visualization decisions
-keywords: [design-q5mu, knowledge-graph, research, storage-format]
+type: Design Research
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph storage format'
+description: Research options for how the deterministic doc-relation index is stored, independent of topology, infra, or visualization decisions
+tags: [design-q5mu, knowledge-graph, research, storage-format]
+generated: { by: process:okf-migration, at: 2026-11-02T12:40:11Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph storage format

@@ -1,7 +1,9 @@
 ---
 id: 6d1a1114
-purpose: "The single home for this repo's CI/CD: every GitHub Actions workflow (ci-web.yml on every PR and its gitleaks job on push to main, ci-harness.yml with its in-job harness filter, deploy-web.yml and deploy-harness.yml on merge), their jobs, permissions and credentials, the environments (web, github-pages, release), the secret scan on PRs and on push to main and the accepted owner bypass, required vs advisory checks, how to reproduce each gate locally, and the one release lane with its approval gate and the publish-npmjs stub"
-keywords:
+type: Guide
+title: CI/CD
+description: "The single home for this repo's CI/CD: every GitHub Actions workflow (ci-web.yml on every PR and its gitleaks job on push to main, ci-harness.yml with its in-job harness filter, deploy-web.yml and deploy-harness.yml on merge), their jobs, permissions and credentials, the environments (web, github-pages, release), the secret scan on PRs and on push to main and the accepted owner bypass, required vs advisory checks, how to reproduce each gate locally, and the one release lane with its approval gate and the publish-npmjs stub"
+tags:
   [
     CI/CD,
     GitHub Actions,
@@ -20,6 +22,8 @@ keywords:
     environments,
     release environment,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:dev-document, at: 2026-11-21T21:35:00Z }
 ---
 
 # CI/CD
@@ -125,7 +129,7 @@ flowchart LR
 | `changes`         | `ci-harness.yml` | —                                 | ubuntu                    | Lists the PR's files (`git diff --no-renames --name-only origin/<base>...HEAD`) and outputs `harness=true` when any matches the harness paths below. `--no-renames` lists both sides of a rename, so a file moved out of a harness path still counts; plain `--name-only` lists only the new path. A git error also gives `harness=true`                                       |
 | `version-gate`    | `ci-harness.yml` | `changes`                         | ubuntu                    | `stamp-harness-version.mjs --check` (every manifest carries the `package.json` version); `version-harness.mjs --check` (the branch is stamped with the version its commits call for, with a matching changelog entry)                                                                                                                                                          |
 | `harness-package` | `ci-harness.yml` | `changes`                         | ubuntu                    | `ci/check-pack.mjs` (package contents match the allowlist); `validate-plugin.mjs` with a pinned `@anthropic-ai/claude-code` via `yarn dlx`; `nx release version --dry-run` for the harness project                                                                                                                                                                             |
-| `harness-unit`    | `ci-harness.yml` | `changes`                         | ubuntu                    | `yarn nx run implementation-harness-e2e:unit`: the deterministic unit specs, including the workflow and release-script specs                                                                                                                                                                                                                                                   |
+| `harness-unit`    | `ci-harness.yml` | `changes`                         | ubuntu                    | `yarn nx run implementation-harness-e2e:unit`: the deterministic unit specs, including the workflow and release-script specs; then `yarn nx run artisyn-implementation-harness:og-test` (the canonical OG CLI `node:test` suite)                                                                                                                                               |
 | `harness-cli`     | `ci-harness.yml` | `version-gate`, `harness-package` | ubuntu, macOS, Windows    | `yarn nx run implementation-harness-e2e:unit-cli`: the Vitest specs for the install CLI and the state root. On Windows a first step runs `git config --system core.longpaths true`, because patch bundle paths exceed 260 characters                                                                                                                                           |
 
 `version-gate`, `harness-package` and `harness-unit` run when `!cancelled() && (needs.changes.result != 'success' || needs.changes.outputs.harness == 'true')`. On a PR that touches none of the harness paths, all four harness jobs are skipped. `harness-cli` is advisory and needs `version-gate` and `harness-package`, so it runs after them. When `changes` itself fails, `harness-cli` may not run at all; the exact skip propagation in that case is not verified.
@@ -246,7 +250,7 @@ Reproduce each CI gate locally from the repo root with Node 24. The package mana
 | `version-gate`    | `git fetch --tags` · `node scripts/release/stamp-harness-version.mjs --check` · `node scripts/release/version-harness.mjs --check`                                                                                              |
 | `docs-gate`       | `node scripts/check-docs.mjs` · `node scripts/check-commit-scope.mjs --range origin/main..HEAD`                                                                                                                                 |
 | `harness-package` | `node scripts/ci/check-pack.mjs` · `CLAUDE_CMD="yarn dlx --quiet -p @anthropic-ai/claude-code@2.1.311 claude" node scripts/validate-plugin.mjs` · `yarn nx release version --projects=artisyn-implementation-harness --dry-run` |
-| `harness-unit`    | `yarn nx run implementation-harness-e2e:unit`                                                                                                                                                                                   |
+| `harness-unit`    | `yarn nx run implementation-harness-e2e:unit` · `yarn nx run artisyn-implementation-harness:og-test`                                                                                                                            |
 | `harness-cli`     | `yarn nx run implementation-harness-e2e:unit-cli`                                                                                                                                                                               |
 | gitleaks          | A local gitleaks binary: `gitleaks git --config .gitleaks.toml --redact --log-opts="--all" .`                                                                                                                                   |
 

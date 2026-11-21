@@ -1,7 +1,9 @@
 ---
 id: e974f3dd
-purpose: 'Design evaluation for decision 4 of DESIGN-20261115-CO1T: rates five release pipeline options and recommends Nx Release in independent mode, conventional-commit driven, publishing automatically on merge to main'
-keywords:
+type: Design Evaluation
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Release Pipeline'
+description: 'Design evaluation for decision 4 of DESIGN-20261115-CO1T: rates five release pipeline options and recommends Nx Release in independent mode, conventional-commit driven, publishing automatically on merge to main'
+tags:
   [
     harness distribution,
     release pipeline,
@@ -16,6 +18,8 @@ keywords:
     evaluate,
     WAF,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Release Pipeline

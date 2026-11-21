@@ -155,6 +155,7 @@ describe('gradeDocsGraphAdopted', () => {
       'docs.mjs',
       'edges.mjs',
       'docs-operational-graph.sqlite',
+      '.gitignore',
     ])
       fs.writeFileSync(path.join(ogDir, file), '');
   }
@@ -181,5 +182,17 @@ describe('gradeDocsGraphAdopted', () => {
     const result = gradeDocsGraphAdopted(root);
     expect(result.pass).toBe(false);
     expect(result.failures[0]).toMatch(/should not be deployed/);
+  });
+
+  it('fails when the package gitignore kept its undotted name', () => {
+    const root = tmpRoot();
+    writeOgPackage(root);
+    fs.renameSync(path.join(root, 'docs/.og/.gitignore'), path.join(root, 'docs/.og/gitignore'));
+    const result = gradeDocsGraphAdopted(root);
+    expect(result.pass).toBe(false);
+    expect(result.failures).toEqual([
+      expect.stringMatching(/\.gitignore is missing/),
+      expect.stringMatching(/should be deployed as docs\/\.og\/\.gitignore/),
+    ]);
   });
 });

@@ -1,7 +1,11 @@
 ---
 id: f3714908
-purpose: Describe how the evolve lifecycle improves harness skills, agents, and conventions from observed friction
-keywords: [evolve lifecycle, reflect, triage, draft, validate, adopt]
+type: Product Concept
+title: Evolve Lifecycle
+description: Describe how the evolve lifecycle improves harness skills, agents, and conventions from observed friction
+tags: [evolve lifecycle, reflect, triage, draft, validate, adopt]
+generated: { by: process:okf-migration, at: 2026-09-14T23:13:59Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Evolve Lifecycle

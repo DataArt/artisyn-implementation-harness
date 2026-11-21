@@ -1,0 +1,30 @@
+--- a/scripts/lib/manifest.mjs
++++ b/scripts/lib/manifest.mjs
+@@ -37,6 +37,19 @@ function assertEntrypointMapping(manifest) {
+     throw new Error('Unsupported entrypoint or INTENT mapping');
+ }
+ 
++/** `deployRenames` maps a canonical path to the project path it deploys as. It
++ * exists because npm packing drops dotfiles such as `.gitignore`. */
++function assertDeployRenames(manifest) {
++  const renames = manifest.deployRenames ?? {};
++  if (
++    typeof renames !== 'object' ||
++    Object.entries(renames).some(
++      ([from, to]) => !isSafeRelativePath(from) || !isSafeRelativePath(to)
++    )
++  )
++    throw new Error('Unsafe deploy rename');
++}
++
+ function assertProviderShape(name, provider) {
+   const pathKeys = [
+     'skills',
+@@ -69,6 +82,7 @@ export function loadManifest(packageRoot) {
+   assertCanonicalPaths(manifest);
+   assertRuntimeInventory(manifest);
+   assertEntrypointMapping(manifest);
++  assertDeployRenames(manifest);
+   for (const [name, provider] of Object.entries(manifest.providers))
+     assertProviderShape(name, provider);
+   return manifest;

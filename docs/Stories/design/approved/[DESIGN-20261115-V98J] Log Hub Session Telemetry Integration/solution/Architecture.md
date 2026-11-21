@@ -1,7 +1,11 @@
 ---
 id: e55e8bd6
-purpose: 'Settled end-to-end architecture for the Log Hub container: a repo-managed, opt-in local Log Hub server and local-scope Claude Code hook, isolated from the canonical harness and the deployed site'
-keywords: [log-hub, architecture, claude-code-hook, canonical-isolation, nx-project, local-scope]
+type: Solution Architecture
+title: Log Hub Session Telemetry Integration — Architecture
+description: 'Settled end-to-end architecture for the Log Hub container: a repo-managed, opt-in local Log Hub server and local-scope Claude Code hook, isolated from the canonical harness and the deployed site'
+tags: [log-hub, architecture, claude-code-hook, canonical-isolation, nx-project, local-scope]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # Log Hub Session Telemetry Integration — Architecture

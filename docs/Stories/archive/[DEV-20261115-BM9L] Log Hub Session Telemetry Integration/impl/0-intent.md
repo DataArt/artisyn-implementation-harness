@@ -1,7 +1,11 @@
 ---
 id: 9fff53e0
-purpose: Implementation intent for DEV-20261115-BM9L — building the Log Hub container approved in DESIGN-20261115-V98J
-keywords: [log-hub, intent, telemetry, implementation]
+type: Dev Intent
+title: DEV-20261115-BM9L — Log Hub Session Telemetry Integration (implementation)
+description: Implementation intent for DEV-20261115-BM9L — building the Log Hub container approved in DESIGN-20261115-V98J
+tags: [log-hub, intent, telemetry, implementation]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DEV-20261115-BM9L — Log Hub Session Telemetry Integration (implementation)

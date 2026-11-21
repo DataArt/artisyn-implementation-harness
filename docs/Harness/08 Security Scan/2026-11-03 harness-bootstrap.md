@@ -1,7 +1,11 @@
 ---
 id: 8a1e4f2c
-purpose: Record the 2026-11-03 DataArt InfoSec security review findings and verdict for the harness-bootstrap skill
-keywords: [security-scan, harness-bootstrap, infosec, review]
+type: Product Concept
+title: 'Security Review: harness-bootstrap'
+description: Record the 2026-11-03 DataArt InfoSec security review findings and verdict for the harness-bootstrap skill
+tags: [security-scan, harness-bootstrap, infosec, review]
+generated: { by: process:okf-migration, at: 2026-11-03T08:40:10Z }
+updated: { by: process:okf-migration, at: 2026-11-03T09:43:19Z }
 ---
 
 # Security Review: harness-bootstrap

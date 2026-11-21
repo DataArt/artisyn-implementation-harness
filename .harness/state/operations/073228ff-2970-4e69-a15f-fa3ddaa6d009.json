@@ -1,0 +1,38 @@
+{
+  "schema_version": 2,
+  "bundle_id": "073228ff-2970-4e69-a15f-fa3ddaa6d009",
+  "mode": "prepare",
+  "providers": [],
+  "status": "prepared",
+  "created_at": "2026-11-21T20:40:05.622Z",
+  "files": [
+    {
+      "path": "canonical/docs/.og/cli.mjs",
+      "canonical_pre_sha256": "2543c3edb2d92bb8f034b53936195dba741e19d4f77d0ca51c5598a8d43c39b1",
+      "canonical_post_sha256": "7c04293c8a3be06740e748b3329be1c004bc473ef9db4a51ed10157be311357c",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "canonical/docs/.og/cli.test.mjs",
+      "canonical_pre_sha256": "3800bef7e5cdeeb22d29a699d812788148411f835f46e944e62bf48d909a30eb",
+      "canonical_post_sha256": "4608ad8cbe4471d3f254308c2294bbd33d2f1258901f3e94f5016165abca6664",
+      "result": "prepared",
+      "provider": null
+    },
+    {
+      "path": "canonical/docs/.og/utils.mjs",
+      "canonical_pre_sha256": "d28e25ca5921a9cf0b0f9f6af94c1cb23ff06d9af2abbd213c32546f02233c1a",
+      "canonical_post_sha256": "b1253923575b591ec15373d69f09461ec9b56257dc2bcdb42b4b78e2e9151047",
+      "result": "prepared",
+      "provider": null
+    }
+  ],
+  "unresolved": [
+    {
+      "path": "canonical/docs/.og/docs-operational-graph.sqlite",
+      "reason": "binary update: not representable as a text diff"
+    }
+  ],
+  "verification": "every payload sha256 validated; every update diff applied to its recorded base reproduces after_sha256"
+}

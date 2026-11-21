@@ -3,9 +3,8 @@ import { withBase } from 'vitepress';
 /**
  * Resolves a `GraphDoc.path` (repo-root-relative, e.g.
  * `"docs/Engineering Guide/01 Conventions.md"`) to the VitePress route for
- * that doc, or `null` when the doc has no route at all (e.g. `AppReadme`
- * tier docs like `apps/implementation-harness-e2e/README.md` — outside `docs/`, so outside
- * VitePress's `srcDir` entirely).
+ * that doc, or `null` when the doc has no route at all (a path outside
+ * `docs/`, so outside VitePress's `srcDir` entirely).
  *
  * This site's `srcDir` is `docs/` and it does NOT set `cleanUrls` (confirmed
  * against the built output — pages keep the `.html` extension), so the

@@ -1,8 +1,12 @@
 ---
 id: f3835f50
+type: Product Concept
+title: Competitors and Related Tools
+description: Position Artisyn against comparable methodologies, spec tools, and AI engineering skill libraries
+tags: [competitors, related tools, positioning, adoption tiers]
+generated: { by: process:okf-migration, at: 2026-09-17T16:48:52Z }
+updated: { by: process:okf-migration, at: 2026-11-03T09:43:19Z }
 aside: false
-purpose: Position Artisyn against comparable methodologies, spec tools, and AI engineering skill libraries
-keywords: [competitors, related tools, positioning, adoption tiers]
 ---
 
 # Competitors and Related Tools

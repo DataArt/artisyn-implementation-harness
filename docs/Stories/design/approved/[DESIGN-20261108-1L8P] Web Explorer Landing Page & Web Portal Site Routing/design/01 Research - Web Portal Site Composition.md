@@ -1,7 +1,11 @@
 ---
 id: a54e70c1
-purpose: 'Research phase output for DESIGN-20261108-1L8P Decision 2: option set for composing web-explorer and web-docs into one GitHub Pages deploy, no recommendation'
-keywords: [research, web-portal, web-docs, github-pages, open questions, design phase]
+type: Design Research
+title: 'DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Research (Decision 2: Web Portal Site Composition)'
+description: 'Research phase output for DESIGN-20261108-1L8P Decision 2: option set for composing web-explorer and web-docs into one GitHub Pages deploy, no recommendation'
+tags: [research, web-portal, web-docs, github-pages, open questions, design phase]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Research (Decision 2: Web Portal Site Composition)

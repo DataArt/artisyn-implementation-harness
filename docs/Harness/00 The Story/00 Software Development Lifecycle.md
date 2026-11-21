@@ -1,7 +1,11 @@
 ---
 id: 901b861b
-purpose: Explains the industry-wide SDLC story and what the ADLC engagement does about it
-keywords: [sdlc, story, adlc]
+type: Product Concept
+title: Software Development Lifecycle
+description: Explains the industry-wide SDLC story and what the ADLC engagement does about it
+tags: [sdlc, story, adlc]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-03T09:43:19Z }
 ---
 
 # Software Development Lifecycle

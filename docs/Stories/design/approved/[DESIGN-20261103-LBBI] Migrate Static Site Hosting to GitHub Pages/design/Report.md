@@ -1,7 +1,11 @@
 ---
 id: 1d9f2b6c
-purpose: Design-lifecycle run record (state, evidence, metrics, WAF, gate) for the GitHub Pages migration ticket
-keywords: [design-report, github-pages, aws-migration, lifecycle-tracking]
+type: Design Report
+title: 'Design Report — DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages'
+description: Design-lifecycle run record (state, evidence, metrics, WAF, gate) for the GitHub Pages migration ticket
+tags: [design-report, github-pages, aws-migration, lifecycle-tracking]
+generated: { by: process:okf-migration, at: 2026-11-03T13:18:19Z }
+updated: { by: process:okf-migration, at: 2026-11-03T15:36:47Z }
 ---
 
 # Design Report — DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages

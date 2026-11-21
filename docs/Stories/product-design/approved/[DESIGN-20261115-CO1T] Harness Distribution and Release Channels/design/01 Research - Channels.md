@@ -1,7 +1,9 @@
 ---
 id: c105e074
-purpose: 'Research for DESIGN-20261115-CO1T decision 2: four channel-portfolio and packaging options for the harness, with precedent, tradeoffs and open questions, no recommendation'
-keywords:
+type: Design Research
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Channels'
+description: 'Research for DESIGN-20261115-CO1T decision 2: four channel-portfolio and packaging options for the harness, with precedent, tradeoffs and open questions, no recommendation'
+tags:
   [
     design,
     research,
@@ -14,6 +16,8 @@ keywords:
     gh skill,
     release asset,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Channels

@@ -1,8 +1,11 @@
 ---
 id: b96bf9e5
-name: Dev Report Template
-description: Template for 2-report.md — the living implementation report created by /dev context and updated throughout the dev lifecycle
-type: reference
+type: Implementation Report
+title: 'DEV-20261115-BM9L: Log Hub Session Telemetry Integration — Report'
+description: Implementation report for the opt-in Log Hub server scripts and the local Claude Code telemetry hook
+tags: [implementation report, log hub, telemetry, claude code hook, docker compose]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DEV-20261115-BM9L: Log Hub Session Telemetry Integration — Report

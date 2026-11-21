@@ -1,8 +1,11 @@
 ---
 id: 842fa9c5
-name: Design Evaluate Template
-description: Template for 02 Evaluate.md — Phase 3 output with Requirements × Options matrix, tradeoffs, and recommendation
-type: reference
+type: Design Evaluation
+title: 'DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Evaluate'
+description: Requirements-by-options evaluation for the Web Explorer app and the Web Portal site routing decisions
+tags: [design evaluation, web explorer, web portal, github pages, options matrix]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Evaluate

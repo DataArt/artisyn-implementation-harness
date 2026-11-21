@@ -1,7 +1,11 @@
 ---
 id: 377ba75d
-purpose: Ordered build plan and acceptance criteria for implementing the docs operational graph (docs/.og/) across canonical skills, launch, and the Web build
-keywords: [plan, docs-graph, operational-graph, acceptance-criteria]
+type: Implementation Plan
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Plan'
+description: Ordered build plan and acceptance criteria for implementing the docs operational graph (docs/.og/) across canonical skills, launch, and the Web build
+tags: [plan, docs-graph, operational-graph, acceptance-criteria]
+generated: { by: process:okf-migration, at: 2026-11-02T16:18:37Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Plan

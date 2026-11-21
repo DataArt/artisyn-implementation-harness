@@ -57,5 +57,8 @@
     "source": "TEMPLATE.md",
     "target": "SKILL.md"
   },
+  "deployRenames": {
+    "docs/.og/gitignore": "docs/.og/.gitignore"
+  },
   "intentFilename": "INTENT.md"
 }

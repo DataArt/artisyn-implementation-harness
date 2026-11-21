@@ -1,8 +1,11 @@
 ---
 id: b987ebb7
-purpose: 'What Log Hub uploads, the consent it requires, and how to run or target a Log Hub server (local init+serve, an already-running local server, or a remote server) before installing the Claude Code hook'
-keywords:
-  [log-hub, session telemetry, claude code hook, opt-in, data disclosure, LOG_HUB_SERVER_URL]
+type: Guide
+title: Log Hub Setup
+description: What Log Hub uploads, the consent it requires, and how to run or target a Log Hub server (local init+serve, an already-running local server, or a remote server) before installing the Claude Code hook
+tags: [log-hub, session telemetry, claude code hook, opt-in, data disclosure, LOG_HUB_SERVER_URL]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Log Hub Setup

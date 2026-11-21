@@ -1,7 +1,9 @@
 ---
 id: 028f0622
-purpose: Portable conventions for root context files, skill authoring, doc naming, and commit messages
-keywords:
+type: Guide
+title: Conventions
+description: Portable conventions for root context files, skill authoring, doc naming, and commit messages
+tags:
   [
     conventions,
     CLAUDE.md,
@@ -11,6 +13,8 @@ keywords:
     harness scope,
     commit-msg hook,
   ]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:12:13Z }
 ---
 
 # Conventions

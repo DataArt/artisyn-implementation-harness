@@ -1,7 +1,11 @@
 ---
-id: 21927675
-purpose: Index of LLD container folders, mirroring the HLD container list
-keywords: [lld, index, containers]
+id: '21927675'
+type: Component Registry
+title: System Architecture (LLD)
+description: Index of LLD container folders, mirroring the HLD container list
+tags: [lld, index, containers]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # System Architecture (LLD)

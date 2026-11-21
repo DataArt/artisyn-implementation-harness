@@ -1,7 +1,9 @@
 ---
 id: 358e59f3
-purpose: The trunk-based branching model, naming conventions, the harness release tag, the main ruleset, and how branches map to CI/CD and environments
-keywords:
+type: Guide
+title: Branching Strategy
+description: The trunk-based branching model, naming conventions, the harness release tag, the main ruleset, and how branches map to CI/CD and environments
+tags:
   [
     branching strategy,
     trunk-based,
@@ -12,6 +14,8 @@ keywords:
     squash merge,
     rollback,
   ]
+generated: { by: process:okf-migration, at: 2026-10-16T07:57:26Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
 ---
 
 # Branching Strategy

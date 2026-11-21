@@ -1,7 +1,11 @@
 ---
 id: 2f617a4e
-purpose: Design intent for the Web Docs container — the VitePress static documentation site, served under the /docs/ subpath
-keywords: [web-docs, vitepress, hld]
+type: Container
+title: Web Docs Container
+description: Design intent for the Web Docs container — the VitePress static documentation site, served under the /docs/ subpath
+tags: [web-docs, vitepress, hld]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
+updated: { by: process:dev-document, at: 2026-11-21T22:20:00Z }
 ---
 
 # Web Docs Container
@@ -58,7 +62,9 @@ flowchart LR
 
 ## Navigation
 
-Nav is 8 fixed items in `config.ts`, pointing into `Harness/` subsections plus a Security Scan entry; every other top-level `docs/` section is reached via the homepage. Sidebar per section is generated at build time by scanning the corresponding `docs/` subdirectory via the `scanSection` helper in `config.ts`. File numeric prefix (`00`, `01`, …) controls sidebar ordering. `index.md` and `README.md` files are excluded from sidebar items. `docs/index.md` uses the VitePress `layout: home` landing page; each top-level section maintains its own `index.md` as a mini-hero entry point.
+Nav is 9 fixed items in `config.ts`, pointing into `Harness/` subsections (Security Scan included); every other top-level `docs/` section is reached via the homepage. Each nav entry targets a page inside its section, mostly the section's `00 Overview` page, never the section `index.md`. Sidebar per section is generated at build time by scanning the corresponding `docs/` subdirectory via the `scanSection` helper in `.vitepress/utils/sidebar.ts`, which `config.ts` calls. File numeric prefix (`00`, `01`, …) controls sidebar ordering. `index.md` and `README.md` files are excluded from sidebar items.
+
+A section `index.md` is navigation; the section's prose lives in its `00 Overview.md`. The `index.md` rules are in [Knowledge Base Format](<../../../Harness/07 Operational Graph/05 Knowledge Base Format.md#section-index-md>).
 
 ## Boundary contracts
 
@@ -72,7 +78,7 @@ Nav is 8 fixed items in `config.ts`, pointing into `Harness/` subsections plus a
 
 - Served as static output only — no server-side runtime at request time; all rendering and link-checking happen at build time, consistent with `System Overview.md`'s static-content design principle
 - VitePress `base` is set to `/<repo>/docs/` — the site is served under Web Portal's `/docs/` subpath, not at the Pages project-site root. Existing bookmarked/indexed `/<repo>/...` doc URLs break on this change; accepted, no redirect or compat stub added
-- Nav is 8 fixed items hardcoded in `config.ts`; sidebar per section is generated at build time from directory scans, not configurable at runtime
+- Nav is 9 fixed items hardcoded in `config.ts`; sidebar per section is generated at build time from directory scans, not configurable at runtime
 - Site title and description are tokenized in `config.ts`, not hardcoded per environment
 - The site is public — no auth gate sits in front of any route
 - One of three siblings in the Web layer: [Web Explorer](Web%20Explorer.md), Web Docs, [Web Portal](Web%20Portal.md) — each has its own container doc

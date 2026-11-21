@@ -1,0 +1,11 @@
+--- a/references/patch/03-patch.md
++++ b/references/patch/03-patch.md
+@@ -8,7 +8,7 @@ There are exactly three patch operations:
+ | `prepare` | Canonical (direct edits) → portable bundle | Package canonical sources already edited directly — no permanent file involved — into a bundle. No personalization, no deployment. |
+ | `apply`   | Canonical → personalization → permanent    | Deploy current canonical changes, or import and deploy a supplied canonical patch.                                                 |
+ 
+-For `/harness-bootstrap patch` without a direction, ask the developer which
++For `/implementation-harness patch` without a direction, ask the developer which
+ they intend — harvest, prepare, or apply — before doing anything else. Then follow
+ `04-patch-harvest.md`, `07-patch-prepare.md`, or `05-patch-apply.md`. There is no
+ separate add or sync workflow. Optional scope limits which components any operation

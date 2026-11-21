@@ -98,6 +98,7 @@ Delegate to `@docs-writer` with the classified list from Step 2:
 > 4. All Mermaid diagrams MUST be colored (classDef + style directives)
 > 5. Apply only settled decisions — no rationale, rejected options, or open questions
 > 6. If a new file is created or renamed, update `docs/README.md`
+> 7. Write B+ frontmatter on every doc you touch (`updated: { by: process:design-publish, at: <UTC now> }`; `generated` too on a new doc) and keep the folder's `index.md` bullets current
 >
 > Return a one-line summary per doc written."
 

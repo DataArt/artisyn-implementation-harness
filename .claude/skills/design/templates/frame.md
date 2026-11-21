@@ -4,6 +4,19 @@ description: Template for 00 Frame.md — Phase 1 output that frames the problem
 type: reference
 ---
 
+<!-- The new doc's frontmatter: put this block, without the fences, in place of the template meta above. -->
+
+```yaml
+---
+type: Design Frame
+title: <title of the new doc>
+description: <one line, what this doc is for>
+tags: [<tag>, <tag>]
+generated: { by: process:design-frame, at: <UTC now, e.g. 2026-11-18T10:00:00Z> }
+updated: { by: process:design-frame, at: <same as generated> }
+---
+```
+
 # <TICKET> — <title>
 
 ## Problem

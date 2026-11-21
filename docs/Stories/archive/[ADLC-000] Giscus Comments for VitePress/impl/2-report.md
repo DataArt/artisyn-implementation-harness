@@ -1,7 +1,11 @@
 ---
 id: 1cca243f
-purpose: Completion report recording progress and verification for the giscus comments widget rollout
-keywords: [adlc-000, giscus, report, comments, vitepress]
+type: Implementation Report
+title: 'ADLC-000: Giscus Comments for VitePress — Report'
+description: Completion report recording progress and verification for the giscus comments widget rollout
+tags: [adlc-000, giscus, report, comments, vitepress]
+generated: { by: process:okf-migration, at: 2026-08-17T23:35:48Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # ADLC-000: Giscus Comments for VitePress — Report

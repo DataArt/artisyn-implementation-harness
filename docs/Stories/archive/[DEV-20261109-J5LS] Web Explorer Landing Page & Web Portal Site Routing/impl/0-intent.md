@@ -1,7 +1,11 @@
 ---
 id: b172c78a
-purpose: 'Intent for DEV-20261109-J5LS: implement the approved Web Explorer / Web Portal / Web Docs design'
-keywords: [intent, web-explorer, web-portal, web-docs]
+type: Dev Intent
+title: DEV-20261109-J5LS — Intent
+description: 'Intent for DEV-20261109-J5LS: implement the approved Web Explorer / Web Portal / Web Docs design'
+tags: [intent, web-explorer, web-portal, web-docs]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DEV-20261109-J5LS — Intent

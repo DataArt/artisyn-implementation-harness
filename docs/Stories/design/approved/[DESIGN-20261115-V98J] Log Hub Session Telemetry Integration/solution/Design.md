@@ -1,7 +1,11 @@
 ---
 id: 19204dd0
-purpose: 'Internal component design for the log-hub Nx project: wrapper scripts, failure modes, and configuration/secrets handling'
-keywords: [log-hub, design, nx-project, scripts, failure-modes, configuration, secrets]
+type: Solution Design
+title: 'DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Design'
+description: 'Internal component design for the log-hub Nx project: wrapper scripts, failure modes, and configuration/secrets handling'
+tags: [log-hub, design, nx-project, scripts, failure-modes, configuration, secrets]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Design

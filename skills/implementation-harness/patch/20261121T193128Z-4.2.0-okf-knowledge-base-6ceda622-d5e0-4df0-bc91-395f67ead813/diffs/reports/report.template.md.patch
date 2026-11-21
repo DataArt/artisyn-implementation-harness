@@ -1,0 +1,15 @@
+--- a/reports/report.template.md
++++ b/reports/report.template.md
+@@ -1,10 +1,10 @@
+ ---
+ name: Bootstrap Report Template
+-description: Blank structure for a fresh /harness-bootstrap run — copy to a new dated file at package:state/launch/reports/YYYY-MM-DD-HHMMSS-<mode>.md, per SKILL.md progress instructions and keep it updated for the duration of that run: Q&A answers plus per-stage/block status. Never overwrite this template itself, and never edit a prior run's dated file.
++description: Blank structure for a fresh /implementation-harness run — copy to a new dated file at .harness/state/launch/reports/YYYY-MM-DD-HHMMSS-<mode>.md, per SKILL.md progress instructions and keep it updated for the duration of that run: Q&A answers plus per-stage/block status. Never overwrite this template itself, and never edit a prior run's dated file.
+ type: reference
+ ---
+ 
+-# Harness Bootstrap — Report
++# Implementation Harness — Report
+ 
+ | Field           | Value                                                          |
+ | --------------- | -------------------------------------------------------------- |

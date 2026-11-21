@@ -1,7 +1,9 @@
 ---
 id: 243af1b4
-purpose: 'Evaluate phase output for DESIGN-20261115-V98J Decision 2: requirements matrix, tradeoffs and recommendation for what a fresh clone contains and how the canonical harness stays unaffected; recommends a repo-owned Nx wrapper with CI verify on a gitignored, local-scope layout'
-keywords:
+type: Design Evaluation
+title: 'DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Evaluate: Repo integration footprint and canonical isolation'
+description: 'Evaluate phase output for DESIGN-20261115-V98J Decision 2: requirements matrix, tradeoffs and recommendation for what a fresh clone contains and how the canonical harness stays unaffected; recommends a repo-owned Nx wrapper with CI verify on a gitignored, local-scope layout'
+tags:
   [
     evaluate,
     log hub,
@@ -13,6 +15,8 @@ keywords:
     WAF,
     design phase,
   ]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Evaluate: Repo integration footprint and canonical isolation

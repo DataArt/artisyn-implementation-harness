@@ -1,0 +1,20 @@
+--- a/canonical/skills/dev/references/01-context-gathering.md
++++ b/canonical/skills/dev/references/01-context-gathering.md
+@@ -81,7 +81,7 @@ state lives in the `Phase` row of `2-report.md`, not in the folder name. Use onl
+ ASCII characters in the name: no emoji, no em dash. Some scanners cannot index such
+ folders.
+ 
+-Create `impl/2-report.md` from `{{provider:skills_root}}/dev/templates/report.md`:
++Create `impl/2-report.md` from `{{provider:skills_root}}/dev/templates/report.md`. Replace the template's own meta block with the fenced `yaml` frontmatter under it, without the fences (Documentation Principles, "Templates"). Then:
+ 
+ - `{TICKET}` and `<Short Title>` — from the ticket / intent title
+ - Header table — fill Ticket and Author (`git config user.name`); Branch is `—` until
+@@ -154,6 +154,8 @@ information. Either way, never let this block the stage.
+ ## Step 4 — Write 0-intent.md
+ 
+ Write `impl/0-intent.md` following `{{provider:skills_root}}/dev/interfaces/intent.md`.
++Give it B+ frontmatter with `type: Dev Intent` and `generated`/`updated` set to
++`{ by: process:dev-context, at: <UTC now> }` (Documentation Principles).
+ That file is an interface, not a template: it lists the questions the intent must
+ answer (problem, what better looks like, who is affected, out of scope, constraints,
+ open questions) and leaves the shape to you. Write in the originator's own words,

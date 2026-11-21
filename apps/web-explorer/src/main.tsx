@@ -26,6 +26,9 @@ const DocsFlow = lazy(() => import('./pages/docs-flow/DocsFlow'));
 // of the landing chunk.
 const GetStarted = lazy(() => import('./pages/get-started/GetStarted'));
 
+// Also lazy: a static content page with no reason to sit in the landing chunk.
+const Dogfood = lazy(() => import('./pages/dogfood/Dogfood'));
+
 // HashRouter, not BrowserRouter: this app is served as a static artifact
 // (composed by Web Portal — see docs/Target Architecture (HLD)/v1/Containers/
 // Web Portal.md) with no server to rewrite a deep link like /inside-the-loop
@@ -65,6 +68,14 @@ createRoot(document.getElementById('root')!).render(
           element={
             <Suspense fallback={null}>
               <DocsFlow />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/dogfood"
+          element={
+            <Suspense fallback={null}>
+              <Dogfood />
             </Suspense>
           }
         />

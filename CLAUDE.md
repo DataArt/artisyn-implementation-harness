@@ -1,7 +1,3 @@
----
-id: 2d5d10cf
----
-
 # Artisyn Implementation Harness
 
 ## Why

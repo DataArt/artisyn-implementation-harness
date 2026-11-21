@@ -1,7 +1,9 @@
 ---
 id: f222f01e
-purpose: 'Evaluate for DESIGN-20261115-CO1T decision 2: channel portfolio options scored against the Frame criteria, recommending repo-as-marketplace with GitHub Packages npm, skills.sh, gh skill and the Release ZIP alongside'
-keywords:
+type: Design Evaluation
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Channels'
+description: 'Evaluate for DESIGN-20261115-CO1T decision 2: channel portfolio options scored against the Frame criteria, recommending repo-as-marketplace with GitHub Packages npm, skills.sh, gh skill and the Release ZIP alongside'
+tags:
   [
     design,
     evaluate,
@@ -15,6 +17,8 @@ keywords:
     attestation,
     WAF,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Channels

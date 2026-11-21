@@ -1,7 +1,9 @@
 ---
 id: 5b93d0e8
-purpose: Install checklist per channel (skills.sh, gh skill, plugin marketplace, npmjs.com, GitHub Packages npm, Release ZIP), where each channel lands, launch commands per host, how to verify a download, and install CLI init options
-keywords:
+type: Product Concept
+title: Install
+description: Install checklist per channel (skills.sh, gh skill, plugin marketplace, npmjs.com, GitHub Packages npm, Release ZIP), where each channel lands, launch commands per host, how to verify a download, and install CLI init options
+tags:
   [
     install,
     implementation-harness,
@@ -19,6 +21,8 @@ keywords:
     attestation,
     launch,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
 ---
 
 # Install

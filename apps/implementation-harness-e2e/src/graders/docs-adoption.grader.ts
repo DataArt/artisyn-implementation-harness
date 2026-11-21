@@ -121,7 +121,8 @@ export function gradeContainerAgentsDeployed(
 
 /** `01d-launch-graph-verify.md`'s operational-graph stage: every operational-graph script
  * and the seed database land in `docs/.og/`, verbatim — but its canonical-only
- * test file (`cli.test.mjs`) never does, since it is tooling, not payload.
+ * test file (`cli.test.mjs`) never does, since it is tooling, not payload. The
+ * package's `gitignore` deploys as `.gitignore` (manifest `deployRenames`).
  */
 export function gradeDocsGraphAdopted(root: string): GradeResult {
   const ogDir = path.join(root, 'docs/.og');
@@ -130,6 +131,12 @@ export function gradeDocsGraphAdopted(root: string): GradeResult {
   );
   if (fs.existsSync(path.join(ogDir, 'cli.test.mjs')))
     failures.push('docs/.og/cli.test.mjs should not be deployed — it is canonical-only tooling');
+  if (!fs.existsSync(path.join(ogDir, '.gitignore')))
+    failures.push(
+      'docs/.og/.gitignore is missing — deploy the package gitignore under its dotted name'
+    );
+  if (fs.existsSync(path.join(ogDir, 'gitignore')))
+    failures.push('docs/.og/gitignore should be deployed as docs/.og/.gitignore');
   return result(DOCS_GRAPH, failures);
 }
 

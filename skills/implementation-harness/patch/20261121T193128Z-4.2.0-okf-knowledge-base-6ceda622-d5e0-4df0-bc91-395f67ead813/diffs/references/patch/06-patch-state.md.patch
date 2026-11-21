@@ -1,0 +1,66 @@
+--- a/references/patch/06-patch-state.md
++++ b/references/patch/06-patch-state.md
+@@ -7,20 +7,31 @@ exception: `canonical-only` entries (the package's own entrypoints, references,
+ changelog, and report template) are package-internal support files outside
+ `canonical/`, addressed by their normal package-root-relative path instead (see
+ "Mappings" below). Permanent paths are relative to the project root.
+-Consumer ignore rules cover the disposable toolkit and its local history. All local
+-bookkeeping, patch baselines, bundles, and operation receipts live under the installed
+-bootstrap package's `state/`; the legacy project `.harness/` directory is not a write
+-target.
++All local bookkeeping, patch baselines, bundles, and operation receipts live in the
++project's `.harness/state/`. The package never holds state.
+ 
+ Path aliases in the patch recipes: `package-patch/` = canonical package
+-`package:patch/`; `project-patch/` = `package:state/patch/`;
+-`state/` = the bootstrap package's `package:state/`;
+-`registry.md` = `package:state/registry.md`; and local reports =
+-`package:state/launch/reports/`. New bootstrap writes always use the package state
+-directory. Existing `.harness/` records are read-only migration inputs only; copy needed
+-records into package state with provenance, without merging conflicting IDs. Portable
++`package:patch/`; `project-patch/` = `.harness/state/patch/`;
++`state/` = `.harness/state/`;
++`registry.md` = `.harness/state/registry.md`; and local reports =
++`.harness/state/launch/reports/`. The state root is resolved from the project root
++(`ARTISYN_HARNESS_PROJECT_ROOT`, then `git rev-parse --show-toplevel`, then the working
++directory), never from the package path or the provider folder. Portable
+ package changes are written to `package-patch/`; project execution bundles and
+ apply/harvest receipts are written to `project-patch/`.
++
++Commit `state/index.json`, `state/registry.md`, `state/launch/answers.json`,
++`state/launch/package.json` and `state/patch/APPLIED.md`. Ignore `state/objects/`,
++`state/launch/runs/`, `state/launch/reports/` and `state/launch/package.local.json`.
++Launch writes the ignore entries and never untracks anything.
++
++### Reading a baseline
++
++The bytes of a baseline always come from `state/objects/`; apply makes no network call, and a
++missing baseline stops the apply before anything is written. Read a baseline with
++`node <package>/scripts/resolve-base.mjs --path <canonical path> --out <file>`. Exit 4 means the
++object is missing, so stop before writing anything. Exit 3 means
++the entry is a bundle, git or local snapshot, so read it from that source instead.
+ The package's templates and portable support files are authoritative. Project
+ Answers, mappings, operation histories, and deployment baselines belong to this repo.
+ 
+@@ -122,7 +133,7 @@ destination collision. Preserve the source until the result is verified.
+ 
+ ## Local bookkeeping
+ 
+-- `registry.md`: deployment allowlist/mappings at `package:state/registry.md`. Register each installed companion,
++- `registry.md`: deployment allowlist/mappings at `.harness/state/registry.md`. Register each installed companion,
+   pattern, rule, and workflow as well as entrypoints; multiple outputs may share a source.
+ - `package-patch/REGISTRY.md`: portable bundles created in the canonical package. Columns: Bundle UUID, Folder, Date,
+   Operation, Summary. Operation is `harvest`, `prepare`, `apply` (a current-source apply's self-packaged bundle), or `launch`. Incoming applications never overwrite this history.
+@@ -194,9 +205,9 @@ bundles rather than editing them in place:
+ 
+ ## First launch and existing projects
+ 
+-Persist Q&A in `package:state/launch/answers.json` with value, source, and status
+-per question. Plans and materialization receipts live in `package:state/launch/runs/<run_id>/`.
+-Dated reports live in `package:state/launch/reports/`. Preserve local launch history across updates when needed for later operations; never
++Persist Q&A in `.harness/state/launch/answers.json` with value, source, and status
++per question. Plans and materialization receipts live in `.harness/state/launch/runs/<run_id>/`.
++Dated reports live in `.harness/state/launch/reports/`. Preserve local launch history across updates when needed for later operations; never
+ copy secret values into it. Revalidate historical answers before using them as plan knowns.
+ 
+ Launch records an initial `launch` manifest before deployment with add entries for

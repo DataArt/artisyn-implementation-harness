@@ -1,7 +1,9 @@
 ---
 id: ebe32e04
-purpose: 'Frame for DESIGN-20261115-CO1T: problem, evaluation criteria, decisions and boundaries for harness distribution and release channels'
-keywords:
+type: Design Frame
+title: DESIGN-20261115-CO1T — Harness Distribution and Release Channels
+description: 'Frame for DESIGN-20261115-CO1T: problem, evaluation criteria, decisions and boundaries for harness distribution and release channels'
+tags:
   [
     design,
     frame,
@@ -13,6 +15,8 @@ keywords:
     rename,
     versioning,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T — Harness Distribution and Release Channels

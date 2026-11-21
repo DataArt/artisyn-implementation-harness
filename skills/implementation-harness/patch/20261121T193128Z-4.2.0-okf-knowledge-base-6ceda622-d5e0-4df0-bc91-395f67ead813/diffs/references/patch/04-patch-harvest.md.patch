@@ -1,0 +1,13 @@
+--- a/references/patch/04-patch-harvest.md
++++ b/references/patch/04-patch-harvest.md
+@@ -5,8 +5,8 @@ Canonical source paths are relative to `canonical/` inside the package — the m
+ folder patch operations read from or write into for portable content, aside from a
+ narrow set of `canonical-only` package-internal files (see `06-patch-state.md`).
+ Bookkeeping aliases `registry.md`, `project-patch/`, and `state/` refer to the
+-installed package's `state/` locations defined in the state contract. Use
+-`package:state/launch/answers.json` and local reports for project knowns.
++project's `.harness/state/` locations defined in the state contract. Use
++`.harness/state/launch/answers.json` and local reports for project knowns.
+ 
+ ## 1 — Inspect permanent changes
+ 

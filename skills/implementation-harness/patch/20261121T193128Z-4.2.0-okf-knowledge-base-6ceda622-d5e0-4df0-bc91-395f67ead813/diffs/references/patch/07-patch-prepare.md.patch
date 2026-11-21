@@ -1,0 +1,25 @@
+--- a/references/patch/07-patch-prepare.md
++++ b/references/patch/07-patch-prepare.md
+@@ -5,7 +5,7 @@ Canonical source paths are relative to `canonical/` inside the package — the m
+ folder this operation reads from or writes into for portable content, aside from a
+ narrow set of `canonical-only` package-internal files (see `06-patch-state.md`);
+ bookkeeping aliases `registry.md`, `project-patch/`, and `state/` refer to the
+-bootstrap package state directory defined in the state contract.
++project's `.harness/state/` directory defined in the state contract.
+ 
+ Prepare exists for one situation: canonical sources inside this package were edited
+ directly — not generalized from a permanent project file by `harvest` — and need to
+@@ -55,9 +55,10 @@ when one exists; `"canonical-only"` with `mapping: null` for package-internal fi
+ Do not generalize, substitute, or otherwise rewrite the content while bundling —
+ that already happened (or didn't need to) before the canonical edit was made. Prepare
+ packages what is already there; it is not a second harvest pass. Bump changed
+-template versions and the package version per `../../patterns/skill-authoring.md`'s
+-versioning rule if this hasn't already been done on the canonical files themselves;
+-update `CHANGELOG.md`.
++template versions per `../../patterns/skill-authoring.md`'s versioning rule if this
++hasn't already been done on the canonical files themselves. Do not bump the package
++version and do not edit `CHANGELOG.md`: the release pipeline picks the version from the
++commit messages and writes the changelog (see `../00-overview.md`, Versioning).
+ 
+ ## 3 — Verify and record
+ 

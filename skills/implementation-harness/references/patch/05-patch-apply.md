@@ -115,5 +115,11 @@ Otherwise retain `partial` or `failed` and resumable per-file results. Purely pa
 outputs when the manifest explicitly marks them canonical-only.
 
 Report applied/skipped/unresolved items, manifest path, and verification results.
+Apply the manifest's `deployRenames` when a bundle entry maps to one (e.g.
+`canonical/docs/.og/gitignore` deploys as `docs/.og/.gitignore`); never leave the
+undotted name in the project. When the bundle changed any `docs/.og/` file, end the
+report with: "OG changed. Run `/implementation-harness reindex-graph` next. It checks
+whether the docs need migrating and asks before changing them." Apply itself never runs
+`migrate`.
 Suggest a Conventional Commit without staging or committing. An already matching
 input is a verified no-op; do not manufacture a new change bundle for it.

@@ -1,7 +1,11 @@
 ---
 id: 4871e58d
-purpose: How documentation is born in Stories, refined, and graduates to its permanent home
-keywords: [documents flow, graduation rules, Stories, permanent docs]
+type: Guide
+title: Documents Flow
+description: How documentation is born in Stories, refined, and graduates to its permanent home
+tags: [documents flow, graduation rules, Stories, permanent docs]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # Documents Flow
@@ -66,7 +70,7 @@ flowchart LR
 | `/dev implement`                  | Code commits                                                    | Codebase                                                                       | —                                                     |
 | `/dev document`                   | LLD updates                                                     | `System Architecture (LLD)/`                                                   | Living                                                |
 | `/dev document`                   | Engineering Guide entries                                       | `Engineering Guide/`                                                           | Living                                                |
-| `/dev document`                   | App README updates                                              | `apps/*/README.md`                                                             | Living                                                |
+| `/dev document`                   | App README updates (recorded in `2-report.md`; no graph edge)   | `apps/*/README.md`                                                             | Living                                                |
 | `/dev document` (deviation path)  | Container or NFR updates within the active version              | `Target Architecture (HLD)/<active>/Containers/` or `Non-Functional Concerns/` | Living                                                |
 | `/design evaluate`                | Recommendation + WAF assessment                                 | `Stories/[TICKET] name/design/02 Evaluate.md` + `Report.md`                    | Immutable in Story                                    |
 | `/design solution`                | Certainty artifacts                                             | `Stories/[TICKET] name/solution/`                                              | Immutable after Publish gate                          |
@@ -87,7 +91,9 @@ flowchart LR
 
 **Supersession** — HLD is versioned. Creating a new version is a human and business decision — the lifecycle never creates one automatically. When the team decides to cut a new version, the old version folder is kept as history and the README router is updated to point to the new active version. In-progress deviations always land in the current active version.
 
-**Archival** — `/dev complete` archives a story after doc consistency review, evidence-backed terminal resolutions in the single Review Findings ledger, and passing required acceptance/checks. The archived folder keeps its original ASCII name (`[TICKET] name`); done status lives in the report, not the folder name. Routine LLD lag is a doc-update task; deviation auditing compares implementation to HLD only. Archived stories are read-only references.
+**Archival** — `/dev complete` archives a story after doc consistency review, evidence-backed terminal resolutions in the single Review Findings ledger, and passing required acceptance/checks. The archived folder keeps its original ASCII name (`[TICKET] name`); done status lives in the report, not the folder name. Routine LLD lag is a doc-update task; deviation auditing compares implementation to HLD only. Archived stories are read-only references. One exception: an OG frontmatter migration (`docs/.og/cli.mjs migrate`, or a writer filling `description`/`tags` it reported) may edit the frontmatter of approved and archived Story files. It never changes their body.
+
+**Navigation** — `index.md` files are navigation, not docs. A bundle root's `index.md` carries only `okf_version: '0.2'`; every other `index.md` has no frontmatter. Writers keep their bullets current whenever they add, rename, move or remove a doc. Overview prose lives in `00 Overview.md`. The operational graph never indexes or writes an `index.md` or `log.md`, except the docs-site home `docs/index.md`.
 
 ---
 

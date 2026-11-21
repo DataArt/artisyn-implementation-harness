@@ -1,7 +1,11 @@
 ---
 id: 37a67413
-purpose: Describe the dev lifecycle's phases for delivering an authorized ticket end to end
-keywords: [dev lifecycle, context, plan, implement, test, document]
+type: Product Concept
+title: Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document
+description: Describe the dev lifecycle's phases for delivering an authorized ticket end to end
+tags: [dev lifecycle, context, plan, implement, test, document]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document

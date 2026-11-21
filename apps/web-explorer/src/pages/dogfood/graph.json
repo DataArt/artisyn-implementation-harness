@@ -1,0 +1,1446 @@
+{
+  "nodes": [
+    {
+      "id": "ca1e020e",
+      "tier": "EngineeringGuide",
+      "title": "Engineering Guide",
+      "path": "Engineering Guide/00 Overview.md"
+    },
+    {
+      "id": "028f0622",
+      "tier": "EngineeringGuide",
+      "title": "Conventions",
+      "path": "Engineering Guide/01 Conventions.md"
+    },
+    {
+      "id": "309f72ad",
+      "tier": "EngineeringGuide",
+      "title": "Engineer Role",
+      "path": "Engineering Guide/03 Engineer Role.md"
+    },
+    {
+      "id": "48960fc2",
+      "tier": "EngineeringGuide",
+      "title": "AI Coding Tool Compatibility",
+      "path": "Engineering Guide/04 AI Coding Tool Compatibility.md"
+    },
+    {
+      "id": "99394f45",
+      "tier": "EngineeringGuide",
+      "title": "Getting Started",
+      "path": "Engineering Guide/05 Getting Started.md"
+    },
+    {
+      "id": "b21edcd0",
+      "tier": "EngineeringGuide",
+      "title": "MCP Setup",
+      "path": "Engineering Guide/06 MCP Setup.md"
+    },
+    {
+      "id": "358e59f3",
+      "tier": "EngineeringGuide",
+      "title": "Branching Strategy",
+      "path": "Engineering Guide/07 Branching Strategy.md"
+    },
+    {
+      "id": "b987ebb7",
+      "tier": "EngineeringGuide",
+      "title": "Log Hub Setup",
+      "path": "Engineering Guide/07 Log Hub Setup.md"
+    },
+    {
+      "id": "bbd79b2b",
+      "tier": "EngineeringGuide",
+      "title": "Harness Release Runbook",
+      "path": "Engineering Guide/08 Harness Release Runbook.md"
+    },
+    {
+      "id": "6d1a1114",
+      "tier": "EngineeringGuide",
+      "title": "CI/CD",
+      "path": "Engineering Guide/09 CI-CD.md"
+    },
+    {
+      "id": "34ee6f89",
+      "tier": "EngineeringGuide",
+      "title": "Documentation Principles",
+      "path": "Engineering Guide/Documentation/01 Principles.md"
+    },
+    {
+      "id": "25c349bd",
+      "tier": "EngineeringGuide",
+      "title": "Documentation Structure",
+      "path": "Engineering Guide/Documentation/02 Structure.md"
+    },
+    {
+      "id": "7176f666",
+      "tier": "EngineeringGuide",
+      "title": "HLD Intent",
+      "path": "Engineering Guide/Documentation/03 HLD Intent.md"
+    },
+    {
+      "id": "808ed797",
+      "tier": "EngineeringGuide",
+      "title": "LLD Intent",
+      "path": "Engineering Guide/Documentation/04 LLD Intent.md"
+    },
+    {
+      "id": "afdcc32a",
+      "tier": "EngineeringGuide",
+      "title": "NFR Intent",
+      "path": "Engineering Guide/Documentation/05 NFR Intent.md"
+    },
+    {
+      "id": "7914ab7f",
+      "tier": "EngineeringGuide",
+      "title": "Terminology",
+      "path": "Engineering Guide/Documentation/07 Terminology.md"
+    },
+    {
+      "id": "b54f7afc",
+      "tier": "EngineeringGuide",
+      "title": "Giscus Setup",
+      "path": "Engineering Guide/Infrastructure/04 Giscus Setup.md"
+    },
+    {
+      "id": "ae3ceb7b",
+      "tier": "EngineeringGuide",
+      "title": "Implementation Harness — Lifecycle Overview",
+      "path": "Engineering Guide/Lifecycles/00 Overview.md"
+    },
+    {
+      "id": "7b4734f1",
+      "tier": "EngineeringGuide",
+      "title": "Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document → Completion",
+      "path": "Engineering Guide/Lifecycles/01 Dev Lifecycle.md"
+    },
+    {
+      "id": "88115664",
+      "tier": "EngineeringGuide",
+      "title": "Design Lifecycle — Context Gathering → Ceremony → Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish → Completion",
+      "path": "Engineering Guide/Lifecycles/02 Design Lifecycle.md"
+    },
+    {
+      "id": "5e11d8e8",
+      "tier": "EngineeringGuide",
+      "title": "Evolve Lifecycle",
+      "path": "Engineering Guide/Lifecycles/03 Evolve Lifecycle.md"
+    },
+    {
+      "id": "ec3e9fe7",
+      "tier": "EngineeringGuide",
+      "title": "Architecture Lifecycle — Audit Commands",
+      "path": "Engineering Guide/Lifecycles/04 Architecture Lifecycle.md"
+    },
+    {
+      "id": "4871e58d",
+      "tier": "EngineeringGuide",
+      "title": "Documents Flow",
+      "path": "Engineering Guide/Lifecycles/05 Documents Flow.md"
+    },
+    { "id": "bb22babb", "tier": "Product", "title": "Harness", "path": "Harness/00 Overview.md" },
+    {
+      "id": "d000e20f",
+      "tier": "Product",
+      "title": "The Story",
+      "path": "Harness/00 The Story/00 Overview.md"
+    },
+    {
+      "id": "901b861b",
+      "tier": "Product",
+      "title": "Software Development Lifecycle",
+      "path": "Harness/00 The Story/00 Software Development Lifecycle.md"
+    },
+    {
+      "id": "9359b9ee",
+      "tier": "Product",
+      "title": "From Broken Handoffs to Governed AI",
+      "path": "Harness/00 The Story/01 From Broken Handoffs to Governed AI.md"
+    },
+    {
+      "id": "8f03ef24",
+      "tier": "Product",
+      "title": "The Context Landscape",
+      "path": "Harness/00 The Story/02 Context Landscape.md"
+    },
+    {
+      "id": "a66414a0",
+      "tier": "Product",
+      "title": "The Challenges — Diagnoses and Answers",
+      "path": "Harness/00 The Story/03 Challenges.md"
+    },
+    {
+      "id": "6e3381d0",
+      "tier": "Product",
+      "title": "The Mental Model Shift",
+      "path": "Harness/00 The Story/04 The Mental Model Shift.md"
+    },
+    {
+      "id": "4edd3908",
+      "tier": "Product",
+      "title": "Target Agentic SDLC Setup",
+      "path": "Harness/00 The Story/05 Target Agentic SDLC Setup.md"
+    },
+    {
+      "id": "44f2c457",
+      "tier": "Product",
+      "title": "Explore",
+      "path": "Harness/01 Explore/00 Overview.md"
+    },
+    {
+      "id": "f3835f50",
+      "tier": "Product",
+      "title": "Competitors and Related Tools",
+      "path": "Harness/01 Explore/01 Competitors and Related Tools.md"
+    },
+    {
+      "id": "2c3fa09e",
+      "tier": "Product",
+      "title": "Feature Comparison",
+      "path": "Harness/01 Explore/02 Feature Comparison.md"
+    },
+    {
+      "id": "96b8a360",
+      "tier": "Product",
+      "title": "Artisyn Capability Audit",
+      "path": "Harness/01 Explore/03 Artisyn Capability Audit.md"
+    },
+    {
+      "id": "fceb8241",
+      "tier": "Product",
+      "title": "Tools Across the Six SDLC Stages",
+      "path": "Harness/01 Explore/04 SDLC Tool Coverage.md"
+    },
+    {
+      "id": "32b4135e",
+      "tier": "Product",
+      "title": "Quick Start",
+      "path": "Harness/02 Quick Start/00 Overview.md"
+    },
+    {
+      "id": "eab1759b",
+      "tier": "Product",
+      "title": "Implementation Harness — Lifecycle Overview",
+      "path": "Harness/03 Lifecycles/00 Overview.md"
+    },
+    {
+      "id": "37a67413",
+      "tier": "Product",
+      "title": "Dev Lifecycle — Context → Ceremony → Plan → Implement → Test → Document",
+      "path": "Harness/03 Lifecycles/01 Dev Lifecycle.md"
+    },
+    {
+      "id": "fa0456f5",
+      "tier": "Product",
+      "title": "Design Lifecycle — Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish",
+      "path": "Harness/03 Lifecycles/02 Design Lifecycle.md"
+    },
+    {
+      "id": "f3714908",
+      "tier": "Product",
+      "title": "Evolve Lifecycle",
+      "path": "Harness/03 Lifecycles/03 Evolve Lifecycle.md"
+    },
+    {
+      "id": "b26b620c",
+      "tier": "Product",
+      "title": "Architecture Lifecycle — Audit Commands",
+      "path": "Harness/03 Lifecycles/04 Architecture Lifecycle.md"
+    },
+    {
+      "id": "16606e23",
+      "tier": "Product",
+      "title": "Documents Flow",
+      "path": "Harness/03 Lifecycles/05 Documents Flow.md"
+    },
+    {
+      "id": "ac73bb4d",
+      "tier": "Product",
+      "title": "Adoption Path",
+      "path": "Harness/04 Adoption/00 Adoption Path.md"
+    },
+    {
+      "id": "ad9f962f",
+      "tier": "Product",
+      "title": "SA Pre-Sales Playbook",
+      "path": "Harness/04 Adoption/01 Pre-Sales.md"
+    },
+    {
+      "id": "ec02f7b8",
+      "tier": "Product",
+      "title": "Discovery Phase",
+      "path": "Harness/04 Adoption/02 Discovery Phase.md"
+    },
+    {
+      "id": "40f26a2f",
+      "tier": "Product",
+      "title": "Development Phase",
+      "path": "Harness/04 Adoption/03 Development Phase.md"
+    },
+    {
+      "id": "679f8464",
+      "tier": "Product",
+      "title": "Principles",
+      "path": "Harness/05 Principles/00 Overview.md"
+    },
+    {
+      "id": "e4071c85",
+      "tier": "Product",
+      "title": "Roadmap",
+      "path": "Harness/06 Roadmap/00 Overview.md"
+    },
+    {
+      "id": "1ff56a70",
+      "tier": "Product",
+      "title": "Harness Roadmap",
+      "path": "Harness/06 Roadmap/01 Harness Roadmap.md"
+    },
+    {
+      "id": "9a5ad494",
+      "tier": "Product",
+      "title": "Operational Graph",
+      "path": "Harness/07 Operational Graph/00 Overview.md"
+    },
+    {
+      "id": "04bbbf49",
+      "tier": "Product",
+      "title": "Ops Model",
+      "path": "Harness/07 Operational Graph/01 Ops Model.md"
+    },
+    {
+      "id": "92155727",
+      "tier": "Product",
+      "title": "Storage and Build Model",
+      "path": "Harness/07 Operational Graph/02 Storage and Build Model.md"
+    },
+    {
+      "id": "9bf56f85",
+      "tier": "Product",
+      "title": "Visualization Model",
+      "path": "Harness/07 Operational Graph/03 Visualization Model.md"
+    },
+    {
+      "id": "e4fd637e",
+      "tier": "Product",
+      "title": "Graph Explorer",
+      "path": "Harness/07 Operational Graph/04 Graph Explorer.md"
+    },
+    {
+      "id": "8e18e7b9",
+      "tier": "Product",
+      "title": "Knowledge Base Format",
+      "path": "Harness/07 Operational Graph/05 Knowledge Base Format.md"
+    },
+    {
+      "id": "dfec40a4",
+      "tier": "Product",
+      "title": "Security Scan",
+      "path": "Harness/08 Security Scan/00 Overview.md"
+    },
+    {
+      "id": "40cf72dd",
+      "tier": "Product",
+      "title": "Security Review: harness-bootstrap",
+      "path": "Harness/08 Security Scan/2026-10-06 harness-bootstrap.md"
+    },
+    {
+      "id": "8a1e4f2c",
+      "tier": "Product",
+      "title": "Security Review: harness-bootstrap",
+      "path": "Harness/08 Security Scan/2026-11-03 harness-bootstrap.md"
+    },
+    {
+      "id": "c4e17a02",
+      "tier": "Product",
+      "title": "Distribution",
+      "path": "Harness/09 Distribution/00 Overview.md"
+    },
+    {
+      "id": "5b93d0e8",
+      "tier": "Product",
+      "title": "Install",
+      "path": "Harness/09 Distribution/01 Install.md"
+    },
+    {
+      "id": "a07f6c3d",
+      "tier": "Product",
+      "title": "Update",
+      "path": "Harness/09 Distribution/02 Update.md"
+    },
+    {
+      "id": "e2d58b91",
+      "tier": "Product",
+      "title": "Versioning and Releases",
+      "path": "Harness/09 Distribution/03 Versioning and Releases.md"
+    },
+    { "id": "9f7cbce1", "tier": "Other", "title": "Documentation Index", "path": "README.md" },
+    {
+      "id": "a8ce6496",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Intent",
+      "path": "Stories/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/impl/0-intent.md"
+    },
+    {
+      "id": "bf4b64cd",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Plan",
+      "path": "Stories/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/impl/1-plan.md"
+    },
+    {
+      "id": "c1b2c846",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Report",
+      "path": "Stories/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/impl/2-report.md"
+    },
+    {
+      "id": "6f169669",
+      "tier": "Story",
+      "title": "ADLC-000: Giscus Comments for VitePress",
+      "path": "Stories/archive/[ADLC-000] Giscus Comments for VitePress/impl/1-plan.md"
+    },
+    {
+      "id": "1cca243f",
+      "tier": "Story",
+      "title": "ADLC-000: Giscus Comments for VitePress — Report",
+      "path": "Stories/archive/[ADLC-000] Giscus Comments for VitePress/impl/2-report.md"
+    },
+    {
+      "id": "39a766bc",
+      "tier": "Story",
+      "title": "Architecture Notes — ADLC-000 Giscus Comments",
+      "path": "Stories/archive/[ADLC-000] Giscus Comments for VitePress/impl/architecture-notes.md"
+    },
+    {
+      "id": "3d33ec18",
+      "tier": "Story",
+      "title": "ADLC-001: NX Tooling Setup",
+      "path": "Stories/archive/[ADLC-001] NX Tooling Setup/impl/1-plan.md"
+    },
+    {
+      "id": "35a74665",
+      "tier": "Story",
+      "title": "ADLC-001: NX Tooling Setup — Report",
+      "path": "Stories/archive/[ADLC-001] NX Tooling Setup/impl/2-report.md"
+    },
+    {
+      "id": "b92bbe27",
+      "tier": "Story",
+      "title": "ADLC-003: CDK Infrastructure & Secrets Management",
+      "path": "Stories/archive/[ADLC-003] CDK Infrastructure & Secrets Management/impl/1-plan.md"
+    },
+    {
+      "id": "eb18aac0",
+      "tier": "Story",
+      "title": "ADLC-003: CDK Infrastructure & Secrets Management — Report",
+      "path": "Stories/archive/[ADLC-003] CDK Infrastructure & Secrets Management/impl/2-report.md"
+    },
+    {
+      "id": "13f2018f",
+      "tier": "Story",
+      "title": "ADLC-004: CI/CD — GitHub Actions with AWS OIDC",
+      "path": "Stories/archive/[ADLC-004] CI-CD - GitHub Actions with AWS OIDC/impl/1-plan.md"
+    },
+    {
+      "id": "bc2b50bf",
+      "tier": "Story",
+      "title": "ADLC-004: CI/CD — GitHub Actions with AWS OIDC — Report",
+      "path": "Stories/archive/[ADLC-004] CI-CD - GitHub Actions with AWS OIDC/impl/2-report.md"
+    },
+    {
+      "id": "513a062e",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU — Deterministic Docs Knowledge Graph",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/00 Frame.md"
+    },
+    {
+      "id": "79b72c69",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph storage format",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/01 Research - Graph storage format.md"
+    },
+    {
+      "id": "09302318",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph structure and topology",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/01 Research - Graph structure and topology.md"
+    },
+    {
+      "id": "d8a46ea4",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Harness bootstrap impact",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/01 Research - Harness bootstrap impact.md"
+    },
+    {
+      "id": "0bdddd42",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Harness lifecycle impact",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/01 Research - Harness lifecycle impact.md"
+    },
+    {
+      "id": "64576e6c",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Representation / infra footprint",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/01 Research - Representation infra footprint.md"
+    },
+    {
+      "id": "8d8b58f1",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Visualization surface",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/01 Research - Visualization surface.md"
+    },
+    {
+      "id": "bb0cd4fc",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Graph storage format",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/02 Evaluate - Graph storage format.md"
+    },
+    {
+      "id": "54ac361d",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Graph structure and topology",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/02 Evaluate - Graph structure and topology.md"
+    },
+    {
+      "id": "aac87096",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Harness bootstrap impact",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/02 Evaluate - Harness bootstrap impact.md"
+    },
+    {
+      "id": "973fed9c",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Harness lifecycle impact",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/02 Evaluate - Harness lifecycle impact.md"
+    },
+    {
+      "id": "c2aebeb1",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Representation / infra footprint",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/02 Evaluate - Representation infra footprint.md"
+    },
+    {
+      "id": "643637d9",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Visualization surface",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/02 Evaluate - Visualization surface.md"
+    },
+    {
+      "id": "6a3f0e7a",
+      "tier": "Story",
+      "title": "Design Report — DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/design/Report.md"
+    },
+    {
+      "id": "9ce77df8",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Intent",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/impl/0-intent.md"
+    },
+    {
+      "id": "377ba75d",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Plan",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/impl/1-plan.md"
+    },
+    {
+      "id": "21d8dd6c",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Report",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/impl/2-report.md"
+    },
+    {
+      "id": "1a00df21",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Architecture",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Architecture.md"
+    },
+    {
+      "id": "112687ab",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph storage format",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Design - Graph storage format.md"
+    },
+    {
+      "id": "3633996d",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph structure and topology",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Design - Graph structure and topology.md"
+    },
+    {
+      "id": "7201b88e",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Harness bootstrap impact",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Design - Harness bootstrap impact.md"
+    },
+    {
+      "id": "3ab7c368",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Harness lifecycle impact",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Design - Harness lifecycle impact.md"
+    },
+    {
+      "id": "03fd1f93",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Representation / infra footprint",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Design - Representation infra footprint.md"
+    },
+    {
+      "id": "11023f2a",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Visualization surface",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Design - Visualization surface.md"
+    },
+    {
+      "id": "78c316e8",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Efforts",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Efforts.md"
+    },
+    {
+      "id": "e66451d4",
+      "tier": "Story",
+      "title": "DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Stack",
+      "path": "Stories/archive/[DESIGN-20261102-Q5MU] Deterministic Docs Knowledge Graph/solution/Stack.md"
+    },
+    {
+      "id": "30b06f20",
+      "tier": "Story",
+      "title": "DESIGN-20261103-LBBI: Retire Existing Infra — Intent",
+      "path": "Stories/archive/[DESIGN-20261103-LBBI] Retire Existing Infra/impl/0-intent.md"
+    },
+    {
+      "id": "be290d53",
+      "tier": "Story",
+      "title": "DESIGN-20261103-LBBI: Retire Existing Infra — Plan",
+      "path": "Stories/archive/[DESIGN-20261103-LBBI] Retire Existing Infra/impl/1-plan.md"
+    },
+    {
+      "id": "6192e133",
+      "tier": "Story",
+      "title": "DESIGN-20261103-LBBI: Retire Existing Infra — Report",
+      "path": "Stories/archive/[DESIGN-20261103-LBBI] Retire Existing Infra/impl/2-report.md"
+    },
+    {
+      "id": "intent",
+      "tier": "Story",
+      "title": "DEV-20261108-K7XQ: GitHub Pages Hosting — Intent",
+      "path": "Stories/archive/[DEV-20261108-K7XQ] GitHub Pages Hosting/impl/0-intent.md"
+    },
+    {
+      "id": "985055cb",
+      "tier": "Story",
+      "title": "DEV-20261108-K7XQ: GitHub Pages Hosting — Plan",
+      "path": "Stories/archive/[DEV-20261108-K7XQ] GitHub Pages Hosting/impl/1-plan.md"
+    },
+    {
+      "id": "fa3c14be",
+      "tier": "Story",
+      "title": "DEV-20261108-K7XQ: GitHub Pages Hosting — Report",
+      "path": "Stories/archive/[DEV-20261108-K7XQ] GitHub Pages Hosting/impl/2-report.md"
+    },
+    {
+      "id": "b172c78a",
+      "tier": "Story",
+      "title": "DEV-20261109-J5LS — Intent",
+      "path": "Stories/archive/[DEV-20261109-J5LS] Web Explorer Landing Page & Web Portal Site Routing/impl/0-intent.md"
+    },
+    {
+      "id": "c181ab6b",
+      "tier": "Story",
+      "title": "DEV-20261109-J5LS: Web Explorer Landing Page & Web Portal Site Routing — Plan",
+      "path": "Stories/archive/[DEV-20261109-J5LS] Web Explorer Landing Page & Web Portal Site Routing/impl/1-plan.md"
+    },
+    {
+      "id": "63444176",
+      "tier": "Story",
+      "title": "DEV-20261109-J5LS: Web Explorer Landing Page & Web Portal Site Routing — Report",
+      "path": "Stories/archive/[DEV-20261109-J5LS] Web Explorer Landing Page & Web Portal Site Routing/impl/2-report.md"
+    },
+    {
+      "id": "6990481c",
+      "tier": "Story",
+      "title": "DEV-20261115-5DUE — Harness Distribution and Release Channels — Intent",
+      "path": "Stories/archive/[DEV-20261115-5DUE] Harness Distribution and Release Channels/impl/0-intent.md"
+    },
+    {
+      "id": "951d9f63",
+      "tier": "Story",
+      "title": "DEV-20261115-5DUE: Harness Distribution and Release Channels — Plan",
+      "path": "Stories/archive/[DEV-20261115-5DUE] Harness Distribution and Release Channels/impl/1-plan.md"
+    },
+    {
+      "id": "760f83f5",
+      "tier": "Story",
+      "title": "DEV-20261115-5DUE: Harness Distribution and Release Channels — Report",
+      "path": "Stories/archive/[DEV-20261115-5DUE] Harness Distribution and Release Channels/impl/2-report.md"
+    },
+    {
+      "id": "9fff53e0",
+      "tier": "Story",
+      "title": "DEV-20261115-BM9L — Log Hub Session Telemetry Integration (implementation)",
+      "path": "Stories/archive/[DEV-20261115-BM9L] Log Hub Session Telemetry Integration/impl/0-intent.md"
+    },
+    {
+      "id": "44cef495",
+      "tier": "Story",
+      "title": "DEV-20261115-BM9L: Log Hub Session Telemetry Integration — Plan",
+      "path": "Stories/archive/[DEV-20261115-BM9L] Log Hub Session Telemetry Integration/impl/1-plan.md"
+    },
+    {
+      "id": "b96bf9e5",
+      "tier": "Story",
+      "title": "DEV-20261115-BM9L: Log Hub Session Telemetry Integration — Report",
+      "path": "Stories/archive/[DEV-20261115-BM9L] Log Hub Session Telemetry Integration/impl/2-report.md"
+    },
+    {
+      "id": "a4a4a0af",
+      "tier": "Story",
+      "title": "DESIGN-20261103-LBBI — Migrate Static Site Hosting to GitHub Pages",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/design/00 Frame.md"
+    },
+    {
+      "id": "099b24e3",
+      "tier": "Story",
+      "title": "DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Research",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/design/01 Research.md"
+    },
+    {
+      "id": "7c435590",
+      "tier": "Story",
+      "title": "DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Evaluate",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/design/02 Evaluate.md"
+    },
+    {
+      "id": "1d9f2b6c",
+      "tier": "Story",
+      "title": "Design Report — DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/design/Report.md"
+    },
+    {
+      "id": "3d9bb1d9",
+      "tier": "Story",
+      "title": "DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Solution",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/Architecture.md"
+    },
+    {
+      "id": "6d0d181e",
+      "tier": "Story",
+      "title": "Solution Design — GitHub Pages Migration",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/Design.md"
+    },
+    {
+      "id": "9f5e28b7",
+      "tier": "Story",
+      "title": "Efforts — GitHub Pages Migration",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/Efforts.md"
+    },
+    {
+      "id": "64005845",
+      "tier": "Story",
+      "title": "Stack Changes — GitHub Pages Migration",
+      "path": "Stories/design/approved/[DESIGN-20261103-LBBI] Migrate Static Site Hosting to GitHub Pages/solution/Stack.md"
+    },
+    {
+      "id": "466d5898",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P — Web Explorer Landing Page & Web Portal Site Routing",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/design/00 Frame.md"
+    },
+    {
+      "id": "3057968d",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Research (Decision 1: Web Explorer)",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/design/01 Research - Web Explorer.md"
+    },
+    {
+      "id": "a54e70c1",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Research (Decision 2: Web Portal Site Composition)",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/design/01 Research - Web Portal Site Composition.md"
+    },
+    {
+      "id": "842fa9c5",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Evaluate",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/design/02 Evaluate.md"
+    },
+    {
+      "id": "a4b4cd98",
+      "tier": "Story",
+      "title": "Design Report — DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/design/Report.md"
+    },
+    {
+      "id": "27f15cce",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P — Solution Architecture",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/solution/Architecture.md"
+    },
+    {
+      "id": "f5b3e164",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P — Solution Design",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/solution/Design.md"
+    },
+    {
+      "id": "2d89e355",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P — Efforts",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/solution/Efforts.md"
+    },
+    {
+      "id": "a9cacf81",
+      "tier": "Story",
+      "title": "DESIGN-20261108-1L8P — Stack",
+      "path": "Stories/design/approved/[DESIGN-20261108-1L8P] Web Explorer Landing Page & Web Portal Site Routing/solution/Stack.md"
+    },
+    {
+      "id": "d95d9810",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J — Log Hub Session Telemetry Integration",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/design/00 Frame.md"
+    },
+    {
+      "id": "9a298a49",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Research: Repo integration footprint and canonical isolation",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/design/01 Research - Repo integration footprint and canonical isolation.md"
+    },
+    {
+      "id": "a4f195ab",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Research: Server topology",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/design/01 Research - Server topology.md"
+    },
+    {
+      "id": "243af1b4",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Evaluate: Repo integration footprint and canonical isolation",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/design/02 Evaluate - Repo integration footprint and canonical isolation.md"
+    },
+    {
+      "id": "6ac01d9e",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Evaluate: Server topology",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/design/02 Evaluate - Server topology.md"
+    },
+    {
+      "id": "c084e865",
+      "tier": "Story",
+      "title": "Design Report — DESIGN-20261115-V98J: Log Hub Session Telemetry Integration",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/design/Report.md"
+    },
+    {
+      "id": "e55e8bd6",
+      "tier": "Story",
+      "title": "Log Hub Session Telemetry Integration — Architecture",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/solution/Architecture.md"
+    },
+    {
+      "id": "19204dd0",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Design",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/solution/Design.md"
+    },
+    {
+      "id": "fb50a571",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Efforts",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/solution/Efforts.md"
+    },
+    {
+      "id": "35005925",
+      "tier": "Story",
+      "title": "DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Stack",
+      "path": "Stories/design/approved/[DESIGN-20261115-V98J] Log Hub Session Telemetry Integration/solution/Stack.md"
+    },
+    {
+      "id": "ebe32e04",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Harness Distribution and Release Channels",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/00 Frame.md"
+    },
+    {
+      "id": "c105e074",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Channels",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/01 Research - Channels.md"
+    },
+    {
+      "id": "8a4f953e",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Install and Update",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/01 Research - Install and Update.md"
+    },
+    {
+      "id": "35c0b737",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Package Identity",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/01 Research - Package Identity.md"
+    },
+    {
+      "id": "d4b48e90",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Release Pipeline",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/01 Research - Release Pipeline.md"
+    },
+    {
+      "id": "f222f01e",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Channels",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/02 Evaluate - Channels.md"
+    },
+    {
+      "id": "12ec632a",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Install and Update",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/02 Evaluate - Install and Update.md"
+    },
+    {
+      "id": "e5bcfb7c",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Package Identity",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/02 Evaluate - Package Identity.md"
+    },
+    {
+      "id": "e974f3dd",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Release Pipeline",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/02 Evaluate - Release Pipeline.md"
+    },
+    {
+      "id": "d14b49f6",
+      "tier": "Story",
+      "title": "Design Report — DESIGN-20261115-CO1T: Harness Distribution and Release Channels",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/design/Report.md"
+    },
+    {
+      "id": "5124fa8c",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Harness Distribution and Release Channels — Architecture",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/solution/Architecture.md"
+    },
+    {
+      "id": "49520d65",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Design: Channels",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/solution/Design - Channels.md"
+    },
+    {
+      "id": "b46d0e38",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Design: Install and Update",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/solution/Design - Install and Update.md"
+    },
+    {
+      "id": "dcca42cd",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Design: Package Identity",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/solution/Design - Package Identity.md"
+    },
+    {
+      "id": "87e9c190",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Design: Release Pipeline",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/solution/Design - Release Pipeline.md"
+    },
+    {
+      "id": "49d09587",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Efforts",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/solution/Efforts.md"
+    },
+    {
+      "id": "86f39066",
+      "tier": "Story",
+      "title": "DESIGN-20261115-CO1T — Stack",
+      "path": "Stories/product-design/approved/[DESIGN-20261115-CO1T] Harness Distribution and Release Channels/solution/Stack.md"
+    },
+    {
+      "id": "006cb2b1",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — OKF-Compatible Knowledge Base",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/00 Frame.md"
+    },
+    {
+      "id": "b53aa7bc",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 2, Graph schema and migration",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/01 Research - Graph Schema and Migration.md"
+    },
+    {
+      "id": "d01556df",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 4, OG scope guard",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/01 Research - OG Scope Guard.md"
+    },
+    {
+      "id": "1e5c6845",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 3, OKF bundle layout",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/01 Research - OKF Bundle Layout.md"
+    },
+    {
+      "id": "f60509bb",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 1, Target frontmatter format",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/01 Research - Target Frontmatter Format.md"
+    },
+    {
+      "id": "e1404ac4",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 2, Graph schema and migration",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/02 Evaluate - Graph Schema and Migration.md"
+    },
+    {
+      "id": "abaa8ada",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 4, OG scope guard",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/02 Evaluate - OG Scope Guard.md"
+    },
+    {
+      "id": "cbcd8cb0",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 3, OKF bundle layout",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/02 Evaluate - OKF Bundle Layout.md"
+    },
+    {
+      "id": "9b948ff1",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 1, Target frontmatter format",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/02 Evaluate - Target Frontmatter Format.md"
+    },
+    {
+      "id": "3759cc60",
+      "tier": "Story",
+      "title": "Design Report — DESIGN-20261117-7931: OKF-Compatible Knowledge Base",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/design/Report.md"
+    },
+    {
+      "id": "b3462f6a",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — OKF-Compatible Knowledge Base: Solution Architecture",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/solution/Architecture.md"
+    },
+    {
+      "id": "21ebd317",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — Design: Graph schema and migration",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/solution/Design - Graph Schema and Migration.md"
+    },
+    {
+      "id": "3cdc7d56",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — Design: OG scope guard",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/solution/Design - OG Scope Guard.md"
+    },
+    {
+      "id": "b5155f4e",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — Design: OKF bundle layout",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/solution/Design - OKF Bundle Layout.md"
+    },
+    {
+      "id": "60de4bb9",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — Design: Target frontmatter format",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/solution/Design - Target Frontmatter Format.md"
+    },
+    {
+      "id": "c9daade8",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — Efforts",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/solution/Efforts.md"
+    },
+    {
+      "id": "970f4c65",
+      "tier": "Story",
+      "title": "DESIGN-20261117-7931 — Stack",
+      "path": "Stories/product-design/approved/[DESIGN-20261117-7931] OKF-Compatible Knowledge Base/solution/Stack.md"
+    },
+    {
+      "id": "3a92c36e",
+      "tier": "LLD",
+      "title": "Discuss — Overview",
+      "path": "System Architecture (LLD)/Discuss/00. Overview.md"
+    },
+    {
+      "id": "12ed86d1",
+      "tier": "LLD",
+      "title": "Harness Release Pipeline — Overview",
+      "path": "System Architecture (LLD)/Harness Release Pipeline/00. Overview.md"
+    },
+    {
+      "id": "5d2d1d54",
+      "tier": "LLD",
+      "title": "Implementation Harness E2E — Overview",
+      "path": "System Architecture (LLD)/Implementation Harness E2E/00. Overview.md"
+    },
+    {
+      "id": "9b2f1a3c",
+      "tier": "LLD",
+      "title": "Implementation Harness E2E — Fixtures",
+      "path": "System Architecture (LLD)/Implementation Harness E2E/01. Fixtures.md"
+    },
+    {
+      "id": "4e7d82a1",
+      "tier": "LLD",
+      "title": "Implementation Harness E2E — Cases and Scenarios",
+      "path": "System Architecture (LLD)/Implementation Harness E2E/02. Cases and Scenarios.md"
+    },
+    {
+      "id": "7c91f4d6",
+      "tier": "LLD",
+      "title": "Implementation Harness E2E — Engine",
+      "path": "System Architecture (LLD)/Implementation Harness E2E/03. Engine.md"
+    },
+    {
+      "id": "2a68c5e9",
+      "tier": "LLD",
+      "title": "Implementation Harness E2E — Agent Runners",
+      "path": "System Architecture (LLD)/Implementation Harness E2E/04. Agent Runners.md"
+    },
+    {
+      "id": "6d4a93f8",
+      "tier": "LLD",
+      "title": "Implementation Harness E2E — Graders",
+      "path": "System Architecture (LLD)/Implementation Harness E2E/05. Graders.md"
+    },
+    {
+      "id": "30fe841e",
+      "tier": "LLD",
+      "title": "Log Hub — Overview",
+      "path": "System Architecture (LLD)/Log Hub/00. Overview.md"
+    },
+    {
+      "id": "21927675",
+      "tier": "LLD",
+      "title": "System Architecture (LLD)",
+      "path": "System Architecture (LLD)/README.md"
+    },
+    {
+      "id": "6c9a33fd",
+      "tier": "LLD",
+      "title": "Web Docs — Overview",
+      "path": "System Architecture (LLD)/Web Docs/00. Overview.md"
+    },
+    {
+      "id": "e8c4f1b2",
+      "tier": "LLD",
+      "title": "Web Explorer — Overview",
+      "path": "System Architecture (LLD)/Web Explorer/00. Overview.md"
+    },
+    {
+      "id": "9b1d7a2c",
+      "tier": "LLD",
+      "title": "Web Portal — Overview",
+      "path": "System Architecture (LLD)/Web Portal/00. Overview.md"
+    },
+    {
+      "id": "f803c04f",
+      "tier": "HLD",
+      "title": "Target Architecture (HLD)",
+      "path": "Target Architecture (HLD)/00 Overview.md"
+    },
+    {
+      "id": "efcac6df",
+      "tier": "HLD",
+      "title": "Target Architecture (HLD)",
+      "path": "Target Architecture (HLD)/README.md"
+    },
+    {
+      "id": "f84dc7bb",
+      "tier": "HLD",
+      "title": "Discuss Container",
+      "path": "Target Architecture (HLD)/v1/Containers/Discuss.md"
+    },
+    {
+      "id": "8912decf",
+      "tier": "HLD",
+      "title": "Harness Release Pipeline Container",
+      "path": "Target Architecture (HLD)/v1/Containers/Harness Release Pipeline.md"
+    },
+    {
+      "id": "ca3a865c",
+      "tier": "HLD",
+      "title": "Implementation Harness E2E Container",
+      "path": "Target Architecture (HLD)/v1/Containers/Implementation Harness E2E.md"
+    },
+    {
+      "id": "c85bfe3f",
+      "tier": "HLD",
+      "title": "Log Hub Container",
+      "path": "Target Architecture (HLD)/v1/Containers/Log Hub.md"
+    },
+    {
+      "id": "2f617a4e",
+      "tier": "HLD",
+      "title": "Web Docs Container",
+      "path": "Target Architecture (HLD)/v1/Containers/Web Docs.md"
+    },
+    {
+      "id": "3a7c9e1d",
+      "tier": "HLD",
+      "title": "Web Explorer Container",
+      "path": "Target Architecture (HLD)/v1/Containers/Web Explorer.md"
+    },
+    {
+      "id": "6b2f1e4a",
+      "tier": "HLD",
+      "title": "Web Portal Container",
+      "path": "Target Architecture (HLD)/v1/Containers/Web Portal.md"
+    },
+    {
+      "id": "a11c3e7d",
+      "tier": "HLD",
+      "title": "Accessibility Requirements",
+      "path": "Target Architecture (HLD)/v1/Non-Functional Concerns/Accessibility.md"
+    },
+    {
+      "id": "decb4cf3",
+      "tier": "HLD",
+      "title": "Non-Functional Requirements",
+      "path": "Target Architecture (HLD)/v1/Non-Functional Concerns/Requirements.md"
+    },
+    {
+      "id": "77376e1f",
+      "tier": "HLD",
+      "title": "System Overview",
+      "path": "Target Architecture (HLD)/v1/System Overview.md"
+    },
+    {
+      "id": "79bf09c2",
+      "tier": "HLD",
+      "title": "System Sizing",
+      "path": "Target Architecture (HLD)/v1/System Sizing.md"
+    },
+    { "id": "0b3e3361", "tier": "Other", "title": "index", "path": "index.md" }
+  ],
+  "edges": [
+    ["028f0622", "48960fc2", "references"],
+    ["028f0622", "34ee6f89", "references"],
+    ["99394f45", "028f0622", "references"],
+    ["99394f45", "309f72ad", "references"],
+    ["99394f45", "48960fc2", "references"],
+    ["99394f45", "b21edcd0", "references"],
+    ["b21edcd0", "028f0622", "references"],
+    ["b21edcd0", "48960fc2", "references"],
+    ["358e59f3", "028f0622", "references"],
+    ["34ee6f89", "808ed797", "references"],
+    ["34ee6f89", "7914ab7f", "references"],
+    ["34ee6f89", "9f7cbce1", "references"],
+    ["25c349bd", "34ee6f89", "references"],
+    ["25c349bd", "7176f666", "references"],
+    ["25c349bd", "808ed797", "references"],
+    ["25c349bd", "afdcc32a", "references"],
+    ["7176f666", "34ee6f89", "references"],
+    ["7176f666", "25c349bd", "references"],
+    ["7176f666", "afdcc32a", "references"],
+    ["808ed797", "34ee6f89", "references"],
+    ["808ed797", "25c349bd", "references"],
+    ["808ed797", "7176f666", "references"],
+    ["808ed797", "afdcc32a", "references"],
+    ["afdcc32a", "34ee6f89", "references"],
+    ["afdcc32a", "25c349bd", "references"],
+    ["afdcc32a", "808ed797", "references"],
+    ["7914ab7f", "34ee6f89", "references"],
+    ["ae3ceb7b", "7b4734f1", "references"],
+    ["ae3ceb7b", "88115664", "references"],
+    ["ae3ceb7b", "5e11d8e8", "references"],
+    ["ae3ceb7b", "ec3e9fe7", "references"],
+    ["ae3ceb7b", "4871e58d", "references"],
+    ["ec3e9fe7", "efcac6df", "references"],
+    ["eab1759b", "37a67413", "references"],
+    ["eab1759b", "fa0456f5", "references"],
+    ["eab1759b", "f3714908", "references"],
+    ["eab1759b", "b26b620c", "references"],
+    ["eab1759b", "16606e23", "references"],
+    ["b26b620c", "efcac6df", "references"],
+    ["04bbbf49", "25c349bd", "references"],
+    ["04bbbf49", "9bf56f85", "references"],
+    ["92155727", "04bbbf49", "references"],
+    ["9bf56f85", "92155727", "references"],
+    ["9a5ad494", "16606e23", "references"],
+    ["9f7cbce1", "bb22babb", "references"],
+    ["6f169669", "0b3e3361", "references"],
+    ["1cca243f", "9f7cbce1", "references"],
+    ["1cca243f", "6f169669", "references"],
+    ["1cca243f", "6c9a33fd", "references"],
+    ["39a766bc", "6f169669", "references"],
+    ["39a766bc", "1cca243f", "references"],
+    ["39a766bc", "2f617a4e", "references"],
+    ["3d33ec18", "99394f45", "references"],
+    ["35a74665", "99394f45", "references"],
+    ["35a74665", "9f7cbce1", "references"],
+    ["35a74665", "77376e1f", "references"],
+    ["eb18aac0", "9f7cbce1", "references"],
+    ["eb18aac0", "77376e1f", "references"],
+    ["bc2b50bf", "77376e1f", "references"],
+    ["513a062e", "eab1759b", "references"],
+    ["513a062e", "16606e23", "references"],
+    ["513a062e", "1ff56a70", "references"],
+    ["513a062e", "bb22babb", "references"],
+    ["79b72c69", "1ff56a70", "references"],
+    ["09302318", "25c349bd", "references"],
+    ["09302318", "4871e58d", "references"],
+    ["09302318", "16606e23", "references"],
+    ["d8a46ea4", "1ff56a70", "references"],
+    ["d8a46ea4", "bb22babb", "references"],
+    ["0bdddd42", "eab1759b", "references"],
+    ["0bdddd42", "16606e23", "references"],
+    ["64576e6c", "1ff56a70", "references"],
+    ["973fed9c", "eab1759b", "references"],
+    ["6a3f0e7a", "25c349bd", "references"],
+    ["6a3f0e7a", "4871e58d", "references"],
+    ["6a3f0e7a", "eab1759b", "references"],
+    ["6a3f0e7a", "16606e23", "references"],
+    ["6a3f0e7a", "1ff56a70", "references"],
+    ["6a3f0e7a", "bb22babb", "references"],
+    ["9ce77df8", "16606e23", "references"],
+    ["9ce77df8", "6a3f0e7a", "references"],
+    ["9ce77df8", "1a00df21", "references"],
+    ["9ce77df8", "78c316e8", "references"],
+    ["377ba75d", "25c349bd", "references"],
+    ["377ba75d", "16606e23", "references"],
+    ["377ba75d", "9ce77df8", "references"],
+    ["377ba75d", "21d8dd6c", "references"],
+    ["377ba75d", "decb4cf3", "references"],
+    ["21d8dd6c", "34ee6f89", "references"],
+    ["21d8dd6c", "04bbbf49", "references"],
+    ["21d8dd6c", "9f7cbce1", "references"],
+    ["21d8dd6c", "377ba75d", "references"],
+    ["21d8dd6c", "2f617a4e", "references"],
+    ["1a00df21", "25c349bd", "references"],
+    ["1a00df21", "16606e23", "references"],
+    ["7201b88e", "16606e23", "references"],
+    ["7201b88e", "78c316e8", "references"],
+    ["3ab7c368", "16606e23", "references"],
+    ["3ab7c368", "78c316e8", "references"],
+    ["03fd1f93", "78c316e8", "references"],
+    ["11023f2a", "16606e23", "references"],
+    ["78c316e8", "25c349bd", "references"],
+    ["78c316e8", "4871e58d", "references"],
+    ["3a92c36e", "f84dc7bb", "references"],
+    ["5d2d1d54", "9b2f1a3c", "references"],
+    ["5d2d1d54", "4e7d82a1", "references"],
+    ["5d2d1d54", "7c91f4d6", "references"],
+    ["5d2d1d54", "2a68c5e9", "references"],
+    ["5d2d1d54", "6d4a93f8", "references"],
+    ["5d2d1d54", "ca3a865c", "references"],
+    ["9b2f1a3c", "5d2d1d54", "references"],
+    ["4e7d82a1", "5d2d1d54", "references"],
+    ["4e7d82a1", "7c91f4d6", "references"],
+    ["7c91f4d6", "5d2d1d54", "references"],
+    ["7c91f4d6", "6d4a93f8", "references"],
+    ["2a68c5e9", "5d2d1d54", "references"],
+    ["2a68c5e9", "6d4a93f8", "references"],
+    ["6d4a93f8", "9f7cbce1", "references"],
+    ["6d4a93f8", "5d2d1d54", "references"],
+    ["6d4a93f8", "efcac6df", "references"],
+    ["6c9a33fd", "3a92c36e", "references"],
+    ["6c9a33fd", "2f617a4e", "references"],
+    ["efcac6df", "77376e1f", "references"],
+    ["f803c04f", "efcac6df", "references"],
+    ["f803c04f", "f84dc7bb", "references"],
+    ["f803c04f", "2f617a4e", "references"],
+    ["f84dc7bb", "3a92c36e", "references"],
+    ["2f617a4e", "0b3e3361", "references"],
+    ["decb4cf3", "028f0622", "references"],
+    ["decb4cf3", "3a92c36e", "references"],
+    ["77376e1f", "f84dc7bb", "references"],
+    ["77376e1f", "ca3a865c", "references"],
+    ["21d8dd6c", "77376e1f", "impl-to-hld"],
+    ["21d8dd6c", "2f617a4e", "impl-to-hld"],
+    ["21d8dd6c", "79bf09c2", "impl-to-hld"],
+    ["21d8dd6c", "6c9a33fd", "impl-to-lld"],
+    ["3d9bb1d9", "77376e1f", "story-to-hld"],
+    ["3d9bb1d9", "2f617a4e", "story-to-hld"],
+    ["3d9bb1d9", "f84dc7bb", "story-to-hld"],
+    ["3d9bb1d9", "decb4cf3", "story-to-hld"],
+    ["3d9bb1d9", "79bf09c2", "story-to-hld"],
+    ["3d9bb1d9", "f803c04f", "story-to-hld"],
+    ["3d9bb1d9", "ca3a865c", "story-to-hld"],
+    ["6192e133", "21927675", "impl-to-lld"],
+    ["6192e133", "6c9a33fd", "impl-to-lld"],
+    ["6192e133", "3a92c36e", "impl-to-lld"],
+    ["6192e133", "99394f45", "impl-to-engineering-guide"],
+    ["6192e133", "ca1e020e", "impl-to-engineering-guide"],
+    ["6192e133", "358e59f3", "impl-to-engineering-guide"],
+    ["6192e133", "b21edcd0", "impl-to-engineering-guide"],
+    ["6192e133", "9f7cbce1", "references"],
+    ["6192e133", "decb4cf3", "impl-to-hld"],
+    ["fa3c14be", "6c9a33fd", "impl-to-lld"],
+    ["fa3c14be", "f84dc7bb", "impl-to-hld"],
+    ["fa3c14be", "3a92c36e", "impl-to-lld"],
+    ["27f15cce", "3a7c9e1d", "story-to-hld"],
+    ["27f15cce", "6b2f1e4a", "story-to-hld"],
+    ["27f15cce", "2f617a4e", "story-to-hld"],
+    ["27f15cce", "f84dc7bb", "story-to-hld"],
+    ["27f15cce", "77376e1f", "story-to-hld"],
+    ["27f15cce", "f803c04f", "story-to-hld"],
+    ["63444176", "3a7c9e1d", "impl-to-hld"],
+    ["63444176", "decb4cf3", "impl-to-hld"],
+    ["63444176", "6c9a33fd", "impl-to-lld"],
+    ["63444176", "9b1d7a2c", "impl-to-lld"],
+    ["63444176", "e8c4f1b2", "impl-to-lld"],
+    ["63444176", "3a92c36e", "impl-to-lld"],
+    ["63444176", "21927675", "impl-to-lld"],
+    ["63444176", "99394f45", "impl-to-engineering-guide"],
+    ["63444176", "b54f7afc", "impl-to-engineering-guide"],
+    ["e55e8bd6", "77376e1f", "story-to-hld"],
+    ["e55e8bd6", "c85bfe3f", "story-to-hld"],
+    ["e55e8bd6", "decb4cf3", "story-to-hld"],
+    ["e55e8bd6", "b987ebb7", "story-to-hld"],
+    ["e55e8bd6", "99394f45", "story-to-hld"],
+    ["e55e8bd6", "ca1e020e", "story-to-hld"],
+    ["b96bf9e5", "b987ebb7", "impl-to-engineering-guide"],
+    ["b96bf9e5", "c85bfe3f", "impl-to-hld"],
+    ["b96bf9e5", "77376e1f", "impl-to-hld"],
+    ["b96bf9e5", "30fe841e", "impl-to-lld"],
+    ["b96bf9e5", "21927675", "impl-to-lld"],
+    ["5124fa8c", "c4e17a02", "story-to-product"],
+    ["5124fa8c", "5b93d0e8", "story-to-product"],
+    ["5124fa8c", "a07f6c3d", "story-to-product"],
+    ["5124fa8c", "e2d58b91", "story-to-product"],
+    ["5124fa8c", "1ff56a70", "story-to-product"],
+    ["760f83f5", "028f0622", "impl-to-engineering-guide"],
+    ["760f83f5", "48960fc2", "impl-to-engineering-guide"],
+    ["760f83f5", "99394f45", "impl-to-engineering-guide"],
+    ["760f83f5", "358e59f3", "impl-to-engineering-guide"],
+    ["760f83f5", "7914ab7f", "impl-to-engineering-guide"],
+    ["760f83f5", "9f7cbce1", "references"],
+    ["760f83f5", "5d2d1d54", "impl-to-lld"],
+    ["760f83f5", "4e7d82a1", "impl-to-lld"],
+    ["760f83f5", "6d4a93f8", "impl-to-lld"],
+    ["760f83f5", "30fe841e", "impl-to-lld"],
+    ["760f83f5", "21927675", "impl-to-lld"],
+    ["760f83f5", "e8c4f1b2", "impl-to-lld"],
+    ["760f83f5", "f803c04f", "impl-to-hld"],
+    ["760f83f5", "ca3a865c", "impl-to-hld"],
+    ["760f83f5", "c85bfe3f", "impl-to-hld"],
+    ["760f83f5", "decb4cf3", "impl-to-hld"],
+    ["760f83f5", "77376e1f", "impl-to-hld"],
+    ["760f83f5", "bbd79b2b", "impl-to-engineering-guide"],
+    ["760f83f5", "12ed86d1", "impl-to-lld"],
+    ["760f83f5", "8912decf", "impl-to-hld"],
+    ["b3462f6a", "8e18e7b9", "story-to-product"],
+    ["b3462f6a", "04bbbf49", "story-to-product"],
+    ["b3462f6a", "92155727", "story-to-product"],
+    ["b3462f6a", "9bf56f85", "story-to-product"],
+    ["b3462f6a", "9a5ad494", "story-to-product"],
+    ["b3462f6a", "16606e23", "story-to-product"],
+    ["b3462f6a", "a07f6c3d", "story-to-product"],
+    ["b3462f6a", "c4e17a02", "story-to-product"],
+    ["b3462f6a", "e2d58b91", "story-to-product"],
+    ["b3462f6a", "32b4135e", "story-to-product"],
+    ["b3462f6a", "bb22babb", "story-to-product"],
+    ["c1b2c846", "6d1a1114", "impl-to-engineering-guide"],
+    ["c1b2c846", "12ed86d1", "impl-to-lld"],
+    ["c1b2c846", "5d2d1d54", "impl-to-lld"],
+    ["c1b2c846", "6c9a33fd", "impl-to-lld"],
+    ["c1b2c846", "e8c4f1b2", "impl-to-lld"],
+    ["c1b2c846", "ca3a865c", "impl-to-hld"],
+    ["c1b2c846", "2f617a4e", "impl-to-hld"],
+    ["c1b2c846", "3a7c9e1d", "impl-to-hld"]
+  ]
+}

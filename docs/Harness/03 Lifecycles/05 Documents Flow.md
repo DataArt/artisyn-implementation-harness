@@ -1,7 +1,11 @@
 ---
 id: 16606e23
-purpose: Show how documentation moves from ticket-scoped working files to its permanent home
-keywords: [documents flow, Stories, permanent docs, graduation pipeline]
+type: Product Concept
+title: Documents Flow
+description: Show how documentation moves from ticket-scoped working files to its permanent home
+tags: [documents flow, Stories, permanent docs, graduation pipeline, index.md navigation, archive]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:dev-document, at: 2026-11-21T21:40:00Z }
 ---
 
 # Documents Flow
@@ -58,26 +62,30 @@ flowchart LR
 
 ## Graduation rules
 
-| Lifecycle phase                   | Produces                                                        | Lives in                                                                       | Mutability                                            |
-| --------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- |
-| `/dev context`                    | `intent.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Confirmed proto-spec — open questions may be appended |
-| `/dev plan`                       | `1-plan.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Immutable after approval                              |
-| `/dev context`                    | `2-report.md` (skeleton)                                        | `Stories/<TICKET>/impl/`                                                       | Living through the ticket                             |
-| `/dev implement`                  | Code commits                                                    | Codebase                                                                       | —                                                     |
-| `/dev document`                   | LLD updates                                                     | `System Architecture (LLD)/`                                                   | Living                                                |
-| `/dev document`                   | Engineering Guide entries                                       | `Engineering Guide/`                                                           | Living                                                |
-| `/dev document`                   | App README updates                                              | `apps/*/README.md`                                                             | Living                                                |
-| `/dev document` (deviation path)  | Container or NFR updates within the active version              | `Target Architecture (HLD)/<active>/Containers/` or `Non-Functional Concerns/` | Living                                                |
-| `/design evaluate`                | Recommendation + WAF assessment                                 | `Stories/<TICKET>/design/02 Evaluate.md` + `Report.md`                         | Immutable in Story                                    |
-| `/design solution`                | Certainty artifacts                                             | `Stories/<TICKET>/solution/`                                                   | Immutable after Publish gate                          |
-| `/design publish` (Product track) | Product architecture content                                    | `docs/Harness/<resolved subfolder>`                                            | Living — accumulates over the product lifetime        |
-| `/design publish` (Project track) | Updates reviewed by `{resolved architect agent}` (max 2 passes) | `docs/Target Architecture (HLD)/<resolved subfolder>`                          | Living post-merge                                     |
-| `/dev document` (archive)         | Full Story folder                                               | `Stories/archive/`                                                             | Archived — no further edits                           |
-| `/where-we-are` · `/war-*`        | Architecture audit snapshots                                    | `LLD/where-we-are/` or `HLD/WAR/<version>/`                                    | Append-only — see Architecture Lifecycle invariants   |
+> Applies from harness 4.2.0, which introduces OG schema v1.
+
+| Lifecycle phase                   | Produces                                                        | Lives in                                                                       | Mutability                                                       |
+| --------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
+| `/dev context`                    | `intent.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Confirmed proto-spec — open questions may be appended            |
+| `/dev plan`                       | `1-plan.md`                                                     | `Stories/<TICKET>/impl/`                                                       | Immutable after approval                                         |
+| `/dev context`                    | `2-report.md` (skeleton)                                        | `Stories/<TICKET>/impl/`                                                       | Living through the ticket                                        |
+| `/dev implement`                  | Code commits                                                    | Codebase                                                                       | —                                                                |
+| `/dev document`                   | LLD updates                                                     | `System Architecture (LLD)/`                                                   | Living                                                           |
+| `/dev document`                   | Engineering Guide entries                                       | `Engineering Guide/`                                                           | Living                                                           |
+| `/dev document`                   | App README updates                                              | `apps/*/README.md`                                                             | Living; recorded in `2-report.md`; not an operational graph node |
+| `/dev document` (deviation path)  | Container or NFR updates within the active version              | `Target Architecture (HLD)/<active>/Containers/` or `Non-Functional Concerns/` | Living                                                           |
+| `/design evaluate`                | Recommendation + WAF assessment                                 | `Stories/<TICKET>/design/02 Evaluate.md` + `Report.md`                         | Immutable in Story                                               |
+| `/design solution`                | Certainty artifacts                                             | `Stories/<TICKET>/solution/`                                                   | Immutable after Publish gate                                     |
+| `/design publish` (Product track) | Product architecture content                                    | `docs/Harness/<resolved subfolder>`                                            | Living — accumulates over the product lifetime                   |
+| `/design publish` (Project track) | Updates reviewed by `{resolved architect agent}` (max 2 passes) | `docs/Target Architecture (HLD)/<resolved subfolder>`                          | Living post-merge                                                |
+| `/dev document` (archive)         | Full Story folder                                               | `Stories/archive/`                                                             | Archived. Body frozen; only OG `migrate` may edit frontmatter    |
+| `/where-we-are` · `/war-*`        | Architecture audit snapshots                                    | `LLD/where-we-are/` or `HLD/WAR/<version>/`                                    | Append-only — see Architecture Lifecycle invariants              |
 
 ---
 
 ## Lifecycle of a doc
+
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 **Creation** — delivery docs are born in `Stories/<TICKET>/` as working drafts. No doc goes directly to HLD, LLD, or the Engineering Guide without passing through a ticket.
 
@@ -87,7 +95,9 @@ flowchart LR
 
 **Supersession** — HLD is versioned. Creating a new version is a human and business decision — the lifecycle never creates one automatically. When the team decides to cut a new version, the old version folder is kept as history and the README router is updated to point to the new active version. In-progress deviations always land in the current active version.
 
-**Archival** — Stories are archived after doc consistency review, evidence-backed terminal resolutions in the single Review Findings ledger, and passing required acceptance/checks. Routine LLD lag is a doc-update task; deviation auditing compares implementation to HLD only. Archived stories are read-only references.
+**Archival** — Stories are archived after doc consistency review, evidence-backed terminal resolutions in the single Review Findings ledger, and passing required acceptance/checks. Routine LLD lag is a doc-update task; deviation auditing compares implementation to HLD only. Approved and archived stories are read-only references. One exception: OG `migrate` may edit their frontmatter; their body never changes.
+
+**Navigation** — writers keep the folder `index.md` bullets current, where the folder has one, when they add, rename, move or remove a doc. Every `index.md` except `docs/index.md` holds no prose and no frontmatter; a bundle root `index.md` carries only `okf_version`. `@docs-writer` creates a missing bundle root `index.md` when it writes the first doc into that bundle. See [Knowledge Base Format](<../07 Operational Graph/05 Knowledge Base Format.md>).
 
 ---
 

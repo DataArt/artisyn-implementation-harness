@@ -1,14 +1,5 @@
----
-id: dfec40a4
-purpose: Index of dated security scan reports against this repo's own skills, agents, and MCP configuration
-keywords: [security-scan, index, infosec, timeline]
----
-
 # Security Scan
 
-Dated reports from `internal-use-skill-plugin-security-review` (DataArt InfoSec's AI skill/plugin security scanner) against this repo's own skills, agents, and MCP configuration. Each report records findings, verdict, and what was fixed — new scans are added as new dated files rather than overwriting prior ones, so this folder is a timeline, not a single living document.
-
-| Page                                                                | Holds                                                                                                                                                                                                                                                                                |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [2026-10-06 harness-bootstrap](./2026-10-06%20harness-bootstrap.md) | Independent from-scratch scan of the `harness-bootstrap` skill (`.canonical-implementation-harness/`) — verdict PASS; 0 CRITICAL/HIGH/MEDIUM, 2 LOW housekeeping items remain (`permissions:` block declared only in prose, no stated retention for `state/objects/` baseline bytes) |
-| [2026-11-03 harness-bootstrap](./2026-11-03%20harness-bootstrap.md) | Re-scan of the `harness-bootstrap` skill at version 3.2.0 — verdict PASS; 0 CRITICAL/HIGH/MEDIUM, the same 2 LOW housekeeping items remain open (still unaddressed from the 2026-10-06 scan)                                                                                         |
+- [Security Scan Overview](00%20Overview.md) - Index of dated security scan reports against this repo's own skills, agents, and MCP configuration
+- [Security Review: harness-bootstrap](2026-10-06%20harness-bootstrap.md) - Record the 2026-10-06 DataArt InfoSec security review findings and verdict for the harness-bootstrap skill
+- [Security Review: harness-bootstrap](2026-11-03%20harness-bootstrap.md) - Record the 2026-11-03 DataArt InfoSec security review findings and verdict for the harness-bootstrap skill

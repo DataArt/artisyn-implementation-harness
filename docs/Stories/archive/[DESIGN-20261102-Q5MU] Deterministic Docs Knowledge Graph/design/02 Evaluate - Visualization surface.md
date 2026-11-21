@@ -1,7 +1,11 @@
 ---
 id: 643637d9
-purpose: Evaluate IDE vs VitePress visualization options for the docs knowledge graph and recommend one
-keywords: [evaluate, visualization, docs-graph, WAF]
+type: Design Evaluation
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Visualization surface'
+description: Evaluate IDE vs VitePress visualization options for the docs knowledge graph and recommend one
+tags: [evaluate, visualization, docs-graph, WAF]
+generated: { by: process:okf-migration, at: 2026-11-02T13:13:07Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Visualization surface

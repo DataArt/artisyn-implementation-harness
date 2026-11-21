@@ -1,5 +1,11 @@
 ---
 id: d95d9810
+type: Design Frame
+title: DESIGN-20261115-V98J — Log Hub Session Telemetry Integration
+description: Design frame for capturing Claude Code session telemetry with Artisyn Log Hub without touching the canonical harness
+tags: [design frame, log hub, telemetry, claude code hook, canonical harness]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J — Log Hub Session Telemetry Integration

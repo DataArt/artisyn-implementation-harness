@@ -32,8 +32,9 @@ Claude installs `.claude/skills/<name>/SKILL.md` and `.claude/agents/<name>.md`;
 Codex installs `.agents/skills/<name>/SKILL.md` and `.codex/agents/<name>.toml`.
 Copilot installs `.github/skills/<name>/SKILL.md` and `.github/agents/<name>.agent.md`.
 Read each canonical INTENT.md directly from the bootstrap package while deriving its
-permanent output. Rename skill TEMPLATE.md, preserve companion names, install the
-selected provider's runtime procedures, and verify the derived content. Never copy an
+permanent output. Rename skill TEMPLATE.md, apply the manifest's `deployRenames`
+(e.g. `docs/.og/gitignore` deploys as `docs/.og/.gitignore`), preserve companion names,
+install the selected provider's runtime procedures, and verify the derived content. Never copy an
 INTENT.md into the project, even temporarily; canonical INTENTs remain in the package.
 
 ### Adaptation and stage verification

@@ -1,0 +1,22 @@
+--- a/canonical/skills/design/templates/report.md
++++ b/canonical/skills/design/templates/report.md
+@@ -4,6 +4,19 @@ description: Template for design/Report.md — the living design report, idempot
+ type: reference
+ ---
+ 
++<!-- The new doc's frontmatter: put this block, without the fences, in place of the template meta above. -->
++
++```yaml
++---
++type: Design Report
++title: <title of the new doc>
++description: <one line, what this doc is for>
++tags: [<tag>, <tag>]
++generated: { by: process:design-context, at: <UTC now, e.g. 2026-11-18T10:00:00Z> }
++updated: { by: process:design-context, at: <same as generated> }
++---
++```
++
+ # Design Report — <TICKET>: <Short Title>
+ 
+ ## Context

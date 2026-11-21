@@ -1,8 +1,11 @@
 ---
 id: fa3c14be
-name: Dev Report Template
-description: Template for 2-report.md — the living implementation report created by /dev context and updated throughout the dev lifecycle
-type: reference
+type: Implementation Report
+title: 'DEV-20261108-K7XQ: GitHub Pages Hosting — Report'
+description: Implementation report for the GitHub Pages base path, CSP meta tag and deploy workflow
+tags: [implementation report, github pages, vitepress, ci-cd, csp]
+generated: { by: process:okf-migration, at: 2026-11-08T21:15:17Z }
+updated: { by: process:okf-migration, at: 2026-11-08T21:15:17Z }
 ---
 
 # DEV-20261108-K7XQ: GitHub Pages Hosting — Report

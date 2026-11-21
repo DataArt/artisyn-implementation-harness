@@ -1,7 +1,11 @@
 ---
 id: c85bfe3f
-purpose: 'Design intent for the Log Hub container: an opt-in, repo-managed local Log Hub server and local-scope Claude Code hook that capture session telemetry, with no presence in the deployed site'
-keywords: [log-hub, hld, claude-code-hook, local-scope, dev-tooling, LOG_HUB_SERVER_URL]
+type: Container
+title: Log Hub Container
+description: 'Design intent for the Log Hub container: an opt-in, repo-managed local Log Hub server and local-scope Claude Code hook that capture session telemetry, with no presence in the deployed site'
+tags: [log-hub, hld, claude-code-hook, local-scope, dev-tooling, LOG_HUB_SERVER_URL]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Log Hub Container

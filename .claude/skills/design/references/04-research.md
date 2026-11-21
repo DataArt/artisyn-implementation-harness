@@ -88,7 +88,7 @@ _From Research OQ triage ({YYYY-MM-DD})._
 
 ## Step 3 — Save 01 Research.md
 
-Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/01 Research.md` (using `.claude/skills/design/templates/research.md`, populated with the options from Step 2 and the proposed OQ classifications from Step 2b — including every option's Mermaid diagram from `{resolved architect agent}`'s output) to `@docs-writer` using the selected delegation procedure.
+Apply the docs-writer authoring pattern (`.claude/skills/design/patterns/docs-writer-authoring.md`): delegate the write of `design/01 Research.md` (using `.claude/skills/design/templates/research.md` with its meta block replaced by the fenced `yaml` frontmatter under it, populated with the options from Step 2 and the proposed OQ classifications from Step 2b — including every option's Mermaid diagram from `{resolved architect agent}`'s output) to `@docs-writer` using the selected delegation procedure.
 
 Apply the write-confirm pattern (`.claude/skills/design/patterns/write-confirm.md`): say "File saved at `design/01 Research.md`."
 

@@ -1,0 +1,43 @@
+--- a/canonical/docs/.og/schema.mjs
++++ b/canonical/docs/.og/schema.mjs
+@@ -3,15 +3,22 @@
+ // typed relations between doc IDs; `derived` distinguishes the authored
+ // EDGE_TYPES (written by index()'s --edge) from the computed DERIVED_EDGE_TYPES
+ // (written by build()/reindex()'s own HLD/LLD diff).
++
++/** Schema version this OG writes and reads, stored as `PRAGMA user_version`. */
++export const SCHEMA_VERSION = 1;
++
+ export const SCHEMA = `
+ CREATE TABLE IF NOT EXISTS docs (
+   id TEXT PRIMARY KEY,
+   tier TEXT,
++  type TEXT,
+   path TEXT UNIQUE NOT NULL,
+   title TEXT,
+-  purpose TEXT,
+-  keywords TEXT,
+-  updated_at TEXT
++  description TEXT,
++  tags TEXT,
++  created_at TEXT,
++  modified_at TEXT,
++  indexed_at TEXT
+ );
+ CREATE TABLE IF NOT EXISTS edges (
+   from_id TEXT NOT NULL,
+@@ -21,3 +28,14 @@ CREATE TABLE IF NOT EXISTS edges (
+   UNIQUE(from_id, to_id, edge_type)
+ );
+ `;
++
++/** v0 → v1, run in one transaction. Rows and edges are kept. */
++export const MIGRATIONS_V0_TO_V1 = Object.freeze([
++  'ALTER TABLE docs RENAME COLUMN purpose TO description',
++  'ALTER TABLE docs RENAME COLUMN keywords TO tags',
++  'ALTER TABLE docs RENAME COLUMN updated_at TO indexed_at',
++  'ALTER TABLE docs ADD COLUMN type TEXT',
++  'ALTER TABLE docs ADD COLUMN created_at TEXT',
++  'ALTER TABLE docs ADD COLUMN modified_at TEXT',
++  'PRAGMA user_version = 1',
++]);
