@@ -1,7 +1,9 @@
 ---
 id: b3462f6a
-purpose: 'Architecture for DESIGN-20261117-7931: the settled end-to-end solution that makes the harness docs an OKF 0.2 knowledge base — B+ frontmatter, OG schema v1 with migrate and check, five tier bundles and the OG scope guard'
-keywords:
+type: Solution Architecture
+title: 'DESIGN-20261117-7931 — OKF-Compatible Knowledge Base: Solution Architecture'
+description: 'Architecture for DESIGN-20261117-7931: the settled end-to-end solution that makes the harness docs an OKF 0.2 knowledge base — B+ frontmatter, OG schema v1 with migrate and check, five tier bundles and the OG scope guard'
+tags:
   [
     design,
     solution,
@@ -16,6 +18,8 @@ keywords:
     reindex-graph,
     patch apply,
   ]
+generated: { by: process:okf-migration, at: 2026-11-18T11:24:10Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:18:38Z }
 ---
 
 # DESIGN-20261117-7931 — OKF-Compatible Knowledge Base: Solution Architecture

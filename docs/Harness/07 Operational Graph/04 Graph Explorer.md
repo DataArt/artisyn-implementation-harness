@@ -1,7 +1,11 @@
 ---
 id: e4fd637e
-purpose: Interactive table of every doc the operational graph has indexed, grouped by tier
-keywords: [knowledge graph, graph explorer, operational graph, docs-operational-graph.sqlite]
+type: Product Concept
+title: Graph Explorer
+description: Interactive table of every doc the operational graph has indexed, grouped by tier
+tags: [knowledge graph, graph explorer, operational graph, docs-operational-graph.sqlite]
+generated: { by: process:okf-migration, at: 2026-11-02T21:23:06Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # Graph Explorer

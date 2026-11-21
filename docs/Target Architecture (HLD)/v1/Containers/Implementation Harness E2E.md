@@ -1,7 +1,11 @@
 ---
 id: ca3a865c
-purpose: Design intent for the Implementation Harness E2E container — the test harness validating the implementation-harness skill package and the repo's release tooling
-keywords: [implementation-harness-e2e, implementation-harness, testing, release-tooling, hld]
+type: Container
+title: Implementation Harness E2E Container
+description: Design intent for the Implementation Harness E2E container — the test harness validating the implementation-harness skill package and the repo's release tooling
+tags: [implementation-harness-e2e, implementation-harness, testing, release-tooling, hld]
+generated: { by: process:okf-migration, at: 2026-11-02T19:20:19Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:12:13Z }
 ---
 
 # Implementation Harness E2E Container

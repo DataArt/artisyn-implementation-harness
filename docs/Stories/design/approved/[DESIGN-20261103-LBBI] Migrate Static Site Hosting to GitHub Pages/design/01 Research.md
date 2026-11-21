@@ -1,7 +1,11 @@
 ---
 id: 099b24e3
-purpose: 'Lists 5 hosting options for the GitHub Pages migration (Research phase), with no recommendation'
-keywords: [github-pages, hosting-migration, research, cloudfront, cloudflare-pages, netlify, csp]
+type: Design Research
+title: 'DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Research'
+description: Lists 5 hosting options for the GitHub Pages migration (Research phase), with no recommendation
+tags: [github-pages, hosting-migration, research, cloudfront, cloudflare-pages, netlify, csp]
+generated: { by: process:okf-migration, at: 2026-11-03T13:44:51Z }
+updated: { by: process:okf-migration, at: 2026-11-03T16:28:50Z }
 ---
 
 # DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Research

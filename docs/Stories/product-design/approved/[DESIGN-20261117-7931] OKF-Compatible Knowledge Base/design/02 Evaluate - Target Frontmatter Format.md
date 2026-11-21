@@ -1,5 +1,11 @@
 ---
 id: 9b948ff1
+type: Design Evaluation
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 1, Target frontmatter format'
+description: Evaluation that recommends the OKF v0.2-native key set with an updated key and assigns an owner to each key
+tags: [design evaluation, frontmatter contract, okf, key ownership]
+generated: { by: process:okf-migration, at: 2026-11-17T22:42:13Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 1, Target frontmatter format

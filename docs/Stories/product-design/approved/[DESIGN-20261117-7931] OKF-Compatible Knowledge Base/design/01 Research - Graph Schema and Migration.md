@@ -1,5 +1,11 @@
 ---
 id: b53aa7bc
+type: Design Research
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 2, Graph schema and migration'
+description: Research options for the OG SQLite docs table, its schema versioning and the migration of existing databases and docs
+tags: [design research, operational graph, sqlite schema, migration, okf]
+generated: { by: process:okf-migration, at: 2026-11-17T22:26:06Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 2, Graph schema and migration

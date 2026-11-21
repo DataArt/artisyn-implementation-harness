@@ -1,5 +1,11 @@
 ---
 id: 6990481c
+type: Dev Intent
+title: DEV-20261115-5DUE — Harness Distribution and Release Channels — Intent
+description: Dev intent for moving the harness package to skills/implementation-harness and shipping it through automated release channels
+tags: [dev intent, distribution, release channels, install cli, implementation-harness]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DEV-20261115-5DUE — Harness Distribution and Release Channels — Intent

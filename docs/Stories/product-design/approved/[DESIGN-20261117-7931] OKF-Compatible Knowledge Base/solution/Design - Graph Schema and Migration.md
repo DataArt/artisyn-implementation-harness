@@ -1,5 +1,11 @@
 ---
 id: 21ebd317
+type: Solution Design
+title: 'DESIGN-20261117-7931 — Design: Graph schema and migration'
+description: Settled design for OG schema v1, in-place migration on open and the migrate command that rewrites doc frontmatter
+tags: [solution design, operational graph, sqlite schema, migration, read-compat window]
+generated: { by: process:okf-migration, at: 2026-11-18T11:24:10Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931 — Design: Graph schema and migration

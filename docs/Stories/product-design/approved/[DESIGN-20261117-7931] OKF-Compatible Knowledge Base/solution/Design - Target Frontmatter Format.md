@@ -1,5 +1,11 @@
 ---
 id: 60de4bb9
+type: Solution Design
+title: 'DESIGN-20261117-7931 — Design: Target frontmatter format'
+description: Settled design for the frontmatter contract, the fixed key set and order every in-scope doc carries and who writes each key
+tags: [solution design, frontmatter contract, okf, key ownership]
+generated: { by: process:okf-migration, at: 2026-11-18T11:24:10Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931 — Design: Target frontmatter format

@@ -1,7 +1,9 @@
 ---
 id: 6d1a1114
-purpose: "The single home for this repo's CI/CD: every GitHub Actions workflow (ci-web.yml on every PR and its gitleaks job on push to main, ci-harness.yml with its in-job harness filter, deploy-web.yml and deploy-harness.yml on merge), their jobs, permissions and credentials, the environments (web, github-pages, release), the secret scan on PRs and on push to main and the accepted owner bypass, required vs advisory checks, how to reproduce each gate locally, and the one release lane with its approval gate and the publish-npmjs stub"
-keywords:
+type: Guide
+title: CI/CD
+description: "The single home for this repo's CI/CD: every GitHub Actions workflow (ci-web.yml on every PR and its gitleaks job on push to main, ci-harness.yml with its in-job harness filter, deploy-web.yml and deploy-harness.yml on merge), their jobs, permissions and credentials, the environments (web, github-pages, release), the secret scan on PRs and on push to main and the accepted owner bypass, required vs advisory checks, how to reproduce each gate locally, and the one release lane with its approval gate and the publish-npmjs stub"
+tags:
   [
     CI/CD,
     GitHub Actions,
@@ -20,6 +22,8 @@ keywords:
     environments,
     release environment,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
 ---
 
 # CI/CD

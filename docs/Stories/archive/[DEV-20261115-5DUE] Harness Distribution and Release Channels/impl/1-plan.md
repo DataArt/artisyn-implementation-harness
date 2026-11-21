@@ -1,5 +1,11 @@
 ---
 id: 951d9f63
+type: Implementation Plan
+title: 'DEV-20261115-5DUE: Harness Distribution and Release Channels — Plan'
+description: Implementation plan for the package rename, project state root, install CLI, marketplace manifests and release workflow
+tags: [implementation plan, distribution, release channels, install cli, nx release]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DEV-20261115-5DUE: Harness Distribution and Release Channels — Plan

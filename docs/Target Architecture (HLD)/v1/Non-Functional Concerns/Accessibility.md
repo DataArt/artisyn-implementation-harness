@@ -1,7 +1,11 @@
 ---
 id: a11c3e7d
-purpose: Accessibility requirements (WCAG 2.2 AA target) that Web Explorer and Web Docs development must design in, with verification per requirement
-keywords: [nfr, accessibility, wcag, a11y, keyboard, reduced-motion, contrast, axe]
+type: Non-Functional Requirements
+title: Accessibility Requirements
+description: Accessibility requirements (WCAG 2.2 AA target) that Web Explorer and Web Docs development must design in, with verification per requirement
+tags: [nfr, accessibility, wcag, a11y, keyboard, reduced-motion, contrast, axe]
+generated: { by: process:okf-migration, at: 2026-11-15T01:48:33Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:12:13Z }
 ---
 
 # Accessibility Requirements

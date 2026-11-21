@@ -1,7 +1,9 @@
 ---
 id: a07f6c3d
-purpose: Update commands per channel, the one-time manual update for ZIP installs on 4.0.2 or earlier after the switch to v<version> tags, the install CLI update rules, doctor, and how patch apply reads baselines after an update
-keywords:
+type: Product Concept
+title: Update
+description: Update commands per channel, the one-time manual update for ZIP installs on 4.0.2 or earlier after the switch to v<version> tags, the install CLI update rules, doctor, and how patch apply reads baselines after an update
+tags:
   [
     update,
     implementation-harness,
@@ -13,6 +15,8 @@ keywords:
     baseline,
     patch bundles,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Update

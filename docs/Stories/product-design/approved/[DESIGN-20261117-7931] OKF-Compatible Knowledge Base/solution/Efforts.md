@@ -1,5 +1,11 @@
 ---
 id: c9daade8
+type: Solution Efforts
+title: DESIGN-20261117-7931 — Efforts
+description: Work breakdown and delivery order for the OKF knowledge base, canonical package first and this repo by patch
+tags: [solution efforts, work breakdown, okf, operational graph, patch]
+generated: { by: process:okf-migration, at: 2026-11-18T11:24:10Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931 — Efforts

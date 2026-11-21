@@ -1,5 +1,11 @@
 ---
 id: d01556df
+type: Design Research
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 4, OG scope guard'
+description: Research options for where the OG scope guard sits, its rule set and the retirement of the AppReadme tier
+tags: [design research, operational graph, scope guard, ogignore, okf]
+generated: { by: process:okf-migration, at: 2026-11-17T22:26:06Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 4, OG scope guard

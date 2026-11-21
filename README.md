@@ -1,7 +1,3 @@
----
-id: 8ec9a00b
----
-
 # Artisyn Implementation Harness
 
 DataArt's AI-first engineering lifecycle system — a structured workflow layered on an AI coding assistant. Instead of prompting the assistant ad-hoc, work runs through specialised, lifecycle-aware agents governed by encoded conventions (skills) and feedback loops (reflections → skill library).

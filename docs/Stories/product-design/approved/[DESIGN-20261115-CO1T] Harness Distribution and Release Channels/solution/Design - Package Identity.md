@@ -1,7 +1,9 @@
 ---
 id: dcca42cd
-purpose: 'Implementation detail for DESIGN-20261115-CO1T decisions D-01 to D-04: the rename map from harness-bootstrap to implementation-harness (package @dataart/artisyn-implementation-harness, plugin artisyn, marketplace dataart), the CI rename gate, the 4.x legacy shim skill and the read-time mapping that keeps patch history immutable'
-keywords:
+type: Solution Design
+title: 'DESIGN-20261115-CO1T — Design: Package Identity'
+description: 'Implementation detail for DESIGN-20261115-CO1T decisions D-01 to D-04: the rename map from harness-bootstrap to implementation-harness (package @dataart/artisyn-implementation-harness, plugin artisyn, marketplace dataart), the CI rename gate, the 4.x legacy shim skill and the read-time mapping that keeps patch history immutable'
+tags:
   [
     design,
     solution,
@@ -14,6 +16,8 @@ keywords:
     rename gate,
     immutable history,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T — Design: Package Identity

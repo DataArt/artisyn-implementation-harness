@@ -1,7 +1,11 @@
 ---
 id: 39a766bc
-purpose: Record the structural change and target-state diagram for integrating the giscus widget into the Web container's theme layer
-keywords: [adlc-000, giscus, architecture-notes, vitepress, layout]
+type: Story Note
+title: Architecture Notes — ADLC-000 Giscus Comments
+description: Record the structural change and target-state diagram for integrating the giscus widget into the Web container's theme layer
+tags: [adlc-000, giscus, architecture-notes, vitepress, layout]
+generated: { by: process:okf-migration, at: 2026-08-17T23:35:48Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Architecture Notes — ADLC-000 Giscus Comments

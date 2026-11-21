@@ -1,7 +1,11 @@
 ---
 id: intent
-purpose: 'Captured intent for implementing GitHub Pages hosting of the VitePress docs site'
-keywords: [github-pages, vitepress, base-path, cd-workflow]
+type: Dev Intent
+title: 'DEV-20261108-K7XQ: GitHub Pages Hosting — Intent'
+description: Captured intent for implementing GitHub Pages hosting of the VitePress docs site
+tags: [github-pages, vitepress, base-path, cd-workflow]
+generated: { by: process:okf-migration, at: 2026-11-08T21:15:17Z }
+updated: { by: process:okf-migration, at: 2026-11-08T21:15:17Z }
 ---
 
 # DEV-20261108-K7XQ: GitHub Pages Hosting — Intent

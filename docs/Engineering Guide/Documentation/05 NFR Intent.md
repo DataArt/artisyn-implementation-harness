@@ -1,7 +1,11 @@
 ---
 id: afdcc32a
-purpose: Required semantic coverage and acceptance-evidence contract for NFR pillar documents
-keywords: [NFR intent, Well-Architected Framework, requirements, verification, acceptance evidence]
+type: Guide
+title: NFR Intent
+description: Required semantic coverage and acceptance-evidence contract for NFR pillar documents
+tags: [NFR intent, Well-Architected Framework, requirements, verification, acceptance evidence]
+generated: { by: process:okf-migration, at: 2026-09-14T23:13:59Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # NFR Intent

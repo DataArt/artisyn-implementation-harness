@@ -1,8 +1,11 @@
 ---
 id: 16606e23
-purpose: Show how documentation moves from ticket-scoped working files to its permanent home
-keywords:
-  [documents flow, Stories, permanent docs, graduation pipeline, index.md navigation, archive]
+type: Product Concept
+title: Documents Flow
+description: Show how documentation moves from ticket-scoped working files to its permanent home
+tags: [documents flow, Stories, permanent docs, graduation pipeline, index.md navigation, archive]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Documents Flow

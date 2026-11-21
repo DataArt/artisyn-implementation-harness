@@ -1,7 +1,11 @@
 ---
 id: a4f195ab
-purpose: "Research phase output for DESIGN-20261115-V98J Decision 1: option set for where the Log Hub server runs and how each contributor's hook reaches it, no recommendation"
-keywords: [research, log hub, server topology, telemetry, open questions, design phase]
+type: Design Research
+title: 'DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Research: Server topology'
+description: "Research phase output for DESIGN-20261115-V98J Decision 1: option set for where the Log Hub server runs and how each contributor's hook reaches it, no recommendation"
+tags: [research, log hub, server topology, telemetry, open questions, design phase]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Research: Server topology

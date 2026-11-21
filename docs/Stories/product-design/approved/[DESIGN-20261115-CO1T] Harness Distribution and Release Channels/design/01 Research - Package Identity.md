@@ -1,7 +1,9 @@
 ---
 id: 35c0b737
-purpose: 'Research for DESIGN-20261115-CO1T decision 1: package identity and naming options for renaming harness-bootstrap, with legacy handling and open questions'
-keywords:
+type: Design Research
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Package Identity'
+description: 'Research for DESIGN-20261115-CO1T decision 1: package identity and naming options for renaming harness-bootstrap, with legacy handling and open questions'
+tags:
   [
     design,
     research,
@@ -13,6 +15,8 @@ keywords:
     legacy alias,
     agent skills,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Package Identity

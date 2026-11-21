@@ -1,7 +1,11 @@
 ---
 id: 34ee6f89
-purpose: Why these principles exist, what they are, and how every doc writer applies them
-keywords: [documentation, principles, docs-writer, style guide]
+type: Guide
+title: Documentation Principles
+description: Why these principles exist, what they are, and how every doc writer applies them
+tags: [documentation, principles, docs-writer, style guide]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # Documentation Principles

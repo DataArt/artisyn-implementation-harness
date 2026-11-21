@@ -1,7 +1,11 @@
 ---
-id: 09302318
-purpose: Research options for what node and edge types the docs knowledge graph models, grounded in Documents Flow and the doc-tier structure
-keywords: [design-q5mu, knowledge-graph, research, topology]
+id: '09302318'
+type: Design Research
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph structure and topology'
+description: Research options for what node and edge types the docs knowledge graph models, grounded in Documents Flow and the doc-tier structure
+tags: [design-q5mu, knowledge-graph, research, topology]
+generated: { by: process:okf-migration, at: 2026-11-02T12:40:11Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Research: Graph structure and topology

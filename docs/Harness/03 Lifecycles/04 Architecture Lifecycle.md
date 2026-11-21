@@ -1,7 +1,11 @@
 ---
 id: b26b620c
-purpose: Describe the standalone audit commands that check design, implementation, and documentation alignment
-keywords: [architecture lifecycle, where-we-are, war design, war implementation, audit]
+type: Product Concept
+title: Architecture Lifecycle — Audit Commands
+description: Describe the standalone audit commands that check design, implementation, and documentation alignment
+tags: [architecture lifecycle, where-we-are, war design, war implementation, audit]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Architecture Lifecycle — Audit Commands

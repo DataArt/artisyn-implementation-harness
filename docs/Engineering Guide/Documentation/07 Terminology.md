@@ -1,7 +1,11 @@
 ---
 id: 7914ab7f
-purpose: The approved term registry for project concepts that have more than one plausible name
-keywords: [terminology, registry, one term per concept, docs-writer]
+type: Guide
+title: Terminology
+description: The approved term registry for project concepts that have more than one plausible name
+tags: [terminology, registry, one term per concept, docs-writer]
+generated: { by: process:okf-migration, at: 2026-10-07T11:21:02Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Terminology

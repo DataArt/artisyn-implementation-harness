@@ -1,5 +1,11 @@
 ---
 id: c1b2c846
+type: Implementation Report
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Report'
+description: Live implementation report tracking step progress, stage metrics and decisions for the OKF-compatible knowledge base story
+tags: [implementation report, okf, operational graph, frontmatter, migration]
+generated: { by: process:okf-migration, at: 2026-11-18T13:31:29Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Report
@@ -30,7 +36,7 @@ Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#7, one per stage), 
 | 9   | Implementation Harness E2E: follow the key rename           | ✅ Done    | E2E fixture/assertion/grader; unit 319, unit-cli 44, integration 5 |      |      |
 | 10  | Release: commit, minor version stamp, patch prepare         | ✅ Done    | 4.2.0 stamped (63bf14e); bundle 6ceda622, 50 files, all verified   |      |      |
 | 11  | This repo: patch apply                                      | ✅ Done    | 26 outputs; 5 conflicts resolved; DB v1; web-docs build green      |      |      |
-| 12  | This repo: reindex-graph migration                          | ⏳ Pending |                                                                    |      |      |
+| 12  | This repo: reindex-graph migration                          | 🔄 Active  | Migrated 220 files; check all zero; awaiting commit + rerun        |      |      |
 | 13  | Web Docs: nav and README links                              | ⏳ Pending |                                                                    |      |      |
 | 14  | Web Explorer: Dogfood page                                  | ⏳ Pending |                                                                    |      |      |
 
@@ -45,19 +51,19 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1h 0m 31s · Wait: 77h 7m 42s · Unclassified: 7m 40s
+Observed work: 1h 9m 3s · Wait: 77h 19m 38s · Unclassified: 9m 21s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| context    | 2026-11-18T13:21:21.058Z | 2026-11-18T13:27:33.993Z | 6m 13s      | 2m 38s  | 3m 35s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| ceremony   | 2026-11-18T13:27:42.955Z | 2026-11-18T13:33:19.761Z | 5m 37s      | 5s      | 5m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| plan       | 2026-11-18T13:33:27.013Z | 2026-11-18T16:48:43.098Z | 3h 15m 16s  | 19m 5s  | 2h 56m 11s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| implement  | 2026-11-18T16:48:52.113Z | unavailable              | unavailable | 38m 43s | 74h 2m 24s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| test       | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| document   | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| completion | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait        | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| ---------- | ------------------------ | ------------------------ | ----------- | ------- | ----------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| context    | 2026-11-18T13:21:21.058Z | 2026-11-18T13:27:33.993Z | 6m 13s      | 2m 38s  | 3m 35s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| ceremony   | 2026-11-18T13:27:42.955Z | 2026-11-18T13:33:19.761Z | 5m 37s      | 5s      | 5m 32s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| plan       | 2026-11-18T13:33:27.013Z | 2026-11-18T16:48:43.098Z | 3h 15m 16s  | 19m 5s  | 2h 56m 11s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| implement  | 2026-11-18T16:48:52.113Z | unavailable              | unavailable | 47m 14s | 74h 14m 20s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| test       | unavailable              | unavailable              | unavailable | 0s      | 0s          | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| document   | unavailable              | unavailable              | unavailable | 0s      | 0s          | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| completion | unavailable              | unavailable              | unavailable | 0s      | 0s          | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 
-Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical 0 · debt 2 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
+Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical 0 · debt 4 · tests written unavailable · latest failed cases unavailable · failed test runs 0. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
 
 ## Step Metrics
@@ -66,7 +72,7 @@ Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1h 0m 31s · Wait: 77h 7m 42s · Unclassified: 7m 40s
+Observed work: 1h 9m 3s · Wait: 77h 19m 38s · Unclassified: 9m 21s
 
 | Step                                                                 | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
 | -------------------------------------------------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
@@ -80,8 +86,8 @@ Observed work: 1h 0m 31s · Wait: 77h 7m 42s · Unclassified: 7m 40s
 | step-08: Canonical docs flow: writers, rules, templates              | 2026-11-18T17:18:31.013Z | 2026-11-18T17:20:17.462Z | 1m 46s      | 1m 46s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | step-09: Implementation Harness E2E: follow the key rename           | 2026-11-18T17:20:17.516Z | 2026-11-18T17:22:17.614Z | 2m 0s       | 2m 0s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | step-10: Release: commit, minor version stamp, patch prepare         | 2026-11-18T17:24:40.029Z | 2026-11-21T19:32:22.355Z | 74h 7m 42s  | 5m 18s | 74h 2m 24s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-11: This repo: patch apply                                      | 2026-11-21T19:32:22.404Z | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-12: This repo: reindex-graph migration                          | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| step-11: This repo: patch apply                                      | 2026-11-21T19:32:22.404Z | 2026-11-21T19:47:07.888Z | 14m 45s     | 4m 52s | 9m 53s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-12: This repo: reindex-graph migration                          | 2026-11-21T19:47:07.942Z | unavailable              | unavailable | 3m 39s | 2m 3s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | step-13: Web Docs: nav and README links                              | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 | step-14: Web Explorer: Dogfood page                                  | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 
@@ -246,12 +252,31 @@ Rewrote `canonical/docs/.og/cli.test.mjs`. The existing cases now follow the v1 
   - Derived edges went from 784 to 1406, because the new parser reads wrapped `tags` lists the old one saw as empty (see Step 3).
 - The operation record is `9d142ad8`, with an `APPLIED.md` row. OG changed, so `reindex-graph` is next (Step 12).
 
+### Step 12 — This repo: reindex-graph migration
+
+- `migrate --check` reported `missingConfig`, so I wrote `docs/.og/og.config.json` as `{ "productDir": "docs/Harness" }`. Before the real run, I ran `migrate` on a throwaway worktree of `HEAD` to preview the dry run's 220 files. The developer confirmed ("yes migrate please").
+- `migrate` result:
+  - 220 files changed.
+  - Docs 205 → 205 and authored edges 217 → 217, against the Step 11 baseline. The 2 `impl-to-readme` edges became `references` (132 → 134), with nothing merged or orphaned.
+  - Derived edges 1406 → 1429.
+  - 11 new `00 Overview.md` pages, plus the HLD root overview. New bundle-root `index.md` files for Stories and LLD.
+  - Stray ids removed from `CLAUDE.md`, `README.md` and `apps/web-explorer/README.md`.
+  - `docs/index.md` is identical to `main`.
+- Writer review (`@docs-writer`):
+  - Filled `description`/`tags` in the 31 listed docs, frontmatter only.
+  - Tidied the Engineering Guide, Harness, Harness Explore, Quick Start, Distribution and HLD indexes, which had empty headings left over from the old prose.
+  - The two `.harness/evolve/` candidate copies were flagged "OG id outside docs/ left in place" by design and left alone.
+- The writer review found TD-3: `migrate` kept `#` comments from a code block as headings. It also found TD-4: overview bullet titles don't follow the title rule.
+- Checks: `build` passes. `check` reports zero in every category. `migrate --check` reports `pending: false`. The graduation edges now point at the overview pages: HLD has 3, Engineering Guide 2, and the Harness overviews 5 `story-to-product` edges plus `references`.
+
 ## Tech Debt
 
-| #    | Description                                                                                                                                                                                                                    | Type    | Tracker | Finding | Owner               | Next action                                                                                      |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | ------- | ------- | ------------------- | ------------------------------------------------------------------------------------------------ |
-| TD-1 | Launch and patch-state references name `.harness/state/launch/answers.json`, but this repo keeps answers at `.harness/state/answers.json`. `migrate` reads both, so nothing breaks, but the docs and the state layout disagree | cleanup | —       | —       | Harness maintainers | Pick one path; update `01a-launch-plan.md`, `06-patch-state.md` and any writer, or move the file |
-| TD-2 | Canonical `docs/.og/cli.test.mjs` (98 cases) runs only by hand; no Nx target or CI workflow runs it                                                                                                                            | cleanup | —       | —       | Harness maintainers | Add an Nx target (e.g. `implementation-harness:og-test`) and call it from `ci-harness.yml`       |
+| #    | Description                                                                                                                                                                                                                    | Type    | Tracker | Finding | Owner               | Next action                                                                                                             |
+| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- | ------- | ------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| TD-1 | Launch and patch-state references name `.harness/state/launch/answers.json`, but this repo keeps answers at `.harness/state/answers.json`. `migrate` reads both, so nothing breaks, but the docs and the state layout disagree | cleanup | —       | —       | Harness maintainers | Pick one path; update `01a-launch-plan.md`, `06-patch-state.md` and any writer, or move the file                        |
+| TD-2 | Canonical `docs/.og/cli.test.mjs` (98 cases) runs only by hand; no Nx target or CI workflow runs it                                                                                                                            | cleanup | —       | —       | Harness maintainers | Add an Nx target (e.g. `implementation-harness:og-test`) and call it from `ci-harness.yml`                              |
+| TD-3 | `migrate` keeps heading-like lines from index prose without tracking code fences (`cli.mjs:722`), so a `#` bash comment inside a fenced block survives as an empty heading in the new `index.md`                               | cleanup | —       | —       | Harness maintainers | Track fences in the index-strip filter, add a `cli.test.mjs` fixture with a fenced `#` comment, ship in a patch release |
+| TD-4 | `migrate` writes overview bullets as "X Overview", while the doc's `title` is "X" and the Principles rule says bullets use the doc's title                                                                                     | cleanup | —       | —       | Harness maintainers | Decide tool vs rule; align `migrate` or the Principles wording                                                          |
 
 <!--
 Type values: blocker · dependency · cleanup · security · performance · ux

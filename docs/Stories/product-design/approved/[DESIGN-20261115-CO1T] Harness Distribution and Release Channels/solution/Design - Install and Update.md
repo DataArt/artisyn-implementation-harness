@@ -1,7 +1,9 @@
 ---
 id: b46d0e38
-purpose: 'Implementation design for DESIGN-20261115-CO1T decisions D-10 to D-14: the install CLI (init, update, migrate, doctor), host-native install paths, the .harness/state/ root and aliases, the consumer commit rule and the idempotent migration from 3.5.0 state'
-keywords:
+type: Solution Design
+title: 'DESIGN-20261115-CO1T — Design: Install and Update'
+description: 'Implementation design for DESIGN-20261115-CO1T decisions D-10 to D-14: the install CLI (init, update, migrate, doctor), host-native install paths, the .harness/state/ root and aliases, the consumer commit rule and the idempotent migration from 3.5.0 state'
+tags:
   [
     design,
     solution,
@@ -16,6 +18,8 @@ keywords:
     gitignore,
     artisyn-implementation-harness,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T — Design: Install and Update

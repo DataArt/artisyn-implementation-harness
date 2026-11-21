@@ -1,8 +1,12 @@
 ---
 id: fceb8241
+type: Product Concept
+title: Tools Across the Six SDLC Stages
+description: Map nine tools and their capability-depth ratings onto the six SDLC stages
+tags: [SDLC stages, tool coverage, capability depth, maturity labels]
+generated: { by: process:okf-migration, at: 2026-09-17T16:48:52Z }
+updated: { by: process:okf-migration, at: 2026-11-03T09:43:19Z }
 aside: false
-purpose: Map nine tools and their capability-depth ratings onto the six SDLC stages
-keywords: [SDLC stages, tool coverage, capability depth, maturity labels]
 ---
 
 # Tools Across the Six SDLC Stages

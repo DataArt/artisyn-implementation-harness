@@ -1,7 +1,11 @@
 ---
 id: a66414a0
-purpose: Diagnoses the onboarding-equivalent challenges AI-assisted development faces without context
-keywords: [challenges, story, onboarding]
+type: Product Concept
+title: The Challenges — Diagnoses and Answers
+description: Diagnoses the onboarding-equivalent challenges AI-assisted development faces without context
+tags: [challenges, story, onboarding]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # The Challenges — Diagnoses and Answers

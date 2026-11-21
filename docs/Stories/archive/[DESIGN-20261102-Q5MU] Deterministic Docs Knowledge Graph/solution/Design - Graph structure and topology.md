@@ -1,7 +1,11 @@
 ---
 id: 3633996d
-purpose: Specifies the node types and the seven edge types (six authored, one derived) that make up the docs graph topology
-keywords: [design, topology, node-types, edge-types, docs-graph]
+type: Solution Design
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph structure and topology'
+description: Specifies the node types and the seven edge types (six authored, one derived) that make up the docs graph topology
+tags: [design, topology, node-types, edge-types, docs-graph]
+generated: { by: process:okf-migration, at: 2026-11-02T13:47:44Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph structure and topology

@@ -1,7 +1,11 @@
 ---
 id: 3a7c9e1d
-purpose: 'Design intent for the Web Explorer container: the promotional multi-route app (landing page plus an Inside the Loop section) built with React and Vite'
-keywords: [web-explorer, react, vite, tailwind, hld, inside-the-loop, hashrouter]
+type: Container
+title: Web Explorer Container
+description: 'Design intent for the Web Explorer container: the promotional multi-route app (landing page plus an Inside the Loop section) built with React and Vite'
+tags: [web-explorer, react, vite, tailwind, hld, inside-the-loop, hashrouter]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # Web Explorer Container

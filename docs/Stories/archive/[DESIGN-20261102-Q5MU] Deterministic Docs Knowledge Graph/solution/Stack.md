@@ -1,7 +1,11 @@
 ---
 id: e66451d4
-purpose: Lists the technologies (node:sqlite, sql.js, a graph-rendering library) added by the docs knowledge graph design
-keywords: [stack, dependencies, docs-graph, node-sqlite, sql.js]
+type: Solution Stack
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Stack'
+description: Lists the technologies (node:sqlite, sql.js, a graph-rendering library) added by the docs knowledge graph design
+tags: [stack, dependencies, docs-graph, node-sqlite, sql.js]
+generated: { by: process:okf-migration, at: 2026-11-02T13:47:44Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Stack

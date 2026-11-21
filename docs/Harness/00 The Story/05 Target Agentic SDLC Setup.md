@@ -1,7 +1,11 @@
 ---
 id: 4edd3908
-purpose: Describes the target configuration — which context layer feeds which SDLC phase, and what each phase must leave behind
-keywords: [target-state, sdlc, story, context-layers]
+type: Product Concept
+title: Target Agentic SDLC Setup
+description: Describes the target configuration — which context layer feeds which SDLC phase, and what each phase must leave behind
+tags: [target-state, sdlc, story, context-layers]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-03T09:43:19Z }
 ---
 
 # Target Agentic SDLC Setup

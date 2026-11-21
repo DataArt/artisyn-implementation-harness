@@ -1,5 +1,11 @@
 ---
 id: d14b49f6
+type: Design Report
+title: 'Design Report — DESIGN-20261115-CO1T: Harness Distribution and Release Channels'
+description: Product design run record for distributing the harness through registries, marketplaces and an automated release
+tags: [design report, distribution, release channels, product track]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Design Report — DESIGN-20261115-CO1T: Harness Distribution and Release Channels

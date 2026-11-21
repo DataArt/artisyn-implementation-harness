@@ -1,8 +1,11 @@
 ---
 id: bf4b64cd
-purpose: How the OKF-compatible knowledge base and the OG scope guard are built, released and dogfooded, step by step
-keywords:
-  [plan, okf, operational graph, scope guard, migrate, check, schema v1, dogfood, dev-lifecycle]
+type: Implementation Plan
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Plan'
+description: How the OKF-compatible knowledge base and the OG scope guard are built, released and dogfooded, step by step
+tags: [plan, okf, operational graph, scope guard, migrate, check, schema v1, dogfood, dev-lifecycle]
+generated: { by: process:okf-migration, at: 2026-11-18T16:48:28Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Plan

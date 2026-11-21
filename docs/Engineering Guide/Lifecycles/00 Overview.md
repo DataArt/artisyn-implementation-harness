@@ -1,7 +1,11 @@
 ---
 id: ae3ceb7b
-purpose: The four harness lifecycles, how they interact, and when to use each one
-keywords: [lifecycle overview, dev, design, evolve, architecture, orchestrators]
+type: Guide
+title: Implementation Harness — Lifecycle Overview
+description: The four harness lifecycles, how they interact, and when to use each one
+tags: [lifecycle overview, dev, design, evolve, architecture, orchestrators]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Implementation Harness — Lifecycle Overview

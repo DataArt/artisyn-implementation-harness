@@ -1,7 +1,11 @@
 ---
 id: b21edcd0
-purpose: How to generate and wire MCP credentials so Claude Code can reach AWS, GitHub, and Atlassian
-keywords: [MCP, Claude Code, AWS credentials, GitHub token, Atlassian, settings.local.json]
+type: Guide
+title: MCP Setup
+description: How to generate and wire MCP credentials so Claude Code can reach AWS, GitHub, and Atlassian
+tags: [MCP, Claude Code, AWS credentials, GitHub token, Atlassian, settings.local.json]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-03T17:02:29Z }
 ---
 
 # MCP Setup

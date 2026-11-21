@@ -1,7 +1,9 @@
 ---
 id: 8a4f953e
-purpose: 'Design research for decision 3 of DESIGN-20261115-CO1T, revised under EC12: five options for how consumers install, update and migrate the harness package with state in project .harness/, with no recommendation'
-keywords:
+type: Design Research
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Install and Update'
+description: 'Design research for decision 3 of DESIGN-20261115-CO1T, revised under EC12: five options for how consumers install, update and migrate the harness package with state in project .harness/, with no recommendation'
+tags:
   [
     harness distribution,
     install,
@@ -16,6 +18,8 @@ keywords:
     launcher,
     research,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Install and Update

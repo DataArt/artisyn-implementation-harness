@@ -1,7 +1,3 @@
----
-id: ffe6a029
----
-
 # web-explorer
 
 React 19 + Vite SPA — a promotional landing page introducing the Artisyn Implementation Harness through an interactive, simulated `/design`/`/dev` lifecycle walkthrough. Served at the GitHub Pages project-site root, composed alongside Web Docs by Web Portal.

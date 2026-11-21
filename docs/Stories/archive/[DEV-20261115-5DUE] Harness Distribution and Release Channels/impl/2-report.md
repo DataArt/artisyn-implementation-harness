@@ -1,8 +1,11 @@
 ---
 id: 760f83f5
-name: Dev Report Template
-description: Template for 2-report.md — the living implementation report created by /dev context and updated throughout the dev lifecycle
-type: reference
+type: Implementation Report
+title: 'DEV-20261115-5DUE: Harness Distribution and Release Channels — Report'
+description: Implementation report for the harness distribution story, from the package move to the release workflow
+tags: [implementation report, distribution, release channels, install cli, nx release]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DEV-20261115-5DUE: Harness Distribution and Release Channels — Report

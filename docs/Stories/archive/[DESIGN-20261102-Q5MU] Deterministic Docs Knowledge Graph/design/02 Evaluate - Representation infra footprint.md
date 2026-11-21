@@ -1,7 +1,11 @@
 ---
 id: c2aebeb1
-purpose: Evaluate infra-footprint options for running the docs graph build/query script and recommend one
-keywords: [evaluate, infra-footprint, docs-graph, WAF]
+type: Design Evaluation
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Representation / infra footprint'
+description: Evaluate infra-footprint options for running the docs graph build/query script and recommend one
+tags: [evaluate, infra-footprint, docs-graph, WAF]
+generated: { by: process:okf-migration, at: 2026-11-02T13:13:07Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Evaluate: Representation / infra footprint

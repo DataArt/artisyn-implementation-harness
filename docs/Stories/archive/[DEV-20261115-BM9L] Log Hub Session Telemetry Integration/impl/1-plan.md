@@ -1,7 +1,11 @@
 ---
 id: 44cef495
-purpose: Implementation plan for DEV-20261115-BM9L — building the log-hub Nx project per the approved DESIGN-20261115-V98J solution
-keywords: [log-hub, plan, nx-project, implementation]
+type: Implementation Plan
+title: 'DEV-20261115-BM9L: Log Hub Session Telemetry Integration — Plan'
+description: Implementation plan for DEV-20261115-BM9L — building the log-hub Nx project per the approved DESIGN-20261115-V98J solution
+tags: [log-hub, plan, nx-project, implementation]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DEV-20261115-BM9L: Log Hub Session Telemetry Integration — Plan

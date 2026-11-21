@@ -1,7 +1,9 @@
 ---
 id: 48960fc2
-purpose: How harness skills, agents, and settings map to each supported AI coding tool's native files, and which install channel serves each host
-keywords:
+type: Guide
+title: AI Coding Tool Compatibility
+description: How harness skills, agents, and settings map to each supported AI coding tool's native files, and which install channel serves each host
+tags:
   [
     Claude,
     Codex,
@@ -12,6 +14,8 @@ keywords:
     tool compatibility,
     install channels,
   ]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # AI Coding Tool Compatibility

@@ -1,7 +1,9 @@
 ---
 id: 87e9c190
-purpose: 'Implementation design for DESIGN-20261115-CO1T decisions D-15 to D-17: the Nx Release project and config, version stamping, the release-harness workflow, the root semantic-release scope rule, branch protection, retirement of the committed ZIP flow and rollback'
-keywords:
+type: Solution Design
+title: 'DESIGN-20261115-CO1T — Design: Release Pipeline'
+description: 'Implementation design for DESIGN-20261115-CO1T decisions D-15 to D-17: the Nx Release project and config, version stamping, the release-harness workflow, the root semantic-release scope rule, branch protection, retirement of the committed ZIP flow and rollback'
+tags:
   [
     design,
     solution,
@@ -15,6 +17,8 @@ keywords:
     rollback,
     artisyn-implementation-harness,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T — Design: Release Pipeline

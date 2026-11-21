@@ -1,7 +1,11 @@
 ---
 id: ec3e9fe7
-purpose: The periodic audit commands that surface gaps between design, implementation, and documentation
-keywords: [architecture lifecycle, where-we-are, WAR audit, gap report]
+type: Guide
+title: Architecture Lifecycle — Audit Commands
+description: The periodic audit commands that surface gaps between design, implementation, and documentation
+tags: [architecture lifecycle, where-we-are, WAR audit, gap report]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Architecture Lifecycle — Audit Commands

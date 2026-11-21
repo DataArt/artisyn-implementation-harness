@@ -1,7 +1,11 @@
 ---
 id: 466d5898
-purpose: 'Frame for DESIGN-20261108-1L8P: adding a web-explorer promo site and web-portal routing alongside the renamed web-docs site on one GitHub Pages deploy'
-keywords: [frame, web-explorer, web-portal, web-docs, github-pages, routing]
+type: Design Frame
+title: DESIGN-20261108-1L8P — Web Explorer Landing Page & Web Portal Site Routing
+description: 'Frame for DESIGN-20261108-1L8P: adding a web-explorer promo site and web-portal routing alongside the renamed web-docs site on one GitHub Pages deploy'
+tags: [frame, web-explorer, web-portal, web-docs, github-pages, routing]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P — Web Explorer Landing Page & Web Portal Site Routing

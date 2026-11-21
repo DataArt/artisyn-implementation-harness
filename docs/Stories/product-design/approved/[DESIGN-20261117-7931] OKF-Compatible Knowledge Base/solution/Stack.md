@@ -1,5 +1,11 @@
 ---
 id: 970f4c65
+type: Solution Stack
+title: DESIGN-20261117-7931 — Stack
+description: Technology pins for the OKF knowledge base, with the OKF 0.2 format pin and existing SQLite, git and parser capabilities
+tags: [solution stack, okf, node sqlite, technology pins]
+generated: { by: process:okf-migration, at: 2026-11-18T11:24:10Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931 — Stack

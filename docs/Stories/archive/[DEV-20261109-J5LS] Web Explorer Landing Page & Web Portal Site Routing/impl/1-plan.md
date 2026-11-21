@@ -1,7 +1,11 @@
 ---
 id: c181ab6b
-purpose: 'Implementation plan for DEV-20261109-J5LS: Web Explorer, Web Portal, Web Docs rename'
-keywords: [plan, web-explorer, web-portal, web-docs]
+type: Implementation Plan
+title: 'DEV-20261109-J5LS: Web Explorer Landing Page & Web Portal Site Routing — Plan'
+description: 'Implementation plan for DEV-20261109-J5LS: Web Explorer, Web Portal, Web Docs rename'
+tags: [plan, web-explorer, web-portal, web-docs]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DEV-20261109-J5LS: Web Explorer Landing Page & Web Portal Site Routing — Plan

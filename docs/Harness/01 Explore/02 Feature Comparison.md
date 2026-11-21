@@ -1,8 +1,12 @@
 ---
 id: 2c3fa09e
+type: Product Concept
+title: Feature Comparison
+description: Consolidated feature matrix comparing Artisyn against nine competitor tools across SDLC stages
+tags: [feature comparison, competitor matrix, SDLC stages, evidence ratings]
+generated: { by: process:okf-migration, at: 2026-09-17T16:48:52Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 aside: false
-purpose: Consolidated feature matrix comparing Artisyn against nine competitor tools across SDLC stages
-keywords: [feature comparison, competitor matrix, SDLC stages, evidence ratings]
 ---
 
 # Feature Comparison

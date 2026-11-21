@@ -1,5 +1,11 @@
 ---
 id: abaa8ada
+type: Design Evaluation
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 4, OG scope guard'
+description: Requirements-by-options evaluation of where and how OG enforces its scope guard on writes and indexing
+tags: [design evaluation, operational graph, scope guard, ogignore]
+generated: { by: process:okf-migration, at: 2026-11-17T22:42:13Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 4, OG scope guard

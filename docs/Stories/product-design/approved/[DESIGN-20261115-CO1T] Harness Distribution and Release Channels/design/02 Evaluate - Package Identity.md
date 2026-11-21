@@ -1,7 +1,9 @@
 ---
 id: e5bcfb7c
-purpose: 'Evaluate for DESIGN-20261115-CO1T decision 1: package identity options scored against the Frame criteria, recommending the full brand name on every layer with a time-boxed harness-bootstrap shim'
-keywords:
+type: Design Evaluation
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Package Identity'
+description: 'Evaluate for DESIGN-20261115-CO1T decision 1: package identity options scored against the Frame criteria, recommending the full brand name on every layer with a time-boxed harness-bootstrap shim'
+tags:
   [
     design,
     evaluate,
@@ -13,6 +15,8 @@ keywords:
     deprecation shim,
     WAF,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Package Identity

@@ -1,7 +1,9 @@
 ---
-id: 92155727
-purpose: Describe the knowledge graph's SQLite schema, its versioning and the migrate command, and the single-file build model
-keywords:
+id: '92155727'
+type: Product Concept
+title: Storage and Build Model
+description: Describe the knowledge graph's SQLite schema, its versioning and the migrate command, and the single-file build model
+tags:
   [
     knowledge graph,
     storage model,
@@ -11,6 +13,8 @@ keywords:
     migrate,
     read-compat window,
   ]
+generated: { by: process:okf-migration, at: 2026-11-02T14:35:32Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Storage and Build Model

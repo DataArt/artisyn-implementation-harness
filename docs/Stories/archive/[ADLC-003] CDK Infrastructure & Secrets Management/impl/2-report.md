@@ -1,7 +1,11 @@
 ---
 id: eb18aac0
-purpose: Completion report recording progress and fixes for the Terraform-to-CDK infra migration and secrets management wiring
-keywords: [adlc-003, cdk, secrets-management, report, infra]
+type: Implementation Report
+title: 'ADLC-003: CDK Infrastructure & Secrets Management — Report'
+description: Completion report recording progress and fixes for the Terraform-to-CDK infra migration and secrets management wiring
+tags: [adlc-003, cdk, secrets-management, report, infra]
+generated: { by: process:okf-migration, at: 2026-08-17T23:36:10Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # ADLC-003: CDK Infrastructure & Secrets Management — Report

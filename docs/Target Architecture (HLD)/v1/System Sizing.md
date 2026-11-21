@@ -1,7 +1,11 @@
 ---
 id: 79bf09c2
-purpose: Capacity dimensions and targets for the public site
-keywords: [sizing, capacity, nfr]
+type: System Sizing
+title: System Sizing
+description: Capacity dimensions and targets for the public site
+tags: [sizing, capacity, nfr]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
+updated: { by: process:okf-migration, at: 2026-11-03T15:25:24Z }
 ---
 
 # System Sizing

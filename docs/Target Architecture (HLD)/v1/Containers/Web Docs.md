@@ -1,7 +1,11 @@
 ---
 id: 2f617a4e
-purpose: Design intent for the Web Docs container — the VitePress static documentation site, served under the /docs/ subpath
-keywords: [web-docs, vitepress, hld]
+type: Container
+title: Web Docs Container
+description: Design intent for the Web Docs container — the VitePress static documentation site, served under the /docs/ subpath
+tags: [web-docs, vitepress, hld]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:12:13Z }
 ---
 
 # Web Docs Container

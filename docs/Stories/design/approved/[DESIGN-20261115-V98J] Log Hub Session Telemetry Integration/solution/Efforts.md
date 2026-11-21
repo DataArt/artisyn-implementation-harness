@@ -1,7 +1,11 @@
 ---
 id: fb50a571
-purpose: 'Delivery breakdown, sequencing and effort estimate for the log-hub container'
-keywords: [log-hub, efforts, wbs, sequencing, spike, estimate]
+type: Solution Efforts
+title: 'DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Efforts'
+description: Delivery breakdown, sequencing and effort estimate for the log-hub container
+tags: [log-hub, efforts, wbs, sequencing, spike, estimate]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Efforts

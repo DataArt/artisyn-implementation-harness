@@ -1,7 +1,11 @@
 ---
 id: 9f5e28b7
-purpose: 'Work breakdown, sequencing, and effort estimate scaffold for the GitHub Pages migration'
-keywords: [github-pages, wbs, sequencing, effort-estimate]
+type: Solution Efforts
+title: Efforts — GitHub Pages Migration
+description: Work breakdown, sequencing, and effort estimate scaffold for the GitHub Pages migration
+tags: [github-pages, wbs, sequencing, effort-estimate]
+generated: { by: process:okf-migration, at: 2026-11-03T14:56:47Z }
+updated: { by: process:okf-migration, at: 2026-11-03T16:28:50Z }
 ---
 
 # Efforts — GitHub Pages Migration

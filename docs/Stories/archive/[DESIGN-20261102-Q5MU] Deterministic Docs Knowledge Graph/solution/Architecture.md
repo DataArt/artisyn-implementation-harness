@@ -1,7 +1,11 @@
 ---
 id: 1a00df21
-purpose: Canonical end-to-end architecture record for the deterministic docs knowledge graph spanning all six decisions
-keywords: [architecture, docs-graph, decision-register, SQLite]
+type: Solution Architecture
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Architecture'
+description: Canonical end-to-end architecture record for the deterministic docs knowledge graph spanning all six decisions
+tags: [architecture, docs-graph, decision-register, SQLite]
+generated: { by: process:okf-migration, at: 2026-11-02T13:47:44Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Architecture

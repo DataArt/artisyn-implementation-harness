@@ -1,7 +1,9 @@
 ---
 id: 5124fa8c
-purpose: 'Architecture for DESIGN-20261115-CO1T: the settled end-to-end solution for distributing the Artisyn Implementation Harness package — source location, release pipeline, five channels, install contract, state root and migration'
-keywords:
+type: Solution Architecture
+title: DESIGN-20261115-CO1T — Harness Distribution and Release Channels — Architecture
+description: 'Architecture for DESIGN-20261115-CO1T: the settled end-to-end solution for distributing the Artisyn Implementation Harness package — source location, release pipeline, five channels, install contract, state root and migration'
+tags:
   [
     design,
     solution,
@@ -17,6 +19,8 @@ keywords:
     harness state,
     migration,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T — Harness Distribution and Release Channels — Architecture

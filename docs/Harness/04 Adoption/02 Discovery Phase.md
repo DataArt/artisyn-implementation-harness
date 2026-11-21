@@ -1,7 +1,11 @@
 ---
 id: ec02f7b8
-purpose: Explain how the harness compresses client discovery into a working project skeleton
-keywords: [discovery phase, project skeleton, context decay, implementation-harness launch]
+type: Product Concept
+title: Discovery Phase
+description: Explain how the harness compresses client discovery into a working project skeleton
+tags: [discovery phase, project skeleton, context decay, implementation-harness launch]
+generated: { by: process:okf-migration, at: 2026-08-18T00:00:46Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Discovery Phase

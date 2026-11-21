@@ -1,7 +1,9 @@
 ---
 id: d4b48e90
-purpose: 'Research options for D4: how the harness package is versioned, tagged and published to every channel, with no recommendation'
-keywords:
+type: Design Research
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Release Pipeline'
+description: 'Research options for D4: how the harness package is versioned, tagged and published to every channel, with no recommendation'
+tags:
   [
     design,
     research,
@@ -14,6 +16,8 @@ keywords:
     npm provenance,
     harness distribution,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Research: Release Pipeline

@@ -272,14 +272,14 @@
       "order": 11,
       "plan_ref": "1-plan.md#step-11",
       "depends_on": [],
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "baaae3c5-f500-4c3d-921f-ca240c0fc647",
           "started_at": "2026-11-21T19:32:22.404Z",
-          "ended_at": null,
+          "ended_at": "2026-11-21T19:47:07.888Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
@@ -290,8 +290,16 @@
       "order": 12,
       "plan_ref": "1-plan.md#step-12",
       "depends_on": [],
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "408ed6fc-7c9f-45ac-b416-98a7f8858e8c",
+          "started_at": "2026-11-21T19:47:07.942Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -841,8 +849,80 @@
       "reason": "user_input",
       "detail": "Step 11: developer commit chore(implementation-harness): apply 4.2.0 patch",
       "started_at": "2026-11-21T19:37:14.421Z",
+      "ended_at": "2026-11-21T19:47:07.777Z",
+      "last_observed_at": "2026-11-21T19:47:07.777Z"
+    },
+    {
+      "id": "9b444175-bc55-46f4-ab1b-a35713b6551c",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-11",
+        "attempt_id": "baaae3c5-f500-4c3d-921f-ca240c0fc647"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T19:47:07.777Z",
+      "ended_at": "2026-11-21T19:47:07.888Z",
+      "last_observed_at": "2026-11-21T19:47:07.888Z"
+    },
+    {
+      "id": "11558b33-be19-4ff6-82da-f91a7c0d8653",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-12",
+        "attempt_id": "408ed6fc-7c9f-45ac-b416-98a7f8858e8c"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T19:47:07.942Z",
+      "ended_at": "2026-11-21T19:50:47.193Z",
+      "last_observed_at": "2026-11-21T19:50:47.193Z"
+    },
+    {
+      "id": "0baa7e0e-d83e-4fbe-8ddc-16a722ef81a0",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-12",
+        "attempt_id": "408ed6fc-7c9f-45ac-b416-98a7f8858e8c"
+      },
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Step 12: confirm migrate dry-run summary",
+      "started_at": "2026-11-21T19:50:47.193Z",
+      "ended_at": "2026-11-21T19:52:49.811Z",
+      "last_observed_at": "2026-11-21T19:52:49.811Z"
+    },
+    {
+      "id": "a162bd6b-fe5c-4dbc-bb18-646cfb474972",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-12",
+        "attempt_id": "408ed6fc-7c9f-45ac-b416-98a7f8858e8c"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T19:52:49.811Z",
+      "ended_at": "2026-11-21T19:59:22.588Z",
+      "last_observed_at": "2026-11-21T19:59:22.588Z"
+    },
+    {
+      "id": "71babc7f-8a81-4d2f-97be-7878c267a2b8",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-12",
+        "attempt_id": "408ed6fc-7c9f-45ac-b416-98a7f8858e8c"
+      },
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Step 12: developer commit chore(docs): migrate docs to OKF 0.2 knowledge base",
+      "started_at": "2026-11-21T19:59:22.588Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-21T19:37:14.421Z"
+      "last_observed_at": "2026-11-21T19:59:22.588Z"
     }
   ],
   "checks": [
@@ -1238,21 +1318,75 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "step-11-check-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-11",
+        "attempt_id": "baaae3c5-f500-4c3d-921f-ca240c0fc647"
+      },
+      "name": "Developer commit (patch apply)",
+      "kind": "build",
+      "started_at": "2026-11-21T19:47:07.821Z",
+      "ended_at": "2026-11-21T19:47:07.821Z",
+      "result": "passed",
+      "evidence_ref": "commit this -> 24c17d7 chore(harness): apply 4.2.0 patch (scope changed from implementation-harness by commit hook)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-12-check-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-12",
+        "attempt_id": "408ed6fc-7c9f-45ac-b416-98a7f8858e8c"
+      },
+      "name": "Migrate dry-run confirmation",
+      "kind": "acceptance",
+      "started_at": "2026-11-21T19:52:49.858Z",
+      "ended_at": "2026-11-21T19:52:49.858Z",
+      "result": "passed",
+      "evidence_ref": "yes migrate please",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-12-check-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-12",
+        "attempt_id": "408ed6fc-7c9f-45ac-b416-98a7f8858e8c"
+      },
+      "name": "migrate + build + check",
+      "kind": "build",
+      "started_at": "2026-11-21T19:59:22.478Z",
+      "ended_at": "2026-11-21T19:59:22.478Z",
+      "result": "passed",
+      "evidence_ref": "migrate 220 files, nodes 205/205, authored 217/217, derived 1429; check all-zero after writer review; migrate --check pending false; docs/index.md == main",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-21T19:37:14.422Z",
+    "as_of": "2026-11-21T19:59:22.590Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 3923.253999999999,
-    "observed_wait_seconds": 277661.95999999996,
+    "observed_work_seconds": 4535.392999999999,
+    "observed_wait_seconds": 278377.934,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0.001,
-    "unclassified_seconds": 168.1930000000177,
+    "open_wait_seconds": 0.002,
+    "unclassified_seconds": 168.2470000000107,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 276713.256,
+    "approval_wait_seconds": 276835.874,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
@@ -1261,9 +1395,9 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-21T19:37:14.361Z",
+    "as_of": "2026-11-21T19:59:22.533Z",
     "source": "2-report.md",
-    "source_sha256": "14bbeef616736e13bcaba38f2902ca53cfb90dcbed2ebdee9ea8915e86ab517f",
+    "source_sha256": "9c49569920a18901d5c6ba46f7e841e970a0038fd9858506148db6d5bb8761c7",
     "findings": {
       "total": 22,
       "by_kind": {
@@ -1321,9 +1455,9 @@
       }
     },
     "tech_debt": {
-      "total": 2,
+      "total": 4,
       "ticketed": 0,
-      "unticketed": 2
+      "unticketed": 4
     },
     "tests": {
       "written": null,

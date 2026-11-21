@@ -1,7 +1,11 @@
 ---
 id: 2d89e355
-purpose: 'Implementation ticket breakdown (WBS), sequencing, and effort estimate scaffold for the Web Explorer / Web Portal solution'
-keywords: [wbs, efforts, sequencing, rollback, estimate]
+type: Solution Efforts
+title: DESIGN-20261108-1L8P — Efforts
+description: Implementation ticket breakdown (WBS), sequencing, and effort estimate scaffold for the Web Explorer / Web Portal solution
+tags: [wbs, efforts, sequencing, rollback, estimate]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P — Efforts

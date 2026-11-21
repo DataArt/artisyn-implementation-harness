@@ -1,7 +1,11 @@
 ---
-id: 64005845
-purpose: "Concrete technology/library inventory of the GitHub Pages migration — what's removed, added, and unchanged"
-keywords: [github-pages, stack-inventory, aws-decommission, github-actions]
+id: '64005845'
+type: Solution Stack
+title: Stack Changes — GitHub Pages Migration
+description: Concrete technology/library inventory of the GitHub Pages migration — what's removed, added, and unchanged
+tags: [github-pages, stack-inventory, aws-decommission, github-actions]
+generated: { by: process:okf-migration, at: 2026-11-03T14:56:47Z }
+updated: { by: process:okf-migration, at: 2026-11-03T16:28:50Z }
 ---
 
 # Stack Changes — GitHub Pages Migration

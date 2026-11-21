@@ -1,7 +1,11 @@
 ---
 id: 99394f45
-purpose: First-time workspace setup and the daily NX commands used to run and check this monorepo
-keywords: [getting started, nx, yarn, workspace setup, local dev commands]
+type: Guide
+title: Getting Started
+description: First-time workspace setup and the daily NX commands used to run and check this monorepo
+tags: [getting started, nx, yarn, workspace setup, local dev commands]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Getting Started

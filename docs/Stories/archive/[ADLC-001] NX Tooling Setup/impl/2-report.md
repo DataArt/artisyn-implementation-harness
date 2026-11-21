@@ -1,7 +1,11 @@
 ---
 id: 35a74665
-purpose: Completion report recording progress and fixes for the Nx + Yarn workspace tooling baseline setup
-keywords: [adlc-001, nx, tooling, report, workspace]
+type: Implementation Report
+title: 'ADLC-001: NX Tooling Setup — Report'
+description: Completion report recording progress and fixes for the Nx + Yarn workspace tooling baseline setup
+tags: [adlc-001, nx, tooling, report, workspace]
+generated: { by: process:okf-migration, at: 2026-08-17T23:35:24Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # ADLC-001: NX Tooling Setup — Report

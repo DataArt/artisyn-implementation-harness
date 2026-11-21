@@ -1,7 +1,9 @@
 ---
 id: 04bbbf49
-purpose: Describe the knowledge graph's system context, node and edge model, scope guard, and how lifecycle, launch and upgrade flows wire into it
-keywords:
+type: Product Concept
+title: Ops Model
+description: Describe the knowledge graph's system context, node and edge model, scope guard, and how lifecycle, launch and upgrade flows wire into it
+tags:
   [
     knowledge graph,
     ops model,
@@ -14,6 +16,8 @@ keywords:
     migrate,
     check,
   ]
+generated: { by: process:okf-migration, at: 2026-11-02T14:35:32Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Ops Model

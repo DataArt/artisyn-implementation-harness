@@ -1,5 +1,11 @@
 ---
 id: 3cdc7d56
+type: Solution Design
+title: 'DESIGN-20261117-7931 — Design: OG scope guard'
+description: Settled design for the inScope predicate that decides which files OG may index or write, at every write path
+tags: [solution design, operational graph, scope guard, ogignore]
+generated: { by: process:okf-migration, at: 2026-11-18T11:24:10Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931 — Design: OG scope guard

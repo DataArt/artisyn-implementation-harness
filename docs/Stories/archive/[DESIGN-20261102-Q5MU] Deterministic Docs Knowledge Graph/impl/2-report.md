@@ -1,7 +1,11 @@
 ---
 id: 21d8dd6c
-purpose: Implementation progress, review findings and test results for building the docs operational graph
-keywords: [implementation-report, docs-graph, operational-graph, review-findings]
+type: Implementation Report
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Report'
+description: Implementation progress, review findings and test results for building the docs operational graph
+tags: [implementation-report, docs-graph, operational-graph, review-findings]
+generated: { by: process:okf-migration, at: 2026-11-02T15:16:41Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:16:42Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Report

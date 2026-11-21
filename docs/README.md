@@ -1,7 +1,11 @@
 ---
 id: 9f7cbce1
-purpose: Root navigation index pointing readers to each documentation area of the repo
-keywords: [docs, index, navigation, root]
+type: Reference
+title: Documentation Index
+description: Root navigation index pointing readers to each documentation area of the repo
+tags: [docs, index, navigation, root]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Documentation Index

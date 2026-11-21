@@ -1,7 +1,11 @@
 ---
-id: 35005925
-purpose: 'Confirmed technology choices for the log-hub container, with compatibility notes'
-keywords: [log-hub, stack, nx, docker, claude-code-plugin, yarn-dlx]
+id: '35005925'
+type: Solution Stack
+title: 'DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Stack'
+description: Confirmed technology choices for the log-hub container, with compatibility notes
+tags: [log-hub, stack, nx, docker, claude-code-plugin, yarn-dlx]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Stack

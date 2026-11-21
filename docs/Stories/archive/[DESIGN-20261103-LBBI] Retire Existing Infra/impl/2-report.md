@@ -1,8 +1,11 @@
 ---
 id: 6192e133
-name: Dev Report
-description: Implementation report for retiring existing AWS infra (Efforts.md item 5 of the GitHub Pages migration design)
-type: reference
+type: Implementation Report
+title: 'DESIGN-20261103-LBBI: Retire Existing Infra — Report'
+description: Implementation report for retiring the Auth and Infrastructure containers and their AWS CI/CD wiring
+tags: [implementation report, infra retirement, aws, ci-cd]
+generated: { by: process:okf-migration, at: 2026-11-03T15:49:10Z }
+updated: { by: process:okf-migration, at: 2026-11-03T17:06:54Z }
 ---
 
 # DESIGN-20261103-LBBI: Retire Existing Infra — Report

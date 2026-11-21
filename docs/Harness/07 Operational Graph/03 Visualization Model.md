@@ -1,7 +1,11 @@
 ---
 id: 9bf56f85
-purpose: Describe the IDE-side and docs-site graph surfaces that share the knowledge graph's data file
-keywords: [knowledge graph, visualization, graph page, data-access pattern]
+type: Product Concept
+title: Visualization Model
+description: Describe the IDE-side and docs-site graph surfaces that share the knowledge graph's data file
+tags: [knowledge graph, visualization, graph page, data-access pattern]
+generated: { by: process:okf-migration, at: 2026-11-02T14:35:32Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Visualization Model

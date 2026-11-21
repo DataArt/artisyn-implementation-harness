@@ -1,5 +1,11 @@
 ---
 id: e1404ac4
+type: Design Evaluation
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 2, Graph schema and migration'
+description: Evaluation that picks an in-place OG schema rename under PRAGMA user_version with a read-compat window
+tags: [design evaluation, operational graph, sqlite schema, migration, read-compat window]
+generated: { by: process:okf-migration, at: 2026-11-17T22:42:13Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 2, Graph schema and migration

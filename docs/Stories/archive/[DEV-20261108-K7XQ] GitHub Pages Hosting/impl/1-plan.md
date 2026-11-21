@@ -1,8 +1,11 @@
 ---
 id: 985055cb
-name: Dev Plan
-description: Implementation plan for GitHub Pages hosting of the VitePress docs site
-type: reference
+type: Implementation Plan
+title: 'DEV-20261108-K7XQ: GitHub Pages Hosting — Plan'
+description: Implementation plan for serving the docs site from GitHub Pages with a base path, CSP and a Pages deploy workflow
+tags: [implementation plan, github pages, vitepress, ci-cd, web docs]
+generated: { by: process:okf-migration, at: 2026-11-08T21:15:17Z }
+updated: { by: process:okf-migration, at: 2026-11-08T21:15:17Z }
 ---
 
 # DEV-20261108-K7XQ: GitHub Pages Hosting — Plan

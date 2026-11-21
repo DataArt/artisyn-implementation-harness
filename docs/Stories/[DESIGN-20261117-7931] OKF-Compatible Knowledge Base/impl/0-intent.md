@@ -1,7 +1,11 @@
 ---
 id: a8ce6496
-purpose: States the problem, target outcome, scope and constraints for implementing the OKF-compatible knowledge base and the OG scope guard
-keywords: [intent, okf, knowledge base, operational graph, scope guard, migration, dev-lifecycle]
+type: Dev Intent
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Intent'
+description: States the problem, target outcome, scope and constraints for implementing the OKF-compatible knowledge base and the OG scope guard
+tags: [intent, okf, knowledge base, operational graph, scope guard, migration, dev-lifecycle]
+generated: { by: process:okf-migration, at: 2026-11-18T13:31:29Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Intent

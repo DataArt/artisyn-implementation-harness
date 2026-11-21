@@ -1,7 +1,11 @@
 ---
 id: 3ab7c368
-purpose: Specifies the required read path (Context/Research) and automated write path (Document/Publish) wiring the docs graph into the dev/design lifecycles
-keywords: [design, lifecycle-impact, docs-graph, read-path, write-path]
+type: Solution Design
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Harness lifecycle impact'
+description: Specifies the required read path (Context/Research) and automated write path (Document/Publish) wiring the docs graph into the dev/design lifecycles
+tags: [design, lifecycle-impact, docs-graph, read-path, write-path]
+generated: { by: process:okf-migration, at: 2026-11-02T13:47:44Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Harness lifecycle impact

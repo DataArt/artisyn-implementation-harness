@@ -1,8 +1,11 @@
 ---
-id: 63444176
-name: Dev Report Template
-description: Template for 2-report.md — the living implementation report created by /dev context and updated throughout the dev lifecycle
-type: reference
+id: '63444176'
+type: Implementation Report
+title: 'DEV-20261109-J5LS: Web Explorer Landing Page & Web Portal Site Routing — Report'
+description: Implementation report for adding the Web Explorer landing page and composing it with Web Docs through Web Portal
+tags: [implementation report, web explorer, web portal, web docs, github pages]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DEV-20261109-J5LS: Web Explorer Landing Page & Web Portal Site Routing — Report

@@ -1,7 +1,11 @@
 ---
 id: 3057968d
-purpose: 'Research phase output for DESIGN-20261108-1L8P Decision 1: option set for adopting the web-explorer promo SPA, no recommendation'
-keywords: [research, web-explorer, open questions, design phase]
+type: Design Research
+title: 'DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Research (Decision 1: Web Explorer)'
+description: 'Research phase output for DESIGN-20261108-1L8P Decision 1: option set for adopting the web-explorer promo SPA, no recommendation'
+tags: [research, web-explorer, open questions, design phase]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P: Web Explorer Landing Page & Web Portal Site Routing — Research (Decision 1: Web Explorer)

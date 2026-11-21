@@ -1,7 +1,11 @@
 ---
 id: 112687ab
-purpose: Specifies the SQLite schema, frontmatter format and dual-runtime (Node/browser) access pattern for the docs graph store
-keywords: [design, storage-format, SQLite, frontmatter, schema]
+type: Solution Design
+title: 'DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph storage format'
+description: Specifies the SQLite schema, frontmatter format and dual-runtime (Node/browser) access pattern for the docs graph store
+tags: [design, storage-format, SQLite, frontmatter, schema]
+generated: { by: process:okf-migration, at: 2026-11-02T13:47:44Z }
+updated: { by: process:okf-migration, at: 2026-11-03T00:11:34Z }
 ---
 
 # DESIGN-20261102-Q5MU: Deterministic Docs Knowledge Graph — Design: Graph storage format

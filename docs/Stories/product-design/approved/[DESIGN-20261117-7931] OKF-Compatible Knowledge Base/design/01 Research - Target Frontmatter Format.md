@@ -1,5 +1,11 @@
 ---
 id: f60509bb
+type: Design Research
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 1, Target frontmatter format'
+description: Research options for the key set, meaning and ownership of the frontmatter every doc carries in source
+tags: [design research, frontmatter contract, okf, type vocabulary]
+generated: { by: process:okf-migration, at: 2026-11-17T22:26:06Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 1, Target frontmatter format

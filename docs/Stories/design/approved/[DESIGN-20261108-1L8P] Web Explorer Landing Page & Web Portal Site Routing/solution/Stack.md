@@ -1,7 +1,11 @@
 ---
 id: a9cacf81
-purpose: 'Concrete technology and version choices for Web Explorer, Web Portal, and the Web Docs rename'
-keywords: [stack, web-explorer, web-portal, versions, dependencies]
+type: Solution Stack
+title: DESIGN-20261108-1L8P — Stack
+description: Concrete technology and version choices for Web Explorer, Web Portal, and the Web Docs rename
+tags: [stack, web-explorer, web-portal, versions, dependencies]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P — Stack

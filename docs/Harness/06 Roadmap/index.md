@@ -1,11 +1,4 @@
----
-id: e4071c85
-purpose: Navigation index for the Roadmap section's pages
-keywords: [roadmap, navigation index]
----
-
 # Roadmap
 
-| Page                                         | Contents                                                                                                                     |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| [Harness Roadmap](<./01 Harness Roadmap.md>) | Distribution, runtime alignment, capability packs, adoption, and prioritized gaps with deliverables and completion criteria. |
+- [Roadmap Overview](00%20Overview.md) - Navigation index for the Roadmap section's pages
+- [Harness Roadmap](01%20Harness%20Roadmap.md) - Track how the harness evolves from a copied git template into a distributable, composable platform — distribution implemented, later sections proposed

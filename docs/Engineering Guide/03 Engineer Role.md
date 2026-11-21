@@ -1,7 +1,11 @@
 ---
 id: 309f72ad
-purpose: How the engineer and the AI assistant divide ownership and responsibility during delivery
-keywords: [engineer role, AI pairing, division of responsibility, dev lifecycle]
+type: Guide
+title: Engineer Role
+description: How the engineer and the AI assistant divide ownership and responsibility during delivery
+tags: [engineer role, AI pairing, division of responsibility, dev lifecycle]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Engineer Role

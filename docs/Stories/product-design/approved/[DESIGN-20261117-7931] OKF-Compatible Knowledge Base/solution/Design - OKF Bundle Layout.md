@@ -1,5 +1,11 @@
 ---
 id: b5155f4e
+type: Solution Design
+title: 'DESIGN-20261117-7931 — Design: OKF bundle layout'
+description: Settled design making each OG tier root one OKF bundle with a navigation-only index.md and prose in 00 Overview.md
+tags: [solution design, okf, okf bundle, bundle root index.md, overview]
+generated: { by: process:okf-migration, at: 2026-11-18T11:24:10Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931 — Design: OKF bundle layout

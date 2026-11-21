@@ -1,7 +1,11 @@
 ---
 id: 25c349bd
-purpose: The three-tier documentation model — what each tier is for, its folder layout, and what lives where
-keywords: [documentation structure, HLD, LLD, Engineering Guide, Stories, tiers]
+type: Guide
+title: Documentation Structure
+description: The three-tier documentation model — what each tier is for, its folder layout, and what lives where
+tags: [documentation structure, HLD, LLD, Engineering Guide, Stories, tiers]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Documentation Structure

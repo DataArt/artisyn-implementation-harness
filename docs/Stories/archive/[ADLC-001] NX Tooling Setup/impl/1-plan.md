@@ -1,7 +1,11 @@
 ---
 id: 3d33ec18
-purpose: Implementation plan for establishing the Nx + Yarn workspace tooling baseline across the monorepo
-keywords: [adlc-001, nx, tooling, plan, workspace]
+type: Implementation Plan
+title: 'ADLC-001: NX Tooling Setup'
+description: Implementation plan for establishing the Nx + Yarn workspace tooling baseline across the monorepo
+tags: [adlc-001, nx, tooling, plan, workspace]
+generated: { by: process:okf-migration, at: 2026-08-17T23:35:24Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # ADLC-001: NX Tooling Setup

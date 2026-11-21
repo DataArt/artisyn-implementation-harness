@@ -1,5 +1,11 @@
 ---
 id: 3759cc60
+type: Design Report
+title: 'Design Report — DESIGN-20261117-7931: OKF-Compatible Knowledge Base'
+description: Product design run record for the OKF-compatible knowledge base and the OG scope guard, with context, stage state and reviews
+tags: [design report, okf, operational graph, scope guard, product track]
+generated: { by: process:okf-migration, at: 2026-11-17T21:14:02Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # Design Report — DESIGN-20261117-7931: OKF-Compatible Knowledge Base

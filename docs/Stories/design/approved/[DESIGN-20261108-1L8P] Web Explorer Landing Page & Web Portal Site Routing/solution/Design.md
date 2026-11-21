@@ -1,7 +1,11 @@
 ---
 id: f5b3e164
-purpose: 'Implementation-level detail for the Web Portal composition mechanism and the config changes it requires in Web Explorer and Web Docs'
-keywords: [web-portal, portal-assemble, nx project.json, vite config, vitepress config, cd.yml]
+type: Solution Design
+title: DESIGN-20261108-1L8P — Solution Design
+description: Implementation-level detail for the Web Portal composition mechanism and the config changes it requires in Web Explorer and Web Docs
+tags: [web-portal, portal-assemble, nx project.json, vite config, vitepress config, cd.yml]
+generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
+updated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
 ---
 
 # DESIGN-20261108-1L8P — Solution Design

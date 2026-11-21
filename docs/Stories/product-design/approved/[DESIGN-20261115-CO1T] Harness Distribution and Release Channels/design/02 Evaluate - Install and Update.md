@@ -1,7 +1,9 @@
 ---
 id: 12ec632a
-purpose: 'Design evaluation for decision 3 of DESIGN-20261115-CO1T: rates six install and update options and recommends the copy CLI as primary installer, with plugin cache and skill installers as channel-native paths sharing one .harness/state/ contract'
-keywords:
+type: Design Evaluation
+title: 'DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Install and Update'
+description: 'Design evaluation for decision 3 of DESIGN-20261115-CO1T: rates six install and update options and recommends the copy CLI as primary installer, with plugin cache and skill installers as channel-native paths sharing one .harness/state/ contract'
+tags:
   [
     harness distribution,
     install,
@@ -16,6 +18,8 @@ keywords:
     evaluate,
     WAF,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # DESIGN-20261115-CO1T: Harness Distribution and Release Channels — Evaluate: Install and Update

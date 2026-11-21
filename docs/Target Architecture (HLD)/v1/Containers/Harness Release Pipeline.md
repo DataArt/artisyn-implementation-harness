@@ -1,7 +1,9 @@
 ---
 id: 8912decf
-purpose: 'Design intent for the Harness Release Pipeline container: the PR stamps the harness version, an automatic build on merge attests it, and after a reviewer approves the release environment a release job tags it and two parallel publish jobs open all five channels at once'
-keywords:
+type: Container
+title: Harness Release Pipeline Container
+description: 'Design intent for the Harness Release Pipeline container: the PR stamps the harness version, an automatic build on merge attests it, and after a reviewer approves the release environment a release job tags it and two parallel publish jobs open all five channels at once'
+tags:
   [
     harness-release-pipeline,
     release,
@@ -11,6 +13,8 @@ keywords:
     release environment,
     approval gate,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
 ---
 
 # Harness Release Pipeline Container

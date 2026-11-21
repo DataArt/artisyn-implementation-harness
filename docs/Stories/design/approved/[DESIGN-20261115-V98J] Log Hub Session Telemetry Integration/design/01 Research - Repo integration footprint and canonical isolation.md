@@ -1,7 +1,9 @@
 ---
 id: 9a298a49
-purpose: 'Research phase output for DESIGN-20261115-V98J Decision 2: option set for what a fresh clone contains after the Log Hub hook is integrated and how the canonical harness stays byte-for-byte unaffected, no recommendation'
-keywords:
+type: Design Research
+title: 'DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Research: Repo integration footprint and canonical isolation'
+description: 'Research phase output for DESIGN-20261115-V98J Decision 2: option set for what a fresh clone contains after the Log Hub hook is integrated and how the canonical harness stays byte-for-byte unaffected, no recommendation'
+tags:
   [
     research,
     log hub,
@@ -12,6 +14,8 @@ keywords:
     open questions,
     design phase,
   ]
+generated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
+updated: { by: process:okf-migration, at: 2026-11-15T15:03:03Z }
 ---
 
 # DESIGN-20261115-V98J: Log Hub Session Telemetry Integration — Research: Repo integration footprint and canonical isolation

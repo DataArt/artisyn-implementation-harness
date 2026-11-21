@@ -1,5 +1,11 @@
 ---
 id: 006cb2b1
+type: Design Frame
+title: DESIGN-20261117-7931 — OKF-Compatible Knowledge Base
+description: Design frame for making the harness docs an OKF 0.2 knowledge base and stopping OG writes outside its scope
+tags: [design frame, okf, operational graph, frontmatter, scope guard]
+generated: { by: process:okf-migration, at: 2026-11-17T21:28:01Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931 — OKF-Compatible Knowledge Base

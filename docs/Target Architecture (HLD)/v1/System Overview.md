@@ -1,7 +1,11 @@
 ---
 id: 77376e1f
-purpose: Purpose, containers, and data flow for the ADLC Discovery Tool platform
-keywords: [system-overview, containers, data-flow, hld, log-hub, harness-release-pipeline]
+type: System Overview
+title: System Overview
+description: Purpose, containers, and data flow for the ADLC Discovery Tool platform
+tags: [system-overview, containers, data-flow, hld, log-hub, harness-release-pipeline]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:12:13Z }
 ---
 
 # System Overview

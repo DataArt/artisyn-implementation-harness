@@ -1,7 +1,9 @@
 ---
 id: e2d58b91
-purpose: The harness version contract — one stamped semantic version, the v<version> release tag (long tags up to 4.0.2, the v4.0.2 bridge tag), the release workflow (automatic build on merge, publish after approval) and its re-run behaviour, per-channel integrity and attestations, and rollback
-keywords:
+type: Product Concept
+title: Versioning and Releases
+description: The harness version contract — one stamped semantic version, the v<version> release tag (long tags up to 4.0.2, the v4.0.2 bridge tag), the release workflow (automatic build on merge, publish after approval) and its re-run behaviour, per-channel integrity and attestations, and rollback
+tags:
   [
     versioning,
     semantic version,
@@ -18,6 +20,8 @@ keywords:
     rollback,
     implementation-harness,
   ]
+generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Versioning and Releases

@@ -1,7 +1,11 @@
 ---
-id: 88115664
-purpose: The Design lifecycle's phases, invariants, and patterns for producing an approved architectural design
-keywords: [design lifecycle, frame, research, evaluate, solution, publish, two-track design]
+id: '88115664'
+type: Guide
+title: Design Lifecycle — Context Gathering → Ceremony → Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish → Completion
+description: The Design lifecycle's phases, invariants, and patterns for producing an approved architectural design
+tags: [design lifecycle, frame, research, evaluate, solution, publish, two-track design]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Design Lifecycle — Context Gathering → Ceremony → Frame → Research → Evaluate → Solution → Review → Address Feedback → Publish → Completion

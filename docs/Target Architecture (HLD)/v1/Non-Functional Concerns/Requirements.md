@@ -1,7 +1,11 @@
 ---
 id: decb4cf3
-purpose: Non-functional requirements governing the platform's containers, CI/CD pipeline, and actors
-keywords: [nfr, requirements, security, performance, log-hub]
+type: Non-Functional Requirements
+title: Non-Functional Requirements
+description: Non-functional requirements governing the platform's containers, CI/CD pipeline, and actors
+tags: [nfr, requirements, security, performance, log-hub]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
 ---
 
 # Non-Functional Requirements

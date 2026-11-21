@@ -1,7 +1,11 @@
 ---
 id: efcac6df
-purpose: Lists HLD versions and points to the active version's design
-keywords: [hld, versions, index]
+type: Version Router
+title: Target Architecture (HLD)
+description: Lists HLD versions and points to the active version's design
+tags: [hld, versions, index]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
+updated: { by: process:okf-migration, at: 2026-11-02T20:49:30Z }
 ---
 
 # Target Architecture (HLD)

@@ -1,5 +1,11 @@
 ---
 id: cbcd8cb0
+type: Design Evaluation
+title: 'DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 3, OKF bundle layout'
+description: Requirements-by-options evaluation of OKF bundle layouts, from a single docs bundle to five tier bundles
+tags: [design evaluation, okf, okf bundle, index.md, vitepress]
+generated: { by: process:okf-migration, at: 2026-11-17T22:42:13Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 3, OKF bundle layout

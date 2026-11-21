@@ -1,7 +1,11 @@
 ---
 id: 7c435590
-purpose: 'Scores Options A/B/C against the Known ECs and tradeoff dimensions, and recommends Option B (GitHub Pages, project site) for the GitHub Pages migration'
-keywords: [github-pages, hosting-migration, evaluate, recommendation, tradeoffs]
+type: Design Evaluation
+title: 'DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Evaluate'
+description: Scores Options A/B/C against the Known ECs and tradeoff dimensions, and recommends Option B (GitHub Pages, project site) for the GitHub Pages migration
+tags: [github-pages, hosting-migration, evaluate, recommendation, tradeoffs]
+generated: { by: process:okf-migration, at: 2026-11-03T13:57:12Z }
+updated: { by: process:okf-migration, at: 2026-11-03T16:28:50Z }
 ---
 
 # DESIGN-20261103-LBBI: Migrate Static Site Hosting to GitHub Pages — Evaluate

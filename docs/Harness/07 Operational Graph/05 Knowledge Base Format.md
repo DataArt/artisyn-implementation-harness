@@ -1,7 +1,9 @@
 ---
 id: 8e18e7b9
-purpose: 'The OKF 0.2 knowledge base format of the docs tree: five OKF bundles, bundle root and section index.md rules, the frontmatter contract, the canonical type map and the check conformance report'
-keywords:
+type: Product Concept
+title: Knowledge Base Format
+description: 'The OKF 0.2 knowledge base format of the docs tree: five OKF bundles, bundle root and section index.md rules, the frontmatter contract, the canonical type map and the check conformance report'
+tags:
   [
     okf,
     knowledge base,
@@ -12,6 +14,8 @@ keywords:
     conformance check,
     operational graph,
   ]
+generated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
 ---
 
 # Knowledge Base Format

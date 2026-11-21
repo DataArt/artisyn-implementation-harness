@@ -1,7 +1,11 @@
 ---
 id: 1ff56a70
-purpose: Track how the harness evolves from a copied git template into a distributable, composable platform — distribution implemented, later sections proposed
-keywords: [roadmap, registry distribution, implementation-harness, release pipeline, gaps]
+type: Product Concept
+title: Harness Roadmap
+description: Track how the harness evolves from a copied git template into a distributable, composable platform — distribution implemented, later sections proposed
+tags: [roadmap, registry distribution, implementation-harness, release pipeline, gaps]
+generated: { by: process:okf-migration, at: 2026-09-18T14:47:32Z }
+updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
 ---
 
 # Harness Roadmap

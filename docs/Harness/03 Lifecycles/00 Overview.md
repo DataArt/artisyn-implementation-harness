@@ -1,7 +1,11 @@
 ---
 id: eab1759b
-purpose: Summarize the four harness lifecycles, how they interact, and when to use each
-keywords: [lifecycle overview, dev, design, evolve, architecture]
+type: Product Concept
+title: Implementation Harness — Lifecycle Overview
+description: Summarize the four harness lifecycles, how they interact, and when to use each
+tags: [lifecycle overview, dev, design, evolve, architecture]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:22Z }
+updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
 ---
 
 # Implementation Harness — Lifecycle Overview

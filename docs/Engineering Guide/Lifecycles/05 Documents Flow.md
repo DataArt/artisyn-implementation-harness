@@ -1,7 +1,11 @@
 ---
 id: 4871e58d
-purpose: How documentation is born in Stories, refined, and graduates to its permanent home
-keywords: [documents flow, graduation rules, Stories, permanent docs]
+type: Guide
+title: Documents Flow
+description: How documentation is born in Stories, refined, and graduates to its permanent home
+tags: [documents flow, graduation rules, Stories, permanent docs]
+generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
+updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 ---
 
 # Documents Flow
