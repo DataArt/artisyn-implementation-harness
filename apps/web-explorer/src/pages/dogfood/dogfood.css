@@ -1,0 +1,322 @@
+/* Dogfood page — df- prefix, same reasoning as the other lazily loaded page
+   styles: unscoped rules from inside-the-loop.css stay active after a visitor
+   returns from that route. */
+
+.df-page {
+  padding: 40px 28px 90px;
+  max-width: 1200px;
+}
+.df-intro {
+  max-width: 820px;
+}
+.df-lead {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* Loop */
+.df-loop {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.df-loop-item {
+  position: relative;
+  display: flex;
+  min-width: 0;
+}
+.df-step {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 22px 20px 20px;
+}
+.df-step-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface2);
+  border: 1px solid #333e4d;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.df-step-num {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-size: 12px;
+  font-weight: 750;
+  color: var(--subtle);
+  font-variant-numeric: tabular-nums;
+}
+.df-step h3 {
+  font-size: 19px;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+.df-step code {
+  display: block;
+  font-size: 12px;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+  margin-bottom: 10px;
+}
+.df-step p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.df-arrow {
+  position: absolute;
+  right: -17px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--subtle);
+  z-index: 1;
+}
+
+/* Worked example */
+.df-example {
+  margin-top: 56px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 28px;
+}
+.df-example-head {
+  max-width: 760px;
+}
+.df-example-head h2 {
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
+}
+.df-example-head p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.65;
+}
+.df-stats {
+  margin-top: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.df-stat {
+  border: 1px solid #2b3542;
+  border-radius: 12px;
+  background: #0d131b;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.df-stat strong {
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.df-stat span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #8fa0b1;
+}
+.df-note {
+  margin: 20px 0 0;
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* Graph Explorer */
+.df-graph {
+  margin-top: 56px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 28px;
+}
+.df-graph-head {
+  max-width: 760px;
+}
+.df-graph-head h2 {
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  margin: 0 0 10px;
+}
+.df-graph-head p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.65;
+}
+.df-gx {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  gap: 24px;
+  align-items: start;
+}
+.df-gx-canvas {
+  border: 1px solid #2b3542;
+  border-radius: 12px;
+  background: #0d131b;
+}
+.df-gx-canvas svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 620px;
+}
+.df-gx-ring {
+  fill: none;
+  stroke: #1c2530;
+  stroke-width: 1;
+}
+.df-gx-edge {
+  stroke: #5a6778;
+  stroke-opacity: 0.28;
+  stroke-width: 0.8;
+  transition: stroke-opacity 0.15s;
+}
+.df-gx-edge.is-dim {
+  stroke-opacity: 0.06;
+}
+.df-gx-edge.is-on {
+  stroke: var(--accent);
+  stroke-opacity: 0.95;
+  stroke-width: 1.6;
+}
+.df-gx-node {
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.df-gx-node.is-dim {
+  opacity: 0.18;
+}
+.df-gx-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.df-gx-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.df-gx-legend button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid #2b3542;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: var(--surface2);
+  color: #c3ceda;
+  font-size: 13px;
+  text-align: left;
+  transition:
+    border-color 0.15s,
+    opacity 0.15s;
+}
+.df-gx-legend button:hover {
+  border-color: #5a6778;
+}
+.df-gx-legend button.is-off {
+  opacity: 0.4;
+}
+.df-gx-legend em {
+  margin-left: auto;
+  font-style: normal;
+  color: var(--subtle);
+  font-variant-numeric: tabular-nums;
+}
+.df-gx-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.df-gx-detail {
+  border: 1px solid #2b3542;
+  border-radius: 12px;
+  background: #0d131b;
+  padding: 16px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.df-gx-detail strong {
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.df-gx-detail code {
+  font-size: 11.5px;
+  color: var(--subtle);
+  overflow-wrap: anywhere;
+}
+.df-gx-detail p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+.df-gx-detail a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 650;
+}
+.df-gx-tier {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 750;
+}
+.df-gx-hint {
+  color: var(--subtle) !important;
+}
+
+@media (max-width: 960px) {
+  .df-gx {
+    grid-template-columns: 1fr;
+  }
+  .df-loop {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .df-arrow {
+    display: none;
+  }
+  .df-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  .df-page {
+    padding: 40px 18px 70px;
+  }
+  .df-loop,
+  .df-stats {
+    grid-template-columns: 1fr;
+  }
+  .df-example,
+  .df-graph {
+    padding: 22px 18px;
+  }
+}

@@ -17,28 +17,28 @@ updated: { by: process:okf-migration, at: 2026-11-21T19:46:47Z }
 | PR     | —                                                                                                              |
 | Author | Anton Merkulov                                                                                                 |
 | Status | 🔄 In Progress                                                                                                 |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement 🔄 · 🧪 Test ⏳ · 📝 Document ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test 🔄 · 📝 Document ⏳ · 🏁 Completion ⏳ |
 
 Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#7, one per stage), mirrored in this report.
 
 ## Progress
 
-| #   | Step                                                        | Status     | Notes                                                              | Test | Docs |
-| --- | ----------------------------------------------------------- | ---------- | ------------------------------------------------------------------ | ---- | ---- |
-| 1   | Tests: canonical OG cases for AC-1 to AC-8                  | ✅ Done    | 96 cases; 73 red for expected reasons                              |      |      |
-| 2   | Canonical OG: scope guard and retirements                   | ✅ Done    | AC-1/AC-2 green (1 waits on Step 3 parser)                         |      |      |
-| 3   | Canonical OG: frontmatter parser, B+ writer, type map       | ✅ Done    | Parser/writer/type map green; golden 173 docs                      |      |      |
-| 4   | Canonical OG: schema v1, config, CLI renames                | ✅ Done    | Schema v1, config, renames green; seed v1                          |      |      |
-| 5   | Canonical OG: check command                                 | ✅ Done    | check green                                                        |      |      |
-| 6   | Canonical OG: migrate command                               | ✅ Done    | 96/96 green; scratch dogfood run clean                             |      |      |
-| 7   | Canonical harness flows: launch, reindex-graph, patch apply | ✅ Done    | References + manifest; 98/98, unit-cli 44/44                       |      |      |
-| 8   | Canonical docs flow: writers, rules, templates              | ✅ Done    | B+ rules in canonical docs flow; Terminology kept empty (see note) |      |      |
-| 9   | Implementation Harness E2E: follow the key rename           | ✅ Done    | E2E fixture/assertion/grader; unit 319, unit-cli 44, integration 5 |      |      |
-| 10  | Release: commit, minor version stamp, patch prepare         | ✅ Done    | 4.2.0 stamped (63bf14e); bundle 6ceda622, 50 files, all verified   |      |      |
-| 11  | This repo: patch apply                                      | ✅ Done    | 26 outputs; 5 conflicts resolved; DB v1; web-docs build green      |      |      |
-| 12  | This repo: reindex-graph migration                          | 🔄 Active  | Migrated 220 files; check all zero; awaiting commit + rerun        |      |      |
-| 13  | Web Docs: nav and README links                              | ⏳ Pending |                                                                    |      |      |
-| 14  | Web Explorer: Dogfood page                                  | ⏳ Pending |                                                                    |      |      |
+| #   | Step                                                        | Status  | Notes                                                              | Test | Docs |
+| --- | ----------------------------------------------------------- | ------- | ------------------------------------------------------------------ | ---- | ---- |
+| 1   | Tests: canonical OG cases for AC-1 to AC-8                  | ✅ Done | 96 cases; 73 red for expected reasons                              |      |      |
+| 2   | Canonical OG: scope guard and retirements                   | ✅ Done | AC-1/AC-2 green (1 waits on Step 3 parser)                         |      |      |
+| 3   | Canonical OG: frontmatter parser, B+ writer, type map       | ✅ Done | Parser/writer/type map green; golden 173 docs                      |      |      |
+| 4   | Canonical OG: schema v1, config, CLI renames                | ✅ Done | Schema v1, config, renames green; seed v1                          |      |      |
+| 5   | Canonical OG: check command                                 | ✅ Done | check green                                                        |      |      |
+| 6   | Canonical OG: migrate command                               | ✅ Done | 96/96 green; scratch dogfood run clean                             |      |      |
+| 7   | Canonical harness flows: launch, reindex-graph, patch apply | ✅ Done | References + manifest; 98/98, unit-cli 44/44                       |      |      |
+| 8   | Canonical docs flow: writers, rules, templates              | ✅ Done | B+ rules in canonical docs flow; Terminology kept empty (see note) |      |      |
+| 9   | Implementation Harness E2E: follow the key rename           | ✅ Done | E2E fixture/assertion/grader; unit 319, unit-cli 44, integration 5 |      |      |
+| 10  | Release: commit, minor version stamp, patch prepare         | ✅ Done | 4.2.0 stamped (63bf14e); bundle 6ceda622, 50 files, all verified   |      |      |
+| 11  | This repo: patch apply                                      | ✅ Done | 26 outputs; 5 conflicts resolved; DB v1; web-docs build green      |      |      |
+| 12  | This repo: reindex-graph migration                          | ✅ Done | bfaab4a; 220 files; check all zero; rerun changed 0 files          |      |      |
+| 13  | Web Docs: nav and README links                              | ✅ Done | Build and 23/23 links green; developer preview confirmed           |      |      |
+| 14  | Web Explorer: Dogfood page                                  | ✅ Done | Page + own Graph Explorer; checks green; developer confirmed       |      |      |
 
 <!--
 Status values : ⏳ Pending · 🔄 Active · ✅ Done · ⚠️ Blocked · ⏭️ Skipped
@@ -51,14 +51,14 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1h 9m 3s · Wait: 77h 19m 38s · Unclassified: 9m 21s
+Observed work: 1h 20m 26s · Wait: 77h 43m 57s · Unclassified: 3m 3s
 
 | Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait        | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
 | ---------- | ------------------------ | ------------------------ | ----------- | ------- | ----------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
 | context    | 2026-11-18T13:21:21.058Z | 2026-11-18T13:27:33.993Z | 6m 13s      | 2m 38s  | 3m 35s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | ceremony   | 2026-11-18T13:27:42.955Z | 2026-11-18T13:33:19.761Z | 5m 37s      | 5s      | 5m 32s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | plan       | 2026-11-18T13:33:27.013Z | 2026-11-18T16:48:43.098Z | 3h 15m 16s  | 19m 5s  | 2h 56m 11s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| implement  | 2026-11-18T16:48:52.113Z | unavailable              | unavailable | 47m 14s | 74h 14m 20s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| implement  | 2026-11-18T16:48:52.113Z | 2026-11-21T20:28:46.532Z | 75h 39m 54s | 58m 38s | 74h 38m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | test       | unavailable              | unavailable              | unavailable | 0s      | 0s          | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 | document   | unavailable              | unavailable              | unavailable | 0s      | 0s          | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 | completion | unavailable              | unavailable              | unavailable | 0s      | 0s          | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
@@ -72,24 +72,24 @@ Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 1h 9m 3s · Wait: 77h 19m 38s · Unclassified: 9m 21s
+Observed work: 1h 20m 26s · Wait: 77h 43m 57s · Unclassified: 3m 3s
 
-| Step                                                                 | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| -------------------------------------------------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| step-01: Tests: canonical OG cases for AC-1 to AC-8                  | 2026-11-18T16:49:02.129Z | 2026-11-18T16:56:35.184Z | 7m 33s      | 7m 33s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-02: Canonical OG: scope guard and retirements                   | 2026-11-18T16:56:35.240Z | 2026-11-18T16:59:16.398Z | 2m 41s      | 2m 41s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-03: Canonical OG: frontmatter parser, B+ writer, type map       | 2026-11-18T16:59:16.454Z | 2026-11-18T17:03:51.996Z | 4m 36s      | 4m 36s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-04: Canonical OG: schema v1, config, CLI renames                | 2026-11-18T17:03:52.073Z | 2026-11-18T17:03:52.181Z | 0s          | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-05: Canonical OG: check command                                 | 2026-11-18T17:03:52.232Z | 2026-11-18T17:06:09.479Z | 2m 17s      | 2m 17s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-06: Canonical OG: migrate command                               | 2026-11-18T17:06:09.541Z | 2026-11-18T17:15:40.179Z | 9m 31s      | 9m 31s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-07: Canonical harness flows: launch, reindex-graph, patch apply | 2026-11-18T17:15:40.233Z | 2026-11-18T17:18:30.967Z | 2m 51s      | 2m 51s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-08: Canonical docs flow: writers, rules, templates              | 2026-11-18T17:18:31.013Z | 2026-11-18T17:20:17.462Z | 1m 46s      | 1m 46s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-09: Implementation Harness E2E: follow the key rename           | 2026-11-18T17:20:17.516Z | 2026-11-18T17:22:17.614Z | 2m 0s       | 2m 0s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-10: Release: commit, minor version stamp, patch prepare         | 2026-11-18T17:24:40.029Z | 2026-11-21T19:32:22.355Z | 74h 7m 42s  | 5m 18s | 74h 2m 24s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-11: This repo: patch apply                                      | 2026-11-21T19:32:22.404Z | 2026-11-21T19:47:07.888Z | 14m 45s     | 4m 52s | 9m 53s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-12: This repo: reindex-graph migration                          | 2026-11-21T19:47:07.942Z | unavailable              | unavailable | 3m 39s | 2m 3s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-13: Web Docs: nav and README links                              | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| step-14: Web Explorer: Dogfood page                                  | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Step                                                                 | Started (UTC)            | Completed (UTC)          | Elapsed    | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| -------------------------------------------------------------------- | ------------------------ | ------------------------ | ---------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| step-01: Tests: canonical OG cases for AC-1 to AC-8                  | 2026-11-18T16:49:02.129Z | 2026-11-18T16:56:35.184Z | 7m 33s     | 7m 33s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-02: Canonical OG: scope guard and retirements                   | 2026-11-18T16:56:35.240Z | 2026-11-18T16:59:16.398Z | 2m 41s     | 2m 41s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-03: Canonical OG: frontmatter parser, B+ writer, type map       | 2026-11-18T16:59:16.454Z | 2026-11-18T17:03:51.996Z | 4m 36s     | 4m 36s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-04: Canonical OG: schema v1, config, CLI renames                | 2026-11-18T17:03:52.073Z | 2026-11-18T17:03:52.181Z | 0s         | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-05: Canonical OG: check command                                 | 2026-11-18T17:03:52.232Z | 2026-11-18T17:06:09.479Z | 2m 17s     | 2m 17s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-06: Canonical OG: migrate command                               | 2026-11-18T17:06:09.541Z | 2026-11-18T17:15:40.179Z | 9m 31s     | 9m 31s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-07: Canonical harness flows: launch, reindex-graph, patch apply | 2026-11-18T17:15:40.233Z | 2026-11-18T17:18:30.967Z | 2m 51s     | 2m 51s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-08: Canonical docs flow: writers, rules, templates              | 2026-11-18T17:18:31.013Z | 2026-11-18T17:20:17.462Z | 1m 46s     | 1m 46s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-09: Implementation Harness E2E: follow the key rename           | 2026-11-18T17:20:17.516Z | 2026-11-18T17:22:17.614Z | 2m 0s      | 2m 0s   | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-10: Release: commit, minor version stamp, patch prepare         | 2026-11-18T17:24:40.029Z | 2026-11-21T19:32:22.355Z | 74h 7m 42s | 5m 18s  | 74h 2m 24s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-11: This repo: patch apply                                      | 2026-11-21T19:32:22.404Z | 2026-11-21T19:47:07.888Z | 14m 45s    | 4m 52s  | 9m 53s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-12: This repo: reindex-graph migration                          | 2026-11-21T19:47:07.942Z | 2026-11-21T20:05:07.437Z | 17m 59s    | 10m 12s | 7m 47s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-13: Web Docs: nav and README links                              | 2026-11-21T20:05:07.482Z | 2026-11-21T20:24:35.822Z | 19m 28s    | 4m 50s  | 14m 38s    | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-14: Web Explorer: Dogfood page                                  | 2026-11-21T20:24:35.870Z | 2026-11-21T20:24:35.978Z | 0s         | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 
 <!-- dev-metrics-step:end -->
 
@@ -268,6 +268,28 @@ Rewrote `canonical/docs/.og/cli.test.mjs`. The existing cases now follow the v1 
   - The two `.harness/evolve/` candidate copies were flagged "OG id outside docs/ left in place" by design and left alone.
 - The writer review found TD-3: `migrate` kept `#` comments from a code block as headings. It also found TD-4: overview bullet titles don't follow the title rule.
 - Checks: `build` passes. `check` reports zero in every category. `migrate --check` reports `pending: false`. The graduation edges now point at the overview pages: HLD has 3, Engineering Guide 2, and the Harness overviews 5 `story-to-product` edges plus `references`.
+- Committed as `bfaab4a`. The rerun of `migrate` changed 0 files, with `pending: false` and no dirty `.md` files. Only the DB's `indexed_at` changed, and it goes into the phase-end commit (RF-020).
+
+### Step 13 — Web Docs: nav and README links
+
+- `config.ts`: the seven section nav entries (Explore, Quick Start, Principles, Roadmap, Operational Graph, Security Scan, Distribution) now point at `…/00%20Overview`. The Lifecycles and Adoption entries already pointed at concept pages.
+- `docs/README.md`: the Harness, The Story and Security Scan links now point at `00 Overview.md`.
+- Checks:
+  - `web-docs:build` passes.
+  - All 23 nav, README and home-page link targets exist in `dist`.
+  - In preview, the section routes return 200, and the moved section `/Harness/01 Explore/` renders as a navigation page.
+  - The DB has no AppReadme tier, and the Graph Explorer bundle no longer mentions it. The remaining "AppReadme" strings are prose about its retirement.
+- The browser tools were not connected, so the visual Graph Explorer check is the developer's.
+
+### Step 14 — Web Explorer: Dogfood page
+
+- `pages/dogfood/Dogfood.tsx` and `dogfood.css` (`df-` prefix) add the page. It explains the idiom, that this repo is the canonical source and first consumer, and the four-step loop (canonical → `patch prepare` → `patch apply` → `reindex-graph`). The worked example uses the real 4.2.0 numbers from Steps 10–12.
+- `main.tsx` adds a lazy `/dogfood` route, and `Header.tsx` adds a `Dogfood` link.
+- Checks:
+  - `web-explorer:typecheck`, `:lint` and `:build` pass.
+  - `check-bundle-budget` passes at 470,849 of 614,400 bytes. Dogfood ships as its own lazy chunk.
+- Metrics note: Step 14's timing could not start while Step 13 waits on its developer check, so these check runs are recorded under Step 13.
+- Scope addition, asked for by the developer: a Graph Explorer section on the Dogfood page. It is Web Explorer's own component (`dogfood/GraphExplorer.tsx`), plain SVG with no new dependency and nothing imported from Web Docs. Its data is `dogfood/graph.json`, a 47 KB snapshot of the OG DB after migration with 205 docs and 217 authored edges. It shows concentric tier rings; hovering or clicking a doc highlights its edges and neighbours and shows its details, and the tier legend toggles tiers. typecheck, lint and build pass. The budget is 472,500 of 614,400 bytes, and the snapshot ships only in the lazy Dogfood chunk.
 
 ## Tech Debt
 
