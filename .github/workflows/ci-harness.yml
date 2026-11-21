@@ -111,6 +111,9 @@ jobs:
       - name: E2E unit specs
         run: yarn nx run implementation-harness-e2e:unit
 
+      - name: Operational graph CLI tests
+        run: yarn nx run artisyn-implementation-harness:og-test
+
   harness-cli:
     name: harness-cli (${{ matrix.os }})
     needs: [version-gate, harness-package]
