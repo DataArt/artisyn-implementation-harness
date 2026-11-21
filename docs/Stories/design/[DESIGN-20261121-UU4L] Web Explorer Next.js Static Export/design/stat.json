@@ -1,0 +1,217 @@
+{
+  "schema_version": 2,
+  "lifecycle": "design",
+  "design_revision": 0,
+  "ticket": "DESIGN-20261121-UU4L",
+  "tracking_started_at": "2026-11-21T22:24:32.790Z",
+  "ticket_created_at": null,
+  "ticket_created_source": null,
+  "started_at": "2026-11-21T22:24:32.842Z",
+  "completed_at": null,
+  "coverage": "from_tracking_start",
+  "stages": [
+    {
+      "id": "context-gathering",
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "1efe2e10-8a29-4e47-9503-0c675749cb92",
+          "started_at": "2026-11-21T22:24:32.842Z",
+          "ended_at": "2026-11-21T22:35:44.039Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
+    },
+    {
+      "id": "ceremony",
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "df7e49cf-51cc-4953-988f-964e744679af",
+          "started_at": "2026-11-21T22:35:49.459Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
+    },
+    {
+      "id": "frame",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "research",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "evaluate",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "solution",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "review-gate",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "address-feedback",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "publish",
+      "status": "pending",
+      "attempts": []
+    },
+    {
+      "id": "completion",
+      "status": "pending",
+      "attempts": []
+    }
+  ],
+  "steps": [],
+  "intervals": [
+    {
+      "id": "d9c060c9-440a-4e42-95be-f1e5bd682e65",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "1efe2e10-8a29-4e47-9503-0c675749cb92",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-21T22:24:32.842Z",
+      "ended_at": "2026-11-21T22:24:32.963Z",
+      "last_observed_at": "2026-11-21T22:24:32.963Z"
+    },
+    {
+      "id": "40fd1af0-3521-473c-80db-2953e8dbad6e",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "1efe2e10-8a29-4e47-9503-0c675749cb92",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting context-gathering sign-off",
+      "started_at": "2026-11-21T22:24:32.963Z",
+      "ended_at": "2026-11-21T22:35:43.865Z",
+      "last_observed_at": "2026-11-21T22:35:43.865Z"
+    },
+    {
+      "id": "05a7e99d-e828-4499-9f45-e9857e51c678",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "1efe2e10-8a29-4e47-9503-0c675749cb92",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-21T22:35:43.865Z",
+      "ended_at": "2026-11-21T22:35:44.039Z",
+      "last_observed_at": "2026-11-21T22:35:44.039Z"
+    },
+    {
+      "id": "695bb22b-63f5-4bc0-92a0-5273d4289e65",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "df7e49cf-51cc-4953-988f-964e744679af",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-21T22:35:49.459Z",
+      "ended_at": "2026-11-21T22:35:49.571Z",
+      "last_observed_at": "2026-11-21T22:35:49.571Z"
+    },
+    {
+      "id": "fcd6fd1b-e43c-4559-b64d-8dc9a431fa05",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "df7e49cf-51cc-4953-988f-964e744679af",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting branch checkout",
+      "started_at": "2026-11-21T22:35:49.571Z",
+      "ended_at": "2026-11-21T22:36:36.972Z",
+      "last_observed_at": "2026-11-21T22:36:36.972Z"
+    },
+    {
+      "id": "5b08269e-130a-4e68-86ed-938ffc936542",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "df7e49cf-51cc-4953-988f-964e744679af",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-21T22:36:36.972Z",
+      "ended_at": "2026-11-21T22:36:37.148Z",
+      "last_observed_at": "2026-11-21T22:36:37.148Z"
+    },
+    {
+      "id": "75529757-ad92-4cf8-9ba5-bd33cea8379b",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "df7e49cf-51cc-4953-988f-964e744679af",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting ceremony commit",
+      "started_at": "2026-11-21T22:36:37.148Z",
+      "ended_at": null,
+      "last_observed_at": "2026-11-21T22:36:37.148Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "cg-signoff-01",
+      "stage_id": "context-gathering",
+      "stage_attempt_id": "1efe2e10-8a29-4e47-9503-0c675749cb92",
+      "step": null,
+      "design_revision": 0,
+      "name": "Context Gathering sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-21T22:35:43.910Z",
+      "ended_at": "2026-11-21T22:35:43.910Z",
+      "result": "passed",
+      "evidence_ref": "Developer replied 'sounds good' in chat",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "ceremony-signoff-01",
+      "stage_id": "ceremony",
+      "stage_attempt_id": "df7e49cf-51cc-4953-988f-964e744679af",
+      "step": null,
+      "design_revision": 0,
+      "name": "Ceremony sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-21T22:36:37.020Z",
+      "ended_at": "2026-11-21T22:36:37.020Z",
+      "result": "passed",
+      "evidence_ref": "Developer checked out docs/design-20261121-uu4l-web-explorer-nextjs-static-export (verified with git)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    }
+  ],
+  "usage_samples": [],
+  "metrics": {
+    "as_of": "2026-11-21T22:36:37.148Z",
+    "lead_time_seconds": null,
+    "cycle_time_seconds": null,
+    "observed_work_seconds": 0.583,
+    "observed_wait_seconds": 718.303,
+    "open_work_seconds": 0,
+    "open_wait_seconds": 0,
+    "wait_seconds_to_date": 718.303,
+    "unclassified_seconds": 5.47199999999998,
+    "rework_seconds": 0,
+    "blocked_seconds": 0,
+    "approval_wait_seconds": 718.303,
+    "failed_checks": 0,
+    "first_pass_verification_rate": 1,
+    "human_reported_seconds": null,
+    "tokens": null,
+    "token_coverage": "unavailable"
+  }
+}
