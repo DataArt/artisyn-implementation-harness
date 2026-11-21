@@ -1,3 +1,7 @@
+---
+id: cbcd8cb0
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 3, OKF bundle layout
 
 _Produced by the 🏗 Evaluate phase. This is the judgment artifact. Options come from `design/01 Research - OKF Bundle Layout.md`._

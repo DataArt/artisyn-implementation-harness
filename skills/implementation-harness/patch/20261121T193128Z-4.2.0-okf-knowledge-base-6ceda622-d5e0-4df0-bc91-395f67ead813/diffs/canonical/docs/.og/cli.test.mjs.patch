@@ -1,0 +1,1932 @@
+--- a/canonical/docs/.og/cli.test.mjs
++++ b/canonical/docs/.og/cli.test.mjs
+@@ -5,11 +5,18 @@ import os from 'node:os';
+ import path from 'node:path';
+ import { spawnSync } from 'node:child_process';
+ import { fileURLToPath } from 'node:url';
++import { DatabaseSync } from 'node:sqlite';
+ import { build, index, reindex, query, search, list, unedge } from './cli.mjs';
++import * as og from './cli.mjs';
++import * as utils from './utils.mjs';
++import * as constants from './constants.mjs';
++import * as schema from './schema.mjs';
++import { DocsStore } from './docs.mjs';
+ import { DB_FILE, EDGE_TYPES, SCAN_EDGE_TYPES } from './constants.mjs';
+ 
+ const here = path.dirname(fileURLToPath(import.meta.url));
+ const cliPath = path.join(here, 'cli.mjs');
++const BACKUP_FILE = 'docs/.og/docs-operational-graph.v0.bak.sqlite';
+ 
+ /** @returns {string} A fresh scratch directory, removed by the caller via cleanup. */
+ function scratchDir() {
+@@ -24,7 +31,143 @@ function writeDoc(root, relPath, content) {
+   return full;
+ }
+ 
+-/** A fixture tree exercising each of the six named graduation edges, plus one
++/** Run `fn` against a fresh scratch directory, always removing it afterwards. */
++async function withDir(fn) {
++  const dir = scratchDir();
++  try {
++    return await fn(dir);
++  } finally {
++    fs.rmSync(dir, { recursive: true, force: true });
++  }
++}
++
++/** Run the CLI as a child process; `json` is the parsed stdout when it is JSON. */
++function runCli(dir, args) {
++  const result = spawnSync('node', [cliPath, ...args], { cwd: dir, encoding: 'utf8' });
++  let json = null;
++  try {
++    json = JSON.parse(result.stdout);
++  } catch {
++    // Not JSON (usage text or empty); callers that need JSON assert on it.
++  }
++  return { status: result.status, stdout: result.stdout, stderr: result.stderr, json };
++}
++
++/** Run git in `dir` with fixed author/committer dates so seeded times are predictable. */
++function git(dir, args, date = '2026-01-02T03:04:05+02:00') {
++  const result = spawnSync('git', args, {
++    cwd: dir,
++    encoding: 'utf8',
++    env: {
++      ...process.env,
++      GIT_AUTHOR_DATE: date,
++      GIT_COMMITTER_DATE: date,
++      GIT_AUTHOR_NAME: 'Fixture',
++      GIT_AUTHOR_EMAIL: 'fixture@example.invalid',
++      GIT_COMMITTER_NAME: 'Fixture',
++      GIT_COMMITTER_EMAIL: 'fixture@example.invalid',
++    },
++  });
++  assert.equal(result.status, 0, `git ${args.join(' ')} failed: ${result.stderr}`);
++  return result.stdout;
++}
++
++/** `git init` the scratch dir and commit everything in it. */
++function commitAll(dir, message = 'fixture', date) {
++  if (!fs.existsSync(path.join(dir, '.git'))) git(dir, ['init', '-q']);
++  git(dir, ['add', '-A']);
++  git(dir, ['commit', '-q', '-m', message, '--allow-empty'], date);
++}
++
++/** Every `.md` file under `dir` (excluding `.git`), as `relPath → content`. */
++function snapshotMd(dir) {
++  const out = new Map();
++  const walk = (current) => {
++    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
++      if (entry.name === '.git') continue;
++      const full = path.join(current, entry.name);
++      if (entry.isDirectory()) walk(full);
++      else if (entry.name.endsWith('.md'))
++        out.set(path.relative(dir, full), fs.readFileSync(full, 'utf8'));
++    }
++  };
++  walk(dir);
++  return out;
++}
++
++/** Parsed frontmatter data of a file, through the OG parser. */
++function fm(file) {
++  return utils.parseFrontmatter(fs.readFileSync(file, 'utf8')).data;
++}
++
++/** Open the scratch project's graph DB directly (caller closes it). */
++function openDb(dir) {
++  return new DatabaseSync(path.join(dir, DB_FILE));
++}
++
++/** Count authored (derived=0) and derived (derived=1) edges in the scratch DB. */
++function edgeCounts(dir) {
++  const db = openDb(dir);
++  try {
++    const rows = db.prepare('SELECT derived, COUNT(*) AS n FROM edges GROUP BY derived').all();
++    const counts = { authored: 0, derived: 0 };
++    for (const row of rows) counts[row.derived ? 'derived' : 'authored'] = Number(row.n);
++    return counts;
++  } finally {
++    db.close();
++  }
++}
++
++/** The pre-change (v0) schema, as OG wrote it before schema versioning existed. */
++const V0_SCHEMA = `
++CREATE TABLE IF NOT EXISTS docs (
++  id TEXT PRIMARY KEY, tier TEXT, path TEXT UNIQUE NOT NULL, title TEXT,
++  purpose TEXT, keywords TEXT, updated_at TEXT
++);
++CREATE TABLE IF NOT EXISTS edges (
++  from_id TEXT NOT NULL, to_id TEXT NOT NULL, edge_type TEXT NOT NULL,
++  derived INTEGER NOT NULL, UNIQUE(from_id, to_id, edge_type)
++);`;
++
++/** Create a v0 DB at the scratch project's DB path with the given rows and edges. */
++function createV0Db(dir, rows, edges = [], extraDdl = '') {
++  const dbPath = path.join(dir, DB_FILE);
++  fs.mkdirSync(path.dirname(dbPath), { recursive: true });
++  const db = new DatabaseSync(dbPath);
++  try {
++    db.exec(V0_SCHEMA + extraDdl);
++    const insert = db.prepare(
++      'INSERT INTO docs (id, tier, path, title, purpose, keywords, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)'
++    );
++    for (const row of rows)
++      insert.run(row.id, row.tier ?? null, row.path, row.title ?? null, null, null, '2026-01-01');
++    const edge = db.prepare(
++      'INSERT INTO edges (from_id, to_id, edge_type, derived) VALUES (?, ?, ?, ?)'
++    );
++    for (const [from, to, type, derived] of edges) edge.run(from, to, type, derived);
++  } finally {
++    db.close();
++  }
++}
++
++/** The project root of the repo this canonical copy lives in, or null in a consumer project. */
++function repoRoot() {
++  let current = here;
++  for (;;) {
++    const parent = path.dirname(current);
++    if (parent === current) return null;
++    current = parent;
++    const cli = path.join(current, 'docs/.og/cli.mjs');
++    if (
++      fs.existsSync(cli) &&
++      fs.existsSync(path.join(current, 'package.json')) &&
++      path.dirname(cli) !== here
++    )
++      return current;
++  }
++}
++
++/** A fixture tree exercising the five named graduation edges, plus one
+  * HLD/LLD mirror pair (consistent), one mirror gap, and one malformed name. */
+ function graduationFixture(root) {
+   writeDoc(root, 'docs/Target Architecture (HLD)/v1/Containers/Web.md', '# Web\n');
+@@ -36,23 +179,21 @@ function graduationFixture(root) {
+   return root;
+ }
+ 
++// --- Existing behaviour, on the v1 contract --------------------------------
++
+ test('build() creates the schema on an empty tree; a second doc cannot claim an ID already in use', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     await build({ dir });
+     assert.ok(fs.existsSync(path.join(dir, DB_FILE)));
+     const a = writeDoc(dir, 'docs/a.md', '# A\n');
+     const b = writeDoc(dir, 'docs/b.md', '# B\n');
+     await index({ dir, doc: a, id: 'dup-1' });
+     await assert.rejects(() => index({ dir, doc: b, id: 'dup-1' }));
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+ test('index() assigns IDs additively, idempotently, and collision-safe', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     const docPath = writeDoc(dir, 'docs/Example.md', '# Example\n\nBody text.\n');
+     await build({ dir });
+     await index({ dir, doc: docPath });
+@@ -61,28 +202,24 @@ test('index() assigns IDs additively, idempotently, and collision-safe', async (
+     await index({ dir, doc: docPath });
+     const twice = fs.readFileSync(docPath, 'utf8');
+     assert.equal(once, twice, 'idempotent: a second index() must not reassign or touch the doc');
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+-test('EDGE_TYPES names exactly the six Documents Flow graduation edges', () => {
++test('EDGE_TYPES names exactly the five Documents Flow graduation edges (impl-to-readme retired)', () => {
+   assert.deepEqual(
+     [...EDGE_TYPES].sort(),
+     [
+       'impl-to-engineering-guide',
+       'impl-to-hld',
+       'impl-to-lld',
+-      'impl-to-readme',
+       'story-to-hld',
+       'story-to-product',
+     ].sort()
+   );
+ });
+ 
+-test('index() writes an authored (derived=0) graduation edge for each of the six named types', async () => {
+-  const dir = scratchDir();
+-  try {
++test('index() writes an authored (derived=0) graduation edge', async () => {
++  await withDir(async (dir) => {
+     const story = writeDoc(dir, 'docs/Stories/[DEV-1] Example/impl/0-intent.md', '# Intent\n');
+     const hld = writeDoc(dir, 'docs/Target Architecture (HLD)/v1/Containers/Web.md', '# Web\n');
+     await build({ dir });
+@@ -92,28 +229,26 @@ test('index() writes an authored (derived=0) graduation edge for each of the six
+     const edges = await query({ dir, relatedTo: story, edge: 'story-to-hld' });
+     assert.equal(edges.length, 1);
+     assert.equal(edges[0].derived, 0);
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+-test('index() rejects an edge type outside the six named types', async () => {
+-  const dir = scratchDir();
+-  try {
++test('index() rejects an edge type outside the named types, including the retired impl-to-readme', async () => {
++  await withDir(async (dir) => {
+     const story = writeDoc(dir, 'docs/Stories/[DEV-1] Example/impl/0-intent.md', '# Intent\n');
+     const other = writeDoc(dir, 'docs/Other.md', '# Other\n');
+     await build({ dir });
+     await index({ dir, doc: story });
+     await index({ dir, doc: other });
+     await assert.rejects(() => index({ dir, doc: story, edge: 'not-a-real-edge', to: other }));
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    await assert.rejects(
++      () => index({ dir, doc: story, edge: 'impl-to-readme', to: other }),
++      /Unknown edge type/
++    );
++  });
+ });
+ 
+-test('index() accepts the "references" scan-edge type, written derived=0, outside the six graduation types', async () => {
+-  const dir = scratchDir();
+-  try {
++test('index() accepts the "references" scan-edge type, written derived=0, outside the graduation types', async () => {
++  await withDir(async (dir) => {
+     const a = writeDoc(dir, 'docs/A.md', '# A\n\nSee [B](./B.md).\n');
+     const b = writeDoc(dir, 'docs/B.md', '# B\n');
+     await build({ dir });
+@@ -123,18 +258,12 @@ test('index() accepts the "references" scan-edge type, written derived=0, outsid
+     const edges = await query({ dir, relatedTo: a, edge: SCAN_EDGE_TYPES[0] });
+     assert.equal(edges.length, 1);
+     assert.equal(edges[0].derived, 0);
+-    assert.ok(
+-      !EDGE_TYPES.includes(SCAN_EDGE_TYPES[0]),
+-      'sanity: not one of the six graduation types'
+-    );
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    assert.ok(!EDGE_TYPES.includes(SCAN_EDGE_TYPES[0]), 'sanity: not a graduation type');
++  });
+ });
+ 
+ test('unedge() retracts a specific edge — the review/stale-edge-cleanup path', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     const a = writeDoc(dir, 'docs/A.md', '# A\n');
+     const b = writeDoc(dir, 'docs/B.md', '# B\n');
+     await build({ dir });
+@@ -142,32 +271,24 @@ test('unedge() retracts a specific edge — the review/stale-edge-cleanup path',
+     await index({ dir, doc: b });
+     await index({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b });
+     assert.equal((await query({ dir, relatedTo: a, edge: SCAN_EDGE_TYPES[0] })).length, 1);
+-
+     await unedge({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b });
+     assert.equal((await query({ dir, relatedTo: a, edge: SCAN_EDGE_TYPES[0] })).length, 0);
+-
+     // Retracting an already-gone edge is a no-op, not an error.
+     await unedge({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b });
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+ test('unedge() rejects an unindexed --doc or --to', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     const a = writeDoc(dir, 'docs/A.md', '# A\n');
+     await build({ dir }); // indexes A.md; B.md doesn't exist yet, so it stays unindexed
+     const b = writeDoc(dir, 'docs/B.md', '# B\n');
+     await assert.rejects(() => unedge({ dir, doc: a, edge: SCAN_EDGE_TYPES[0], to: b }));
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+ test('reindex() computes mirrors-consistent and mirrors-gap, and skips a malformed name without aborting', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     graduationFixture(dir);
+     await build({ dir });
+     const result = await reindex({ dir });
+@@ -184,17 +305,14 @@ test('reindex() computes mirrors-consistent and mirrors-gap, and skips a malform
+       edge: 'mirrors-gap',
+     });
+     assert.ok(authEdges.length >= 1, 'Auth has no LLD folder — a known mirrors-gap');
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+-test('reindex() computes keyword-match edges from the stored keywords column alone — no content read', async () => {
+-  const dir = scratchDir();
+-  try {
+-    const a = writeDoc(dir, 'docs/A.md', '---\nkeywords: [marine, tusked]\n---\n\n# A\n');
+-    const b = writeDoc(dir, 'docs/B.md', '---\nkeywords: [Marine, finned]\n---\n\n# B\n');
+-    const c = writeDoc(dir, 'docs/C.md', '---\nkeywords: [desert]\n---\n\n# C\n');
++test('reindex() computes keyword-match edges from the stored tags column alone — no content read', async () => {
++  await withDir(async (dir) => {
++    const a = writeDoc(dir, 'docs/A.md', '---\ntags: [marine, tusked]\n---\n\n# A\n');
++    const b = writeDoc(dir, 'docs/B.md', '---\ntags: [Marine, finned]\n---\n\n# B\n');
++    const c = writeDoc(dir, 'docs/C.md', '---\ntags: [desert]\n---\n\n# C\n');
+     await build({ dir });
+     await index({ dir, doc: a });
+     await index({ dir, doc: b });
+@@ -205,47 +323,37 @@ test('reindex() computes keyword-match edges from the stored keywords column alo
+     assert.equal(abEdges[0].derived, 1);
+     assert.ok(
+       !(await query({ dir, relatedTo: c })).some((e) => e.edge_type === 'keyword-match'),
+-      'C shares no keywords with anything'
++      'C shares no tags with anything'
+     );
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+-test('reindex() clears stale keyword-match edges when keywords no longer overlap', async () => {
+-  const dir = scratchDir();
+-  try {
+-    const a = writeDoc(dir, 'docs/A.md', '---\nkeywords: [marine]\n---\n\n# A\n');
+-    const b = writeDoc(dir, 'docs/B.md', '---\nkeywords: [marine]\n---\n\n# B\n');
++test('reindex() clears stale keyword-match edges when tags no longer overlap', async () => {
++  await withDir(async (dir) => {
++    const a = writeDoc(dir, 'docs/A.md', '---\ntags: [marine]\n---\n\n# A\n');
++    const b = writeDoc(dir, 'docs/B.md', '---\ntags: [marine]\n---\n\n# B\n');
+     await build({ dir });
+     await index({ dir, doc: a });
+     await index({ dir, doc: b });
+     await reindex({ dir });
+     assert.equal((await query({ dir, relatedTo: a, edge: 'keyword-match' })).length, 1);
+-
+     fs.writeFileSync(a, fs.readFileSync(a, 'utf8').replace('marine', 'desert'));
+     await reindex({ dir });
+     assert.equal(
+       (await query({ dir, relatedTo: a, edge: 'keyword-match' })).length,
+       0,
+-      'stale match should be cleared once keywords diverge'
++      'stale match should be cleared once tags diverge'
+     );
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+ test('reindex() never indexes a path listed in docs/.ogignore, and prunes it if it was indexed before', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     writeDoc(dir, 'docs/Guide/01 Mine.md', '# Mine\n');
+     const foreign = writeDoc(dir, 'docs/agents/tracker.md', '# Foreign\n');
+     writeDoc(dir, 'docs/vendor/README.md', '# Vendor\n');
+     await build({ dir });
+-    assert.ok(
+-      (await search({ dir, term: 'Foreign' })).length === 1,
+-      'sanity: indexed before ignore'
+-    );
++    assert.equal((await search({ dir, term: 'Foreign' })).length, 1, 'sanity: indexed before');
+     writeDoc(
+       dir,
+       'docs/.ogignore',
+@@ -259,45 +367,33 @@ test('reindex() never indexes a path listed in docs/.ogignore, and prunes it if
+     const before = fs.readFileSync(foreign, 'utf8');
+     await build({ dir });
+     assert.equal(fs.readFileSync(foreign, 'utf8'), before, 'an ignored file is never rewritten');
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+ test('reindex() prunes a doc row (and its edges) once the file is deleted', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     const story = writeDoc(dir, 'docs/Stories/[DEV-1] Example/impl/0-intent.md', '# Intent\n');
+     const hld = writeDoc(dir, 'docs/Target Architecture (HLD)/v1/Containers/Web.md', '# Web\n');
+     await build({ dir });
+     await index({ dir, doc: story });
+     await index({ dir, doc: hld });
+     await index({ dir, doc: story, edge: 'story-to-hld', to: hld });
+-    const edgesBefore = (await query({ dir, relatedTo: story })).length;
+-    assert.ok(edgesBefore >= 1, 'sanity: the edge was written before deletion');
+-
++    assert.ok((await query({ dir, relatedTo: story })).length >= 1, 'sanity: edge written');
+     fs.rmSync(story);
+     const result = await reindex({ dir });
+     assert.equal(result.pruned.length, 1);
+-
+     const afterQuery = await query({
+       dir,
+       relatedTo: 'docs/Stories/[DEV-1] Example/impl/0-intent.md',
+     });
+     assert.deepEqual(afterQuery, [], 'pruned doc should have no remaining edges');
+     const hits = await search({ dir, term: 'Intent' });
+-    assert.ok(
+-      !hits.some((h) => h.path.endsWith('0-intent.md')),
+-      'pruned doc should not be searchable'
+-    );
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    assert.ok(!hits.some((h) => h.path.endsWith('0-intent.md')), 'pruned doc not searchable');
++  });
+ });
+ 
+ test("reindex() updates a moved doc's path in place, preserving its id and edges", async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     const story = writeDoc(dir, 'docs/Stories/[DEV-1] Example/impl/0-intent.md', '# Intent\n');
+     const hld = writeDoc(dir, 'docs/Target Architecture (HLD)/v1/Containers/Web.md', '# Web\n');
+     await build({ dir });
+@@ -306,41 +402,22 @@ test("reindex() updates a moved doc's path in place, preserving its id and edges
+     await index({ dir, doc: story, edge: 'story-to-hld', to: hld });
+     const edgesBefore = await query({ dir, relatedTo: story });
+     assert.ok(edgesBefore.length >= 1, 'sanity: the edge was written before the move');
+-
+-    const oldPath = story;
+     const newPath = path.join(dir, 'docs/Stories/archive/[DEV-1] Example/impl/0-intent.md');
+     fs.mkdirSync(path.dirname(newPath), { recursive: true });
+-    fs.renameSync(oldPath, newPath);
+-
++    fs.renameSync(story, newPath);
+     const result = await reindex({ dir });
+     assert.deepEqual(result.pruned, [], 'a move is not a deletion; nothing should be pruned');
+-
+-    const hits = await search({ dir, term: 'Intent' });
+-    const moved = hits.find((h) => h.id === storyId);
++    const moved = (await search({ dir, term: 'Intent' })).find((h) => h.id === storyId);
+     assert.ok(moved, 'moved doc should still be findable by its original id');
+-    assert.equal(
+-      moved.path,
+-      'docs/Stories/archive/[DEV-1] Example/impl/0-intent.md',
+-      'row should reflect the new path'
+-    );
+-
+-    const edgesAfter = await query({ dir, relatedTo: newPath });
+-    assert.equal(
+-      edgesAfter.length,
+-      edgesBefore.length,
+-      'edges referencing the id survive the move'
+-    );
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    assert.equal(moved.path, 'docs/Stories/archive/[DEV-1] Example/impl/0-intent.md');
++    assert.equal((await query({ dir, relatedTo: newPath })).length, edgesBefore.length);
++  });
+ });
+ 
+ test('sql.js opens and queries the exact .sqlite file node:sqlite wrote, with no conversion step', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     await build({ dir });
+-    const dbPath = path.join(dir, DB_FILE);
+-    const bytes = fs.readFileSync(dbPath);
++    const bytes = fs.readFileSync(path.join(dir, DB_FILE));
+     const initSqlJs = (await import('sql.js')).default;
+     const SQL = await initSqlJs();
+     const sqlDb = new SQL.Database(bytes);
+@@ -348,15 +425,14 @@ test('sql.js opens and queries the exact .sqlite file node:sqlite wrote, with no
+     const tableNames = result[0]?.values.map((row) => row[0]) ?? [];
+     assert.ok(tableNames.includes('docs'));
+     assert.ok(tableNames.includes('edges'));
++    // Graph Explorer reads exactly these columns; schema v1 keeps their names.
++    assert.doesNotThrow(() => sqlDb.exec('SELECT id, tier, path, title FROM docs'));
+     sqlDb.close();
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+ test('build() emits a tier-rooted Mermaid mindmap grouping docs by tier branch', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     graduationFixture(dir);
+     await build({ dir });
+     const artifact = fs.readFileSync(path.join(dir, 'docs/.og/graph.mmd'), 'utf8');
+@@ -364,126 +440,97 @@ test('build() emits a tier-rooted Mermaid mindmap grouping docs by tier branch',
+     assert.match(artifact, /root\(\("Operational Graph"\)\)/);
+     assert.match(artifact, /^\s{4}HLD$/m, 'HLD tier branch should be its own mindmap line');
+     assert.match(artifact, /^\s{4}Story$/m, 'Story tier branch should be its own mindmap line');
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+-test('the mindmap never emits classDef or inline :::class — mindmap has no classDef grammar and a bare classDef line parses as a bogus rootless node', async () => {
+-  const dir = scratchDir();
+-  try {
++test('the mindmap never emits classDef or inline :::class', async () => {
++  await withDir(async (dir) => {
+     graduationFixture(dir);
+     await build({ dir });
+     const artifact = fs.readFileSync(path.join(dir, 'docs/.og/graph.mmd'), 'utf8');
+     assert.doesNotMatch(artifact, /classDef/);
+-    assert.doesNotMatch(
+-      artifact,
+-      /:::[A-Za-z]/,
+-      'flowchart-style inline :::class is invalid mindmap syntax'
+-    );
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    assert.doesNotMatch(artifact, /:::[A-Za-z]/);
++  });
+ });
+ 
+ test('the mindmap quotes node text so an embedded quote cannot break the diagram', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     writeDoc(dir, 'docs/Quoted.md', '# A "quoted" title\n');
+     await build({ dir });
+     const artifact = fs.readFileSync(path.join(dir, 'docs/.og/graph.mmd'), 'utf8');
+-    assert.doesNotMatch(
+-      artifact,
+-      /A "quoted" title/,
+-      'an unescaped quote would split the node text'
+-    );
++    assert.doesNotMatch(artifact, /A "quoted" title/);
+     assert.match(artifact, /#quot;quoted#quot;/);
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+-test('frontmatter purpose:/keywords: map to docs.purpose/docs.keywords, surfaced by search()', async () => {
+-  const dir = scratchDir();
+-  try {
++test('frontmatter description:/tags: map to docs.description/docs.tags, surfaced by search()', async () => {
++  await withDir(async (dir) => {
+     const doc = writeDoc(
+       dir,
+       'docs/Described.md',
+-      '---\npurpose: a doc about narwhals\nkeywords: [marine, tusked]\n---\n\n# Described\n'
++      '---\ndescription: a doc about narwhals\ntags: [marine, tusked]\n---\n\n# Described\n'
+     );
+     await build({ dir });
+     await index({ dir, doc });
+-    const hits = await search({ dir, term: 'narwhals' });
+-    assert.ok(hits.some((h) => h.path.endsWith('Described.md')));
++    assert.ok(
++      (await search({ dir, term: 'narwhals' })).some((h) => h.path.endsWith('Described.md'))
++    );
+     assert.ok((await search({ dir, term: 'tusked' })).length >= 1);
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    const row = (await list({ dir })).find((r) => r.path === 'docs/Described.md');
++    assert.equal(row.description, 'a doc about narwhals');
++  });
+ });
+ 
+-test('list({missing}) finds docs lacking purpose/keywords — a pure query, never writes', async () => {
+-  const dir = scratchDir();
+-  try {
++test('list({missing}) finds docs lacking description/tags — a pure query, never writes', async () => {
++  await withDir(async (dir) => {
+     const bare = writeDoc(dir, 'docs/Bare.md', '# Bare\n');
+     const described = writeDoc(
+       dir,
+       'docs/Described.md',
+-      '---\npurpose: has one\nkeywords: [a]\n---\n\n# Described\n'
++      '---\ndescription: has one\ntags: [a]\n---\n\n# Described\n'
+     );
+     await build({ dir });
+     await index({ dir, doc: bare });
+     await index({ dir, doc: described });
+-
+-    const missingBoth = await list({ dir, missing: 'purpose,keywords' });
++    const missingBoth = await list({ dir, missing: 'description,tags' });
+     assert.ok(missingBoth.some((row) => row.path.endsWith('Bare.md')));
+     assert.ok(!missingBoth.some((row) => row.path.endsWith('Described.md')));
+-
+     const before = fs.readFileSync(bare, 'utf8');
+-    await list({ dir, missing: 'purpose' });
++    await list({ dir, missing: 'description' });
+     assert.equal(fs.readFileSync(bare, 'utf8'), before, 'list() must never write to a doc');
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+-test('list() rejects an unknown --missing field', async () => {
+-  const dir = scratchDir();
+-  try {
++test('list() rejects an unknown --missing field, including the retired purpose/keywords', async () => {
++  await withDir(async (dir) => {
+     await build({ dir });
+-    await assert.rejects(() => list({ dir, missing: 'description' }));
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    await assert.rejects(() => list({ dir, missing: 'purpose' }));
++    await assert.rejects(() => list({ dir, missing: 'keywords' }));
++    await assert.rejects(() => list({ dir, missing: 'nonsense' }));
++  });
+ });
+ 
+ test('list() with no --missing returns every indexed doc', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     const a = writeDoc(dir, 'docs/A.md', '# A\n');
+-    const b = writeDoc(dir, 'docs/B.md', '---\npurpose: has one\nkeywords: [x]\n---\n\n# B\n');
++    const b = writeDoc(dir, 'docs/B.md', '---\ndescription: has one\ntags: [x]\n---\n\n# B\n');
+     await build({ dir });
+     await index({ dir, doc: a });
+     await index({ dir, doc: b });
+     const all = await list({ dir });
+     assert.equal(all.length, 2);
+-    assert.ok(all.some((row) => row.path.endsWith('A.md')));
+-    assert.ok(all.some((row) => row.path.endsWith('B.md')));
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++  });
+ });
+ 
+ test('search() finds a doc by term', async () => {
+-  const dir = scratchDir();
+-  try {
++  await withDir(async (dir) => {
+     writeDoc(dir, 'docs/Findable.md', '# Findable\n\nUnique keyword: xylophone.\n');
+     await build({ dir });
+     await index({ dir, doc: path.join(dir, 'docs/Findable.md') });
+-    const hits = await search({ dir, term: 'xylophone' });
+-    assert.ok(hits.some((h) => h.path.endsWith('Findable.md')));
+-  } finally {
+-    fs.rmSync(dir, { recursive: true, force: true });
+-  }
++    assert.ok(
++      (await search({ dir, term: 'xylophone' })).some((h) => h.path.endsWith('Findable.md'))
++    );
++  });
+ });
+ 
+ for (const [name, args] of [
+@@ -492,18 +539,20 @@ for (const [name, args] of [
+   ['reindex', ['reindex', '--dir', '.']],
+   ['query', ['query', '--dir', '.', '--related-to', 'x']],
+   ['search', ['search', '--dir', '.', '--term', 'x']],
+-  ['list', ['list', '--dir', '.', '--missing', 'purpose,keywords']],
++  ['list', ['list', '--dir', '.', '--missing', 'description,tags']],
+   [
+     'unedge',
+     ['unedge', '--dir', '.', '--doc', 'docs/x.md', '--edge', 'references', '--to', 'docs/y.md'],
+   ],
++  ['check', ['check', '--dir', '.']],
++  ['migrate', ['migrate', '--dir', '.', '--check']],
++  ['migrate --dry-run --allow-dirty', ['migrate', '--dir', '.', '--dry-run', '--allow-dirty']],
+ ]) {
+   test(`CLI subcommand "${name}" parses its flags and dispatches`, () => {
+     const dir = scratchDir();
+     try {
+       const result = spawnSync('node', [cliPath, ...args], { cwd: dir, encoding: 'utf8' });
+-      // A real run may fail on fixture content, but must not fail on argument parsing.
+-      assert.doesNotMatch(result.stderr ?? '', /unknown option|ERR_PARSE_ARGS/i);
++      assert.doesNotMatch(result.stderr ?? '', /unknown option|ERR_PARSE_ARGS|Unknown command/i);
+     } finally {
+       fs.rmSync(dir, { recursive: true, force: true });
+     }
+@@ -513,6 +562,1214 @@ for (const [name, args] of [
+ test('CLI entry prints usage for --help or an unknown subcommand', () => {
+   const help = spawnSync('node', [cliPath, '--help'], { encoding: 'utf8' });
+   assert.match(help.stdout + help.stderr, /usage/i);
++  assert.match(help.stdout, /migrate/);
++  assert.match(help.stdout, /check/);
+   const unknown = spawnSync('node', [cliPath, 'not-a-command'], { encoding: 'utf8' });
+   assert.notEqual(unknown.status, 0);
+ });
++
++// --- AC-1 · Scope guard ------------------------------------------------------
++
++const OUT_OF_SCOPE = [
++  ['apps/x/README.md', 'outside-docs'],
++  ['docs/.og/x.md', 'og-internal'],
++  ['docs/Engineering Guide/index.md', 'reserved-basename'],
++  ['docs/Engineering Guide/a/log.md', 'reserved-basename'],
++  ['docs/Engineering Guide/a/Index.md', 'reserved-basename'],
++  ['docs/Engineering Guide/a/LOG.MD', 'reserved-basename'],
++  ['docs/misc/index.md', 'reserved-basename'],
++  ['docs/Harness/index.md', 'reserved-basename'],
++  ['docs/vendor/a.md', 'ogignore'],
++];
++
++test('inScope() applies the four rules in order and accepts docs/index.md', () => {
++  for (const [relPath, rule] of OUT_OF_SCOPE) {
++    const result = utils.inScope(relPath, ['docs/vendor']);
++    assert.equal(result.ok, false, relPath);
++    assert.equal(result.rule, rule, relPath);
++    assert.match(result.message, new RegExp(`^Out of scope \\[${rule}\\]: `));
++  }
++  assert.deepEqual(utils.inScope('docs/index.md', []), { ok: true });
++  assert.deepEqual(utils.inScope('docs/Harness/07 Operational Graph/01 Ops Model.md', []), {
++    ok: true,
++  });
++  assert.equal(utils.inScope('../x.md', []).rule, 'outside-docs');
++});
++
++test('index --doc rejects every out-of-scope path, names the rule and leaves the file unchanged', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/.ogignore', 'docs/vendor/\n');
++    await build({ dir });
++    for (const [relPath, rule] of OUT_OF_SCOPE) {
++      const file = writeDoc(dir, relPath, '# Guarded\n');
++      await assert.rejects(
++        () => index({ dir, doc: file }),
++        new RegExp(`Out of scope \\[${rule}\\]`)
++      );
++      assert.equal(fs.readFileSync(file, 'utf8'), '# Guarded\n', `${relPath} must not be written`);
++    }
++    const cli = runCli(dir, ['index', '--dir', '.', '--doc', 'docs/Engineering Guide/index.md']);
++    assert.equal(cli.status, 1);
++    assert.match(
++      cli.stderr,
++      /Out of scope \[reserved-basename\]: docs\/Engineering Guide\/index\.md/
++    );
++  });
++});
++
++test('index --doc accepts the docs-root docs/index.md', async () => {
++  await withDir(async (dir) => {
++    const home = writeDoc(dir, 'docs/index.md', '# Home\n');
++    await build({ dir });
++    const { id } = await index({ dir, doc: home });
++    assert.ok(id);
++    assert.equal(fm(home).id, id);
++  });
++});
++
++test('index --to on an out-of-scope target fails before anything is written to --doc', async () => {
++  await withDir(async (dir) => {
++    const doc = writeDoc(dir, 'docs/Engineering Guide/01 A.md', '# A\n');
++    writeDoc(dir, 'docs/Engineering Guide/index.md', '# Guide\n');
++    const before = fs.readFileSync(doc, 'utf8');
++    await assert.rejects(
++      () => index({ dir, doc, edge: 'references', to: 'docs/Engineering Guide/index.md' }),
++      /Out of scope \[reserved-basename\]/
++    );
++    assert.equal(fs.readFileSync(doc, 'utf8'), before, 'no id stamped on --doc');
++  });
++});
++
++test('DocsStore.assign throws the rule message and writes no row or frontmatter', async () => {
++  await withDir(async (dir) => {
++    await build({ dir });
++    const db = openDb(dir);
++    try {
++      const store = new DocsStore(db);
++      for (const [relPath, rule] of OUT_OF_SCOPE.filter(([, r]) => r !== 'ogignore')) {
++        const file = writeDoc(dir, relPath, '# Guarded\n');
++        assert.throws(() => store.assign(dir, file), new RegExp(`Out of scope \\[${rule}\\]`));
++        assert.equal(fs.readFileSync(file, 'utf8'), '# Guarded\n');
++      }
++      assert.equal(store.all().length, 0);
++    } finally {
++      db.close();
++    }
++  });
++});
++
++test('reindex skips out-of-scope files silently, indexes docs/index.md, reports no violations', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/.ogignore', 'docs/vendor/\n');
++    for (const [relPath] of OUT_OF_SCOPE) writeDoc(dir, relPath, '# Plain\n');
++    writeDoc(dir, 'docs/index.md', '# Home\n');
++    writeDoc(dir, 'docs/Engineering Guide/01 Valid.md', '# Valid\n');
++    const result = await reindex({ dir });
++    assert.deepEqual(result.scopeViolations, []);
++    const paths = (await list({ dir })).map((row) => row.path).sort();
++    assert.deepEqual(paths, ['docs/Engineering Guide/01 Valid.md', 'docs/index.md']);
++    for (const [relPath] of OUT_OF_SCOPE)
++      assert.equal(fs.readFileSync(path.join(dir, relPath), 'utf8'), '# Plain\n');
++  });
++});
++
++// --- AC-2 · Violations, prune safety, retirements ---------------------------
++
++test('scopeViolations lists an out-of-scope file that still carries an OG id', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/Engineering Guide/a/index.md', '---\nid: 9b41c7e0\n---\n\n# A\n');
++    const result = await reindex({ dir });
++    assert.deepEqual(result.scopeViolations, [
++      { path: 'docs/Engineering Guide/a/index.md', rule: 'reserved-basename' },
++    ]);
++  });
++});
++
++test('prune keeps a reserved index.md row while it carries the id, then lists its authored edges in orphanedAuthored', async () => {
++  await withDir(async (dir) => {
++    const indexFile = writeDoc(
++      dir,
++      'docs/Engineering Guide/a/index.md',
++      '---\nid: 9b41c7e0\n---\n\n# A\n'
++    );
++    writeDoc(
++      dir,
++      'docs/Stories/[DEV-1] X/impl/0-intent.md',
++      '---\nid: 5d2e8a13\n---\n\n# Intent\n'
++    );
++    createV0Db(
++      dir,
++      [
++        { id: '9b41c7e0', path: 'docs/Engineering Guide/a/index.md', tier: 'EngineeringGuide' },
++        { id: '5d2e8a13', path: 'docs/Stories/[DEV-1] X/impl/0-intent.md', tier: 'Story' },
++      ],
++      [['5d2e8a13', '9b41c7e0', 'impl-to-engineering-guide', 0]]
++    );
++    const kept = await reindex({ dir });
++    assert.deepEqual(kept.pruned, []);
++    assert.deepEqual(kept.orphanedAuthored, []);
++    assert.equal(edgeCounts(dir).authored, 1, 'edge stays while the id is still in the file');
++
++    fs.writeFileSync(indexFile, '# A\n');
++    const pruned = await reindex({ dir });
++    assert.deepEqual(pruned.pruned, ['9b41c7e0']);
++    assert.deepEqual(pruned.orphanedAuthored, [
++      {
++        edge: 'impl-to-engineering-guide',
++        fromId: '5d2e8a13',
++        fromPath: 'docs/Stories/[DEV-1] X/impl/0-intent.md',
++        toId: '9b41c7e0',
++        toPath: 'docs/Engineering Guide/a/index.md',
++        prunedId: '9b41c7e0',
++      },
++    ]);
++  });
++});
++
++test('orphanedAuthored reports an authored edge whose doc became out of scope', async () => {
++  await withDir(async (dir) => {
++    const a = writeDoc(dir, 'docs/Guide/A.md', '# A\n');
++    const b = writeDoc(dir, 'docs/Guide/B.md', '# B\n');
++    await build({ dir });
++    const { id: aId } = await index({ dir, doc: a });
++    const { id: bId } = await index({ dir, doc: b });
++    await index({ dir, doc: a, edge: 'references', to: b });
++    fs.rmSync(b);
++    writeDoc(dir, 'docs/Guide/index.md', '# B renamed to a reserved name\n');
++    const result = await reindex({ dir });
++    assert.deepEqual(result.pruned, [bId]);
++    assert.equal(result.orphanedAuthored.length, 1);
++    assert.equal(result.orphanedAuthored[0].fromId, aId);
++    assert.equal(result.orphanedAuthored[0].prunedId, bId);
++  });
++});
++
++test('AppReadme and APP_README_PATTERN are retired from the OG constants', () => {
++  assert.equal(constants.APP_README_PATTERN, undefined);
++  assert.equal(Object.hasOwn(constants.TIER_COLORS, 'AppReadme'), false);
++  assert.deepEqual(constants.TIER_NAMES, ['HLD', 'LLD', 'EngineeringGuide', 'Product', 'Story']);
++});
++
++// --- AC-3 · YAML-subset parser and B+ writer -------------------------------
++
++const ACCEPTED_FORMS = [
++  ['plain scalar', 'title: Discuss Container', { title: 'Discuss Container' }],
++  ['single-quoted', "description: 'Ops: graph model'", { description: 'Ops: graph model' }],
++  ['double-quoted', 'description: "Ops: graph model"', { description: 'Ops: graph model' }],
++  ['escaped single quote', "description: 'It''s here'", { description: "It's here" }],
++  ['flow list', 'tags: [discuss, giscus, hld]', { tags: ['discuss', 'giscus', 'hld'] }],
++  [
++    'wrapped flow list',
++    'tags:\n  [discuss, giscus,\n   hld]',
++    { tags: ['discuss', 'giscus', 'hld'] },
++  ],
++  [
++    'prettier-wrapped flow list',
++    'tags:\n  [\n    discuss,\n    giscus,\n    hld,\n  ]',
++    { tags: ['discuss', 'giscus', 'hld'] },
++  ],
++  ['block list', 'tags:\n  - discuss\n  - giscus', { tags: ['discuss', 'giscus'] }],
++  [
++    'flow mapping',
++    'updated: { by: process:okf-migration, at: 2026-11-17T10:00:00Z }',
++    { updated: { by: 'process:okf-migration', at: '2026-11-17T10:00:00Z' } },
++  ],
++  [
++    'block mapping',
++    'updated:\n  by: artisyn-harness/4.1\n  at: 2026-11-17T10:00:00Z',
++    { updated: { by: 'artisyn-harness/4.1', at: '2026-11-17T10:00:00Z' } },
++  ],
++  ['quoted okf_version', "okf_version: '0.2'", { okf_version: '0.2' }],
++  ['blank lines between keys', 'a: 1\n\nb: two', { a: '1', b: 'two' }],
++];
++
++for (const [name, yaml, expected] of ACCEPTED_FORMS) {
++  test(`parseFrontmatter accepts ${name}`, () => {
++    const parsed = utils.parseFrontmatter(`---\n${yaml}\n---\n\n# Body\n`);
++    assert.deepEqual(parsed.errors, []);
++    assert.deepEqual({ ...parsed.data }, expected);
++    assert.equal(parsed.body, '\n# Body\n');
++  });
++}
++
++const REJECTED_FORMS = [
++  ['deeper nesting', 'updated:\n  by:\n    name: x', 3],
++  ['anchor', 'generated: &g { by: x, at: y }', 2],
++  ['alias', 'updated: *g', 2],
++  ['block scalar', 'tagline: >\n  folded text', 2],
++  ['document end marker', 'a: 1\n...\nb: 2', 3],
++];
++
++for (const [name, yaml, line] of REJECTED_FORMS) {
++  test(`parseFrontmatter rejects ${name} with a line number`, () => {
++    const parsed = utils.parseFrontmatter(`---\nid: abc12345\n${yaml}\n---\n\n# Body\n`);
++    assert.ok(parsed.errors.length >= 1, 'an error is reported');
++    assert.equal(parsed.errors[0].line, line + 1, 'line is 1-based in the file');
++    assert.ok(parsed.errors[0].reason);
++    assert.equal(parsed.data.id, 'abc12345', 'parseable keys are still returned');
++  });
++}
++
++test('CRLF line endings and a UTF-8 BOM parse to the same values as LF without BOM', () => {
++  const lf = '---\nid: abc12345\ntags:\n  [a,\n   b]\ndescription: x\n---\n\n# T\n';
++  const crlf = lf.replace(/\n/g, '\r\n');
++  const bom = '﻿' + lf;
++  const expected = utils.parseFrontmatter(lf).data;
++  assert.deepEqual(utils.parseFrontmatter(crlf).data, expected);
++  assert.deepEqual(utils.parseFrontmatter(bom).data, expected);
++  assert.deepEqual(utils.parseFrontmatter(crlf).errors, []);
++});
++
++test('writeFrontmatter emits the B+ key order and round-trips', () => {
++  const data = {
++    tags: ['a', 'b'],
++    aside: 'false',
++    description: 'Ops: graph model',
++    id: 'f84dc7bb',
++    updated: { by: 'process:okf-migration', at: '2026-11-17T10:00:00Z' },
++    title: 'Discuss Container',
++    type: 'Container',
++    generated: { by: 'artisyn-harness/4.1', at: '2026-11-02T09:00:00Z' },
++  };
++  const block = utils.writeFrontmatter(data);
++  assert.equal(
++    block,
++    [
++      '---',
++      'id: f84dc7bb',
++      'type: Container',
++      'title: Discuss Container',
++      "description: 'Ops: graph model'",
++      'tags: [a, b]',
++      'generated: { by: artisyn-harness/4.1, at: 2026-11-02T09:00:00Z }',
++      'updated: { by: process:okf-migration, at: 2026-11-17T10:00:00Z }',
++      'aside: false',
++      '---',
++      '',
++    ].join('\n')
++  );
++  assert.deepEqual({ ...utils.parseFrontmatter(block + '\n# T\n').data }, { ...data });
++});
++
++test('golden round-trip: every doc in this repo parses, writes and re-parses to equal values', (t) => {
++  const root = repoRoot();
++  if (!root) return t.skip('not inside the canonical source repo');
++  const rejected = [];
++  let keywordsDocs = 0;
++  let wrapped = 0;
++  const walk = (current) => {
++    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
++      const full = path.join(current, entry.name);
++      const rel = path.relative(root, full).split(path.sep).join('/');
++      if (entry.isDirectory()) {
++        if (rel !== 'docs/.og') walk(full);
++        continue;
++      }
++      if (!entry.name.endsWith('.md')) continue;
++      const content = fs.readFileSync(full, 'utf8');
++      const first = utils.parseFrontmatter(content);
++      if (first.errors.length) {
++        rejected.push(rel);
++        continue;
++      }
++      if (first.raw === null) continue;
++      const again = utils.parseFrontmatter(utils.writeFrontmatter(first.data) + first.body);
++      assert.deepEqual({ ...again.data }, { ...first.data }, rel);
++      assert.deepEqual(again.errors, [], rel);
++      const keywords = first.data.keywords ?? first.data.tags;
++      if (keywords !== undefined) {
++        keywordsDocs += 1;
++        if (/^(keywords|tags):\s*$/m.test(first.raw)) wrapped += 1;
++        assert.ok(Array.isArray(keywords) && keywords.length > 0, `${rel}: tags parse non-empty`);
++      }
++    }
++  };
++  walk(path.join(root, 'docs'));
++  assert.deepEqual(
++    rejected,
++    ['docs/index.md'],
++    'only the VitePress home uses YAML outside the subset'
++  );
++  assert.ok(keywordsDocs > 0);
++  t.diagnostic(
++    `${keywordsDocs} docs carry tags; ${wrapped} use a wrapped list the old parser read as empty`
++  );
++});
++
++test('writer output is Prettier-stable', (t) => {
++  const root = repoRoot();
++  if (!root) return t.skip('not inside the canonical source repo');
++  const dir = scratchDir();
++  try {
++    const long = Array.from({ length: 18 }, (_, i) => `keyword-number-${i}`);
++    const file = path.join(dir, 'Doc.md');
++    fs.writeFileSync(
++      file,
++      utils.writeFrontmatter({
++        id: 'abc12345',
++        type: 'Guide',
++        title: 'A title',
++        description: "It's: a description",
++        tags: long,
++        generated: { by: 'process:okf-migration', at: '2026-01-01T00:00:00Z' },
++        updated: { by: 'process:okf-migration', at: '2026-01-02T00:00:00Z' },
++      }) + '\n# A title\n'
++    );
++    const run = spawnSync(
++      'yarn',
++      ['prettier', '--check', '--config', path.join(root, '.prettierrc.json'), file],
++      { cwd: root, encoding: 'utf8' }
++    );
++    assert.equal(run.status, 0, run.stdout + run.stderr);
++  } finally {
++    fs.rmSync(dir, { recursive: true, force: true });
++  }
++});
++
++// --- AC-4 · Type stamping and read-compat -----------------------------------
++
++test('index --doc stamps a missing type from the type map; reindex never does', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/.og/og.config.json', '{"productDir": "docs/Harness"}');
++    const cases = [
++      ['docs/Target Architecture (HLD)/v1/Containers/Web.md', 'Container'],
++      ['docs/Target Architecture (HLD)/README.md', 'Version Router'],
++      ['docs/Target Architecture (HLD)/v1/Other.md', 'HLD'],
++      ['docs/System Architecture (LLD)/README.md', 'Component Registry'],
++      ['docs/System Architecture (LLD)/Web/00. Overview.md', 'Component Design'],
++      ['docs/Engineering Guide/Documentation/01 Principles.md', 'Guide'],
++      ['docs/Harness/07 Operational Graph/01 Ops Model.md', 'Product Concept'],
++      ['docs/Stories/design/approved/[D-1] X/design/00 Frame.md', 'Design Frame'],
++      ['docs/Stories/[D-1] X/solution/Design - A.md', 'Solution Design'],
++      ['docs/Stories/[D-1] X/impl/1-plan.md', 'Implementation Plan'],
++      ['docs/Stories/[D-1] X/notes.md', 'Story Note'],
++      ['docs/README.md', 'Reference'],
++    ];
++    await build({ dir });
++    for (const [relPath, type] of cases) {
++      const file = writeDoc(dir, relPath, '# Doc\n');
++      await index({ dir, doc: file });
++      assert.equal(fm(file).type, type, relPath);
++    }
++    const viaReindex = writeDoc(dir, 'docs/Engineering Guide/02 Later.md', '# Later\n');
++    await reindex({ dir });
++    const data = fm(viaReindex);
++    assert.ok(data.id, 'reindex still stamps id');
++    assert.equal(data.type, undefined, 'reindex never stamps type');
++    const report = await og.check({ dir });
++    assert.ok(
++      report.missingFields.some(
++        (m) => m.path === 'docs/Engineering Guide/02 Later.md' && m.fields.includes('type')
++      )
++    );
++  });
++});
++
++test('index --doc keeps an existing type and exits 1 on unparseable frontmatter, naming the line', async () => {
++  await withDir(async (dir) => {
++    const kept = writeDoc(dir, 'docs/Engineering Guide/A.md', '---\ntype: Runbook\n---\n\n# A\n');
++    const bad = writeDoc(
++      dir,
++      'docs/Engineering Guide/B.md',
++      '---\nid: abc12345\nx: &a 1\n---\n\n# B\n'
++    );
++    await build({ dir });
++    await index({ dir, doc: kept });
++    assert.equal(fm(kept).type, 'Runbook');
++    const cli = runCli(dir, ['index', '--dir', '.', '--doc', 'docs/Engineering Guide/B.md']);
++    assert.equal(cli.status, 1);
++    assert.match(cli.stderr, /B\.md.*line 3/);
++    assert.equal(fs.readFileSync(bad, 'utf8'), '---\nid: abc12345\nx: &a 1\n---\n\n# B\n');
++  });
++});
++
++test('reindex indexes the parseable keys of a bad doc and reports frontmatterErrors', async () => {
++  await withDir(async (dir) => {
++    writeDoc(
++      dir,
++      'docs/Guide/B.md',
++      '---\nid: abc12345\ndescription: still read\nx: &a 1\n---\n\n# B\n'
++    );
++    const result = await reindex({ dir });
++    assert.deepEqual(
++      result.frontmatterErrors.map(({ path: p, line }) => ({ path: p, line })),
++      [{ path: 'docs/Guide/B.md', line: 4 }]
++    );
++    const row = (await list({ dir })).find((r) => r.path === 'docs/Guide/B.md');
++    assert.equal(row.id, 'abc12345');
++    assert.equal(row.description, 'still read');
++  });
++});
++
++test('read-compat window: an unmigrated doc builds with description/tags read from purpose/keywords', async () => {
++  await withDir(async (dir) => {
++    writeDoc(
++      dir,
++      'docs/Old.md',
++      "---\nid: old00001\npurpose: 'Legacy: purpose'\nkeywords:\n  [legacy, wrapped]\n---\n\n# Old\n"
++    );
++    await build({ dir });
++    const row = (await list({ dir })).find((r) => r.path === 'docs/Old.md');
++    assert.equal(row.description, 'Legacy: purpose');
++    assert.deepEqual(utils.parseKeywords(row.tags), ['legacy', 'wrapped']);
++    assert.ok((await search({ dir, term: 'wrapped' })).length === 1);
++  });
++});
++
++// --- AC-5 · Schema v1 and on-open migration ---------------------------------
++
++test('a v0 DB migrates to v1 on open, keeps rows and edges, and leaves a v0 backup', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/A.md', '---\nid: aaaa0001\n---\n\n# A\n');
++    writeDoc(dir, 'docs/B.md', '---\nid: bbbb0001\n---\n\n# B\n');
++    createV0Db(
++      dir,
++      [
++        { id: 'aaaa0001', path: 'docs/A.md' },
++        { id: 'bbbb0001', path: 'docs/B.md' },
++      ],
++      [
++        ['aaaa0001', 'bbbb0001', 'references', 0],
++        ['aaaa0001', 'bbbb0001', 'keyword-match', 1],
++      ]
++    );
++    await list({ dir });
++    const db = openDb(dir);
++    try {
++      assert.equal(db.prepare('PRAGMA user_version').get().user_version, 1);
++      const columns = db
++        .prepare('PRAGMA table_info(docs)')
++        .all()
++        .map((c) => c.name);
++      for (const column of [
++        'type',
++        'description',
++        'tags',
++        'created_at',
++        'modified_at',
++        'indexed_at',
++      ])
++        assert.ok(columns.includes(column), column);
++      for (const column of ['purpose', 'keywords', 'updated_at'])
++        assert.ok(!columns.includes(column), column);
++      assert.equal(db.prepare('SELECT COUNT(*) AS n FROM docs').get().n, 2);
++      assert.equal(db.prepare('SELECT COUNT(*) AS n FROM edges').get().n, 2);
++    } finally {
++      db.close();
++    }
++    const backup = new DatabaseSync(path.join(dir, BACKUP_FILE));
++    try {
++      assert.equal(backup.prepare('PRAGMA user_version').get().user_version, 0);
++    } finally {
++      backup.close();
++    }
++  });
++});
++
++test('a greenfield build creates the DB at v1 with no backup', async () => {
++  await withDir(async (dir) => {
++    await build({ dir });
++    const db = openDb(dir);
++    try {
++      assert.equal(db.prepare('PRAGMA user_version').get().user_version, schema.SCHEMA_VERSION);
++      assert.equal(schema.SCHEMA_VERSION, 1);
++    } finally {
++      db.close();
++    }
++    assert.equal(fs.existsSync(path.join(dir, BACKUP_FILE)), false);
++  });
++});
++
++test('a DB newer than this OG makes every command exit 1 and stays untouched', async () => {
++  await withDir(async (dir) => {
++    await build({ dir });
++    const db = openDb(dir);
++    db.exec('PRAGMA user_version = 2');
++    db.close();
++    const before = fs.readFileSync(path.join(dir, DB_FILE));
++    await assert.rejects(() => build({ dir }), /database newer than this OG/);
++    const cli = runCli(dir, ['list', '--dir', '.']);
++    assert.equal(cli.status, 1);
++    assert.match(cli.stderr, /database newer than this OG/);
++    assert.deepEqual(fs.readFileSync(path.join(dir, DB_FILE)), before);
++  });
++});
++
++test('a failed v0→v1 migration rolls back, stays v0 and names the failing statement', async () => {
++  await withDir(async (dir) => {
++    createV0Db(dir, [], [], '\nALTER TABLE docs ADD COLUMN description TEXT;');
++    await assert.rejects(() => build({ dir }), /RENAME COLUMN purpose TO description/);
++    const db = openDb(dir);
++    try {
++      assert.equal(db.prepare('PRAGMA user_version').get().user_version, 0);
++      const columns = db
++        .prepare('PRAGMA table_info(docs)')
++        .all()
++        .map((c) => c.name);
++      assert.ok(columns.includes('purpose') && columns.includes('keywords'));
++    } finally {
++      db.close();
++    }
++  });
++});
++
++test('the canonical seed DB is at v1 and the backup is git-ignored by the shipped gitignore', () => {
++  const seed = new DatabaseSync(path.join(here, 'docs-operational-graph.sqlite'));
++  try {
++    assert.equal(seed.prepare('PRAGMA user_version').get().user_version, 1);
++  } finally {
++    seed.close();
++  }
++  const ignore = fs.readFileSync(path.join(here, 'gitignore'), 'utf8');
++  assert.match(ignore, /^docs-operational-graph\.v0\.bak\.sqlite$/m);
++});
++
++// --- AC-6 · og.config.json and CLI renames ----------------------------------
++
++test('og.config.json productDir sets the Product tier with a trailing-slash prefix match', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/.og/og.config.json', '{"productDir": "docs/Harness"}');
++    writeDoc(dir, 'docs/Harness/A.md', '# A\n');
++    writeDoc(dir, 'docs/HarnessX/B.md', '# B\n');
++    await build({ dir });
++    const rows = await list({ dir });
++    assert.equal(rows.find((r) => r.path === 'docs/Harness/A.md').tier, 'Product');
++    assert.equal(rows.find((r) => r.path === 'docs/HarnessX/B.md').tier, null);
++  });
++});
++
++test('without og.config.json there is no Product tier', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/Harness/A.md', '# A\n');
++    await build({ dir });
++    assert.equal((await list({ dir }))[0].tier, null);
++  });
++});
++
++for (const [productDir, reason] of [
++  ['docs/Stories/Product', /overlaps/],
++  ['apps/product', /under docs\//],
++  ['docs/.og', /docs\/\.og/],
++]) {
++  test(`an invalid productDir (${productDir}) is reported as invalidConfig, exit 0; index on it exits 1`, async () => {
++    await withDir(async (dir) => {
++      writeDoc(dir, 'docs/.og/og.config.json', JSON.stringify({ productDir }));
++      writeDoc(dir, 'docs/Guide/A.md', '# A\n');
++      const result = await reindex({ dir });
++      assert.match(result.invalidConfig?.reason ?? '', reason);
++      if (productDir === 'docs/Stories/Product') {
++        const file = writeDoc(dir, 'docs/Stories/Product/a.md', '# A\n');
++        await assert.rejects(() => index({ dir, doc: file }), /invalidConfig/);
++      }
++      const cli = runCli(dir, ['reindex', '--dir', '.']);
++      assert.equal(cli.status, 0);
++    });
++  });
++}
++
++// --- AC-7 · migrate -----------------------------------------------------------
++
++/** An older-harness project: v0 DB, OG-era frontmatter, content-bearing index pages,
++ * an impl-to-readme/references duplicate pair, a stray id outside docs/, and a
++ * stored Q10c answer that names the Product folder. */
++function olderHarnessFixture(dir) {
++  writeDoc(
++    dir,
++    '.harness/state/answers.json',
++    JSON.stringify({
++      schema_version: 1,
++      answers: { Q10b: { value: 'Two-track' }, Q10c: { value: 'Harness' } },
++    })
++  );
++  const home =
++    '---\nid: home0001\npurpose: Home\nkeywords: [home]\nlayout: home\n\nhero:\n  name: X\n  tagline: >\n    folded\n---\n\n# Home\n\n[Harness](/Harness/)\n';
++  writeDoc(dir, 'docs/index.md', home);
++  writeDoc(
++    dir,
++    'docs/README.md',
++    '---\nid: readme01\npurpose: Root router\nkeywords: [router]\n---\n\n# Docs\n\n- [Harness](Harness/index.md)\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Harness/index.md',
++    "---\nid: harn0001\npurpose: 'Harness: overview'\nkeywords:\n  [harness, product]\n---\n\n# Harness\n\nThe harness is a thing.\n\n| a | b |\n| - | - |\n| 1 | 2 |\n"
++  );
++  writeDoc(
++    dir,
++    'docs/Harness/01 Concept.md',
++    '---\nid: conc0001\npurpose: A concept\nkeywords: [concept]\n---\n\n# Concept One\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Harness/05 Principles/index.md',
++    '---\nid: prin0001\npurpose: The beliefs\nkeywords: [principles]\n---\n\n# Principles\n\nThe beliefs the harness is built on.\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Target Architecture (HLD)/index.md',
++    '---\nid: hldi0001\npurpose: HLD landing\nkeywords: [hld]\n---\n\n# Target Architecture\n\nThe target design.\n\n- [Version Router](README.md)\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Target Architecture (HLD)/README.md',
++    '---\nid: hldr0001\npurpose: Versions\nkeywords: [hld, versions]\n---\n\n# HLD Versions\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Target Architecture (HLD)/v1/Containers/Web.md',
++    '---\nid: web00001\npurpose: Web container\nkeywords: [web]\n---\n\n# Web\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Engineering Guide/index.md',
++    '---\nid: egi00001\npurpose: Guide index\nkeywords: [guide]\n---\n\n# Engineering Guide\n\n- [Conventions](01%20Conventions.md) - How we work\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Engineering Guide/01 Conventions.md',
++    '---\nid: conv0001\npurpose: How we work\nkeywords: [conventions]\n---\n\n# Conventions\n'
++  );
++  writeDoc(
++    dir,
++    'docs/System Architecture (LLD)/README.md',
++    '---\nid: lldr0001\npurpose: Registry\nkeywords: [lld]\n---\n\n# LLD\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Stories/[DEV-1] Ex/impl/0-intent.md',
++    '---\nid: stor0001\npurpose: Intent of DEV-1\nkeywords: [intent]\n---\n\n# Intent\n'
++  );
++  writeDoc(
++    dir,
++    'docs/Stories/[DEV-1] Ex/design/00 Frame.md',
++    '---\nname: Design Frame Template\ndescription: Template for 00 Frame.md\ntype: reference\n---\n\n# Frame\n'
++  );
++  writeDoc(dir, 'apps/web-explorer/README.md', '---\nid: ffe6a029\n---\n\n# Web Explorer\n');
++  writeDoc(dir, 'apps/other/README.md', '---\nid: abcdef12\ntitle: Keep me\n---\n\n# Other\n');
++  createV0Db(
++    dir,
++    [
++      { id: 'home0001', path: 'docs/index.md' },
++      { id: 'readme01', path: 'docs/README.md' },
++      { id: 'harn0001', path: 'docs/Harness/index.md', tier: 'Product' },
++      { id: 'conc0001', path: 'docs/Harness/01 Concept.md', tier: 'Product' },
++      { id: 'prin0001', path: 'docs/Harness/05 Principles/index.md', tier: 'Product' },
++      { id: 'hldi0001', path: 'docs/Target Architecture (HLD)/index.md', tier: 'HLD' },
++      { id: 'hldr0001', path: 'docs/Target Architecture (HLD)/README.md', tier: 'HLD' },
++      { id: 'web00001', path: 'docs/Target Architecture (HLD)/v1/Containers/Web.md', tier: 'HLD' },
++      { id: 'egi00001', path: 'docs/Engineering Guide/index.md', tier: 'EngineeringGuide' },
++      {
++        id: 'conv0001',
++        path: 'docs/Engineering Guide/01 Conventions.md',
++        tier: 'EngineeringGuide',
++      },
++      { id: 'lldr0001', path: 'docs/System Architecture (LLD)/README.md', tier: 'LLD' },
++      { id: 'stor0001', path: 'docs/Stories/[DEV-1] Ex/impl/0-intent.md', tier: 'Story' },
++    ],
++    [
++      ['stor0001', 'hldi0001', 'story-to-hld', 0],
++      ['stor0001', 'harn0001', 'story-to-product', 0],
++      ['stor0001', 'readme01', 'impl-to-readme', 0],
++      ['stor0001', 'readme01', 'references', 0],
++      ['web00001', 'home0001', 'references', 0],
++      ['conc0001', 'conv0001', 'keyword-match', 1],
++    ]
++  );
++  commitAll(dir);
++  return { home };
++}
++
++test('migrate takes an older-harness project to the target state and preserves authored edges', async () => {
++  await withDir(async (dir) => {
++    const { home } = olderHarnessFixture(dir);
++    const before = edgeCounts(dir);
++    const result = await og.migrate({ dir });
++
++    assert.equal(result.mergedEdges, 1);
++    assert.deepEqual(result.orphanedAuthored, []);
++    assert.deepEqual(result.overviewConflicts, []);
++    assert.equal(result.missingConfig, false);
++    assert.equal(result.invalidConfig, null);
++    assert.equal(edgeCounts(dir).authored, before.authored - result.mergedEdges);
++    assert.ok(result.filesChanged > 0);
++    assert.equal(result.pending, false);
++
++    assert.deepEqual(
++      JSON.parse(fs.readFileSync(path.join(dir, 'docs/.og/og.config.json'), 'utf8')),
++      { productDir: 'docs/Harness' }
++    );
++
++    // Prose moved to 00 Overview.md carrying the old id; the bundle root keeps only okf_version.
++    const overview = fm(path.join(dir, 'docs/Harness/00 Overview.md'));
++    assert.equal(overview.id, 'harn0001');
++    assert.equal(overview.type, 'Product Concept');
++    assert.equal(overview.description, 'Harness: overview');
++    assert.deepEqual(overview.tags, ['harness', 'product']);
++    assert.match(
++      fs.readFileSync(path.join(dir, 'docs/Harness/00 Overview.md'), 'utf8'),
++      /The harness is a thing\./
++    );
++    const harnessIndex = fs.readFileSync(path.join(dir, 'docs/Harness/index.md'), 'utf8');
++    assert.deepEqual({ ...fm(path.join(dir, 'docs/Harness/index.md')) }, { okf_version: '0.2' });
++    const bullets = harnessIndex.split('\n').filter((line) => /^[*-] \[/.test(line));
++    assert.match(bullets[0], /\]\(00%20Overview\.md\) - Harness: overview$/);
++    assert.ok(bullets.some((b) => /\]\(01%20Concept\.md\) - A concept$/.test(b)));
++    assert.doesNotMatch(harnessIndex, /The harness is a thing/);
++
++    // A section index (not a bundle root) has no frontmatter at all.
++    const principlesIndex = fs.readFileSync(
++      path.join(dir, 'docs/Harness/05 Principles/index.md'),
++      'utf8'
++    );
++    assert.doesNotMatch(principlesIndex, /^---/);
++    assert.equal(fm(path.join(dir, 'docs/Harness/05 Principles/00 Overview.md')).id, 'prin0001');
++
++    // Graduation edge into the HLD index now lands on its 00 Overview.md.
++    const hldOverview = await query({
++      dir,
++      relatedTo: 'docs/Stories/[DEV-1] Ex/impl/0-intent.md',
++      edge: 'story-to-hld',
++    });
++    assert.equal(hldOverview[0].to_id, 'hldi0001');
++    const row = (await list({ dir })).find((r) => r.id === 'hldi0001');
++    assert.equal(row.path, 'docs/Target Architecture (HLD)/00 Overview.md');
++
++    // Nav-only bundle root: OG keys stripped, okf_version added, bullet kept, no overview created.
++    assert.deepEqual(
++      { ...fm(path.join(dir, 'docs/Engineering Guide/index.md')) },
++      { okf_version: '0.2' }
++    );
++    assert.equal(fs.existsSync(path.join(dir, 'docs/Engineering Guide/00 Overview.md')), false);
++    assert.match(
++      fs.readFileSync(path.join(dir, 'docs/Engineering Guide/index.md'), 'utf8'),
++      /01%20Conventions\.md/
++    );
++
++    // Missing bundle roots are created.
++    for (const root of ['docs/Stories/index.md', 'docs/System Architecture (LLD)/index.md'])
++      assert.deepEqual({ ...fm(path.join(dir, root)) }, { okf_version: '0.2' }, root);
++
++    // docs/index.md is byte-identical and keeps its authored edge.
++    assert.equal(fs.readFileSync(path.join(dir, 'docs/index.md'), 'utf8'), home);
++    assert.equal(
++      (
++        await query({
++          dir,
++          relatedTo: 'docs/Target Architecture (HLD)/v1/Containers/Web.md',
++          edge: 'references',
++        })
++      )[0].to_id,
++      'home0001'
++    );
++
++    // B+ rewrite with git-seeded UTC times.
++    const intent = fm(path.join(dir, 'docs/Stories/[DEV-1] Ex/impl/0-intent.md'));
++    assert.equal(intent.type, 'Dev Intent');
++    assert.equal(intent.title, 'Intent');
++    assert.equal(intent.description, 'Intent of DEV-1');
++    assert.deepEqual(intent.tags, ['intent']);
++    assert.equal(intent.purpose, undefined);
++    assert.equal(intent.keywords, undefined);
++    assert.deepEqual(
++      { ...intent.generated },
++      { by: 'process:okf-migration', at: '2026-01-02T01:04:05Z' }
++    );
++    assert.deepEqual(
++      { ...intent.updated },
++      { by: 'process:okf-migration', at: '2026-01-02T01:04:05Z' }
++    );
++
++    // Template meta dropped; the doc is listed for a writer.
++    const frame = fm(path.join(dir, 'docs/Stories/[DEV-1] Ex/design/00 Frame.md'));
++    assert.equal(frame.type, 'Design Frame');
++    assert.equal(frame.name, undefined);
++    assert.equal(frame.description, undefined);
++    for (const reason of ['missing description', 'missing tags'])
++      assert.ok(
++        result.needsWriter.some(
++          (n) => n.path === 'docs/Stories/[DEV-1] Ex/design/00 Frame.md' && n.reason === reason
++        ),
++        reason
++      );
++
++    // Stray id outside docs/ removed only where it is the sole, unowned OG key.
++    assert.equal(
++      fs.readFileSync(path.join(dir, 'apps/web-explorer/README.md'), 'utf8'),
++      '# Web Explorer\n'
++    );
++    assert.match(fs.readFileSync(path.join(dir, 'apps/other/README.md'), 'utf8'), /id: abcdef12/);
++    assert.ok(result.needsWriter.some((n) => n.path === 'apps/other/README.md'));
++
++    // impl-to-readme re-typed and merged into the existing references edge.
++    const toReadme = (
++      await query({ dir, relatedTo: 'docs/Stories/[DEV-1] Ex/impl/0-intent.md' })
++    ).filter((e) => e.to_id === 'readme01');
++    assert.deepEqual(
++      toReadme.map((e) => e.edge_type),
++      ['references']
++    );
++  });
++});
++
++test('migrate is idempotent: a second run on a committed tree changes nothing', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    await og.migrate({ dir });
++    commitAll(dir, 'migrated');
++    const again = await og.migrate({ dir });
++    assert.equal(again.filesChanged, 0);
++    assert.equal(git(dir, ['status', '--porcelain', '--', '*.md']), '');
++    assert.equal((await og.migrate({ dir, check: true })).pending, false);
++  });
++});
++
++test('migrate --check and --dry-run write no doc file; --dry-run matches the real run', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    const before = snapshotMd(dir);
++    const checked = await og.migrate({ dir, check: true });
++    assert.equal(checked.pending, true);
++    assert.ok(checked.counts);
++    assert.equal(runCli(dir, ['migrate', '--dir', '.', '--check']).status, 0);
++    const dry = await og.migrate({ dir, dryRun: true });
++    assert.deepEqual(snapshotMd(dir), before, 'no .md file changed');
++    assert.equal(
++      fs.existsSync(path.join(dir, 'docs/.og/og.config.json')),
++      false,
++      'no config written'
++    );
++    const real = await og.migrate({ dir });
++    assert.equal(dry.filesChanged, real.filesChanged);
++    assert.equal(dry.mergedEdges, real.mergedEdges);
++  });
++});
++
++test('migrate refuses dirty .md files (docs/ and stray-id targets) but not uncommitted docs/.og files', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    writeDoc(dir, 'docs/.og/new-module.mjs', '// uncommitted OG code\n');
++
++    fs.appendFileSync(path.join(dir, 'apps/web-explorer/README.md'), '\nEdited.\n');
++    const strayDirty = runCli(dir, ['migrate', '--dir', '.']);
++    assert.equal(strayDirty.status, 1);
++    assert.match(strayDirty.stderr, /apps\/web-explorer\/README\.md/);
++    git(dir, ['checkout', '--', 'apps/web-explorer/README.md']);
++
++    fs.appendFileSync(path.join(dir, 'docs/Harness/01 Concept.md'), '\nEdited.\n');
++    const dirty = runCli(dir, ['migrate', '--dir', '.']);
++    assert.equal(dirty.status, 1);
++    assert.match(dirty.stderr, /dirty/i);
++    git(dir, ['checkout', '--', 'docs/Harness/01 Concept.md']);
++
++    const clean = runCli(dir, ['migrate', '--dir', '.']);
++    assert.equal(clean.status, 0, 'only uncommitted docs/.og files remain: not dirty');
++  });
++});
++
++test('migrate seeds the current time for a file with no git history', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    const fresh = writeDoc(
++      dir,
++      'docs/Engineering Guide/02 New.md',
++      '---\npurpose: New\nkeywords: [new]\n---\n\n# New\n'
++    );
++    const startedAt = Date.now();
++    await og.migrate({ dir, allowDirty: true });
++    const { generated } = fm(fresh);
++    assert.match(generated.at, /Z$/);
++    assert.ok(Date.parse(generated.at) >= startedAt - 2000);
++  });
++});
++
++test('migrate seeds updated.at from the last commit date, converted to UTC', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    fs.appendFileSync(path.join(dir, 'docs/Harness/01 Concept.md'), '\nMore.\n');
++    commitAll(dir, 'edit', '2026-02-03T10:00:00-05:00');
++    await og.migrate({ dir });
++    const data = fm(path.join(dir, 'docs/Harness/01 Concept.md'));
++    assert.equal(data.generated.at, '2026-01-02T01:04:05Z');
++    assert.equal(data.updated.at, '2026-02-03T15:00:00Z');
++  });
++});
++
++test('an existing 00 Overview.md is an overviewConflict: index.md unchanged, edges kept, --check pending', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    writeDoc(
++      dir,
++      'docs/Harness/05 Principles/00 Overview.md',
++      '---\ndescription: Already here\ntags: [x]\n---\n\n# Existing\n'
++    );
++    commitAll(dir, 'collision');
++    const before = fs.readFileSync(path.join(dir, 'docs/Harness/05 Principles/index.md'), 'utf8');
++    const result = await og.migrate({ dir });
++    assert.deepEqual(result.overviewConflicts, [
++      {
++        folder: 'docs/Harness/05 Principles',
++        existing: 'docs/Harness/05 Principles/00 Overview.md',
++      },
++    ]);
++    assert.equal(
++      fs.readFileSync(path.join(dir, 'docs/Harness/05 Principles/index.md'), 'utf8'),
++      before
++    );
++    assert.ok(
++      (await list({ dir })).some((r) => r.id === 'prin0001'),
++      'row kept while id remains'
++    );
++    assert.equal(result.pending, true);
++    commitAll(dir, 'after');
++    assert.equal((await og.migrate({ dir, check: true })).pending, true);
++  });
++});
++
++test('the index.md OG-key strip falls back to line removal when the parser rejects the frontmatter', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/a/index.md',
++      '---\nid: egai0001\nanchor: &a 1\nkeywords:\n  [a,\n   b]\nother: keep\n---\n\n# A\n\n- [B](B.md)\n'
++    );
++    writeDoc(dir, 'docs/Engineering Guide/a/B.md', '---\npurpose: B\nkeywords: [b]\n---\n\n# B\n');
++    commitAll(dir, 'unparseable index');
++    await og.migrate({ dir });
++    assert.equal(
++      fs.readFileSync(path.join(dir, 'docs/Engineering Guide/a/index.md'), 'utf8'),
++      '---\nanchor: &a 1\nother: keep\n---\n\n# A\n\n- [B](B.md)\n'
++    );
++    commitAll(dir, 'migrated');
++    assert.equal((await og.migrate({ dir, check: true })).pending, false);
++  });
++});
++
++for (const [name, answers, expected] of [
++  ['no stored answer', null, { missingConfig: true, config: null }],
++  [
++    'Project-scoped Q10b',
++    { Q10b: { value: 'Project-scoped' } },
++    { missingConfig: false, config: {} },
++  ],
++  [
++    '"none" Q10c',
++    { Q10b: { value: 'Two-track' }, Q10c: { value: 'none' } },
++    { missingConfig: false, config: {} },
++  ],
++  [
++    'free-text Q10c naming no folder',
++    {
++      Q10b: { value: 'Two-track' },
++      Q10c: { value: 'Harness (i.e. docs/Harness/ — the handbook)' },
++    },
++    { missingConfig: true, config: null },
++  ],
++  [
++    'docs/ path Q10c',
++    { Q10b: { value: 'Two-track' }, Q10c: { value: 'docs/Harness' } },
++    { missingConfig: false, config: { productDir: 'docs/Harness' } },
++  ],
++]) {
++  test(`migrate config: ${name}`, async () => {
++    await withDir(async (dir) => {
++      writeDoc(dir, 'docs/Harness/A.md', '---\npurpose: A\nkeywords: [a]\n---\n\n# A\n');
++      if (answers)
++        writeDoc(
++          dir,
++          '.harness/state/answers.json',
++          JSON.stringify({ schema_version: 1, answers })
++        );
++      commitAll(dir);
++      const checked = await og.migrate({ dir, check: true });
++      assert.equal(checked.missingConfig, expected.missingConfig);
++      const ran = await og.migrate({ dir });
++      const configFile = path.join(dir, 'docs/.og/og.config.json');
++      if (expected.config === null) assert.equal(fs.existsSync(configFile), false);
++      else assert.deepEqual(JSON.parse(fs.readFileSync(configFile, 'utf8')), expected.config);
++      assert.equal(ran.missingConfig, expected.missingConfig);
++    });
++  });
++}
++
++test('migrate reads answers from the launch/ state path too', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/Harness/A.md', '# A\n');
++    writeDoc(
++      dir,
++      '.harness/state/launch/answers.json',
++      JSON.stringify({
++        schema_version: 1,
++        answers: { Q10b: { value: 'Two-track' }, Q10c: { value: 'Harness' } },
++      })
++    );
++    commitAll(dir);
++    assert.equal((await og.migrate({ dir, check: true })).missingConfig, false);
++  });
++});
++
++// --- AC-8 · check ---------------------------------------------------------------
++
++test('check reports every conformance category as JSON and exits 0', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/.og/og.config.json', '{}');
++    writeDoc(dir, 'docs/index.md', '---\npurpose: Home\n---\n\n# Home\n');
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/index.md',
++      "---\nokf_version: '0.2'\n---\n\n# Guide\n\n- [Gone](05%20Old%20Page.md) - Was here\n"
++    );
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/06 MCP Setup.md',
++      '---\ntype: Guide\ndescription: MCP\ntags: [mcp]\n---\n\n# MCP\n'
++    );
++    writeDoc(
++      dir,
++      'docs/Stories/[DEV-1] X/design/00 Frame.md',
++      '---\ntype: Design Frame\ntags: [frame]\n---\n\n# Frame\n'
++    );
++    writeDoc(
++      dir,
++      'docs/Stories/[DEV-1] X/design/Bad.md',
++      '---\ntype: Story Note\ndescription: bad\ntags: [b]\nx: &a 1\n---\n\n# Bad\n'
++    );
++    const report = await og.check({ dir });
++    assert.deepEqual(report.missingFields, [
++      { path: 'docs/Stories/[DEV-1] X/design/00 Frame.md', fields: ['description'] },
++    ]);
++    assert.deepEqual(report.brokenIndexEntries, [
++      { index: 'docs/Engineering Guide/index.md', target: '05 Old Page.md' },
++    ]);
++    assert.deepEqual(report.unlistedConcepts, [
++      { path: 'docs/Engineering Guide/06 MCP Setup.md', index: 'docs/Engineering Guide/index.md' },
++    ]);
++    assert.deepEqual(report.unversionedBundles, [{ root: 'docs/Stories' }]);
++    assert.deepEqual(
++      report.frontmatterErrors.map(({ path: p, line }) => ({ path: p, line })),
++      [{ path: 'docs/Stories/[DEV-1] X/design/Bad.md', line: 5 }]
++    );
++    assert.deepEqual(report.counts, {
++      missingFields: 1,
++      brokenIndexEntries: 1,
++      unlistedConcepts: 1,
++      unversionedBundles: 1,
++      frontmatterErrors: 1,
++    });
++    const cli = runCli(dir, ['check', '--dir', '.']);
++    assert.equal(cli.status, 0);
++    assert.deepEqual(cli.json.counts, report.counts);
++  });
++});
++
++test('check accepts single and double quotes and both bullet styles, and never reports docs/index.md', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/index.md', '# Home with no frontmatter at all\n');
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/index.md',
++      '---\nokf_version: "0.2"\n---\n\n# Guide\n\n- [A](A.md) - A doc\n* [B](B.md)\n'
++    );
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/A.md',
++      "---\ntype: Guide\ndescription: 'A: doc'\ntags: [a]\n---\n\n# A\n"
++    );
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/B.md',
++      '---\ntype: Guide\ndescription: "B doc"\ntags:\n  - b\n---\n\n# B\n'
++    );
++    const report = await og.check({ dir });
++    assert.deepEqual(report.counts, {
++      missingFields: 0,
++      brokenIndexEntries: 0,
++      unlistedConcepts: 0,
++      unversionedBundles: 0,
++      frontmatterErrors: 0,
++    });
++  });
++});
++
++test('check never writes a file', async () => {
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/Engineering Guide/A.md', '# A\n');
++    const before = snapshotMd(dir);
++    await og.check({ dir });
++    assert.deepEqual(snapshotMd(dir), before);
++  });
++});
++
++// --- AC-9 · Greenfield launch end state (what launch D.6 writes) --------------
++
++/** The docs a greenfield launch writes: B+ concept docs and a versioned index.md per bundle root. */
++function greenfieldLaunch(dir, productDir) {
++  const bplus = (type, title) =>
++    `---\ntype: ${type}\ntitle: ${title}\ndescription: ${title} doc\ntags: [launch]\ngenerated: { by: artisyn-harness/4.2, at: 2026-11-18T10:00:00Z }\nupdated: { by: artisyn-harness/4.2, at: 2026-11-18T10:00:00Z }\n---\n\n# ${title}\n`;
++  const root = (heading, bullets) =>
++    `---\nokf_version: '0.2'\n---\n\n# ${heading}\n\n${bullets.join('\n')}\n`;
++  writeDoc(dir, 'docs/.og/og.config.json', JSON.stringify(productDir ? { productDir } : {}));
++  writeDoc(dir, 'docs/README.md', bplus('Reference', 'Docs'));
++  writeDoc(
++    dir,
++    'docs/Target Architecture (HLD)/README.md',
++    bplus('Version Router', 'HLD Versions')
++  );
++  writeDoc(dir, 'docs/Target Architecture (HLD)/v1/Containers/Web.md', bplus('Container', 'Web'));
++  writeDoc(
++    dir,
++    'docs/Target Architecture (HLD)/index.md',
++    root('Target Architecture', ['- [HLD Versions](README.md) - HLD Versions doc'])
++  );
++  writeDoc(
++    dir,
++    'docs/System Architecture (LLD)/README.md',
++    bplus('Component Registry', 'Registry')
++  );
++  writeDoc(
++    dir,
++    'docs/System Architecture (LLD)/index.md',
++    root('System Architecture', ['- [Registry](README.md) - Registry doc'])
++  );
++  writeDoc(dir, 'docs/Engineering Guide/01 Conventions.md', bplus('Guide', 'Conventions'));
++  writeDoc(
++    dir,
++    'docs/Engineering Guide/index.md',
++    root('Engineering Guide', ['- [Conventions](01%20Conventions.md) - Conventions doc'])
++  );
++  writeDoc(dir, 'docs/Stories/index.md', root('Stories', []));
++  if (productDir) {
++    writeDoc(dir, `${productDir}/00 Overview.md`, bplus('Product Concept', 'Product'));
++    writeDoc(
++      dir,
++      `${productDir}/index.md`,
++      root('Product', ['- [Product Overview](00%20Overview.md) - Product doc'])
++    );
++  }
++  commitAll(dir, 'launch');
++}
++
++for (const productDir of [null, 'docs/Product Context']) {
++  test(`greenfield launch (${productDir ? 'with' : 'without'} a Product folder) is conformant and not pending`, async () => {
++    await withDir(async (dir) => {
++      greenfieldLaunch(dir, productDir);
++      await build({ dir });
++      const report = await og.check({ dir });
++      assert.deepEqual(report.counts, {
++        missingFields: 0,
++        brokenIndexEntries: 0,
++        unlistedConcepts: 0,
++        unversionedBundles: 0,
++        frontmatterErrors: 0,
++      });
++      const roots = fs
++        .readdirSync(path.join(dir, 'docs'), { withFileTypes: true })
++        .filter((entry) => entry.isDirectory() && entry.name !== '.og')
++        .filter(
++          (entry) => fm(path.join(dir, 'docs', entry.name, 'index.md')).okf_version === '0.2'
++        );
++      assert.equal(roots.length, productDir ? 5 : 4);
++      assert.equal((await og.migrate({ dir, check: true })).pending, false);
++    });
++  });
++}

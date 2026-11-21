@@ -1,0 +1,19 @@
+--- a/references/launch/01-launch.md
++++ b/references/launch/01-launch.md
+@@ -1,6 +1,6 @@
+ # Launch guide
+ 
+-Run `/harness-bootstrap launch` to install or adopt the harness. This file owns the
++Run `/implementation-harness launch` to install or adopt the harness. This file owns the
+ stage sequence and tracking contract; each stage's procedure lives in its own
+ reference, loaded when that stage starts. Routing lives in [SKILL.md](../../SKILL.md);
+ manifests and baselines follow [Patch State](../patch/06-patch-state.md).
+@@ -25,7 +25,7 @@ preserve unrelated shared behavior.
+ 
+ ## Launch task table
+ 
+-Track one task per row. Prefix each subject with `[harness-bootstrap <run_id>] `,
++Track one task per row. Prefix each subject with `[implementation-harness <run_id>] `,
+ where `<run_id>` is the exact run identifier already recorded in this run's
+ `selection.json`/`plan.json` and the report's `Run ID` field (e.g.
+ `20260930T192108Z-launch`) — never a shortened form, the mode name alone (`launch`),

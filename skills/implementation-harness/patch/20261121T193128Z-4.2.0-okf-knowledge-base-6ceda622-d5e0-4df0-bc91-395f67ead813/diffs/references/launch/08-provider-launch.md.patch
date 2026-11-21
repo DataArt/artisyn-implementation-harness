@@ -1,0 +1,49 @@
+--- a/references/launch/08-provider-launch.md
++++ b/references/launch/08-provider-launch.md
+@@ -5,16 +5,17 @@ contains provider-native defaults; `canonical/mcp.json` contains shared server d
+ Configure selected servers with environment references, never credential values. Empty MCP
+ configuration is valid. Unsupported fields fail rather than being silently dropped.
+ 
+-Consumer projects obtain the package from the release archive, not by copying
+-`.canonical-implementation-harness/` from the source repository. Extract the archive
+-into the selected host's skill directory (`.agents/skills/`, `.claude/skills/`, or `.github/skills/`); the
+-archive creates `harness-bootstrap/` there. Record that package path as `package:`;
+-all selected providers share `package:state/launch/` history. Scripts resolve their own package directory.
++Consumer projects get the package from a release channel, not by copying
++`skills/implementation-harness/` from the source repository. A direct install puts it in the
++selected host's skill directory (`.agents/skills/`, `.claude/skills/`, or `.github/skills/`) as
++`implementation-harness/`; a marketplace install keeps it in the host plugin cache. Record it as
++`package:` (name, version, channel and this machine's path). All selected providers share the
++history in `.harness/state/launch/`. Scripts resolve their own package directory.
+ No package path is inferred from the selected provider.
+ 
+ ## Prepare a selection
+ 
+-Resolve project facts and Q6 first. Save `selection.json` in `package:state/launch/runs/<id>/`:
++Resolve project facts and Q6 first. Save `selection.json` in `.harness/state/launch/runs/<id>/`:
+ 
+ ```json
+ {
+@@ -129,8 +130,8 @@ cleanup is retryable. Missing human/runtime checks remain pending in the report;
+ label them passed to force closure.
+ 
+ On resume, retain adapted files and inspect receipts; do not rematerialize over them.
+-Use a new linked run for a changed plan. Preserve state/ across package updates and exclude
+-it from portable releases. Legacy `.harness/launch/` records are migration inputs only.
++Use a new linked run for a changed plan. State lives in the project, so replacing the package
++never touches it.
+ 
+ ## Checkpoint when Stage E is externally blocked
+ 
+@@ -221,8 +222,9 @@ the package does not remove installed skills, agents, configuration, or story re
+ 
+ ## Copilot
+ 
+-Select `copilot` in Q6, alone or alongside Claude and Codex. Install the release ZIP
+-under `.github/skills/` and invoke `/harness-bootstrap launch`.
++Select `copilot` in Q6, alone or alongside Claude and Codex. Install the package
++under `.github/skills/` (or through the Copilot plugin marketplace) and invoke
++`/implementation-harness launch`.
+ 
+ | Artifact            | Destination                       |
+ | ------------------- | --------------------------------- |

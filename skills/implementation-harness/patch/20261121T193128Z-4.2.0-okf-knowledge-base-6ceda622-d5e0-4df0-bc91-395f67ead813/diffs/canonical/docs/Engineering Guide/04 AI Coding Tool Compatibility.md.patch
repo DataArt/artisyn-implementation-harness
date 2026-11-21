@@ -1,0 +1,11 @@
+--- a/canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md	
++++ b/canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md	
+@@ -43,7 +43,7 @@ session capabilities; installing a skill does not enable every native feature.
+ - Browser: check navigation, console, network and DOM capabilities separately. Record missing
+   verification rather than claiming a screenshot proves an unavailable check.
+ 
+-Bootstrap installation state lives under the recorded bootstrap package's `state/launch/`.
++Bootstrap installation state lives in the project's `.harness/state/launch/`.
+ Story/design reports remain the cross-provider workflow state. Package updates preserve local
+ launch state, which is excluded from release archives. Other coding tools require a separately
+ implemented and verified adapter; this package does not claim support for them.

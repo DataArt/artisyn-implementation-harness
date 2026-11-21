@@ -1,0 +1,29 @@
+--- a/references/00-overview.md
++++ b/references/00-overview.md
+@@ -37,12 +37,22 @@ project's history. The harness's own canonical repository is the exception — t
+ the toolkit is the tracked source of truth. Installed project outputs are permanent
+ project artifacts and remain separate from the toolkit either way.
+ 
+-All bootstrap bookkeeping lives under `state/` in the installed package: launch answers,
++All bootstrap bookkeeping lives in `.harness/state/` in the project: launch answers,
+ plans, receipts, dated reports, deployment mappings, synchronization baselines and local
+-patch bundles. Preserve `state/` when refreshing the toolkit and exclude it from portable
+-releases. Existing `.harness/` records are read-only migration inputs, never destinations
+-for new writes.
++patch bundles. The package never holds state, so it can be replaced when the toolkit is
++refreshed. The state root is resolved from the project root, never from the package path.
+ 
+ Updates carry unified diffs; additions carry full canonical files. Applying updates
+ requires the expected canonical base or an explicit reconciliation. Never transfer
+ project answers, secrets, or personalized baselines as canonical payloads.
++
++## Versioning
++
++The package follows semver. `package.json` in the package folder is the one version source.
++A release stamps it into `SKILL.md` (`metadata.version`), the plugin manifest and the three
++marketplace files (Claude, Codex, Copilot), and a CI gate fails on any mismatch, so do not
++edit those versions by hand. The plugin root is the source repository's `skills/` folder, so
++a marketplace install holds only this package, not the repository. `CHANGELOG.md` is generated from conventional commits with scope `harness`, below its
++curated-history line. A breaking change, such as a rename or a state move, raises the major
++version. Commits that touch the package use scope `harness` so the repository's own release
++ignores them.

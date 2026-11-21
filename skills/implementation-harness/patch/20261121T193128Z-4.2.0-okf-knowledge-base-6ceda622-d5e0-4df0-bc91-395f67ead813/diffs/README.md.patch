@@ -1,0 +1,57 @@
+--- a/README.md
++++ b/README.md
+@@ -1,4 +1,4 @@
+-# Harness Bootstrap
++# Implementation Harness
+ 
+ The harness is a portable set of canonical skills, agents, and documentation templates. Launch installs a project-specific version of that set. Harvest and
+ apply keep the canonical sources and permanent project files connected afterward.
+@@ -32,12 +32,11 @@ to provider destinations; native settings and MCP declarations live beside it.
+ See [Provider launch](references/launch/08-provider-launch.md) for executable plan generation,
+ adaptation and verification. Permanent provider files remain editable project artifacts.
+ 
+-Launch answers, plans, receipts and reports live in `package:state/launch/`. Preserve
+-that directory across toolkit updates when retaining launch history and exclude it from release archives. Consumer
+-ignore rules cover the disposable package and its local state; this source repository tracks
+-the package itself. Patch inventory, baselines and operation records also live under the
+-installed package's `state/`. Import existing `.harness/` records as read-only migration
+-inputs with provenance; never write new data there.
++Launch answers, plans, receipts and reports live in `.harness/state/launch/` in the project.
++The package is read-only and can be replaced at any time; it never holds state. Patch
++inventory, baselines and operation records live in `.harness/state/` too. Launch adds
++ignore entries for the generated files and never untracks anything. See
++`references/patch/06-patch-state.md` for the layout and the commit rule.
+ Never record secret values.
+ 
+ ## Four operations
+@@ -236,20 +235,21 @@ removed after verified launch without affecting skill/agent execution.
+ 
+ ## Shared package discovery
+ 
+-This repository keeps the authoring source in `.canonical-implementation-harness/`.
+-The `.claude/skills/harness-bootstrap`, `.agents/skills/harness-bootstrap`, and
+-`.github/skills/harness-bootstrap`
++This repository keeps the authoring source in `skills/implementation-harness/`.
++The `.claude/skills/implementation-harness`, `.agents/skills/implementation-harness`, and
++`.github/skills/implementation-harness`
+ symlinks are local discovery links for working on this source repository.
+ 
+-Consumer projects receive the released ZIP (`releases/harness-bootstrap/`), not a
+-copy of this authoring directory. Extract the ZIP into the consumer project's selected host skill directory, such as
+-`.agents/skills/` for Codex, `.claude/skills/` for Claude, or `.github/skills/` for Copilot. The archive creates the
+-`harness-bootstrap/` skill folder there. Record its
+-physical location as `package:`; all selected hosts can then share its state. See
++Consumer projects receive a release artifact, not a copy of this authoring directory. A direct
++install puts the package in the project's selected host skill directory, such as
++`.agents/skills/` for Codex, `.claude/skills/` for Claude, or `.github/skills/` for Copilot; a
++marketplace install keeps it in the host plugin cache. The package folder is named
++`implementation-harness/`. Record its
++physical location as `package:`; all selected hosts then share the project's `.harness/state/`. See
+ [host capabilities](references/host-capabilities.md) for execution procedures.
+ 
+ ## Copilot
+ 
+-Install the release ZIP under `.github/skills/`, invoke `/harness-bootstrap launch`
++Install the package under `.github/skills/` (or through the Copilot plugin marketplace), invoke `/implementation-harness launch`
+ and select `copilot` in Q6. Claude and Codex may remain selected alongside it.
+ See [provider destinations](references/launch/08-provider-launch.md#copilot).

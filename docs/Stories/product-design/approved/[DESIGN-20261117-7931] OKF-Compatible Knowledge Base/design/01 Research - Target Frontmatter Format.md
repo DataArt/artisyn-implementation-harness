@@ -1,3 +1,7 @@
+---
+id: f60509bb
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 1, Target frontmatter format
 
 _Produced by the Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._

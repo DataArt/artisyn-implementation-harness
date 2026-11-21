@@ -38,7 +38,31 @@ A secondary reason: frontier AI models follow ~150–200 instructions reliably b
 
 **Don't auto-generate root context** — CLAUDE.md and its equivalents are the highest-leverage files in the harness. Generate a scaffold from the bootstrap prompt, then edit by hand. Auto-generated root context is generic; hand-edited root context is precise.
 
-**Operational graph frontmatter** — every doc you write or update gets frontmatter `purpose:` (one line, what the doc is for) and `keywords:` (a short list), written from your own understanding of its actual content. Unlike `id` (assigned once by the operational graph tool, `docs/.og/`, and never reassigned), these two are editable: when the doc's content changed enough that an existing value no longer fits, update it; otherwise leave it. These feed the graph's `search()`; the tool itself never derives or writes them — it is deterministic, no model calls — so this is the one point in any lifecycle with enough content context to write them well. Quote the `purpose:` value in double quotes whenever it contains a colon followed by a space, or any other YAML-reserved character (`:`, `#`, `[`, `]`, `{`, `}`, a leading quote) — an unquoted colon mid-value breaks the frontmatter parse for every later reader, not just the graph tool.
+**Operational graph frontmatter** — the docs tree is an Open Knowledge Format (OKF) 0.2 knowledge base. Every doc you write or update carries these keys, in this order:
+
+```yaml
+---
+id: f84dc7bb
+type: Container
+title: Discuss Container
+description: One line, what the doc is for
+tags: [discuss, giscus, hld]
+generated: { by: artisyn-harness/4.2, at: 2026-11-02T09:00:00Z }
+updated: { by: artisyn-harness/4.2, at: 2026-11-17T10:00:00Z }
+---
+```
+
+- `id` — the operational graph tool (`docs/.og/`) assigns it once. Never write or change it.
+- `type` — the kind of doc. A template sets it; otherwise `index --doc` stamps it from the tool's type map. After that the author owns it.
+- `title` — the doc's display name.
+- `description` and `tags` — required. Write them from your own understanding of the content; the tool never derives them. Update them when the content changes enough that they no longer fit.
+- `generated` — set once, when the doc is created. `updated` — set on every meaningful update.
+- `by` names a tool or a process, never a person, because the docs site is public: `artisyn-harness/<major.minor>` for an agent writer, `process:<lifecycle>-<stage>` for a lifecycle step (e.g. `process:design-publish`). `at` is ISO 8601 in UTC with a `Z` suffix.
+- Quote a value with single quotes when it holds a colon followed by a space or another YAML-reserved character (`#`, `[`, `]`, `{`, `}`, a leading quote). Use double quotes when the value itself contains a single quote.
+
+**`index.md` is navigation, never a doc** — each bundle root (`Target Architecture (HLD)/`, `System Architecture (LLD)/`, `Engineering Guide/`, `Stories/`, and the Product folder) has an `index.md` whose only frontmatter key is `okf_version: '0.2'`. Any other folder's `index.md` has no frontmatter. Its body is headings and `- [Title](relative-url) - description` bullets, one per doc in that folder, using each doc's `title` and `description`. Overview prose goes in `00 Overview.md`, not in `index.md`. When you add, rename, move or remove a doc, or change its description, update the bullets in its folder's `index.md` if the folder has one. When you write the first doc into a bundle that has no root `index.md`, create one. `log.md` is not used. The docs-site home, `docs/index.md`, is the one exception: it keeps its own site frontmatter.
+
+**Templates** — a lifecycle template starts with its own meta block (`name`, `description`, `type: reference`). Under it, a fenced `yaml` block holds the new doc's frontmatter. When you copy a template, replace the meta block with that fenced block, without the fences, and drop the comment above it. Fill in `title`, `description`, `tags`, `generated` and `updated`.
 
 ---
 
@@ -104,6 +128,22 @@ SoC test: _"Does this describe the platform's design intent?"_ → HLD. _"Is thi
 ## Wiring Principle
 
 ![Docs wiring and discovery](/images/engineering-guide/docs-wiring-discovery.png)
+
+Documentation is connected through progressive disclosure, not through one central index containing everything.
+
+`docs/README.md` provides only the root navigation and points readers to the appropriate documentation area. Each area then owns its local navigation, and individual documents use cross-links to connect related knowledge.
+
+The model is:
+
+Root index → Section navigation → Relevant document → Related documents
+
+The rules are simple: one source of truth per concept, link instead of duplicate, keep local navigation current, and add cross-links wherever they help a human or AI agent discover the next relevant piece of context.
+
+This creates multiple discovery paths without duplicating content, so both engineers and agents can progressively load only the context they need.
+
+---
+
+## Wiring Principle
 
 Documentation is connected through progressive disclosure, not through one central index containing everything.
 

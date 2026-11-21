@@ -1,0 +1,80 @@
+--- a/canonical/docs/.og/edges.mjs
++++ b/canonical/docs/.og/edges.mjs
+@@ -62,8 +62,49 @@ export class EdgesStore {
+     return /** @type {EdgeRow[]} */ (this.db.prepare('SELECT * FROM edges').all());
+   }
+ 
++  /** @returns {{authored: number, derived: number}} Edge counts by kind. */
++  counts() {
++    const counts = { authored: 0, derived: 0 };
++    for (const edge of this.all()) counts[edge.derived ? 'derived' : 'authored'] += 1;
++    return counts;
++  }
++
++  /**
++   * Re-type every `oldType` edge to `newType`. When a `newType` edge already
++   * joins the same pair, the two merge into one (UNIQUE from/to/type).
++   * @param {{dryRun?: boolean}} [opts] Count only, change nothing.
++   * @returns {number} How many edges merged.
++   */
++  retype(oldType, newType, { dryRun = false } = {}) {
++    let merged = 0;
++    const exists = this.db.prepare(
++      'SELECT 1 FROM edges WHERE from_id = ? AND to_id = ? AND edge_type = ?'
++    );
++    for (const edge of this.all().filter((e) => e.edge_type === oldType)) {
++      const duplicate = exists.get(edge.from_id, edge.to_id, newType);
++      if (duplicate) merged += 1;
++      if (dryRun) continue;
++      if (duplicate) this.remove(edge.from_id, edge.to_id, oldType);
++      else
++        this.db
++          .prepare(
++            'UPDATE edges SET edge_type = ? WHERE from_id = ? AND to_id = ? AND edge_type = ?'
++          )
++          .run(newType, edge.from_id, edge.to_id, oldType);
++    }
++    return merged;
++  }
++
++  /** @returns {EdgeRow[]} Every authored (derived=0) edge with an endpoint in `docIds`. */
++  authoredTouching(docIds) {
++    const ids = new Set(docIds);
++    return this.all().filter(
++      (edge) => edge.derived === 0 && (ids.has(edge.from_id) || ids.has(edge.to_id))
++    );
++  }
++
+   /** Remove every edge touching any of `docIds` as either endpoint — cascades
+-   * a `DocsStore.pruneExcept()` removal so a retired doc leaves no orphan edges. */
++   * a `DocsStore.remove()` so a retired doc leaves no orphan edges. */
+   removeForDocs(docIds) {
+     for (const id of docIds)
+       this.db.prepare('DELETE FROM edges WHERE from_id = ? OR to_id = ?').run(id, id);
+@@ -71,7 +112,7 @@ export class EdgesStore {
+ 
+   /** Remove every edge of one type — used to clear a fully-recomputed derived
+    * type (`keyword-match`) before writing its fresh set, so a doc whose
+-   * keywords changed doesn't keep a stale match around. */
++   * tags changed doesn't keep a stale match around. */
+   removeAllOfType(edgeType) {
+     this.db.prepare('DELETE FROM edges WHERE edge_type = ?').run(edgeType);
+   }
+@@ -134,7 +175,7 @@ export function computeMirrors(dir) {
+ 
+ /**
+  * Every doc pair sharing at least `KEYWORD_MATCH_MIN_SHARED` normalized
+- * `keywords:` tokens — computed from the stored column alone, never by
++ * `tags:` tokens — computed from the stored column alone, never by
+  * reading a doc's file content (that's the whole point: no LLM call, no
+  * re-read, just a comparison over data `2a`'s one pass already wrote).
+  * @param {import('./docs.mjs').DocRow[]} docs
+@@ -143,7 +184,7 @@ export function computeMirrors(dir) {
+  */
+ export function computeKeywordMatches(docs) {
+   const tokenized = docs
+-    .map((doc) => ({ id: doc.id, tokens: new Set(parseKeywords(doc.keywords)) }))
++    .map((doc) => ({ id: doc.id, tokens: new Set(parseKeywords(doc.tags)) }))
+     .filter((doc) => doc.tokens.size > 0);
+   const matches = [];
+   for (let i = 0; i < tokenized.length; i++) {

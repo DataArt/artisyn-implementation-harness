@@ -1,3 +1,7 @@
+---
+id: 1e5c6845
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 3, OKF bundle layout
 
 _Produced by the 🔍 Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._

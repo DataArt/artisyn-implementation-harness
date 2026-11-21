@@ -1,0 +1,265 @@
+{
+  "schema_version": 2,
+  "bundle_id": "6ceda622-d5e0-4df0-bc91-395f67ead813",
+  "mode": "apply",
+  "providers": ["claude"],
+  "status": "applied",
+  "created_at": "2026-11-21T19:35:15.885Z",
+  "files": [
+    {
+      "path": "canonical/agents/docs-writer/TEMPLATE.md",
+      "permanent": ".claude/agents/docs-writer.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "f0c5b0635071557115a687a42e205b0e584898108754ab698aac93f7b80d44d8",
+      "result": "applied",
+      "canonical_post_sha256": "441b9f818156a80e1f62c04ab82ec476b8d8ec5460ecc37e026078d258cee1e8",
+      "permanent_post_sha256": "4e6b4fca4ee84d5012df015cb0d4c3735b72942966cff211ff21be5116a4161b"
+    },
+    {
+      "path": "canonical/docs/.og/cli.mjs",
+      "permanent": "docs/.og/cli.mjs",
+      "provider": "claude",
+      "permanent_pre_sha256": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
+      "result": "applied",
+      "canonical_post_sha256": "2543c3edb2d92bb8f034b53936195dba741e19d4f77d0ca51c5598a8d43c39b1",
+      "permanent_post_sha256": "2543c3edb2d92bb8f034b53936195dba741e19d4f77d0ca51c5598a8d43c39b1"
+    },
+    {
+      "path": "canonical/docs/.og/constants.mjs",
+      "permanent": "docs/.og/constants.mjs",
+      "provider": "claude",
+      "permanent_pre_sha256": "6dde5beb3d6c70529dc93ced791793ec256817b6a7c266850eb110751f84f463",
+      "result": "applied",
+      "canonical_post_sha256": "32e9a30cb34ae3bbb27ca86610205d5bf9471272af7c0fab734c3e6dd27ff37b",
+      "permanent_post_sha256": "32e9a30cb34ae3bbb27ca86610205d5bf9471272af7c0fab734c3e6dd27ff37b"
+    },
+    {
+      "path": "canonical/docs/.og/docs.mjs",
+      "permanent": "docs/.og/docs.mjs",
+      "provider": "claude",
+      "permanent_pre_sha256": "aa6f288257a10d79b7af6a528a70dad0163bcdcd51c6e38c14dfa4d586c54641",
+      "result": "applied",
+      "canonical_post_sha256": "f47f68c2cfff537daafcfb2903f9c3b4dc1f8e455bdec0b58432f537b019bd7c",
+      "permanent_post_sha256": "f47f68c2cfff537daafcfb2903f9c3b4dc1f8e455bdec0b58432f537b019bd7c"
+    },
+    {
+      "path": "canonical/docs/.og/edges.mjs",
+      "permanent": "docs/.og/edges.mjs",
+      "provider": "claude",
+      "permanent_pre_sha256": "900b0dd5fb624d86b3aefdeada953123132912307c8eea50ecb18af1402e9934",
+      "result": "applied",
+      "canonical_post_sha256": "59f8838d725c3a5e74938370224590b71c3202b4b456605ba3fdf05990db69dd",
+      "permanent_post_sha256": "59f8838d725c3a5e74938370224590b71c3202b4b456605ba3fdf05990db69dd"
+    },
+    {
+      "path": "canonical/docs/.og/schema.mjs",
+      "permanent": "docs/.og/schema.mjs",
+      "provider": "claude",
+      "permanent_pre_sha256": "81734aa303ff1755d818076317e6717f5524498d7cf8a687f1634492c6a0d5e8",
+      "result": "applied",
+      "canonical_post_sha256": "0fa389296d06030e72c8e05952118299a628c7410e43d238697bddffd79752b7",
+      "permanent_post_sha256": "0fa389296d06030e72c8e05952118299a628c7410e43d238697bddffd79752b7"
+    },
+    {
+      "path": "canonical/docs/.og/utils.mjs",
+      "permanent": "docs/.og/utils.mjs",
+      "provider": "claude",
+      "permanent_pre_sha256": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
+      "result": "applied",
+      "canonical_post_sha256": "d28e25ca5921a9cf0b0f9f6af94c1cb23ff06d9af2abbd213c32546f02233c1a",
+      "permanent_post_sha256": "d28e25ca5921a9cf0b0f9f6af94c1cb23ff06d9af2abbd213c32546f02233c1a"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/04 AI Coding Tool Compatibility.md",
+      "permanent": "docs/Engineering Guide/04 AI Coding Tool Compatibility.md",
+      "provider": "shared",
+      "permanent_pre_sha256": "ffcc70b5c6c492d23b20e7f1eba3e1adda1e70cd5cab85dfb8f3fbdfceb59278",
+      "result": "applied",
+      "canonical_post_sha256": "14957ab8159b84fa6bb335e87ecbf203326ec328ec47c6c828af6fb9b6bf0bbb",
+      "permanent_post_sha256": "bf290dc3297715ae87e3f11327806d1b5f0ce8f8dba9953199dee0b2636a9fe0",
+      "retained_customization": "kept local text in 2 conflicting hunks (project-specific install/channel table and state wording, newer than canonical)"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Documentation/01 Principles.md",
+      "permanent": "docs/Engineering Guide/Documentation/01 Principles.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "0914dfb950e440b192ac642d61357dd18c9bf07c602ee063a92f1d7b28b3a8d5",
+      "result": "applied",
+      "canonical_post_sha256": "38be1d0505ac123bc5b887bbe6b7357f5c8668bcff330287d1d7690096f34d44",
+      "permanent_post_sha256": "2c9123481d75194aac06d9bf0d1e96f078252f236906993b421dcb109d98032f",
+      "retained_customization": "kept local omission of the root-context budget sentence and of the Diagrams first / Destination confirmation paragraphs; OKF frontmatter, index.md and Templates rules taken from canonical"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "permanent": "docs/Engineering Guide/Lifecycles/00 Overview.md",
+      "provider": "shared",
+      "permanent_pre_sha256": "404c8f4607a9e6a2f6c0b8074fba5b929d741986352166754b43eba7179079c4",
+      "result": "verified-no-op",
+      "canonical_post_sha256": "2155b70e88f2b73934ba805f6be2bfcfa2f9a8b518a5fb967623e8f49043645b",
+      "permanent_post_sha256": "404c8f4607a9e6a2f6c0b8074fba5b929d741986352166754b43eba7179079c4",
+      "retained_customization": "kept local frontmatter; canonical drops it, reindex-graph migrate rewrites it to B+"
+    },
+    {
+      "path": "canonical/docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "permanent": "docs/Engineering Guide/Lifecycles/05 Documents Flow.md",
+      "provider": "shared",
+      "permanent_pre_sha256": "a4ebf5c85bc139c1954d6a6b2be7dc51af5828c42371efe7779bac58bb80c9af",
+      "result": "applied",
+      "canonical_post_sha256": "c431bb84562f46018df65af737167b94f1dfeb5d2d4ceff069e08d6894927aca",
+      "permanent_post_sha256": "e28610f00e9fe28d431dcd737216d07bf035fba934dc0e30d8c9c5aa2c148c0a",
+      "retained_customization": "kept local table layout and the rendered Project-track row; App README row taken from canonical"
+    },
+    {
+      "path": "canonical/skills/design/references/01-context-gathering.md",
+      "permanent": ".claude/skills/design/references/01-context-gathering.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "6a6a1b8b22e303e9863517aa59e786f6f2a226938fe69db79e64c97d4422bc1f",
+      "result": "applied",
+      "canonical_post_sha256": "b0c00a3dec75252680325d6e6368046d423bbe678572a5593c85865aa3c44e8b",
+      "permanent_post_sha256": "636500aa534de281aee9ba3d3e32b4f1d902478bfda1416a66afaa12624b4f25"
+    },
+    {
+      "path": "canonical/skills/design/references/03-frame.md",
+      "permanent": ".claude/skills/design/references/03-frame.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "e46eb0da6db4084a296eb1884558ba3fd1a5629b3f6498c9536c049338dccf9e",
+      "result": "applied",
+      "canonical_post_sha256": "2b1e182d9fbc0b22d2c15dde971cc38edd185ff37e4df87e375121708d14c684",
+      "permanent_post_sha256": "696b256901e596403550750a67f19105306bc1c54cb62f7f9cde87c8732da4af"
+    },
+    {
+      "path": "canonical/skills/design/references/04-research.md",
+      "permanent": ".claude/skills/design/references/04-research.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "9c7697803b0c3b22d3fb3299bc3cc2ad4a6bcc8425bc4bde5e5ac6bd2707f036",
+      "result": "applied",
+      "canonical_post_sha256": "d25b633154267f3d6acd55eb02186d241552d9757ad79f9423596c3dc1a355b1",
+      "permanent_post_sha256": "7e96d3665143f0ebadc12f2c11e4bc24de6b7c187dce1180b3ec10751b44f748"
+    },
+    {
+      "path": "canonical/skills/design/references/05-evaluate.md",
+      "permanent": ".claude/skills/design/references/05-evaluate.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "c64daf0981187d6c6c9f66ec59c3a27230d6377d6431f6ef206778740d31b959",
+      "result": "applied",
+      "canonical_post_sha256": "a569a09a7a3e1bab85740a7bb2cb286d529b2747a6c2372d5842cbc4550ecd74",
+      "permanent_post_sha256": "001c28607d45393b46003a17efb028c74c3f2b2f6ba3a6a3b40286fbee335d6b"
+    },
+    {
+      "path": "canonical/skills/design/references/09-publish.md",
+      "permanent": ".claude/skills/design/references/09-publish.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "da124d12f75e87cce633bae91e7321bf5ec1880d7b0bffe1457f8924fed76d07",
+      "result": "applied",
+      "canonical_post_sha256": "dae78bcd08c9c57756e455cfb04529342919d17cdd279c5fb1f6b55dd741a590",
+      "permanent_post_sha256": "695d8a24c9144876bdb80d3e590acb0a1c16352ac28f4b4cd8e654c2d47a0e76"
+    },
+    {
+      "path": "canonical/skills/design/templates/evaluate.md",
+      "permanent": ".claude/skills/design/templates/evaluate.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "01a6d238f87186d78f3288cda737a204b1b1e8c3a14c6b6a88d61fd8f9b04bcb",
+      "result": "applied",
+      "canonical_post_sha256": "1c3b57d81d2a1872ea5e5636d3eda1337ae88c509cdd0c419f39a2150a635f47",
+      "permanent_post_sha256": "1c344fbe830247e9fb83644bdb7026eccc85b5bb5a091770511731516927f142"
+    },
+    {
+      "path": "canonical/skills/design/templates/frame.md",
+      "permanent": ".claude/skills/design/templates/frame.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "795864becc121d0f94794beb46bc5b66020188bd3bc500ea7bd57c4cc9811604",
+      "result": "applied",
+      "canonical_post_sha256": "c01f90dbc5e7df7a81473af3a52a8164d5a6c4b262f6486e68229e5fbf224ea0",
+      "permanent_post_sha256": "a168ae2e213794093698f06e799b239d6e1b00f20b25d013b25604873d56d85f"
+    },
+    {
+      "path": "canonical/skills/design/templates/report.md",
+      "permanent": ".claude/skills/design/templates/report.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "233daab83d966290446d2a58ae84b3fa90a82f0a0686c1755c52d190fd8a1578",
+      "result": "applied",
+      "canonical_post_sha256": "3592bb58775790ccd70626ee97f4fe52ff0d54030b5e3519b029593363b03ff9",
+      "permanent_post_sha256": "fb42b3b533c02da4b467f813e2d42b0a52ed112800a49b4b30e1f262edc8f73a"
+    },
+    {
+      "path": "canonical/skills/design/templates/research.md",
+      "permanent": ".claude/skills/design/templates/research.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "f489ea76d8d1b12645928705731ecdb1bdcdfe3799607d918bc5132981343fc0",
+      "result": "applied",
+      "canonical_post_sha256": "4436777d875f67583166ea7f06744784abd01439652b7d45326a719ee1cf2fb7",
+      "permanent_post_sha256": "f3de610c39e55f2bbfe57733c1acc7382322717933deaf23940d4d79c0f26abd"
+    },
+    {
+      "path": "canonical/skills/dev/references/01-context-gathering.md",
+      "permanent": ".claude/skills/dev/references/01-context-gathering.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "a811497fbdfb0d7789007b3db65a07763da72194130b15e11b7217ec3a8766a4",
+      "result": "applied",
+      "canonical_post_sha256": "62565c40c1616bb25cec11abf497eb8bbadb12c1f4f42ad6d63872c2d1acc55d",
+      "permanent_post_sha256": "72d8605123dc1a1124011af3a6a9fca04b9eefd0779c66ec54a7f62fd2d74468"
+    },
+    {
+      "path": "canonical/skills/dev/references/03-plan.md",
+      "permanent": ".claude/skills/dev/references/03-plan.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "6479508402f0ee55dc45b7c97f41f4a259d5474d58d42502066d83c3d01fb646",
+      "result": "applied",
+      "canonical_post_sha256": "b7d734c35274293a5cba4570ce45ea83817aaf1f712cbf4cb04cb8f8001d50cd",
+      "permanent_post_sha256": "72fb658deddacfe4a863656ed93b90230b1af01a3d6a13196849d9fc48ef4eb8"
+    },
+    {
+      "path": "canonical/skills/dev/references/06-document.md",
+      "permanent": ".claude/skills/dev/references/06-document.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "a2bbe94c072d722aba48058d3262bb5a2205ec4440b483f4cc8e6371762b1e44",
+      "result": "applied",
+      "canonical_post_sha256": "d1685676367e2f372cb9224a86e3388fd783d0e77c69aa0cb90136d8f6afd907",
+      "permanent_post_sha256": "c307e1466d31ea59e992f177aa47e1a60939af5fa667f59bbff18fce17e7c7b9"
+    },
+    {
+      "path": "canonical/skills/dev/templates/plan.md",
+      "permanent": ".claude/skills/dev/templates/plan.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "1d010e7905f69b34fbc2a6b22bfcada7aeda630448c9a62ed021cc0e5f41a693",
+      "result": "applied",
+      "canonical_post_sha256": "674701ddfe9721f5851e497c81a00e583ddf2594d98598c1ffc9f0a914a70379",
+      "permanent_post_sha256": "26523ebb78d35196a818ef86ed671cd8b4a8f1a3dad5f724c801c729e8ba2cbe"
+    },
+    {
+      "path": "canonical/skills/dev/templates/report.md",
+      "permanent": ".claude/skills/dev/templates/report.md",
+      "provider": "claude",
+      "permanent_pre_sha256": "da57d5bd51f1cf38fc9b355b053bcb504c4441ecae37ebaa90fb3c4a76c8daf1",
+      "result": "applied",
+      "canonical_post_sha256": "76f2871bf75b18d765a1b22bcb382785e070925f34f1bdb7e85024e6f95a4d98",
+      "permanent_post_sha256": "9ae0a80481a047765a7ce3835eaacbd81717fb1f3dc4767a0a3212a6d7dd36c0"
+    },
+    {
+      "path": "canonical/docs/.og/gitignore",
+      "permanent": "docs/.og/.gitignore",
+      "provider": "claude",
+      "permanent_pre_sha256": null,
+      "result": "applied",
+      "canonical_post_sha256": "4ce3f82f21a56e80622bacfac01e8863c35982174f9e583e9954101eb05d1da4",
+      "permanent_post_sha256": "4ce3f82f21a56e80622bacfac01e8863c35982174f9e583e9954101eb05d1da4"
+    }
+  ],
+  "completed_at": "2026-11-21T19:36:33.806Z",
+  "unresolved": [
+    {
+      "path": "canonical/docs/.og/docs-operational-graph.sqlite",
+      "reason": "binary seed, excluded from the bundle; this repo keeps its own live DB, migrated to schema v1 on open (backup docs-operational-graph.v0.bak.sqlite)"
+    }
+  ],
+  "local_deployment_actions": [
+    "scripts/ci/check-tier-sync.mjs reads static TIER_NAMES; APP_README_PATTERN import dropped",
+    "GraphExplorer cytoscapeStyle.ts drops AppReadme from TIER_COLORS/TIER_RING; comments in cytoscapeStyle.ts, script.ts, docUrl.ts fixed"
+  ],
+  "verification": {
+    "diff -rq canonical/docs/.og docs/.og": "only cli.test.mjs, gitignore/.gitignore, DB, graph.mmd",
+    "gitignore rename + check-ignore v0 backup": "exit 0",
+    "yarn nx run web-docs:build": "exit 0 (OG build migrated DB v0->v1, tier sync, VitePress)",
+    "placeholders": "no new unresolved {{...}} in any deployed output"
+  }
+}

@@ -120,7 +120,8 @@ Otherwise present the uncertain rows with the options, `report`, `wait start
 Delegate the whole list to `@docs-writer` in one call: the table from Step 3, the
 source material for each row (plan Solution, implementation notes, architecture
 notes, RF decisions), and the settled outcomes to record. It applies the doc
-principles; you do not repeat them. Retired docs: it removes them and fixes
+principles, including the B+ frontmatter (`updated: { by: process:dev-document, at:
+<UTC now> }`) and the `index.md` bullets; you do not repeat them. Retired docs: it removes them and fixes
 references, including the docs-site navigation if the project has one.
 
 For each doc it writes or updates, `@docs-writer` also ensures frontmatter
@@ -149,9 +150,11 @@ For each row marked done (new or updated — this doc just graduated), call
 <destination-path>` automatically — edge direction is source-first, matching the
 edge-type names (`impl-to-hld` etc.): `<source-path>` is this ticket's `1-plan.md`
 or `2-report.md`, whichever is the source of the change; `<destination-path>` is
-the HLD/LLD/Engineering Guide/README doc that just graduated (the row marked done
+the HLD/LLD/Engineering Guide doc that just graduated (the row marked done
 above); `<type>` is the matching graduation edge
-(`impl-to-hld`/`impl-to-lld`/`impl-to-engineering-guide`/`impl-to-readme`). `--to`'s
+(`impl-to-hld`/`impl-to-lld`/`impl-to-engineering-guide`). An app README is outside
+`docs/`, so the graph never indexes it: record its update in `2-report.md` only, with
+no `index` call. `--to`'s
 target must already be indexed (it errors otherwise); if the destination doc is
 new, index it with a plain `index --doc <destination-path>` call first, then this
 one. Non-blocking: on failure, report it in one line and continue — never stop

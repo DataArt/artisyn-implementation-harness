@@ -8,17 +8,86 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
+import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { DatabaseSync } from 'node:sqlite';
 
-import { DB_FILE, MERMAID_FILE, AUTHORED_EDGE_TYPES } from './constants.mjs';
-import { SCHEMA } from './schema.mjs';
-import { need, atomicWrite, listMarkdownFiles, readIgnoreList, toPosixRelative } from './utils.mjs';
-import { DocsStore } from './docs.mjs';
+import {
+  DB_FILE,
+  MERMAID_FILE,
+  AUTHORED_EDGE_TYPES,
+  BACKUP_FILE,
+  OKF_VERSION,
+  CONFIG_FILE,
+  RETIRED_EDGE_TYPE,
+} from './constants.mjs';
+import { SCHEMA, SCHEMA_VERSION, MIGRATIONS_V0_TO_V1 } from './schema.mjs';
+import {
+  need,
+  atomicWrite,
+  walkMarkdownFiles,
+  readIgnoreList,
+  readFrontmatter,
+  toPosixRelative,
+  inScope,
+  parseFrontmatter,
+  parseIndexBullets,
+  resolveLink,
+  linkTargetExists,
+  DOCS_HOME,
+  writeFrontmatter,
+  normalizeText,
+  splitFrontmatter,
+  isContentBearing,
+  isLinkBullet,
+  isHeading,
+  encodeLinkPath,
+  firstHeading,
+} from './utils.mjs';
+import { DocsStore, loadConfig, configFrom, tierRoots, typeFor } from './docs.mjs';
 import { EdgesStore, computeMirrors, computeKeywordMatches } from './edges.mjs';
 
 /** The folder this tool lives in (`<project>/docs/.og`). */
 const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Bring the DB to SCHEMA_VERSION. A fresh DB is created at the current version.
+ * A v0 DB (OG before schema versioning) is copied to BACKUP_FILE, then migrated
+ * in one transaction; any failing statement rolls it back, so it stays v0. A DB
+ * newer than this OG is refused untouched.
+ */
+function ensureSchema(db, root, dbPath) {
+  const version = db.prepare('PRAGMA user_version').get().user_version;
+  if (version > SCHEMA_VERSION) {
+    db.close();
+    throw new Error(
+      `database newer than this OG (user_version ${version}, this OG supports ${SCHEMA_VERSION}): ${dbPath}`
+    );
+  }
+  if (version === SCHEMA_VERSION) return;
+  const isV0 = db
+    .prepare("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'docs'")
+    .get();
+  if (!isV0) {
+    db.exec(SCHEMA);
+    db.exec(`PRAGMA user_version = ${SCHEMA_VERSION}`);
+    return;
+  }
+  fs.copyFileSync(dbPath, path.join(root, BACKUP_FILE));
+  db.exec('BEGIN');
+  for (const statement of MIGRATIONS_V0_TO_V1) {
+    try {
+      db.exec(statement);
+    } catch (error) {
+      db.exec('ROLLBACK');
+      db.close();
+      throw new Error(`schema migration v0 → v1 failed at "${statement}": ${error.message}`, {
+        cause: error,
+      });
+    }
+  }
+  db.exec('COMMIT');
+}
 
 /**
  * Open the graph database at `dir`'s DB_FILE, schema ensured, and wrap it as a
@@ -29,7 +98,8 @@ const TOOL_DIR = path.dirname(fileURLToPath(import.meta.url));
  * and fail when the database is absent instead of creating an empty one.
  * @param {string} dir
  * @param {{create?: boolean}} [opts]
- * @returns {{db: import('node:sqlite').DatabaseSync, docs: DocsStore, edges: EdgesStore}}
+ * @returns {{db: import('node:sqlite').DatabaseSync, config: import('./docs.mjs').ProjectConfig,
+ *   docs: DocsStore, edges: EdgesStore}}
  */
 function openStore(dir, { create = true } = {}) {
   const root = path.resolve(dir);
@@ -46,32 +116,43 @@ function openStore(dir, { create = true } = {}) {
   }
   fs.mkdirSync(path.dirname(dbPath), { recursive: true });
   const db = new DatabaseSync(dbPath);
-  db.exec(SCHEMA);
-  return { db, docs: new DocsStore(db), edges: new EdgesStore(db) };
+  ensureSchema(db, root, dbPath);
+  const config = loadConfig(root);
+  return { db, config, docs: new DocsStore(db, config), edges: new EdgesStore(db) };
 }
 
 /**
  * Assign/confirm a doc's ID via `DocsStore.assign()` and, when `--edge` is
  * given, write the authored (derived=0) graduation edge via `EdgesStore.write()`.
- * Note: `assign()` runs before the `--edge`/`--to` validation, so a call that
- * throws (e.g. `--to` target not indexed) can still have assigned `doc`'s ID
- * as a side effect — harmless, since assignment is additive-only/idempotent
- * and safe to retry, but the call is not all-or-nothing.
+ * The edge type and the `--to` scope are checked before `assign()`, so an
+ * out-of-scope target never leaves an ID behind on `--doc`. A `--to` that is
+ * in scope but not indexed is still checked after `assign()`; that side effect
+ * is harmless, since assignment is additive-only and safe to retry.
  * @param {{dir: string, doc: string, id?: string, edge?: string, to?: string}} opts
  */
 export async function index({ dir, doc, id, edge, to }) {
-  const { db, docs, edges } = openStore(dir);
+  let relTo;
+  if (edge) {
+    need(
+      AUTHORED_EDGE_TYPES.includes(edge),
+      `Unknown edge type: ${edge} (expected one of ${AUTHORED_EDGE_TYPES.join(', ')})`
+    );
+    need(to, '--edge requires --to');
+    relTo = toPosixRelative(dir, path.isAbsolute(to) ? to : path.join(dir, to));
+    const scope = inScope(relTo, readIgnoreList(path.join(dir, 'docs')));
+    need(scope.ok, scope.message);
+  }
+  const { db, config, docs, edges } = openStore(dir);
   try {
     const absDoc = path.isAbsolute(doc) ? doc : path.join(dir, doc);
-    const assigned = docs.assign(dir, absDoc, { id });
+    const relDoc = toPosixRelative(dir, absDoc);
+    const configured = config.rawProductDir;
+    need(
+      !(config.invalidConfig && configured && relDoc.startsWith(configured + '/')),
+      `invalidConfig: ${config.invalidConfig?.reason}; fix docs/.og/og.config.json before indexing ${relDoc}`
+    );
+    const assigned = docs.assign(dir, absDoc, { id, stampType: true });
     if (edge) {
-      need(
-        AUTHORED_EDGE_TYPES.includes(edge),
-        `Unknown edge type: ${edge} (expected one of ${AUTHORED_EDGE_TYPES.join(', ')})`
-      );
-      need(to, '--edge requires --to');
-      const absTo = path.isAbsolute(to) ? to : path.join(dir, to);
-      const relTo = toPosixRelative(dir, absTo);
       const toRow = need(docs.findByPath(relTo), `--to target is not indexed: ${relTo}`);
       edges.write(assigned.id, toRow.id, edge, 0);
     }
@@ -111,7 +192,7 @@ export async function unedge({ dir, doc, edge, to }) {
  * Assign IDs to every doc under `docs/` still missing one, prune rows for docs
  * whose file was deleted since the last reindex (cascading their edges), then
  * recompute every derived edge: mirrors-consistent/mirrors-gap (HLD/LLD diff)
- * and keyword-match (shared `keywords:` tokens — from the stored column, no
+ * and keyword-match (shared `tags:` tokens — from the stored column, no
  * content read). Idempotent: a second run with nothing changed on disk
  * changes nothing.
  *
@@ -123,16 +204,63 @@ export async function unedge({ dir, doc, edge, to }) {
  * `reindex()`/`build()` self-heals it — a half-measure transaction wrapping
  * only some of these steps (and not `build()`'s separate Mermaid-artifact
  * write) would add complexity without closing that same window anyway.
+ *
+ * Scope: out-of-scope files are skipped silently. `scopeViolations` lists only
+ * what needs action: a reserved file that still carries an OG `id:`, and a row
+ * pruned because its existing file is now out of scope. A reserved `index.md`
+ * that still carries its row's `id:` keeps the row (and its authored edges)
+ * until a writer removes the id. Every authored edge on a pruned row is listed
+ * in `orphanedAuthored` before it is removed with the row.
  * @param {{dir: string}} opts
- * @returns {Promise<{skipped: {path: string, reason: string}[], pruned: string[]}>}
  */
 export async function reindex({ dir }) {
-  const { db, docs, edges } = openStore(dir);
+  const { db, config, docs, edges } = openStore(dir);
   try {
     const docsRoot = path.join(dir, 'docs');
-    const found = listMarkdownFiles(docsRoot, readIgnoreList(docsRoot));
-    for (const file of found) docs.assign(dir, file);
-    const pruned = docs.pruneExcept(new Set(found.map((file) => toPosixRelative(dir, file))));
+    const ignore = readIgnoreList(docsRoot);
+    const kept = new Set();
+    const scopeViolations = [];
+    const frontmatterErrors = [];
+    for (const file of walkMarkdownFiles(docsRoot)) {
+      const relPath = toPosixRelative(dir, file);
+      const scope = inScope(relPath, ignore);
+      if (scope.ok) {
+        const { errors } = docs.assign(dir, file);
+        for (const error of errors) frontmatterErrors.push({ path: relPath, ...error });
+        kept.add(relPath);
+        continue;
+      }
+      if (scope.rule === 'ogignore') continue;
+      const fileId = readFrontmatter(fs.readFileSync(file, 'utf8')).data.id;
+      if (!fileId) continue;
+      scopeViolations.push({ path: relPath, rule: scope.rule });
+      if (docs.findByPath(relPath)?.id === fileId) kept.add(relPath);
+    }
+    const stale = docs.staleExcept(kept);
+    for (const row of stale) {
+      const absPath = path.join(dir, row.path);
+      if (!fs.existsSync(absPath)) continue;
+      const scope = inScope(row.path, ignore);
+      if (
+        !scope.ok &&
+        scope.rule !== 'ogignore' &&
+        !scopeViolations.some((v) => v.path === row.path)
+      )
+        scopeViolations.push({ path: row.path, rule: scope.rule });
+    }
+    const pruned = stale.map((row) => row.id);
+    const orphanedAuthored = edges.authoredTouching(pruned).map((edge) => {
+      const pathOf = (id) => docs.findById(id)?.path ?? null;
+      return {
+        edge: edge.edge_type,
+        fromId: edge.from_id,
+        fromPath: pathOf(edge.from_id),
+        toId: edge.to_id,
+        toPath: pathOf(edge.to_id),
+        prunedId: pruned.includes(edge.to_id) ? edge.to_id : edge.from_id,
+      };
+    });
+    docs.remove(pruned);
     edges.removeForDocs(pruned);
     const { edges: mirrorEdges, skipped } = computeMirrors(dir);
     for (const edge of mirrorEdges) {
@@ -143,7 +271,14 @@ export async function reindex({ dir }) {
     edges.removeAllOfType('keyword-match');
     for (const { fromId, toId } of computeKeywordMatches(docs.all()))
       edges.write(fromId, toId, 'keyword-match', 1);
-    return { skipped, pruned };
+    return {
+      skipped,
+      pruned,
+      scopeViolations,
+      orphanedAuthored,
+      frontmatterErrors,
+      invalidConfig: config.invalidConfig,
+    };
   } finally {
     db.close();
   }
@@ -243,7 +378,7 @@ export async function search({ dir, term }) {
     return docs
       .all()
       .filter((row) => {
-        const haystack = [row.title, row.purpose, row.keywords]
+        const haystack = [row.title, row.description, row.tags]
           .filter(Boolean)
           .join(' ')
           .toLowerCase();
@@ -257,16 +392,548 @@ export async function search({ dir, term }) {
   }
 }
 
-const MISSING_FIELDS = ['purpose', 'keywords'];
+/** @returns {boolean} Whether a frontmatter value counts as present. */
+function filled(value) {
+  if (Array.isArray(value)) return value.length > 0;
+  return typeof value === 'string' && value.trim() !== '';
+}
+
+const REQUIRED_FIELDS = ['type', 'description', 'tags'];
 
 /**
- * Every indexed doc, or (with `missing`) only those still missing `purpose`
- * and/or `keywords`. A pure query, no writes. The caller (an agent, following
+ * The OKF conformance report: in-scope docs missing a required B+ field,
+ * `index.md` bullets to missing files, concept docs their folder's `index.md`
+ * does not list, present bundle roots without a versioned `index.md`, and
+ * frontmatter outside the YAML subset. Reads files only; never writes, never
+ * opens the DB. `docs/index.md` (the VitePress home) is never reported.
+ * @param {{dir: string}} opts
+ */
+export async function check({ dir }) {
+  const root = path.resolve(dir);
+  const docsRoot = path.join(root, 'docs');
+  const ignore = readIgnoreList(docsRoot);
+  const report = {
+    missingFields: [],
+    brokenIndexEntries: [],
+    unlistedConcepts: [],
+    unversionedBundles: [],
+    frontmatterErrors: [],
+  };
+  const concepts = [];
+  const indexes = new Map();
+  for (const file of walkMarkdownFiles(docsRoot)) {
+    const relPath = toPosixRelative(root, file);
+    if (relPath === DOCS_HOME) continue;
+    const scope = inScope(relPath, ignore);
+    if (!scope.ok) {
+      if (scope.rule === 'reserved-basename' && path.basename(file).toLowerCase() === 'index.md')
+        indexes.set(path.dirname(file), file);
+      continue;
+    }
+    concepts.push(file);
+    const { data, errors } = parseFrontmatter(fs.readFileSync(file, 'utf8'));
+    for (const error of errors) report.frontmatterErrors.push({ path: relPath, ...error });
+    const fields = REQUIRED_FIELDS.filter((field) => !filled(data[field]));
+    if (fields.length) report.missingFields.push({ path: relPath, fields });
+  }
+  const listed = new Map();
+  for (const [folder, indexFile] of indexes) {
+    const linked = new Set();
+    const { body } = parseFrontmatter(fs.readFileSync(indexFile, 'utf8'));
+    for (const bullet of parseIndexBullets(body)) {
+      const target = resolveLink(indexFile, bullet.url);
+      if (!target) continue;
+      linked.add(target);
+      if (!linkTargetExists(target))
+        report.brokenIndexEntries.push({
+          index: toPosixRelative(root, indexFile),
+          target: path.relative(folder, target).split(path.sep).join('/'),
+        });
+    }
+    listed.set(folder, linked);
+  }
+  for (const file of concepts) {
+    const folder = path.dirname(file);
+    if (folder === docsRoot || !indexes.has(folder)) continue;
+    if (!listed.get(folder).has(file))
+      report.unlistedConcepts.push({
+        path: toPosixRelative(root, file),
+        index: toPosixRelative(root, indexes.get(folder)),
+      });
+  }
+  for (const [bundleRoot] of tierRoots(loadConfig(root))) {
+    const absRoot = path.join(root, bundleRoot);
+    if (!fs.existsSync(absRoot)) continue;
+    const indexFile = path.join(absRoot, 'index.md');
+    const version = fs.existsSync(indexFile)
+      ? parseFrontmatter(fs.readFileSync(indexFile, 'utf8')).data.okf_version
+      : undefined;
+    if (version !== OKF_VERSION) report.unversionedBundles.push({ root: bundleRoot });
+  }
+  for (const list of Object.values(report))
+    list.sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
+  report.counts = Object.fromEntries(
+    Object.entries(report).map(([key, list]) => [key, list.length])
+  );
+  return report;
+}
+
+// --- migrate -------------------------------------------------------------------
+
+const MIGRATION_ACTOR = 'process:okf-migration';
+const OG_KEY_LINE = /^(id|purpose|keywords):/;
+const OG_ID = /^[0-9a-f]{8}(-\d+)?$/;
+const ANSWER_FILES = ['.harness/state/answers.json', '.harness/state/launch/answers.json'];
+
+/** Run git in `root`; null when git fails or `root` is not a repository. */
+function git(root, args) {
+  const result = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
+  return result.status === 0 ? result.stdout : null;
+}
+
+/** ISO 8601 in UTC with a `Z` suffix and whole seconds. */
+function utcSeconds(date) {
+  return new Date(date).toISOString().replace(/\.\d{3}Z$/, 'Z');
+}
+
+/** First and last author dates of a file, in UTC; `now` when it has no history. */
+function gitDates(root, relPath, now) {
+  const dates = (git(root, ['log', '--follow', '--format=%aI', '--', relPath]) ?? '')
+    .split('\n')
+    .filter(Boolean);
+  if (!dates.length) return { first: now, last: now };
+  return { first: utcSeconds(dates[dates.length - 1]), last: utcSeconds(dates[0]) };
+}
+
+/**
+ * The `og.config.json` content implied by the stored launch answers, or null
+ * when no answer settles it. Q10b Project-scoped or a Q10c "none" → `{}`. A Q10c
+ * value counts only when it names an existing folder under `docs/`.
+ */
+function configFromAnswers(root) {
+  const file = ANSWER_FILES.map((rel) => path.join(root, rel)).find((f) => fs.existsSync(f));
+  if (!file) return null;
+  let answers;
+  try {
+    answers = JSON.parse(fs.readFileSync(file, 'utf8')).answers ?? {};
+  } catch {
+    return null;
+  }
+  const scope = String(answers.Q10b?.value ?? '');
+  if (/project/i.test(scope) && !/two|product/i.test(scope)) return {};
+  const value = typeof answers.Q10c?.value === 'string' ? answers.Q10c.value.trim() : '';
+  if (/^none$/i.test(value)) return {};
+  if (!value) return null;
+  const candidate = (value.startsWith('docs/') ? value : `docs/${value}`).replace(/\/+$/, '');
+  const abs = path.join(root, candidate);
+  if (!fs.existsSync(abs) || !fs.statSync(abs).isDirectory()) return null;
+  return { productDir: candidate };
+}
+
+function isTemplateMeta(data) {
+  return 'name' in data && data.type === 'reference';
+}
+
+/** A tags value as a list, whatever form an OG-era doc wrote it in. */
+function toList(value) {
+  if (Array.isArray(value)) return value;
+  if (typeof value !== 'string') return [];
+  return value
+    .replace(/^\[|\]$/g, '')
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+/** A doc's frontmatter in B+ form: renamed keys, template meta dropped, seeds filled. */
+function migratedData(root, relPath, data, body, config, now) {
+  const next = { ...data };
+  if (isTemplateMeta(data)) for (const key of ['name', 'description', 'type']) delete next[key];
+  const description = next.description ?? next.purpose;
+  const tags = next.tags ?? next.keywords;
+  delete next.purpose;
+  delete next.keywords;
+  if (filled(description)) next.description = description;
+  else delete next.description;
+  if (toList(tags).length) next.tags = toList(tags);
+  else delete next.tags;
+  if (!filled(next.type)) next.type = typeFor(relPath, config);
+  if (!filled(next.title)) next.title = firstHeading(body) ?? path.posix.basename(relPath, '.md');
+  if (!next.generated || !next.updated) {
+    const dates = gitDates(root, relPath, now);
+    next.generated ??= { by: MIGRATION_ACTOR, at: dates.first };
+    next.updated ??= { by: MIGRATION_ACTOR, at: dates.last };
+  }
+  return next;
+}
+
+/** Collapse runs of blank lines and trim, ending with one newline. */
+function tidy(text) {
+  return (
+    text
+      .replace(/\n{3,}/g, '\n\n')
+      .replace(/^\n+/, '')
+      .replace(/\s+$/, '') + '\n'
+  );
+}
+
+/** Remove the top-level `id`/`purpose`/`keywords` lines (and the continuation lines
+ * of a wrapped value) from the frontmatter by line, without a YAML parse. A
+ * block left empty is removed with the blank line after it. */
+function stripOgKeys(content) {
+  const { block, body } = splitFrontmatter(content);
+  if (!block) return normalizeText(content);
+  const lines = block
+    .replace(/^---\n/, '')
+    .replace(/---\n?$/, '')
+    .split('\n');
+  const kept = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (!OG_KEY_LINE.test(lines[i])) {
+      kept.push(lines[i]);
+      continue;
+    }
+    while (i + 1 < lines.length && /^[ \t]/.test(lines[i + 1])) i += 1;
+  }
+  const remaining = kept.filter((line) => line.trim());
+  if (!remaining.length) return body.replace(/^\n/, '');
+  return `---\n${kept.join('\n').replace(/\n+$/, '')}\n---\n${body}`;
+}
+
+/** Content without its frontmatter block (and the blank line after it). */
+function withoutFrontmatter(content) {
+  return splitFrontmatter(content).body.replace(/^\n/, '');
+}
+
+/** Add `okf_version` to a bundle root `index.md`, keeping its other keys. */
+function withOkfVersion(content) {
+  const { block, body } = splitFrontmatter(content);
+  const line = `okf_version: '${OKF_VERSION}'`;
+  if (!block) return `---\n${line}\n---\n\n${body.replace(/^\n+/, '')}`;
+  const inner = block
+    .replace(/^---\n/, '')
+    .replace(/---\n?$/, '')
+    .split('\n')
+    .filter((l) => !/^okf_version:/.test(l) && l !== '');
+  return `---\n${[line, ...inner].join('\n')}\n---\n${body}`;
+}
+
+/** `* [title](url) - description` for a doc, from its (planned) frontmatter. */
+function bulletFor(title, url, description) {
+  return `- [${title}](${url})${filled(description) ? ` - ${description}` : ''}`;
+}
+
+/**
+ * Work out every change `migrate` would make, without writing anything. The
+ * same plan drives `--check` (pending or not), `--dry-run` (the report) and a
+ * real run (the writes).
+ */
+function planMigration(root, docs, initialConfig) {
+  const now = utcSeconds(Date.now());
+  const docsRoot = path.join(root, 'docs');
+  const ignore = readIgnoreList(docsRoot);
+  const plan = {
+    writes: new Map(),
+    stray: new Set(),
+    configToWrite: null,
+    missingConfig: false,
+    invalidConfig: initialConfig.invalidConfig,
+    needsWriter: [],
+    overviewConflicts: [],
+  };
+  const read = (rel) =>
+    plan.writes.has(rel) ? plan.writes.get(rel) : fs.readFileSync(path.join(root, rel), 'utf8');
+
+  // Step 1 — config.
+  let config = initialConfig;
+  if (!initialConfig.present) {
+    const resolved = configFromAnswers(root);
+    if (resolved) {
+      plan.configToWrite = resolved;
+      config = configFrom(resolved);
+      plan.invalidConfig = config.invalidConfig;
+    } else plan.missingConfig = true;
+  }
+
+  const files = walkMarkdownFiles(docsRoot).map((file) => toPosixRelative(root, file));
+  const concepts = files.filter((rel) => rel !== DOCS_HOME && inScope(rel, ignore).ok);
+  const indexes = files.filter(
+    (rel) => rel !== DOCS_HOME && path.posix.basename(rel).toLowerCase() === 'index.md'
+  );
+  const bundles = tierRoots(config).map(([bundleRoot]) => bundleRoot);
+  const inBundle = (rel) => bundles.some((bundleRoot) => rel.startsWith(bundleRoot + '/'));
+  const writerGaps = (rel, data) => {
+    if (!filled(data.description))
+      plan.needsWriter.push({ path: rel, reason: 'missing description' });
+    if (!filled(data.tags)) plan.needsWriter.push({ path: rel, reason: 'missing tags' });
+  };
+
+  // Step 4 — frontmatter rewrite (planned first, so navigation bullets use final values).
+  for (const rel of concepts) {
+    const { data, body, raw, errors } = parseFrontmatter(read(rel));
+    const legacy =
+      'purpose' in data || 'keywords' in data || !filled(data.type) || isTemplateMeta(data);
+    if (!legacy) continue;
+    if (errors.length) {
+      plan.needsWriter.push({ path: rel, reason: 'unsupported YAML', line: errors[0].line });
+      continue;
+    }
+    const next = migratedData(root, rel, data, body, config, now);
+    writerGaps(rel, next);
+    plan.writes.set(rel, writeFrontmatter(next) + (raw === null ? '\n' : '') + body);
+  }
+
+  // Step 2 — move index prose to 00 Overview.md and write the navigation bullets.
+  const conflictFolders = new Set();
+  for (const rel of indexes.filter(inBundle)) {
+    const { data, body } = parseFrontmatter(read(rel));
+    if (!isContentBearing(body)) continue;
+    const folder = path.posix.dirname(rel);
+    const overviewRel = `${folder}/00 Overview.md`;
+    if (fs.existsSync(path.join(root, overviewRel))) {
+      plan.overviewConflicts.push({ folder, existing: overviewRel });
+      conflictFolders.add(folder);
+      continue;
+    }
+    const title =
+      (filled(data.title) && data.title) || firstHeading(body) || path.posix.basename(folder);
+    const description = data.description ?? data.purpose;
+    const tags = toList(data.tags ?? data.keywords);
+    const dates = gitDates(root, rel, now);
+    const overview = {
+      ...(data.id ? { id: data.id } : {}),
+      type: typeFor(overviewRel, config),
+      title,
+      ...(filled(description) ? { description } : {}),
+      ...(tags.length ? { tags } : {}),
+      generated: { by: MIGRATION_ACTOR, at: dates.first },
+      updated: { by: MIGRATION_ACTOR, at: dates.last },
+    };
+    writerGaps(overviewRel, overview);
+    const prose = body
+      .split('\n')
+      .filter((line) => !isLinkBullet(line))
+      .join('\n');
+    plan.writes.set(overviewRel, writeFrontmatter(overview) + '\n' + tidy(prose));
+
+    const absIndex = path.join(root, rel);
+    const kept = body
+      .split('\n')
+      .filter((line) => !line.trim() || isHeading(line) || isLinkBullet(line));
+    const linked = new Set(
+      kept
+        .filter(isLinkBullet)
+        .flatMap((line) => parseIndexBullets(line))
+        .map((bullet) => resolveLink(absIndex, bullet.url))
+        .filter(Boolean)
+    );
+    const h1 = kept.findIndex((line) => /^#\s/.test(line));
+    const overviewBullet = bulletFor(
+      `${title} Overview`,
+      encodeLinkPath('00 Overview.md'),
+      description
+    );
+    const lines =
+      h1 === -1
+        ? [overviewBullet, ...kept]
+        : [kept[h1], '', overviewBullet, ...kept.filter((_, i) => i !== h1)];
+    const siblings = concepts
+      .filter((c) => path.posix.dirname(c) === folder)
+      .sort((a, b) => path.posix.basename(a).localeCompare(path.posix.basename(b)));
+    for (const conceptRel of siblings) {
+      if (linked.has(path.join(root, conceptRel))) continue;
+      const meta = parseFrontmatter(read(conceptRel));
+      const conceptTitle =
+        meta.data.title ?? firstHeading(meta.body) ?? path.posix.basename(conceptRel, '.md');
+      lines.push(
+        bulletFor(
+          conceptTitle,
+          encodeLinkPath(path.posix.basename(conceptRel)),
+          meta.data.description ?? meta.data.purpose
+        )
+      );
+    }
+    const nearest = (i, step) => {
+      for (let j = i + step; j >= 0 && j < lines.length; j += step)
+        if (lines[j].trim()) return lines[j];
+      return '';
+    };
+    const joined = lines.filter(
+      (line, i) => line.trim() || !(isLinkBullet(nearest(i, -1)) && isLinkBullet(nearest(i, 1)))
+    );
+    plan.writes.set(rel, splitFrontmatter(read(rel)).block + '\n' + tidy(joined.join('\n')));
+  }
+
+  // Step 5 — strip OG keys from every index.md (never docs/index.md, never a conflict folder).
+  for (const rel of indexes) {
+    if (conflictFolders.has(path.posix.dirname(rel))) continue;
+    const content = normalizeText(read(rel));
+    const stripped = stripOgKeys(content);
+    if (stripped !== content) plan.writes.set(rel, stripped);
+  }
+
+  // Step 6 — bundle roots carry a versioned index.md.
+  for (const bundleRoot of bundles) {
+    const absRoot = path.join(root, bundleRoot);
+    if (!fs.existsSync(absRoot) || !fs.statSync(absRoot).isDirectory()) continue;
+    const rel = `${bundleRoot}/index.md`;
+    if (conflictFolders.has(bundleRoot)) continue;
+    const exists = plan.writes.has(rel) || fs.existsSync(path.join(root, rel));
+    if (!exists) {
+      const bullets = concepts
+        .filter((c) => path.posix.dirname(c) === bundleRoot)
+        .sort((a, b) => path.posix.basename(a).localeCompare(path.posix.basename(b)))
+        .map((conceptRel) => {
+          const meta = parseFrontmatter(read(conceptRel));
+          const title =
+            meta.data.title ?? firstHeading(meta.body) ?? path.posix.basename(conceptRel, '.md');
+          return bulletFor(
+            title,
+            encodeLinkPath(path.posix.basename(conceptRel)),
+            meta.data.description ?? meta.data.purpose
+          );
+        });
+      const heading = `# ${path.posix.basename(bundleRoot)}`;
+      plan.writes.set(rel, withOkfVersion(tidy([heading, '', ...bullets].join('\n'))));
+      continue;
+    }
+    const content = read(rel);
+    if (parseFrontmatter(content).data.okf_version !== OKF_VERSION)
+      plan.writes.set(rel, withOkfVersion(content));
+  }
+
+  // Step 7 — stray OG ids outside docs/ (git-tracked .md files only).
+  const tracked = (git(root, ['ls-files', '-z', '--', '*.md']) ?? '').split('\0').filter(Boolean);
+  for (const rel of tracked) {
+    if (rel.startsWith('docs/')) continue;
+    const content = fs.readFileSync(path.join(root, rel), 'utf8');
+    const { data } = parseFrontmatter(content);
+    if (data.id === undefined) continue;
+    const onlyOgId =
+      Object.keys(data).length === 1 && OG_ID.test(String(data.id)) && !docs.findById(data.id);
+    if (onlyOgId) {
+      plan.writes.set(rel, withoutFrontmatter(content));
+      plan.stray.add(rel);
+    } else plan.needsWriter.push({ path: rel, reason: 'OG id outside docs/ left in place' });
+  }
+
+  plan.config = config;
+  plan.pending =
+    plan.overviewConflicts.length > 0 ||
+    [...plan.writes.keys()].some((rel) => !plan.stray.has(rel));
+  return plan;
+}
+
+/** Refuse a real run over uncommitted `.md` work: under docs/ (except docs/.og/) and the stray-id targets. */
+function refuseDirty(root, plan) {
+  const status = git(root, ['status', '--porcelain=v1', '-z', '--untracked-files=all']);
+  need(
+    status !== null,
+    `Refusing to migrate: ${root} is not a git repository (git is the rollback); pass --allow-dirty to run anyway`
+  );
+  const entries = status.split('\0');
+  const dirty = [];
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i];
+    if (!entry) continue;
+    const rel = entry.slice(3);
+    if (entry[0] === 'R' || entry[0] === 'C') i += 1;
+    const inDocs = rel.startsWith('docs/') && !rel.startsWith('docs/.og/');
+    if (rel.endsWith('.md') && (inDocs || plan.stray.has(rel))) dirty.push(rel);
+  }
+  need(
+    !dirty.length,
+    `Refusing to migrate: dirty .md files (commit or stash them, or pass --allow-dirty): ${dirty.join(', ')}`
+  );
+}
+
+/**
+ * Bring a project's docs to B+ frontmatter and the OKF bundle layout in one
+ * idempotent pass: config, index prose to `00 Overview.md` with navigation
+ * bullets, `impl-to-readme` edges re-typed (merging duplicates), frontmatter
+ * rewrite seeded from git, OG keys stripped from every `index.md`, bundle roots
+ * versioned, stray ids outside `docs/` removed, reindex, report. `docs/index.md`
+ * is never touched. `check` and `dryRun` write no doc file; a real run refuses
+ * dirty `.md` files unless `allowDirty`.
+ * @param {{dir: string, check?: boolean, dryRun?: boolean, allowDirty?: boolean}} opts
+ */
+export async function migrate({
+  dir,
+  check: checkOnly = false,
+  dryRun = false,
+  allowDirty = false,
+}) {
+  const root = path.resolve(dir);
+  let plan;
+  let before;
+  let mergedEdges;
+  const { db, config, docs, edges } = openStore(root);
+  try {
+    before = { nodes: docs.all().length, edges: edges.counts() };
+    plan = planMigration(root, docs, config);
+    if (checkOnly)
+      return {
+        pending: plan.pending,
+        counts: before,
+        missingConfig: plan.missingConfig,
+        invalidConfig: plan.invalidConfig,
+      };
+    if (!dryRun && !allowDirty) refuseDirty(root, plan);
+    mergedEdges = edges.retype(RETIRED_EDGE_TYPE, 'references', { dryRun });
+  } finally {
+    if (db.isOpen) db.close();
+  }
+  const report = {
+    pending: plan.pending,
+    counts: { before, after: null },
+    filesChanged: plan.writes.size + (plan.configToWrite ? 1 : 0),
+    mergedEdges,
+    missingConfig: plan.missingConfig,
+    invalidConfig: plan.invalidConfig,
+    needsWriter: plan.needsWriter,
+    overviewConflicts: plan.overviewConflicts,
+    orphanedAuthored: [],
+  };
+  if (dryRun) {
+    const ignore = readIgnoreList(path.join(root, 'docs'));
+    const finalDocs = new Set(
+      walkMarkdownFiles(path.join(root, 'docs')).map((file) => toPosixRelative(root, file))
+    );
+    for (const rel of plan.writes.keys()) if (rel.startsWith('docs/')) finalDocs.add(rel);
+    report.counts.after = {
+      nodes: [...finalDocs].filter((rel) => inScope(rel, ignore).ok).length,
+      edges: { authored: before.edges.authored - mergedEdges, derived: null },
+    };
+    return report;
+  }
+  if (plan.configToWrite)
+    atomicWrite(path.join(root, CONFIG_FILE), JSON.stringify(plan.configToWrite, null, 2) + '\n');
+  for (const [rel, content] of plan.writes) {
+    fs.mkdirSync(path.dirname(path.join(root, rel)), { recursive: true });
+    atomicWrite(path.join(root, rel), content);
+  }
+  const indexed = await reindex({ dir: root });
+  const reopened = openStore(root);
+  try {
+    report.counts.after = { nodes: reopened.docs.all().length, edges: reopened.edges.counts() };
+    report.orphanedAuthored = indexed.orphanedAuthored;
+    report.pending = planMigration(root, reopened.docs, reopened.config).pending;
+  } finally {
+    reopened.db.close();
+  }
+  return report;
+}
+
+const MISSING_FIELDS = ['description', 'tags'];
+
+/**
+ * Every indexed doc, or (with `missing`) only those still missing `description`
+ * and/or `tags`. A pure query, no writes. The caller (an agent, following
  * `reindex-graph.md`'s intelligent-scan step) reads what comes back and
  * writes frontmatter/edges itself; this script never derives or writes
- * `purpose`/`keywords`/content-reference edges on its own.
+ * `description`/`tags`/content-reference edges on its own.
  * @param {{dir: string, missing?: string}} opts `missing`, when given, is a
- *   comma-separated subset of `purpose,keywords`; omitted means every doc.
+ *   comma-separated subset of `description,tags`; omitted means every doc.
  * @returns {Promise<import('./docs.mjs').DocRow[]>}
  */
 export async function list({ dir, missing }) {
@@ -274,7 +941,7 @@ export async function list({ dir, missing }) {
   for (const field of fields)
     need(
       MISSING_FIELDS.includes(field),
-      `Unknown --missing field: ${field} (expected purpose, keywords)`
+      `Unknown --missing field: ${field} (expected description, tags)`
     );
   const { db, docs } = openStore(dir, { create: false });
   try {
@@ -294,8 +961,10 @@ Commands:
   reindex --dir <root>
   query   --dir <root> --related-to <id|path> [--edge <type>]
   search  --dir <root> --term <text>
-  list    --dir <root> [--missing <purpose|keywords|purpose,keywords>]
+  list    --dir <root> [--missing <description|tags|description,tags>]
   unedge  --dir <root> --doc <path> --edge <type> --to <path>
+  check   --dir <root>
+  migrate --dir <root> [--check] [--dry-run] [--allow-dirty]
 `;
 
 async function runCli() {
@@ -315,6 +984,9 @@ async function runCli() {
       'related-to': { type: 'string' },
       term: { type: 'string' },
       missing: { type: 'string' },
+      check: { type: 'boolean' },
+      'dry-run': { type: 'boolean' },
+      'allow-dirty': { type: 'boolean' },
     },
   });
   const dir = need(values.dir, '--dir is required');
@@ -337,6 +1009,14 @@ async function runCli() {
       }),
     search: () => search({ dir, term: need(values.term, '--term is required') }),
     list: () => list({ dir, missing: values.missing }),
+    check: () => check({ dir }),
+    migrate: () =>
+      migrate({
+        dir,
+        check: values.check,
+        dryRun: values['dry-run'],
+        allowDirty: values['allow-dirty'],
+      }),
     unedge: () =>
       unedge({
         dir,

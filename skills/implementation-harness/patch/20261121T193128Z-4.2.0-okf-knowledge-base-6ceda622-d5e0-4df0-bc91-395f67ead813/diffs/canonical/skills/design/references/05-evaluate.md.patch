@@ -1,0 +1,11 @@
+--- a/canonical/skills/design/references/05-evaluate.md
++++ b/canonical/skills/design/references/05-evaluate.md
+@@ -73,7 +73,7 @@ review comfortably in the console — that review happens once, in the IDE, at t
+ end-of-phase sign-off (Step 7), together with the recommendation. Apply the
+ docs-writer authoring pattern (`{{provider:skills_root}}/design/patterns/docs-writer-authoring.md`):
+ delegate the write of `design/02 Evaluate.md` (matrix + tradeoffs, recommendation
+-section left as a placeholder, using `{{provider:skills_root}}/design/templates/evaluate.md`)
++section left as a placeholder, using `{{provider:skills_root}}/design/templates/evaluate.md` with its meta block replaced by the fenced `yaml` frontmatter under it)
+ to `@docs-writer` using the selected delegation procedure. Continue straight to
+ Step 3 — do not stop here.
+ 

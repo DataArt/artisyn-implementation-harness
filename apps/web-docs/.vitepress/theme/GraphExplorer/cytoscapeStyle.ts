@@ -8,7 +8,6 @@ export const TIER_COLORS: Record<string, string> = {
   EngineeringGuide: '#065F46',
   Story: '#D97706',
   Product: '#7C3AED',
-  AppReadme: '#4B5563',
 };
 export const UNTIERED_TIER = 'Other';
 export const UNTIERED_COLOR = '#6B7280';
@@ -18,16 +17,15 @@ export function tierColor(tier: string): string {
 }
 
 // Concentric ring order for the Graph Explorer's Cytoscape layout — ring 0
-// is the center, higher numbers sit further out. `AppReadme` and the
-// untiered `UNTIERED_TIER` ('Other') share the outermost ring (confirmed:
-// not folded into Story's ring).
+// is the center, higher numbers sit further out. The untiered
+// `UNTIERED_TIER` ('Other') takes the outermost ring (not folded into
+// Story's ring).
 export const TIER_RING: Record<string, number> = {
   Product: 0,
   HLD: 1,
   LLD: 2,
   EngineeringGuide: 3,
   Story: 4,
-  AppReadme: 5,
   [UNTIERED_TIER]: 5,
 };
 const UNTIERED_RING = 5;

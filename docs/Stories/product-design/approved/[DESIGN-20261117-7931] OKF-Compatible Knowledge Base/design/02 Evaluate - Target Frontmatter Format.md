@@ -1,3 +1,7 @@
+---
+id: 9b948ff1
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 1, Target frontmatter format
 
 _Produced by the 🏗 Evaluate phase. This is the judgment artifact. Options A, B, C, D and B+ are defined in `01 Research - Target Frontmatter Format.md`._

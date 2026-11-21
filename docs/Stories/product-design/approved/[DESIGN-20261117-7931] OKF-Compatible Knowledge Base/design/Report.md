@@ -1,3 +1,7 @@
+---
+id: 3759cc60
+---
+
 # Design Report — DESIGN-20261117-7931: OKF-Compatible Knowledge Base
 
 ## Context

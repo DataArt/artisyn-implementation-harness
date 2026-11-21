@@ -1,3 +1,7 @@
+---
+id: abaa8ada
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 4, OG scope guard
 
 _Produced by the 🏗 Evaluate phase. This is the judgment artifact. Options come from `01 Research - OG Scope Guard.md`._

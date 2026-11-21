@@ -41,16 +41,19 @@ paths and the Copilot reading of the marketplace manifest follow the official ho
 documentation.
 
 Shared documentation is written once for every selected provider. Where a doc shows a
-command, it uses a leading skill-invocation prefix — `/` in Claude, `$` in Codex — and
+command, it uses a leading skill-invocation prefix — `/` in Claude/Copilot, `$` in Codex — and
 where it needs the root instruction file it names the one this install produced. Skill
 companions (patterns, references, runtime procedures) are always referenced by their
 path _inside_ the installed skill bundle, so the table above is the only place a
 provider-specific root path appears.
 
-Both-provider installs derive shared project facts once and render provider-specific paths
+Multi-provider installs derive shared project facts once and render provider-specific paths
 and invocation syntax. Native agent models and permissions are not interchangeable.
 Role instructions do not create enforced tool allowlists. Existing provider configuration
-is reconciled rather than overwritten, and local credentials remain local.
+is reconciled rather than overwritten, and local credentials remain local. Claude and
+Copilot share one MCP file: reconcile changes once and verify both installed consumers.
+Copilot tool lists and instruction-inheritance flags depend on host capabilities;
+verify the actual delegated context and tool scope rather than relying on file syntax.
 
 ## Workflow contract and runtime procedures
 

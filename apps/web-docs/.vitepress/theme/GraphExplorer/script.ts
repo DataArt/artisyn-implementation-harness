@@ -133,7 +133,7 @@ export default {
           // vastly outnumbers Product). NOT `equidistant` — cytoscape's own
           // concentric layout forces every ring's gap to match the LARGEST
           // gap any one ring needs when `equidistant: true`, and our
-          // outermost ring (AppReadme/Other, ~most of the ~115 docs) needs a
+          // outermost ring (Other) needs a
           // huge radius to avoid overlap, which blows every other ring's gap
           // out by that same amount and overflows the fit bounding box.
           // Leaving it unset (default false) keeps each ring's own radius

@@ -1,0 +1,75 @@
+--- a/SKILL.md
++++ b/SKILL.md
+@@ -1,17 +1,17 @@
+ ---
+-name: harness-bootstrap
++name: implementation-harness
+ metadata:
+-  version: 3.3.0
++  version: 4.2.0
+ description: >
+   Install the portable AI-dev harness, rebuild its operational graph standalone,
+   harvest project skill improvements into its canonical templates, package direct
+   canonical edits into a portable bundle, or apply canonical updates to an existing
+   project.
+-  Use /harness-bootstrap launch, /harness-bootstrap reindex-graph, or
+-  /harness-bootstrap patch harvest|prepare|apply.
++  Use /implementation-harness launch, /implementation-harness reindex-graph, or
++  /implementation-harness patch harvest|prepare|apply.
+ ---
+ 
+-# Harness bootstrap
++# Implementation harness
+ 
+ # SKILL METADATA
+ 
+@@ -20,13 +20,12 @@ Backup Owner: None
+ Team: Harness / Platform
+ Created: 2026-09-15
+ Last Reviewed: 2026-11-15
+-Version: 3.5.0
+ Purpose: Install the portable AI-dev harness, rebuild its operational graph standalone, harvest project skill improvements into its canonical templates, package direct canonical edits into a portable bundle, or apply canonical updates to an existing project.
+ Data Class: Internal
+ External Connections: None — operates on local project files; any MCP servers it configures for other skills (e.g. Jira/Confluence, AWS) are declared per-project in the generated `.mcp.json`, not used by this skill itself
+ Capabilities: Filesystem read/write scoped to the host project and this package's own directories (no access outside the repo); spawns one pinned local subprocess (`scripts/check-mermaid.mjs` renders via a configured, non-shell `spawnSync` call — no shell, no network-fetched code); may delegate single, disjoint-path stages to subagents per "Delegation safety" below. No credential handling, no network calls, and no push/deploy/commit of its own — those remain guarded commands presented to the developer to run.
+ Input: A route word (`launch` / `reindex-graph` / `patch harvest` / `patch prepare` / `patch apply`) plus project context gathered from the local repository
+-Output: Installed or updated skill/agent/doc files under the target project, plus launch/patch reports and manifests under `package:state/`
++Output: Installed or updated skill/agent/doc files under the target project, plus launch/patch reports and manifests under `.harness/state/`
+ 
+ [Process guide and diagrams](README.md)
+ 
+@@ -37,16 +36,17 @@ skills, agents, and guide docs are personalized copies.
+ ## Execution host and package location
+ 
+ Resolve this entrypoint to its physical package directory once. In this source
+-repository that is `.canonical-implementation-harness/`; in a consumer project it is
+-the extracted ZIP package. Record the project-relative directory as `package:` and use
+-it for scripts and shared state.
++repository that is `skills/implementation-harness/`; in a consumer project it is
++the installed package (a provider skills folder or a host plugin cache). Record it as
++`package:` (name, version, channel and this machine's path; see Patch State) and use it
++for scripts. Shared state lives in the project's `.harness/state/`.
+ The execution host (the current agent), installation targets (Q6), and package
+ location are independent. Never infer Q6 from the host or discovery directory.
+ 
+ Read [Host capabilities](references/host-capabilities.md) before executing an operation.
+ Use the current host's procedures for execution; the target provider's procedures
+ are copied into installed artifacts by the manifest. Invoke this skill using the
+-host's native syntax (`/harness-bootstrap` in Claude or Copilot, `$harness-bootstrap` in Codex).
++host's native syntax (`/implementation-harness` in Claude or Copilot, `$implementation-harness` in Codex).
+ 
+ ## Route
+ 
+@@ -109,9 +109,9 @@ ordering explicitly when the native tracker has no dependency support. Record th
+ selected mechanism once. Updating progress does not enter Plan mode.
+ Reports persist progress across sessions and accompany available native tracking.
+ 
+-For patch operations, create `package:state/launch/reports/<timestamp>-<mode>.md` from
+-the package report template. Load `package:state/launch/answers.json` and the latest local
+-report; legacy package reports are a migration fallback. Use the mode's
++For patch operations, create `.harness/state/launch/reports/<timestamp>-<mode>.md` from
++the package report template. Load `.harness/state/launch/answers.json` and the latest local
++report. Use the mode's
+ three progress rows, recording scope, the resolved provider scope, manifest ID,
+ decisions, and per-file outcomes. A project can have several providers installed at
+ once: name the providers the run deployed to or harvested from, never "both" by

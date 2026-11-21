@@ -1,4 +1,5 @@
 ---
+id: a8ce6496
 purpose: States the problem, target outcome, scope and constraints for implementing the OKF-compatible knowledge base and the OG scope guard
 keywords: [intent, okf, knowledge base, operational graph, scope guard, migration, dev-lifecycle]
 ---

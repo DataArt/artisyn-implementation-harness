@@ -1,0 +1,27 @@
+--- a/references/patch/05-patch-apply.md
++++ b/references/patch/05-patch-apply.md
+@@ -5,8 +5,10 @@ Canonical source paths are relative to `canonical/` inside the package — the m
+ folder patch operations read from or write into for portable content, aside from a
+ narrow set of `canonical-only` package-internal files (see `06-patch-state.md`).
+ Bookkeeping aliases `registry.md`, `project-patch/`, and `state/` refer to the
+-bootstrap package state directory defined in the state contract.
+-Use `package:state/launch/answers.json` and local reports for project knowns.
++project's `.harness/state/` directory defined in the state contract.
++Use `.harness/state/launch/answers.json` and local reports for project knowns. Read each
++baseline with `scripts/resolve-base.mjs` (see Patch State); a missing baseline stops the apply
++before any write.
+ 
+ ## 1 — Select canonical input and inspect
+ 
+@@ -113,5 +115,11 @@ Otherwise retain `partial` or `failed` and resumable per-file results. Purely pa
+ outputs when the manifest explicitly marks them canonical-only.
+ 
+ Report applied/skipped/unresolved items, manifest path, and verification results.
++Apply the manifest's `deployRenames` when a bundle entry maps to one (e.g.
++`canonical/docs/.og/gitignore` deploys as `docs/.og/.gitignore`); never leave the
++undotted name in the project. When the bundle changed any `docs/.og/` file, end the
++report with: "OG changed. Run `/implementation-harness reindex-graph` next. It checks
++whether the docs need migrating and asks before changing them." Apply itself never runs
++`migrate`.
+ Suggest a Conventional Commit without staging or committing. An already matching
+ input is a verified no-op; do not manufacture a new change bundle for it.

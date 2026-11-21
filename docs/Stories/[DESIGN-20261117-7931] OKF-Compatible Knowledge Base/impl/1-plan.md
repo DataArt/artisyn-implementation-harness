@@ -1,4 +1,5 @@
 ---
+id: bf4b64cd
 purpose: How the OKF-compatible knowledge base and the OG scope guard are built, released and dogfooded, step by step
 keywords:
   [plan, okf, operational graph, scope guard, migrate, check, schema v1, dogfood, dev-lifecycle]

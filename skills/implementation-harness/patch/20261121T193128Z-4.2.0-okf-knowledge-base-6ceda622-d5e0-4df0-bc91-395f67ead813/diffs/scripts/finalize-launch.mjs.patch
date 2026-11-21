@@ -1,0 +1,72 @@
+--- a/scripts/finalize-launch.mjs
++++ b/scripts/finalize-launch.mjs
+@@ -7,9 +7,10 @@ import fs from 'node:fs';
+ import path from 'node:path';
+ import crypto from 'node:crypto';
+ import { fileURLToPath } from 'node:url';
+-import { sha256, pruneEmptyAncestors } from './lib/fs-safe.mjs';
++import { sha256, pruneEmptyAncestors, isWithin } from './lib/fs-safe.mjs';
+ import { parseArgs } from './lib/cli.mjs';
+ import { RUN_ID_RE, RUNTIME_TOKEN_RE } from './lib/constants.mjs';
++import { STATE_RELATIVE } from './lib/state-root.mjs';
+ 
+ /** Resolve `relative` under `root` one path segment at a time, rejecting a
+  * traversal segment or a symlink anywhere along the way. Unlike the
+@@ -39,10 +40,10 @@ function resolveGuardedPath(root, relative) {
+   return current;
+ }
+ 
+-function loadMaterializedReceipt(root, packageRelative, runId) {
++function loadMaterializedReceipt(root, runId) {
+   const receiptPath = resolveGuardedPath(
+     root,
+-    `${packageRelative}/state/launch/runs/${runId}/materialization.json`
++    `${STATE_RELATIVE}/launch/runs/${runId}/materialization.json`
+   );
+   return JSON.parse(fs.readFileSync(receiptPath, 'utf8'));
+ }
+@@ -70,12 +71,14 @@ function assertEvidenceMatchesRun(evidence, receipt, runId) {
+ function makeOutputPathGuard(root, packageRelative) {
+   return (target) => {
+     if (
+-      target === packageRelative ||
+-      target.startsWith(packageRelative + '/') ||
++      (packageRelative !== null &&
++        (target === packageRelative || target.startsWith(packageRelative + '/'))) ||
++      target === '.harness' ||
++      target.startsWith('.harness/') ||
+       target === '.git' ||
+       target.startsWith('.git/')
+     )
+-      throw new Error('Output cannot modify package or git metadata');
++      throw new Error('Output cannot modify package, harness state or git metadata');
+     return resolveGuardedPath(root, target);
+   };
+ }
+@@ -149,9 +152,11 @@ function main() {
+     );
+   const root = fs.realpathSync(args.root);
+   const pkg = fs.realpathSync(args.package);
+-  const packageRelative = path.relative(root, pkg).split(path.sep).join('/');
+-  resolveGuardedPath(root, packageRelative);
+-  const receipt = loadMaterializedReceipt(root, packageRelative, args.run);
++  // A package outside the project (a host plugin cache) has no project-relative path to guard.
++  const packageInside = isWithin(root, pkg) && pkg !== root;
++  const packageRelative = packageInside ? path.relative(root, pkg).split(path.sep).join('/') : null;
++  if (packageRelative !== null) resolveGuardedPath(root, packageRelative);
++  const receipt = loadMaterializedReceipt(root, args.run);
+   const evidence = JSON.parse(fs.readFileSync(args.evidence, 'utf8'));
+   assertEvidenceMatchesRun(evidence, receipt, args.run);
+ 
+@@ -172,10 +177,7 @@ function main() {
+   if (args.mode === '--write') {
+     performCleanup(cleanup, outputPath, root);
+     writeVerificationReceipt(
+-      resolveGuardedPath(
+-        root,
+-        `${packageRelative}/state/launch/runs/${args.run}/verification.json`
+-      ),
++      resolveGuardedPath(root, `${STATE_RELATIVE}/launch/runs/${args.run}/verification.json`),
+       result
+     );
+   }

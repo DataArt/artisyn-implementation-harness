@@ -1,3 +1,7 @@
+---
+id: e1404ac4
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Evaluate: Decision 2, Graph schema and migration
 
 _Produced by the 🏗 Evaluate phase. Options come from `01 Research - Graph Schema and Migration.md`. The WAF summary below is repeated in `design/Report.md`._

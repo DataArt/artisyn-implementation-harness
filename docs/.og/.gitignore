@@ -1,0 +1,2 @@
+# Copy of a v0 graph taken before the v0 -> v1 schema migration; safe to delete once migrated docs are committed.
+docs-operational-graph.v0.bak.sqlite

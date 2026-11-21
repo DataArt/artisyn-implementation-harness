@@ -54,7 +54,7 @@
     },
     {
       "id": "implement",
-      "status": "active",
+      "status": "waiting",
       "attempts": [
         {
           "id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
@@ -254,14 +254,14 @@
       "order": 10,
       "plan_ref": "1-plan.md#step-10",
       "depends_on": [],
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "87c0a297-f7a6-4082-a525-b6080d51d3d2",
           "started_at": "2026-11-18T17:24:40.029Z",
-          "ended_at": null,
+          "ended_at": "2026-11-21T19:32:22.355Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
@@ -272,8 +272,16 @@
       "order": 11,
       "plan_ref": "1-plan.md#step-11",
       "depends_on": [],
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "baaae3c5-f500-4c3d-921f-ca240c0fc647",
+          "started_at": "2026-11-21T19:32:22.404Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -746,8 +754,95 @@
       "kind": "work",
       "activity": "implementation",
       "started_at": "2026-11-18T17:31:14.598Z",
+      "ended_at": "2026-11-18T17:33:47.649Z",
+      "last_observed_at": "2026-11-18T17:33:47.649Z"
+    },
+    {
+      "id": "665cf1fc-5f8c-4fc0-bdf9-9ce3565b2dcf",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Step 10: approve chore(harness-release): 4.2.0 commit",
+      "started_at": "2026-11-18T17:33:47.649Z",
+      "ended_at": "2026-11-21T19:25:08.526Z",
+      "last_observed_at": "2026-11-21T19:25:08.526Z"
+    },
+    {
+      "id": "22c5f568-f895-49a4-af7b-625fc7495c54",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T19:25:08.526Z",
+      "ended_at": "2026-11-21T19:25:08.630Z",
+      "last_observed_at": "2026-11-21T19:25:08.630Z"
+    },
+    {
+      "id": "07ca104c-04d2-4293-b74d-a56274d360d5",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Step 10: developer commit 2 chore(harness-release): 4.2.0",
+      "started_at": "2026-11-21T19:25:08.630Z",
+      "ended_at": "2026-11-21T19:29:38.126Z",
+      "last_observed_at": "2026-11-21T19:29:38.126Z"
+    },
+    {
+      "id": "2467147c-09ab-41c8-9060-987fd0d127f4",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T19:29:38.126Z",
+      "ended_at": "2026-11-21T19:32:22.355Z",
+      "last_observed_at": "2026-11-21T19:32:22.355Z"
+    },
+    {
+      "id": "852039aa-896e-4beb-8bf2-00899e8487d0",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-11",
+        "attempt_id": "baaae3c5-f500-4c3d-921f-ca240c0fc647"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T19:32:22.404Z",
+      "ended_at": "2026-11-21T19:37:14.421Z",
+      "last_observed_at": "2026-11-21T19:37:14.421Z"
+    },
+    {
+      "id": "df174f63-6335-4fcb-8afc-c01567769c8f",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-11",
+        "attempt_id": "baaae3c5-f500-4c3d-921f-ca240c0fc647"
+      },
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Step 11: developer commit chore(implementation-harness): apply 4.2.0 patch",
+      "started_at": "2026-11-21T19:37:14.421Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-18T17:31:14.598Z"
+      "last_observed_at": "2026-11-21T19:37:14.421Z"
     }
   ],
   "checks": [
@@ -1053,21 +1148,111 @@
       "exit_code": 0,
       "signal": null,
       "last_observed_at": "2026-11-18T17:22:17.570Z"
+    },
+    {
+      "id": "step-10-version-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "name": "Minor version stamp",
+      "kind": "acceptance",
+      "started_at": "2026-11-18T17:33:47.591Z",
+      "ended_at": "2026-11-18T17:33:47.591Z",
+      "result": "passed",
+      "evidence_ref": "git fetch --tags brought v4.1.0; yarn harness:version stamped 4.2.0 (CHANGELOG: Features harness 88ddcf5); no '!:' or BREAKING CHANGE in main..HEAD",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-10-check-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "name": "4.2.0 stamp checks",
+      "kind": "build",
+      "started_at": "2026-11-21T19:25:08.571Z",
+      "ended_at": "2026-11-21T19:25:08.571Z",
+      "result": "passed",
+      "evidence_ref": "v4.1.0 tag present; no breaking subjects main..HEAD; version-harness --check: stamped 4.2.0 matches commits since 4.1.0, exit 0",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-10-check-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "name": "patch prepare bundle",
+      "kind": "build",
+      "started_at": "2026-11-21T19:32:22.210Z",
+      "ended_at": "2026-11-21T19:32:22.210Z",
+      "result": "passed",
+      "evidence_ref": "bundle 6ceda622: 49 update + 1 add, every diff reconstructs after_sha256 from its recorded base; seed sqlite unresolved (binary)",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-10-check-run-03",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-10",
+        "attempt_id": "87c0a297-f7a6-4082-a525-b6080d51d3d2"
+      },
+      "name": "Developer commit 2",
+      "kind": "build",
+      "started_at": "2026-11-21T19:32:22.254Z",
+      "ended_at": "2026-11-21T19:32:22.254Z",
+      "result": "passed",
+      "evidence_ref": "commit this -> 63bf14e chore(harness-release): 4.2.0",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-11-check-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "141fe25f-12e9-4b18-a45b-ef11bae574c4",
+      "step": {
+        "id": "step-11",
+        "attempt_id": "baaae3c5-f500-4c3d-921f-ca240c0fc647"
+      },
+      "name": "patch apply verification",
+      "kind": "build",
+      "started_at": "2026-11-21T19:37:14.300Z",
+      "ended_at": "2026-11-21T19:37:14.300Z",
+      "result": "passed",
+      "evidence_ref": "diff -rq only allowed diffs; gitignore rename + check-ignore exit 0; yarn nx run web-docs:build exit 0; DB user_version 1, 205 docs, 217 authored edges",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-18T17:31:14.599Z",
+    "as_of": "2026-11-21T19:37:14.422Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 3313.8529999999996,
-    "observed_wait_seconds": 11511.587,
+    "observed_work_seconds": 3923.253999999999,
+    "observed_wait_seconds": 277661.95999999996,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "unclassified_seconds": 168.14500000000044,
+    "open_wait_seconds": 0.001,
+    "unclassified_seconds": 168.1930000000177,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 10832.379,
+    "approval_wait_seconds": 276713.256,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
@@ -1076,7 +1261,7 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-18T17:24:40.522Z",
+    "as_of": "2026-11-21T19:37:14.361Z",
     "source": "2-report.md",
     "source_sha256": "14bbeef616736e13bcaba38f2902ca53cfb90dcbed2ebdee9ea8915e86ab517f",
     "findings": {

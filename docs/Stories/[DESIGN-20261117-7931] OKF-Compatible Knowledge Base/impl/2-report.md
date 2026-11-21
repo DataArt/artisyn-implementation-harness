@@ -1,3 +1,7 @@
+---
+id: c1b2c846
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Report
 
 | Field  | Value                                                                                                          |
@@ -24,8 +28,8 @@ Task tracking: Claude `TaskCreate`/`TaskUpdate` (tasks #1–#7, one per stage), 
 | 7   | Canonical harness flows: launch, reindex-graph, patch apply | ✅ Done    | References + manifest; 98/98, unit-cli 44/44                       |      |      |
 | 8   | Canonical docs flow: writers, rules, templates              | ✅ Done    | B+ rules in canonical docs flow; Terminology kept empty (see note) |      |      |
 | 9   | Implementation Harness E2E: follow the key rename           | ✅ Done    | E2E fixture/assertion/grader; unit 319, unit-cli 44, integration 5 |      |      |
-| 10  | Release: commit, minor version stamp, patch prepare         | 🔄 Active  | Waiting for developer commits before the version stamp             |      |      |
-| 11  | This repo: patch apply                                      | ⏳ Pending |                                                                    |      |      |
+| 10  | Release: commit, minor version stamp, patch prepare         | ✅ Done    | 4.2.0 stamped (63bf14e); bundle 6ceda622, 50 files, all verified   |      |      |
+| 11  | This repo: patch apply                                      | ✅ Done    | 26 outputs; 5 conflicts resolved; DB v1; web-docs build green      |      |      |
 | 12  | This repo: reindex-graph migration                          | ⏳ Pending |                                                                    |      |      |
 | 13  | Web Docs: nav and README links                              | ⏳ Pending |                                                                    |      |      |
 | 14  | Web Explorer: Dogfood page                                  | ⏳ Pending |                                                                    |      |      |
@@ -41,14 +45,14 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 55m 13s · Wait: 3h 5m 18s · Unclassified: 2m 49s
+Observed work: 1h 0m 31s · Wait: 77h 7m 42s · Unclassified: 7m 40s
 
 | Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
 | ---------- | ------------------------ | ------------------------ | ----------- | ------- | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
 | context    | 2026-11-18T13:21:21.058Z | 2026-11-18T13:27:33.993Z | 6m 13s      | 2m 38s  | 3m 35s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | ceremony   | 2026-11-18T13:27:42.955Z | 2026-11-18T13:33:19.761Z | 5m 37s      | 5s      | 5m 32s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | plan       | 2026-11-18T13:33:27.013Z | 2026-11-18T16:48:43.098Z | 3h 15m 16s  | 19m 5s  | 2h 56m 11s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| implement  | 2026-11-18T16:48:52.113Z | unavailable              | unavailable | 33m 25s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| implement  | 2026-11-18T16:48:52.113Z | unavailable              | unavailable | 38m 43s | 74h 2m 24s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
 | test       | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 | document   | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 | completion | unavailable              | unavailable              | unavailable | 0s      | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
@@ -62,24 +66,24 @@ Quality (recorded inventory): findings 22 · open 0 · PR findings 0 · critical
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 55m 13s · Wait: 3h 5m 18s · Unclassified: 2m 49s
+Observed work: 1h 0m 31s · Wait: 77h 7m 42s · Unclassified: 7m 40s
 
-| Step                                                                 | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
-| -------------------------------------------------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ---- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
-| step-01: Tests: canonical OG cases for AC-1 to AC-8                  | 2026-11-18T16:49:02.129Z | 2026-11-18T16:56:35.184Z | 7m 33s      | 7m 33s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-02: Canonical OG: scope guard and retirements                   | 2026-11-18T16:56:35.240Z | 2026-11-18T16:59:16.398Z | 2m 41s      | 2m 41s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-03: Canonical OG: frontmatter parser, B+ writer, type map       | 2026-11-18T16:59:16.454Z | 2026-11-18T17:03:51.996Z | 4m 36s      | 4m 36s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-04: Canonical OG: schema v1, config, CLI renames                | 2026-11-18T17:03:52.073Z | 2026-11-18T17:03:52.181Z | 0s          | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-05: Canonical OG: check command                                 | 2026-11-18T17:03:52.232Z | 2026-11-18T17:06:09.479Z | 2m 17s      | 2m 17s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-06: Canonical OG: migrate command                               | 2026-11-18T17:06:09.541Z | 2026-11-18T17:15:40.179Z | 9m 31s      | 9m 31s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-07: Canonical harness flows: launch, reindex-graph, patch apply | 2026-11-18T17:15:40.233Z | 2026-11-18T17:18:30.967Z | 2m 51s      | 2m 51s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-08: Canonical docs flow: writers, rules, templates              | 2026-11-18T17:18:31.013Z | 2026-11-18T17:20:17.462Z | 1m 46s      | 1m 46s | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-09: Implementation Harness E2E: follow the key rename           | 2026-11-18T17:20:17.516Z | 2026-11-18T17:22:17.614Z | 2m 0s       | 2m 0s  | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-10: Release: commit, minor version stamp, patch prepare         | 2026-11-18T17:24:40.029Z | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
-| step-11: This repo: patch apply                                      | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| step-12: This repo: reindex-graph migration                          | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| step-13: Web Docs: nav and README links                              | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
-| step-14: Web Explorer: Dogfood page                                  | unavailable              | unavailable              | unavailable | 0s     | 0s   | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| Step                                                                 | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait       | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags |
+| -------------------------------------------------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ---------- | ------------ | ------------- | ------------------- | -------- | ------------- | ----- |
+| step-01: Tests: canonical OG cases for AC-1 to AC-8                  | 2026-11-18T16:49:02.129Z | 2026-11-18T16:56:35.184Z | 7m 33s      | 7m 33s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-02: Canonical OG: scope guard and retirements                   | 2026-11-18T16:56:35.240Z | 2026-11-18T16:59:16.398Z | 2m 41s      | 2m 41s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-03: Canonical OG: frontmatter parser, B+ writer, type map       | 2026-11-18T16:59:16.454Z | 2026-11-18T17:03:51.996Z | 4m 36s      | 4m 36s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-04: Canonical OG: schema v1, config, CLI renames                | 2026-11-18T17:03:52.073Z | 2026-11-18T17:03:52.181Z | 0s          | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-05: Canonical OG: check command                                 | 2026-11-18T17:03:52.232Z | 2026-11-18T17:06:09.479Z | 2m 17s      | 2m 17s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-06: Canonical OG: migrate command                               | 2026-11-18T17:06:09.541Z | 2026-11-18T17:15:40.179Z | 9m 31s      | 9m 31s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-07: Canonical harness flows: launch, reindex-graph, patch apply | 2026-11-18T17:15:40.233Z | 2026-11-18T17:18:30.967Z | 2m 51s      | 2m 51s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-08: Canonical docs flow: writers, rules, templates              | 2026-11-18T17:18:31.013Z | 2026-11-18T17:20:17.462Z | 1m 46s      | 1m 46s | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-09: Implementation Harness E2E: follow the key rename           | 2026-11-18T17:20:17.516Z | 2026-11-18T17:22:17.614Z | 2m 0s       | 2m 0s  | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-10: Release: commit, minor version stamp, patch prepare         | 2026-11-18T17:24:40.029Z | 2026-11-21T19:32:22.355Z | 74h 7m 42s  | 5m 18s | 74h 2m 24s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-11: This repo: patch apply                                      | 2026-11-21T19:32:22.404Z | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —     |
+| step-12: This repo: reindex-graph migration                          | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| step-13: Web Docs: nav and README links                              | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
+| step-14: Web Explorer: Dogfood page                                  | unavailable              | unavailable              | unavailable | 0s     | 0s         | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —     |
 
 <!-- dev-metrics-step:end -->
 
@@ -216,6 +220,31 @@ Rewrote `canonical/docs/.og/cli.test.mjs`. The existing cases now follow the v1 
 - Results: typecheck passes, `unit` 319/319, `unit-cli` 44/44, `integration` 5/5. The live `agent-e2e` (reindex-graph and bootstrap) is the developer's, because it is guarded.
 - Tech debt: TD-1 (`answers.json` path mismatch) and TD-2 (`cli.test.mjs` not in CI).
 - Environment note: `yarn nx run … --skip-nx-cache` fails in Nx itself (`hashArray is not a function` under WASI) on this machine. Runs without the flag work.
+
+### Step 10 — Release: commit, minor version stamp, patch prepare
+
+- Commit 1 is `88ddcf5`. `v4.1.0` was present locally. `yarn harness:version` stamped 4.2.0, and `version-harness.mjs --check` exits 0. Commit 2 is `63bf14e chore(harness-release): 4.2.0`.
+- `patch prepare` made bundle `6ceda622-d5e0-4df0-bc91-395f67ead813` with 49 updates and 1 add (`canonical/docs/.og/gitignore`): 26 mapped and 24 canonical-only. It requires `e2e05348`.
+- **Wider than this story:** 4.0.x and 4.1.0 shipped without bundles, so the recorded checkpoints were older than them. Prepare packages every direct canonical edit since the checkpoint, so the bundle also carries those earlier edits. Every base came from `state/objects/` or this repo's git history. Every diff reproduces its `after_sha256`.
+- The binary seed `docs-operational-graph.sqlite` is excluded as unresolved, because the bundle format has text diffs only. Launch copies the seed directly.
+
+### Step 11 — This repo: patch apply
+
+- Baseline with the old OG: after a fresh v0 `build`, 205 docs, 217 authored edges and 784 derived edges. Authored by type: references 132, impl-to-lld 20, story-to-hld 19, story-to-product 16, impl-to-hld 15, impl-to-engineering-guide 13, impl-to-readme 2. Derived by type: keyword-match 771, mirrors-consistent 9, mirrors-gap 4. The fresh build added an `id` to the 19 docs of this story's design folder and `impl/`.
+- Scope was the `claude` provider only. Each output was merged three-way from its last rendered canonical base, the permanent file and the new canonical file, all rendered with this repo's inferred values (for example `.claude/skills` and `/`). 21 outputs merged cleanly. The OG modules are byte-identical to canonical.
+- Five conflicts were resolved by hand. The kept local text is recorded as a retained customization in `index.json`:
+  - `04 AI Coding Tool Compatibility.md`: kept the local text.
+  - `Lifecycles/00 Overview.md`: kept the local frontmatter, which `migrate` rewrites.
+  - `Documentation/01 Principles.md`: the OKF frontmatter, `index.md` and Templates rules come from canonical. The paragraphs this repo had already dropped stay dropped.
+  - `05 Documents Flow.md`: only the App README row comes from canonical.
+  - `design/09-publish.md`: item 7 comes from canonical.
+- `docs/.og/gitignore` was deployed as `docs/.og/.gitignore`. The tier sync now uses `TIER_NAMES`, and Graph Explorer has no AppReadme tier.
+- Checks:
+  - `diff -rq` shows only the allowed differences.
+  - The `.gitignore` and `check-ignore` check exits 0.
+  - `web-docs:build` passes. The live DB is now schema v1, with the backup ignored and 205 docs and 217 authored edges unchanged.
+  - Derived edges went from 784 to 1406, because the new parser reads wrapped `tags` lists the old one saw as empty (see Step 3).
+- The operation record is `9d142ad8`, with an `APPLIED.md` row. OG changed, so `reindex-graph` is next (Step 12).
 
 ## Tech Debt
 

@@ -1,3 +1,7 @@
+---
+id: 970f4c65
+---
+
 # DESIGN-20261117-7931 — Stack
 
 The solution adds no new dependency. It pins the Open Knowledge Format version and relies on the SQLite, git and parser capabilities already present.

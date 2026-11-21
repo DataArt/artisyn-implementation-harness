@@ -6,10 +6,9 @@
 // if either file's shape changes enough to break the regex below.
 import fs from 'node:fs';
 import path from 'node:path';
-import { TIER_PATH_PREFIXES, APP_README_PATTERN } from '../../docs/.og/constants.mjs';
+import { TIER_NAMES } from '../../docs/.og/constants.mjs';
 
-const canonicalTiers = new Set(TIER_PATH_PREFIXES.map(([, tier]) => tier));
-if (APP_README_PATTERN) canonicalTiers.add('AppReadme');
+const canonicalTiers = new Set(TIER_NAMES);
 
 const stylePath = path.resolve(
   import.meta.dirname,

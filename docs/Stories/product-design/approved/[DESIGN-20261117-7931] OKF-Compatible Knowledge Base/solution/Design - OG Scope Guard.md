@@ -1,3 +1,7 @@
+---
+id: 3cdc7d56
+---
+
 # DESIGN-20261117-7931 — Design: OG scope guard
 
 _One predicate, `inScope(relPath, ignore)`, decides which files the Operational Graph (OG) may index or write. It runs at every write path. Container placement and delivery order are in [Architecture.md](Architecture.md)._

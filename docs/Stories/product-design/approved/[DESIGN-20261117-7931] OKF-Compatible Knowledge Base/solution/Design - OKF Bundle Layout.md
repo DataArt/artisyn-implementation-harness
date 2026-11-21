@@ -1,3 +1,7 @@
+---
+id: b5155f4e
+---
+
 # DESIGN-20261117-7931 — Design: OKF bundle layout
 
 Each OG tier root is one OKF bundle, and its `index.md` is navigation only. Prose moves out of

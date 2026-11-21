@@ -1,3 +1,7 @@
+---
+id: 60de4bb9
+---
+
 # DESIGN-20261117-7931 — Design: Target frontmatter format
 
 _Settled design for decision D1 (format B+). The decision register and component scope are in [Architecture.md](./Architecture.md)._

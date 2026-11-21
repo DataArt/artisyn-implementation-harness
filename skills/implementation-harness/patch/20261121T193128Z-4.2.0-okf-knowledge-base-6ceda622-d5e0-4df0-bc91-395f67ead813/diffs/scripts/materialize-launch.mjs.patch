@@ -1,0 +1,91 @@
+--- a/scripts/materialize-launch.mjs
++++ b/scripts/materialize-launch.mjs
+@@ -18,6 +18,12 @@ import {
+ } from './lib/fs-safe.mjs';
+ import { applyReplacements, unresolvedTokens } from './lib/tokens.mjs';
+ import { parseArgs } from './lib/cli.mjs';
++import {
++  STATE_RELATIVE,
++  ensureGitignore,
++  readPackageIdentity,
++  writePackageRecord,
++} from './lib/state-root.mjs';
+ import { RUN_ID_RE, SHA256_RE } from './lib/constants.mjs';
+ 
+ const isPlainObject = (value) =>
+@@ -233,13 +239,13 @@ function prepare(plan, root, canonical) {
+ }
+ 
+ /** The receipt path is itself a materialized-state path: reject any symlink
+- * along it rather than following one into an unexpected location.
++ * along it rather than following one into an unexpected location. State lives in the
++ * project's `.harness/state/`, never inside the package.
+  */
+-function computeReceiptPath(root, canonical, runId) {
++function computeReceiptPath(root, runId) {
+   let receiptPath = root;
+   for (const part of [
+-    ...path.relative(root, canonical).split(path.sep),
+-    'state',
++    ...STATE_RELATIVE.split('/'),
+     'launch',
+     'runs',
+     runId,
+@@ -321,10 +327,24 @@ function materializeFiles(prepared, root, receipt, save) {
+   }
+ }
+ 
++const PACKAGE_CHANNELS = ['npm', 'zip', 'marketplace', 'skills.sh', 'gh-skill'];
++
++/** Record which package and channel this launch ran from: the committed identity plus the
++ * ignored per-machine path. Only when the caller names the channel; the install CLI writes it
++ * itself for `npm` and `zip`.
++ */
++function recordPackage(root, canonical, channel) {
++  if (!PACKAGE_CHANNELS.includes(channel))
++    throw new Error(`Unknown channel: ${channel} (expected one of ${PACKAGE_CHANNELS.join(', ')})`);
++  const identity = readPackageIdentity(canonical);
++  if (!identity) throw new Error('Cannot read the package name and version to record');
++  writePackageRecord(root, { ...identity, channel, path: canonical });
++}
++
+ function main() {
+   const args = parseArgs(process.argv.slice(2), {
+     modeFlags: ['--check', '--write'],
+-    options: ['--plan', '--root', '--package'],
++    options: ['--plan', '--root', '--package', '--channel'],
+     defaults: {
+       root: process.cwd(),
+       package: path.dirname(path.dirname(fileURLToPath(import.meta.url))),
+@@ -332,16 +352,18 @@ function main() {
+   });
+   if (!args.plan || !args.mode)
+     throw new Error(
+-      'Usage: materialize-launch.mjs --plan PLAN [--root ROOT] [--package PACKAGE] (--check | --write)'
++      'Usage: materialize-launch.mjs --plan PLAN [--root ROOT] [--package PACKAGE] [--channel CHANNEL] (--check | --write)'
+     );
+   const root = fs.realpathSync(args.root);
+   const canonical = fs.realpathSync(args.package);
+-  if (!isWithin(root, canonical) || canonical === root)
+-    throw new Error('Package must be a directory within the project root');
++  // The package may live outside the project (a host plugin cache): state is in the project's
++  // .harness/state, not in the package. It only must not be, or contain, the project itself.
++  if (!fs.statSync(canonical).isDirectory()) throw new Error('Package must be a directory');
++  if (isWithin(canonical, root)) throw new Error('Package cannot be or contain the project root');
+   const planBytes = fs.readFileSync(args.plan);
+   const plan = JSON.parse(planBytes.toString('utf8'));
+   const prepared = prepare(plan, root, canonical);
+-  const receiptPath = computeReceiptPath(root, canonical, plan.run_id);
++  const receiptPath = computeReceiptPath(root, plan.run_id);
+   const receipt = loadOrInitReceipt(receiptPath, plan, sha256(planBytes));
+ 
+   if (args.mode === '--check') {
+@@ -356,6 +378,8 @@ function main() {
+     return;
+   }
+   const save = () => atomicWrite(receiptPath, `${JSON.stringify(receipt, null, 2)}\n`);
++  ensureGitignore(root);
++  if (args.channel) recordPackage(root, canonical, args.channel);
+   save();
+   try {
+     materializeFiles(prepared, root, receipt, save);

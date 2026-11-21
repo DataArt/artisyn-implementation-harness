@@ -1,3 +1,7 @@
+---
+id: 21ebd317
+---
+
 # DESIGN-20261117-7931 — Design: Graph schema and migration
 
 OG versions its SQLite schema with `PRAGMA user_version` and migrates it in place on open; a separate `migrate` command rewrites doc frontmatter to the B+ format and the docs to the OKF layout. Component boundaries and delivery order are in [Architecture.md](Architecture.md).

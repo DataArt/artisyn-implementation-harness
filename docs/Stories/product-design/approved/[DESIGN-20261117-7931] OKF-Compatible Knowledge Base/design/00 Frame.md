@@ -1,3 +1,7 @@
+---
+id: 006cb2b1
+---
+
 # DESIGN-20261117-7931 — OKF-Compatible Knowledge Base
 
 ## Problem

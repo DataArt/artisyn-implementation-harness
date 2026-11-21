@@ -1,3 +1,7 @@
+---
+id: c9daade8
+---
+
 # DESIGN-20261117-7931 — Efforts
 
 Delivery is canonical first: OG and harness changes land in the package, then reach this repo by patch.

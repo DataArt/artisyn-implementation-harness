@@ -1,0 +1,31 @@
+--- a/references/launch/01b-launch-install.md
++++ b/references/launch/01b-launch-install.md
+@@ -25,15 +25,16 @@ review customized legacy commands before removal. Keep the legacy configuration
+ `Skill` compatible while displaying the lifecycle as Evolve.
+ 
+ `skill-harvest` is retired; bootstrap's `patch harvest/apply` replaces it. Follow
+-`package:registry.md` for canonical inventory, including flat/shared references.
++`.harness/state/registry.md` for canonical inventory, including flat/shared references.
+ 
+ Read destinations and runtime procedures from `canonical/manifest.json`.
+ Claude installs `.claude/skills/<name>/SKILL.md` and `.claude/agents/<name>.md`;
+ Codex installs `.agents/skills/<name>/SKILL.md` and `.codex/agents/<name>.toml`.
+ Copilot installs `.github/skills/<name>/SKILL.md` and `.github/agents/<name>.agent.md`.
+ Read each canonical INTENT.md directly from the bootstrap package while deriving its
+-permanent output. Rename skill TEMPLATE.md, preserve companion names, install the
+-selected provider's runtime procedures, and verify the derived content. Never copy an
++permanent output. Rename skill TEMPLATE.md, apply the manifest's `deployRenames`
++(e.g. `docs/.og/gitignore` deploys as `docs/.og/.gitignore`), preserve companion names,
++install the selected provider's runtime procedures, and verify the derived content. Never copy an
+ INTENT.md into the project, even temporarily; canonical INTENTs remain in the package.
+ 
+ ### Adaptation and stage verification
+@@ -94,7 +95,7 @@ need that role; `architect/` for review even with one container;
+ `product-architect/` additionally for Product-context/Two-track Design.
+ Layer agents retain Role, Layer scope, What to enforce, Satellite review, What never
+ to do. Preserve required shared behavior in every specialist.
+-Register installed skills/agents/companions in `package:state/registry.md` using the canonical
++Register installed skills/agents/companions in `.harness/state/registry.md` using the canonical
+ schema, and record canonical/rendered bytes and hashes per Patch State. At Block B's boundary,
+ inspect every generated agent file, resolve project-specific tokens, and validate its native
+ format. A copied agent template is not an adapted agent.

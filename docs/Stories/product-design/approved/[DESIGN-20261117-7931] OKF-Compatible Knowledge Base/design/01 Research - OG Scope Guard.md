@@ -1,3 +1,7 @@
+---
+id: d01556df
+---
+
 # DESIGN-20261117-7931: OKF-Compatible Knowledge Base — Research: Decision 4, OG scope guard
 
 _Produced by the 🔍 Research phase. Owned by `@product-architect`. Do not edit after Evaluate phase begins._
