@@ -14,7 +14,7 @@ tags:
     read-compat window,
   ]
 generated: { by: process:okf-migration, at: 2026-11-02T14:35:32Z }
-updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:dev-document, at: 2026-11-21T22:20:00Z }
 ---
 
 # Storage and Build Model
@@ -23,7 +23,7 @@ The graph is one SQLite file, `docs/.og/docs-operational-graph.sqlite`, with two
 
 ## Schema
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 ```mermaid
 flowchart TD
@@ -100,7 +100,7 @@ One Story produces three authored edges to three different destination tiers in 
 
 ## Frontmatter format
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 Every indexed doc carries the frontmatter contract. Its keys, owners and accepted YAML are in [Knowledge Base Format → Frontmatter contract](<./05 Knowledge Base Format.md#frontmatter-contract>). OG maps the keys to columns:
 
@@ -121,7 +121,7 @@ Each doc's ID is a stable string stored in the doc's own frontmatter, not an int
 
 ## Build mechanism
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 A single script module is the one producer of `docs-operational-graph.sqlite`. It is invoked two ways, both calling the identical module — there is no second script and no new standing infrastructure.
 
@@ -158,11 +158,11 @@ The first invocation path runs automatically as part of the existing docs-site b
 
 - `reindex` and `build` write only `id` into a doc, never `type`.
 - They exit 0 and report `frontmatterErrors`, `scopeViolations` and `orphanedAuthored` in their JSON output.
-- Read-compat window: until a project is migrated, `build` and `reindex` read `description`, else `purpose`, and `tags`, else `keywords`. The major release after the one that introduces schema v1 removes the window.
+- Read-compat window: until a project is migrated, `build` and `reindex` read `description`, else `purpose`, and `tags`, else `keywords`. The window ends at the next major release; see [Update](<../09 Distribution/02 Update.md>) for the release details.
 
 ## Schema versioning
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 OG versions the schema with `PRAGMA user_version` and migrates the DB in place when it opens it.
 
@@ -179,7 +179,7 @@ OG versions the schema with `PRAGMA user_version` and migrates the DB in place w
 
 ## `migrate`
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 `node docs/.og/cli.mjs migrate --dir ROOT [--check] [--dry-run] [--allow-dirty]` brings a project's docs to the frontmatter contract and the OKF layout in one idempotent pass. A second run changes nothing.
 
@@ -216,6 +216,7 @@ OG versions the schema with `PRAGMA user_version` and migrates the DB in place w
 | 8   | Reindex                   | Rebuilds the graph from the rewritten files                                                                                                                                                            |
 | 9   | Report                    | Prints the JSON result                                                                                                                                                                                 |
 
+- Step 2 treats fenced code blocks as prose: headings and link-like lines inside a fence move to `00 Overview.md` unchanged and never become `index.md` navigation.
 - Step 4 seeds `generated.at` from the file's first git commit and `updated.at` from its last, converted to UTC. A file with no git history gets the current time.
 - `migrate` leaves `docs/index.md` unchanged.
 - In approved and archived Story files, `migrate` edits frontmatter only.
@@ -234,6 +235,6 @@ OG versions the schema with `PRAGMA user_version` and migrates the DB in place w
 
 ## Compatibility rule
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 Schema changes are versioned with `PRAGMA user_version` and migrated in place by OG on open. Authored edges are always preserved. `id` and the `(from_id, to_id, edge_type)` composite uniqueness constraint are stable contracts that any consumer — tooling or browser — can rely on indefinitely.

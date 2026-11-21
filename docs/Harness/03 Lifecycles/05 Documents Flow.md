@@ -5,7 +5,7 @@ title: Documents Flow
 description: Show how documentation moves from ticket-scoped working files to its permanent home
 tags: [documents flow, Stories, permanent docs, graduation pipeline, index.md navigation, archive]
 generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
-updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:dev-document, at: 2026-11-21T21:40:00Z }
 ---
 
 # Documents Flow
@@ -62,7 +62,7 @@ flowchart LR
 
 ## Graduation rules
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 | Lifecycle phase                   | Produces                                                        | Lives in                                                                       | Mutability                                                       |
 | --------------------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
@@ -85,7 +85,7 @@ flowchart LR
 
 ## Lifecycle of a doc
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 **Creation** — delivery docs are born in `Stories/<TICKET>/` as working drafts. No doc goes directly to HLD, LLD, or the Engineering Guide without passing through a ticket.
 

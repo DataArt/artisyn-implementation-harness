@@ -15,12 +15,12 @@ tags:
     operational graph,
   ]
 generated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
-updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:dev-document, at: 2026-11-21T21:35:00Z }
 ---
 
 # Knowledge Base Format
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 The docs tree is an OKF 0.2 knowledge base: five OKF bundles, one frontmatter contract, and the operational graph (OG) as the only query source. Skills query OG only. No skill reads a bundle file as a query source.
 
@@ -108,7 +108,7 @@ A section `index.md` is navigation only: no frontmatter, and only headings, blan
 - Each bullet takes the target doc's `title` and `description`.
 - Links are file-relative, with spaces URL-encoded (`00%20Overview.md`).
 
-An `index.md` is content-bearing when its body holds anything besides headings, blank lines and link-only bullets (`* [Title](url)`, optionally followed by ` - text`). `migrate` moves the prose of a content-bearing `index.md` to `00 Overview.md` in the same folder. That page keeps the old index page's `id` and authored edges, and takes the bundle's mapped type. The `index.md` gets a first bullet linking `00 Overview`, then one bullet per concept doc in the folder, in file-name order. See [Storage and Build Model → `migrate`](<./02 Storage and Build Model.md#migrate>).
+An `index.md` is content-bearing when its body holds anything besides headings, blank lines and link-only bullets (`* [Title](url)`, optionally followed by ` - text`). `migrate` moves the prose of a content-bearing `index.md` to `00 Overview.md` in the same folder. That page keeps the old index page's `id` and authored edges, and takes the bundle's mapped type. The `index.md` gets a first bullet linking `00 Overview`, then one bullet per concept doc in the folder, in file-name order. Fenced code blocks are never navigation: a heading or link-like line inside a fence stays in the `00 Overview.md` prose, unchanged. See [Storage and Build Model → `migrate`](<./02 Storage and Build Model.md#migrate>).
 
 ### Writer upkeep
 
@@ -169,6 +169,8 @@ Writers emit the canonical forms: an inline flow list for `tags` and a one-line 
 | Single- and double-quoted scalars                           | Anchors and aliases           |
 | Inline flow lists, Prettier-wrapped flow lists, block lists | Multi-document blocks         |
 | One-line flow mappings, one-level block mappings            |                               |
+
+When OG writes frontmatter (`index --doc`, `migrate`), it quotes a value only when a plain scalar would misparse. It uses single quotes, or double quotes with escapes when the value contains a newline or a tab, or more single quotes than double quotes. The opening and closing `---` lines may carry trailing spaces or tabs; OG still reads the block as frontmatter.
 
 A rejected form never removes a doc from the graph.
 

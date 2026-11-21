@@ -2,10 +2,11 @@
 id: a07f6c3d
 type: Product Concept
 title: Update
-description: Update commands per channel, the one-time manual update for ZIP installs on 4.0.2 or earlier after the switch to v<version> tags, the install CLI update rules, doctor, and how patch apply reads baselines after an update
+description: Update commands per channel, the one-time manual update for ZIP installs on 4.0.2 or earlier after the switch to v<version> tags, the 4.2.0 OG schema v1 update, the install CLI update rules, doctor, and how patch apply reads baselines after an update
 tags:
   [
     update,
+    schema v1,
     implementation-harness,
     doctor,
     install cli,
@@ -16,7 +17,7 @@ tags:
     patch bundles,
   ]
 generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
-updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:dev-document, at: 2026-11-21T22:00:00Z }
 ---
 
 # Update
@@ -68,9 +69,21 @@ Releases from 4.1.0 are tagged `v<version>`; releases up to 4.0.2 keep the long 
 
 After every update, run `/implementation-harness patch apply`. Plugin installs use `/artisyn:implementation-harness patch apply`.
 
-When `patch apply` reports that OG files changed, run `/implementation-harness reindex-graph` (plugin installs: `/artisyn:implementation-harness reindex-graph`). From the major harness release that introduces OG schema v1, it also runs any pending docs migration after a dry-run and your confirmation. See [Ops Model → Bootstrap and upgrade wiring](<../07 Operational Graph/01 Ops Model.md#bootstrap-and-upgrade-wiring>).
+When `patch apply` reports that OG files changed, run `/implementation-harness reindex-graph` (plugin installs: `/artisyn:implementation-harness reindex-graph`). From 4.2.0, which introduces OG schema v1, it also runs any pending docs migration after a dry-run and your confirmation. See [Ops Model → Bootstrap and upgrade wiring](<../07 Operational Graph/01 Ops Model.md#bootstrap-and-upgrade-wiring>).
 
 Host-native installs (marketplace, skills.sh, `gh skill`) record their channel when launch runs with `--channel`; the CLI's `update` on those installs only prints the host command above.
+
+## Updating to 4.2.0: OG schema v1
+
+4.2.0 migrates the OG database to schema v1 the first time it opens it, and OG older than 4.2.0 cannot read a v1 database. Update every checkout of a project together: an older OG fails on a v1 database with raw SQL errors.
+
+| Step                   | What happens                                                                                                                                                                                                          |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. `patch apply`       | A patch-based update applies three bundles in order; each `requires` the one before: `6ceda622` (OKF knowledge base), `073228ff` (`migrate` ignores fenced code), `237ddaf6` (frontmatter and `migrate` review fixes) |
+| 2. First open by 4.2.0 | OG copies the v0 database to `docs/.og/docs-operational-graph.v0.bak.sqlite` (git-ignored by `docs/.og/.gitignore`), then migrates it to v1 in one transaction                                                        |
+| 3. `reindex-graph`     | Run `/implementation-harness reindex-graph`. It shows a `migrate` dry run and asks before it rewrites any doc                                                                                                         |
+
+4.2.0 is a minor release by decision, although older OG cannot read the new database. The [read-compat window](<../07 Operational Graph/02 Storage and Build Model.md#build-mechanism>) (`build` and `reindex` still read `purpose` and `keywords`) is removed at the next major release.
 
 ## CLI update rules
 

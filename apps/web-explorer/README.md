@@ -1,6 +1,6 @@
 # web-explorer
 
-React 19 + Vite SPA — a promotional landing page introducing the Artisyn Implementation Harness through an interactive, simulated `/design`/`/dev` lifecycle walkthrough. Served at the GitHub Pages project-site root, composed alongside Web Docs by Web Portal.
+React 19 + Vite SPA — a promotional landing page introducing the Artisyn Implementation Harness through an interactive, simulated `/design`/`/dev` lifecycle walkthrough. Served at the GitHub Pages project-site root, composed alongside Web Docs by Web Portal. The `/dogfood` route shows how this repo runs the harness on itself, with a view of its docs graph.
 
 ## Targets
 
@@ -16,6 +16,15 @@ React 19 + Vite SPA — a promotional landing page introducing the Artisyn Imple
 yarn install
 cd apps/web-explorer && ../../node_modules/.bin/vite   # → http://localhost:5173
 ```
+
+## Refresh the Dogfood graph snapshot
+
+```bash
+node docs/.og/cli.mjs build --dir .                 # from the repo root
+node apps/web-explorer/scripts/export-dogfood-graph.mjs
+```
+
+Commit the updated `src/pages/dogfood/graph.json`.
 
 ## Config
 

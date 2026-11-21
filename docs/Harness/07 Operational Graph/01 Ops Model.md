@@ -17,7 +17,7 @@ tags:
     check,
   ]
 generated: { by: process:okf-migration, at: 2026-11-02T14:35:32Z }
-updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:dev-document, at: 2026-11-21T22:20:00Z }
 ---
 
 # Ops Model
@@ -26,7 +26,7 @@ The knowledge graph is additive tooling: a CLI entry (`cli.mjs`) plus its satell
 
 ## System context
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 OG reads and writes only under `docs/`. The Product folder comes from `docs/.og/og.config.json`.
 
@@ -93,7 +93,7 @@ flowchart TD
 
 ## Node and edge model
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 ```mermaid
 flowchart LR
@@ -138,13 +138,13 @@ The docs-site Graph Explorer groups these nine types into four visual/filter buc
 
 ## Graph type
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 Nodes are typed — each is one of the five types above. Edges are typed and directed — each of the nine types above has a defined source-tier → destination-tier meaning, except `references` and `keyword-match`, which may connect any two tiers. A `derived` flag on each edge distinguishes the six authored edges (the five graduation types plus `references`, written by a lifecycle action or the intelligent scan) from the three computed edges (`mirrors-consistent`, `mirrors-gap`, `keyword-match`, never authored). Cycles are permitted — edges are typed relationship statements, not a dependency or control-flow order, so nothing in this design enforces acyclicity.
 
 ## Settled interfaces
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 | Component                                | Settled interface                                                                                                                                                                                                                                                                                                                                                                                                             |
 | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -156,7 +156,7 @@ Nodes are typed — each is one of the five types above. Edges are typed and dir
 
 ## Scope guard
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 The scope guard decides which paths OG may index or write. It runs at OG's single write path and in the reindex walker.
 
@@ -207,7 +207,7 @@ Retired: the `AppReadme` tier and the `impl-to-readme` edge type. `migrate` re-t
 
 ## Lifecycle wiring
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 Read is required at Context Gathering/Research (`/dev context`, `/design frame`/`research`), with required fallback to existing grep/glob when the graph is missing, stale, or unavailable.
 
@@ -265,7 +265,7 @@ sequenceDiagram
 
 ## Bootstrap and upgrade wiring
 
-> Applies from the major harness release that introduces OG schema v1.
+> Applies from harness 4.2.0, which introduces OG schema v1.
 
 Patch apply and launch both lead to `reindex-graph`, which runs `migrate`, `build` and `check` in that order.
 
@@ -337,4 +337,4 @@ sequenceDiagram
 
 ## Visualization surface
 
-Both an IDE-side representation and a docs-site graph page exist, sharing one SQLite data source. The docs-site page queries it client-side in the browser. See `03 Visualization Model.md` for the data-access pattern.
+Both an IDE-side representation and a docs-site graph page exist, sharing one SQLite data source; Web Explorer's Dogfood `graph.json` is a derived, non-authoritative copy refreshed by hand. The docs-site page queries the data source client-side in the browser. See `03 Visualization Model.md` for the data-access pattern.

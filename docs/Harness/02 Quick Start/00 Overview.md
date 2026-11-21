@@ -5,7 +5,7 @@ title: Quick Start
 description: Human-facing quick start for bringing the harness into a project — install the implementation-harness package through a channel, then run /implementation-harness launch
 tags: [quick start, onboarding, implementation-harness launch, install, channels]
 generated: { by: process:okf-migration, at: 2026-08-18T00:00:46Z }
-updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:dev-document, at: 2026-11-21T21:40:00Z }
 ---
 
 # Quick Start
@@ -83,7 +83,7 @@ Run a ticket through the lifecycle:
 Refresh the package through its channel, then run `/implementation-harness patch apply` — see [Update](<../09 Distribution/02 Update.md>). After `patch apply`, run `/implementation-harness reindex-graph` when it tells you to. The full router:
 
 - `patch apply [scope | bundle path]` — personalize canonical updates into the project (consumer projects).
-- `reindex-graph` — rebuild the operational graph (consumer projects). From the major harness release that introduces OG schema v1, it also runs any pending docs migration after a dry-run and your confirmation.
+- `reindex-graph` — rebuild the operational graph (consumer projects). From harness 4.2.0, which introduces OG schema v1, it also runs any pending docs migration after a dry-run and your confirmation.
 - `patch harvest [scope]` — generalize a permanent-file improvement into canonical files (harness source repository only).
 - `patch prepare [scope]` — package a direct canonical edit into a portable bundle (harness source repository only).
 
