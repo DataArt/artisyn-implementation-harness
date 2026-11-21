@@ -1580,9 +1580,9 @@
     ".claude/skills/dev/references/06-document.md": {
       "canonical_source": "canonical/skills/dev/references/06-document.md",
       "canonical_sha256": "d1685676367e2f372cb9224a86e3388fd783d0e77c69aa0cb90136d8f6afd907",
-      "deployed_sha256": "c307e1466d31ea59e992f177aa47e1a60939af5fa667f59bbff18fce17e7c7b9",
+      "deployed_sha256": "c5f728d0fe1a036439301162dc285dee8387714cf795e4d9e76cc7d7fce6dee3",
       "rendered_base": null,
-      "note": "apply 6ceda622 (4.2.0)",
+      "note": "apply 6ceda622 (4.2.0); Document stage: removed leftover purpose/keywords paragraph kept by the 3-way merge (canonical had dropped it)",
       "provider": "claude",
       "harvest_receipt": {
         "observed_permanent_sha256": "a2bbe94c072d722aba48058d3262bb5a2205ec4440b483f4cc8e6371762b1e44",
