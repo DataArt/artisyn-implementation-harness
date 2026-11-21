@@ -37,7 +37,7 @@ export function collisionSafeId(seed, used) {
   return `${base}-${n}`;
 }
 
-const FRONTMATTER = /^---\n(?:([\s\S]*?)\n)?---(?:\n|$)/;
+const FRONTMATTER = /^---[ \t]*\n(?:([\s\S]*?)\n)?---[ \t]*(?:\n|$)/;
 
 /** Strip a UTF-8 BOM and normalize CRLF to LF, so both parse like plain LF text. */
 export function normalizeText(content) {
@@ -60,7 +60,7 @@ function splitFlow(text) {
       } else if (quote === '"' && ch === '\\') current += text[++i] ?? '';
       continue;
     }
-    if (ch === "'" || ch === '"') quote = ch;
+    if ((ch === "'" || ch === '"') && !current.trim()) quote = ch;
     else if (ch === '[' || ch === '{') depth += 1;
     else if (ch === ']' || ch === '}') depth -= 1;
     if (ch === ',' && depth === 0) {
@@ -245,12 +245,16 @@ function formatScalar(value, flow = false) {
     /: |:$| #/.test(text) ||
     (flow && /[,[\]{}]/.test(text)) ||
     /^[+-]?(\d+\.?\d*|\.\d+)$/.test(text) ||
-    /\n/.test(text);
+    /[\n\t]/.test(text);
   if (!needsQuotes) return text;
   const singles = (text.match(/'/g) ?? []).length;
   const doubles = (text.match(/"/g) ?? []).length;
-  if (singles > doubles)
-    return `"${text.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/\n/g, '\\n')}"`;
+  if (singles > doubles || /[\n\t]/.test(text))
+    return `"${text
+      .replace(/\\/g, '\\\\')
+      .replace(/"/g, '\\"')
+      .replace(/\n/g, '\\n')
+      .replace(/\t/g, '\\t')}"`;
   return `'${text.replace(/'/g, "''")}'`;
 }
 
@@ -308,8 +312,7 @@ export function writeAdditiveId(file, id) {
   const next =
     raw === null
       ? `---\nid: ${id}\n---\n\n${content}`
-      : content.replace(
-          FRONTMATTER,
+      : content.replace(FRONTMATTER, () =>
           raw ? `---\nid: ${id}\n${raw}\n---\n` : `---\nid: ${id}\n---\n`
         );
   atomicWrite(file, next);
@@ -318,8 +321,10 @@ export function writeAdditiveId(file, id) {
 
 /** @returns {string|null} The text of the doc's first `# ` heading, or null if absent. */
 export function firstHeading(body) {
-  const match = body.match(/^#\s+(.+)$/m);
-  return match ? match[1].trim() : null;
+  const lines = body.split('\n');
+  const fenced = fencedLines(lines);
+  const line = lines.find((text, i) => !fenced[i] && /^#\s+\S/.test(text));
+  return line ? line.replace(/^#\s+/, '').trim() : null;
 }
 
 /**
@@ -412,6 +417,35 @@ export function isHeading(line) {
   return HEADING.test(line);
 }
 
+const FENCE = /^ {0,3}(`{3,}|~{3,})/;
+
+/**
+ * Mark the lines that sit inside a fenced code block, fence lines included. A fence
+ * closes on a line of the same character at least as long as the opener; an
+ * unclosed fence runs to the end.
+ * @param {string[]} lines
+ * @returns {boolean[]} One entry per line: `true` when it is code, not markdown.
+ */
+export function fencedLines(lines) {
+  let open = null;
+  return lines.map((line) => {
+    const match = line.match(FENCE);
+    if (open === null) {
+      const info = match ? line.slice(match[0].length) : '';
+      if (match && !(match[1][0] === '`' && info.includes('`'))) open = match[1];
+      return open !== null;
+    }
+    if (
+      match &&
+      match[1][0] === open[0] &&
+      match[1].length >= open.length &&
+      !line.slice(match[0].length).trim()
+    )
+      open = null;
+    return true;
+  });
+}
+
 /** Split normalized content into its raw frontmatter block (with delimiters, or '') and the rest. */
 export function splitFrontmatter(content) {
   const text = normalizeText(content);
@@ -421,9 +455,10 @@ export function splitFrontmatter(content) {
 
 /** @returns {{title: string, url: string, text: string|null}[]} The link bullets of an `index.md` body. */
 export function parseIndexBullets(body) {
-  return normalizeText(body)
-    .split('\n')
-    .map((line) => line.match(BULLET))
+  const lines = normalizeText(body).split('\n');
+  const fenced = fencedLines(lines);
+  return lines
+    .map((line, i) => !fenced[i] && line.match(BULLET))
     .filter(Boolean)
     .map(([, title, url, text]) => ({ title, url, text: text ?? null }));
 }
@@ -463,7 +498,9 @@ export function linkTargetExists(absTarget) {
 export function encodeLinkPath(relPath) {
   return relPath
     .split('/')
-    .map((segment) => encodeURIComponent(segment).replace(/%2F/g, '/'))
+    .map((segment) =>
+      encodeURIComponent(segment).replace(/%2F/g, '/').replace(/\(/g, '%28').replace(/\)/g, '%29')
+    )
     .join('/');
 }
 

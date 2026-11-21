@@ -1,0 +1,37 @@
+--- a/canonical/docs/.og/utils.mjs
++++ b/canonical/docs/.og/utils.mjs
+@@ -412,6 +412,34 @@ export function isHeading(line) {
+   return HEADING.test(line);
+ }
+ 
++const FENCE = /^ {0,3}(`{3,}|~{3,})/;
++
++/**
++ * Mark the lines that sit inside a fenced code block, fence lines included. A fence
++ * closes on a line of the same character at least as long as the opener; an
++ * unclosed fence runs to the end.
++ * @param {string[]} lines
++ * @returns {boolean[]} One entry per line: `true` when it is code, not markdown.
++ */
++export function fencedLines(lines) {
++  let open = null;
++  return lines.map((line) => {
++    const match = line.match(FENCE);
++    if (open === null) {
++      if (match) open = match[1];
++      return open !== null;
++    }
++    if (
++      match &&
++      match[1][0] === open[0] &&
++      match[1].length >= open.length &&
++      !line.slice(match[0].length).trim()
++    )
++      open = null;
++    return true;
++  });
++}
++
+ /** Split normalized content into its raw frontmatter block (with delimiters, or '') and the rest. */
+ export function splitFrontmatter(content) {
+   const text = normalizeText(content);

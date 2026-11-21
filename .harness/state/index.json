@@ -791,16 +791,16 @@
       "note": "prepare 4.2.0: OKF knowledge base"
     },
     "canonical/docs/.og/cli.mjs": {
-      "recorded_sha256": "2543c3edb2d92bb8f034b53936195dba741e19d4f77d0ca51c5598a8d43c39b1",
-      "snapshot": "bundle:6ceda622-d5e0-4df0-bc91-395f67ead813",
-      "bundle_id": "6ceda622-d5e0-4df0-bc91-395f67ead813",
-      "note": "prepare 4.2.0: OKF knowledge base"
+      "recorded_sha256": "6dd745d1b84c076a0b539c51047a513f2cf10adb44fd5703ac97e7f2ec1b6b30",
+      "snapshot": "bundle:237ddaf6-30f8-46c6-ba61-d90642c90daf",
+      "bundle_id": "237ddaf6-30f8-46c6-ba61-d90642c90daf",
+      "note": "prepare 4.2.0 fix: OG review fixes"
     },
     "canonical/docs/.og/cli.test.mjs": {
-      "recorded_sha256": "3800bef7e5cdeeb22d29a699d812788148411f835f46e944e62bf48d909a30eb",
-      "snapshot": "bundle:6ceda622-d5e0-4df0-bc91-395f67ead813",
-      "bundle_id": "6ceda622-d5e0-4df0-bc91-395f67ead813",
-      "note": "prepare 4.2.0: OKF knowledge base"
+      "recorded_sha256": "7ca3af8a1c1e1c4f611f48f71e424dc10439e0e176e180ce6b366fd327b85f2d",
+      "snapshot": "bundle:237ddaf6-30f8-46c6-ba61-d90642c90daf",
+      "bundle_id": "237ddaf6-30f8-46c6-ba61-d90642c90daf",
+      "note": "prepare 4.2.0 fix: OG review fixes"
     },
     "canonical/docs/.og/constants.mjs": {
       "recorded_sha256": "32e9a30cb34ae3bbb27ca86610205d5bf9471272af7c0fab734c3e6dd27ff37b",
@@ -831,10 +831,10 @@
       "note": "prepare 4.2.0: OKF knowledge base"
     },
     "canonical/docs/.og/utils.mjs": {
-      "recorded_sha256": "d28e25ca5921a9cf0b0f9f6af94c1cb23ff06d9af2abbd213c32546f02233c1a",
-      "snapshot": "bundle:6ceda622-d5e0-4df0-bc91-395f67ead813",
-      "bundle_id": "6ceda622-d5e0-4df0-bc91-395f67ead813",
-      "note": "prepare 4.2.0: OKF knowledge base"
+      "recorded_sha256": "72cdfb0d23facec8e14054055d1486b1fde9a0aee8d9a47702abdc3193380ef4",
+      "snapshot": "bundle:237ddaf6-30f8-46c6-ba61-d90642c90daf",
+      "bundle_id": "237ddaf6-30f8-46c6-ba61-d90642c90daf",
+      "note": "prepare 4.2.0 fix: OG review fixes"
     },
     "canonical/adaptors/copilot/browser.md": {
       "recorded_sha256": "8c64e40642c003123d4ae6fc6c18813d81904fa9992f038caa01cc9d27d82347",
@@ -2433,10 +2433,10 @@
     },
     "docs/.og/cli.mjs": {
       "canonical_source": "canonical/docs/.og/cli.mjs",
-      "canonical_sha256": "2543c3edb2d92bb8f034b53936195dba741e19d4f77d0ca51c5598a8d43c39b1",
-      "deployed_sha256": "2543c3edb2d92bb8f034b53936195dba741e19d4f77d0ca51c5598a8d43c39b1",
+      "canonical_sha256": "6dd745d1b84c076a0b539c51047a513f2cf10adb44fd5703ac97e7f2ec1b6b30",
+      "deployed_sha256": "6dd745d1b84c076a0b539c51047a513f2cf10adb44fd5703ac97e7f2ec1b6b30",
       "rendered_base": "5c89dbff514b09cb912d10e80d3533bbfdd8ed0de6aac6caf531fd465736fd7d",
-      "note": "apply 6ceda622 (4.2.0)",
+      "note": "apply 237ddaf6 (4.2.0 review fixes)",
       "provider": "claude"
     },
     "docs/.og/constants.mjs": {
@@ -2473,10 +2473,10 @@
     },
     "docs/.og/utils.mjs": {
       "canonical_source": "canonical/docs/.og/utils.mjs",
-      "canonical_sha256": "d28e25ca5921a9cf0b0f9f6af94c1cb23ff06d9af2abbd213c32546f02233c1a",
-      "deployed_sha256": "d28e25ca5921a9cf0b0f9f6af94c1cb23ff06d9af2abbd213c32546f02233c1a",
+      "canonical_sha256": "72cdfb0d23facec8e14054055d1486b1fde9a0aee8d9a47702abdc3193380ef4",
+      "deployed_sha256": "72cdfb0d23facec8e14054055d1486b1fde9a0aee8d9a47702abdc3193380ef4",
       "rendered_base": "ecc165fea9916f2045f061c93150b35f102022d08ec5591703fed1d5910fef56",
-      "note": "apply 6ceda622 (4.2.0)",
+      "note": "apply 237ddaf6 (4.2.0 review fixes)",
       "provider": "claude"
     },
     "docs/.og/.gitignore": {

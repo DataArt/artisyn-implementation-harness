@@ -1,0 +1,33 @@
+--- a/canonical/docs/.og/cli.mjs
++++ b/canonical/docs/.og/cli.mjs
+@@ -41,6 +41,7 @@ import {
+   isContentBearing,
+   isLinkBullet,
+   isHeading,
++  fencedLines,
+   encodeLinkPath,
+   firstHeading,
+ } from './utils.mjs';
+@@ -710,16 +711,15 @@ function planMigration(root, docs, initialConfig) {
+       updated: { by: MIGRATION_ACTOR, at: dates.last },
+     };
+     writerGaps(overviewRel, overview);
+-    const prose = body
+-      .split('\n')
+-      .filter((line) => !isLinkBullet(line))
+-      .join('\n');
++    const bodyLines = body.split('\n');
++    const fenced = fencedLines(bodyLines);
++    const prose = bodyLines.filter((line, i) => fenced[i] || !isLinkBullet(line)).join('\n');
+     plan.writes.set(overviewRel, writeFrontmatter(overview) + '\n' + tidy(prose));
+ 
+     const absIndex = path.join(root, rel);
+-    const kept = body
+-      .split('\n')
+-      .filter((line) => !line.trim() || isHeading(line) || isLinkBullet(line));
++    const kept = bodyLines.filter(
++      (line, i) => !fenced[i] && (!line.trim() || isHeading(line) || isLinkBullet(line))
++    );
+     const linked = new Set(
+       kept
+         .filter(isLinkBullet)

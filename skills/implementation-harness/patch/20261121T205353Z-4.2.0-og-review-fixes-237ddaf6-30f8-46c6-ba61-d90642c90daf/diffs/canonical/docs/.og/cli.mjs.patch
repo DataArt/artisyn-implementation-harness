@@ -1,0 +1,42 @@
+--- a/canonical/docs/.og/cli.mjs
++++ b/canonical/docs/.og/cli.mjs
+@@ -70,8 +70,10 @@ function ensureSchema(db, root, dbPath) {
+     .prepare("SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'docs'")
+     .get();
+   if (!isV0) {
++    db.exec('BEGIN');
+     db.exec(SCHEMA);
+     db.exec(`PRAGMA user_version = ${SCHEMA_VERSION}`);
++    db.exec('COMMIT');
+     return;
+   }
+   fs.copyFileSync(dbPath, path.join(root, BACKUP_FILE));
+@@ -569,13 +571,14 @@ function migratedData(root, relPath, data, body, config, now) {
+ }
+ 
+ /** Collapse runs of blank lines and trim, ending with one newline. */
++/** Collapse blank-line runs and trim the ends, leaving fenced code as written. */
+ function tidy(text) {
+-  return (
+-    text
+-      .replace(/\n{3,}/g, '\n\n')
+-      .replace(/^\n+/, '')
+-      .replace(/\s+$/, '') + '\n'
++  const lines = text.split('\n');
++  const fenced = fencedLines(lines);
++  const kept = lines.filter(
++    (line, i) => fenced[i] || line.trim() || i === 0 || fenced[i - 1] || lines[i - 1].trim()
+   );
++  return kept.join('\n').replace(/^\n+/, '').replace(/\s+$/, '') + '\n';
+ }
+ 
+ /** Remove the top-level `id`/`purpose`/`keywords` lines (and the continuation lines
+@@ -805,7 +808,7 @@ function planMigration(root, docs, initialConfig) {
+   // Step 7 — stray OG ids outside docs/ (git-tracked .md files only).
+   const tracked = (git(root, ['ls-files', '-z', '--', '*.md']) ?? '').split('\0').filter(Boolean);
+   for (const rel of tracked) {
+-    if (rel.startsWith('docs/')) continue;
++    if (rel.startsWith('docs/') || !fs.existsSync(path.join(root, rel))) continue;
+     const content = fs.readFileSync(path.join(root, rel), 'utf8');
+     const { data } = parseFrontmatter(content);
+     if (data.id === undefined) continue;

@@ -1,0 +1,102 @@
+--- a/canonical/docs/.og/cli.test.mjs
++++ b/canonical/docs/.og/cli.test.mjs
+@@ -1799,3 +1799,99 @@ for (const productDir of [null, 'docs/Product Context']) {
+     });
+   });
+ }
++
++// --- Test-stage review fixes (DESIGN-20261117-7931) ---------------------------
++
++test('writeAdditiveId keeps $-sequences in the frontmatter literal', async () => {
++  await withDir(async (dir) => {
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/Price.md',
++      '---\ndescription: Costs $10 and $& more\n---\n\n# Price\n'
++    );
++    utils.writeAdditiveId(path.join(dir, 'docs/Engineering Guide/Price.md'), 'abcd1234');
++    const out = fs.readFileSync(path.join(dir, 'docs/Engineering Guide/Price.md'), 'utf8');
++    assert.equal(out, '---\nid: abcd1234\ndescription: Costs $10 and $& more\n---\n\n# Price\n');
++  });
++});
++
++test('writeFrontmatter round-trips quotes, colons, hashes, newlines and YAML keywords', () => {
++  const data = {
++    title: 'null',
++    description: 'Line one\nline two',
++    tags: ["it's", 'x: y', '#h', 'true', 'yes', '~', 'say "hi"'],
++  };
++  const written = utils.writeFrontmatter(data);
++  const back = utils.parseFrontmatter(written);
++  assert.deepEqual(back.errors, []);
++  assert.deepEqual(back.data, data);
++  assert.equal(utils.writeFrontmatter(back.data), written);
++});
++
++test('a mid-word apostrophe in a hand-written flow list stays inside its item', () => {
++  const { data, errors } = utils.parseFrontmatter("---\ntags: [it's, foo]\n---\n");
++  assert.deepEqual(errors, []);
++  assert.deepEqual(data.tags, ["it's", 'foo']);
++});
++
++test('frontmatter delimiters with trailing whitespace are recognised', async () => {
++  const { data } = utils.parseFrontmatter('--- \ntitle: X\n---  \n\n# X\n');
++  assert.equal(data.title, 'X');
++  await withDir(async (dir) => {
++    writeDoc(dir, 'docs/Engineering Guide/Ws.md', '--- \ntitle: X\n--- \n\n# X\n');
++    utils.writeAdditiveId(path.join(dir, 'docs/Engineering Guide/Ws.md'), 'abcd1235');
++    const out = fs.readFileSync(path.join(dir, 'docs/Engineering Guide/Ws.md'), 'utf8');
++    assert.equal(out.match(/^---/gm).length, 2);
++    assert.match(out, /^---\nid: abcd1235\ntitle: X\n---\n/);
++  });
++});
++
++test('encodeLinkPath encodes parentheses so the bullet stays a link bullet', () => {
++  const url = utils.encodeLinkPath('Foo (v2).md');
++  assert.equal(url, 'Foo%20%28v2%29.md');
++  assert.ok(utils.isLinkBullet(`- [Foo](${url}) - x`));
++});
++
++test('firstHeading ignores # lines inside fenced code', () => {
++  assert.equal(utils.firstHeading('```sh\n# install\n```\n\n# Real\n'), 'Real');
++});
++
++test('migrate keeps blank-line runs inside moved code blocks and titles from the real heading', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    writeDoc(
++      dir,
++      'docs/Harness/05 Principles/index.md',
++      '---\nid: prin0001\npurpose: The beliefs\nkeywords: [principles]\n---\n\n```sh\n# install\n```\n\n# Principles\n\nText.\n\n```py\na = 1\n\n\n\nb = 2\n```\n'
++    );
++    commitAll(dir, 'code index');
++    await og.migrate({ dir });
++    const overview = fs.readFileSync(
++      path.join(dir, 'docs/Harness/05 Principles/00 Overview.md'),
++      'utf8'
++    );
++    assert.match(overview, /a = 1\n\n\n\nb = 2/);
++    assert.match(overview, /^title: Principles$/m);
++  });
++});
++
++test('migrate does not crash on a tracked .md deleted from the worktree', async () => {
++  await withDir(async (dir) => {
++    olderHarnessFixture(dir);
++    fs.rmSync(path.join(dir, 'apps/other/README.md'));
++    const result = await og.migrate({ dir, check: true });
++    assert.equal(typeof result.pending, 'boolean');
++  });
++});
++
++test('check ignores bullets inside fenced code in an index', async () => {
++  await withDir(async (dir) => {
++    writeDoc(
++      dir,
++      'docs/Engineering Guide/index.md',
++      "---\nokf_version: '0.2'\n---\n\n# Guide\n\n```md\n- [Example](missing.md) - shown as code\n```\n"
++    );
++    const result = await og.check({ dir });
++    assert.deepEqual(result.brokenIndexEntries, []);
++  });
++});

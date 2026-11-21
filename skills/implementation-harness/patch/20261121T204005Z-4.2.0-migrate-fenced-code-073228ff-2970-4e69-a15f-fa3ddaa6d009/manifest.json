@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "id": "073228ff-2970-4e69-a15f-fa3ddaa6d009",
+  "created_at": "2026-11-21T20:40:05.622Z",
+  "origin": "artisyn-harness",
+  "operation": "prepare",
+  "summary": "Release 4.2.0 fix (prepare): migrate ignores headings and link bullets inside fenced code blocks when it splits an index page into navigation and 00 Overview prose (TD-3, found dogfooding 4.2.0 in this repo); new fencedLines helper in utils.mjs, regression case in cli.test.mjs. Binary seed DB excluded (text diffs only).",
+  "package_version": "4.2.0",
+  "base_release": "4.1.0",
+  "requires": ["6ceda622-d5e0-4df0-bc91-395f67ead813"],
+  "resolves": [],
+  "changes": [
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/cli.mjs",
+      "old_path": null,
+      "before_sha256": "2543c3edb2d92bb8f034b53936195dba741e19d4f77d0ca51c5598a8d43c39b1",
+      "after_sha256": "7c04293c8a3be06740e748b3329be1c004bc473ef9db4a51ed10157be311357c",
+      "payload": "diffs/canonical/docs/.og/cli.mjs.patch",
+      "payload_sha256": "ddb8a4d7aea8b808fe697d53a715db8e3648e977bac4801b7356ec34ccaa1cea",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/.og/cli.mjs",
+        "compare": "content"
+      }
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/cli.test.mjs",
+      "old_path": null,
+      "before_sha256": "3800bef7e5cdeeb22d29a699d812788148411f835f46e944e62bf48d909a30eb",
+      "after_sha256": "4608ad8cbe4471d3f254308c2294bbd33d2f1258901f3e94f5016165abca6664",
+      "payload": "diffs/canonical/docs/.og/cli.test.mjs.patch",
+      "payload_sha256": "1e9af486874a8c6ae6211d7825f4d4c35370cdcd6e882f5d70a0274b3ab3357f",
+      "deployment": "canonical-only",
+      "mapping": null
+    },
+    {
+      "operation": "update",
+      "path": "canonical/docs/.og/utils.mjs",
+      "old_path": null,
+      "before_sha256": "d28e25ca5921a9cf0b0f9f6af94c1cb23ff06d9af2abbd213c32546f02233c1a",
+      "after_sha256": "b1253923575b591ec15373d69f09461ec9b56257dc2bcdb42b4b78e2e9151047",
+      "payload": "diffs/canonical/docs/.og/utils.mjs.patch",
+      "payload_sha256": "275e04b5234d07f09a00a8689c588431c727c49d7f28dcb0a7cfa5ae0b641efb",
+      "deployment": "mapped",
+      "mapping": {
+        "kind": "doc",
+        "intent": null,
+        "output_rule": "docs/.og/utils.mjs",
+        "compare": "content"
+      }
+    }
+  ]
+}
