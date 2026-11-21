@@ -68,22 +68,30 @@
     },
     {
       "id": "test",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "793e2a5d-fd2f-442e-b0fc-25a6cc95c7df",
           "started_at": "2026-11-21T20:38:00.005Z",
-          "ended_at": null,
+          "ended_at": "2026-11-21T21:07:54.430Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "active",
+      "attempts": [
+        {
+          "id": "77797796-24ea-484b-87b9-048bdf781374",
+          "started_at": "2026-11-21T21:21:13.584Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -1631,8 +1639,241 @@
       "kind": "work",
       "activity": "implementation",
       "started_at": "2026-11-21T21:07:07.797Z",
+      "ended_at": "2026-11-21T21:07:54.430Z",
+      "last_observed_at": "2026-11-21T21:07:54.430Z"
+    },
+    {
+      "id": "a5c022e2-dcc2-4837-b558-bf1dcf271c96",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-21T21:21:13.584Z",
+      "ended_at": "2026-11-21T21:24:18.341Z",
+      "last_observed_at": "2026-11-21T21:24:18.341Z"
+    },
+    {
+      "id": "ebec0925-4c7b-499b-9cc2-ede45b39e175",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Document deviation audit: RF-060..RF-067",
+      "started_at": "2026-11-21T21:24:18.341Z",
+      "ended_at": "2026-11-21T21:27:01.417Z",
+      "last_observed_at": "2026-11-21T21:27:01.417Z"
+    },
+    {
+      "id": "94beb4fe-1790-43ac-ad6d-2ee00a741917",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:27:01.417Z",
+      "ended_at": "2026-11-21T21:27:28.006Z",
+      "last_observed_at": "2026-11-21T21:27:28.006Z"
+    },
+    {
+      "id": "4dfaec2e-ff67-42bd-814b-3168816bb68b",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:27:28.006Z",
+      "ended_at": "2026-11-21T21:27:35.751Z",
+      "last_observed_at": "2026-11-21T21:27:35.751Z"
+    },
+    {
+      "id": "57a05d54-54fe-45ae-bfad-174d9ac53217",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:27:35.751Z",
+      "ended_at": "2026-11-21T21:27:35.796Z",
+      "last_observed_at": "2026-11-21T21:27:35.796Z"
+    },
+    {
+      "id": "eb146e18-5f9d-479f-b972-df9ed27df310",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:27:35.796Z",
+      "ended_at": "2026-11-21T21:27:45.644Z",
+      "last_observed_at": "2026-11-21T21:27:45.644Z"
+    },
+    {
+      "id": "b780ed50-6477-4c44-8014-bb9391faa520",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:27:45.644Z",
+      "ended_at": "2026-11-21T21:27:45.691Z",
+      "last_observed_at": "2026-11-21T21:27:45.691Z"
+    },
+    {
+      "id": "1e6b7acc-46a6-4c3b-b315-4e22db9770b8",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:27:45.691Z",
+      "ended_at": "2026-11-21T21:27:53.345Z",
+      "last_observed_at": "2026-11-21T21:27:53.345Z"
+    },
+    {
+      "id": "9a685064-f0b7-45dd-aa36-97482775a61e",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:27:53.345Z",
+      "ended_at": "2026-11-21T21:34:58.949Z",
+      "last_observed_at": "2026-11-21T21:34:58.949Z"
+    },
+    {
+      "id": "e2c79300-d0af-4d5d-abf7-4016e33c5186",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:34:58.949Z",
+      "ended_at": "2026-11-21T21:35:00.206Z",
+      "last_observed_at": "2026-11-21T21:35:00.206Z"
+    },
+    {
+      "id": "18fb398b-fa38-4409-886d-e300032c017f",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:35:00.206Z",
+      "ended_at": "2026-11-21T21:40:16.468Z",
+      "last_observed_at": "2026-11-21T21:40:16.468Z"
+    },
+    {
+      "id": "2aa3b9d3-9d22-4ffd-88eb-18f8c5ec7a0a",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:40:16.468Z",
+      "ended_at": "2026-11-21T21:40:35.478Z",
+      "last_observed_at": "2026-11-21T21:40:35.478Z"
+    },
+    {
+      "id": "1e96100b-7871-46f2-8ed3-0bf6e5dd788b",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:40:35.478Z",
+      "ended_at": "2026-11-21T21:40:35.530Z",
+      "last_observed_at": "2026-11-21T21:40:35.530Z"
+    },
+    {
+      "id": "892752f7-527e-4e20-8926-b1e53b18ae38",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:40:35.530Z",
+      "ended_at": "2026-11-21T21:40:44.953Z",
+      "last_observed_at": "2026-11-21T21:40:44.953Z"
+    },
+    {
+      "id": "1f58863a-f90a-4c51-bc85-530f3f52b8d2",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:40:44.953Z",
+      "ended_at": "2026-11-21T21:40:44.997Z",
+      "last_observed_at": "2026-11-21T21:40:44.997Z"
+    },
+    {
+      "id": "95801130-6c89-441e-8c9a-b6d295c7b2e3",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:40:44.997Z",
+      "ended_at": "2026-11-21T21:40:48.063Z",
+      "last_observed_at": "2026-11-21T21:40:48.063Z"
+    },
+    {
+      "id": "9289cb5a-a1c6-4801-a6d6-a6aa052d37a5",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:40:48.063Z",
+      "ended_at": "2026-11-21T21:44:43.132Z",
+      "last_observed_at": "2026-11-21T21:44:43.132Z"
+    },
+    {
+      "id": "08a2cae3-6bd8-4bcd-9a4e-1858897f19cb",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-21T21:44:43.132Z",
+      "ended_at": "2026-11-21T21:44:56.774Z",
+      "last_observed_at": "2026-11-21T21:44:56.774Z"
+    },
+    {
+      "id": "2ebf1bad-3db0-4fc5-be38-c02b9f6b8f77",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-21T21:44:56.774Z",
+      "ended_at": "2026-11-21T21:45:47.176Z",
+      "last_observed_at": "2026-11-21T21:45:47.176Z"
+    },
+    {
+      "id": "f04a3492-4353-45d3-b7ad-3869af1280e9",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting document sign-off",
+      "started_at": "2026-11-21T21:45:47.176Z",
+      "ended_at": "2026-11-21T21:47:33.333Z",
+      "last_observed_at": "2026-11-21T21:47:33.333Z"
+    },
+    {
+      "id": "88ce6f80-0714-47ec-9d47-4a91293b0b13",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-21T21:47:33.333Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-21T21:07:07.797Z"
+      "last_observed_at": "2026-11-21T21:47:33.333Z"
     }
   ],
   "checks": [
@@ -3120,21 +3361,179 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "doc-audit-decision",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "Deviation audit decisions RF-060..067",
+      "kind": "acceptance",
+      "started_at": "2026-11-21T21:27:01.465Z",
+      "ended_at": "2026-11-21T21:27:01.465Z",
+      "result": "passed",
+      "evidence_ref": "(a) agree",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "doc-fix-we-typecheck",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "web-explorer:typecheck (Document-stage a11y fixes)",
+      "kind": "typecheck",
+      "started_at": "2026-11-21T21:27:28.006Z",
+      "ended_at": "2026-11-21T21:27:35.751Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer:typecheck (Document-stage a11y fixes)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:27:35.751Z"
+    },
+    {
+      "id": "doc-fix-we-lint",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "web-explorer:lint (Document-stage a11y fixes)",
+      "kind": "lint",
+      "started_at": "2026-11-21T21:27:35.796Z",
+      "ended_at": "2026-11-21T21:27:45.644Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer:lint (Document-stage a11y fixes)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:27:45.644Z"
+    },
+    {
+      "id": "doc-fix-we-build",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "web-explorer:build (Document-stage a11y fixes)",
+      "kind": "build",
+      "started_at": "2026-11-21T21:27:45.691Z",
+      "ended_at": "2026-11-21T21:27:53.345Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer:build (Document-stage a11y fixes)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:27:53.345Z"
+    },
+    {
+      "id": "test-s2-6-rerun",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "implementation-harness:package",
+      "kind": "build",
+      "started_at": "2026-11-21T21:34:58.949Z",
+      "ended_at": "2026-11-21T21:35:00.206Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for implementation-harness:package",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:35:00.206Z"
+    },
+    {
+      "id": "doc-r2-web-docs:build",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "web-docs:build (after doc round 2)",
+      "kind": "build",
+      "started_at": "2026-11-21T21:40:16.468Z",
+      "ended_at": "2026-11-21T21:40:35.478Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-docs:build (after doc round 2)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:40:35.478Z"
+    },
+    {
+      "id": "doc-r2-web-explorer:build",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "web-explorer:build (after doc round 2)",
+      "kind": "build",
+      "started_at": "2026-11-21T21:40:35.530Z",
+      "ended_at": "2026-11-21T21:40:44.953Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer:build (after doc round 2)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:40:44.953Z"
+    },
+    {
+      "id": "doc-r2-web-explorer:typecheck",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "web-explorer:typecheck (after doc round 2)",
+      "kind": "build",
+      "started_at": "2026-11-21T21:40:44.997Z",
+      "ended_at": "2026-11-21T21:40:48.063Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer:typecheck (after doc round 2)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:40:48.063Z"
+    },
+    {
+      "id": "doc-r3-web-docs-build",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "web-docs:build (after doc round 3)",
+      "kind": "build",
+      "started_at": "2026-11-21T21:44:43.132Z",
+      "ended_at": "2026-11-21T21:44:56.774Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-docs:build (after doc round 3)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-21T21:44:56.774Z"
+    },
+    {
+      "id": "document-signoff",
+      "stage_id": "document",
+      "stage_attempt_id": "77797796-24ea-484b-87b9-048bdf781374",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-21T21:47:33.387Z",
+      "ended_at": "2026-11-21T21:47:33.387Z",
+      "result": "passed",
+      "evidence_ref": "commit please",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-21T21:07:08.455Z",
+    "as_of": "2026-11-21T21:47:34.061Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 6372.303999999999,
-    "observed_wait_seconds": 280038.53900000005,
+    "observed_work_seconds": 7729.452999999998,
+    "observed_wait_seconds": 280307.77200000006,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 736.5979999999399,
+    "unclassified_seconds": 1535.8219999999856,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 277273.737,
+    "approval_wait_seconds": 277542.97000000003,
     "failed_checks": 1,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
@@ -3143,44 +3542,44 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-21T21:07:08.450Z",
+    "as_of": "2026-11-21T21:47:34.055Z",
     "source": "2-report.md",
-    "source_sha256": "8905eb68a5c6ced5c61fdd605721f8be3890ba35b7ec0effb9666789228407b8",
+    "source_sha256": "85ed1d2f94c1282b3b3aed535d72ccdc048753fcbb62575441c2b686e24dba33",
     "findings": {
-      "total": 58,
+      "total": 80,
       "by_kind": {
-        "deviation": 7,
-        "bug": 27,
+        "deviation": 15,
+        "bug": 28,
         "design": 3,
         "improve": 14,
         "security": 0,
         "performance": 0,
-        "docs": 7
+        "docs": 20
       },
       "by_severity": {
         "critical": 0,
         "high": 4,
-        "medium": 18,
-        "low": 25,
+        "medium": 25,
+        "low": 40,
         "info": 11
       },
       "by_classification": {
-        "introduced": 58,
+        "introduced": 80,
         "pre-existing": 0,
         "ruled-out": 0,
         "advisory": 0
       },
       "by_resolution": {
-        "open": 1,
-        "fixed": 45,
+        "open": 0,
+        "fixed": 51,
         "accepted": 5,
         "tech-debt": 7,
-        "doc-updated": 0
+        "doc-updated": 17
       },
       "deviations_by_type": {
-        "contradiction": 2,
-        "extension": 0,
-        "omission": 5
+        "contradiction": 3,
+        "extension": 3,
+        "omission": 9
       },
       "pr_review": {
         "total": 36,
@@ -3220,6 +3619,6 @@
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": ["RF-036: open"]
+    "closure_issues": []
   }
 }
