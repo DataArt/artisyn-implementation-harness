@@ -1,3 +1,9 @@
+## [4.2.0](https://github.com/DataArt/artisyn-implementation-harness/compare/v4.1.0...v4.2.0) (2026-11-18)
+
+### Features
+
+- **harness:** OKF knowledge base, OG scope guard, schema v1, migrate and check ([88ddcf5](https://github.com/DataArt/artisyn-implementation-harness/commit/88ddcf532751c84ea88490670414fa04fd42e231))
+
 ## [4.1.0](https://github.com/DataArt/artisyn-implementation-harness/compare/v4.0.2...v4.1.0) (2026-11-17)
 
 ### Features
