@@ -23,7 +23,10 @@ export const tiers = [
   { name: 'Other', label: 'Other', color: '#6B7280' },
 ];
 
-const nodes = graph.nodes as Node[];
+const knownTiers = new Set(tiers.map((t) => t.name));
+const nodes = (graph.nodes as Node[]).map((n) =>
+  knownTiers.has(n.tier) ? n : { ...n, tier: 'Other' }
+);
 const edges = graph.edges as Edge[];
 
 const SIZE = 560;
@@ -114,7 +117,7 @@ export default function GraphExplorer() {
         <svg
           viewBox={`0 0 ${SIZE} ${SIZE}`}
           role="img"
-          aria-label={`Operational graph: ${nodes.length} docs and ${edges.length} authored edges in concentric tier rings`}
+          aria-label={`Operational graph: ${nodes.length} docs and ${edges.length} authored edges in concentric tier rings. Use the docs list to explore it by keyboard or screen reader.`}
           onPointerLeave={() => setHover(null)}
         >
           {RADII.map((r) => (
@@ -136,25 +139,27 @@ export default function GraphExplorer() {
               />
             );
           })}
-          {nodes.map((n) => {
-            if (!visible(n.id)) return null;
-            const p = pos.get(n.id)!;
-            const dim = linked && !linked.has(n.id);
-            return (
-              <circle
-                key={n.id}
-                cx={p.x}
-                cy={p.y}
-                r={n.id === active ? p.r + 2.5 : p.r}
-                fill={p.color}
-                className={dim ? 'df-gx-node is-dim' : 'df-gx-node'}
-                onPointerEnter={(e) => e.pointerType === 'mouse' && setHover(n.id)}
-                onClick={() => setPinned((cur) => (cur === n.id ? null : n.id))}
-              >
-                <title>{n.title}</title>
-              </circle>
-            );
-          })}
+          <g aria-hidden="true">
+            {nodes.map((n) => {
+              if (!visible(n.id)) return null;
+              const p = pos.get(n.id)!;
+              const dim = linked && !linked.has(n.id);
+              return (
+                <circle
+                  key={n.id}
+                  cx={p.x}
+                  cy={p.y}
+                  r={n.id === active ? p.r + 2.5 : p.r}
+                  fill={p.color}
+                  className={dim ? 'df-gx-node is-dim' : 'df-gx-node'}
+                  onPointerEnter={(e) => e.pointerType === 'mouse' && setHover(n.id)}
+                  onClick={() => setPinned((cur) => (cur === n.id ? null : n.id))}
+                >
+                  <title>{n.title}</title>
+                </circle>
+              );
+            })}
+          </g>
         </svg>
       </div>
 
@@ -169,8 +174,8 @@ export default function GraphExplorer() {
                 onClick={() => toggleTier(t.name)}
               >
                 <span className="df-gx-swatch" style={{ background: t.color }} />
-                {t.label}
-                <em>{counts.get(t.name) ?? 0}</em>
+                <span className="df-gx-label">{t.label}</span>
+                <em>{hidden.has(t.name) ? 'hidden' : (counts.get(t.name) ?? 0)}</em>
               </button>
             </li>
           ))}
@@ -220,7 +225,7 @@ export default function GraphExplorer() {
             .filter((t) => !hidden.has(t.name))
             .map((t) => (
               <div key={t.name}>
-                <h4>{t.label}</h4>
+                <h3>{t.label}</h3>
                 <ul>
                   {nodes
                     .filter((n) => n.tier === t.name)

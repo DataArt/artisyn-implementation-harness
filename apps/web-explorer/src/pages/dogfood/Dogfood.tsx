@@ -62,7 +62,10 @@ export default function Dogfood() {
           </p>
         </section>
 
-        <section className="df-loop" aria-label="The delivery loop">
+        <section className="df-loop" aria-labelledby="df-loop-title">
+          <h2 id="df-loop-title" className="df-sr-only">
+            The delivery loop
+          </h2>
           {loop.map((step, i) => (
             <div className="df-loop-item" key={step.title}>
               <article className="df-step">

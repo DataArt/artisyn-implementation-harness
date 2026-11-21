@@ -1433,6 +1433,14 @@
     ["b3462f6a", "c4e17a02", "story-to-product"],
     ["b3462f6a", "e2d58b91", "story-to-product"],
     ["b3462f6a", "32b4135e", "story-to-product"],
-    ["b3462f6a", "bb22babb", "story-to-product"]
+    ["b3462f6a", "bb22babb", "story-to-product"],
+    ["c1b2c846", "6d1a1114", "impl-to-engineering-guide"],
+    ["c1b2c846", "12ed86d1", "impl-to-lld"],
+    ["c1b2c846", "5d2d1d54", "impl-to-lld"],
+    ["c1b2c846", "6c9a33fd", "impl-to-lld"],
+    ["c1b2c846", "e8c4f1b2", "impl-to-lld"],
+    ["c1b2c846", "ca3a865c", "impl-to-hld"],
+    ["c1b2c846", "2f617a4e", "impl-to-hld"],
+    ["c1b2c846", "3a7c9e1d", "impl-to-hld"]
   ]
 }
