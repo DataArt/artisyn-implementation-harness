@@ -17,6 +17,10 @@ import {
 import { docUrl } from './docUrl';
 
 const tiers = [...Object.keys(TIER_COLORS), UNTIERED_TIER];
+
+// A tier this build does not know (e.g. a retired one in an older DB) shows as untiered.
+const tierOf = (doc: GraphDoc): string =>
+  doc.tier && doc.tier in TIER_COLORS ? doc.tier : UNTIERED_TIER;
 const edgeGroups: EdgeGroup[] = ['keyword-match', 'references', 'graduation', 'mirrors'];
 const edgeGroupLabels = EDGE_GROUP_LABELS;
 
@@ -43,9 +47,7 @@ export default {
       Object.fromEntries(edgeGroups.map((group) => [group, true])) as Record<EdgeGroup, boolean>
     );
 
-    const filteredDocs = computed(() =>
-      docs.value.filter((doc) => tierEnabled.value[doc.tier ?? UNTIERED_TIER])
-    );
+    const filteredDocs = computed(() => docs.value.filter((doc) => tierEnabled.value[tierOf(doc)]));
 
     const filteredEdges = computed(() => {
       const visibleIds = new Set(filteredDocs.value.map((doc) => doc.id));
@@ -60,7 +62,7 @@ export default {
     const grouped = computed(() => {
       const groups = new Map<string, GraphDoc[]>();
       for (const doc of filteredDocs.value) {
-        const tier = doc.tier ?? UNTIERED_TIER;
+        const tier = tierOf(doc);
         if (!groups.has(tier)) groups.set(tier, []);
         groups.get(tier)!.push(doc);
       }
@@ -72,7 +74,7 @@ export default {
         data: {
           id: doc.id,
           label: doc.title ?? doc.path,
-          tier: doc.tier ?? UNTIERED_TIER,
+          tier: tierOf(doc),
           path: doc.path,
         },
       }));
