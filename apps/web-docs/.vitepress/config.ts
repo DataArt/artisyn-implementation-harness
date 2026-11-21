@@ -90,15 +90,15 @@ export default withMermaid(
       ],
 
       nav: [
-        { text: 'Explore', link: '/Harness/01%20Explore/' },
-        { text: 'Quick Start', link: '/Harness/02%20Quick%20Start/' },
+        { text: 'Explore', link: '/Harness/01%20Explore/00%20Overview' },
+        { text: 'Quick Start', link: '/Harness/02%20Quick%20Start/00%20Overview' },
         { text: 'Lifecycles', link: '/Harness/03%20Lifecycles/00%20Overview' },
         { text: 'Adoption', link: '/Harness/04%20Adoption/00%20Adoption%20Path' },
-        { text: 'Principles', link: '/Harness/05%20Principles/' },
-        { text: 'Roadmap', link: '/Harness/06%20Roadmap/' },
-        { text: 'Operational Graph', link: '/Harness/07%20Operational%20Graph/' },
-        { text: '🔒', link: '/Harness/08%20Security%20Scan/' },
-        { text: 'Distribution', link: '/Harness/09%20Distribution/' },
+        { text: 'Principles', link: '/Harness/05%20Principles/00%20Overview' },
+        { text: 'Roadmap', link: '/Harness/06%20Roadmap/00%20Overview' },
+        { text: 'Operational Graph', link: '/Harness/07%20Operational%20Graph/00%20Overview' },
+        { text: '🔒', link: '/Harness/08%20Security%20Scan/00%20Overview' },
+        { text: 'Distribution', link: '/Harness/09%20Distribution/00%20Overview' },
       ],
 
       sidebar: {
