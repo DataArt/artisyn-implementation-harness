@@ -16,8 +16,8 @@ updated: { by: process:dev-context, at: 2026-11-22T11:13:08Z }
 | Branch | `docs/design-20261121-uu4l-web-explorer-nextjs-static-export` (developer chose to stay on the design branch, 2026-11-22) |
 | PR     | —                                                                                                                        |
 | Author | Anton Merkulov                                                                                                           |
-| Status | 🔄 In Progress                                                                                                           |
-| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion 🔄           |
+| Status | ✅ Complete                                                                                                              |
+| Phase  | 🎯 Context ✅ · 🚀 Ceremony ✅ · 📋 Plan ✅ · 🔨 Implement ✅ · 🧪 Test ✅ · 📝 Document ✅ · 🏁 Completion ✅           |
 
 Progress tracker: Claude Task tools (`TaskCreate`/`TaskUpdate`), one task per stage; this report is authoritative.
 
@@ -68,17 +68,17 @@ Test / Docs   : ✅ done · — not applicable · (empty) = not yet run
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem stages without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 2h 57m 1s · Wait: 1h 42m 51s · Unclassified: 43m 50s
+Observed work: 3h 30m 35s · Wait: 1h 42m 51s · Unclassified: 12m 4s
 
-| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed     | Work       | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
-| ---------- | ------------------------ | ------------------------ | ----------- | ---------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
-| context    | 2026-11-22T11:13:24.801Z | 2026-11-22T11:26:49.554Z | 13m 25s     | 39s        | 12m 45s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| ceremony   | 2026-11-22T11:26:49.671Z | 2026-11-22T11:28:05.750Z | 1m 16s      | 8s         | 1m 8s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| plan       | 2026-11-22T11:28:05.793Z | 2026-11-22T12:11:07.924Z | 43m 2s      | 32m 19s    | 10m 43s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| implement  | 2026-11-22T12:11:07.969Z | 2026-11-22T14:45:14.597Z | 2h 34m 7s   | 1h 43m 27s | 38m 57s | unavailable  | unavailable   | from_tracking_start | 1        | 4             | ⚠️ failed check |
-| test       | 2026-11-22T14:45:14.645Z | 2026-11-22T15:54:56.664Z | 1h 9m 42s   | 35m 11s    | 34m 31s | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
-| document   | 2026-11-22T15:55:06.616Z | unavailable              | unavailable | 5m 17s     | 4m 47s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
-| completion | unavailable              | unavailable              | unavailable | 0s         | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             | —               |
+| Stage      | Started (UTC)            | Completed (UTC)          | Elapsed   | Work       | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
+| ---------- | ------------------------ | ------------------------ | --------- | ---------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
+| context    | 2026-11-22T11:13:24.801Z | 2026-11-22T11:26:49.554Z | 13m 25s   | 39s        | 12m 45s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| ceremony   | 2026-11-22T11:26:49.671Z | 2026-11-22T11:28:05.750Z | 1m 16s    | 8s         | 1m 8s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| plan       | 2026-11-22T11:28:05.793Z | 2026-11-22T12:11:07.924Z | 43m 2s    | 32m 19s    | 10m 43s | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| implement  | 2026-11-22T12:11:07.969Z | 2026-11-22T14:45:14.597Z | 2h 34m 7s | 1h 43m 27s | 38m 57s | unavailable  | unavailable   | from_tracking_start | 1        | 4             | ⚠️ failed check |
+| test       | 2026-11-22T14:45:14.645Z | 2026-11-22T15:54:56.664Z | 1h 9m 42s | 35m 11s    | 34m 31s | unavailable  | unavailable   | from_tracking_start | 1        | 1             | ⚠️ failed check |
+| document   | 2026-11-22T15:55:06.616Z | 2026-11-22T16:37:22.592Z | 42m 16s   | 37m 29s    | 4m 47s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
+| completion | 2026-11-22T16:37:33.812Z | 2026-11-22T16:38:55.360Z | 1m 22s    | 1m 22s     | 0s      | unavailable  | unavailable   | from_tracking_start | 1        | 0             | —               |
 
 Quality (recorded inventory): findings 58 · open 0 · PR findings 18 · critical 0 · debt 2 · tests written 151 · latest failed cases unavailable · failed test runs 3. Counts describe recorded coverage, not a quality score; kind/severity/resolution breakdowns are in [stat.json](stat.json).
 <!-- dev-metrics-stage:end -->
@@ -89,7 +89,7 @@ Quality (recorded inventory): findings 58 · open 0 · PR findings 18 · critica
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the step's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the step. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. **Flags** surfaces non-initial attempt triggers (🔁 retried/rework, 🔀 scope change, 🔓 reopened) and any failed check (⚠️), derived from recorded data — never a new judgment call — so a reader can scan for problem steps without parsing every row. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 2h 57m 1s · Wait: 1h 42m 51s · Unclassified: 43m 50s
+Observed work: 3h 30m 35s · Wait: 1h 42m 51s · Unclassified: 12m 4s
 
 | Step                                                                         | Started (UTC)            | Completed (UTC)          | Elapsed | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks | Flags           |
 | ---------------------------------------------------------------------------- | ------------------------ | ------------------------ | ------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- | --------------- |
@@ -848,6 +848,13 @@ Closure (Document stage): the deviation audit and three consistency rounds ran; 
 | `Harness/07 Operational Graph/03 Visualization Model.md` → Dogfood exception                                              | Harness           | updated | `src/pages/dogfood/graph.json` moved to `src/views/dogfood/graph.json` (RF-030)                                                                                                                                                                                                                                |      |
 | `ACCESSIBILITY.md` → Known limitations                                                                                    | Project statement | updated | NFR-A21: barriers confirmed by the WCAG check (RF-055, TD-2) must be listed                                                                                                                                                                                                                                    |      |
 | `apps/web-explorer/README.md`                                                                                             | App README        | updated | Still says `dist/` and `VITE_*`; now `next dev`, `out/`, the `test`/`e2e`/`lighthouse`/`preview` targets, the WCAG baseline update command                                                                                                                                                                     |      |
+
+## Completion
+
+- Date: 2026-11-22
+- Archive: `docs/Stories/archive/[DESIGN-20261121-UU4L] Web Explorer Next.js Static Export/impl/` (the design artifacts stay in `docs/Stories/design/approved/[DESIGN-20261121-UU4L] Web Explorer Next.js Static Export/`, as for DESIGN-20261103-LBBI and DESIGN-20261117-7931)
+- PR title: `feat(web-explorer): next.js static export with per-page seo, hashed csp and webmcp tools`
+- External actions: tracker move skipped (local ID, no Jira issue); TD-2 ticket declined by the developer ("no"), so the local TD-2 row stays the record
 
 ## Efforts Spent
 
