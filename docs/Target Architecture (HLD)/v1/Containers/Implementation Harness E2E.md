@@ -5,7 +5,7 @@ title: Implementation Harness E2E Container
 description: Design intent for the Implementation Harness E2E container — the test harness validating the implementation-harness skill package and the repo's release tooling
 tags: [implementation-harness-e2e, implementation-harness, testing, release-tooling, hld]
 generated: { by: process:okf-migration, at: 2026-11-02T19:20:19Z }
-updated: { by: process:dev-document, at: 2026-11-21T22:00:00Z }
+updated: { by: process:dev-document, at: 2026-11-23T10:00:00Z }
 ---
 
 # Implementation Harness E2E Container
@@ -58,7 +58,7 @@ flowchart LR
     style AGENT fill:#EEF2FF,stroke:#4338CA,color:#1e1b4b
 ```
 
-Agent E2E runs are not triggered by any CI workflow — they use the developer's own CLI authentication and model usage (`yarn nx run implementation-harness-e2e:agent-e2e`, a guarded command).
+Agent E2E runs are not triggered by any CI workflow — they use the developer's own CLI authentication and model usage (`yarn nx run implementation-harness-e2e:agent-e2e`, a guarded command). The AWS region they configure `aws-mcp` for comes from the required `HARNESS_E2E_AWS_REGION` variable; a region is deployment configuration and never appears in source.
 
 ## Responsibilities
 

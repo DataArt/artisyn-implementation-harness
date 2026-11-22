@@ -33,7 +33,7 @@ Credentials are stored only in `.claude/settings.local.json`'s `env` block — a
 | Variable      | Description                                                                            |
 | ------------- | -------------------------------------------------------------------------------------- |
 | `AWS_PROFILE` | Named profile in `~/.aws/credentials` or `~/.aws/config` (SSO). Default: `unqlo-demo`. |
-| `AWS_REGION`  | AWS region for MCP calls. Default: `eu-west-1`.                                        |
+| `AWS_REGION`  | AWS region for MCP calls. No default: set the region your account uses.                |
 
 Verify your profile is working:
 

@@ -26,7 +26,7 @@ tags:
     playwright,
   ]
 generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
-updated: { by: process:dev-document, at: 2026-11-22T17:00:00Z }
+updated: { by: process:dev-document, at: 2026-11-23T10:00:00Z }
 ---
 
 # CI/CD
@@ -301,7 +301,7 @@ No workflow pushes to `main`, so the release lane needs no bypass actor; the rul
 
 CI never runs a guarded command; the developer starts each one.
 
-- `yarn nx run implementation-harness-e2e:agent-e2e` spends real agent budget. It never runs in CI.
+- `yarn nx run implementation-harness-e2e:agent-e2e` spends real agent budget. It never runs in CI. Its bootstrap cases require `HARNESS_E2E_AWS_REGION`, the AWS region the run configures `aws-mcp` for; it has no default, and those cases fail without it.
 - `git push`, including the runbook's one-time bridge tag push (`git push origin v4.0.2`).
 
 A region is deployment configuration only. Never hardcode one in a workflow, script or doc.
