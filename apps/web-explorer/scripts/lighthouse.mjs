@@ -88,7 +88,13 @@ async function main() {
   fs.mkdirSync(reportDir, { recursive: true });
   const chrome = await chromeLauncher.launch({
     chromePath: chromium.executablePath(),
-    chromeFlags: ['--headless=new', '--enable-features=WebMCP'],
+    // Linux runners (Ubuntu 24.04) block the user namespaces Chrome's sandbox needs, so it
+    // exits at launch; Playwright launches without the sandbox on Linux for the same reason.
+    chromeFlags: [
+      '--headless=new',
+      '--enable-features=WebMCP',
+      ...(process.platform === 'linux' ? ['--no-sandbox'] : []),
+    ],
   });
 
   const rows = [];

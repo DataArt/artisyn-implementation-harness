@@ -54,23 +54,31 @@
     },
     {
       "id": "implement",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
           "started_at": "2026-11-22T12:11:07.969Z",
-          "ended_at": null,
+          "ended_at": "2026-11-22T14:45:14.597Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
     },
     {
       "id": "test",
-      "status": "pending",
-      "attempts": [],
-      "flags": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+          "started_at": "2026-11-22T14:45:14.645Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": ["failed_check"]
     },
     {
       "id": "document",
@@ -4451,8 +4459,98 @@
       "reason": "approval",
       "detail": "Awaiting implement sign-off (after review rework)",
       "started_at": "2026-11-22T14:40:17.912Z",
+      "ended_at": "2026-11-22T14:45:14.597Z",
+      "last_observed_at": "2026-11-22T14:45:14.597Z"
+    },
+    {
+      "id": "6ddd55ed-0869-4aa2-ac1c-aa0ed9db80b8",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T14:45:14.645Z",
+      "ended_at": "2026-11-22T14:45:14.731Z",
+      "last_observed_at": "2026-11-22T14:45:14.731Z"
+    },
+    {
+      "id": "9e00c617-64ff-4e4b-a16a-548640cf92b6",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "wait",
+      "reason": "external_dependency",
+      "detail": "Developer pushes and opens the draft PR; ci-web run (TD-1)",
+      "started_at": "2026-11-22T14:45:14.731Z",
+      "ended_at": "2026-11-22T14:50:18.202Z",
+      "last_observed_at": "2026-11-22T14:50:18.202Z"
+    },
+    {
+      "id": "da4c8826-dd83-4948-bbda-f113e0a29ddd",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T14:50:18.202Z",
+      "ended_at": "2026-11-22T14:55:10.440Z",
+      "last_observed_at": "2026-11-22T14:55:10.440Z"
+    },
+    {
+      "id": "c205bae5-9c22-4c26-a9c5-e35a6fa47d55",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T14:55:10.440Z",
+      "ended_at": "2026-11-22T14:55:19.721Z",
+      "last_observed_at": "2026-11-22T14:55:19.721Z"
+    },
+    {
+      "id": "fba94f80-8424-480b-a097-4c013abff1b1",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T14:55:19.721Z",
+      "ended_at": "2026-11-22T14:55:20.833Z",
+      "last_observed_at": "2026-11-22T14:55:20.833Z"
+    },
+    {
+      "id": "3ea16ef0-bf83-4d57-bd7b-3ebff2525a33",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T14:55:20.833Z",
+      "ended_at": "2026-11-22T14:57:00.813Z",
+      "last_observed_at": "2026-11-22T14:57:00.813Z"
+    },
+    {
+      "id": "3a4a0e92-54e5-4837-96e7-e2da18fee565",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T14:57:00.813Z",
+      "ended_at": "2026-11-22T14:57:16.018Z",
+      "last_observed_at": "2026-11-22T14:57:16.018Z"
+    },
+    {
+      "id": "dc30661b-f1d8-4042-ab11-814e9f5a066e",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Developer commits the CI fixes, pushes and reruns ci-web",
+      "started_at": "2026-11-22T14:57:16.018Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-22T14:40:17.912Z"
+      "last_observed_at": "2026-11-22T14:57:16.018Z"
     }
   ],
   "checks": [
@@ -7325,22 +7423,116 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "test-ci-fix-lint-01",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "web-explorer lint",
+      "kind": "lint",
+      "started_at": "2026-11-22T14:55:04.667Z",
+      "ended_at": "2026-11-22T14:55:10.440Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer lint",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T14:55:10.440Z"
+    },
+    {
+      "id": "test-ci-fix-typecheck-01",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "web-explorer typecheck",
+      "kind": "typecheck",
+      "started_at": "2026-11-22T14:55:10.487Z",
+      "ended_at": "2026-11-22T14:55:19.721Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer typecheck",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T14:55:19.721Z"
+    },
+    {
+      "id": "test-ci-fix-test-01",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "web-explorer test",
+      "kind": "test",
+      "started_at": "2026-11-22T14:55:19.769Z",
+      "ended_at": "2026-11-22T14:55:20.833Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer test",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T14:55:20.833Z"
+    },
+    {
+      "id": "test-ci-fix-e2e-04",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "web-explorer e2e",
+      "kind": "test",
+      "started_at": "2026-11-22T14:56:42.194Z",
+      "ended_at": "2026-11-22T14:57:00.813Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer e2e",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T14:57:00.813Z"
+    },
+    {
+      "id": "test-ci-run-01",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "ci-web on the draft PR",
+      "kind": "test",
+      "started_at": "2026-11-22T14:57:15.814Z",
+      "ended_at": "2026-11-22T14:57:15.814Z",
+      "result": "failed",
+      "evidence_ref": "Developer pasted the first ci-web run: web-explorer:lighthouse failed to launch Chrome (debugging port), web-explorer:e2e 21 failed / 66 passed (navigator.modelContext cases)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-ci-fix-linux-01",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "Linux reproduction of both CI failures",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T14:57:15.875Z",
+      "ended_at": "2026-11-22T14:57:15.875Z",
+      "result": "passed",
+      "evidence_ref": "Playwright noble container: Chrome launch fails identically without --no-sandbox, launches with it; lighthouse.mjs passes 3 routes on Linux. Simulated native document.modelContext: 21 fail without the stub fix, 42/42 with it; local nx e2e 87/87, lint/typecheck/test pass",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T14:44:29.932Z",
+    "as_of": "2026-11-22T14:57:32.595Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 8193.145999999999,
-    "observed_wait_seconds": 3517.2980000000002,
+    "observed_work_seconds": 8611.047999999997,
+    "observed_wait_seconds": 4117.454,
     "open_work_seconds": 0,
-    "open_wait_seconds": 252.02,
-    "unclassified_seconds": 702.7100000000019,
+    "open_wait_seconds": 16.577,
+    "unclassified_seconds": 702.7580000000028,
     "rework_seconds": 173.674,
-    "blocked_seconds": 183.993,
-    "approval_wait_seconds": 1873.23,
-    "failed_checks": 4,
+    "blocked_seconds": 487.464,
+    "approval_wait_seconds": 2169.915,
+    "failed_checks": 5,
     "first_pass_verification_rate": 0.8709677419354839,
     "human_reported_seconds": null,
     "tokens": null,
@@ -7348,14 +7540,14 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-22T14:44:29.926Z",
+    "as_of": "2026-11-22T14:57:32.588Z",
     "source": "2-report.md",
-    "source_sha256": "1bd7ce66670cd17f66aca51deb8d6032aa2c98edc43dbcc21e464ddfc8fa6c43",
+    "source_sha256": "c3c438e770bb5ff596373a99911af6430245fcd15bfbc1110381ba7f43c766ed",
     "findings": {
-      "total": 37,
+      "total": 39,
       "by_kind": {
         "deviation": 9,
-        "bug": 9,
+        "bug": 11,
         "design": 6,
         "improve": 5,
         "security": 0,
@@ -7365,19 +7557,19 @@
       "by_severity": {
         "critical": 0,
         "high": 5,
-        "medium": 6,
+        "medium": 8,
         "low": 20,
         "info": 6
       },
       "by_classification": {
-        "introduced": 27,
+        "introduced": 29,
         "pre-existing": 0,
         "ruled-out": 0,
         "advisory": 10
       },
       "by_resolution": {
         "open": 7,
-        "fixed": 28,
+        "fixed": 30,
         "accepted": 2,
         "tech-debt": 0,
         "doc-updated": 0
@@ -7388,10 +7580,10 @@
         "omission": 0
       },
       "pr_review": {
-        "total": 0,
+        "total": 2,
         "by_kind": {
           "deviation": 0,
-          "bug": 0,
+          "bug": 2,
           "design": 0,
           "improve": 0,
           "security": 0,
@@ -7401,7 +7593,7 @@
         "by_severity": {
           "critical": 0,
           "high": 0,
-          "medium": 0,
+          "medium": 2,
           "low": 0,
           "info": 0
         }
@@ -7420,8 +7612,8 @@
       "scopes": 0
     },
     "test_runs": {
-      "recorded": 26,
-      "failed": 2,
+      "recorded": 29,
+      "failed": 3,
       "errors": 0,
       "interrupted": 0
     },

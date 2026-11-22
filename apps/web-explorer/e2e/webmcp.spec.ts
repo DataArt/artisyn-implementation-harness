@@ -27,6 +27,10 @@ async function installStub(page: Page, host: 'document' | 'navigator') {
       value: modelContext,
       configurable: true,
     });
+    // A build with the origin-trial token gets a native document.modelContext on the emulated
+    // dataart.github.io origin, which the site prefers; hide it to exercise the navigator path.
+    if (target === 'navigator')
+      Object.defineProperty(document, 'modelContext', { value: undefined, configurable: true });
   }, host);
 }
 
