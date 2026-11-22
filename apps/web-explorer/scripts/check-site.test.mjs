@@ -8,7 +8,7 @@ const SITE = 'https://dataart.github.io/artisyn-implementation-harness';
 const hash = (text) =>
   `'sha256-${crypto.createHash('sha256').update(text, 'utf8').digest('base64')}'`;
 const policy = (hashes) =>
-  `default-src 'none'; script-src ${hashes.join(' ')} ${SITE}/; style-src ${SITE}/ 'unsafe-inline'; img-src ${SITE}/; font-src ${SITE}/; connect-src ${SITE}/; manifest-src ${SITE}/; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests`;
+  `default-src 'none'; script-src ${hashes.join(' ')} ${SITE}/; style-src ${SITE}/ 'unsafe-inline'; img-src ${SITE}/; font-src ${SITE}/; connect-src ${SITE}/ https://dataart.github.io/robots.txt https://dataart.github.io/llms.txt; manifest-src ${SITE}/; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests`;
 
 const SCRIPT = 'self.__boot=1';
 const signed = ({ csp = policy([hash(SCRIPT)]), body = '', head = '' } = {}) =>
@@ -152,6 +152,22 @@ test('check-site security: a correctly signed page passes', async () => {
   assert.deepEqual(checkSecurity(signed(), SITE), []);
 });
 
+test('check-site security: the policy is exactly the one post-export builds', async () => {
+  const { checkSecurity } = await load();
+  const base = policy([hash(SCRIPT)]);
+  const drifted = {
+    'wider connect-src': base.replace(`connect-src ${SITE}/`, `connect-src ${SITE}/ https:`),
+    'no default-src': base.replace("default-src 'none'; ", ''),
+    'data: images': base.replace(`img-src ${SITE}/`, `img-src ${SITE}/ data:`),
+    'extra directive': `${base}; frame-src https://evil.example`,
+  };
+  for (const [name, csp] of Object.entries(drifted))
+    assert.ok(
+      checkSecurity(signed({ csp }), SITE).some((e) => e.includes('policy')),
+      name
+    );
+});
+
 test('check-site security: uncovered hash, duplicate or misplaced CSP, external URL fail', async () => {
   const { checkSecurity } = await load();
   const uncovered = checkSecurity(signed({ csp: policy([hash('other')]) }), SITE);
@@ -251,6 +267,18 @@ test('check-site origin trial: tag present exactly when the token is set', async
   assert.deepEqual(checkOriginTrial(signed(), undefined), []);
   assert.notDeepEqual(checkOriginTrial(signed(), 'tok'), []);
   assert.notDeepEqual(checkOriginTrial(tagged, undefined), []);
+});
+
+// Search Console verification (Step 14; every page, including 404)
+
+test('check-site verification: meta present exactly when the token is set', async () => {
+  const { checkVerification } = await load();
+  const tagged = signed({ head: '<meta name="google-site-verification" content="tok">' });
+  assert.deepEqual(checkVerification(tagged, 'tok'), []);
+  assert.deepEqual(checkVerification(signed(), undefined), []);
+  assert.notDeepEqual(checkVerification(signed(), 'tok'), []);
+  assert.notDeepEqual(checkVerification(tagged, undefined), []);
+  assert.notDeepEqual(checkVerification(tagged, 'other'), []);
 });
 
 // Per-page structured data (Step 30, addendum 02)

@@ -9,6 +9,7 @@ import {
   getHarnessCapabilities,
   getInstallInstructions,
   getPage,
+  loadIndexes,
   searchDocumentation,
   workflowTarget,
   type AgentIndex,
@@ -75,6 +76,7 @@ const docs: AgentIndex = {
       'Operational Graph',
       'The operational graph links every document.'
     ),
+    entry('docs', '/docs/Harness/07%20Operational%20Graph.html', 'Graph overview', 'Overview.'),
   ],
 };
 const both = { site, docs };
@@ -132,6 +134,12 @@ test('get_page: returns a known page and rejects anything else', async () => {
   assert.equal(page.title, 'Get started');
   assert.ok(page.text.length > 0);
   assert.equal(getPage(both, { path: '/docs/Harness/og' }).source, 'docs');
+  for (const form of [
+    '/docs/Harness/07%20Operational%20Graph.html',
+    '/docs/Harness/07 Operational Graph.html',
+  ])
+    assert.equal(getPage(both, { path: form }).title, 'Graph overview');
+  assert.throws(() => getPage(both, { path: '/docs/%E0%A4%A' }));
   assert.throws(() => getPage(both, { path: '/nope/' }));
   assert.throws(() => getPage(both, { path: 'get-started/' }));
   assert.throws(() => getPage(both, { path: `/${'a'.repeat(300)}` }));
@@ -206,4 +214,22 @@ test('get_harness_capabilities: returns its source modules unchanged', async () 
   assert.deepEqual(caps.docsFlowScenarios, [
     { id: 'e2e', label: 'End-to-end flow', description: 'Start to finish' },
   ]);
+});
+
+test('loadIndexes: a failed site index load is retried on the next call', async () => {
+  const realFetch = globalThis.fetch;
+  let siteUp = false;
+  globalThis.fetch = (async (url: string) =>
+    String(url).includes('site') && siteUp
+      ? new Response(JSON.stringify(site))
+      : new Response('', { status: 503 })) as typeof fetch;
+  try {
+    await assert.rejects(loadIndexes('/site.json', '/docs.json'));
+    siteUp = true;
+    const loaded = await loadIndexes('/site.json', '/docs.json');
+    assert.equal(loaded.site.entries.length, site.entries.length);
+    assert.equal(loaded.docs, null);
+  } finally {
+    globalThis.fetch = realFetch;
+  }
 });

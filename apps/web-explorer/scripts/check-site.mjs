@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parse } from 'parse5';
-import { hashScript, isInlineExecutable } from './post-export.mjs';
+import { buildPolicy, hashScript, isInlineExecutable } from './post-export.mjs';
 
 // ---------- HTML helpers ----------
 
@@ -138,6 +138,30 @@ const LINK_RELS = new Set([
 ]);
 
 /** Every URL a page loads must stay under the project path (`<site>/`); img-src allows no data: URLs. */
+/** Directive name -> set of sources, so policies compare regardless of source order. */
+const directivesOf = (policy) =>
+  new Map(
+    policy
+      .split(';')
+      .map((d) => d.trim().split(/\s+/))
+      .filter(([name]) => name)
+      .map(([name, ...sources]) => [name, [...sources].sort().join(' ')])
+  );
+
+function policyDrift(actual, expected) {
+  const [a, e] = [directivesOf(actual), directivesOf(expected)];
+  const names = new Set([...a.keys(), ...e.keys()]);
+  return [...names]
+    .filter((name) => a.get(name) !== e.get(name))
+    .map((name) =>
+      !a.has(name)
+        ? `policy is missing ${name}`
+        : !e.has(name)
+          ? `policy has unexpected ${name}`
+          : `policy ${name} differs: "${a.get(name)}", expected "${e.get(name)}"`
+    );
+}
+
 function urlOutside(value, site) {
   const v = value.trim();
   if (!v) return false;
@@ -199,11 +223,20 @@ export function checkSecurity(html, site) {
       .map((d) => d.trim())
       .find((d) => d.startsWith('script-src ')) ?? '';
   const allowed = new Set(scriptSrc.split(/\s+/).slice(1));
+  const hashes = new Set();
   for (const n of scripts.filter(isInlineExecutable)) {
     const text = n.childNodes.map((c) => c.value ?? '').join('');
+    hashes.add(hashScript(text));
     if (!allowed.has(hashScript(text)))
       errors.push(`inline script not covered by the policy: ${preview(text)}`);
   }
+  // One source for the policy: the gate rebuilds it and any drift fails (NFR-16).
+  errors.push(
+    ...policyDrift(
+      attr(meta, 'content') ?? '',
+      buildPolicy({ hashes: [...hashes], site, upgradeInsecure: true })
+    )
+  );
   for (const url of urls)
     if (urlOutside(url, site)) errors.push(`URL outside ${site}/: ${preview(url)}`);
   return errors;
@@ -308,6 +341,25 @@ export function checkOriginTrial(html, token) {
   return errors;
 }
 
+/** The Search Console meta is on the page exactly when NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION is set. */
+export function checkVerification(html, token) {
+  const metas = [];
+  walk(parse(html), (n) => {
+    if (n.nodeName === 'meta' && attr(n, 'name') === 'google-site-verification') metas.push(n);
+  });
+  if (!token)
+    return metas.length
+      ? [
+          'google-site-verification meta present but NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION is not set',
+        ]
+      : [];
+  if (metas.length !== 1)
+    return [`expected one google-site-verification meta, found ${metas.length}`];
+  return attr(metas[0], 'content') === token
+    ? []
+    : ['google-site-verification meta does not carry the configured token'];
+}
+
 // ---------- CLI ----------
 
 const pageFile = (outDir, routePath) => path.join(outDir, routePath, 'index.html');
@@ -355,9 +407,14 @@ async function main() {
     });
   const pages = htmlFiles(outDir);
   const token = process.env.WEBMCP_ORIGIN_TRIAL_TOKEN || undefined;
+  const verification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined;
   for (const file of pages) {
     const html = fs.readFileSync(file, 'utf8');
-    report(file, [...checkSecurity(html, site), ...checkOriginTrial(html, token)]);
+    report(file, [
+      ...checkSecurity(html, site),
+      ...checkOriginTrial(html, token),
+      ...checkVerification(html, verification),
+    ]);
   }
   report(
     path.join(outDir, 'index.html'),

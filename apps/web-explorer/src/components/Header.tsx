@@ -7,7 +7,7 @@ export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link className="brand" href="/" aria-label="Artisyn home">
+        <Link className="brand" href="/">
           <img src={asset('/brand/artisyn-mark.svg')} alt="" width="34" height="34" />
           <span>
             artisyn<span className="brand-muted"> / implementation harness</span>

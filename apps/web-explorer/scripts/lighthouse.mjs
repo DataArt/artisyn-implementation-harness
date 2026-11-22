@@ -66,7 +66,7 @@ async function main() {
 
   // A copy of out/ re-signed for the local origin; out/ itself is never touched.
   const server = createPreviewServer(stage);
-  await new Promise((resolve) => server.listen(0, resolve));
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   const { port } = server.address();
   const origin = `http://localhost:${port}`;
   fs.rmSync(stage, { recursive: true, force: true });

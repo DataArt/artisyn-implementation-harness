@@ -115,12 +115,21 @@ export function searchDocumentation(
   };
 }
 
+/** Docs paths are percent-encoded (`%20`); agents may pass them decoded, so compare decoded forms. */
+function samePath(a: string, b: string): boolean {
+  try {
+    return decodeURI(a) === decodeURI(b);
+  } catch {
+    return a === b;
+  }
+}
+
 export function getPage(indexes: Indexes, input: { path?: unknown }) {
   const { path } = input ?? {};
   if (typeof path !== 'string' || !path.startsWith('/') || path.length > 300)
     fail("path must be a string of up to 300 characters starting with '/'");
   for (const { source, entry } of entriesOf(indexes, 'all'))
-    if (entry.path === path)
+    if (samePath(entry.path, path))
       return {
         source,
         title: entry.title,
@@ -232,6 +241,10 @@ export function loadIndexes(siteIndexUrl: string, docsIndexUrl: string): Promise
       return { site, docs };
     }
   );
+  // Forget a failed load, so one network error does not disable the tools until a reload.
+  indexes.catch(() => {
+    indexes = undefined;
+  });
   return indexes;
 }
 

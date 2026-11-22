@@ -57,7 +57,7 @@ export function createPreviewServer(root) {
       else res.writeHead(404).end('Not found');
     };
 
-    if (!target.startsWith(root)) return missing();
+    if (target !== root && !target.startsWith(root + path.sep)) return missing();
     if (pathname.endsWith('/')) {
       const index = path.join(target, 'index.html');
       return isFile(index) ? send(req, res, 200, index) : missing();
@@ -71,7 +71,7 @@ export function createPreviewServer(root) {
 if (import.meta.url === pathToFileURL(process.argv[1] ?? '').href) {
   const root = path.resolve(process.argv[2] ?? '.preview');
   const port = Number(process.env.PORT ?? 4173);
-  createPreviewServer(root).listen(port, () => {
+  createPreviewServer(root).listen(port, '127.0.0.1', () => {
     const base = fs.readdirSync(root).find((name) => isDir(path.join(root, name)));
     console.log(`serve-preview: http://localhost:${port}/${base ?? ''}${base ? '/' : ''}`);
   });

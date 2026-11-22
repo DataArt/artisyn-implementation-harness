@@ -66,6 +66,9 @@
         },
         {
           "env": "WEBMCP_ORIGIN_TRIAL_TOKEN"
+        },
+        {
+          "env": "BUNDLE_BUDGET_BYTES"
         }
       ],
       "outputs": ["{projectRoot}/out"],
@@ -95,8 +98,13 @@
       "executor": "nx:run-commands",
       "cache": false,
       "options": {
-        "command": "playwright install --with-deps chromium",
+        "command": "playwright install chromium",
         "cwd": "apps/web-explorer"
+      },
+      "configurations": {
+        "ci": {
+          "command": "playwright install --with-deps chromium"
+        }
       }
     }
   }
