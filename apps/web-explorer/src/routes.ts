@@ -163,6 +163,15 @@ export const routes: RouteEntry[] = [
     sources: ['src/views/landing'],
   },
   {
+    path: ROUTE_PATHS.contextTopology,
+    title: 'Context Topology',
+    description:
+      'Design the context before you launch the harness: monorepo, two-track, many repos with a product on top, or a mani workspace for hundreds of repos.',
+    index: true,
+    keywords: ['context-topology', 'monorepo', 'multi-repo', 'product-context', 'mani'],
+    sources: ['src/views/cookbook/context-topology'],
+  },
+  {
     path: ROUTE_PATHS.teamAdoptionPath,
     title: 'Team Adoption Path',
     description:

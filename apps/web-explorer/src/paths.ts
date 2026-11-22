@@ -3,6 +3,7 @@
  * Dependency-free so client components can import it without pulling in the route registry.
  */
 export const ROUTE_PATHS = {
+  contextTopology: '/cookbook/context-topology/',
   teamAdoptionPath: '/cookbook/team-adoption-path/',
   knowledgeFlow: '/cookbook/knowledge-flow/',
   agents: '/cookbook/agents/',

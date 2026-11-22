@@ -14,6 +14,7 @@ export const TEAM_ADOPTION_PATH_SLUGS = [
 
 export const ROUTES: string[] = [
   '/',
+  '/cookbook/context-topology/',
   '/cookbook/team-adoption-path/',
   ...TEAM_ADOPTION_PATH_SLUGS.map((slug) => `/cookbook/team-adoption-path/${slug}/`),
   '/get-started/',

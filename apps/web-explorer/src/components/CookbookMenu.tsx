@@ -10,6 +10,11 @@ type Entry = { href: string; label: string; description: string };
 
 const RECIPES: Entry[] = [
   {
+    href: ROUTE_PATHS.contextTopology,
+    label: 'Context Topology',
+    description: 'Shape your repositories and context before you launch the harness',
+  },
+  {
     href: ROUTE_PATHS.teamAdoptionPath,
     label: 'Team Adoption Path',
     description: 'Ten steps a team takes with the harness, each one opening the next',
