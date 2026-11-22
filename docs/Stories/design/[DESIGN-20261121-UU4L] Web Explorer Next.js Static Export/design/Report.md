@@ -32,10 +32,10 @@ Migrate `web-explorer` from Vite to Next.js, switching the SPA to SSG to improve
 ## State
 
 ```yaml
-current_stage: frame
-completed_stages: [context-gathering, ceremony]
+current_stage: research
+completed_stages: [context-gathering, ceremony, frame]
 selected_artifacts: []
-next_action: 'Frame commit, then Research (2 decisions)'
+next_action: 'Research commit, then Evaluate (resolve D2 OQ-2 at Step 1b)'
 context_fingerprint: 'a1f1997'
 ```
 
@@ -79,7 +79,7 @@ their resolution here; do not rely on conversation history for design provenance
 | Ticket | DESIGN-20261121-UU4L                                                                                                                                                                |
 | Branch | `docs/design-20261121-uu4l-web-explorer-nextjs-static-export`                                                                                                                       |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research 🔄 · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate 🔄 · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -89,14 +89,14 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 2m 50s · Wait to date: 25m 43s (closed 25m 43s + current 0s) · Unclassified: 6s
+Observed work: 2m 51s · Wait to date: 46m 33s (closed 46m 33s + current 0s) · Unclassified: 9h 31m 9s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
 | context-gathering (completed) | 2026-11-21T22:24:32.842Z | 2026-11-21T22:35:44.039Z | 11m 11s     | 0s     | 11m 11s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | ceremony (completed)          | 2026-11-21T22:35:49.459Z | 2026-11-21T22:37:26.297Z | 1m 37s      | 0s     | 1m 36s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (active)                | 2026-11-21T22:37:26.358Z | unavailable              | unavailable | 2m 50s | 12m 56s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| frame (completed)             | 2026-11-21T22:37:26.358Z | 2026-11-21T22:54:17.691Z | 16m 51s     | 2m 50s | 14m 1s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (active)             | 2026-11-21T22:54:17.749Z | unavailable              | unavailable | 0s     | 19m 44s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | evaluate (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 | review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
@@ -110,8 +110,28 @@ Observed work: 2m 50s · Wait to date: 25m 43s (closed 25m 43s + current 0s) · 
 
 _Filled in during Research OQ triage. One row per open question answered or classified._
 
-| #   | Open question | V/E | Answer / status |
-| --- | ------------- | --- | --------------- |
+_From Research OQ triage (2026-11-22). Tiers confirmed at the Research sign-off (2026-11-22); the developer corrected none. **Developer direction for D1: Option B, App Router with a thin page shell per route**; Evaluate confirms it against the matrix. D1 = Rendering, Routing and Page Metadata; D2 = Security Header Delivery._
+
+| #        | Open question                                                                                                                                   | V/E | Answer / status                                                                                                                                                            |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | --- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D1 OQ-1  | Does `actions/deploy-pages` skip Jekyll so `_next/` is served without `.nojekyll`?                                                              | (E) | Open — add `.nojekyll` either way; verify in implementation                                                                                                                |
+| D1 OQ-2  | Does `next/og` `opengraph-image.tsx` prerender under `output: 'export'`, with what file name, and with `basePath`/`metadataBase` in `og:image`? | (E) | Open — spike in Evaluate; only affects social-image variant (3)                                                                                                            |
+| D1 OQ-3  | Exported root `404.html` also serves `/docs/*` misses — acceptable?                                                                             | (E) | Open — developer                                                                                                                                                           |
+| D1 OQ-4  | `/get-started` paints defaults, then corrects from the query after hydration — acceptable for CLS/accessibility?                                | (E) | Open — developer                                                                                                                                                           |
+| D1 OQ-5  | Real landing first-load JS per option; how the budget is redefined                                                                              | (E) | Open — measured spike in Evaluate                                                                                                                                          |
+| D1 OQ-6  | Exact inline-script list per option from a real build                                                                                           | (E) | Open — spike in Evaluate; feeds D2 OQ-4                                                                                                                                    |
+| D1 OQ-7  | Pinned Next version/builder; Tailwind 4 PostCSS; `__HARNESS_VERSION__`; Node 24                                                                 | (E) | Open — implementation                                                                                                                                                      |
+| D1 OQ-8  | Are `metadata.icons` and plain `<img src>` prefixed with `basePath`?                                                                            | (E) | Open — implementation                                                                                                                                                      |
+| D1 OQ-9  | Option A only: is `StaticRouter`/`BrowserRouter` hydration under a Next catch-all stable?                                                       | (V) | Moot — developer selected Option B (2026-11-22); Option A not pursued, no spike needed                                                                                     |
+| D1 OQ-10 | Nx output `dist` vs `out`                                                                                                                       | (E) | Open — implementation                                                                                                                                                      |
+| D2 OQ-1  | Is a custom domain available and wanted?                                                                                                        | (V) | **Resolved (developer, 2026-11-22): no custom domain is available.** Option D is not viable and leaves the matrix                                                          |
+| D2 OQ-2  | EC3 policy floor: strictly stronger than Web Docs' `'unsafe-inline'`, or same-origin parity? New NFR for the accepted level?                    | (V) | Open — not answered at sign-off. Options A and B stay **conditional** on it; escalated by name at Evaluate Step 1b                                                         |
+| D2 OQ-3  | Clickjacking: accepted risk for a read-only promo site, or a requirement?                                                                       | (V) | Accepted as proposed (no correction at sign-off): clickjacking is an accepted risk for a read-only public promo site, as LBBI accepted for docs. Record in the new CSP NFR |
+| D2 OQ-4  | Which inline scripts the D1 router emits, how many per page, stable across builds?                                                              | (E) | Open — after D1 spike                                                                                                                                                      |
+| D2 OQ-5  | Trusted Types compatible with Next.js, React 19 and app code?                                                                                   | (E) | Open — implementation spike                                                                                                                                                |
+| D2 OQ-6  | Build-time network access to Google Fonts for `next/font`, or vendor font files?                                                                | (E) | Open — developer                                                                                                                                                           |
+| D2 OQ-7  | Playwright in CI for the browser CSP check, plus an HTML parser dependency?                                                                     | (E) | Open — developer                                                                                                                                                           |
+| D2 OQ-8  | Remove dead `scripts/ci/lambda-edge-deploy.sh` here or separately?                                                                              | (E) | Open — developer                                                                                                                                                           |
 
 ---
 
@@ -134,9 +154,10 @@ _Filled in during the Evaluate phase closing step and updated by any `patterns/w
 
 ## Efforts
 
-| Date       | Phase | Notes                                                                                                               |
-| ---------- | ----- | ------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-21 | Frame | 6 known requirements, 4 proposed requirements accepted; 2 decisions confirmed (SEO/metadata merged into Decision 1) |
+| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                         |
+| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-21 | Frame    | 6 known requirements, 4 proposed requirements accepted; 2 decisions confirmed (SEO/metadata merged into Decision 1)                                                                                                                                                                                                                                           |
+| 2026-11-22 | Research | @architect returned 4 options per decision. D1: A catch-all + React Router, B App Router shell per route, C App Router Server Components, D Pages Router. D2: A meta CSP unsafe-inline, B meta hardening, C per-page hashed meta CSP, D edge layer. Developer confirmed the sets; D2 Option D ruled out (no custom domain); developer direction D1 = Option B |
 
 ---
 
