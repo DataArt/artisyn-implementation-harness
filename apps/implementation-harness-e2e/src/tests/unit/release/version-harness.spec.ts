@@ -38,8 +38,9 @@ const marketplace = (version: string) =>
     2
   );
 
-/** A repo released at `released` (tagged), with one more commit on top. */
-function repo(released: string) {
+/** A repo released at `released` (tagged), with one more commit on top: a harness feature, or
+ * with `outside`, a feature that only changes files outside the harness (here the lockfile). */
+function repo(released: string, { outside = false } = {}) {
   const root = tmpDir('version-harness-');
   writeAll(root, {
     [PACKAGE_JSON]: JSON.stringify({ name: '@dataart/x', version: released }, null, 2) + '\n',
@@ -58,9 +59,15 @@ function repo(released: string) {
   git(root, ['add', '-A']);
   git(root, ['commit', '-q', '-m', 'release']);
   git(root, ['tag', TAG(released)]);
-  write(path.join(root, 'skills/implementation-harness/new.md'), 'x');
-  git(root, ['add', '-A']);
-  git(root, ['commit', '-q', '-m', 'feat(harness): a feature']);
+  if (outside) {
+    write(path.join(root, 'yarn.lock'), 'x');
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'feat(web-explorer): a dependency']);
+  } else {
+    write(path.join(root, 'skills/implementation-harness/new.md'), 'x');
+    git(root, ['add', '-A']);
+    git(root, ['commit', '-q', '-m', 'feat(harness): a feature']);
+  }
   const fake = write(path.join(tmpDir('fake-nx-'), 'nx.mjs'), FAKE_NX);
   return { root, nx: `${process.execPath} ${fake}` };
 }
@@ -126,6 +133,33 @@ describe('version-harness.mjs', () => {
     const result = versionHarness(root, nx, '4.0.0', ['--check']);
     assert.equal(result.status, 0, result.stdout + result.stderr);
     assert.match(result.stdout, /no harness release/);
+  });
+
+  describe('when no commit since the release touches the harness', () => {
+    // Nx counts a lockfile change as touching every project; FAKE_NEXT plays that miscount.
+    it('passes the check without asking Nx', () => {
+      const { root, nx } = repo('4.0.0', { outside: true });
+      const result = versionHarness(root, nx, '4.1.0', ['--check']);
+      assert.equal(result.status, 0, result.stdout + result.stderr);
+      assert.match(result.stdout, /no harness release on this branch \(stays 4\.0\.0\)/);
+    });
+
+    it('stamps nothing', () => {
+      const { root, nx } = repo('4.0.0', { outside: true });
+      const result = versionHarness(root, nx, '4.1.0');
+      assert.equal(result.status, 0, result.stdout + result.stderr);
+      assert.equal(JSON.parse(read(root, PACKAGE_JSON)).version, '4.0.0');
+      assert.doesNotMatch(read(root, CHANGELOG), /4\.1\.0/);
+    });
+
+    it('resets a stale stamp left by an earlier run', () => {
+      const { root, nx } = repo('4.0.0', { outside: true });
+      const file = path.join(root, PACKAGE_JSON);
+      fs.writeFileSync(file, read(root, PACKAGE_JSON).replace('4.0.0', '4.1.0'));
+      assert.equal(versionHarness(root, nx, '4.1.0').status, 0);
+      assert.equal(JSON.parse(read(root, PACKAGE_JSON)).version, '4.0.0');
+      assert.equal(versionHarness(root, nx, '4.1.0', ['--check']).status, 0);
+    });
   });
 
   it('fails clearly when no harness tag is reachable', () => {

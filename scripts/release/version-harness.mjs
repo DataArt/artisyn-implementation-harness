@@ -8,7 +8,9 @@
  * writes and exits 1 when the branch is not stamped with the computed version; it is the version
  * gate on every PR. It also fails while the base branch (`--base`, default origin/main) carries a
  * version that is not released yet and this branch changes the harness: that release is waiting
- * for approval, and its tag is what the next version is computed from. After the merge,
+ * for approval, and its tag is what the next version is computed from. A branch with no commit
+ * under skills/implementation-harness since the tag releases nothing, whatever Nx says: Nx counts
+ * a lockfile change as touching every project, and the harness has no dependencies. After the merge,
  * deploy-harness.yml builds the version main carries and, once approved, tags and publishes it.
  * Set NX_CMD to run Nx another way (the tests use a fake).
  */
@@ -116,16 +118,27 @@ function dropStaleEntries(released, next) {
 
 const released = latestTagVersion();
 const versionArgs = ['version', '--git-commit=false', '--git-tag=false', '--stage-changes=false'];
+const touchedSinceRelease =
+  git([
+    'log',
+    '-1',
+    '--format=%H',
+    `${TAG_PREFIX}${released}..HEAD`,
+    '--',
+    'skills/implementation-harness',
+  ]).stdout?.trim() !== '';
 
 if (values.check) {
   const original = fs.readFileSync(PACKAGE_JSON, 'utf8');
   const stamped = readVersion();
-  let next;
-  try {
-    nx(versionArgs, true);
-    next = readVersion();
-  } finally {
-    fs.writeFileSync(PACKAGE_JSON, original);
+  let next = released;
+  if (touchedSinceRelease) {
+    try {
+      nx(versionArgs, true);
+      next = readVersion();
+    } finally {
+      fs.writeFileSync(PACKAGE_JSON, original);
+    }
   }
   const problems = [];
   const pending = pendingOnBase(released);
@@ -161,7 +174,11 @@ if (values.check) {
       : `version-harness: stamped ${next} matches the commits since ${released}`
   );
 } else {
-  nx(versionArgs, false);
+  if (touchedSinceRelease) nx(versionArgs, false);
+  else if (readVersion() !== released) {
+    const pkg = JSON.parse(fs.readFileSync(PACKAGE_JSON, 'utf8'));
+    fs.writeFileSync(PACKAGE_JSON, `${JSON.stringify({ ...pkg, version: released }, null, 2)}\n`);
+  }
   const next = readVersion();
   stamp([], false);
   if (next === released) {
