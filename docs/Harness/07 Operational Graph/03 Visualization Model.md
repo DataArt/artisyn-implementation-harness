@@ -5,14 +5,14 @@ title: Visualization Model
 description: Describe the IDE-side and docs-site graph surfaces that share the knowledge graph's data file
 tags: [knowledge graph, visualization, graph page, data-access pattern]
 generated: { by: process:okf-migration, at: 2026-11-02T14:35:32Z }
-updated: { by: process:dev-document, at: 2026-11-22T16:05:10Z }
+updated: { by: process:dev-document, at: 2026-11-22T23:30:00Z }
 ---
 
 # Visualization Model
 
 Two graph surfaces are required, and both read the one SQLite data file as their single source of truth: the docs-site Graph Explorer and the IDE-side `docs/.og/graph.mmd`, which `build` regenerates from that file. Neither required surface uses a separate export or a hand-maintained copy.
 
-Web Explorer's Dogfood page is the one allowed exception: it renders `apps/web-explorer/src/views/dogfood/graph.json`, a derived, non-authoritative copy that a developer refreshes by hand with the export script (see [Compatibility rule](#compatibility-rule)).
+Web Explorer's Dogfood page is the one allowed exception: it renders `apps/web-explorer/src/views/cookbook/case/dogfood/graph.json`, a derived, non-authoritative copy that a developer refreshes by hand with the export script (see [Compatibility rule](#compatibility-rule)).
 
 ## Data-access pattern
 

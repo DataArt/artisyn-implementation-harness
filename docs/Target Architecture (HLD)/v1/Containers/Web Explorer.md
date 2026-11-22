@@ -6,12 +6,12 @@ description: 'Design intent for the Web Explorer container: the promotional mult
 tags:
   [web-explorer, nextjs, static-export, csp, seo, webmcp, llms-txt, agent-index, lighthouse, hld]
 generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
-updated: { by: process:dev-document, at: 2026-11-22T22:00:00Z }
+updated: { by: process:dev-document, at: 2026-11-22T23:30:00Z }
 ---
 
 # Web Explorer Container
 
-Promotional multi-route site at `apps/web-explorer`: a Next.js 16.4 App Router app exported to static files, one `<route>/index.html` per route at a trailing-slash path URL. It has 18 routes — `/`, `/inside-the-loop/` plus 10 detail pages, `/get-started/`, `/docs-flow/`, `/dogfood/`, `/agents/`, `/migration-case/` and `/comic/` — and the root `404.html`. All 18 routes are indexable except `/comic/`; `404.html` is `noindex`. Implementation: [LLD Overview](<../../../System Architecture (LLD)/Web Explorer/00. Overview.md>).
+Promotional multi-route site at `apps/web-explorer`: a Next.js 16.4 App Router app exported to static files, one `<route>/index.html` per route at a trailing-slash path URL. It has 18 routes — `/`, `/get-started/`, the Cookbook pages (`/cookbook/team-adoption-path/` plus 10 topic pages, `/cookbook/knowledge-flow/`, `/cookbook/agents/`, and the case studies `/cookbook/case/dogfood/` and `/cookbook/case/migration/`) and `/comic/` — and the root `404.html`. Route paths mirror the header's Cookbook menu. All 18 routes are indexable except `/comic/`; `404.html` is `noindex`. Each of the 15 pre-Cookbook paths (`/inside-the-loop/` and its 10 topics, `/docs-flow/`, `/agents/`, `/dogfood/`, `/migration-case/`) is a `noindex, follow` redirect page to its new path, so published links keep working. Implementation: [LLD Overview](<../../../System Architecture (LLD)/Web Explorer/00. Overview.md>).
 
 ```mermaid
 flowchart LR
@@ -37,10 +37,10 @@ Any gate failure stops `web-explorer:build`, so Web Portal never assembles or de
 
 ## Responsibilities
 
-- Pre-render every page with Server Components; `'use client'` only for state, effects, handlers, browser APIs or `motion`. Route with App Router file routes; redirect legacy `#/<path>` links on `/` only.
+- Pre-render every page with Server Components; `'use client'` only for state, effects, handlers, browser APIs or `motion`. Route with App Router file routes; redirect legacy `#/<path>` links on `/` only; old pre-Cookbook paths answer with redirect pages.
 - Generate per-page metadata, `sitemap.xml` (git `lastmod`), `llms.txt` and schema.org JSON-LD from the route registry (NFR-18).
 - Give every exported page its own hashed meta Content Security Policy (NFR-16).
-- Register five WebMCP tools for browser agents and publish `agent-index.json`; document them on `/agents/`.
+- Register five WebMCP tools for browser agents and publish `agent-index.json`; document them on `/cookbook/agents/`.
 - Render the Dogfood page with a read-only view of this repo's operational graph.
 - Render the Migration case page: the measured record of the Vite → Next.js migration, server-rendered except for one client component, the lifecycle explorer.
 - Keep the first-load JavaScript and CSS of `/` within a gzip budget (NFR-19).
