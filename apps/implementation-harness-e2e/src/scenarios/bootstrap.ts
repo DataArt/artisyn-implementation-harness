@@ -23,6 +23,7 @@ import {
   taskTrackingUsed,
 } from '../graders/_registry.ts';
 import { buildScratchLaunchPrompt } from './launch-prompt.ts';
+import { e2eAwsRegion } from '../utils/aws-region.ts';
 
 export const bootstrapScenario: ScenarioDefinition = {
   id: 'bootstrap',
@@ -41,7 +42,12 @@ export const bootstrapScenario: ScenarioDefinition = {
       id: 'launch',
       agent: {
         prompt: (c) =>
-          buildScratchLaunchPrompt(requireProvider(c), c.host ?? requireProvider(c), c.fixture),
+          buildScratchLaunchPrompt(
+            requireProvider(c),
+            c.host ?? requireProvider(c),
+            c.fixture,
+            e2eAwsRegion()
+          ),
         timeoutMs: AGENT_RUN_TIMEOUT_MS,
       },
       // A host that exited non-zero leaves a workspace nothing else can be

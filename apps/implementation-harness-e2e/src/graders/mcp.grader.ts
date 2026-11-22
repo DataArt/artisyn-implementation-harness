@@ -4,13 +4,15 @@ import { PROVIDERS, PROVIDER_DETAILS } from '../utils/providers.ts';
 import fs from 'node:fs';
 import path from 'node:path';
 import type { Provider } from '../utils/build-launch.ts';
+import { e2eAwsRegion } from '../utils/aws-region.ts';
 
 /** Confirm the selected provider has a real AWS MCP declaration, not just
  * setup prose. Credentials intentionally remain outside the fixture. */
 export function gradeMcpConfigured(
   root: string,
   provider: Provider,
-  serverName: string
+  serverName: string,
+  awsRegion: string
 ): GradeResult {
   const configPath =
     provider === PROVIDERS.claude
@@ -25,8 +27,8 @@ export function gradeMcpConfigured(
         configured =
           server?.command === 'uvx' &&
           server.args?.includes('mcp-proxy-for-aws-cli@latest') &&
-          server.args?.includes('https://aws-mcp.us-east-1.api.aws/mcp') &&
-          server.args?.includes('AWS_REGION=us-east-1');
+          server.args?.includes(`https://aws-mcp.${awsRegion}.api.aws/mcp`) &&
+          server.args?.includes(`AWS_REGION=${awsRegion}`);
       } catch {
         configured = false;
       }
@@ -39,8 +41,8 @@ export function gradeMcpConfigured(
         section &&
         /^\s*"?command"?\s*=\s*"uvx"\s*$/m.test(section) &&
         section.includes('mcp-proxy-for-aws-cli@latest') &&
-        section.includes('https://aws-mcp.us-east-1.api.aws/mcp') &&
-        section.includes('AWS_REGION=us-east-1')
+        section.includes(`https://aws-mcp.${awsRegion}.api.aws/mcp`) &&
+        section.includes(`AWS_REGION=${awsRegion}`)
       );
     }
   }
@@ -55,4 +57,4 @@ export function gradeMcpConfigured(
 export const mcpConfigured =
   (serverName: string): GraderBinding =>
   (c) =>
-    gradeMcpConfigured(c.root, requireProvider(c), serverName);
+    gradeMcpConfigured(c.root, requireProvider(c), serverName, e2eAwsRegion());

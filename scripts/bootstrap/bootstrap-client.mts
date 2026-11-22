@@ -22,7 +22,7 @@
 //   yarn bootstrap:client \
 //     --client-name "Acme Corp" \
 //     --org-prefix acme \
-//     --aws-region us-east-1 --location-short ue1 \
+//     --aws-region <aws-region> --location-short <short-code> \
 //     --github-org AcmeOrg --github-org-id 12345 \
 //     --github-repo adlc-discovery-acme --github-repo-id 67890 \
 //     [--giscus-repo-id R_xxx] [--giscus-category-id DIC_xxx] \
@@ -37,8 +37,20 @@ const REPO_ROOT = execFileSync('git', ['rev-parse', '--show-toplevel']).toString
 
 // Extensions we never treat as text — binary files must never be find-replaced.
 const BINARY_EXTENSIONS = new Set([
-  '.png', '.jpg', '.jpeg', '.gif', '.ico', '.woff', '.woff2', '.ttf', '.eot',
-  '.pdf', '.docx', '.xlsx', '.zip', '.lock',
+  '.png',
+  '.jpg',
+  '.jpeg',
+  '.gif',
+  '.ico',
+  '.woff',
+  '.woff2',
+  '.ttf',
+  '.eot',
+  '.pdf',
+  '.docx',
+  '.xlsx',
+  '.zip',
+  '.lock',
 ]);
 
 const PROJECT_JSON_FILES = [
@@ -138,8 +150,14 @@ function parseAndValidateArgs(): Answers {
   });
 
   const required = [
-    'client-name', 'org-prefix', 'aws-region', 'location-short',
-    'github-org', 'github-org-id', 'github-repo', 'github-repo-id',
+    'client-name',
+    'org-prefix',
+    'aws-region',
+    'location-short',
+    'github-org',
+    'github-org-id',
+    'github-repo',
+    'github-repo-id',
   ] as const;
   const missing = required.filter((k) => !values[k]);
   if (missing.length > 0) {
@@ -165,7 +183,9 @@ function parseAndValidateArgs(): Answers {
     ['github-repo-id', values['github-repo-id']],
   ] as const) {
     if (!/^\d+$/.test(val!)) {
-      throw new Error(`--${flag} "${val}" must be numeric — fetch it via \`gh api repos/{org}/{repo}\`.`);
+      throw new Error(
+        `--${flag} "${val}" must be numeric — fetch it via \`gh api repos/{org}/{repo}\`.`
+      );
     }
   }
 
@@ -263,7 +283,9 @@ function scaffoldEnvDevFiles(v: Answers): { created: string[]; skipped: string[]
     }
     if (existsSync(targetAbs)) {
       skipped.push(scaffold.target);
-      console.log(`  ${scaffold.target} already exists — not overwritten (merge manually if needed)`);
+      console.log(
+        `  ${scaffold.target} already exists — not overwritten (merge manually if needed)`
+      );
       continue;
     }
 
@@ -325,7 +347,9 @@ function swapReadmeForContributing(v: Answers): boolean {
 function main() {
   const answers = parseAndValidateArgs();
 
-  console.log(`\n${answers.dryRun ? '🔍 DRY RUN — no files will be written\n' : '✏️  Applying personalization\n'}`);
+  console.log(
+    `\n${answers.dryRun ? '🔍 DRY RUN — no files will be written\n' : '✏️  Applying personalization\n'}`
+  );
 
   console.log('Step 1 — [[CLIENT_NAME]] find-replace');
   const { filesChanged, replacements } = replaceClientNameToken(answers);
@@ -344,14 +368,22 @@ function main() {
   console.log(`  → ${swapped ? 'done' : 'skipped'}\n`);
 
   console.log('─'.repeat(60));
-  console.log(answers.dryRun ? 'Dry run complete — re-run without --dry-run to apply.' : 'Bootstrap complete.');
+  console.log(
+    answers.dryRun ? 'Dry run complete — re-run without --dry-run to apply.' : 'Bootstrap complete.'
+  );
   console.log('─'.repeat(60));
 
   if (!answers.dryRun) {
-    console.log('\nStill manual (not this script\'s job):');
-    console.log('  - AWS account setup, `cdk bootstrap`, first `cdk deploy` — see the Quick Setup Guide');
-    console.log('  - CF_DISTRIBUTION_ID stays blank until after `infra:provision` + `infra:output` — see the Quick Setup Guide');
-    console.log('  - Review `git diff` before committing — this touched every file containing [[CLIENT_NAME]]');
+    console.log("\nStill manual (not this script's job):");
+    console.log(
+      '  - AWS account setup, `cdk bootstrap`, first `cdk deploy` — see the Quick Setup Guide'
+    );
+    console.log(
+      '  - CF_DISTRIBUTION_ID stays blank until after `infra:provision` + `infra:output` — see the Quick Setup Guide'
+    );
+    console.log(
+      '  - Review `git diff` before committing — this touched every file containing [[CLIENT_NAME]]'
+    );
   }
 }
 

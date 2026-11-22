@@ -46,6 +46,7 @@ function gradersOf(report: CaseReport, step: string): string[] {
 
 beforeEach(() => {
   vi.resetAllMocks();
+  vi.stubEnv('HARNESS_E2E_AWS_REGION', 'test-region-1');
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'hb-bootstrap-unit-'));
   workspace = {
     root,
@@ -60,6 +61,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  vi.unstubAllEnvs();
   fs.rmSync(workspace.root, { recursive: true, force: true });
 });
 

@@ -15,7 +15,8 @@ import type { Provider } from '../utils/build-launch.ts';
 export function buildScratchLaunchPrompt(
   provider: Provider,
   host: Provider,
-  fixture: FixtureDefinition
+  fixture: FixtureDefinition,
+  awsRegion: string
 ): string {
   return `Run ${PROVIDER_DETAILS[host].invocationPrefix}implementation-harness launch. The skill entrypoint is ${PROVIDER_DETAILS[host].skills}/implementation-harness/SKILL.md; read it before acting. Treat every answer below as already
 confirmed evidence — do not ask me anything further, proceed autonomously
@@ -33,7 +34,7 @@ the containers and their paths from the repository. Confirm exactly what's there
 additional containers and do not collapse distinct apps into one container.
 
 Q4 (data flow/integrations): Configure
-the AWS MCP integration (aws-mcp) for us-east-1 using the local AWS credential
+the AWS MCP integration (aws-mcp) for ${awsRegion} using the local AWS credential
 chain; do not expect credentials to be present in this disposable fixture, and
 document the developer's local authentication setup.
 
