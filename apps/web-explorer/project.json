@@ -8,14 +8,14 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "vite --host 0.0.0.0",
+        "command": "next dev --hostname 0.0.0.0",
         "cwd": "apps/web-explorer"
       }
     },
     "dev": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "vite --host 0.0.0.0",
+        "command": "next dev --hostname 0.0.0.0",
         "cwd": "apps/web-explorer"
       }
     },
@@ -30,14 +30,21 @@
     "typecheck": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "tsc --noEmit -p tsconfig.json",
+        "command": "next typegen && tsc --noEmit",
         "cwd": "apps/web-explorer"
       }
     },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "eslint src",
+        "command": "eslint src scripts e2e playwright.config.ts",
+        "cwd": "apps/web-explorer"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node --test scripts/*.test.mjs src/agent/*.test.mjs",
         "cwd": "apps/web-explorer"
       }
     },
@@ -47,11 +54,26 @@
       "inputs": [
         "default",
         "^default",
-        "{workspaceRoot}/skills/implementation-harness/package.json"
+        "{workspaceRoot}/skills/implementation-harness/package.json",
+        {
+          "env": "NEXT_PUBLIC_REPO_URL"
+        },
+        {
+          "env": "NEXT_PUBLIC_DOCS_URL"
+        }
       ],
-      "outputs": ["{projectRoot}/dist"],
+      "outputs": ["{projectRoot}/out"],
       "options": {
-        "command": "bash scripts/ci/web-explorer-build.sh"
+        "command": "NEXT_TELEMETRY_DISABLED=1 next build && node scripts/check-bundle-budget.mjs",
+        "cwd": "apps/web-explorer"
+      }
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "playwright test",
+        "cwd": "apps/web-explorer"
       }
     }
   }

@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'motion/react';
+import Link from 'next/link';
 import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
-  Check,
   Code2,
-  Copy,
   Layers3,
   ShieldCheck,
   Sparkles,
@@ -15,10 +11,10 @@ import {
 } from 'lucide-react';
 import TerminalScenarios from '../../components/TerminalScenarios';
 import HeroPreview from '../../components/HeroPreview';
-import Header from '../../components/Header';
 import Footer from '../../components/Footer';
-import SectionLink from '../../components/SectionLink';
 import { repoUrl, docsUrl } from '../../env';
+import CopyCommand from './CopyCommand';
+import FadeIn from './FadeIn';
 
 const bootstrapCommand = '/implementation-harness launch';
 const capabilities = [
@@ -67,41 +63,12 @@ const pillars = [
 ];
 
 export default function Landing() {
-  const [copied, setCopied] = useState(false);
-  const [copyError, setCopyError] = useState(false);
-  const location = useLocation();
-  const copyBootstrap = async () => {
-    try {
-      await navigator.clipboard.writeText(bootstrapCommand);
-      setCopyError(false);
-      setCopied(true);
-    } catch {
-      setCopyError(true);
-      setCopied(false);
-    }
-  };
-
-  // Header's SectionLink navigates here with { scrollTo: id } when a nav
-  // anchor is clicked from another page (see components/Header.tsx) — pick
-  // that up once this page has actually rendered.
-  useEffect(() => {
-    const scrollTo = (location.state as { scrollTo?: string } | null)?.scrollTo;
-    if (scrollTo) document.getElementById(scrollTo)?.scrollIntoView({ behavior: 'smooth' });
-  }, [location.state]);
-
   return (
-    <div className="app-shell">
-      <Header />
-
+    <>
       <main id="top">
         <div className="hero-band">
           <section className="landing-hero container" aria-labelledby="hero-heading">
-            <motion.div
-              className="hero-intro"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45 }}
-            >
+            <FadeIn className="hero-intro" y={14} duration={0.45}>
               <h1 id="hero-heading">
                 AI engineering.
                 <br />
@@ -113,9 +80,9 @@ export default function Landing() {
                 aligned.
               </p>
               <div className="hero-actions">
-                <SectionLink id="how-it-works" className="button button-primary">
+                <a href="#how-it-works" className="button button-primary">
                   Explore the lifecycle <ArrowRight size={18} />
-                </SectionLink>
+                </a>
                 <a
                   className="button button-outline"
                   href={repoUrl}
@@ -125,15 +92,11 @@ export default function Landing() {
                   <Code2 size={17} /> View on GitHub
                 </a>
               </div>
-            </motion.div>
+            </FadeIn>
 
-            <motion.div
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-            >
+            <FadeIn y={18} duration={0.5} delay={0.1}>
               <HeroPreview />
-            </motion.div>
+            </FadeIn>
           </section>
 
           <section className="container pillars" aria-label="What the harness delivers">
@@ -263,7 +226,7 @@ export default function Landing() {
               <small>HLD · LLD · Engineering Guide · READMEs</small>
             </div>
           </div>
-          <Link to="/docs-flow" className="icon-link">
+          <Link href="/docs-flow/" className="icon-link">
             Explore the full interactive flow <ArrowRight size={15} />
           </Link>
         </section>
@@ -281,30 +244,13 @@ export default function Landing() {
               documentation.
             </p>
           </div>
-          <div className="start-panel">
-            <div className="mono command-line">
-              <span>$</span> {bootstrapCommand}
-            </div>
-            <button
-              type="button"
-              className="copy-btn"
-              onClick={copyBootstrap}
-              aria-label="Copy bootstrap command"
-            >
-              {copied ? <Check size={17} /> : <Copy size={17} />} {copied ? 'Copied' : 'Copy'}
-            </button>
-          </div>
-          {copyError && (
-            <div className="copy-hint" role="status">
-              Automatic copy was unavailable. Select the command above to copy it manually.
-            </div>
-          )}
+          <CopyCommand command={bootstrapCommand} />
           <a href={docsUrl} target="_blank" rel="noopener noreferrer" className="icon-link">
             <BookOpen size={16} /> Read the documentation <ArrowUpRight size={15} />
           </a>
         </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

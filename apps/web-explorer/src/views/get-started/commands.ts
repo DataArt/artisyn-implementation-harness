@@ -8,7 +8,7 @@
 export type ProviderId = 'claude' | 'codex' | 'copilot';
 export type ChannelId = 'skills-sh' | 'marketplace' | 'gh-skill' | 'npmjs' | 'gh-packages' | 'zip';
 
-export const VERSION = __HARNESS_VERSION__;
+export const VERSION = process.env.HARNESS_VERSION;
 
 /** Releases are tagged v<version>; up to 4.0.2 they were artisyn-implementation-harness-v<version>. */
 const longTag = (version: string) => {

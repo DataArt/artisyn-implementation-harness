@@ -1,30 +1,25 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { ArrowUpRight, Code2 } from 'lucide-react';
 import { repoUrl, docsUrl } from '../env';
-import SectionLink from './SectionLink';
+import { asset, basePath } from '../site';
 
 export default function Header() {
   return (
     <header className="site-header">
       <div className="header-inner">
-        <Link className="brand" to="/" aria-label="Artisyn home">
-          <img
-            src={`${import.meta.env.BASE_URL}brand/artisyn-mark.svg`}
-            alt=""
-            width="34"
-            height="34"
-          />
+        <Link className="brand" href="/" aria-label="Artisyn home">
+          <img src={asset('/brand/artisyn-mark.svg')} alt="" width="34" height="34" />
           <span>
             artisyn<span className="brand-muted"> / implementation harness</span>
           </span>
         </Link>
         <nav aria-label="Main navigation" className="main-nav">
-          <SectionLink id="how-it-works">How it works</SectionLink>
-          <SectionLink id="capabilities">Capabilities</SectionLink>
-          <Link to="/inside-the-loop">Inside the loop</Link>
-          <Link to="/docs-flow">Docs flow</Link>
-          <Link to="/get-started">Get started</Link>
-          <Link to="/dogfood">Dogfood</Link>
+          <a href={`${basePath}/#how-it-works`}>How it works</a>
+          <a href={`${basePath}/#capabilities`}>Capabilities</a>
+          <Link href="/inside-the-loop/">Inside the loop</Link>
+          <Link href="/docs-flow/">Docs flow</Link>
+          <Link href="/get-started/">Get started</Link>
+          <Link href="/dogfood/">Dogfood</Link>
           <a href={docsUrl} target="_blank" rel="noopener noreferrer">
             Docs <ArrowUpRight size={13} />
           </a>

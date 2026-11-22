@@ -1,7 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import Landing from './pages/landing/Landing';
+import Landing from './views/landing/Landing';
 import './styles.css';
 
 // Lazy-loaded: the whole /inside-the-loop/* feature area (hub + 10 detail
@@ -11,23 +11,23 @@ import './styles.css';
 // visitor to "/" should never pay for any of it. See check-bundle-budget.mjs,
 // which measures only the entry chunk(s) actually referenced by index.html,
 // not every chunk in dist/.
-const InsideTheLoopRoutes = lazy(() => import('./pages/inside-the-loop/InsideTheLoopRoutes'));
+const InsideTheLoopRoutes = lazy(() => import('./views/inside-the-loop/InsideTheLoopRoutes'));
 
 // Also lazy: the comic's own sprite-sheet images are large static assets, and
 // its content/styles are unrelated to the landing page — no reason for a
 // first-time "/" visitor to pay for this chunk either. Not linked from the
 // header nav (developer's direction) — reachable only at this direct route.
-const Comic = lazy(() => import('./pages/comic/Comic'));
+const Comic = lazy(() => import('./views/comic/Comic'));
 
 // Also lazy: pulls in @xyflow/react, same reasoning as InsideTheLoopRoutes.
-const DocsFlow = lazy(() => import('./pages/docs-flow/DocsFlow'));
+const DocsFlow = lazy(() => import('./views/docs-flow/DocsFlow'));
 
 // Also lazy: keeps the install-guide configurator and its command matrix out
 // of the landing chunk.
-const GetStarted = lazy(() => import('./pages/get-started/GetStarted'));
+const GetStarted = lazy(() => import('./views/get-started/GetStarted'));
 
 // Also lazy: a static content page with no reason to sit in the landing chunk.
-const Dogfood = lazy(() => import('./pages/dogfood/Dogfood'));
+const Dogfood = lazy(() => import('./views/dogfood/Dogfood'));
 
 // HashRouter, not BrowserRouter: this app is served as a static artifact
 // (composed by Web Portal — see docs/Target Architecture (HLD)/v1/Containers/

@@ -17,6 +17,10 @@ export default tseslint.config(
       'apps/implementation-harness-e2e/runs/**',
       '**/.vitepress/dist/**',
       '**/.vitepress/cache/**',
+      '**/.next/**',
+      'apps/web-explorer/out/**',
+      'apps/web-explorer/.preview/**',
+      '**/next-env.d.ts',
       '.nx/**',
       '.yarn/**',
       // Workflow DSL files: the implementation-harness runtime injects pipeline()/agent()

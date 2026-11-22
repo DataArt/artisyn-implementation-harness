@@ -1,4 +1,7 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -36,8 +39,7 @@ export default function TerminalScenarios() {
   const current = stages[stageIndex];
   const stageDone = lineCount >= current.lines.length;
   const isLast = isLastStage && stageDone;
-  const reducedMotion =
-    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = usePrefersReducedMotion();
 
   const selectScenario = (next: ScenarioId) => {
     setScenarioId(next);

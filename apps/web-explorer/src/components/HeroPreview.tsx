@@ -1,4 +1,7 @@
+'use client';
+
 import { useEffect, useState, type ReactNode } from 'react';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { ArrowRight, BookOpen, Braces, CircleCheck, Code2, FileText } from 'lucide-react';
 
 /**
@@ -85,8 +88,7 @@ export default function HeroPreview() {
   const [shown, setShown] = useState(0);
   const flow = FLOWS[flowIndex];
   const done = shown >= flow.lines.length;
-  const reducedMotion =
-    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const reducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (reducedMotion) {
