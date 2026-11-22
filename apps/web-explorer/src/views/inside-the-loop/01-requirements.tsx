@@ -1,9 +1,12 @@
+'use client';
+
 import { useState } from 'react';
 import { Slide, Section, Callout, Figure, Legend, BigQuote } from '../../components/primitives';
 import { SplitFlip } from '../../charts/SplitFlip';
 import { BaDesktopFlow } from '../../charts/BaDesktopFlow';
 import { Modal } from '../../components/Modal';
 import { series } from '../../theme';
+import { asset } from '../../site';
 
 export function Requirements() {
   const [showShift, setShowShift] = useState(false);
@@ -108,7 +111,7 @@ export function Requirements() {
       {showShift && (
         <Modal onClose={() => setShowShift(false)}>
           <img
-            src={`${import.meta.env.BASE_URL}images/ai-workflow-shift.png`}
+            src={asset('/images/ai-workflow-shift.png')}
             alt="Before/after: a person reviewing finished code next to an idle agent, versus a person directing HLD, conventions, docs, and a scoped ticket that an agent executes into code"
           />
           <p className="modal__caption">

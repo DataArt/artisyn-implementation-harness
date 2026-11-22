@@ -47,11 +47,18 @@ async function callTool(page: Page, name: string, input: unknown): Promise<unkno
     },
     [name, input] as const
   );
-  const { content } = result as ToolResult;
-  return JSON.parse(content[0].text);
+  // Chrome's API returns any JSON value; accept an MCP-style content wrapper as well.
+  const wrapped = result as ToolResult | null;
+  return wrapped && Array.isArray(wrapped.content) ? JSON.parse(wrapped.content[0].text) : result;
 }
 
-const EXPECTED_TOOLS = ['get_install_commands', 'get_page', 'search_site'];
+const EXPECTED_TOOLS = [
+  'get_harness_capabilities',
+  'get_install_instructions',
+  'get_page',
+  'open_workflow',
+  'search_documentation',
+];
 
 for (const host of ['document', 'navigator'] as const) {
   test.describe(`WebMCP tools on ${host}.modelContext`, () => {
@@ -66,6 +73,7 @@ for (const host of ['document', 'navigator'] as const) {
             (
               window as unknown as {
                 __tools: {
+                  name: string;
                   inputSchema: { type?: string; properties?: object };
                   annotations?: { readOnlyHint?: boolean };
                 }[];
@@ -75,7 +83,8 @@ for (const host of ['document', 'navigator'] as const) {
         for (const tool of tools) {
           expect(tool.inputSchema.type).toBe('object');
           expect(typeof tool.inputSchema.properties).toBe('object');
-          expect(tool.annotations?.readOnlyHint).toBe(true);
+          // open_workflow navigates the tab; every other tool only reads.
+          expect(tool.annotations?.readOnlyHint).toBe(tool.name !== 'open_workflow');
         }
         expect(report.requests.some((r) => r.includes('agent-index.json'))).toBe(false);
         expect(await cspViolations(page, report)).toEqual([]);
@@ -87,12 +96,12 @@ for (const host of ['document', 'navigator'] as const) {
       await page.goto(url('/'));
       await expect.poll(() => toolNames(page)).toEqual(EXPECTED_TOOLS);
 
-      const search = (await callTool(page, 'search_site', { query: 'context' })) as {
+      const search = (await callTool(page, 'search_documentation', { query: 'context' })) as {
         results: { url: string }[];
       };
       expect(search.results.map((r) => r.url)).toContain(url('/inside-the-loop/context/'));
 
-      const docs = (await callTool(page, 'search_site', {
+      const docs = (await callTool(page, 'search_documentation', {
         query: 'operational graph',
         source: 'docs',
       })) as {
@@ -107,7 +116,7 @@ for (const host of ['document', 'navigator'] as const) {
       expect(pageContent.title).toMatch(/get started/i);
       expect(pageContent.text.length).toBeGreaterThan(0);
 
-      const install = (await callTool(page, 'get_install_commands', {
+      const install = (await callTool(page, 'get_install_instructions', {
         channel: 'zip',
         provider: 'claude',
       })) as {
@@ -116,6 +125,33 @@ for (const host of ['document', 'navigator'] as const) {
       expect(install.install.map((b) => b.code).join('\n')).toContain('.zip');
 
       expect(await cspViolations(page, report)).toEqual([]);
+    });
+
+    test('open_workflow navigates to the lifecycle article and capabilities answer', async ({
+      page,
+    }) => {
+      await installStub(page, host);
+      await page.goto(url('/'));
+      await expect.poll(() => toolNames(page)).toEqual(EXPECTED_TOOLS);
+      const caps = (await callTool(page, 'get_harness_capabilities', {})) as {
+        lifecycles: { id: string }[];
+      };
+      expect(caps.lifecycles.map((l) => l.id)).toContain('dev');
+      const opened = (await callTool(page, 'open_workflow', { workflow: 'dev' })) as {
+        opened: string;
+      };
+      expect(opened.opened).toBe(url('/docs/Harness/03%20Lifecycles/01%20Dev%20Lifecycle.html'));
+      await expect(page).toHaveURL(opened.opened);
+    });
+
+    test('the agents page lists exactly the registered tools', async ({ page }) => {
+      await installStub(page, host);
+      await page.goto(url('/agents/'));
+      await expect.poll(() => toolNames(page)).toEqual(EXPECTED_TOOLS);
+      const listed = await page
+        .locator('[data-tool-name]')
+        .evaluateAll((els) => els.map((el) => el.getAttribute('data-tool-name')).sort());
+      expect(listed).toEqual(EXPECTED_TOOLS);
     });
 
     test('client navigation does not register the tools twice', async ({ page }) => {

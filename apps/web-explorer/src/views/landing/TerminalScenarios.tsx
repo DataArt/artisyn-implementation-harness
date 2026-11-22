@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion';
 import {
   ArrowRight,
   ArrowUpRight,
@@ -12,7 +12,7 @@ import {
   RotateCcw,
   User,
 } from 'lucide-react';
-import { scenarios, type ScenarioId, type ScenarioLine } from '../data/scenarios';
+import { scenarios, type ScenarioId, type ScenarioLine } from './scenarios';
 
 const LINE_DELAY_MS = 550;
 const HITL_PAUSE_MS = 1600;

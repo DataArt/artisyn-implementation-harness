@@ -19,6 +19,7 @@ export const ROUTES: string[] = [
   '/get-started/',
   '/docs-flow/',
   '/dogfood/',
+  '/agents/',
   '/comic/',
 ];
 

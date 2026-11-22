@@ -8,10 +8,10 @@ import {
   BigQuote,
 } from '../../components/primitives';
 import { Glyph } from '../../components/glyphs';
-import { ContextFolders } from '../../components/ContextFolders';
+import { ContextFolders } from './ContextFolders';
 import { AgentFanout } from '../../charts/AgentFanout';
 import { DocReachability } from '../../charts/DocReachability';
-import { harness } from '../../data';
+import { harness } from './data';
 
 export function Context() {
   return (

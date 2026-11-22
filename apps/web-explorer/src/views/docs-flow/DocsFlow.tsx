@@ -1,3 +1,5 @@
+'use client';
+
 import {
   useCallback,
   useEffect,
@@ -23,7 +25,6 @@ import {
   RotateCcw,
   X,
 } from 'lucide-react';
-import Header from '../../components/Header';
 import { ArtifactBlock, DividerNode, PillarLabelNode } from './ArtifactNode';
 import {
   artifacts,
@@ -49,8 +50,8 @@ import './docsFlow.css';
  * with hand-authored path strings for edges, manual pan/zoom via a CSS
  * transform — is ported from a developer-supplied prototype
  * (artisyn-web-explorer-v4): no graph auto-layout library on this page, so
- * every edge's route is authored on purpose, not computed. Uses the site's
- * real Header above a fixed-height canvas; guided tour is the only mode —
+ * every edge's route is authored on purpose, not computed. Sits under the
+ * site's shared Header as a fixed-height canvas; guided tour is the only mode —
  * there is no free-explore toggle.
  */
 
@@ -189,7 +190,6 @@ export default function DocsFlow() {
 
   return (
     <div className="docs-explorer">
-      <Header />
       <div className="explorer-body">
         <aside className="left-rail">
           <div className="rail-label">SCENARIOS</div>

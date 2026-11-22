@@ -11,6 +11,8 @@ dist/
 apps/web-explorer/out/
 apps/web-explorer/.next/
 apps/web-explorer/.preview/
+apps/web-explorer/.lighthouse/
+apps/web-explorer/lighthouse-report/
 apps/web-explorer/next-env.d.ts
 apps/web-explorer/test-results/
 apps/web-explorer/playwright-report/

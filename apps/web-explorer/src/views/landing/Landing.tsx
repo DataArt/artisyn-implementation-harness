@@ -9,57 +9,25 @@ import {
   Sparkles,
   Workflow,
 } from 'lucide-react';
-import TerminalScenarios from '../../components/TerminalScenarios';
-import HeroPreview from '../../components/HeroPreview';
+import TerminalScenarios from './TerminalScenarios';
+import HeroPreview from './HeroPreview';
 import Footer from '../../components/Footer';
 import { repoUrl, docsUrl } from '../../env';
 import CopyCommand from './CopyCommand';
 import FadeIn from './FadeIn';
+import { CAPABILITIES, PILLARS } from './capabilities';
 
 const bootstrapCommand = '/implementation-harness launch';
-const capabilities = [
-  {
-    icon: <Workflow size={23} />,
-    title: 'Structured lifecycles',
-    text: 'Repeatable Design and Development workflows — beyond ad-hoc prompts.',
-  },
-  {
-    icon: <Layers3 size={23} />,
-    title: 'Agents and skills',
-    text: 'Reusable engineering conventions and specialized, lifecycle-aware assistance.',
-  },
-  {
-    icon: <ShieldCheck size={23} />,
-    title: 'Architecture awareness',
-    text: 'Decisions and implementations checked against established constraints.',
-  },
-  {
-    icon: <Sparkles size={23} />,
-    title: 'Continuous learning',
-    text: 'Reflections that carry useful lessons into future work.',
-  },
+const capabilityIcons = [
+  <Workflow key="w" size={23} />,
+  <Layers3 key="l" size={23} />,
+  <ShieldCheck key="s" size={23} />,
+  <Sparkles key="sp" size={23} />,
 ];
-
-// First-viewport value statement: the three outcomes a reader should take away before scrolling.
-const pillars = [
-  {
-    icon: <Layers3 size={24} />,
-    tone: 'violet',
-    title: 'Solution Design',
-    text: 'Turn requirements into a structured, reviewable design (HLD/LLD) with architectural context and guardrails.',
-  },
-  {
-    icon: <Code2 size={24} />,
-    tone: 'blue',
-    title: 'Development',
-    text: 'Guide AI and developers through a governed, repeatable implementation flow with quality controls and handoffs.',
-  },
-  {
-    icon: <BookOpen size={24} />,
-    tone: 'teal',
-    title: 'Knowledge',
-    text: 'Design, code and documentation stay consistent with each other — one living knowledge base that humans and AI both rely on.',
-  },
+const pillarIcons = [
+  <Layers3 key="l" size={24} />,
+  <Code2 key="c" size={24} />,
+  <BookOpen key="b" size={24} />,
 ];
 
 export default function Landing() {
@@ -100,10 +68,10 @@ export default function Landing() {
           </section>
 
           <section className="container pillars" aria-label="What the harness delivers">
-            {pillars.map((pillar) => (
+            {PILLARS.map((pillar, i) => (
               <article key={pillar.title} className={`pillar pillar-${pillar.tone}`}>
                 <div className="pillar-head">
-                  <div className="pillar-icon">{pillar.icon}</div>
+                  <div className="pillar-icon">{pillarIcons[i]}</div>
                   <h2>{pillar.title}</h2>
                 </div>
                 <p>{pillar.text}</p>
@@ -137,9 +105,9 @@ export default function Landing() {
             </p>
           </div>
           <div className="cap-grid">
-            {capabilities.map((cap) => (
+            {CAPABILITIES.map((cap, i) => (
               <article key={cap.title} className="cap-card">
-                <div className="cap-icon">{cap.icon}</div>
+                <div className="cap-icon">{capabilityIcons[i]}</div>
                 <h3>{cap.title}</h3>
                 <p>{cap.text}</p>
               </article>

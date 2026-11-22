@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useRouter, useSearchParams } from 'next/navigation';
 import {
   ArrowUpRight,
   Asterisk,
@@ -17,8 +19,6 @@ import {
   SquareTerminal,
   Tag,
 } from 'lucide-react';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 import {
   channels,
   installBlocks,
@@ -31,14 +31,17 @@ import {
   type CommandBlock,
   type ProviderId,
 } from './commands';
+import { siteUrl } from '../../site';
 import './getStarted.css';
 
 /**
  * Configurator-style install guide: two toggle groups (channel × provider)
  * drive the three numbered sections below. All command content lives in
  * commands.ts; this file is only selection state + presentation. Selection is
- * mirrored into the hash query (?channel=…&provider=…) so a configuration can
- * be shared as a link — HashRouter keeps it client-side.
+ * mirrored into the query (?channel=…&provider=…) so a configuration can be
+ * shared as a link. The exported page shows the default selection
+ * (GetStartedView, the Suspense fallback); GetStarted applies the query after
+ * hydration.
  */
 
 const providerIcon = (id: ProviderId, size = 15) =>
@@ -136,133 +139,148 @@ function Step({ num, icon, title, blocks }: StepProps) {
   );
 }
 
-export default function GetStarted() {
-  const [params, setParams] = useSearchParams();
+const findChannel = (id: string | null) => channels.find((c) => c.id === id) ?? channels[0];
+const findProvider = (id: string | null) => providers.find((p) => p.id === id) ?? providers[0];
 
-  const channel =
-    channels.find((c) => c.id === (params.get('channel') as ChannelId)) ?? channels[0];
-  const provider =
-    providers.find((p) => p.id === (params.get('provider') as ProviderId)) ?? providers[0];
+/** Configurator for one selection. Without `onSelect` (the pre-rendered fallback) the toggles are inert. */
+export function GetStartedView({
+  channelId,
+  providerId,
+  onSelect,
+}: {
+  channelId: ChannelId;
+  providerId: ProviderId;
+  onSelect?: (channel: ChannelId, provider: ProviderId) => void;
+}) {
+  const channel = findChannel(channelId);
+  const provider = findProvider(providerId);
   const [shared, setShared] = useState(false);
 
   const select = (key: 'channel' | 'provider', value: string) =>
-    setParams(
-      (prev) => {
-        prev.set('channel', key === 'channel' ? value : channel.id);
-        prev.set('provider', key === 'provider' ? value : provider.id);
-        return prev;
-      },
-      { replace: true }
+    onSelect?.(
+      (key === 'channel' ? value : channel.id) as ChannelId,
+      (key === 'provider' ? value : provider.id) as ProviderId
     );
 
   return (
-    <div className="app-shell">
-      <Header />
-      <main className="container gs-page">
-        <section className="gs-config" aria-label="Configuration">
-          <div className="gs-config-group">
-            <div className="gs-config-head">
-              <Layers size={17} />
-              <strong>Installation channel</strong>
-            </div>
-            <div className="gs-toggles" role="group" aria-label="Installation channel">
-              {channels.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  className={`gs-toggle${c.id === channel.id ? ' is-active' : ''}`}
-                  aria-pressed={c.id === channel.id}
-                  title={c.pickWhen}
-                  onClick={() => select('channel', c.id)}
-                >
-                  {c.label}
-                  {c.soon && <em>soon</em>}
-                </button>
-              ))}
-            </div>
+    <main className="container gs-page">
+      <section className="gs-config" aria-label="Configuration">
+        <div className="gs-config-group">
+          <div className="gs-config-head">
+            <Layers size={17} />
+            <strong>Installation channel</strong>
           </div>
-          <div className="gs-config-group">
-            <div className="gs-config-head">
-              <Bot size={17} />
-              <strong>AI provider</strong>
-            </div>
-            <div className="gs-toggles" role="group" aria-label="AI provider">
-              {providers.map((p) => (
-                <button
-                  key={p.id}
-                  type="button"
-                  className={`gs-toggle${p.id === provider.id ? ' is-active' : ''}`}
-                  aria-pressed={p.id === provider.id}
-                  onClick={() => select('provider', p.id)}
-                >
-                  {providerIcon(p.id)}
-                  {p.label}
-                </button>
-              ))}
-            </div>
+          <div className="gs-toggles" role="group" aria-label="Installation channel">
+            {channels.map((c) => (
+              <button
+                key={c.id}
+                type="button"
+                className={`gs-toggle${c.id === channel.id ? ' is-active' : ''}`}
+                aria-pressed={c.id === channel.id}
+                title={c.pickWhen}
+                onClick={() => select('channel', c.id)}
+              >
+                {c.label}
+                {c.soon && <em>soon</em>}
+              </button>
+            ))}
           </div>
-          <div className="gs-corner">
-            <a
-              className="gs-chip gs-version"
-              href={RELEASES_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="All releases"
-            >
-              <Tag size={12} />v{VERSION}
-              <ArrowUpRight size={11} />
-            </a>
-            <button
-              type="button"
-              className={`gs-chip gs-share${shared ? ' is-copied' : ''}`}
-              title={`Copy a link to ${channel.label} + ${provider.label}`}
-              onClick={() => {
-                params.set('channel', channel.id);
-                params.set('provider', provider.id);
-                const url = `${location.origin}${location.pathname}#/get-started?${params.toString()}`;
-                navigator.clipboard?.writeText(url).then(() => {
-                  setShared(true);
-                  setTimeout(() => setShared(false), 1600);
-                });
-              }}
-            >
-              {shared ? <Check size={12} /> : <Link2 size={12} />}
-              {shared ? 'Copied' : 'Share'}
-            </button>
-          </div>
-        </section>
-
-        <div className="gs-steps">
-          <Step
-            num="01"
-            icon={<Download size={21} />}
-            title="Install"
-            blocks={installBlocks(channel, provider)}
-          />
-          <Step
-            num="02"
-            icon={<Rocket size={21} />}
-            title="Launch"
-            blocks={launchBlocks(channel, provider)}
-          />
-          <Step
-            num="03"
-            icon={<RefreshCw size={21} />}
-            title="Update"
-            blocks={updateBlocks(channel, provider)}
-          />
         </div>
-
-        <p className="gs-version-note">
-          Commands pin the latest version, <code className="mono">{VERSION}</code>. Older versions
-          are on the{' '}
-          <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">
-            releases page
+        <div className="gs-config-group">
+          <div className="gs-config-head">
+            <Bot size={17} />
+            <strong>AI provider</strong>
+          </div>
+          <div className="gs-toggles" role="group" aria-label="AI provider">
+            {providers.map((p) => (
+              <button
+                key={p.id}
+                type="button"
+                className={`gs-toggle${p.id === provider.id ? ' is-active' : ''}`}
+                aria-pressed={p.id === provider.id}
+                onClick={() => select('provider', p.id)}
+              >
+                {providerIcon(p.id)}
+                {p.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="gs-corner">
+          <a
+            className="gs-chip gs-version"
+            href={RELEASES_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="All releases"
+          >
+            <Tag size={12} />v{VERSION}
+            <ArrowUpRight size={11} />
           </a>
-          .
-        </p>
-      </main>
-      <Footer />
-    </div>
+          <button
+            type="button"
+            className={`gs-chip gs-share${shared ? ' is-copied' : ''}`}
+            title={`Copy a link to ${channel.label} + ${provider.label}`}
+            onClick={() => {
+              onSelect?.(channel.id, provider.id);
+              const url = `${siteUrl}/get-started/?channel=${channel.id}&provider=${provider.id}`;
+              navigator.clipboard?.writeText(url).then(() => {
+                setShared(true);
+                setTimeout(() => setShared(false), 1600);
+              });
+            }}
+          >
+            {shared ? <Check size={12} /> : <Link2 size={12} />}
+            {shared ? 'Copied' : 'Share'}
+          </button>
+        </div>
+      </section>
+
+      <div className="gs-steps">
+        <Step
+          num="01"
+          icon={<Download size={21} />}
+          title="Install"
+          blocks={installBlocks(channel, provider)}
+        />
+        <Step
+          num="02"
+          icon={<Rocket size={21} />}
+          title="Launch"
+          blocks={launchBlocks(channel, provider)}
+        />
+        <Step
+          num="03"
+          icon={<RefreshCw size={21} />}
+          title="Update"
+          blocks={updateBlocks(channel, provider)}
+        />
+      </div>
+
+      <p className="gs-version-note">
+        Commands pin the latest version, <code className="mono">{VERSION}</code>. Older versions are
+        on the{' '}
+        <a href={RELEASES_URL} target="_blank" rel="noopener noreferrer">
+          releases page
+        </a>
+        .
+      </p>
+    </main>
+  );
+}
+
+export default function GetStarted() {
+  const params = useSearchParams();
+  const router = useRouter();
+  const channel = findChannel(params.get('channel'));
+  const provider = findProvider(params.get('provider'));
+  return (
+    <GetStartedView
+      channelId={channel.id}
+      providerId={provider.id}
+      onSelect={(c, p) =>
+        router.replace(`/get-started/?channel=${c}&provider=${p}`, { scroll: false })
+      }
+    />
   );
 }

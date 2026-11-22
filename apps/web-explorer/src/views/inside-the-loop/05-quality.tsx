@@ -13,7 +13,7 @@ import { StackedRow } from '../../charts/StackedRow';
 import { SolidSkillViz } from '../../charts/SolidSkillViz';
 import { EncodedSupervisionViz } from '../../charts/EncodedSupervisionViz';
 import { Glyph } from '../../components/glyphs';
-import { stepOutcomes } from '../../data';
+import { stepOutcomes } from './data';
 
 export function CodeQuality() {
   return (

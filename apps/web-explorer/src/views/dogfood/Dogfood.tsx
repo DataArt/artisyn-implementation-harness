@@ -1,5 +1,4 @@
 import { ArrowRight, FileDiff, GitBranch, Network, PackageCheck } from 'lucide-react';
-import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import GraphExplorer from './GraphExplorer';
 import './dogfood.css';
@@ -48,8 +47,7 @@ const example = [
 
 export default function Dogfood() {
   return (
-    <div className="app-shell">
-      <Header />
+    <>
       <main className="container df-page">
         <section className="df-intro">
           <p className="eyebrow">DOGFOOD</p>
@@ -118,6 +116,6 @@ export default function Dogfood() {
         </section>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

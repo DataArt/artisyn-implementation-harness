@@ -1,6 +1,8 @@
-import Header from '../../components/Header';
+'use client';
+
 import Footer from '../../components/Footer';
 import { repoUrl } from '../../env';
+import { asset } from '../../site';
 import './comic.css';
 
 /**
@@ -246,11 +248,7 @@ function SceneArt({ scene }: { scene: Scene }) {
         </clipPath>
       </defs>
       <g clipPath={`url(#${clipId})`}>
-        <image
-          href={`${import.meta.env.BASE_URL}comic/${sheet.file}`}
-          width={sheet.width}
-          height={sheet.height}
-        />
+        <image href={asset(`/comic/${sheet.file}`)} width={sheet.width} height={sheet.height} />
       </g>
     </svg>
   );
@@ -287,8 +285,7 @@ export default function Comic() {
   const byId = (id: string) => scenes.find((s) => s.id === id)!;
 
   return (
-    <div className="app-shell">
-      <Header />
+    <>
       <main className="comic-page">
         <div className="comic-shell">
           <section className="comic-hero">
@@ -318,19 +315,14 @@ export default function Comic() {
             </div>
             <div className="comic-hero-art">
               <div className="comic-publisher-logo" role="img" aria-label="DataArt">
-                <img
-                  src={`${import.meta.env.BASE_URL}comic/dataart-logo.png`}
-                  alt=""
-                  width="45"
-                  height="45"
-                />
+                <img src={asset(`/comic/dataart-logo.png`)} alt="" width="45" height="45" />
                 <span className="comic-publisher-wordmark" aria-hidden="true">
                   DataArt
                 </span>
               </div>
               <img
                 className="comic-team-badge"
-                src={`${import.meta.env.BASE_URL}comic/engineer-ai-hug.png`}
+                src={asset(`/comic/engineer-ai-hug.png`)}
                 width={1254}
                 height={1254}
                 alt="The engineer and AI agent hug each other and both give a thumbs-up, framed by a circular cyan-accented ring."
@@ -431,6 +423,6 @@ export default function Comic() {
         </div>
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

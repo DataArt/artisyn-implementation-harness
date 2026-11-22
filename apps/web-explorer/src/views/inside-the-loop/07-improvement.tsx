@@ -3,7 +3,7 @@ import { BarChart } from '../../charts/BarChart';
 import { Funnel } from '../../charts/Funnel';
 import { SkillLifecycle } from '../../charts/SkillLifecycle';
 import { SkillIsRequirements } from '../../charts/SkillIsRequirements';
-import { reflectionsByMonth, skillFunnel } from '../../data';
+import { reflectionsByMonth, skillFunnel } from './data';
 
 export function ContinuousImprovement() {
   return (

@@ -18,7 +18,11 @@ test('a configured link shows its selection', async ({ page }) => {
 
 test('the exported page contains the default selection commands', async () => {
   const html = fs.readFileSync(path.join(outDir, 'get-started', 'index.html'), 'utf8');
-  expect(html).toContain(
+  const text = html
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ');
+  expect(text).toContain(
     'npx skills add DataArt/artisyn-implementation-harness --skill implementation-harness'
   );
 });

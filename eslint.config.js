@@ -20,6 +20,8 @@ export default tseslint.config(
       '**/.next/**',
       'apps/web-explorer/out/**',
       'apps/web-explorer/.preview/**',
+      'apps/web-explorer/.lighthouse/**',
+      'apps/web-explorer/lighthouse-report/**',
       '**/next-env.d.ts',
       '.nx/**',
       '.yarn/**',
@@ -33,6 +35,12 @@ export default tseslint.config(
     files: ['**/*.mjs'],
     languageOptions: {
       globals: globals.node,
+    },
+  },
+  {
+    files: ['apps/web-explorer/public/**/*.js'],
+    languageOptions: {
+      globals: globals.browser,
     },
   },
   {

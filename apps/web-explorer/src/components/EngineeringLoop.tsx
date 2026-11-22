@@ -1,3 +1,5 @@
+'use client';
+
 import { Section, Figure, Callout, Cols, Panel, KeyPoints } from './primitives';
 import { OnboardingChannels } from '../charts/OnboardingChannels';
 import { XrayAnatomy } from '../charts/XrayAnatomy';

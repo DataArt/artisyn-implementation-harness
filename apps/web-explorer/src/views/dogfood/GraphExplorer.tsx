@@ -1,3 +1,5 @@
+'use client';
+
 import { useMemo, useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { docsUrl } from '../../env';

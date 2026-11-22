@@ -1,17 +1,29 @@
+'use client';
+
 import { useState } from 'react';
 import { Slide, Callout } from '../../components/primitives';
-import { InsideLoopMap, type HubFeedback, type HubNode } from '../../charts/InsideLoopMap';
+import dynamic from 'next/dynamic';
+import type { HubFeedback, HubNode } from '../../charts/InsideLoopMap';
 import { Modal } from '../../components/Modal';
 import { EngineeringLoop } from '../../components/EngineeringLoop';
 import { useNavigation } from './InsideTheLoopNav';
+import { asset } from '../../site';
+import type { InsideTheLoopSlug } from '../../routes';
+
+const InsideLoopMap = dynamic(
+  () => import('../../charts/InsideLoopMap').then((m) => m.InsideLoopMap),
+  {
+    ssr: false,
+    loading: () => <div className="hubmap" aria-hidden="true" />,
+  }
+);
 
 // Left-to-right dependency graph — InsideLoopMap computes the actual
 // positions from dependsOn, so this is just the graph structure, not
 // coordinates. Ported verbatim from the source deck's Inside The Loop slide.
-// Each id has a matching route under /inside-the-loop/{id} (see
-// InsideTheLoopRoutes.tsx) — the real detail slide goToId used to jump to
-// in the source 10-slide deck.
-const nodes: HubNode[] = [
+// Each id has a matching route under /inside-the-loop/{id}/ (app/inside-the-loop/[slug]) —
+// the real detail slide goToId used to jump to in the source 10-slide deck.
+const nodes: (HubNode & { id: InsideTheLoopSlug })[] = [
   { id: 'requirements', label: 'Mental Model Shift', sub: 'planning ↔ code' },
   {
     id: 'context',
@@ -89,7 +101,7 @@ export default function InsideTheLoopHub() {
       {showAnalogy && (
         <Modal onClose={() => setShowAnalogy(false)}>
           <img
-            src={`${import.meta.env.BASE_URL}images/exploration-map.png`}
+            src={asset('/images/exploration-map.png')}
             alt="A game-map exploration analogy: the unknown, explore, new doors, a bigger world, exploration creates opportunity"
           />
           <p className="modal__caption">

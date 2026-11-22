@@ -1,6 +1,7 @@
 import { Slide, Section, Callout, Figure, BigQuote } from '../../components/primitives';
 import { Glyph } from '../../components/glyphs';
 import { HarnessExplorer } from '../../charts/HarnessExplorer';
+import { asset } from '../../site';
 
 export function Harness() {
   return (
@@ -55,7 +56,7 @@ export function Harness() {
         >
           <img
             className="figure__screenshot"
-            src={`${import.meta.env.BASE_URL}images/implementation-harness-diagram.png`}
+            src={asset('/images/implementation-harness-diagram.png')}
             alt="Implementation Harness diagram: a Jira ticket flows into Project Context (architecture, decisions and history, existing codebase, standards), which feeds the Plan → Implement → Test → Document cycle driven by rules, workflow, tools, and quality checks; the harness includes rules and guardrails, workflow logic, tool access, and quality gates; feedback, new decisions, and learnings flow back into Project Context"
           />
         </Figure>

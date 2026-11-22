@@ -1,6 +1,8 @@
+'use client';
+
 import { useState } from 'react';
-import { Glyph } from './glyphs';
-import { scale, harness } from '../data';
+import { Glyph } from '../../components/glyphs';
+import { scale, harness } from './data';
 
 type Item = { name: string; count: string; note: string };
 
@@ -97,7 +99,7 @@ export function ContextFolders() {
 
   return (
     <div className="ctxblocks">
-      <div className="ctxblocks__row">
+      <div className="ctxblocks__row" role="tablist" aria-label="Context folders">
         {blocks.map((b) => {
           const isActive = activeKey === b.key;
           return (
@@ -106,7 +108,9 @@ export function ContextFolders() {
               type="button"
               className={`ctxblock ${isActive ? 'ctxblock--active' : ''}`}
               onClick={() => setActiveKey(b.key)}
+              id={`ctxtab-${b.key}`}
               aria-selected={isActive}
+              aria-controls="ctxpanel"
               role="tab"
             >
               <div className="ctxblock__top">
@@ -126,7 +130,12 @@ export function ContextFolders() {
         })}
       </div>
 
-      <div className="ctxblocks__detail">
+      <div
+        className="ctxblocks__detail"
+        id="ctxpanel"
+        role="tabpanel"
+        aria-labelledby={`ctxtab-${active.key}`}
+      >
         <div className="folders__tag">
           <code>{active.path}</code> — {active.who}
         </div>

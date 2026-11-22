@@ -4,6 +4,3 @@ declare namespace NodeJS {
     HARNESS_VERSION: string;
   }
 }
-
-/** Kept until the Vite entry is removed. */
-declare const __HARNESS_VERSION__: string;
