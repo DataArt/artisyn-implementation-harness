@@ -1,4 +1,5 @@
 ---
+id: 7a94f2a9
 type: Dev Intent
 title: 'DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Intent'
 description: What the implementation of the approved Web Explorer Next.js static-export design must achieve, for whom, within which limits, and what is still open

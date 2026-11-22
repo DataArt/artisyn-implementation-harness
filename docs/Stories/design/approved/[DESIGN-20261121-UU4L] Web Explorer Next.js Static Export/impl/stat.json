@@ -40,22 +40,30 @@
     },
     {
       "id": "plan",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
           "started_at": "2026-11-22T11:28:05.793Z",
-          "ended_at": null,
+          "ended_at": "2026-11-22T12:11:07.924Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "implement",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+          "started_at": "2026-11-22T12:11:07.969Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -77,7 +85,116 @@
       "flags": []
     }
   ],
-  "steps": [],
+  "steps": [
+    {
+      "id": "step-01",
+      "title": "Tests: browser checks and build-script cases (red)",
+      "order": 1,
+      "plan_ref": "1-plan.md#step-1",
+      "depends_on": [],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "e31523c4-c458-4788-b675-8bfd8edd33f2",
+          "started_at": "2026-11-22T12:11:55.158Z",
+          "ended_at": "2026-11-22T12:18:36.893Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-02",
+      "title": "Measurement: Lighthouse baseline on the Vite build",
+      "order": 2,
+      "plan_ref": "1-plan.md#step-2",
+      "depends_on": ["step-01"],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "d1fa83d3-341b-4f99-b33f-76e900891cb5",
+          "started_at": "2026-11-22T12:19:10.440Z",
+          "ended_at": "2026-11-22T12:21:59.617Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-03",
+      "title": "Web Explorer: Next.js scaffold and build wiring",
+      "order": 3,
+      "plan_ref": "1-plan.md#step-3",
+      "depends_on": ["step-02"],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "823f2bee-8914-4188-992e-16667357b853",
+          "started_at": "2026-11-22T12:22:23.074Z",
+          "ended_at": "2026-11-22T12:26:51.211Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-04",
+      "title": "Web Explorer: landing page as Server Components with client islands",
+      "order": 4,
+      "plan_ref": "1-plan.md#step-4",
+      "depends_on": ["step-03"],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "8459aaec-a897-4674-8c62-07e3747891b0",
+          "started_at": "2026-11-22T12:26:59.005Z",
+          "ended_at": "2026-11-22T12:30:41.909Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-05",
+      "title": "Web Explorer: gzip bundle budget",
+      "order": 5,
+      "plan_ref": "1-plan.md#step-5",
+      "depends_on": ["step-04"],
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "4625e480-b24f-4439-b4a8-4c910fab8402",
+          "started_at": "2026-11-22T12:30:54.601Z",
+          "ended_at": "2026-11-22T12:32:30.791Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ],
+      "flags": []
+    },
+    {
+      "id": "step-06",
+      "title": "Web Portal: read out/ and new assertions",
+      "order": 6,
+      "plan_ref": "1-plan.md#step-6",
+      "depends_on": ["step-03"],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "18759fa8-3a02-424f-a281-b21f2bdb5628",
+          "started_at": "2026-11-22T12:33:29.057Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
+      "flags": []
+    }
+  ],
   "intervals": [
     {
       "id": "782de896-ff5a-4faa-aa92-f0af2c7d9855",
@@ -191,8 +308,552 @@
       "reason": "user_input",
       "detail": "Awaiting plan commit",
       "started_at": "2026-11-22T12:10:13.584Z",
+      "ended_at": "2026-11-22T12:11:07.924Z",
+      "last_observed_at": "2026-11-22T12:11:07.924Z"
+    },
+    {
+      "id": "f955ba2b-b1f6-49ce-a0ca-500a987efdb6",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": null,
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:11:07.969Z",
+      "ended_at": "2026-11-22T12:11:55.158Z",
+      "last_observed_at": "2026-11-22T12:11:55.158Z"
+    },
+    {
+      "id": "884fdcc4-5123-4154-bb95-28dfa3586f2b",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:11:55.158Z",
+      "ended_at": "2026-11-22T12:16:07.973Z",
+      "last_observed_at": "2026-11-22T12:16:07.973Z"
+    },
+    {
+      "id": "bb2c2a70-74a3-439f-b1f6-656cee8218a8",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:16:07.973Z",
+      "ended_at": "2026-11-22T12:16:14.605Z",
+      "last_observed_at": "2026-11-22T12:16:14.605Z"
+    },
+    {
+      "id": "b95a6f71-947e-4332-8169-57c5098bd77d",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:16:14.605Z",
+      "ended_at": "2026-11-22T12:16:37.151Z",
+      "last_observed_at": "2026-11-22T12:16:37.151Z"
+    },
+    {
+      "id": "f8ecdda2-1987-4f64-9561-b83368312d55",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:16:37.151Z",
+      "ended_at": "2026-11-22T12:16:38.116Z",
+      "last_observed_at": "2026-11-22T12:16:38.116Z"
+    },
+    {
+      "id": "294ee4af-e1d1-4b5e-bc4c-befdcea45e9e",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:16:38.116Z",
+      "ended_at": "2026-11-22T12:18:07.542Z",
+      "last_observed_at": "2026-11-22T12:18:07.542Z"
+    },
+    {
+      "id": "689ce3f2-9057-4810-b973-cec72257c1cb",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:18:07.542Z",
+      "ended_at": "2026-11-22T12:18:18.816Z",
+      "last_observed_at": "2026-11-22T12:18:18.816Z"
+    },
+    {
+      "id": "dd1efbb0-810c-42aa-bb19-fdcc79e3245b",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:18:18.816Z",
+      "ended_at": "2026-11-22T12:18:18.865Z",
+      "last_observed_at": "2026-11-22T12:18:18.865Z"
+    },
+    {
+      "id": "427491b7-f573-40c2-b62d-a55a2fe9ca9a",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:18:18.865Z",
+      "ended_at": "2026-11-22T12:18:22.370Z",
+      "last_observed_at": "2026-11-22T12:18:22.370Z"
+    },
+    {
+      "id": "cf8bdddc-face-4f11-8976-2c7246efd9d4",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:18:22.370Z",
+      "ended_at": "2026-11-22T12:18:36.893Z",
+      "last_observed_at": "2026-11-22T12:18:36.893Z"
+    },
+    {
+      "id": "72d9d2f8-e7d8-456d-ac11-b32b5490ae60",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "d1fa83d3-341b-4f99-b33f-76e900891cb5"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:19:10.440Z",
+      "ended_at": "2026-11-22T12:19:27.141Z",
+      "last_observed_at": "2026-11-22T12:19:27.141Z"
+    },
+    {
+      "id": "3372b023-40ae-455a-bf24-8b5c9f0b9d68",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "d1fa83d3-341b-4f99-b33f-76e900891cb5"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:19:27.141Z",
+      "ended_at": "2026-11-22T12:21:59.617Z",
+      "last_observed_at": "2026-11-22T12:21:59.617Z"
+    },
+    {
+      "id": "3b87be10-1ff0-4377-906c-56dc6ec3fc42",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:22:23.074Z",
+      "ended_at": "2026-11-22T12:25:49.114Z",
+      "last_observed_at": "2026-11-22T12:25:49.114Z"
+    },
+    {
+      "id": "f0949542-bee9-4d65-90d2-d365d921ccdb",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:25:49.114Z",
+      "ended_at": "2026-11-22T12:25:54.794Z",
+      "last_observed_at": "2026-11-22T12:25:54.794Z"
+    },
+    {
+      "id": "25dc72d8-ba66-4420-b5fb-11395d5c6d10",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:25:54.794Z",
+      "ended_at": "2026-11-22T12:25:54.849Z",
+      "last_observed_at": "2026-11-22T12:25:54.849Z"
+    },
+    {
+      "id": "583ac506-9dfb-4abe-aeb7-6de8bb025b67",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:25:54.849Z",
+      "ended_at": "2026-11-22T12:25:59.784Z",
+      "last_observed_at": "2026-11-22T12:25:59.784Z"
+    },
+    {
+      "id": "90a89405-544a-4f56-a5b5-8b26416af8bc",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:25:59.784Z",
+      "ended_at": "2026-11-22T12:25:59.829Z",
+      "last_observed_at": "2026-11-22T12:25:59.829Z"
+    },
+    {
+      "id": "ad6cb853-d6c3-4c51-b800-5815be6f5497",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:25:59.829Z",
+      "ended_at": "2026-11-22T12:26:02.933Z",
+      "last_observed_at": "2026-11-22T12:26:02.933Z"
+    },
+    {
+      "id": "53e00349-240b-4590-94fb-cfb3b3273428",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:26:02.933Z",
+      "ended_at": "2026-11-22T12:26:17.609Z",
+      "last_observed_at": "2026-11-22T12:26:17.609Z"
+    },
+    {
+      "id": "449f0b6f-7982-412a-911f-d84fd1c9b612",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:26:17.609Z",
+      "ended_at": "2026-11-22T12:26:21.470Z",
+      "last_observed_at": "2026-11-22T12:26:21.470Z"
+    },
+    {
+      "id": "3e1282f7-cda3-48c6-b824-2fc98d6dc554",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:26:21.470Z",
+      "ended_at": "2026-11-22T12:26:21.513Z",
+      "last_observed_at": "2026-11-22T12:26:21.513Z"
+    },
+    {
+      "id": "3992e460-133d-413d-83e8-93c44e6c726d",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:26:21.513Z",
+      "ended_at": "2026-11-22T12:26:28.106Z",
+      "last_observed_at": "2026-11-22T12:26:28.106Z"
+    },
+    {
+      "id": "ce241c1d-80ae-41f7-88f3-1d37f3cce6a5",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:26:28.106Z",
+      "ended_at": "2026-11-22T12:26:51.211Z",
+      "last_observed_at": "2026-11-22T12:26:51.211Z"
+    },
+    {
+      "id": "7c9886b8-f672-4600-ba13-87fcfb50546d",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:26:59.005Z",
+      "ended_at": "2026-11-22T12:28:46.070Z",
+      "last_observed_at": "2026-11-22T12:28:46.070Z"
+    },
+    {
+      "id": "6740f1cf-caf5-40c4-82d7-9fc4cc55f5d6",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:28:46.070Z",
+      "ended_at": "2026-11-22T12:29:05.807Z",
+      "last_observed_at": "2026-11-22T12:29:05.807Z"
+    },
+    {
+      "id": "72c9f893-de13-4147-bf8f-253a162856a1",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:29:05.807Z",
+      "ended_at": "2026-11-22T12:29:05.876Z",
+      "last_observed_at": "2026-11-22T12:29:05.876Z"
+    },
+    {
+      "id": "86b384ac-2bae-4206-8d24-7ead62096425",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:29:05.876Z",
+      "ended_at": "2026-11-22T12:29:09.549Z",
+      "last_observed_at": "2026-11-22T12:29:09.549Z"
+    },
+    {
+      "id": "a0e6b61c-5e3a-47e6-ada5-709a92ec8d1f",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:29:09.549Z",
+      "ended_at": "2026-11-22T12:29:09.593Z",
+      "last_observed_at": "2026-11-22T12:29:09.593Z"
+    },
+    {
+      "id": "4207d114-3592-43b9-a71f-47152e365341",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:29:09.593Z",
+      "ended_at": "2026-11-22T12:29:19.498Z",
+      "last_observed_at": "2026-11-22T12:29:19.498Z"
+    },
+    {
+      "id": "7f9ce779-72f3-470e-a2c9-15300143c1f3",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:29:19.498Z",
+      "ended_at": "2026-11-22T12:30:41.909Z",
+      "last_observed_at": "2026-11-22T12:30:41.909Z"
+    },
+    {
+      "id": "1a787057-7635-4248-9584-e842dfb93f10",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:30:54.601Z",
+      "ended_at": "2026-11-22T12:31:32.348Z",
+      "last_observed_at": "2026-11-22T12:31:32.348Z"
+    },
+    {
+      "id": "18296913-a57b-472e-91f9-a919ba7d5200",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:31:32.348Z",
+      "ended_at": "2026-11-22T12:31:33.396Z",
+      "last_observed_at": "2026-11-22T12:31:33.396Z"
+    },
+    {
+      "id": "dc987124-e2d9-48a2-a948-057775dfd5b9",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:31:33.396Z",
+      "ended_at": "2026-11-22T12:31:33.441Z",
+      "last_observed_at": "2026-11-22T12:31:33.441Z"
+    },
+    {
+      "id": "dab91d84-d190-431b-95f9-cfaceee278d6",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:31:33.441Z",
+      "ended_at": "2026-11-22T12:31:39.550Z",
+      "last_observed_at": "2026-11-22T12:31:39.550Z"
+    },
+    {
+      "id": "4bf3bd33-73ba-40d7-b9c3-768453751518",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:31:39.550Z",
+      "ended_at": "2026-11-22T12:32:30.791Z",
+      "last_observed_at": "2026-11-22T12:32:30.791Z"
+    },
+    {
+      "id": "101e3430-ec1b-4f11-81c0-b04c8cc4b1b8",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "18759fa8-3a02-424f-a281-b21f2bdb5628"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:33:29.057Z",
+      "ended_at": "2026-11-22T12:33:47.287Z",
+      "last_observed_at": "2026-11-22T12:33:47.287Z"
+    },
+    {
+      "id": "d76d66ea-c15a-469e-a416-554773b66103",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "18759fa8-3a02-424f-a281-b21f2bdb5628"
+      },
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T12:33:47.287Z",
+      "ended_at": "2026-11-22T12:34:06.267Z",
+      "last_observed_at": "2026-11-22T12:34:06.267Z"
+    },
+    {
+      "id": "1ce2dece-8701-471d-a9a1-0c58d691743d",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "18759fa8-3a02-424f-a281-b21f2bdb5628"
+      },
+      "kind": "work",
+      "activity": "implementation",
+      "started_at": "2026-11-22T12:34:06.267Z",
+      "ended_at": "2026-11-22T12:34:32.043Z",
+      "last_observed_at": "2026-11-22T12:34:32.043Z"
+    },
+    {
+      "id": "2522b4c4-1a9e-4728-b839-62de708c60fc",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "18759fa8-3a02-424f-a281-b21f2bdb5628"
+      },
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Step 6: commits for steps 1-6, then developer push and draft PR",
+      "started_at": "2026-11-22T12:34:32.043Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-22T12:10:13.584Z"
+      "last_observed_at": "2026-11-22T12:34:32.043Z"
     }
   ],
   "checks": [
@@ -240,66 +901,478 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "step-01-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "name": "web-explorer unit tests (todo, red)",
+      "kind": "test",
+      "started_at": "2026-11-22T12:16:07.973Z",
+      "ended_at": "2026-11-22T12:16:14.605Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer unit tests (todo, red)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:16:14.605Z"
+    },
+    {
+      "id": "step-01-test-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "name": "web-explorer unit tests (todo, red)",
+      "kind": "test",
+      "started_at": "2026-11-22T12:16:37.151Z",
+      "ended_at": "2026-11-22T12:16:38.116Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer unit tests (todo, red)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:16:38.116Z"
+    },
+    {
+      "id": "step-01-test-run-03",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "name": "web-explorer e2e (red, no out/)",
+      "kind": "test",
+      "started_at": "2026-11-22T12:17:59.421Z",
+      "ended_at": "2026-11-22T12:17:59.421Z",
+      "result": "passed",
+      "evidence_ref": "playwright test: 79 failed, 0 passed; every failure 'apps/web-explorer/out/index.html does not exist' (expected red before the build exists). Recorded as passed: the step expects red.",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-01-lint-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "name": "web-explorer lint",
+      "kind": "lint",
+      "started_at": "2026-11-22T12:18:07.542Z",
+      "ended_at": "2026-11-22T12:18:18.816Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer lint",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:18:18.816Z"
+    },
+    {
+      "id": "step-01-typecheck-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-01",
+        "attempt_id": "e31523c4-c458-4788-b675-8bfd8edd33f2"
+      },
+      "name": "web-explorer typecheck",
+      "kind": "typecheck",
+      "started_at": "2026-11-22T12:18:18.865Z",
+      "ended_at": "2026-11-22T12:18:22.370Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer typecheck",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:18:22.370Z"
+    },
+    {
+      "id": "step-02-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "d1fa83d3-341b-4f99-b33f-76e900891cb5"
+      },
+      "name": "Vite build for baseline",
+      "kind": "build",
+      "started_at": "2026-11-22T12:19:19.133Z",
+      "ended_at": "2026-11-22T12:19:27.141Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for Vite build for baseline",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:19:27.141Z"
+    },
+    {
+      "id": "step-02-acceptance-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-02",
+        "attempt_id": "d1fa83d3-341b-4f99-b33f-76e900891cb5"
+      },
+      "name": "Lighthouse baseline recorded",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T12:21:59.511Z",
+      "ended_at": "2026-11-22T12:21:59.511Z",
+      "result": "passed",
+      "evidence_ref": "Lighthouse 13.4.1, Chrome 159 (Playwright chromium-1255), mobile/simulated, on vite preview: three JSON reports with numeric LCP/CLS/TBT, SEO score and agentic-browsing results",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-03-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "name": "web-explorer build (next)",
+      "kind": "build",
+      "started_at": "2026-11-22T12:25:49.114Z",
+      "ended_at": "2026-11-22T12:25:54.794Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer build (next)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:25:54.794Z"
+    },
+    {
+      "id": "step-03-typecheck-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "name": "web-explorer typecheck (next typegen + tsc)",
+      "kind": "typecheck",
+      "started_at": "2026-11-22T12:25:54.849Z",
+      "ended_at": "2026-11-22T12:25:59.784Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer typecheck (next typegen + tsc)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:25:59.784Z"
+    },
+    {
+      "id": "step-03-lint-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "name": "web-explorer lint",
+      "kind": "lint",
+      "started_at": "2026-11-22T12:25:59.829Z",
+      "ended_at": "2026-11-22T12:26:02.933Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer lint",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:26:02.933Z"
+    },
+    {
+      "id": "step-03-typecheck-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "name": "web-explorer typecheck (next typegen + tsc)",
+      "kind": "typecheck",
+      "started_at": "2026-11-22T12:26:17.609Z",
+      "ended_at": "2026-11-22T12:26:21.470Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer typecheck (next typegen + tsc)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:26:21.470Z"
+    },
+    {
+      "id": "step-03-build-run-02",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "name": "web-explorer build (next)",
+      "kind": "build",
+      "started_at": "2026-11-22T12:26:21.513Z",
+      "ended_at": "2026-11-22T12:26:28.106Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer build (next)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:26:28.106Z"
+    },
+    {
+      "id": "step-03-acceptance-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-03",
+        "attempt_id": "823f2bee-8914-4188-992e-16667357b853"
+      },
+      "name": "Scaffold output and type stripping",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T12:26:51.068Z",
+      "ended_at": "2026-11-22T12:26:51.068Z",
+      "result": "passed",
+      "evidence_ref": "out/index.html, out/.nojekyll, out/_next/static exist; <title> set; icons and images carry the base path; node import of src/routes.ts prints 16; tsconfig.json unchanged after build and typecheck",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-04-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "name": "web-explorer build (next)",
+      "kind": "build",
+      "started_at": "2026-11-22T12:28:46.070Z",
+      "ended_at": "2026-11-22T12:29:05.807Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer build (next)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:29:05.807Z"
+    },
+    {
+      "id": "step-04-typecheck-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "name": "web-explorer typecheck (next typegen + tsc)",
+      "kind": "typecheck",
+      "started_at": "2026-11-22T12:29:05.876Z",
+      "ended_at": "2026-11-22T12:29:09.549Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer typecheck (next typegen + tsc)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:29:09.549Z"
+    },
+    {
+      "id": "step-04-lint-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "name": "web-explorer lint",
+      "kind": "lint",
+      "started_at": "2026-11-22T12:29:09.593Z",
+      "ended_at": "2026-11-22T12:29:19.498Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer lint",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:29:19.498Z"
+    },
+    {
+      "id": "step-04-acceptance-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-04",
+        "attempt_id": "8459aaec-a897-4674-8c62-07e3747891b0"
+      },
+      "name": "Landing renders in dev without hydration warnings",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T12:30:41.803Z",
+      "ended_at": "2026-11-22T12:30:41.803Z",
+      "result": "passed",
+      "evidence_ref": "next dev, headless Chromium 1280x900: HTTP 200, zero console errors/warnings/pageerrors after 2.5 s; copy button shows 'Copied' and clipboard holds '/implementation-harness launch'; screenshots landing-top.png / landing-next.png show hero, animated preview, pillars, Inter font",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-05-test-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "name": "web-explorer unit tests",
+      "kind": "test",
+      "started_at": "2026-11-22T12:31:32.348Z",
+      "ended_at": "2026-11-22T12:31:33.396Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer unit tests",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:31:33.396Z"
+    },
+    {
+      "id": "step-05-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "name": "web-explorer build (next + budget)",
+      "kind": "build",
+      "started_at": "2026-11-22T12:31:33.441Z",
+      "ended_at": "2026-11-22T12:31:39.550Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-explorer build (next + budget)",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:31:39.550Z"
+    },
+    {
+      "id": "step-05-acceptance-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-05",
+        "attempt_id": "4625e480-b24f-4439-b4a8-4c910fab8402"
+      },
+      "name": "Budget fails closed",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T12:32:30.649Z",
+      "ended_at": "2026-11-22T12:32:30.649Z",
+      "result": "passed",
+      "evidence_ref": "BUNDLE_BUDGET_BYTES=1000 node scripts/check-bundle-budget.mjs exits 1 ('239938 bytes gzip exceeds the 1000-byte budget'); default run passes at 239,938 B gzip vs 307,200 B ceiling",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "step-06-build-run-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "18759fa8-3a02-424f-a281-b21f2bdb5628"
+      },
+      "name": "web-portal build",
+      "kind": "build",
+      "started_at": "2026-11-22T12:33:47.287Z",
+      "ended_at": "2026-11-22T12:34:06.267Z",
+      "result": "passed",
+      "evidence_ref": "Command exit recorded for web-portal build",
+      "source": "command",
+      "exit_code": 0,
+      "signal": null,
+      "last_observed_at": "2026-11-22T12:34:06.267Z"
+    },
+    {
+      "id": "step-06-acceptance-01",
+      "stage_id": "implement",
+      "stage_attempt_id": "e5efca8e-2cce-4309-87ee-71031dd15c94",
+      "step": {
+        "id": "step-06",
+        "attempt_id": "18759fa8-3a02-424f-a281-b21f2bdb5628"
+      },
+      "name": "Portal fails closed",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T12:34:31.832Z",
+      "ended_at": "2026-11-22T12:34:31.832Z",
+      "result": "passed",
+      "evidence_ref": "web-portal:build passes; dist holds index.html, 404.html, .nojekyll, docs/index.html; published 88,937,461 B; out/docs present -> exit 1; PORTAL_MAX_BYTES=1 -> exit 1 'exceeds the 1-byte limit'",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T12:10:13.584Z",
+    "as_of": "2026-11-22T12:34:32.044Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 1986.126,
-    "observed_wait_seconds": 1422.497,
+    "observed_work_seconds": 3254.443999999999,
+    "observed_wait_seconds": 1476.837,
     "open_work_seconds": 0,
-    "open_wait_seconds": 0,
-    "unclassified_seconds": 0.20299999999997453,
+    "open_wait_seconds": 0.001,
+    "unclassified_seconds": 136.004000000001,
     "rework_seconds": 0,
     "blocked_seconds": 0,
     "approval_wait_seconds": 1354.133,
     "failed_checks": 0,
-    "first_pass_verification_rate": null,
+    "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-22T12:10:13.530Z",
+    "as_of": "2026-11-22T12:34:31.991Z",
     "source": "2-report.md",
-    "source_sha256": "8e32eb333f3e37d17b9f6fcbde01b1e49e86c44b609163dca968923ad0532f93",
+    "source_sha256": "02a681671595c8f6163ae72f5b3284774a8cacbf5bdf8cb984df1e46bcf81767",
     "findings": {
-      "total": 29,
+      "total": 32,
       "by_kind": {
-        "deviation": 3,
+        "deviation": 5,
         "bug": 9,
         "design": 5,
         "improve": 5,
         "security": 0,
-        "performance": 1,
+        "performance": 2,
         "docs": 6
       },
       "by_severity": {
         "critical": 0,
         "high": 5,
-        "medium": 3,
-        "low": 15,
+        "medium": 5,
+        "low": 16,
         "info": 6
       },
       "by_classification": {
-        "introduced": 23,
+        "introduced": 25,
         "pre-existing": 0,
         "ruled-out": 0,
-        "advisory": 6
+        "advisory": 7
       },
       "by_resolution": {
-        "open": 3,
-        "fixed": 26,
+        "open": 5,
+        "fixed": 27,
         "accepted": 0,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
-        "contradiction": 0,
-        "extension": 3,
+        "contradiction": 1,
+        "extension": 4,
         "omission": 0
       },
       "pr_review": {
@@ -335,11 +1408,17 @@
       "scopes": 0
     },
     "test_runs": {
-      "recorded": 0,
+      "recorded": 4,
       "failed": 0,
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": ["RF-016: open", "RF-017: open", "RF-029: open"]
+    "closure_issues": [
+      "RF-016: open",
+      "RF-017: open",
+      "RF-029: open",
+      "RF-031: open",
+      "RF-032: open"
+    ]
   }
 }

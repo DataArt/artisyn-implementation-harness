@@ -1,4 +1,5 @@
 ---
+id: 8b1b9d01
 type: Implementation Plan
 title: 'DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Plan'
 description: How the approved design's eight units are built, tested and verified on the design branch, tests first, one step per concern
