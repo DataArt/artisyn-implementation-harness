@@ -37,7 +37,7 @@ Walk through these in order, one at a time. Check each off as you confirm the de
 | Web Explorer (`apps/web-explorer`) | none                                                                    | `yarn nx run web-explorer:serve` — `next dev` serves on port 3000 (the next free port if taken) under `/artisyn-implementation-harness/`; check the terminal output for the exact URL |
 | Discuss (client-side giscus)   | none — giscus repo/category IDs come from the Web Docs build's env         | served inside the Web Docs site                          |
 
-- [ ] **Tracker credentials** — this project uses Jira (project `ND` at `https://support.dataart.com`). Create an API token at: `https://id.atlassian.com/manage-profile/security/api-tokens`
+- [ ] **Tracker access** — this project's tracker is GitHub Issues in `DataArt/artisyn-implementation-harness`. Sign in with `gh auth login` (the `@scrum-master` agent uses the GitHub CLI) and check you can open https://github.com/DataArt/artisyn-implementation-harness/issues.
   - Click **Create API token**, give it a name (e.g. `local-dev`).
   - Copy the token — it's shown only once.
 - [ ] **Wiki credentials** — the same Atlassian API token also covers Confluence; no separate token is needed.

@@ -8,7 +8,7 @@ description: >
   → Research → Evaluate → Solution → Review Gate → Address Feedback → Publish → Completion, or a
   single stage via /design
   context-gathering|ceremony|frame|research|evaluate|solution|review-gate|address-feedback|publish|complete {ticket}.
-  Trigger: "design ND-XX", "run the design for ND-XX".
+  Trigger: "design GH-XX", "run the design for GH-XX".
 ---
 
 The developer wants to run the design workflow for a ticket. Here is their input:
@@ -98,7 +98,7 @@ directly by Solution's Step 7 — there is no longer a standalone command for it
 
 Ticket-tracker activity is entirely `@scrum-master`'s responsibility. Design only
 ever asks it to act on a ticket by state name ("transition to In Progress",
-"transition to Done") — the actual transition IDs live in `@scrum-master`'s own
+"transition to Done") — the actual status labels live in `@scrum-master`'s own
 definition, not here. The tracker transition and branch checkout happen in the
 dedicated Ceremony stage, after Context Gathering has resolved the ticket's
 title/slug.

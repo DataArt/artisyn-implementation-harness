@@ -21,9 +21,9 @@ updated: { by: process:dev-plan, at: <same as generated> }
 
 | Field   | Value                          |
 | ------- | ------------------------------ |
-| Ticket  | ND-XX             |
+| Ticket  | GH-XX             |
 | Intent  | [0-intent.md](0-intent.md)     |
-| Branch  | `feat/ND-XX-slug` |
+| Branch  | `feat/gh-XX-slug` |
 | Created | YYYY-MM-DD                     |
 
 <!--
@@ -71,7 +71,7 @@ Optional — omit this section if there are none.
 Tickets, PRs or external preconditions that must be resolved before this plan runs.
 -->
 
-- ND-XX must be merged first
+- GH-XX must be merged first
 
 ## Steps
 

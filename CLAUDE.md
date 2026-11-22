@@ -82,12 +82,12 @@ Code often lands in plain chat with no lifecycle run active (no `/dev` story, no
 | `@architect`   | All (reviewer + doc author)                | Read, Glob, Grep, Bash, Write, Edit |
 | `@docs-writer` | `docs/` (content authoring)                | Read, Edit, Write, Glob, Grep       |
 | `@product-architect` | `docs/Harness/` (product-track governance, read-only) | Read, Glob, Grep |
-| `@scrum-master` | Jira only (issue reads/writes/transitions) | Read, `mcp__atlassian__*` |
+| `@scrum-master` | GitHub Issues only (issue reads/writes/status) | Read, Bash (`gh issue`, `gh label`, `gh search issues`) |
 
 ### Issue tracker
 
-Jira, project `ND`, at `https://support.dataart.com`. All tracker reads/writes go through `@scrum-master` — skills never call Jira MCP tools directly. Story folders live in `docs/Stories/`.
+GitHub Issues in `DataArt/artisyn-implementation-harness` (ticket key `GH-<number>` for issue `#<number>`). All tracker reads/writes go through `@scrum-master`, which uses the `gh` CLI — skills never call `gh issue` themselves. Story folders live in `docs/Stories/`.
 
 ### MCP
 
-Configured in `project:.mcp.json` (variable references only, no literal credentials): `aws-mcp` (AWS account access), `atlassian` (Confluence/Jira lookups), `github` (repo operations). Enable per-session in `.claude/settings.local.json`; set credential env vars locally per `docs/Engineering Guide/06 MCP Setup.md`, then restart the session.
+Configured in `project:.mcp.json` (variable references only, no literal credentials): `aws-mcp` (AWS account access), `atlassian` (Confluence lookups; Jira is no longer this project's tracker), `github` (repo operations). Enable per-session in `.claude/settings.local.json`; set credential env vars locally per `docs/Engineering Guide/06 MCP Setup.md`, then restart the session.

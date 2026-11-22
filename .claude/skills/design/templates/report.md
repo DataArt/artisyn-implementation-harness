@@ -59,7 +59,7 @@ their resolution here; do not rely on conversation history for design provenance
 | Field  | Value                                                                                                                                                                               |
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ticket | <TICKET>                                                                                                                                                                            |
-| Branch | — _(set by Ceremony, e.g. `docs/ND-XX-slug`)_                                                                                                                          |
+| Branch | — _(set by Ceremony, e.g. `docs/gh-XX-slug`)_                                                                                                                          |
 | Status | 🔄 In Progress                                                                                                                                                                      |
 | Phase  | 🎯 Context Gathering 🔄 · 🚀 Ceremony ⏳ · 📋 Frame ⏳ · 🔍 Research ⏳ · 🏗 Evaluate ⏳ · 📦 Solution ⏳ · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
