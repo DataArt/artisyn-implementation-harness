@@ -19,7 +19,7 @@ updated: { by: process:dev-plan, at: 2026-11-22T11:40:00Z }
 
 ## Solution
 
-Build the approved design exactly as written. The spec is [Architecture](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Architecture.md) (decisions D1–D23), the two Design files, [Stack](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Stack.md) and [Efforts](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Efforts.md).
+Build the approved design exactly as written. The spec is [Architecture](../solution/Architecture.md) (decisions D1–D23), the two Design files, [Stack](../solution/Stack.md) and [Efforts](../solution/Efforts.md).
 
 - **What changes:** `apps/web-explorer` becomes a Next.js 16.4.x App Router app with `output: 'export'`. Server Components are the default; client islands are used only where the design's boundary table lists them. A post-export step signs every page with its own hashed CSP. Three gates run inside `web-explorer:build`. A Playwright `e2e` target emulates GitHub Pages.
 - **Containers touched:**
@@ -253,7 +253,7 @@ Depends on Step 2.
   - add `next@~16.4.6`, `@tailwindcss/postcss` and `postcss`
   - scripts become `next dev`, `next build` and `next typegen && tsc --noEmit`
   - Vite stays installed until Step 10
-- `next.config.ts` and `postcss.config.mjs` — as in [Stack](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Stack.md).
+- `next.config.ts` and `postcss.config.mjs` — as in [Stack](../solution/Stack.md).
 - `src/site.ts` — `basePath`, `siteOrigin`, `siteUrl`, `asset()`.
 - `src/routes.ts` — the `RouteEntry` type and a registry skeleton with all 16 paths; final copy comes in Step 11.
 - `src/app/layout.tsx` — `html lang`, Inter, `metadataBase`, title template, referrer, theme colour, icons and `Header`.
@@ -599,7 +599,7 @@ Depends on Step 16.
 **Changes:**
 
 - `apps/web-explorer/scripts/serve-preview.mjs` — a zero-dependency `node:http` server on port 4173 with the Pages emulation rules.
-- `project.json` — the `preview` command as in [Stack](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Stack.md).
+- `project.json` — the `preview` command as in [Stack](../solution/Stack.md).
 
 **Verification:**
 

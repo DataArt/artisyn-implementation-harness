@@ -852,7 +852,7 @@ Closure (Document stage): the deviation audit and three consistency rounds ran; 
 ## Completion
 
 - Date: 2026-11-22
-- Archive: `docs/Stories/archive/[DESIGN-20261121-UU4L] Web Explorer Next.js Static Export/impl/` (the design artifacts stay in `docs/Stories/design/approved/[DESIGN-20261121-UU4L] Web Explorer Next.js Static Export/`, as for DESIGN-20261103-LBBI and DESIGN-20261117-7931)
+- Location: `docs/Stories/design/approved/[DESIGN-20261121-UU4L] Web Explorer Next.js Static Export/impl/`, beside the story's `design/` and `solution/` so the whole story sits in one folder (moved back from `docs/Stories/archive/` on 2026-11-22 at the developer's request; the Web Explorer Migration case page links to this folder)
 - PR title: `feat(web-explorer): next.js static export with per-page seo, hashed csp and webmcp tools`
 - External actions: tracker move skipped (local ID, no Jira issue); TD-2 ticket declined by the developer ("no"), so the local TD-2 row stays the record
 

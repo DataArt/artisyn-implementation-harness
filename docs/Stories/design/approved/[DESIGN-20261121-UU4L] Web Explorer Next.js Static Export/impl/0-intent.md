@@ -15,11 +15,11 @@ updated: { by: process:dev-context, at: 2026-11-22T11:16:00Z }
 - **Ticket:** DESIGN-20261121-UU4L, a local design ID. There is no tracker ticket; the design's Completion recorded "Not published (developer decision, 2026-11-22)".
 - **Date:** 2026-11-22
 - **Spec:** the approved design is the spec. The developer self-approved it on 2026-11-22 (solution commit `4344e59`).
-  - [solution/Architecture.md](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Architecture.md): boundary delta, flows, decision register D1–D23
-  - [Design - Rendering, Routing and Page Metadata](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Design%20-%20Rendering,%20Routing%20and%20Page%20Metadata.md)
-  - [Design - Security Header Delivery](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Design%20-%20Security%20Header%20Delivery.md)
-  - [Stack.md](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Stack.md), [Efforts.md](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/solution/Efforts.md) (8 delivery units)
-  - [design/Report.md](../../../design/approved/[DESIGN-20261121-UU4L]%20Web%20Explorer%20Next.js%20Static%20Export/design/Report.md): developer answers 1–8, WAF P2/P3 items
+  - [solution/Architecture.md](../solution/Architecture.md): boundary delta, flows, decision register D1–D23
+  - [Design - Rendering, Routing and Page Metadata](../solution/Design%20-%20Rendering,%20Routing%20and%20Page%20Metadata.md)
+  - [Design - Security Header Delivery](../solution/Design%20-%20Security%20Header%20Delivery.md)
+  - [Stack.md](../solution/Stack.md), [Efforts.md](../solution/Efforts.md) (8 delivery units)
+  - [design/Report.md](../design/Report.md): developer answers 1–8, WAF P2/P3 items
 - **Developer's words (design input, 2026-11-21):** "Migrate `web-explorer` from Vite to Next.js, switching the SPA to SSG to improve SEO. Consider front-end security headers (CSP and others), SEO and social meta (plus title) for each static page, the refactoring the migration needs, and performance. Hosting stays on GitHub Pages."
 - **Developer's message for this run:** `/dev DESIGN-20261121-UU4L`, with no extra text.
 
