@@ -4549,8 +4549,31 @@
       "reason": "user_input",
       "detail": "Developer commits the CI fixes, pushes and reruns ci-web",
       "started_at": "2026-11-22T14:57:16.018Z",
+      "ended_at": "2026-11-22T15:10:18.808Z",
+      "last_observed_at": "2026-11-22T15:10:18.808Z"
+    },
+    {
+      "id": "cb79a9d9-8891-4c82-97f0-ea1317e9ceb7",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "work",
+      "activity": "verification",
+      "started_at": "2026-11-22T15:10:18.808Z",
+      "ended_at": "2026-11-22T15:10:19.136Z",
+      "last_observed_at": "2026-11-22T15:10:19.136Z"
+    },
+    {
+      "id": "33990fc5-13f0-44d1-8d68-835ad6980031",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Developer approves the nx.json chore commit",
+      "started_at": "2026-11-22T15:10:19.136Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-22T14:57:16.018Z"
+      "last_observed_at": "2026-11-22T15:10:19.136Z"
     }
   ],
   "checks": [
@@ -7517,18 +7540,48 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "test-ci-run-02",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "ci-web on the draft PR",
+      "kind": "test",
+      "started_at": "2026-11-22T15:10:18.851Z",
+      "ended_at": "2026-11-22T15:10:18.851Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'nice! it works!' — ci-web e2e and lighthouse green after cf0cb59",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "test-harness-version-01",
+      "stage_id": "test",
+      "stage_attempt_id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
+      "step": null,
+      "name": "harness version gate",
+      "kind": "test",
+      "started_at": "2026-11-22T15:10:18.919Z",
+      "ended_at": "2026-11-22T15:10:18.919Z",
+      "result": "passed",
+      "evidence_ref": "Developer pasted ci-harness failure (stamped 4.2.0, commits make it 4.3.0). Traced Nx Release: 88c7759 and ae03a5d counted via yarn.lock; projectsAffectedByDependencyUpdates defaults to 'all'; 'auto' still falls back to all for ae03a5d (removed vite/react-router not in graph). Harness package has no dependencies. nx.json pluginsConfig ['*','!artisyn-implementation-harness']: version-harness --check -> 'no harness release on this branch (stays 4.2.0)'; lockfile commits touch 6/7 projects; a1f1997 harness commit still counts; implementation-harness-e2e unit + integration pass",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T14:57:32.595Z",
+    "as_of": "2026-11-22T15:10:19.138Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 8611.047999999997,
-    "observed_wait_seconds": 4117.454,
+    "observed_work_seconds": 8611.375999999997,
+    "observed_wait_seconds": 4900.244,
     "open_work_seconds": 0,
-    "open_wait_seconds": 16.577,
-    "unclassified_seconds": 702.7580000000028,
+    "open_wait_seconds": 0.002,
+    "unclassified_seconds": 702.758000000003,
     "rework_seconds": 173.674,
     "blocked_seconds": 487.464,
     "approval_wait_seconds": 2169.915,
@@ -7540,14 +7593,14 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-22T14:57:32.588Z",
+    "as_of": "2026-11-22T15:10:19.060Z",
     "source": "2-report.md",
-    "source_sha256": "c3c438e770bb5ff596373a99911af6430245fcd15bfbc1110381ba7f43c766ed",
+    "source_sha256": "086293793b04555d6995d22d292288ee28065334756a8aafc064c08f02519acd",
     "findings": {
-      "total": 39,
+      "total": 40,
       "by_kind": {
         "deviation": 9,
-        "bug": 11,
+        "bug": 12,
         "design": 6,
         "improve": 5,
         "security": 0,
@@ -7557,19 +7610,19 @@
       "by_severity": {
         "critical": 0,
         "high": 5,
-        "medium": 8,
+        "medium": 9,
         "low": 20,
         "info": 6
       },
       "by_classification": {
         "introduced": 29,
-        "pre-existing": 0,
+        "pre-existing": 1,
         "ruled-out": 0,
         "advisory": 10
       },
       "by_resolution": {
         "open": 7,
-        "fixed": 30,
+        "fixed": 31,
         "accepted": 2,
         "tech-debt": 0,
         "doc-updated": 0
@@ -7580,10 +7633,10 @@
         "omission": 0
       },
       "pr_review": {
-        "total": 2,
+        "total": 3,
         "by_kind": {
           "deviation": 0,
-          "bug": 2,
+          "bug": 3,
           "design": 0,
           "improve": 0,
           "security": 0,
@@ -7593,7 +7646,7 @@
         "by_severity": {
           "critical": 0,
           "high": 0,
-          "medium": 2,
+          "medium": 3,
           "low": 0,
           "info": 0
         }
@@ -7612,7 +7665,7 @@
       "scopes": 0
     },
     "test_runs": {
-      "recorded": 29,
+      "recorded": 31,
       "failed": 3,
       "errors": 0,
       "interrupted": 0

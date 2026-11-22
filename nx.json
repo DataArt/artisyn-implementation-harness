@@ -40,5 +40,10 @@
     "conventionalCommits": {
       "useCommitScope": false
     }
+  },
+  "pluginsConfig": {
+    "@nx/js": {
+      "projectsAffectedByDependencyUpdates": ["*", "!artisyn-implementation-harness"]
+    }
   }
 }
