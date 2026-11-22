@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { ui, series } from '../theme';
 import { Glyph, type GlyphName } from '../components/glyphs';

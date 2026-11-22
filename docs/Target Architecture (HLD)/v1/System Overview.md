@@ -3,9 +3,9 @@ id: 77376e1f
 type: System Overview
 title: System Overview
 description: Purpose, containers, and data flow for the ADLC Discovery Tool platform
-tags: [system-overview, containers, data-flow, hld, log-hub, harness-release-pipeline]
+tags: [system-overview, containers, data-flow, hld, log-hub, harness-release-pipeline, agent-index]
 generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
-updated: { by: process:okf-migration, at: 2026-11-17T20:12:13Z }
+updated: { by: process:dev-document, at: 2026-11-22T17:00:00Z }
 ---
 
 # System Overview
@@ -18,8 +18,8 @@ ADLC Discovery Tool is a static documentation site delivering an AI-first SDLC a
 
 | Container                  | Responsibility                                                                                                                                                                                                                                                                                    | Stack                                                                                           |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Web Explorer               | Promotional single-page app                                                                                                                                                                                                                                                                       | React 19 · Vite · Tailwind 4 · Motion                                                           |
-| Web Docs                   | Static documentation site rendered from Markdown via VitePress                                                                                                                                                                                                                                    | VitePress 1.x · Vite                                                                            |
+| Web Explorer               | Promotional multi-route site, pre-rendered to one static page per route at build time; exposes WebMCP tools to browser agents                                                                                                                                                                     | Next.js 16 (App Router, static export) · React 19 · Tailwind 4 · Motion                         |
+| Web Docs                   | Static documentation site rendered from Markdown via VitePress; publishes `agent-index.json` for Web Explorer's tools                                                                                                                                                                             | VitePress 1.x · Vite                                                                            |
 | Web Portal                 | Build-time composition of Web Explorer's and Web Docs's static builds into one deployable artifact tree — no application source, no runtime of its own                                                                                                                                            | Nx (`nx:run-commands`) · TypeScript                                                             |
 | Discuss                    | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                                                                                                                                                                                                      | giscus (external)                                                                               |
 | Implementation Harness E2E | Test harness validating the `implementation-harness` skill package and the repo's release tooling — deterministic unit/integration coverage plus live agent E2E runs                                                                                                                              | Vitest · Nx · TypeScript                                                                        |
@@ -40,12 +40,12 @@ flowchart LR
     GH["📦 GitHub Repo\nmain branch"]:::repo
 
     subgraph CI_BOX ["  GitHub Actions — Deploy web (every push to main; deploys when the site is affected)  "]
-        EXP_BUILD["⚙️ web-explorer:build"]:::ci
+        EXP_BUILD["⚙️ web-explorer:build\nnext build + post-export + gates"]:::ci
         DOCS_BUILD["⚙️ web-docs:build"]:::ci
         PORTAL_BUILD["⚙️ web-portal:build\n(assemble + assert)"]:::ci
-        CFGP["🛠️ configure-pages"]:::ci
-        UPLOAD["📤 upload-pages-artifact\napps/web-portal/dist"]:::ci
-        DEPLOY["🚀 deploy-pages"]:::ci
+        UPLOAD["📤 upload-pages-artifact\napps/web-portal/dist\n(build job)"]:::ci
+        CFGP["🛠️ configure-pages\n(deploy job)"]:::ci
+        DEPLOY["🚀 deploy-pages\n(deploy job)"]:::ci
     end
 
     PAGES["🌍 GitHub Pages\n/<repo>/ → Web Explorer\n/<repo>/docs/ → Web Docs"]:::pages
@@ -55,10 +55,9 @@ flowchart LR
     GH -->|"triggers"| DOCS_BUILD
     EXP_BUILD --> PORTAL_BUILD
     DOCS_BUILD --> PORTAL_BUILD
-    PORTAL_BUILD --> CFGP --> UPLOAD --> DEPLOY
+    PORTAL_BUILD --> UPLOAD --> CFGP --> DEPLOY
     DEPLOY --> PAGES
     Browser -->|"HTTPS"| PAGES
-
     classDef client fill:#DBEAFE,stroke:#93C5FD,color:#1E3A8A
     classDef repo   fill:#F1F5F9,stroke:#CBD5E1,color:#1E293B,font-weight:bold
     classDef ci     fill:#F1F5F9,stroke:#CBD5E1,color:#1E293B
@@ -67,12 +66,14 @@ flowchart LR
     style CI_BOX fill:#F8FAFC,stroke:#CBD5E1,color:#1E293B
 ```
 
+**Runtime data flow between containers.** In the browser, Web Explorer's WebMCP tools fetch Web Docs's agent index (`/<repo>/docs/agent-index.json`) by URL, same-origin, on their first call; the two containers share only that file's entry contract, which Web Portal asserts at build time. See [Web Explorer → Agent interface](Containers/Web%20Explorer.md#agent-interface).
+
 _Not shown here: the comments runtime flow (`Containers/Discuss.md`); the dev-tooling telemetry flow (`Containers/Log Hub.md`); and the harness release lane — CI tooling, not a request-flow participant: `deploy-harness.yml` builds on push to `main`, separately from this Pages deploy, and after a reviewer approves ships the npm package, the Release ZIP and the tag the marketplace and `gh skill` pin, while skills.sh installs from the default branch (`Containers/Harness Release Pipeline.md`)._
 
 ## Design principles
 
 - Region is deployment configuration — never hardcoded in source or documentation
-- Content is static — no server-side rendering, no database, no runtime compute we operate (excludes third-party client-side widgets that call external services directly from the browser, e.g. giscus; also excludes opt-in, contributor-machine-only dev tooling with no deployed-site presence, e.g. Implementation Harness E2E, Log Hub)
+- Content is pre-rendered to static files at build time — no request-time rendering, no database, no runtime compute we operate (excludes third-party client-side widgets that call external services directly from the browser, e.g. giscus; also excludes opt-in, contributor-machine-only dev tooling with no deployed-site presence, e.g. Implementation Harness E2E, Log Hub)
 - Carve-out: `docs/.og/docs-operational-graph.sqlite` is a build-time-produced, read-only SQLite file queried in-browser via `sql.js` (WASM) — a first-party query engine over first-party static data, not server-side compute we operate
 
 ## Tooling

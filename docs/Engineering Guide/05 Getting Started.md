@@ -5,7 +5,7 @@ title: Getting Started
 description: First-time workspace setup and the daily NX commands used to run and check this monorepo
 tags: [getting started, nx, yarn, workspace setup, local dev commands]
 generated: { by: process:okf-migration, at: 2026-08-17T23:37:59Z }
-updated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
+updated: { by: process:dev-document, at: 2026-11-22T16:05:10Z }
 ---
 
 # Getting Started
@@ -36,15 +36,15 @@ flowchart TB
     class harness content
 ```
 
-| NX project                       | Path                              | Stack               | Purpose                                                                     |
-| -------------------------------- | --------------------------------- | ------------------- | --------------------------------------------------------------------------- |
-| `web-docs`                       | `apps/web-docs`                   | VitePress           | Documentation site, served under `/docs/`                                   |
-| `web-explorer`                   | `apps/web-explorer`               | React 19 · Vite     | Promotional landing page + Inside the Loop section, served at the root      |
-| `web-portal`                     | `apps/web-portal`                 | Nx composition only | No source — assembles `web-explorer` + `web-docs` into one deployable tree  |
-| `docs`                           | `docs/`                           | Markdown            | Content library (implicit dep of `web-docs`)                                |
-| `artisyn-implementation-harness` | `skills/implementation-harness`   | npm workspace       | The harness skill package — versioned and published by the release pipeline |
-| `implementation-harness-e2e`     | `apps/implementation-harness-e2e` | Vitest · TypeScript | Test harness for the skill package and release tooling                      |
-| `log-hub`                        | `apps/log-hub`                    | tsx scripts         | Opt-in local session-telemetry tooling (see `07 Log Hub Setup.md`)          |
+| NX project                       | Path                              | Stack                               | Purpose                                                                     |
+| -------------------------------- | --------------------------------- | ----------------------------------- | --------------------------------------------------------------------------- |
+| `web-docs`                       | `apps/web-docs`                   | VitePress                           | Documentation site, served under `/docs/`                                   |
+| `web-explorer`                   | `apps/web-explorer`               | Next.js 16 static export · React 19 | Promotional site, one pre-rendered page per route, served at the root       |
+| `web-portal`                     | `apps/web-portal`                 | Nx composition only                 | No source — assembles `web-explorer` + `web-docs` into one deployable tree  |
+| `docs`                           | `docs/`                           | Markdown                            | Content library (implicit dep of `web-docs`)                                |
+| `artisyn-implementation-harness` | `skills/implementation-harness`   | npm workspace                       | The harness skill package — versioned and published by the release pipeline |
+| `implementation-harness-e2e`     | `apps/implementation-harness-e2e` | Vitest · TypeScript                 | Test harness for the skill package and release tooling                      |
+| `log-hub`                        | `apps/log-hub`                    | tsx scripts                         | Opt-in local session-telemetry tooling (see `07 Log Hub Setup.md`)          |
 
 This repo also runs the harness on itself: its runtime state lives at `.harness/state/` (committed per the rules in `docs/Harness/09 Distribution/01 Install.md`), and the harness package is installed in projects via the channels in `docs/Harness/09 Distribution/`. Releasing the package is automated — see `08 Harness Release Runbook.md`.
 
@@ -81,10 +81,10 @@ yarn nx run web-docs:serve
 # Docs site — production build
 yarn nx run web-docs:build
 
-# Landing page — live reload dev server
+# Web Explorer — live reload dev server (next dev, port 3000)
 yarn nx run web-explorer:serve
 
-# Landing page — production build
+# Web Explorer — production build to apps/web-explorer/out/, with its gates
 yarn nx run web-explorer:build
 
 # Composed deploy artifact (both apps, root + /docs/) — what CI actually deploys

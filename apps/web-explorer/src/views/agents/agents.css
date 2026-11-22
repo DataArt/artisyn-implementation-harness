@@ -1,0 +1,140 @@
+.agents-page {
+  padding-bottom: 96px;
+}
+
+.agents-block {
+  margin-top: 44px;
+}
+
+.agents-block h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  margin: 0 0 18px;
+}
+
+.agents-tools {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.agents-tool {
+  border: 1px solid #293541;
+  background: #111821;
+  border-radius: 11px;
+  padding: 20px 22px;
+}
+
+.agents-tool p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 10px 0;
+}
+
+.agents-tool-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.agents-tool-head code {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.agents-badge {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  border: 1px solid #2f4b45;
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+.agents-badge-nav {
+  border-color: #5a4630;
+  color: #f0b46b;
+}
+
+.agents-inputs {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.agents-inputs dt {
+  color: var(--ink);
+}
+
+.agents-inputs dd {
+  margin: 2px 0 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.agents-muted {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.agents-steps {
+  list-style: decimal;
+}
+
+.agents-limits {
+  list-style: disc;
+}
+
+.agents-steps,
+.agents-limits {
+  color: var(--muted);
+  line-height: 1.7;
+  padding-left: 20px;
+  max-width: 820px;
+}
+
+.agents-code {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0d131b;
+  color: #dcead7;
+  font-size: 13px;
+  padding: 16px 18px;
+  overflow-x: auto;
+  max-width: 820px;
+}
+
+.agents-resources {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.agents-resources li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+}
+
+.agents-resources span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .agents-tools {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

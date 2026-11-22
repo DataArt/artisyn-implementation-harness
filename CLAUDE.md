@@ -22,7 +22,7 @@ Commit format: `<type>(<scope>): <what>` (Conventional Commits). Branch format: 
 | Container      | Role                                       | Stack                |
 | -------------- | ------------------------------------------ | -------------------- |
 | Web Docs       | VitePress documentation site, served under the `/docs/` subpath, built and deployed to GitHub Pages via GitHub Actions | VitePress 1.x · Vite |
-| Web Explorer   | Promotional single-page app, served at the GitHub Pages project-site root | React 19 · Vite · react-router-dom |
+| Web Explorer   | Promotional site, statically exported per route (with WebMCP agent tools), served at the GitHub Pages project-site root | React 19 · Next.js 16 (App Router, static export) |
 | Web Portal     | Composition-only Nx project, no application source — assembles Web Explorer's and Web Docs's independently-built static outputs into one deployable artifact tree for GitHub Pages | Nx composition script only |
 | Discuss        | Client-side comments widget (giscus, GitHub Discussions-backed); no infra of its own | giscus.app · GitHub Discussions |
 | Implementation Harness E2E | Test harness validating the `implementation-harness` skill package and the release tooling — deterministic unit/integration + live agent E2E | Vitest · Nx · TypeScript |

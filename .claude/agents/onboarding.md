@@ -34,7 +34,7 @@ Walk through these in order, one at a time. Check each off as you confirm the de
 | Component                      | Env file example                                                           | Local URL                                               |
 | ------------------------------ | -------------------------------------------------------------------------- | ------------------------------------------------------- |
 | Web Docs (`apps/web-docs`)     | none — VitePress reads `.env.dev`/`.env.prod` only for builds              | `http://localhost:5173` (`yarn nx run web-docs:serve`)  |
-| Web Explorer (`apps/web-explorer`) | none                                                                    | `yarn nx run web-explorer:serve` — Vite auto-assigns the next free port after 5173; check the terminal output for the exact URL |
+| Web Explorer (`apps/web-explorer`) | none                                                                    | `yarn nx run web-explorer:serve` — `next dev` serves on port 3000 (the next free port if taken) under `/artisyn-implementation-harness/`; check the terminal output for the exact URL |
 | Discuss (client-side giscus)   | none — giscus repo/category IDs come from the Web Docs build's env         | served inside the Web Docs site                          |
 
 - [ ] **Tracker credentials** — this project uses Jira (project `ND` at `https://support.dataart.com`). Create an API token at: `https://id.atlassian.com/manage-profile/security/api-tokens`

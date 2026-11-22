@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 # Three jobs in parallel on every PR; only gitleaks on a push to main:
-#   build-and-test   audit, lint, typecheck, test and build what changed
+#   build-and-test   audit, lint, typecheck, test, build and e2e what changed
 #   docs-gate        install instructions and commit scopes, across the whole repo
 #   gitleaks         secret scan of the full history. The push run catches what reaches main
 #                    without a clean PR scan: a bypass push, or a merge past a red advisory scan.
@@ -54,6 +54,41 @@ jobs:
           VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
           VITE_GISCUS_REPO_ID: ${{ vars.VITE_GISCUS_REPO_ID }}
           VITE_GISCUS_CATEGORY_ID: ${{ vars.VITE_GISCUS_CATEGORY_ID }}
+          NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          WEBMCP_ORIGIN_TRIAL_TOKEN: ${{ vars.WEBMCP_ORIGIN_TRIAL_TOKEN }}
+
+      # Browser checks of the exported site: e2e (CSP, hydration, legacy links, WebMCP tools) and
+      # Lighthouse (SEO, agentic browsing). Nx runs them only when web-explorer is affected; both
+      # depend on web-explorer:install-browsers, so Chromium is installed only then.
+      - name: Playwright version
+        id: playwright
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Restore Playwright browsers
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright.outputs.version }}
+
+      # Same env as Build (affected), so the build e2e and lighthouse depend on comes from the Nx cache.
+      - name: E2E and Lighthouse (affected)
+        run: yarn nx affected -t e2e lighthouse --configuration=ci --base=origin/${{ github.base_ref }} --head=HEAD
+        env:
+          CI: 'true'
+          VITE_GITHUB_ORG: ${{ vars.VITE_GITHUB_ORG }}
+          VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
+          VITE_GISCUS_REPO_ID: ${{ vars.VITE_GISCUS_REPO_ID }}
+          VITE_GISCUS_CATEGORY_ID: ${{ vars.VITE_GISCUS_CATEGORY_ID }}
+          NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          WEBMCP_ORIGIN_TRIAL_TOKEN: ${{ vars.WEBMCP_ORIGIN_TRIAL_TOKEN }}
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: apps/web-explorer/lighthouse-report/
+          if-no-files-found: ignore
 
   # Required check on `main` (D-17).
   docs-gate:

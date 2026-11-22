@@ -1,8 +1,10 @@
+'use client';
+
 import { Section, Figure, Callout, Cols, Panel, KeyPoints } from './primitives';
 import { OnboardingChannels } from '../charts/OnboardingChannels';
 import { XrayAnatomy } from '../charts/XrayAnatomy';
 import { SkillLifecycle } from '../charts/SkillLifecycle';
-import { useNavigation } from '../pages/inside-the-loop/InsideTheLoopNav';
+import { useNavigation } from '../views/inside-the-loop/InsideTheLoopNav';
 
 const pillars = [
   {

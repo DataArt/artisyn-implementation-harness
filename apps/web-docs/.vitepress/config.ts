@@ -5,6 +5,7 @@ import { defineConfig } from 'vitepress';
 import { scanSection } from './utils/sidebar';
 import { HLD_VERSION } from './utils/constants';
 import { registerContainers } from './utils/markdown-containers';
+import { AGENT_INDEX_MAX_BYTES, buildAgentIndex } from './utils/agent-index';
 
 // GitHub Pages project-site URL shape: https://dataart.github.io/artisyn-implementation-harness/docs/
 // Web Docs is served under the /docs/ subpath; web-portal composes it alongside
@@ -55,10 +56,34 @@ export default withMermaid(
     // here instead of via docs/public/, so the binary db never has to sit in
     // source control as a generated, constantly-churning file. site-build.sh
     // runs `cli.mjs build` before this build, so the file is current when read.
+    //
+    // It also writes agent-index.json: a search index over the built pages that
+    // Web Explorer's WebMCP search tool fetches from /docs/agent-index.json.
     async buildEnd(siteConfig) {
       const graphDb = path.join(siteConfig.srcDir, '.og', 'docs-operational-graph.sqlite');
       if (fs.existsSync(graphDb))
         fs.copyFileSync(graphDb, path.join(siteConfig.outDir, 'docs-operational-graph.sqlite'));
+
+      const { index, textCap } = buildAgentIndex(
+        siteConfig.outDir,
+        base,
+        siteConfig.site.title,
+        siteConfig.site.description,
+        path.join(siteConfig.srcDir, 'public')
+      );
+      if (index.entries.length === 0)
+        throw new Error('agent-index: no pages found in the build output');
+      const empty = index.entries.filter((e) => !e.title || !e.text).map((e) => e.path);
+      if (empty.length > 0)
+        throw new Error(`agent-index: pages without a title or text: ${empty.join(', ')}`);
+      const indexFile = path.join(siteConfig.outDir, 'agent-index.json');
+      fs.writeFileSync(indexFile, JSON.stringify(index));
+      const bytes = fs.statSync(indexFile).size;
+      if (bytes > AGENT_INDEX_MAX_BYTES)
+        throw new Error(`agent-index: ${bytes} bytes exceeds the ${AGENT_INDEX_MAX_BYTES} limit`);
+      console.log(
+        `agent-index: ${index.entries.length} entries, ${bytes} bytes, text cap ${textCap ?? 'none'}`
+      );
     },
 
     // Raw HTML in markdown source is disabled — any <script>/<iframe>/event-handler
