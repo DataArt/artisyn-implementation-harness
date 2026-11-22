@@ -21,7 +21,7 @@ tags:
     implementation-harness,
   ]
 generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
-updated: { by: process:okf-migration, at: 2026-11-18T13:12:59Z }
+updated: { by: process:dev-document, at: 2026-11-22T16:05:10Z }
 ---
 
 # Versioning and Releases
@@ -90,7 +90,7 @@ From the release after 4.0.2, a harness release is tagged `v<version>`, e.g. `v4
 
 The PR carries its own version; the merge builds it, and a reviewer decides when it is published. Nobody publishes by hand.
 
-- On the feature branch, the developer runs `yarn harness:version`. Conventional-commit types since the latest harness tag decide the bump (Nx Release, independent mode). It stamps the manifests and writes the release entry in the package's `CHANGELOG.md`. The entry has the format semantic-release used: a `## [<version>]` heading with a compare link and date, then breaking changes, features, bug fixes, performance improvements and reverts, each bullet linking its commit. The developer commits this as `chore(harness-release): <version>`.
+- On the feature branch, the developer runs `yarn harness:version`. Conventional-commit types since the latest harness tag decide the bump (Nx Release, independent mode). A branch with no commit under `skills/implementation-harness/` since that tag releases nothing, and Nx is not asked: Nx counts a `yarn.lock` change as touching every project, and the harness has no dependencies. It stamps the manifests and writes the release entry in the package's `CHANGELOG.md`. The entry has the format semantic-release used: a `## [<version>]` heading with a compare link and date, then breaking changes, features, bug fixes, performance improvements and reverts, each bullet linking its commit. The developer commits this as `chore(harness-release): <version>`.
 - The required `version-gate` check fails any PR that is not stamped with the version its commits call for.
 - Every push to the protected `main` that touches the harness or its channel manifests runs `.github/workflows/deploy-harness.yml` (workflow name `Deploy harness`). It never commits to `main`.
 - The `build` job reads the version from `package.json`. If that version is already fully published, it stops. Otherwise it builds the npm tarball and the ZIP with its `.sha256`, and attests both.

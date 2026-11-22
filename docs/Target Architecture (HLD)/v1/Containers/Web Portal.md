@@ -2,10 +2,10 @@
 id: 6b2f1e4a
 type: Container
 title: Web Portal Container
-description: Design intent for the Web Portal container — the composition-only Nx project that assembles Web Explorer and Web Docs into one deployable artifact tree
-tags: [web-portal, nx composition, github-pages, hld]
+description: Design intent for the Web Portal container — the composition-only Nx project that assembles Web Explorer and Web Docs into one deployable artifact tree and asserts its entry points, agent indexes and size
+tags: [web-portal, nx composition, github-pages, agent-index, hld]
 generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
-updated: { by: process:design-publish, at: 2026-11-22T10:15:00Z }
+updated: { by: process:dev-document, at: 2026-11-22T17:00:00Z }
 ---
 
 # Web Portal Container
@@ -28,7 +28,7 @@ flowchart TD
 
     subgraph PORTAL ["apps/web-portal (no source)"]
         ASSEMBLE["portal-assemble.ts\ncopies + asserts\n(scripts/ci/portal-assemble.ts, via tsx)"]:::assemble
-        PORTAL_DIST["dist/\n(index.html, 404.html,\ndocs/index.html, .nojekyll)"]:::dist
+        PORTAL_DIST["dist/\n(index.html, 404.html,\ndocs/index.html, .nojekyll,\nagent-index.json, docs/agent-index.json)"]:::dist
     end
 
     EXP_BUILD --> EXP_DIST --> ASSEMBLE
@@ -50,9 +50,8 @@ flowchart TD
 
 - Declare the project-graph dependency on Web Explorer and Web Docs so `nx affected` marks it affected whenever either changes
 - Copy Web Explorer's `apps/web-explorer/out/` to the artifact root and Web Docs's `.vitepress/dist/` under `docs/`, in one artifact tree at `apps/web-portal/dist/`
-- Fail if `apps/web-explorer/out/docs` exists before the copy, so Web Explorer output never collides with Web Docs
-- Assert `dist/index.html`, `dist/404.html`, `dist/docs/index.html` and `dist/.nojekyll` exist before the build target succeeds — fail loudly rather than ship a partial deploy
-- Fail when the published size of `apps/web-portal/dist/` exceeds 900 MB (NFR-17)
+- Fail the build rather than ship a partial deploy: when Web Explorer emits anything under `docs/`, on missing entry points, a missing or malformed agent index, or a published size over 900 MB (NFR-17)
+- Be the one place the cross-container agent-index contract `{ path, url, title, description, headings, text }` is checked on real output; Web Explorer's WebMCP tools read both indexes by URL at runtime
 - Introduce no application source and no server runtime — build-time composition only
 
 ## Technology
@@ -67,10 +66,9 @@ flowchart TD
 
 - Input: `apps/web-explorer/out/**` and Web Docs's `.vitepress/dist/**` (both produced by their own independent `build` targets)
 - Output: `apps/web-portal/dist/` — `apps/web-explorer/out/**` copied to its root, Web Docs's output copied under `dist/docs/`
-- Guarantee: `build` target declares `inputs: ["default", "^default", "{workspaceRoot}/scripts/ci/portal-assemble.ts"]` and `outputs: ["{projectRoot}/dist"]`
-- Guarantee: the assemble script throws a descriptive error — failing the Nx target and CI — if `out/docs` exists before the copy, if `dist/index.html`, `dist/404.html`, `dist/docs/index.html` or `dist/.nojekyll` is missing after the copy, or if `dist/` exceeds 900 MB; there is no partial-deploy failure mode
-- `project.json` declares `implicitDependencies: ["web-explorer", "web-docs"]` (the project-graph edge `nx affected` needs) and the `build` target declares `dependsOn: ["web-explorer:build", "web-docs:build"]` (task ordering only, a separate concern from the graph edge) — the same `implicitDependencies` pattern `apps/web-docs/project.json` already used before this container existed
-- Output feeds `.github/workflows/deploy-web.yml`'s `actions/upload-pages-artifact`, whose `path` is `apps/web-portal/dist`; the workflow runs on every push to `main`; its `nx affected --target=build` over the whole push builds `web-portal` when the push affects the site, and the Pages steps run only when `apps/web-portal/dist` exists
+- Guarantee: `web-portal:build` fails on missing entry points, a bad agent index or a size over 900 MB; the size limit can only be tightened. The exact assertions, inputs and failure list are in the [Web Portal LLD](<../../../System Architecture (LLD)/Web Portal/00. Overview.md>)
+- `project.json` declares `implicitDependencies` on both siblings (the graph edge `nx affected` needs) and `build.dependsOn` on both builds (task ordering)
+- Output feeds `.github/workflows/deploy-web.yml`'s `actions/upload-pages-artifact`, whose `path` is `apps/web-portal/dist`. The workflow runs on every push to `main`; its `nx affected --target=build` uses as base the head SHA of the last successful `deploy-web.yml` run on `main` (fallback: the push's `before` commit), builds `web-portal` when that range affects the site, and runs the Pages steps only when `apps/web-portal/dist` exists
 
 ## Constraints
 
@@ -83,9 +81,9 @@ flowchart TD
 
 ## Key paths
 
-| Path                            | Purpose                                                                                                                 |
-| ------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `apps/web-portal/`              | Nx project definition, no application source                                                                            |
-| `apps/web-portal/project.json`  | `implicitDependencies`, `build` target `dependsOn`, `inputs` and `outputs`                                              |
-| `scripts/ci/portal-assemble.ts` | Copies both static builds; asserts `index.html`, `404.html`, `docs/index.html`, `.nojekyll` and the 900 MB size ceiling |
-| `apps/web-portal/dist/`         | Composed static output — the GitHub Pages deploy artifact source                                                        |
+| Path                            | Purpose                                                          |
+| ------------------------------- | ---------------------------------------------------------------- |
+| `apps/web-portal/`              | Nx project definition, no application source                     |
+| `apps/web-portal/project.json`  | Graph edge, task ordering, build inputs and outputs              |
+| `scripts/ci/portal-assemble.ts` | Copies both static builds and asserts the result                 |
+| `apps/web-portal/dist/`         | Composed static output — the GitHub Pages deploy artifact source |

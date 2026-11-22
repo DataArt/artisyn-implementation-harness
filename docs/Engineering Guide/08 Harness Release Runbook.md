@@ -20,7 +20,7 @@ tags:
     release notes,
   ]
 generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
-updated: { by: process:okf-migration, at: 2026-11-17T20:43:24Z }
+updated: { by: process:dev-document, at: 2026-11-22T17:00:00Z }
 ---
 
 # Harness Release Runbook
@@ -138,12 +138,15 @@ git commit -am "chore(harness-release): <version>"
 
 Then push like any other commit. `scripts/release/version-harness.mjs` does the work:
 
-| Step    | What it does                                                                                                                      |
-| ------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Compute | Latest harness tag reachable from HEAD + the conventional commits after it (Nx Release). A re-run gives the same version          |
-| Stamp   | `skills/implementation-harness/package.json`, then every manifest through `stamp-harness-version.mjs`                             |
-| Log     | Writes or replaces the changelog entry; drops entries for unreleased versions left by earlier runs. Entries link the PR's commits |
-| No bump | When the commits call for no release, it changes nothing and says so                                                              |
+| Step    | What it does                                                                                                                                                                    |
+| ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Compute | Latest harness tag reachable from HEAD + the conventional commits after it (Nx Release). A re-run gives the same version                                                        |
+| Guard   | When no commit since that tag touches `skills/implementation-harness/`, the branch releases nothing and Nx is not asked; a stamp left above the released version is reset to it |
+| Stamp   | `skills/implementation-harness/package.json`, then every manifest through `stamp-harness-version.mjs`                                                                           |
+| Log     | Writes or replaces the changelog entry; drops entries for unreleased versions left by earlier runs. Entries link the PR's commits                                               |
+| No bump | When the commits call for no release, it changes nothing and says so                                                                                                            |
+
+**Why the guard.** Nx counts a `yarn.lock` change as touching every project, so a `feat` commit that only changes the lockfile would raise the harness version. The harness package has no dependencies, so a lockfile change cannot alter what ships. Known limit: when the harness does change on the branch, an unrelated lockfile commit can still raise the bump type (for example, a `feat` lockfile commit next to a `fix(harness)` commit gives a minor release).
 
 The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` starts no workflows, so the PR head would have no checks. The ruleset also requires approval of the last push.
 
@@ -155,7 +158,7 @@ The developer commits the version, not CI. A commit pushed with `GITHUB_TOKEN` s
 
 **Two PRs, one version.** The ruleset requires the branch to be up to date (GitHub applies this because required checks exist; see step 1). When two PRs claim the same version, the first merges and, once approved, gets the tag; the second must update from `main` and re-run `yarn harness:version`. The tag exists only after approval, so while a release waits, `version-gate` fails every PR that changes the harness: `main` carries a version that is not released yet. Approve the waiting release, then re-run the check and `yarn harness:version`. PRs that don't touch the harness are not blocked. As a backstop, the `build` and `release` jobs stop when the version's tag already exists and the commit changes the harness after it.
 
-**Plugin and marketplace changes.** Nx Release counts only commits that touch `skills/implementation-harness/`. A PR that changes only `skills/.claude-plugin/plugin.json` or a marketplace file gets no new version. Hosts still read `main`'s marketplace files, and those point at the release tag. So ship a plugin layout or marketplace source change in a harness release: include a real `fix(harness)` or `feat(harness)` change inside the package. Otherwise hosts fetch a tag that does not match the new layout.
+**Plugin and marketplace changes.** A release needs a commit that touches `skills/implementation-harness/` (the harness-path guard). A PR that changes only `skills/.claude-plugin/plugin.json` or a marketplace file gets no new version. Hosts still read `main`'s marketplace files, and those point at the release tag. So ship a plugin layout or marketplace source change in a harness release: include a real `fix(harness)` or `feat(harness)` change inside the package. Otherwise hosts fetch a tag that does not match the new layout.
 
 **Squash title.** The version comes from the PR's own commits, which husky and the CI scope check (`check-commit-scope.mjs --range`) both check. The squash title no longer decides the version. Still give it a `harness`-scoped Conventional Commit subject, so harness changes stand apart in history and the changelog.
 

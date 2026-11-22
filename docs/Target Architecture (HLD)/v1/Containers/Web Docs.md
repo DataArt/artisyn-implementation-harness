@@ -2,10 +2,10 @@
 id: 2f617a4e
 type: Container
 title: Web Docs Container
-description: Design intent for the Web Docs container — the VitePress static documentation site, served under the /docs/ subpath
-tags: [web-docs, vitepress, hld]
+description: Design intent for the Web Docs container — the VitePress static documentation site, served under the /docs/ subpath, which also publishes an agent index
+tags: [web-docs, vitepress, agent-index, hld]
 generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
-updated: { by: process:design-publish, at: 2026-11-22T10:05:00Z }
+updated: { by: process:dev-document, at: 2026-11-22T17:00:00Z }
 ---
 
 # Web Docs Container
@@ -24,7 +24,7 @@ flowchart LR
 
     BUILD["🔨 Vite build\nyarn nx run web-docs:build"]:::build
 
-    DIST["📦 Static output\n.vitepress/dist/"]:::dist
+    DIST["📦 Static output\n.vitepress/dist/\nincl. agent-index.json"]:::dist
 
     DIST_PORTAL["📥 input to Web Portal\n(apps/web-portal/dist/docs/)"]:::portal
 
@@ -49,6 +49,7 @@ flowchart LR
 - VitePress configuration, sidebar navigation, and theme in `apps/web-docs/`
 - Produce a static build consumed by Web Portal's composition step, which is what GitHub Actions actually uploads and deploys — no server-side runtime
 - Hosts the theme integration point for the Discuss container's comments widget (see `Containers/Discuss.md`)
+- Publish the agent index `agent-index.json`, the headings and text of every built page, for Web Explorer's WebMCP tools (see [Web Explorer](Web%20Explorer.md#agent-interface))
 
 ## Technology
 
@@ -70,6 +71,7 @@ A section `index.md` is navigation; the section's prose lives in its `00 Overvie
 
 - Input: Markdown content under `docs/` (`srcDir`), VitePress config (`.vitepress/config.ts`), theme components (`.vitepress/theme/`), and `docs/.og/cli.mjs build` — runs before `vitepress build` to keep the operational graph database current
 - Output: static HTML/CSS/JS in `apps/web-docs/.vitepress/dist/` — copied into `apps/web-portal/dist/docs/` by Web Portal's composition step, which is what `actions/upload-pages-artifact` and `actions/deploy-pages` actually publish. `docs-operational-graph.sqlite` is copied into `dist/` by `config.ts`'s `buildEnd` hook as an additional static output
+- Output: the agent index `agent-index.json`, written into `dist/` by the same `buildEnd` hook, one entry per built page, at most 5 MB; `web-docs:build` fails when it is empty, has an entry without a title or text, or is too large. Web Explorer's WebMCP tools fetch it from `/<repo>/docs/agent-index.json`; the entry shape is the contract both containers share, asserted by Web Portal. Detail: [Web Docs LLD](<../../../System Architecture (LLD)/Web Docs/00. Overview.md>)
 - Runtime dependencies: `cytoscape` and `sql.js` render and live-query the operational graph on the Graph Explorer page; the WASM database fetch path is base-aware, resolved via `import.meta.env.BASE_URL`, so it resolves correctly under the `/<repo>/docs/` prefix
 - Guarantee: `web-docs:build` fails the build on any dead internal link, since `ignoreDeadLinks` is not set in `config.ts` (NFR-5)
 - Build-time config values (`VITE_GITHUB_ORG`, `VITE_GITHUB_REPO`, giscus repo/category IDs) are resolved at build time from `.env.dev` locally or the variables of the `web` GitHub Actions environment in CI — never read at request time, since the served artifact has no server runtime
@@ -86,9 +88,10 @@ A section `index.md` is navigation; the section's prose lives in its `00 Overvie
 
 ## Key paths
 
-| Path                             | Purpose                                                        |
-| -------------------------------- | -------------------------------------------------------------- |
-| `apps/web-docs/`                 | VitePress config and theme                                     |
-| `docs/`                          | Markdown content (srcDir)                                      |
-| `apps/web-docs/.vitepress/dist/` | Static build output (input to Web Portal's composition step)   |
-| `docs/.og/cli.mjs`               | Operational graph build-time CLI, run before `vitepress build` |
+| Path                                            | Purpose                                                           |
+| ----------------------------------------------- | ----------------------------------------------------------------- |
+| `apps/web-docs/`                                | VitePress config and theme                                        |
+| `docs/`                                         | Markdown content (srcDir)                                         |
+| `apps/web-docs/.vitepress/dist/`                | Static build output (input to Web Portal's composition step)      |
+| `docs/.og/cli.mjs`                              | Operational graph build-time CLI, run before `vitepress build`    |
+| `apps/web-docs/.vitepress/utils/agent-index.ts` | Builds `agent-index.json` from the built pages, run by `buildEnd` |

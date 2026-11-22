@@ -103,7 +103,8 @@ Partial-support notes:
 - The animated terminal at the top of the landing page plays on its own and cannot yet be paused, except by turning on reduced motion.
 - Interactive diagrams on the Inside the loop and Docs flow pages, and Mermaid diagrams in the documentation, do not yet have a text alternative beyond the surrounding prose.
 - There is no skip-to-content link yet, so keyboard users move through the header on every page.
-- The dark theme has not had a systematic color-contrast review.
+- Some text on every page of the promotional site is below the 4.5:1 contrast ratio, mainly the purple accent, the muted grey and some page-specific colours. An automated check now runs on every change and stops it from getting worse while the colours are reworked.
+- On the Docs flow page, some diagram controls sit inside other controls, some targets are smaller than 24 by 24 pixels, and some node names do not include their visible text.
 
 Each of these is tracked against the HLD accessibility requirements. Please open an accessibility issue if you find another barrier, or if one of these affects you more than the list suggests.
 
