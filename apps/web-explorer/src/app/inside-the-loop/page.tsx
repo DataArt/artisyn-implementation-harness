@@ -1,8 +1,7 @@
-import InsideTheLoopHub from '../../views/inside-the-loop/InsideTheLoopHub';
-import { routeFor, toMetadata } from '../../routes';
+import Moved, { movedMetadata } from '../../components/Moved';
 
-export const metadata = toMetadata(routeFor('/inside-the-loop/'));
+export const metadata = movedMetadata('/inside-the-loop/');
 
-export default function InsideTheLoopHubPage() {
-  return <InsideTheLoopHub />;
+export default function MovedPage() {
+  return <Moved from="/inside-the-loop/" />;
 }

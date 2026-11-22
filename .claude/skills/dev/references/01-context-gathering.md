@@ -24,17 +24,17 @@ not earlier. Everything planned later derives from that file.
 
 Detect the input shape:
 
-- **Ticket only** — `ND-42`
+- **Ticket only** — `GH-42`
 - **Free-form only** — no ticket number (e.g. `hey lets build CI pipelines. Thoughts: 1 2 3`)
 - **Mixed** — ticket number followed by free-form text
 
-A ticket number matches `ND-\d+`. If none is found, reuse an existing
+A ticket number matches `GH-\d+` (a `#42` or an issue URL normalises to `GH-42`). If none is found, reuse an existing
 matching `DEV-YYYYMMDD-XXXX` story ID when there is one; otherwise generate a
 collision-checked `DEV-YYYYMMDD-XXXX` local ID before creating files.
 
 Extract:
 
-- **ticket** — `ND-\d+` if present, otherwise the local ID
+- **ticket** — `GH-\d+` if present, otherwise the local ID
 - **problem** — what to build or fix (may be empty for ticket-only)
 - **thoughts** — the developer's initial ideas (may be empty)
 - **context** — file paths, URLs, doc references
@@ -46,7 +46,7 @@ Invoke `@scrum-master`:
 > "Fetch {TICKET}: return summary, description, acceptance criteria, linked ND tickets, and any Confluence page URLs."
 
 Then fetch each linked Confluence page and pull out the relevant content
-(requirements, specs, design notes). Note constraints from other `ND-*`
+(requirements, specs, design notes). Note constraints from other `GH-*`
 tickets the description references. This is a read only: do not assign or
 transition the ticket here, that is Ceremony's job.
 
@@ -58,7 +58,7 @@ acceptance criteria; developer input is the primary intent.
 block. Continue with developer input only, note `Tracker unavailable` in the intent's
 sources, and ask for the missing pieces:
 
-> "I couldn't fetch ND-XX from the tracker. To continue, please paste:
+> "I couldn't fetch GH-XX from the tracker. To continue, please paste:
 >
 > - **Summary** — one-line ticket title
 > - **Description** — what needs to be built

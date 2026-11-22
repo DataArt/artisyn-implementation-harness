@@ -36,7 +36,7 @@ Any condition fails or is uncertain (already assigned elsewhere, already past In
 Progress, or the next status isn't obvious) → this is a sign-off gate
 (`patterns/approval-sign-off.md`): present to the developer:
 
-> "ND-XX is currently `{assignee}` / `{status}`. I'll assign it to you and
+> "GH-XX is currently `{assignee}` / `{status}`. I'll assign it to you and
 > move it to **In Progress**. Confirm? (**yes** / **skip**)"
 
 Use existing tracker authorization if already given, otherwise ask once. **Stop

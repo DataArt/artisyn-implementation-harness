@@ -196,6 +196,11 @@ need implementation. A combined bootstrap → design → dev scenario is future 
 
 ## Running agent E2E
 
+Set `HARNESS_E2E_AWS_REGION` to the AWS region the run should configure
+`aws-mcp` for. The bootstrap cases need it, and they fail when it is unset.
+It has no default, because a region is deployment configuration and never
+appears in source.
+
 List cases before executing them:
 
 ```sh

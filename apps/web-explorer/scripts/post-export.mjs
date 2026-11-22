@@ -217,8 +217,20 @@ function htmlFiles(dir) {
 
 /**
  * schema.org JSON-LD for one registry page: the landing's WebSite + SoftwareSourceCode,
- * WebPage + BreadcrumbList under /inside-the-loop/, WebPage elsewhere, nothing when noindex.
+ * WebPage + BreadcrumbList when a route sits above it (registryAncestors), WebPage elsewhere, nothing when noindex.
  */
+/**
+ * The registry pages above a path, nearest last: `/a/b/c/` → `/a/`, `/a/b/` where those are
+ * routes. A page with none gets no breadcrumb.
+ */
+export function registryAncestors(path, routesByPath) {
+  const segments = path.split('/').filter(Boolean);
+  return segments
+    .slice(0, -1)
+    .map((_, i) => `/${segments.slice(0, i + 1).join('/')}/`)
+    .filter((p) => routesByPath.has(p));
+}
+
 export function pageJsonLd(entry, { siteUrl, routes, repoUrl }) {
   if (!entry.index) return undefined;
   const url = `${siteUrl}${entry.path}`;
@@ -247,14 +259,11 @@ export function pageJsonLd(entry, { siteUrl, routes, repoUrl }) {
     url,
     isPartOf: { '@type': 'WebSite', url: `${siteUrl}/` },
   };
-  if (!entry.path.startsWith('/inside-the-loop/')) return { '@context': context, ...webPage };
-
-  const trail = [
-    '/',
-    '/inside-the-loop/',
-    ...(entry.path === '/inside-the-loop/' ? [] : [entry.path]),
-  ];
   const byPath = new Map(routes.map((r) => [r.path, r]));
+  const ancestors = registryAncestors(entry.path, byPath);
+  if (!ancestors.length) return { '@context': context, ...webPage };
+
+  const trail = ['/', ...ancestors, entry.path];
   const crumbs = {
     '@type': 'BreadcrumbList',
     itemListElement: trail.map((p, i) => ({

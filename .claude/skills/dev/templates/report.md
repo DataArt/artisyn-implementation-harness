@@ -21,8 +21,8 @@ updated: { by: process:dev-context, at: <same as generated> }
 
 | Field  | Value                                                                                                          |
 | ------ | -------------------------------------------------------------------------------------------------------------- |
-| Ticket | ND-XX                                                                                             |
-| Branch | — _(set by Ceremony, e.g. `feat/ND-XX-slug`)_                                                     |
+| Ticket | GH-XX                                                                                             |
+| Branch | — _(set by Ceremony, e.g. `feat/gh-XX-slug`)_                                                     |
 | PR     | —                                                                                                              |
 | Author | _from `git config user.name`_                                                                                  |
 | Status | 🔄 In Progress _(→ ✅ Complete, set by Completion)_                                                            |
@@ -99,7 +99,7 @@ _Added for every step — a brief confirmation for smooth steps, detailed notes 
 
 <!--
 Type values: blocker · dependency · cleanup · security · performance · ux
-Tracker: fill in once a task is created (e.g. ND-XX), otherwise —
+Tracker: fill in once a task is created (e.g. GH-XX), otherwise —
 Rows are added here by the Implement stage (references/04-implement.md, tech debt while working on a step) as debt is discovered.
 -->
 

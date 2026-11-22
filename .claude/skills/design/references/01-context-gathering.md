@@ -21,7 +21,7 @@ checkout, so the lifecycle's first commit lands on the feature branch.
 
 ## Step 1 — Resolve the ticket or local ID
 
-The argument is a ticket number (e.g. `ND-042`), free-form input, or a
+The argument is a ticket number (e.g. `GH-42`), free-form input, or a
 direct folder path.
 
 If `$DESIGN_DIR` already came from the router's Resume Detection (a resume, not a

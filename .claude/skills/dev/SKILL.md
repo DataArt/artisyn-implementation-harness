@@ -7,7 +7,7 @@ description: >
   Full dev lifecycle (/dev {ticket}): Context Gathering → Ceremony → Plan → Implement
   → Test → Document → Completion, or a single stage via
   /dev context|ceremony|plan|implement|test|document|complete {ticket}.
-  Trigger: "build ND-XX", "implement ND-XX", "finish ND-XX", or starting a ticket from scratch.
+  Trigger: "build GH-XX", "implement GH-XX", "finish GH-XX", or starting a ticket from scratch.
 ---
 
 The developer wants to run the dev lifecycle for a ticket. Here is their input:
@@ -72,7 +72,7 @@ retired — use `/dev context|ceremony|plan|implement|test|document|complete {ti
 
 Ticket-tracker activity is entirely `@scrum-master`'s job. Dev only asks it to act
 on a ticket by state name ("transition to In Progress", "transition to Done"); the
-transition IDs live in `@scrum-master`'s own definition, so the two never drift.
+status labels live in `@scrum-master`'s own definition, so the two never drift.
 
 ---
 
@@ -80,7 +80,7 @@ transition IDs live in `@scrum-master`'s own definition, so the two never drift.
 
 This is the one place that decides fresh vs. resume. Stage references do not repeat it.
 
-Parse the ticket number from `$ARGUMENTS` (`ND-\d+`). For free-form
+Parse the ticket number from `$ARGUMENTS` (`GH-\d+`; a `#42` or a GitHub issue URL becomes `GH-42`). For free-form
 input with no ticket, search existing story folders for a matching local ID
 (`DEV-YYYYMMDD-XXXX`) and title; reuse it when found, otherwise generate a
 collision-checked one. A local ID does not imply a tracker record.

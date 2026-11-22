@@ -20,7 +20,7 @@ tags:
     release notes,
   ]
 generated: { by: process:okf-migration, at: 2026-11-16T21:31:28Z }
-updated: { by: process:dev-document, at: 2026-11-22T17:00:00Z }
+updated: { by: process:dev-document, at: 2026-11-23T10:00:00Z }
 ---
 
 # Harness Release Runbook
@@ -240,7 +240,7 @@ In a scratch consumer project (not this repo), after `publish-github-packages` a
 | Attestations          | `gh attestation verify artisyn-implementation-harness-v4.1.0.zip --repo DataArt/artisyn-implementation-harness` passes; so does the npm tarball fetched with `npm pack @dataart/artisyn-implementation-harness@4.1.0` (the release job already proved it is the attested tarball) |
 | gh skill              | `gh skill install DataArt/artisyn-implementation-harness implementation-harness@v4.1.0 --scope project` (pinned form only)                                                                                                                                                        |
 
-The marketplace agent E2E (`yarn nx run implementation-harness-e2e:agent-e2e`) is a guarded command — it spends real agent budget, so the developer starts it; it never runs in CI.
+The marketplace agent E2E (`yarn nx run implementation-harness-e2e:agent-e2e`) is a guarded command — it spends real agent budget, so the developer starts it; it never runs in CI. Its bootstrap cases need `HARNESS_E2E_AWS_REGION` set to the AWS region they configure `aws-mcp` for; it has no default.
 
 ## Decision record
 

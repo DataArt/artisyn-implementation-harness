@@ -43,7 +43,7 @@ These evaluation criteria become the Requirements × Options matrix rows during 
 
 **Links**
 
-- Ticket: `ND-{number}`
+- Ticket: `GH-{number}`
 - Related tickets: `<any linked ND tickets if any>`
 - Reference docs: `<any {source docs} docs referenced>`
 

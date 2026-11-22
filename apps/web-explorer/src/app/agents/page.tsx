@@ -1,8 +1,7 @@
-import Agents from '../../views/agents/Agents';
-import { routeFor, toMetadata } from '../../routes';
+import Moved, { movedMetadata } from '../../components/Moved';
 
-export const metadata = toMetadata(routeFor('/agents/'));
+export const metadata = movedMetadata('/agents/');
 
-export default function AgentsPage() {
-  return <Agents />;
+export default function MovedPage() {
+  return <Moved from="/agents/" />;
 }

@@ -4,6 +4,7 @@
  * keeps to erasable TypeScript and `.ts` import extensions.
  */
 import type { Metadata } from 'next';
+import { ROUTE_PATHS, topicPath } from './paths.ts';
 import { siteUrl } from './site.ts';
 
 export type RouteEntry = {
@@ -25,10 +26,10 @@ export type RouteEntry = {
 export type SocialImage = { path: string; width: number; height: number; alt: string };
 
 export const DEFAULT_SOCIAL_IMAGE: SocialImage = {
-  path: '/social-preview.png',
+  path: '/social-preview.jpg',
   width: 1200,
   height: 630,
-  alt: 'Artisyn Implementation Harness — AI engineering, structured by design',
+  alt: 'Artisyn Implementation Harness: AI engineering, structured by design. A terminal runs /implementation-harness launch through Design, Implement, Validate and Document, above the Solution Design, Development and Knowledge pillars',
 };
 
 /** The Vite site's keyword list, shared with Web Docs. */
@@ -54,7 +55,7 @@ export const SITE_KEYWORDS = [
   'software-development-lifecycle',
 ];
 
-export const INSIDE_THE_LOOP_SLUGS = [
+export const TEAM_ADOPTION_PATH_SLUGS = [
   'requirements',
   'context',
   'harness',
@@ -67,9 +68,26 @@ export const INSIDE_THE_LOOP_SLUGS = [
   'infrastructure',
 ] as const;
 
-export type InsideTheLoopSlug = (typeof INSIDE_THE_LOOP_SLUGS)[number];
+export type TeamAdoptionPathSlug = (typeof TEAM_ADOPTION_PATH_SLUGS)[number];
 
-const insideTheLoopFiles: Record<InsideTheLoopSlug, string> = {
+export { ROUTE_PATHS, topicPath };
+
+/**
+ * Paths published before the Cookbook restructure. Each stays as a noindex redirect page to its
+ * new path, so shared links and search results keep working.
+ */
+export const MOVED: Record<string, string> = {
+  '/inside-the-loop/': ROUTE_PATHS.teamAdoptionPath,
+  ...Object.fromEntries(
+    TEAM_ADOPTION_PATH_SLUGS.map((slug) => [`/inside-the-loop/${slug}/`, topicPath(slug)])
+  ),
+  '/docs-flow/': ROUTE_PATHS.knowledgeFlow,
+  '/agents/': ROUTE_PATHS.agents,
+  '/dogfood/': ROUTE_PATHS.dogfood,
+  '/migration-case/': ROUTE_PATHS.migration,
+};
+
+const teamAdoptionPathFiles: Record<TeamAdoptionPathSlug, string> = {
   requirements: '01-requirements.tsx',
   context: '02-context.tsx',
   harness: '03-harness.tsx',
@@ -82,7 +100,7 @@ const insideTheLoopFiles: Record<InsideTheLoopSlug, string> = {
   infrastructure: '10-infrastructure.tsx',
 };
 
-const insideTheLoop: Record<InsideTheLoopSlug, { title: string; description: string }> = {
+const teamAdoptionPath: Record<TeamAdoptionPathSlug, { title: string; description: string }> = {
   requirements: {
     title: 'Mental model shift: planning ↔ code',
     description:
@@ -145,20 +163,29 @@ export const routes: RouteEntry[] = [
     sources: ['src/views/landing'],
   },
   {
-    path: '/inside-the-loop/',
-    title: 'Inside the loop',
+    path: ROUTE_PATHS.contextTopology,
+    title: 'Context Topology',
+    description:
+      'Design the context before you launch the harness: monorepo, two-track, many repos with a product on top, or a mani workspace for hundreds of repos.',
+    index: true,
+    keywords: ['context-topology', 'monorepo', 'multi-repo', 'product-context', 'mani'],
+    sources: ['src/views/cookbook/context-topology'],
+  },
+  {
+    path: ROUTE_PATHS.teamAdoptionPath,
+    title: 'Team Adoption Path',
     description:
       'A map of ten real dependencies, not a checklist — each one opened the door to the next on a project built with the implementation harness.',
     index: true,
-    keywords: ['inside-the-loop'],
-    sources: ['src/views/inside-the-loop/InsideTheLoopHub.tsx'],
+    keywords: ['team-adoption-path'],
+    sources: ['src/views/cookbook/team-adoption-path/TeamAdoptionPathHub.tsx'],
   },
-  ...INSIDE_THE_LOOP_SLUGS.map((slug): RouteEntry => ({
-    path: `/inside-the-loop/${slug}/`,
-    ...insideTheLoop[slug],
+  ...TEAM_ADOPTION_PATH_SLUGS.map((slug): RouteEntry => ({
+    path: topicPath(slug),
+    ...teamAdoptionPath[slug],
     index: true,
-    keywords: ['inside-the-loop', slug],
-    sources: [`src/views/inside-the-loop/${insideTheLoopFiles[slug]}`],
+    keywords: ['team-adoption-path', slug],
+    sources: [`src/views/cookbook/team-adoption-path/${teamAdoptionPathFiles[slug]}`],
   })),
   {
     path: '/get-started/',
@@ -170,31 +197,40 @@ export const routes: RouteEntry[] = [
     sources: ['src/views/get-started'],
   },
   {
-    path: '/docs-flow/',
-    title: 'Docs flow',
+    path: ROUTE_PATHS.knowledgeFlow,
+    title: 'Knowledge Flow',
     description:
       'An interactive walkthrough of how documentation is born with the work: working drafts per ticket, graduating to permanent docs.',
     index: true,
     keywords: ['documentation-lifecycle', 'docs-as-code'],
-    sources: ['src/views/docs-flow'],
+    sources: ['src/views/cookbook/knowledge-flow'],
   },
   {
-    path: '/dogfood/',
+    path: ROUTE_PATHS.dogfood,
     title: 'Dogfood',
     description:
       'We run the harness on the harness: this repository is the canonical source of the implementation harness and its first consumer.',
     index: true,
     keywords: ['dogfooding'],
-    sources: ['src/views/dogfood'],
+    sources: ['src/views/cookbook/case/dogfood'],
   },
   {
-    path: '/agents/',
+    path: ROUTE_PATHS.agents,
     title: 'For AI agents',
     description:
       'Use the Artisyn Implementation Harness site with AI agents: WebMCP tools to search the docs and get install instructions, plus llms.txt and content indexes.',
     index: true,
     keywords: ['webmcp', 'llms-txt', 'ai-agents', 'agentic-browsing'],
-    sources: ['src/views/agents', 'src/agent'],
+    sources: ['src/views/cookbook/agents', 'src/agent'],
+  },
+  {
+    path: ROUTE_PATHS.migration,
+    title: 'Migration case: Vite to Next.js',
+    description:
+      'How the harness migrated this site from Vite to Next.js in a working day: 31 steps, 58 findings closed, 151 tests and 25 docs, measured from the run itself.',
+    index: true,
+    keywords: ['case-study', 'framework-migration', 'vite', 'nextjs', 'static-export'],
+    sources: ['src/views/cookbook/case/migration'],
   },
   {
     path: '/comic/',

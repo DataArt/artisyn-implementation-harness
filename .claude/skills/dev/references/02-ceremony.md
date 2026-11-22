@@ -37,7 +37,7 @@ Announce what was done (ticket, prior status, new status), add a one-line note i
 Any condition fails or is uncertain (assigned to someone else, already past In
 Progress, next status not obvious) → ask once:
 
-> "ND-XX is currently `{assignee}` / `{status}`. I'll assign it to you and
+> "GH-XX is currently `{assignee}` / `{status}`. I'll assign it to you and
 > move it to **In Progress**. Confirm? (**yes** / **skip**)"
 
 Before stopping: `report`, then `wait start --reason approval --detail "Tracker
