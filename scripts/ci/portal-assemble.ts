@@ -32,6 +32,20 @@ if (missing.length) {
   throw new Error(`portal-assemble: missing expected file(s): ${missing.join(', ')}`);
 }
 
+// The WebMCP search tool reads both indexes by URL at runtime.
+for (const rel of ['agent-index.json', path.join('docs', 'agent-index.json')]) {
+  const file = path.join(portalDist, rel);
+  let entries: unknown;
+  try {
+    entries = JSON.parse(fs.readFileSync(file, 'utf8')).entries;
+  } catch (err) {
+    throw new Error(`portal-assemble: ${file} is missing or does not parse`, { cause: err });
+  }
+  if (!Array.isArray(entries) || entries.length === 0) {
+    throw new Error(`portal-assemble: ${file} has no entries`);
+  }
+}
+
 function sizeOf(dir: string): number {
   let total = 0;
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -49,5 +63,5 @@ if (publishedBytes > maxBytes) {
 }
 
 console.log(
-  `portal-assemble: ${required.join(', ')} present; published size ${publishedBytes} bytes (limit ${maxBytes}).`
+  `portal-assemble: ${required.join(', ')} and both agent indexes present; published size ${publishedBytes} bytes (limit ${maxBytes}).`
 );
