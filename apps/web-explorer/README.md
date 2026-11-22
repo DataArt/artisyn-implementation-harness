@@ -1,6 +1,6 @@
 # web-explorer
 
-Promotional site for the Artisyn Implementation Harness: a Next.js 16 App Router app exported to static HTML, one pre-rendered page per route: landing, Get started, the Cookbook pages under `/cookbook/` (Team Adoption Path, Knowledge Flow, Agents, and the Dogfood and Migration case studies), and the comic. Old paths such as `/inside-the-loop/` are redirect pages. Served at the GitHub Pages project-site root and composed with Web Docs by Web Portal. Browser agents get WebMCP tools; see `/cookbook/agents/`.
+Promotional site for the Artisyn Implementation Harness: a Next.js 16 App Router app exported to static HTML, one pre-rendered page per route: landing, Get started, the Cookbook pages under `/cookbook/` (Context Topology, Team Adoption Path, Knowledge Flow, Agents, and the Dogfood and Migration case studies), and the comic. Old paths such as `/inside-the-loop/` are redirect pages. Served at the GitHub Pages project-site root and composed with Web Docs by Web Portal. Browser agents get WebMCP tools; see `/cookbook/agents/`.
 
 ## Run locally
 
