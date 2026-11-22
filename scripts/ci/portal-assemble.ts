@@ -9,10 +9,14 @@ const explorerOut = path.resolve('apps/web-explorer/out');
 const docsDist = path.resolve('apps/web-docs/.vitepress/dist');
 const portalDist = path.resolve('apps/web-portal/dist');
 
-// GitHub Pages publishes at most 1 GB; fail well before that (NFR-17).
-const maxBytes = process.env.PORTAL_MAX_BYTES
-  ? Number(process.env.PORTAL_MAX_BYTES)
-  : 900 * 1024 * 1024;
+// GitHub Pages publishes at most 1 GB; fail well before that (NFR-17). PORTAL_MAX_BYTES may only
+// tighten the limit (the negative checks use it); anything else fails rather than open the gate.
+const NFR_17_BYTES = 900 * 1024 * 1024;
+const override = process.env.PORTAL_MAX_BYTES;
+const maxBytes = override ? Number(override) : NFR_17_BYTES;
+if (!Number.isInteger(maxBytes) || maxBytes < 1 || maxBytes > NFR_17_BYTES) {
+  throw new Error(`portal-assemble: PORTAL_MAX_BYTES must be an integer from 1 to ${NFR_17_BYTES}`);
+}
 
 if (fs.existsSync(path.join(explorerOut, 'docs'))) {
   throw new Error(

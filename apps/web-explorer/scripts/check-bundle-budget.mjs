@@ -42,9 +42,13 @@ export function checkBudget(outDir, { basePath, ceilingBytes = CEILING_BYTES }) 
 async function main() {
   const { basePath } = await import('../src/site.ts');
   const outDir = path.resolve(process.argv[2] ?? 'out');
-  const ceilingBytes = process.env.BUNDLE_BUDGET_BYTES
-    ? Number(process.env.BUNDLE_BUDGET_BYTES)
-    : CEILING_BYTES;
+  // BUNDLE_BUDGET_BYTES may only tighten the NFR-19 ceiling; anything else fails the build.
+  const override = process.env.BUNDLE_BUDGET_BYTES;
+  const ceilingBytes = override ? Number(override) : CEILING_BYTES;
+  if (!Number.isInteger(ceilingBytes) || ceilingBytes < 1 || ceilingBytes > CEILING_BYTES)
+    throw new Error(
+      `check-bundle-budget: BUNDLE_BUDGET_BYTES must be an integer from 1 to ${CEILING_BYTES}`
+    );
   const result = checkBudget(outDir, { basePath, ceilingBytes });
   console.log(
     `check-bundle-budget: ${result.files.length} file(s) on /, ${result.gzipBytes} bytes gzip ` +
