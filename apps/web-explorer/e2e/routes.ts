@@ -1,4 +1,4 @@
-/** The 16 routes the export must contain, written independently of src/routes.ts. */
+/** The 18 routes the export must contain, written independently of src/routes.ts. */
 export const INSIDE_THE_LOOP_SLUGS = [
   'requirements',
   'context',
@@ -20,6 +20,7 @@ export const ROUTES: string[] = [
   '/docs-flow/',
   '/dogfood/',
   '/agents/',
+  '/migration-case/',
   '/comic/',
 ];
 

@@ -25,10 +25,10 @@ export type RouteEntry = {
 export type SocialImage = { path: string; width: number; height: number; alt: string };
 
 export const DEFAULT_SOCIAL_IMAGE: SocialImage = {
-  path: '/social-preview.png',
+  path: '/social-preview.jpg',
   width: 1200,
   height: 630,
-  alt: 'Artisyn Implementation Harness — AI engineering, structured by design',
+  alt: 'Artisyn Implementation Harness: AI engineering, structured by design. A terminal runs /implementation-harness launch through Design, Implement, Validate and Document, above the Solution Design, Development and Knowledge pillars',
 };
 
 /** The Vite site's keyword list, shared with Web Docs. */
@@ -195,6 +195,15 @@ export const routes: RouteEntry[] = [
     index: true,
     keywords: ['webmcp', 'llms-txt', 'ai-agents', 'agentic-browsing'],
     sources: ['src/views/agents', 'src/agent'],
+  },
+  {
+    path: '/migration-case/',
+    title: 'Migration case: Vite to Next.js',
+    description:
+      'How the harness migrated this site from Vite to Next.js in a working day: 31 steps, 58 findings closed, 151 tests and 25 docs, measured from the run itself.',
+    index: true,
+    keywords: ['case-study', 'framework-migration', 'vite', 'nextjs', 'static-export'],
+    sources: ['src/views/migration-case'],
   },
   {
     path: '/comic/',

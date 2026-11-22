@@ -27,6 +27,13 @@ export const ui = {
 /** Categorical series slots — kept close to the source palette; these read fine on dark. */
 export const series = ['#5B9BE0', '#EB6834', '#2DD4BF', '#C2409A'] as const;
 
+/**
+ * Categorical slots stepped for the dark surfaces (OKLCH L 0.48–0.67), in fixed order.
+ * Validated with the dataviz palette checks on #131B26 and #0F151D: lightness band, chroma,
+ * adjacent CVD ΔE ≥ 8.4, normal-vision ΔE ≥ 19.8, ≥ 3:1 contrast. Used by the migration case.
+ */
+export const seriesDark = ['#3987E5', '#D95926', '#199E70', '#C98500'] as const;
+
 /** Status palette — fixed, never reused as a series colour. */
 export const status = {
   good: '#2DD4BF',

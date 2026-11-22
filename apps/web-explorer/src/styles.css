@@ -14,7 +14,7 @@ button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-off
 .site-header{position:sticky;top:0;z-index:20;background:rgba(9,13,18,.90);backdrop-filter:blur(16px);border-bottom:1px solid #1A222D}
 .header-inner{height:70px;display:flex;align-items:center;gap:32px;padding:0 28px}.brand{display:flex;align-items:center;gap:10px;font-weight:760;font-size:20px;letter-spacing:-.045em}
 .brand img{width:34px;height:34px}.brand-muted{font-weight:500;color:#96A3B4;letter-spacing:-.025em;font-size:15px}.main-nav{display:flex;align-items:center;gap:29px;margin-left:auto}
-.main-nav a,.header-github{font-size:13px;color:#B5BFCD;font-weight:580;display:inline-flex;align-items:center;gap:4px}.main-nav a:hover,.header-github:hover{color:#fff}
+.main-nav a,.header-github{font-size:13px;color:#B5BFCD;font-weight:580;display:inline-flex;align-items:center;gap:4px}.main-nav a{white-space:nowrap}.brand{flex:none;white-space:nowrap}.main-nav{min-width:0;overflow-x:auto;scrollbar-width:thin;padding:4px 0}@media(max-width:1400px){.main-nav{gap:20px}.brand-muted{display:none}}@media(max-width:1180px){.main-nav{gap:14px}}@media(max-width:1100px){.main-nav{gap:12px}.main-nav a{font-size:12.5px}.header-inner{gap:20px}}.main-nav a:hover,.header-github:hover{color:#fff}
 .header-github{border:1px solid #313B48;padding:9px 12px;border-radius:7px;gap:8px}
 /* First viewport: gradient band behind the hero and the three pillars, fading into the page background.
    Class names are prefixed (landing-hero, lc-stage) because the lazily loaded inside-the-loop.css defines

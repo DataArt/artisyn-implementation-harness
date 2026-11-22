@@ -20,6 +20,8 @@ export default function Header() {
           <Link href="/docs-flow/">Docs flow</Link>
           <Link href="/get-started/">Get started</Link>
           <Link href="/dogfood/">Dogfood</Link>
+          <Link href="/migration-case/">Migration case</Link>
+          <Link href="/agents/">Agents</Link>
           <a href={docsUrl} target="_blank" rel="noopener noreferrer">
             Docs <ArrowUpRight size={13} />
           </a>

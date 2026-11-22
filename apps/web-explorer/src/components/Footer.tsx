@@ -8,6 +8,7 @@ export default function Footer() {
       <div className="container footer-inner">
         <span>Artisyn · Implementation Harness</span>
         <span>Built to explain the harness. Not a live execution environment.</span>
+        <Link href="/migration-case/">Migration case</Link>
         <Link href="/agents/">For AI agents</Link>
         <a href={repoUrl} target="_blank" rel="noopener noreferrer">
           Open source <ArrowUpRight size={14} />
