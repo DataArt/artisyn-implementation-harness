@@ -1,6 +1,6 @@
 # web-explorer
 
-Promotional site for the Artisyn Implementation Harness: a Next.js 16 App Router app exported to static HTML, one pre-rendered page per route (landing, Inside the loop, Get started, Docs flow, Dogfood, For AI agents, comic). Served at the GitHub Pages project-site root and composed with Web Docs by Web Portal. Browser agents get WebMCP tools; see `/agents/`.
+Promotional site for the Artisyn Implementation Harness: a Next.js 16 App Router app exported to static HTML, one pre-rendered page per route (landing, Inside the loop, Get started, Docs flow, Dogfood, For AI agents, Migration case, comic). Served at the GitHub Pages project-site root and composed with Web Docs by Web Portal. Browser agents get WebMCP tools; see `/agents/`.
 
 ## Run locally
 

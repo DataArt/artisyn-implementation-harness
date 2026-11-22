@@ -6,12 +6,12 @@ description: 'Design intent for the Web Explorer container: the promotional mult
 tags:
   [web-explorer, nextjs, static-export, csp, seo, webmcp, llms-txt, agent-index, lighthouse, hld]
 generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
-updated: { by: process:dev-document, at: 2026-11-22T17:40:00Z }
+updated: { by: process:dev-document, at: 2026-11-22T22:00:00Z }
 ---
 
 # Web Explorer Container
 
-Promotional multi-route site at `apps/web-explorer`: a Next.js 16.4 App Router app exported to static files, one `<route>/index.html` per route at a trailing-slash path URL. It has 17 routes — `/`, `/inside-the-loop/` plus 10 detail pages, `/get-started/`, `/docs-flow/`, `/dogfood/`, `/agents/` and `/comic/` — and the root `404.html`. All 17 routes are indexable except `/comic/`; `404.html` is `noindex`. Implementation: [LLD Overview](<../../../System Architecture (LLD)/Web Explorer/00. Overview.md>).
+Promotional multi-route site at `apps/web-explorer`: a Next.js 16.4 App Router app exported to static files, one `<route>/index.html` per route at a trailing-slash path URL. It has 18 routes — `/`, `/inside-the-loop/` plus 10 detail pages, `/get-started/`, `/docs-flow/`, `/dogfood/`, `/agents/`, `/migration-case/` and `/comic/` — and the root `404.html`. All 18 routes are indexable except `/comic/`; `404.html` is `noindex`. Implementation: [LLD Overview](<../../../System Architecture (LLD)/Web Explorer/00. Overview.md>).
 
 ```mermaid
 flowchart LR
@@ -42,6 +42,7 @@ Any gate failure stops `web-explorer:build`, so Web Portal never assembles or de
 - Give every exported page its own hashed meta Content Security Policy (NFR-16).
 - Register five WebMCP tools for browser agents and publish `agent-index.json`; document them on `/agents/`.
 - Render the Dogfood page with a read-only view of this repo's operational graph.
+- Render the Migration case page: the measured record of the Vite → Next.js migration, server-rendered except for one client component, the lifecycle explorer.
 - Keep the first-load JavaScript and CSS of `/` within a gzip budget (NFR-19).
 
 ## Agent interface
