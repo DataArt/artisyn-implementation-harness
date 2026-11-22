@@ -1,0 +1,13 @@
+{
+  "source": "docs",
+  "entries": [
+    {
+      "path": "/docs/Harness/07%20Operational%20Graph/00%20Overview",
+      "url": "https://dataart.github.io/artisyn-implementation-harness/docs/Harness/07%20Operational%20Graph/00%20Overview",
+      "title": "Operational Graph",
+      "description": "How the harness indexes its own documentation as an operational graph.",
+      "headings": ["Operational Graph", "What the graph stores"],
+      "text": "The operational graph links every document to the decisions, stories and containers it describes, so agents can follow relations instead of searching text."
+    }
+  ]
+}
