@@ -60,6 +60,8 @@ jobs:
           VITE_GITHUB_REPO: ${{ vars.VITE_GITHUB_REPO }}
           VITE_GISCUS_REPO_ID: ${{ vars.VITE_GISCUS_REPO_ID }}
           VITE_GISCUS_CATEGORY_ID: ${{ vars.VITE_GISCUS_CATEGORY_ID }}
+          NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION: ${{ vars.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }}
+          WEBMCP_ORIGIN_TRIAL_TOKEN: ${{ vars.WEBMCP_ORIGIN_TRIAL_TOKEN }}
 
       - name: Check the build produced the site
         id: site
