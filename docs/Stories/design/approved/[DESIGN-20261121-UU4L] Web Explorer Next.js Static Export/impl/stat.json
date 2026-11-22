@@ -68,22 +68,30 @@
     },
     {
       "id": "test",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "c2eb9574-5f27-4117-82c1-025d3c25a9e6",
           "started_at": "2026-11-22T14:45:14.645Z",
-          "ended_at": null,
+          "ended_at": "2026-11-22T15:54:56.664Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": ["failed_check"]
     },
     {
       "id": "document",
-      "status": "pending",
-      "attempts": [],
+      "status": "active",
+      "attempts": [
+        {
+          "id": "de43085d-1c56-4773-8d91-a84b0580a338",
+          "started_at": "2026-11-22T15:55:06.616Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -4794,8 +4802,53 @@
       "kind": "work",
       "activity": "verification",
       "started_at": "2026-11-22T15:51:08.613Z",
+      "ended_at": "2026-11-22T15:54:56.664Z",
+      "last_observed_at": "2026-11-22T15:54:56.664Z"
+    },
+    {
+      "id": "c8a913e5-a729-4985-a4c0-f2c22b4fd89f",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T15:55:06.616Z",
+      "ended_at": "2026-11-22T15:59:09.497Z",
+      "last_observed_at": "2026-11-22T15:59:09.497Z"
+    },
+    {
+      "id": "4f7f28a5-1470-48d4-aab4-fa3326030450",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T15:59:09.497Z",
+      "ended_at": "2026-11-22T16:00:23.191Z",
+      "last_observed_at": "2026-11-22T16:00:23.191Z"
+    },
+    {
+      "id": "91002540-46dc-4481-8fd8-85264f8cee4b",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "RF-055 high contradiction: confirm accept-with-TD-2 and HLD wording",
+      "started_at": "2026-11-22T16:00:23.191Z",
+      "ended_at": "2026-11-22T16:05:10.033Z",
+      "last_observed_at": "2026-11-22T16:05:10.033Z"
+    },
+    {
+      "id": "f878394e-f018-4966-8879-bbea1a8481f0",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T16:05:10.033Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-22T15:51:08.613Z"
+      "last_observed_at": "2026-11-22T16:05:10.033Z"
     }
   ],
   "checks": [
@@ -8464,21 +8517,81 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "doc-audit-01",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "name": "Document deviation audit",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T16:00:23.067Z",
+      "ended_at": "2026-11-22T16:00:23.067Z",
+      "result": "passed",
+      "evidence_ref": "@architect HLD audit: 12 lines -> RF-016/017/029/032/034/035/036/037/041/055 reused (origin hld-audit), RF-046 extended and fixed (overrides fail closed), RF-056 (pre-existing NFR-A7/A8, out of scope) and RF-057 (stale Accessibility refs) new; CLAUDE.md fixed. One high contradiction: RF-055",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "doc-rf055-decision-01",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "name": "RF-055 HLD decision",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T16:05:10.078Z",
+      "ended_at": "2026-11-22T16:05:10.078Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'accept for now' — keep NFR-A17/A18 targets; HLD verification text records the Web Explorer ratchet and TD-2, Web Docs still a gap",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "doc-consistency-01",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "name": "Docs consistency review",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T16:36:27.979Z",
+      "ended_at": "2026-11-22T16:36:27.979Z",
+      "result": "passed",
+      "evidence_ref": "@architect: round 1 22 findings, round 2 3, round 3 none; all fixed via @docs-writer (RF-058); web-docs build passes, 107 indexed pages, no dead links; graph re-indexed",
+      "source": "self",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "doc-signoff-01",
+      "stage_id": "document",
+      "stage_attempt_id": "de43085d-1c56-4773-8d91-a84b0580a338",
+      "step": null,
+      "name": "Document sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T16:37:07.428Z",
+      "ended_at": "2026-11-22T16:37:07.428Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'commit please' in reply to the Document sign-off and proposed commits",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T15:54:36.322Z",
+    "as_of": "2026-11-22T16:37:07.569Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 10076.514999999998,
-    "observed_wait_seconds": 5884.581999999999,
+    "observed_work_seconds": 10621.140999999996,
+    "observed_wait_seconds": 6171.423999999999,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 910.4670000000015,
+    "unclassified_seconds": 2630.2460000000065,
     "rework_seconds": 173.674,
     "blocked_seconds": 487.464,
-    "approval_wait_seconds": 3154.2529999999997,
+    "approval_wait_seconds": 3441.095,
     "failed_checks": 5,
     "first_pass_verification_rate": 0.8709677419354839,
     "human_reported_seconds": null,
@@ -8487,43 +8600,43 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-22T15:54:36.315Z",
+    "as_of": "2026-11-22T16:37:07.561Z",
     "source": "2-report.md",
-    "source_sha256": "e879f00e74f2d0a6951f0b534e1d96d46754c85242a32ba5fc50b4b0ad4a7f29",
+    "source_sha256": "124df740548940e00db862279b27a2b045874f6daf966e6e48934631faec98bf",
     "findings": {
-      "total": 55,
+      "total": 58,
       "by_kind": {
-        "deviation": 11,
+        "deviation": 13,
         "bug": 17,
-        "design": 7,
+        "design": 6,
         "improve": 9,
         "security": 2,
         "performance": 3,
-        "docs": 6
+        "docs": 8
       },
       "by_severity": {
         "critical": 0,
         "high": 7,
-        "medium": 10,
+        "medium": 11,
         "low": 32,
-        "info": 6
+        "info": 8
       },
       "by_classification": {
-        "introduced": 41,
-        "pre-existing": 2,
+        "introduced": 43,
+        "pre-existing": 3,
         "ruled-out": 1,
         "advisory": 11
       },
       "by_resolution": {
-        "open": 7,
-        "fixed": 44,
-        "accepted": 3,
+        "open": 0,
+        "fixed": 43,
+        "accepted": 4,
         "tech-debt": 1,
-        "doc-updated": 0
+        "doc-updated": 10
       },
       "deviations_by_type": {
-        "contradiction": 2,
-        "extension": 7,
+        "contradiction": 5,
+        "extension": 6,
         "omission": 2
       },
       "pr_review": {
@@ -8564,14 +8677,6 @@
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": [
-      "RF-016: open",
-      "RF-017: open",
-      "RF-029: open",
-      "RF-032: open",
-      "RF-034: open",
-      "RF-035: open",
-      "RF-037: open"
-    ]
+    "closure_issues": []
   }
 }
