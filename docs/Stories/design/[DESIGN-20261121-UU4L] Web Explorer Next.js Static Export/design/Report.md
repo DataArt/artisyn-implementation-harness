@@ -32,10 +32,10 @@ Migrate `web-explorer` from Vite to Next.js, switching the SPA to SSG to improve
 ## State
 
 ```yaml
-current_stage: evaluate
-completed_stages: [context-gathering, ceremony, frame, research]
-selected_artifacts: []
-next_action: 'Evaluate commit, then Solution'
+current_stage: solution
+completed_stages: [context-gathering, ceremony, frame, research, evaluate]
+selected_artifacts: [architecture, design, stack, efforts]
+next_action: 'Solution commit, then Review Gate (draft MR)'
 context_fingerprint: 'a1f1997'
 ```
 
@@ -83,7 +83,7 @@ their resolution here; do not rely on conversation history for design provenance
 | Ticket | DESIGN-20261121-UU4L                                                                                                                                                                |
 | Branch | `docs/design-20261121-uu4l-web-explorer-nextjs-static-export`                                                                                                                       |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution 🔄 · 🔎 Review ⏳ · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
 
 ---
 
@@ -93,20 +93,20 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 9m 11s · Wait to date: 1h 5m 42s (closed 1h 5m 42s + current 0s) · Unclassified: 9h 31m 10s
+Observed work: 36m 10s · Wait to date: 1h 14m 26s (closed 1h 14m 26s + current 0s) · Unclassified: 9h 31m 10s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work   | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------ | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-21T22:24:32.842Z | 2026-11-21T22:35:44.039Z | 11m 11s     | 0s     | 11m 11s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-21T22:35:49.459Z | 2026-11-21T22:37:26.297Z | 1m 37s      | 0s     | 1m 36s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (completed)             | 2026-11-21T22:37:26.358Z | 2026-11-21T22:54:17.691Z | 16m 51s     | 2m 50s | 14m 1s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (completed)          | 2026-11-21T22:54:17.749Z | 2026-11-22T08:48:54.205Z | 9h 54m 36s  | 0s     | 23m 33s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (active)             | 2026-11-22T08:48:54.262Z | unavailable              | unavailable | 6m 20s | 15m 21s | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
-| solution (pending)            | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s     | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-21T22:24:32.842Z | 2026-11-21T22:35:44.039Z | 11m 11s     | 0s      | 11m 11s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-21T22:35:49.459Z | 2026-11-21T22:37:26.297Z | 1m 37s      | 0s      | 1m 36s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-21T22:37:26.358Z | 2026-11-21T22:54:17.691Z | 16m 51s     | 2m 50s  | 14m 1s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (completed)          | 2026-11-21T22:54:17.749Z | 2026-11-22T08:48:54.205Z | 9h 54m 36s  | 0s      | 23m 33s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (completed)          | 2026-11-22T08:48:54.262Z | 2026-11-22T09:12:36.824Z | 23m 43s     | 6m 20s  | 17m 22s | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
+| solution (active)             | 2026-11-22T09:12:36.868Z | unavailable              | unavailable | 26m 59s | 6m 43s  | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
+| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -136,6 +136,35 @@ _From Research OQ triage (2026-11-22). Tiers confirmed at the Research sign-off 
 | D2 OQ-6  | Build-time network access to Google Fonts for `next/font`, or vendor font files?                                                                | (E) | Open — developer                                                                                                                                                                                                                                                                              |
 | D2 OQ-7  | Playwright in CI for the browser CSP check, plus an HTML parser dependency?                                                                     | (E) | Open — developer                                                                                                                                                                                                                                                                              |
 | D2 OQ-8  | Remove dead `scripts/ci/lambda-edge-deploy.sh` here or separately?                                                                              | (E) | Open — developer                                                                                                                                                                                                                                                                              |
+
+### Solution — preliminary concern scan and specification session (2026-11-22)
+
+Artifacts selected: `architecture` (Web Explorer build/rendering model and the Web Portal input contract change), `design` (one file per decision: component boundary, routing, metadata, post-export security step), `stack` (framework replacement, new and removed dependencies), `efforts` (multi-slice migration with ordering and a single switch-over). None omitted.
+
+| Concern                      | Status        | Evidence / resolution                                                                                                                          |
+| ---------------------------- | ------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| Boundaries and ownership     | Material      | Web Explorer build changes; Web Portal input path and assertions change; Web Docs untouched — Architecture.md                                  |
+| User and business behavior   | Material      | URL scheme, legacy hash links, `/get-started` first paint, 404 — Design (D1); developer answers 1, 2, 3, 6                                     |
+| Data and state               | Informational | No data store; route registry and dogfood `graph.json` are build-time inputs only                                                              |
+| Interfaces and compatibility | Material      | Old hash URLs (no in-repo hash links found by `git grep`, 2026-11-22; external links only) — legacy redirect in Design (D1)                    |
+| Security and privacy         | Material      | Hashed meta CSP, hardening, structured data within NFR-7, fonts self-hosted (no visitor IP to Google) — Design (D2); answers 4, 5              |
+| Reliability and recovery     | Material      | Missed-hash failure, root 404 spanning `/docs/`, revert path — Architecture.md flows; answers 1, 7                                             |
+| Performance and capacity     | Material      | Gzip budget on `/`, GitHub Pages limits (EC11) — Architecture.md decision register                                                             |
+| Operations and delivery      | Material      | Nx targets kept, output `out/`, post-export step and gates inside `web-explorer:build`, Playwright job — Architecture.md, Efforts.md; answer 7 |
+| Cost and licensing           | Informational | Free hosting; Inter under SIL OFL 1.1 (licence file committed with the fonts)                                                                  |
+| Compliance and policy        | Material      | GitHub Pages permitted use and limits (EC11) → new NFR at Publish                                                                              |
+| Evolution and migration      | Material      | One integration branch, single revertable switch-over; dead `lambda-edge-deploy.sh` removed — Efforts.md; answer 8                             |
+
+Developer answers (all proposed defaults accepted, 2026-11-22):
+
+1. One root 404 page (from `app/not-found.tsx`) with links to Home and Docs; it also answers `/docs/` misses.
+2. `trailingSlash: true`; canonical URLs and the sitemap use the trailing-slash form.
+3. `/comic`: `noindex` and excluded from the sitemap.
+4. Structured data: schema.org JSON-LD (`WebSite` + `SoftwareSourceCode`) on the landing page only, injected by the post-export step; no raw `<script>` in source.
+5. Fonts: Inter `woff2` files committed and loaded with `next/font/local` (developer asked about `next/font/google`; both self-host at runtime; local chosen for a deterministic, offline build).
+6. `/get-started`: pre-render the default selection, apply the query after hydration; fixed panel heights so the switch causes no layout shift.
+7. Playwright job in CI (Chromium only) loads every route from `out/` and fails on any CSP violation or hydration error; the static hash-coverage gate stays the build gate.
+8. Remove dead `scripts/ci/lambda-edge-deploy.sh` in this change as a small cleanup ticket.
 
 ---
 
@@ -185,6 +214,35 @@ _Recommended option: Option C1 — per-page meta CSP with build-time SHA-256 has
 
 Full elaboration: `design/02 Evaluate - Security Header Delivery.md`
 
+### Review — solution — 2026-11-22 [pillars: all]
+
+_Target: `solution/Architecture.md` + both `solution/Design - *.md`. Reviewer: @architect (round 2, read-only)._
+
+| Pillar                 | Rating | Headline                                                                                                                                                               |
+| ---------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Operational Excellence | 🟡     | Gates run inside the cached build; preview re-signs a copy; integration branch now covered by a draft PR to `main`                                                     |
+| Security               | 🟡     | Strictest policy GitHub Pages allows (`default-src 'none'`, per-page hashes, path-scoped); header-only protections and Web Docs' weaker policy remain (accepted)       |
+| Reliability            | 🟡     | Build fails closed on hash gaps, e2e backs it up, rollback is one revert                                                                                               |
+| Performance Efficiency | 🟡     | Pre-rendered pages, static sections ship no JS; 300 KB gzip ceiling is ~2× today's 147 KB until the first measurement tightens it; Lighthouse evidence added to unit 7 |
+| Cost Optimization      | 🟢     | Free hosting, no new services, Chromium only on affected PRs                                                                                                           |
+| Sustainability         | 🟢     | Static output, vendored fonts, least client JS of the App Router options, 86 MB of 1 GB                                                                                |
+
+**P1 items:**
+
+- Search Console verification file vs post-export/gate scope → **resolved**: verification moved to `metadata.verification.google` (meta tag, no file); D23 and Design/Efforts updated.
+
+**P2 items carried into implementation:**
+
+- Owner and response time for Next.js patch releases when `yarn npm audit --severity moderate` fails (now that `next` is a dependency).
+- Applied in the solution files: `addInitScript` violation listener + "Refused to" console check; Pages content-type emulation; gates driven by the route registry + `404.html`; workspace-scoped Playwright install; Playwright output gitignored; `<site>/` scope covering `/docs/` stated.
+
+**P3 (backlog):** keep e2e specs out of `build` inputs via a `production` namedInput; measure the cost of the synchronous legacy-redirect script on `/`; watch per-page HTML size (RSC flight data); Trusted Types spike (D2 OQ-5).
+
+### Solution — architect review and quality gate — 2026-11-22
+
+- **Architect review (Step 2b):** round 1 — 7 material (M1–M7) + 13 mechanical (m1–m13) on `Architecture.md`; mechanical applied, material resolutions drafted for developer sign-off. Round 2 (all five files) — round-1 items resolved consistently; 1 material (Search Console file vs post-export scope, resolved via meta tag) + 9 mechanical, all applied. Two-round limit reached.
+- **Quality gate (`patterns/design-quality-gate.md`):** (1) EC1–EC11 map to decisions D1–D23 — EC4's Core Web Vitals now verified by Lighthouse evidence (unit 7); (2) every material concern in the preliminary scan has an artifact or developer answer; (3) solution files hold decisions only (Considered Options appendix excepted); (4) Design/Stack/Efforts add no decision absent from `Architecture.md` (round-2 gaps — Turbopack, `next/dynamic ssr:false`, `parse5` — added to D1/D2/D19); (5) all 25 Mermaid diagrams parse with mermaid 11 in a scratchpad harness (repo `mmdc` is broken: `ERR_MODULE_NOT_FOUND`); two sequence-diagram parse errors (semicolons inside messages) found by the developer and fixed; (6) all 34 relative links resolve. **Result: pass.** Material resolutions confirmed by the developer at the Solution sign-off (2026-11-22).
+
 ---
 
 ## Gate
@@ -203,6 +261,7 @@ Full elaboration: `design/02 Evaluate - Security Header Delivery.md`
 | 2026-11-21 | Frame    | 6 known requirements, 4 proposed requirements accepted; 2 decisions confirmed (SEO/metadata merged into Decision 1)                                                                                                                                                                                                                                                                                           |
 | 2026-11-22 | Research | @architect returned 4 options per decision. D1: A catch-all + React Router, B App Router shell per route, C App Router Server Components, D Pages Router. D2: A meta CSP unsafe-inline, B meta hardening, C per-page hashed meta CSP, D edge layer. Developer confirmed the sets; D2 Option D ruled out (no custom domain); developer direction D1 = Option B                                                 |
 | 2026-11-22 | Evaluate | Recommended D1 Option C (App Router, Server Components by default, client islands; revised from B at sign-off) and D2 Option C1 (per-page hashed meta CSP + hardening; strict floor confirmed). Spike on Next.js 16.4.6 measured inline scripts and baselines; EC11 GitHub Pages limits added. WAF D1: 🟢🟡🟢🟢🟢🟢; D2: 🟡🟡🟡🟢🟢🟢; 2 P1 items (gzip budget on `/` enforced in CI; CSP hash-coverage gate) |
+| 2026-11-22 | Solution | Selected artifacts written (Architecture, Design ×2, Stack, Efforts); architect review 2 rounds (8 material, 22 mechanical — all resolved, material confirmed by developer); WAF review: 1 P1 resolved (Search Console via meta tag); quality gate pass. Estimates deliberately left empty by the developer                                                                                                   |
 
 ---
 
