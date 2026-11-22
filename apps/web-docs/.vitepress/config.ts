@@ -68,10 +68,14 @@ export default withMermaid(
         siteConfig.outDir,
         base,
         siteConfig.site.title,
-        siteConfig.site.description
+        siteConfig.site.description,
+        path.join(siteConfig.srcDir, 'public')
       );
       if (index.entries.length === 0)
         throw new Error('agent-index: no pages found in the build output');
+      const empty = index.entries.filter((e) => !e.title || !e.text).map((e) => e.path);
+      if (empty.length > 0)
+        throw new Error(`agent-index: pages without a title or text: ${empty.join(', ')}`);
       const indexFile = path.join(siteConfig.outDir, 'agent-index.json');
       fs.writeFileSync(indexFile, JSON.stringify(index));
       const bytes = fs.statSync(indexFile).size;

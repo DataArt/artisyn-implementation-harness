@@ -139,8 +139,8 @@ function buildEntry(
   // Article content. The home layout's .vp-doc is an empty slot under the hero, so a
   // .vp-doc without text falls back to the home container.
   const article = find(doc, (el) => hasClass(el, 'vp-doc'));
-  const content =
-    article && textOf(article) ? article : (find(doc, (el) => hasClass(el, 'VPHome')) ?? article);
+  const articleText = article ? textOf(article) : '';
+  const content = articleText ? article : (find(doc, (el) => hasClass(el, 'VPHome')) ?? article);
 
   const headings = content
     ? findAll(content, (el) => el.tagName === 'h1' || el.tagName === 'h2' || el.tagName === 'h3')
@@ -156,7 +156,7 @@ function buildEntry(
     title,
     description,
     headings,
-    text: content ? textOf(content) : '',
+    text: content === article ? articleText : content ? textOf(content) : '',
   };
 }
 
@@ -172,31 +172,29 @@ function capText(text: string, cap: number): string {
  * Builds the docs agent index from the built site in `outDir` (run after the
  * VitePress build). `base` is the VitePress `base`; `siteTitle` is stripped
  * from `<title>` (VitePress renders `:title | siteTitle`); a description equal to
- * `siteDescription` (the site-wide fallback) is left empty.
+ * `siteDescription` (the site-wide fallback) is left empty. Files copied from `publicDir`
+ * (VitePress's `public/`) are assets, not pages, and are skipped.
  */
 export function buildAgentIndex(
   outDir: string,
   base: string,
   siteTitle: string,
-  siteDescription: string
+  siteDescription: string,
+  publicDir?: string
 ): AgentIndexResult {
   if (!base.startsWith(SITE_ROOT))
     throw new Error(`agent-index: base "${base}" is not under "${SITE_ROOT}"`);
   const docsPrefix = `/${base.slice(SITE_ROOT.length)}`;
 
-  const files = listHtmlFiles(outDir)
-    .filter((f) => path.relative(outDir, f) !== '404.html')
-    .sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+  const isPublicAsset = (file: string) =>
+    publicDir !== undefined && fs.existsSync(path.join(publicDir, path.relative(outDir, file)));
+  const pages = listHtmlFiles(outDir)
+    .filter((f) => path.relative(outDir, f) !== '404.html' && !isPublicAsset(f))
+    .map((file) => ({ file, link: pageLink(outDir, file) }))
+    .sort((a, b) => (a.link < b.link ? -1 : a.link > b.link ? 1 : 0));
 
-  const entries = files.map((file) =>
-    buildEntry(
-      fs.readFileSync(file, 'utf8'),
-      pageLink(outDir, file),
-      base,
-      docsPrefix,
-      siteTitle,
-      siteDescription
-    )
+  const entries = pages.map(({ file, link }) =>
+    buildEntry(fs.readFileSync(file, 'utf8'), link, base, docsPrefix, siteTitle, siteDescription)
   );
 
   const index: AgentIndex = { source: 'docs', entries };
