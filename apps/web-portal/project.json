@@ -10,6 +10,7 @@
       "executor": "nx:run-commands",
       "cache": true,
       "dependsOn": ["web-explorer:build", "web-docs:build"],
+      "inputs": ["default", "^default", "{workspaceRoot}/scripts/ci/portal-assemble.ts"],
       "outputs": ["{projectRoot}/dist"],
       "options": {
         "command": "tsx scripts/ci/portal-assemble.ts"
