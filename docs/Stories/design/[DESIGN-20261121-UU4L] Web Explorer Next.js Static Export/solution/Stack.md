@@ -3,8 +3,8 @@ type: Solution Stack
 title: 'DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Stack'
 description: Technologies added to and removed from Web Explorer for the Next.js static export, their versions, compatibility constraints, next.config.ts and the Nx target shape
 tags: [web-explorer, nextjs, stack, nx, playwright, solution]
-generated: { by: process:design-solution, at: 2026-11-22T12:00:00Z }
-updated: { by: process:design-solution, at: 2026-11-22T13:30:00Z }
+generated: { by: process:design-solution, at: 2026-11-22T10:02:37Z }
+updated: { by: process:design-solution, at: 2026-11-22T10:02:37Z }
 ---
 
 # DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Stack

@@ -1,10 +1,11 @@
 ---
+id: dbd128b0
 type: Solution Architecture
 title: 'DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Architecture'
 description: Settled solution for rebuilding Web Explorer as a Next.js App Router static export with per-page HTML, metadata and a hashed meta CSP, assembled by Web Portal for GitHub Pages
 tags: [web-explorer, web-portal, nextjs, ssg, csp, seo, github-pages, solution]
-generated: { by: process:design-solution, at: 2026-11-22T11:00:00Z }
-updated: { by: process:design-solution, at: 2026-11-22T13:30:00Z }
+generated: { by: process:design-solution, at: 2026-11-22T10:02:37Z }
+updated: { by: process:design-solution, at: 2026-11-22T10:02:37Z }
 ---
 
 # DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Architecture

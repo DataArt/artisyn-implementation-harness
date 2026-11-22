@@ -5,7 +5,7 @@ title: System Overview
 description: Purpose, containers, and data flow for the ADLC Discovery Tool platform
 tags: [system-overview, containers, data-flow, hld, log-hub, harness-release-pipeline]
 generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
-updated: { by: process:okf-migration, at: 2026-11-17T20:12:13Z }
+updated: { by: process:design-publish, at: 2026-11-22T10:05:00Z }
 ---
 
 # System Overview
@@ -18,7 +18,7 @@ ADLC Discovery Tool is a static documentation site delivering an AI-first SDLC a
 
 | Container                  | Responsibility                                                                                                                                                                                                                                                                                    | Stack                                                                                           |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Web Explorer               | Promotional single-page app                                                                                                                                                                                                                                                                       | React 19 · Vite · Tailwind 4 · Motion                                                           |
+| Web Explorer               | Promotional multi-route site, pre-rendered to one static page per route at build time                                                                                                                                                                                                             | Next.js 16 (App Router, static export) · React 19 · Tailwind 4 · Motion                         |
 | Web Docs                   | Static documentation site rendered from Markdown via VitePress                                                                                                                                                                                                                                    | VitePress 1.x · Vite                                                                            |
 | Web Portal                 | Build-time composition of Web Explorer's and Web Docs's static builds into one deployable artifact tree — no application source, no runtime of its own                                                                                                                                            | Nx (`nx:run-commands`) · TypeScript                                                             |
 | Discuss                    | Client-side comments widget on doc pages, backed by GitHub Discussions — no infra of our own                                                                                                                                                                                                      | giscus (external)                                                                               |
@@ -40,7 +40,7 @@ flowchart LR
     GH["📦 GitHub Repo\nmain branch"]:::repo
 
     subgraph CI_BOX ["  GitHub Actions — Deploy web (every push to main; deploys when the site is affected)  "]
-        EXP_BUILD["⚙️ web-explorer:build"]:::ci
+        EXP_BUILD["⚙️ web-explorer:build\nnext build + post-export + gates"]:::ci
         DOCS_BUILD["⚙️ web-docs:build"]:::ci
         PORTAL_BUILD["⚙️ web-portal:build\n(assemble + assert)"]:::ci
         CFGP["🛠️ configure-pages"]:::ci
@@ -72,7 +72,7 @@ _Not shown here: the comments runtime flow (`Containers/Discuss.md`); the dev-to
 ## Design principles
 
 - Region is deployment configuration — never hardcoded in source or documentation
-- Content is static — no server-side rendering, no database, no runtime compute we operate (excludes third-party client-side widgets that call external services directly from the browser, e.g. giscus; also excludes opt-in, contributor-machine-only dev tooling with no deployed-site presence, e.g. Implementation Harness E2E, Log Hub)
+- Content is pre-rendered to static files at build time — no request-time rendering, no database, no runtime compute we operate (excludes third-party client-side widgets that call external services directly from the browser, e.g. giscus; also excludes opt-in, contributor-machine-only dev tooling with no deployed-site presence, e.g. Implementation Harness E2E, Log Hub)
 - Carve-out: `docs/.og/docs-operational-graph.sqlite` is a build-time-produced, read-only SQLite file queried in-browser via `sql.js` (WASM) — a first-party query engine over first-party static data, not server-side compute we operate
 
 ## Tooling

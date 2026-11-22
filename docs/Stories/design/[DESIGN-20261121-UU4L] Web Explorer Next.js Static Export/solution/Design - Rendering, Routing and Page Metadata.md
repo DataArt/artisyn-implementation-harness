@@ -3,8 +3,8 @@ type: Solution Design
 title: 'DESIGN-20261121-UU4L: Rendering, Routing and Page Metadata — Design'
 description: App Router structure, server/client boundary, route registry, path routing with the legacy hash redirect, and per-page metadata for the Web Explorer Next.js static export
 tags: [web-explorer, nextjs, app-router, routing, seo, metadata, solution]
-generated: { by: process:design-solution, at: 2026-11-22T12:00:00Z }
-updated: { by: process:design-solution, at: 2026-11-22T13:30:00Z }
+generated: { by: process:design-solution, at: 2026-11-22T10:02:37Z }
+updated: { by: process:design-solution, at: 2026-11-22T10:02:37Z }
 ---
 
 # DESIGN-20261121-UU4L: Rendering, Routing and Page Metadata — Design

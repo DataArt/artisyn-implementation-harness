@@ -2,90 +2,124 @@
 id: 3a7c9e1d
 type: Container
 title: Web Explorer Container
-description: 'Design intent for the Web Explorer container: the promotional multi-route app (landing page, Inside the Loop section and standalone pages such as Dogfood) built with React and Vite'
-tags: [web-explorer, react, vite, tailwind, hld, inside-the-loop, dogfood, hashrouter]
+description: 'Design intent for the Web Explorer container: the promotional multi-route site, a Next.js App Router static export with one pre-rendered page per route'
+tags:
+  [web-explorer, react, nextjs, static-export, tailwind, csp, seo, hld, inside-the-loop, dogfood]
 generated: { by: process:okf-migration, at: 2026-11-09T02:09:56Z }
-updated: { by: process:dev-document, at: 2026-11-21T22:00:00Z }
+updated: { by: process:design-publish, at: 2026-11-22T10:15:00Z }
 ---
 
 # Web Explorer Container
 
-Promotional multi-route app at `apps/web-explorer`, owned by the Web layer alongside Web Docs and Web Portal. Routes sit under a client-side `HashRouter`: the landing page at `/`, an `/inside-the-loop` section (a hub page plus 10 routed detail pages), and standalone pages, among them `/dogfood`.
+Promotional multi-route site at `apps/web-explorer`, owned by the Web layer alongside Web Docs and Web Portal. It is a Next.js 16.4.x App Router app exported to static files at build time. Every route is its own `<route>/index.html` at a trailing-slash path URL: `/`, `/inside-the-loop/` (a hub page plus 10 detail pages), `/get-started/`, `/docs-flow/`, `/dogfood/` and `/comic/`.
 
 ## Baseline diagram
 
 ```mermaid
 flowchart LR
     subgraph SOURCE ["  Source (apps/web-explorer/)  "]
-        SRC["⚛️ React 19 SPA source\nJSX components"]:::source
-        STYLE["🎨 Tailwind CSS 4\n@tailwindcss/vite"]:::source
-        MOTION["🎞️ Motion + Lucide React\nanimation & icons"]:::source
+        SRC["⚛️ src/app\nServer Components + client islands"]:::source
+        REG["🗂️ Route registry\nsrc/routes.ts"]:::source
+        STYLE["🎨 Tailwind CSS 4\n@tailwindcss/postcss"]:::source
+        FONTS["🔤 Vendored fonts\nInter + DM Sans woff2"]:::source
         SNAP["🕸️ Docs graph snapshot\ncommitted, refreshed by hand"]:::snapshot
     end
 
-    BUILD["🔨 Vite build\nyarn nx run web-explorer:build"]:::build
-    BUDGET["📏 bundle-size budget check"]:::budget
+    subgraph BUILD_BOX ["  yarn nx run web-explorer:build  "]
+        NEXT["🔨 next build\nTurbopack, output: 'export'\ntelemetry off"]:::build
+        POST["✍️ Post-export step\nscripts/post-export.mjs\nCSP meta per page\nJSON-LD + legacy redirect tag on /"]:::build
+        CHECK["🛡️ scripts/check-site.mjs\nhash coverage +\nmetadata completeness"]:::budget
+        BUDGET["📏 scripts/check-bundle-budget.mjs\ngzip ≤ 300 KB on /"]:::budget
+    end
 
-    DIST["📦 Static output\napps/web-explorer/dist/"]:::dist
+    OUT["📦 Static output\napps/web-explorer/out/\none index.html per route\n404.html, sitemap.xml, _next/"]:::dist
 
-    SRC --> BUILD
-    STYLE --> BUILD
-    MOTION --> BUILD
-    SNAP -->|"Dogfood page"| BUILD
-    BUILD --> BUDGET --> DIST
+    SRC --> NEXT
+    REG -->|"metadata, sitemap, nav"| NEXT
+    STYLE --> NEXT
+    FONTS --> NEXT
+    SNAP -->|"Dogfood page"| NEXT
+    NEXT -->|"writes"| OUT
+    POST -.->|"1 · rewrites in place"| OUT
+    CHECK -.->|"2 · reads"| OUT
+    BUDGET -.->|"3 · reads"| OUT
 
-    classDef source fill:#4A90D9,stroke:#2C5F8A,color:#fff
+    classDef source   fill:#4A90D9,stroke:#2C5F8A,color:#fff
     classDef snapshot fill:#4B5563,stroke:#374151,color:#fff
-    classDef build  fill:#D97706,stroke:#B45309,color:#fff
-    classDef budget fill:#8E44AD,stroke:#6C3483,color:#fff
-    classDef dist   fill:#065F46,stroke:#064e3b,color:#fff
+    classDef build    fill:#D97706,stroke:#B45309,color:#fff
+    classDef budget   fill:#8E44AD,stroke:#6C3483,color:#fff
+    classDef dist     fill:#065F46,stroke:#064e3b,color:#fff
+
+    style SOURCE fill:#EFF6FF,stroke:#4A90D9,color:#0f172a
+    style BUILD_BOX fill:#F8FAFC,stroke:#CBD5E1,color:#0f172a
 ```
 
-`apps/web-explorer/dist/` is consumed by Web Portal's composition step (see `Containers/Web Portal.md`), not uploaded to GitHub Pages directly.
+`apps/web-explorer/out/` is consumed by Web Portal's composition step (see [Web Portal](Web%20Portal.md)), not uploaded to GitHub Pages directly. Any gate failure stops `web-explorer:build`, so nothing is assembled or deployed.
 
 ## Responsibilities
 
-- Render the promotional landing page and the `/inside-the-loop` section as JSX components — no raw HTML string injection and no `<script>` tags in the rendered output (NFR-7)
-- Route all pages client-side under a single `HashRouter`: `/` for the landing page, `/inside-the-loop` for the hub page plus its 10 detail pages, and `/dogfood` for the Dogfood page, which is linked from the header nav
-- Render the Dogfood page: how this repo runs the harness on itself, with a read-only view of this repo's operational graph
-- Produce a static build at `apps/web-explorer/dist/` with no server runtime of its own
-- Enforce a bundle-size budget against the landing page's own entry chunk — route-based code-splitting (`React.lazy()`) keeps every other route's chunk (including `/inside-the-loop` and `/dogfood`) out of that measurement regardless of its size
+- Render every page at build time with Server Components. A component is `'use client'` only when it uses state, effects, event handlers, browser APIs or `motion`.
+- Route with App Router file routes. In-page anchors are plain `/#<id>` links. React Router is not used.
+- Redirect legacy `#/<path>?<query>` links to their path URL with the query kept. The external `legacy-hash-redirect.js` does this, loaded on `/` only.
+- Generate per-page metadata from the route registry, plus `sitemap.xml` and schema.org JSON-LD on `/` only. `/comic/` is `noindex` and absent from the sitemap (NFR-18).
+- Export the root `404.html` from `app/not-found.tsx`, with links to Home and Docs.
+- Give every exported page its own hashed meta Content Security Policy (NFR-16).
+- Render the Dogfood page: how this repo runs the harness on itself, with a read-only view of this repo's operational graph.
+- Enforce a gzip budget on the JavaScript and CSS the landing page `/` loads first (NFR-19).
 
 ## Technology
 
-| Component        | Choice                                                                       |
-| ---------------- | ---------------------------------------------------------------------------- |
-| UI framework     | React `^19.3.1`                                                              |
-| Build tool       | Vite, pinned to a major compatible with root TypeScript `^5.7.0` and Node 24 |
-| Language         | TypeScript `^5.7.0`                                                          |
-| Styling          | Tailwind CSS `^4.3.5` via `@tailwindcss/vite`                                |
-| Animation        | Motion `^14.10.1`                                                            |
-| Icons            | Lucide React `^1.70.0`, `simple-icons`                                       |
-| Routing          | `react-router-dom` (`HashRouter`)                                            |
-| Dependency graph | `@xyflow/react` — the `/inside-the-loop` hub page's dependency-graph map     |
-| Chart data       | `d3-array`, `d3-scale`                                                       |
+| Component                | Choice                                                                    |
+| ------------------------ | ------------------------------------------------------------------------- |
+| Framework                | Next.js `~16.4.6` — App Router, `output: 'export'`, Turbopack             |
+| UI library               | React `^19.3.1`                                                           |
+| Language                 | TypeScript `^5.7.0`                                                       |
+| Routing                  | App Router file routes, `next/link`, `next/navigation`                    |
+| Styling                  | Tailwind CSS `^4.3.5` via `@tailwindcss/postcss`                          |
+| Fonts                    | Inter + DM Sans `woff2`, vendored, loaded with `next/font/local`          |
+| Animation                | Motion `^14.10.1`                                                         |
+| Icons                    | Lucide React `^1.70.0`, `simple-icons`                                    |
+| Dependency graph         | `@xyflow/react` — the `/inside-the-loop/` hub page's dependency-graph map |
+| Chart data               | `d3-array`, `d3-scale`                                                    |
+| Build-time HTML handling | `parse5` — post-export step and `check-site.mjs`                          |
+| Browser checks           | `@playwright/test`, Chromium only — `web-explorer:e2e`                    |
 
 ## Boundary contracts
 
-- Input: React/JSX source, Tailwind config, root workspace `tsconfig.base.json`
-- Input: a committed, hand-refreshed snapshot of the docs operational graph, read by the Dogfood page; no CI step regenerates it
-- Output: deep links from the Dogfood page into the Web Docs site
-- Output: static HTML/CSS/JS in `apps/web-explorer/dist/`, consumed as an input to Web Portal's `portal-assemble.ts` composition step
-- Guarantee: content is rendered as JSX, not raw HTML — no `dangerouslySetInnerHTML` or raw `<script>` tags appear in the source (NFR-7)
-- Guarantee: `web-explorer:build` fails if the bundle-size budget check against the landing page's entry chunk does not pass
-- Guarantee: routing uses `HashRouter`, not `BrowserRouter` — this is a static artifact with no server to rewrite a deep link back to `index.html`; the hash-based approach needs zero GitHub Pages server configuration
+| Kind      | Contract                                                                                                                                                              |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Input     | App source under `src/`, the route registry, Tailwind config, vendored fonts, root `tsconfig.base.json`                                                               |
+| Input     | A committed, hand-refreshed snapshot of the docs operational graph, read by the Dogfood page; no CI step regenerates it                                               |
+| Input     | The harness version from `skills/implementation-harness/package.json`, inlined at build time                                                                          |
+| Input     | Build variables `NEXT_PUBLIC_REPO_URL`, `NEXT_PUBLIC_DOCS_URL`, `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`; each is a `build` input, so a change invalidates the Nx cache |
+| Output    | `apps/web-explorer/out/`: one `index.html` per route, `404.html`, `sitemap.xml`, `.nojekyll`, `_next/`; consumed by Web Portal's `portal-assemble.ts`                 |
+| Output    | Deep links from the Dogfood page and the 404 page into the Web Docs site                                                                                              |
+| Guarantee | Source contains no raw `<script>` and no `dangerouslySetInnerHTML` (NFR-7); the output's only scripts are those Next.js emits and those the post-export step injects  |
+| Guarantee | Routes export as `<route>/index.html`, which GitHub Pages serves with no rewrites                                                                                     |
+| Guarantee | `web-explorer:build` fails on the hash-coverage, metadata-completeness or gzip-budget gate (NFR-16, NFR-18, NFR-19)                                                   |
+| Guarantee | `web-explorer:e2e` fails the PR on a CSP violation, hydration error, broken legacy redirect, broken 404 or broken client navigation                                   |
+| Guarantee | Builds send no telemetry: `next build` runs with `NEXT_TELEMETRY_DISABLED=1`                                                                                          |
 
 ## Constraints
 
-- Served as static output only — no server-side runtime at request time, consistent with `System Overview.md`'s static-content design principle
-- `vite.config.ts` sets `base` explicitly to the GitHub Pages project-site root — a literal path string, the same convention Web Docs's `.vitepress/config.ts` already uses for its own `base`
+- Static output only: no rewrites, response headers, middleware or server actions, consistent with `System Overview.md`'s static-content design principle
+- The base path is a literal in `src/site.ts`, the same convention Web Docs's `.vitepress/config.ts` uses for its own `base`
+- GitHub Pages limits apply (NFR-17)
+- `preview` and `e2e` never modify `out/`
 - Joins the root Yarn workspace (`workspaces: ["apps/*"]`) and the single root lockfile — no isolated `package-lock.json`
 - One of three siblings in the Web layer: Web Explorer, [Web Docs](Web%20Docs.md), [Web Portal](Web%20Portal.md) — each has its own container doc
 
 ## Key paths
 
-| Path                               | Purpose                                                  |
-| ---------------------------------- | -------------------------------------------------------- |
-| `apps/web-explorer/`               | React/Vite SPA source and config                         |
-| `apps/web-explorer/dist/`          | Static build output (input to Web Portal composition)    |
-| `apps/web-explorer/vite.config.ts` | Build config, sets `base` to the Pages project-site root |
+| Path                                                | Purpose                                                            |
+| --------------------------------------------------- | ------------------------------------------------------------------ |
+| `apps/web-explorer/`                                | Next.js app source and config                                      |
+| `apps/web-explorer/next.config.ts`                  | Static export, base path, trailing slash, harness version          |
+| `apps/web-explorer/src/app/`                        | App Router file routes, layouts and `not-found.tsx`                |
+| `apps/web-explorer/src/routes.ts`                   | Route registry: path, title, description, social image, index flag |
+| `apps/web-explorer/src/site.ts`                     | Base path and site origin literals                                 |
+| `apps/web-explorer/scripts/post-export.mjs`         | Post-export step; `--resign` mode for `preview`                    |
+| `apps/web-explorer/scripts/check-site.mjs`          | Hash-coverage and metadata-completeness gates                      |
+| `apps/web-explorer/scripts/check-bundle-budget.mjs` | Gzip budget gate on `/`                                            |
+| `apps/web-explorer/public/legacy-hash-redirect.js`  | Legacy `#/` link redirect, loaded on `/` only                      |
+| `apps/web-explorer/out/`                            | Static build output (input to Web Portal composition)              |

@@ -5,7 +5,7 @@ title: Web Docs Container
 description: Design intent for the Web Docs container — the VitePress static documentation site, served under the /docs/ subpath
 tags: [web-docs, vitepress, hld]
 generated: { by: process:okf-migration, at: 2026-08-17T23:37:37Z }
-updated: { by: process:dev-document, at: 2026-11-21T22:20:00Z }
+updated: { by: process:design-publish, at: 2026-11-22T10:05:00Z }
 ---
 
 # Web Docs Container
@@ -81,6 +81,7 @@ A section `index.md` is navigation; the section's prose lives in its `00 Overvie
 - Nav is 9 fixed items hardcoded in `config.ts`; sidebar per section is generated at build time from directory scans, not configurable at runtime
 - Site title and description are tokenized in `config.ts`, not hardcoded per environment
 - The site is public — no auth gate sits in front of any route
+- Misses under `/<repo>/docs/` are answered by Web Explorer's root `404.html` (composed by Web Portal), not by a Web Docs page
 - One of three siblings in the Web layer: [Web Explorer](Web%20Explorer.md), Web Docs, [Web Portal](Web%20Portal.md) — each has its own container doc
 
 ## Key paths

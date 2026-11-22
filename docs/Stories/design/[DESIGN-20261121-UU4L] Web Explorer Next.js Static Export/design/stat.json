@@ -84,31 +84,50 @@
     },
     {
       "id": "solution",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "29d9634a-cad7-4272-938b-c2743f034d40",
           "started_at": "2026-11-22T09:12:36.868Z",
-          "ended_at": null,
+          "ended_at": "2026-11-22T09:46:58.239Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "review-gate",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "f56574b4-925b-4eef-9764-6cf4ae91473e",
+          "started_at": "2026-11-22T09:46:58.285Z",
+          "ended_at": "2026-11-22T09:46:58.449Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     },
     {
       "id": "address-feedback",
-      "status": "pending",
-      "attempts": []
+      "status": "skipped",
+      "attempts": [],
+      "skip_reason": "no_concerns",
+      "evidence_ref": "Developer self-approved without concerns; review gate waived by developer, 2026-11-22",
+      "skipped_at": "2026-11-22T09:46:58.396Z"
     },
     {
       "id": "publish",
-      "status": "pending",
-      "attempts": []
+      "status": "active",
+      "attempts": [
+        {
+          "id": "21b08767-84e0-4390-be51-d3363fad0008",
+          "started_at": "2026-11-22T09:46:58.508Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "completion",
@@ -526,8 +545,87 @@
       "reason": "user_input",
       "detail": "Awaiting solution commit",
       "started_at": "2026-11-22T09:46:19.249Z",
+      "ended_at": "2026-11-22T09:46:58.193Z",
+      "last_observed_at": "2026-11-22T09:46:58.193Z"
+    },
+    {
+      "id": "f520c296-7d35-4f23-9a58-b03a2dc4bcda",
+      "stage_id": "solution",
+      "stage_attempt_id": "29d9634a-cad7-4272-938b-c2743f034d40",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T09:46:58.193Z",
+      "ended_at": "2026-11-22T09:46:58.239Z",
+      "last_observed_at": "2026-11-22T09:46:58.239Z"
+    },
+    {
+      "id": "9f43f64d-9d81-405b-b695-1328f8d7bdc5",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "f56574b4-925b-4eef-9764-6cf4ae91473e",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T09:46:58.285Z",
+      "ended_at": "2026-11-22T09:46:58.449Z",
+      "last_observed_at": "2026-11-22T09:46:58.449Z"
+    },
+    {
+      "id": "940fe787-268c-46aa-8ae2-5727ca404ca0",
+      "stage_id": "publish",
+      "stage_attempt_id": "21b08767-84e0-4390-be51-d3363fad0008",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T09:46:58.508Z",
+      "ended_at": "2026-11-22T09:51:14.554Z",
+      "last_observed_at": "2026-11-22T09:51:14.554Z"
+    },
+    {
+      "id": "76fb9216-2d6a-4f93-a9e0-7dd0e53c25f8",
+      "stage_id": "publish",
+      "stage_attempt_id": "21b08767-84e0-4390-be51-d3363fad0008",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting doc-impact list confirmation (ambiguous rows)",
+      "started_at": "2026-11-22T09:51:14.554Z",
+      "ended_at": "2026-11-22T10:01:40.471Z",
+      "last_observed_at": "2026-11-22T10:01:40.471Z"
+    },
+    {
+      "id": "f344b4c8-7f5b-4605-8d2a-f2f96c0f0d83",
+      "stage_id": "publish",
+      "stage_attempt_id": "21b08767-84e0-4390-be51-d3363fad0008",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T10:01:40.471Z",
+      "ended_at": "2026-11-22T10:09:53.944Z",
+      "last_observed_at": "2026-11-22T10:09:53.944Z"
+    },
+    {
+      "id": "3e643d2e-68bb-4ea9-9093-608ae8b748db",
+      "stage_id": "publish",
+      "stage_attempt_id": "21b08767-84e0-4390-be51-d3363fad0008",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting publish sign-off",
+      "started_at": "2026-11-22T10:09:53.944Z",
+      "ended_at": "2026-11-22T11:07:06.955Z",
+      "last_observed_at": "2026-11-22T11:07:06.955Z"
+    },
+    {
+      "id": "a7104460-8d20-4467-b662-ff2e69e600a2",
+      "stage_id": "publish",
+      "stage_attempt_id": "21b08767-84e0-4390-be51-d3363fad0008",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T11:07:06.955Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-22T09:46:19.249Z"
+      "last_observed_at": "2026-11-22T11:07:06.955Z"
     }
   ],
   "checks": [
@@ -706,24 +804,72 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "gate-round-01",
+      "stage_id": "review-gate",
+      "stage_attempt_id": "f56574b4-925b-4eef-9764-6cf4ae91473e",
+      "step": null,
+      "design_revision": 1,
+      "name": "Design approval",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T09:46:58.336Z",
+      "ended_at": "2026-11-22T09:46:58.336Z",
+      "result": "passed",
+      "evidence_ref": "Developer self-approved in chat ('self-approved by me', 2026-11-22) and asked to skip the draft MR review gate; no MR opened. Solution commit 4344e59",
+      "source": "developer confirmation",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "publish-arch-review-01",
+      "stage_id": "publish",
+      "stage_attempt_id": "21b08767-84e0-4390-be51-d3363fad0008",
+      "step": null,
+      "design_revision": 1,
+      "name": "Publish architect review",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T10:09:53.797Z",
+      "ended_at": "2026-11-22T10:09:53.797Z",
+      "result": "passed",
+      "evidence_ref": "Pass 1: 5 corrections + 4 trims applied; pass 2: OK (2026-11-22)",
+      "source": "@architect",
+      "exit_code": null,
+      "signal": null
+    },
+    {
+      "id": "publish-signoff-01",
+      "stage_id": "publish",
+      "stage_attempt_id": "21b08767-84e0-4390-be51-d3363fad0008",
+      "step": null,
+      "design_revision": 1,
+      "name": "Publish sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T11:07:07.000Z",
+      "ended_at": "2026-11-22T11:07:07.000Z",
+      "result": "passed",
+      "evidence_ref": "Developer approved published docs ('good to go, commit'), incl. added Dogfood term, 2026-11-22",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T09:46:19.249Z",
+    "as_of": "2026-11-22T11:07:07.117Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 2170.6459999999997,
-    "observed_wait_seconds": 4466.371,
+    "observed_work_seconds": 2920.3749999999995,
+    "observed_wait_seconds": 8564.243,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 4466.371,
-    "unclassified_seconds": 34269.442,
+    "wait_seconds_to_date": 8564.243,
+    "unclassified_seconds": 34269.708999999995,
     "rework_seconds": 100.486,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 3701.4339999999997,
+    "approval_wait_seconds": 7760.361999999999,
     "failed_checks": 1,
-    "first_pass_verification_rate": 0.8333333333333334,
+    "first_pass_verification_rate": 0.875,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"

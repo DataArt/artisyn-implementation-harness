@@ -32,10 +32,11 @@ Migrate `web-explorer` from Vite to Next.js, switching the SPA to SSG to improve
 ## State
 
 ```yaml
-current_stage: solution
-completed_stages: [context-gathering, ceremony, frame, research, evaluate]
+current_stage: completion
+completed_stages:
+  [context-gathering, ceremony, frame, research, evaluate, solution, review-gate, publish]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'Solution commit, then Review Gate (draft MR)'
+next_action: 'Completion: implementation tickets, archive, final commit and PR'
 context_fingerprint: 'a1f1997'
 ```
 
@@ -83,7 +84,7 @@ their resolution here; do not rely on conversation history for design provenance
 | Ticket | DESIGN-20261121-UU4L                                                                                                                                                                |
 | Branch | `docs/design-20261121-uu4l-web-explorer-nextjs-static-export`                                                                                                                       |
 | Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review 🔄 · 💬 Address Feedback ⏳ · 📤 Publish ⏳ · 🏁 Completion ⏳ |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ · 📤 Publish ✅ · 🏁 Completion 🔄 |
 
 ---
 
@@ -93,20 +94,20 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 36m 10s · Wait to date: 1h 14m 26s (closed 1h 14m 26s + current 0s) · Unclassified: 9h 31m 10s
+Observed work: 48m 40s · Wait to date: 2h 22m 44s (closed 2h 22m 44s + current 0s) · Unclassified: 9h 31m 10s
 
-| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait    | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
-| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | ------- | ------------ | ------------- | ------------------- | -------- | ------------- |
-| context-gathering (completed) | 2026-11-21T22:24:32.842Z | 2026-11-21T22:35:44.039Z | 11m 11s     | 0s      | 11m 11s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| ceremony (completed)          | 2026-11-21T22:35:49.459Z | 2026-11-21T22:37:26.297Z | 1m 37s      | 0s      | 1m 36s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| frame (completed)             | 2026-11-21T22:37:26.358Z | 2026-11-21T22:54:17.691Z | 16m 51s     | 2m 50s  | 14m 1s  | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| research (completed)          | 2026-11-21T22:54:17.749Z | 2026-11-22T08:48:54.205Z | 9h 54m 36s  | 0s      | 23m 33s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| evaluate (completed)          | 2026-11-22T08:48:54.262Z | 2026-11-22T09:12:36.824Z | 23m 43s     | 6m 20s  | 17m 22s | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
-| solution (active)             | 2026-11-22T09:12:36.868Z | unavailable              | unavailable | 26m 59s | 6m 43s  | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
-| review-gate (pending)         | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| address-feedback (pending)    | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (pending)             | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s      | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait      | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
+| ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | --------- | ------------ | ------------- | ------------------- | -------- | ------------- |
+| context-gathering (completed) | 2026-11-21T22:24:32.842Z | 2026-11-21T22:35:44.039Z | 11m 11s     | 0s      | 11m 11s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| ceremony (completed)          | 2026-11-21T22:35:49.459Z | 2026-11-21T22:37:26.297Z | 1m 37s      | 0s      | 1m 36s    | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| frame (completed)             | 2026-11-21T22:37:26.358Z | 2026-11-21T22:54:17.691Z | 16m 51s     | 2m 50s  | 14m 1s    | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| research (completed)          | 2026-11-21T22:54:17.749Z | 2026-11-22T08:48:54.205Z | 9h 54m 36s  | 0s      | 23m 33s   | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| evaluate (completed)          | 2026-11-22T08:48:54.262Z | 2026-11-22T09:12:36.824Z | 23m 43s     | 6m 20s  | 17m 22s   | unavailable  | unavailable   | from_tracking_start | 2        | 0             |
+| solution (completed)          | 2026-11-22T09:12:36.868Z | 2026-11-22T09:46:58.239Z | 34m 21s     | 27m 0s  | 7m 22s    | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
+| review-gate (completed)       | 2026-11-22T09:46:58.285Z | 2026-11-22T09:46:58.449Z | 0s          | 0s      | 0s        | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s        | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (active)              | 2026-11-22T09:46:58.508Z | unavailable              | unavailable | 12m 30s | 1h 7m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s        | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -247,21 +248,23 @@ _Target: `solution/Architecture.md` + both `solution/Design - *.md`. Reviewer: @
 
 ## Gate
 
-- Approver: —
-- Draft MR: —
-- Approved: — _(a date once approved, or `declined`)_
+- Approver: Anton Merkulov (developer, self-approved)
+- Draft MR: — _(waived by the developer, 2026-11-22: review gate skipped, no MR opened)_
+- Approved: 2026-11-22 (self-approved in chat; solution commit `4344e59`)
 - Decline reason: — _(filled in by Address Feedback only if declined)_
 
 ---
 
 ## Efforts
 
-| Date       | Phase    | Notes                                                                                                                                                                                                                                                                                                                                                                                                         |
-| ---------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-21 | Frame    | 6 known requirements, 4 proposed requirements accepted; 2 decisions confirmed (SEO/metadata merged into Decision 1)                                                                                                                                                                                                                                                                                           |
-| 2026-11-22 | Research | @architect returned 4 options per decision. D1: A catch-all + React Router, B App Router shell per route, C App Router Server Components, D Pages Router. D2: A meta CSP unsafe-inline, B meta hardening, C per-page hashed meta CSP, D edge layer. Developer confirmed the sets; D2 Option D ruled out (no custom domain); developer direction D1 = Option B                                                 |
-| 2026-11-22 | Evaluate | Recommended D1 Option C (App Router, Server Components by default, client islands; revised from B at sign-off) and D2 Option C1 (per-page hashed meta CSP + hardening; strict floor confirmed). Spike on Next.js 16.4.6 measured inline scripts and baselines; EC11 GitHub Pages limits added. WAF D1: 🟢🟡🟢🟢🟢🟢; D2: 🟡🟡🟡🟢🟢🟢; 2 P1 items (gzip budget on `/` enforced in CI; CSP hash-coverage gate) |
-| 2026-11-22 | Solution | Selected artifacts written (Architecture, Design ×2, Stack, Efforts); architect review 2 rounds (8 material, 22 mechanical — all resolved, material confirmed by developer); WAF review: 1 P1 resolved (Search Console via meta tag); quality gate pass. Estimates deliberately left empty by the developer                                                                                                   |
+| Date       | Phase       | Notes                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-21 | Frame       | 6 known requirements, 4 proposed requirements accepted; 2 decisions confirmed (SEO/metadata merged into Decision 1)                                                                                                                                                                                                                                                                                                                   |
+| 2026-11-22 | Research    | @architect returned 4 options per decision. D1: A catch-all + React Router, B App Router shell per route, C App Router Server Components, D Pages Router. D2: A meta CSP unsafe-inline, B meta hardening, C per-page hashed meta CSP, D edge layer. Developer confirmed the sets; D2 Option D ruled out (no custom domain); developer direction D1 = Option B                                                                         |
+| 2026-11-22 | Evaluate    | Recommended D1 Option C (App Router, Server Components by default, client islands; revised from B at sign-off) and D2 Option C1 (per-page hashed meta CSP + hardening; strict floor confirmed). Spike on Next.js 16.4.6 measured inline scripts and baselines; EC11 GitHub Pages limits added. WAF D1: 🟢🟡🟢🟢🟢🟢; D2: 🟡🟡🟡🟢🟢🟢; 2 P1 items (gzip budget on `/` enforced in CI; CSP hash-coverage gate)                         |
+| 2026-11-22 | Solution    | Selected artifacts written (Architecture, Design ×2, Stack, Efforts); architect review 2 rounds (8 material, 22 mechanical — all resolved, material confirmed by developer); WAF review: 1 P1 resolved (Search Console via meta tag); quality gate pass. Estimates deliberately left empty by the developer                                                                                                                           |
+| 2026-11-22 | Review Gate | Developer self-approved; draft MR review gate waived at the developer's request. Address Feedback skipped (no concerns)                                                                                                                                                                                                                                                                                                               |
+| 2026-11-22 | Publish     | Self-approved by the developer (Anton Merkulov); docs updated: HLD Web Explorer, Web Portal, Web Docs, System Overview, System Sizing, 00 Overview; NFR Requirements (NFR-7 extended, NFR-16..19 new, hosting constraint), Accessibility; Terminology (route registry, post-export step, dogfood). @architect review OK on pass 2; 8 story-to-hld edges indexed. LLD/README/CLAUDE.md/Getting Started/CI-CD deferred to /dev document |
 
 ---
 
