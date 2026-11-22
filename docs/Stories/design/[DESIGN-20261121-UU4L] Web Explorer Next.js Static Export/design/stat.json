@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "lifecycle": "design",
-  "design_revision": 0,
+  "design_revision": 1,
   "ticket": "DESIGN-20261121-UU4L",
   "tracking_started_at": "2026-11-21T22:24:32.790Z",
   "ticket_created_at": null,
@@ -51,21 +51,36 @@
     },
     {
       "id": "research",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "edb37d52-f025-452e-8942-ae3178a4c156",
           "started_at": "2026-11-21T22:54:17.749Z",
-          "ended_at": null,
+          "ended_at": "2026-11-22T08:48:54.205Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "evaluate",
-      "status": "pending",
-      "attempts": []
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "dbddf9ff-8b8e-48f2-8d97-3d96642dbdce",
+          "started_at": "2026-11-22T08:48:54.262Z",
+          "ended_at": "2026-11-22T09:07:42.038Z",
+          "trigger": "initial",
+          "outcome": "superseded"
+        },
+        {
+          "id": "f5ca41e0-b1f4-473b-bd3e-943a936fcd64",
+          "started_at": "2026-11-22T09:07:42.038Z",
+          "ended_at": null,
+          "trigger": "review_feedback",
+          "outcome": null
+        }
+      ]
     },
     {
       "id": "solution",
@@ -309,8 +324,122 @@
       "reason": "user_input",
       "detail": "Awaiting research commit",
       "started_at": "2026-11-22T08:45:05.612Z",
+      "ended_at": "2026-11-22T08:48:54.154Z",
+      "last_observed_at": "2026-11-22T08:48:54.154Z"
+    },
+    {
+      "id": "d8910ed0-8179-4237-b434-752b0eb5addd",
+      "stage_id": "research",
+      "stage_attempt_id": "edb37d52-f025-452e-8942-ae3178a4c156",
+      "step": null,
+      "kind": "work",
+      "activity": "investigation",
+      "started_at": "2026-11-22T08:48:54.154Z",
+      "ended_at": "2026-11-22T08:48:54.205Z",
+      "last_observed_at": "2026-11-22T08:48:54.205Z"
+    },
+    {
+      "id": "ae05514b-0cd0-4b12-913f-86cdc236bbd3",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "dbddf9ff-8b8e-48f2-8d97-3d96642dbdce",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T08:48:54.262Z",
+      "ended_at": "2026-11-22T08:51:31.286Z",
+      "last_observed_at": "2026-11-22T08:51:31.286Z"
+    },
+    {
+      "id": "ab5ed6d1-fcc5-4d3b-8e08-a8e9fe70b63b",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "dbddf9ff-8b8e-48f2-8d97-3d96642dbdce",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting D2 OQ-2 (CSP floor) and budget answer",
+      "started_at": "2026-11-22T08:51:31.286Z",
+      "ended_at": "2026-11-22T09:00:14.683Z",
+      "last_observed_at": "2026-11-22T09:00:14.683Z"
+    },
+    {
+      "id": "c6147267-9908-4e19-b0d0-70e9e64cd156",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "dbddf9ff-8b8e-48f2-8d97-3d96642dbdce",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T09:00:14.683Z",
+      "ended_at": "2026-11-22T09:02:17.326Z",
+      "last_observed_at": "2026-11-22T09:02:17.326Z"
+    },
+    {
+      "id": "5a1d4888-b7b4-4198-834b-b8a5a725cddd",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "dbddf9ff-8b8e-48f2-8d97-3d96642dbdce",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate sign-off",
+      "started_at": "2026-11-22T09:02:17.326Z",
+      "ended_at": "2026-11-22T09:07:41.989Z",
+      "last_observed_at": "2026-11-22T09:07:41.989Z"
+    },
+    {
+      "id": "54e51f5a-c0ee-4875-9434-fc3fac78a9b6",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "dbddf9ff-8b8e-48f2-8d97-3d96642dbdce",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T09:07:41.989Z",
+      "ended_at": "2026-11-22T09:07:42.038Z",
+      "last_observed_at": "2026-11-22T09:07:42.038Z"
+    },
+    {
+      "id": "957cf085-8452-4908-95f0-e0ec2f0eb5d0",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "f5ca41e0-b1f4-473b-bd3e-943a936fcd64",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T09:07:42.038Z",
+      "ended_at": "2026-11-22T09:09:22.283Z",
+      "last_observed_at": "2026-11-22T09:09:22.283Z"
+    },
+    {
+      "id": "b87a7586-259a-4239-9d60-2d1ae123d108",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "f5ca41e0-b1f4-473b-bd3e-943a936fcd64",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting evaluate re-sign-off (D1 → Option C)",
+      "started_at": "2026-11-22T09:09:22.283Z",
+      "ended_at": "2026-11-22T09:10:34.779Z",
+      "last_observed_at": "2026-11-22T09:10:34.779Z"
+    },
+    {
+      "id": "efe94778-3733-460d-9c62-2041a1e193ff",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "f5ca41e0-b1f4-473b-bd3e-943a936fcd64",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T09:10:34.779Z",
+      "ended_at": "2026-11-22T09:10:34.981Z",
+      "last_observed_at": "2026-11-22T09:10:34.981Z"
+    },
+    {
+      "id": "012cb71a-ecb3-423b-8c1d-227e67f13de9",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "f5ca41e0-b1f4-473b-bd3e-943a936fcd64",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting evaluate commit",
+      "started_at": "2026-11-22T09:10:34.981Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-22T08:45:05.612Z"
+      "last_observed_at": "2026-11-22T09:10:34.981Z"
     }
   ],
   "checks": [
@@ -393,22 +522,38 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "evaluate-signoff-01",
+      "stage_id": "evaluate",
+      "stage_attempt_id": "f5ca41e0-b1f4-473b-bd3e-943a936fcd64",
+      "step": null,
+      "design_revision": 1,
+      "name": "Evaluate sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T09:10:34.837Z",
+      "ended_at": "2026-11-22T09:10:34.837Z",
+      "result": "passed",
+      "evidence_ref": "Developer approved ('love it') D1 Option C and D2 Option C1 strict CSP, 2026-11-22",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T08:45:05.613Z",
+    "as_of": "2026-11-22T09:10:34.982Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 170.77700000000002,
-    "observed_wait_seconds": 2792.7039999999997,
+    "observed_work_seconds": 550.991,
+    "observed_wait_seconds": 3941.8019999999997,
     "open_work_seconds": 0,
     "open_wait_seconds": 0.001,
-    "wait_seconds_to_date": 2792.705,
-    "unclassified_seconds": 34269.341,
-    "rework_seconds": 0,
+    "wait_seconds_to_date": 3941.803,
+    "unclassified_seconds": 34269.39800000001,
+    "rework_seconds": 100.447,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 2678.2439999999997,
+    "approval_wait_seconds": 3598.7999999999997,
     "failed_checks": 0,
     "first_pass_verification_rate": 1,
     "human_reported_seconds": null,
