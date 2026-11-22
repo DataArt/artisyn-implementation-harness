@@ -13,6 +13,7 @@ import TerminalScenarios from './TerminalScenarios';
 import HeroPreview from './HeroPreview';
 import Footer from '../../components/Footer';
 import { repoUrl, docsUrl } from '../../env';
+import { ROUTE_PATHS } from '../../paths';
 import CopyCommand from './CopyCommand';
 import FadeIn from './FadeIn';
 import { CAPABILITIES, PILLARS } from './capabilities';
@@ -194,7 +195,7 @@ export default function Landing() {
               <small>HLD · LLD · Engineering Guide · READMEs</small>
             </div>
           </div>
-          <Link href="/docs-flow/" className="icon-link">
+          <Link href={ROUTE_PATHS.knowledgeFlow} className="icon-link">
             Explore the full interactive flow <ArrowRight size={15} />
           </Link>
         </section>

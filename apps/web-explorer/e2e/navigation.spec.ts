@@ -15,7 +15,7 @@ test('a header link navigates client-side with an RSC payload', async ({ page })
 
   await page
     .getByRole('navigation', { name: 'Main navigation' })
-    .getByRole('link', { name: 'Get started' })
+    .getByRole('link', { name: 'Get Started' })
     .click();
 
   await expect(page).toHaveURL(url('/get-started/'));
@@ -34,7 +34,7 @@ for (const start of ['/', '/get-started/']) {
     await page.waitForLoadState('networkidle');
     await page
       .getByRole('navigation', { name: 'Main navigation' })
-      .getByRole('link', { name: 'How it works' })
+      .getByRole('link', { name: 'How It Works' })
       .click();
     await expect(page).toHaveURL(url('/#how-it-works'));
     await expect(page.locator('#how-it-works')).toBeInViewport();

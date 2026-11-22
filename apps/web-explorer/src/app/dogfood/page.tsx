@@ -1,8 +1,7 @@
-import Dogfood from '../../views/dogfood/Dogfood';
-import { routeFor, toMetadata } from '../../routes';
+import Moved, { movedMetadata } from '../../components/Moved';
 
-export const metadata = toMetadata(routeFor('/dogfood/'));
+export const metadata = movedMetadata('/dogfood/');
 
-export default function DogfoodPage() {
-  return <Dogfood />;
+export default function MovedPage() {
+  return <Moved from="/dogfood/" />;
 }

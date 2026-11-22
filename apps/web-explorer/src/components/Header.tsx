@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import CookbookMenu from './CookbookMenu';
 import { ArrowUpRight, Code2 } from 'lucide-react';
 import { repoUrl, docsUrl } from '../env';
 import { asset, basePath } from '../site';
@@ -14,14 +15,10 @@ export default function Header() {
           </span>
         </Link>
         <nav aria-label="Main navigation" className="main-nav">
-          <a href={`${basePath}/#how-it-works`}>How it works</a>
+          <a href={`${basePath}/#how-it-works`}>How It Works</a>
           <a href={`${basePath}/#capabilities`}>Capabilities</a>
-          <Link href="/inside-the-loop/">Inside the loop</Link>
-          <Link href="/docs-flow/">Docs flow</Link>
-          <Link href="/get-started/">Get started</Link>
-          <Link href="/dogfood/">Dogfood</Link>
-          <Link href="/migration-case/">Migration case</Link>
-          <Link href="/agents/">Agents</Link>
+          <Link href="/get-started/">Get Started</Link>
+          <CookbookMenu />
           <a href={docsUrl} target="_blank" rel="noopener noreferrer">
             Docs <ArrowUpRight size={13} />
           </a>

@@ -1,4 +1,4 @@
-// Writes src/views/dogfood/graph.json from the operational graph DB: every doc
+// Writes src/views/cookbook/case/dogfood/graph.json from the operational graph DB: every doc
 // (id, tier, title, path under docs/) and every authored edge. Run from the repo
 // root after `node docs/.og/cli.mjs build --dir .`:
 //   node apps/web-explorer/scripts/export-dogfood-graph.mjs
@@ -23,6 +23,6 @@ const nodes = docs.map((d) => ({
   title: d.title || d.path.split('/').pop().replace(/\.md$/, ''),
   path: d.path.replace(/^docs\//, ''),
 }));
-const out = 'apps/web-explorer/src/views/dogfood/graph.json';
+const out = 'apps/web-explorer/src/views/cookbook/case/dogfood/graph.json';
 fs.writeFileSync(out, JSON.stringify({ nodes, edges }) + '\n');
 console.log(`${out}: ${nodes.length} docs, ${edges.length} authored edges`);

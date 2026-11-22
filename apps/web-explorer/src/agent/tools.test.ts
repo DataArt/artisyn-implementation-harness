@@ -54,7 +54,7 @@ const site: AgentIndex = {
     ),
     entry(
       'site',
-      '/inside-the-loop/context/',
+      '/cookbook/team-adoption-path/context/',
       'Context',
       'Context engineering keeps the agent grounded in the architecture.'
     ),
@@ -84,7 +84,7 @@ const both = { site, docs };
 test('search_documentation: a title match ranks first and results carry snippets', async () => {
   const { results, docsAvailable } = searchDocumentation(both, { query: 'context' });
   assert.equal(docsAvailable, true);
-  assert.equal(results[0].url, `${SITE}/inside-the-loop/context/`);
+  assert.equal(results[0].url, `${SITE}/cookbook/team-adoption-path/context/`);
   for (const r of results as { snippet: string; source: string; url: string }[]) {
     assert.ok(r.snippet.toLowerCase().includes('context'));
     assert.ok(r.snippet.length <= 240);
@@ -211,7 +211,7 @@ test('get_harness_capabilities: returns its source modules unchanged', async () 
     caps.demoScenarios.map((d) => d.id),
     Object.keys(terminalScenarios)
   );
-  assert.deepEqual(caps.docsFlowScenarios, [
+  assert.deepEqual(caps.knowledgeFlowScenarios, [
     { id: 'e2e', label: 'End-to-end flow', description: 'Start to finish' },
   ]);
 });

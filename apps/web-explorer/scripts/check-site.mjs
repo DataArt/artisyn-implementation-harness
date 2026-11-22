@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { parse } from 'parse5';
-import { buildPolicy, hashScript, isInlineExecutable } from './post-export.mjs';
+import { buildPolicy, hashScript, isInlineExecutable, registryAncestors } from './post-export.mjs';
 
 // ---------- HTML helpers ----------
 
@@ -280,7 +280,7 @@ export function checkStructuredData(html, entry, routes, siteUrl) {
   const expected =
     entry.path === '/'
       ? ['WebSite', 'SoftwareSourceCode']
-      : entry.path.startsWith('/inside-the-loop/')
+      : registryAncestors(entry.path, new Map(routes.map((r) => [r.path, r]))).length
         ? ['WebPage', 'BreadcrumbList']
         : ['WebPage'];
   const errors = expected.filter((t) => !types.has(t)).map((t) => `JSON-LD has no ${t}`);

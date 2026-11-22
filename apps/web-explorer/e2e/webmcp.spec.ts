@@ -103,7 +103,9 @@ for (const host of ['document', 'navigator'] as const) {
       const search = (await callTool(page, 'search_documentation', { query: 'context' })) as {
         results: { url: string }[];
       };
-      expect(search.results.map((r) => r.url)).toContain(url('/inside-the-loop/context/'));
+      expect(search.results.map((r) => r.url)).toContain(
+        url('/cookbook/team-adoption-path/context/')
+      );
 
       const docs = (await callTool(page, 'search_documentation', {
         query: 'operational graph',
@@ -150,7 +152,7 @@ for (const host of ['document', 'navigator'] as const) {
 
     test('the agents page lists exactly the registered tools', async ({ page }) => {
       await installStub(page, host);
-      await page.goto(url('/agents/'));
+      await page.goto(url('/cookbook/agents/'));
       await expect.poll(() => toolNames(page)).toEqual(EXPECTED_TOOLS);
       const listed = await page
         .locator('[data-tool-name]')
@@ -164,7 +166,7 @@ for (const host of ['document', 'navigator'] as const) {
       await expect.poll(() => toolNames(page)).toEqual(EXPECTED_TOOLS);
       await page
         .getByRole('navigation', { name: 'Main navigation' })
-        .getByRole('link', { name: 'Get started' })
+        .getByRole('link', { name: 'Get Started' })
         .click();
       await expect(page).toHaveURL(url('/get-started/'));
       expect(await toolNames(page)).toEqual(EXPECTED_TOOLS);

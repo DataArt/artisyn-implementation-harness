@@ -1,8 +1,7 @@
-import MigrationCase from '../../views/migration-case/MigrationCase';
-import { routeFor, toMetadata } from '../../routes';
+import Moved, { movedMetadata } from '../../components/Moved';
 
-export const metadata = toMetadata(routeFor('/migration-case/'));
+export const metadata = movedMetadata('/migration-case/');
 
-export default function MigrationCasePage() {
-  return <MigrationCase />;
+export default function MovedPage() {
+  return <Moved from="/migration-case/" />;
 }

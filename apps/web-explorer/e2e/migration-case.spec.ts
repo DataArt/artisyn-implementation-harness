@@ -4,7 +4,7 @@ import { test, expect, url } from './pages-emulation';
 const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
 
 test('the lifecycle tabs switch the chart and a row opens its stage below it', async ({ page }) => {
-  await page.goto(url('/migration-case/'));
+  await page.goto(url('/cookbook/case/migration/'));
   const tabs = page.getByRole('tablist', { name: 'Lifecycles' });
   const design = tabs.getByRole('tab', { name: /Solution Design/ });
   const development = tabs.getByRole('tab', { name: /Development/ });
@@ -40,7 +40,7 @@ test('the lifecycle tabs switch the chart and a row opens its stage below it', a
 });
 
 test('arrow keys move between the lifecycle tabs', async ({ page }) => {
-  await page.goto(url('/migration-case/'));
+  await page.goto(url('/cookbook/case/migration/'));
   const tabs = page.getByRole('tablist', { name: 'Lifecycles' });
   await tabs.getByRole('tab', { name: /Solution Design/ }).focus();
   await page.keyboard.press('ArrowRight');
@@ -52,7 +52,7 @@ test('arrow keys move between the lifecycle tabs', async ({ page }) => {
 });
 
 test('an opened stage stays free of serious WCAG violations', async ({ page }) => {
-  await page.goto(url('/migration-case/'));
+  await page.goto(url('/cookbook/case/migration/'));
   await page.getByRole('tab', { name: /Development/ }).click();
   await page
     .getByRole('tabpanel')

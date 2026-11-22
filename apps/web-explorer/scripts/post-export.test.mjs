@@ -132,14 +132,14 @@ const REGISTRY = [
     sources: [],
   },
   {
-    path: '/inside-the-loop/',
-    title: 'Inside the loop',
+    path: '/cookbook/team-adoption-path/',
+    title: 'Team Adoption Path',
     description: 'Hub.',
     index: true,
     sources: [],
   },
   {
-    path: '/inside-the-loop/context/',
+    path: '/cookbook/team-adoption-path/context/',
     title: 'Context',
     description: 'Context page.',
     index: true,
@@ -168,7 +168,11 @@ test('post-export structured data: topic pages get WebPage + a 3-item Breadcrumb
   const crumbs = ld['@graph'].find((n) => n['@type'] === 'BreadcrumbList').itemListElement;
   assert.deepEqual(
     crumbs.map((c) => c.item),
-    [`${SITE}/`, `${SITE}/inside-the-loop/`, `${SITE}/inside-the-loop/context/`]
+    [
+      `${SITE}/`,
+      `${SITE}/cookbook/team-adoption-path/`,
+      `${SITE}/cookbook/team-adoption-path/context/`,
+    ]
   );
   assert.deepEqual(
     crumbs.map((c) => c.position),
@@ -176,13 +180,9 @@ test('post-export structured data: topic pages get WebPage + a 3-item Breadcrumb
   );
 });
 
-test('post-export structured data: hub gets a 2-item breadcrumb, other pages WebPage, landing its graph, noindex none', async () => {
+test('post-export structured data: pages with no route above them get WebPage, landing its graph, noindex none', async () => {
   const { pageJsonLd } = await load();
-  const hub = pageJsonLd(REGISTRY[1], ctx);
-  assert.equal(
-    hub['@graph'].find((n) => n['@type'] === 'BreadcrumbList').itemListElement.length,
-    2
-  );
+  assert.deepEqual(typesOf(pageJsonLd(REGISTRY[1], ctx)), ['WebPage']);
   assert.deepEqual(typesOf(pageJsonLd(REGISTRY[3], ctx)), ['WebPage']);
   assert.deepEqual(typesOf(pageJsonLd(REGISTRY[0], ctx)), ['SoftwareSourceCode', 'WebSite']);
   assert.equal(pageJsonLd(REGISTRY[4], ctx), undefined);
@@ -204,4 +204,15 @@ test('post-export: connect-src also allows exactly the two origin-root files Lig
     directive(signPage(PAGE, { site: LOCAL, upgradeInsecure: false })),
     `connect-src ${LOCAL}/ http://localhost:4173/robots.txt http://localhost:4173/llms.txt`
   );
+});
+
+test('post-export registryAncestors: only route paths above the page, nearest last', async () => {
+  const { registryAncestors } = await load();
+  const byPath = new Map(REGISTRY.map((r) => [r.path, r]));
+  assert.deepEqual(registryAncestors('/cookbook/team-adoption-path/context/', byPath), [
+    '/cookbook/team-adoption-path/',
+  ]);
+  assert.deepEqual(registryAncestors('/cookbook/team-adoption-path/', byPath), []);
+  assert.deepEqual(registryAncestors('/cookbook/case/migration/', byPath), []);
+  assert.deepEqual(registryAncestors('/', byPath), []);
 });

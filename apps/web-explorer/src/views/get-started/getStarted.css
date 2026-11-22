@@ -1,5 +1,5 @@
 /* Get Started page — gs- prefix, same reasoning as the other lazily loaded
-   page styles: unscoped rules from inside-the-loop.css stay active after a
+   page styles: unscoped rules from team-adoption-path.css stay active after a
    visitor returns from that route. */
 
 .gs-page{padding:40px 28px 90px;max-width:1200px}

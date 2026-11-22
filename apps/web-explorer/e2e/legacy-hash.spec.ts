@@ -7,7 +7,7 @@ test('an old #/get-started link lands on the path URL with its query', async ({ 
 
 test('an old #/inside-the-loop/<slug> link lands on the path URL', async ({ page }) => {
   await page.goto(url('/#/inside-the-loop/context'));
-  await expect(page).toHaveURL(url('/inside-the-loop/context/'));
+  await expect(page).toHaveURL(url('/cookbook/team-adoption-path/context/'));
 });
 
 test('a plain in-page anchor stays on the landing page', async ({ page }) => {

@@ -177,9 +177,9 @@ export function workflowTarget(input: { workflow?: unknown }, docs: string = doc
   return { workflow: workflow.id, name: workflow.name, opened: workflowUrl(workflow, docs) };
 }
 
-export type DocsFlowScenario = { id: string; label: string; desc?: string };
+export type KnowledgeFlowScenario = { id: string; label: string; desc?: string };
 
-export function getHarnessCapabilities(docsFlowScenarios: DocsFlowScenario[] = []) {
+export function getHarnessCapabilities(knowledgeFlowScenarios: KnowledgeFlowScenario[] = []) {
   const home = routeFor('/');
   return {
     name: 'Artisyn Implementation Harness',
@@ -211,7 +211,7 @@ export function getHarnessCapabilities(docsFlowScenarios: DocsFlowScenario[] = [
       label,
       command,
     })),
-    docsFlowScenarios: docsFlowScenarios.map(({ id, label, desc }) => ({
+    knowledgeFlowScenarios: knowledgeFlowScenarios.map(({ id, label, desc }) => ({
       id,
       label,
       description: desc ?? '',
@@ -255,7 +255,7 @@ export async function runTool(
 ): Promise<unknown> {
   if (name === 'get_install_instructions') return getInstallInstructions(input);
   if (name === 'get_harness_capabilities') {
-    const { scenarios } = await import('../views/docs-flow/flow');
+    const { scenarios } = await import('../views/cookbook/knowledge-flow/flow');
     return getHarnessCapabilities(scenarios);
   }
   if (name === 'open_workflow') {

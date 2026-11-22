@@ -285,8 +285,8 @@ test('check-site verification: meta present exactly when the token is set', asyn
 
 const ROUTES = [
   { path: '/', index: true },
-  { path: '/inside-the-loop/', index: true },
-  { path: '/inside-the-loop/context/', index: true },
+  { path: '/cookbook/team-adoption-path/', index: true },
+  { path: '/cookbook/team-adoption-path/context/', index: true },
 ];
 const ld = (value) => `<script type="application/ld+json">${JSON.stringify(value)}</script>`;
 const crumb = (paths) => ({
@@ -298,9 +298,14 @@ const crumb = (paths) => ({
     item: `${SITE}${p}`,
   })),
 });
-const topicLd = (paths = ['/', '/inside-the-loop/', '/inside-the-loop/context/']) => ({
+const topicLd = (
+  paths = ['/', '/cookbook/team-adoption-path/', '/cookbook/team-adoption-path/context/']
+) => ({
   '@context': 'https://schema.org',
-  '@graph': [{ '@type': 'WebPage', url: `${SITE}/inside-the-loop/context/` }, crumb(paths)],
+  '@graph': [
+    { '@type': 'WebPage', url: `${SITE}/cookbook/team-adoption-path/context/` },
+    crumb(paths),
+  ],
 });
 
 test('check-site structured data: a valid topic page passes; gaps fail', async () => {
@@ -316,7 +321,7 @@ test('check-site structured data: a valid topic page passes; gaps fail', async (
   );
   assert.notDeepEqual(
     checkStructuredData(
-      signed({ head: ld(topicLd(['/', '/elsewhere/', '/inside-the-loop/context/'])) }),
+      signed({ head: ld(topicLd(['/', '/elsewhere/', '/cookbook/team-adoption-path/context/'])) }),
       entry,
       ROUTES,
       SITE
