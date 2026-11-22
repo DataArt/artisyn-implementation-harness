@@ -1,0 +1,59 @@
+{
+  "/": {
+    "color-contrast": 13
+  },
+  "/agents/": {
+    "color-contrast": 4
+  },
+  "/comic/": {
+    "color-contrast": 2
+  },
+  "/docs-flow/": {
+    "color-contrast": 4,
+    "label-content-name-mismatch": 7,
+    "nested-interactive": 4,
+    "target-size": 17
+  },
+  "/dogfood/": {
+    "color-contrast": 5
+  },
+  "/get-started/": {
+    "color-contrast": 4
+  },
+  "/inside-the-loop/": {
+    "color-contrast": 10
+  },
+  "/inside-the-loop/code-review/": {
+    "color-contrast": 14
+  },
+  "/inside-the-loop/context/": {
+    "color-contrast": 21
+  },
+  "/inside-the-loop/harness/": {
+    "color-contrast": 6
+  },
+  "/inside-the-loop/improvement/": {
+    "color-contrast": 10
+  },
+  "/inside-the-loop/infrastructure/": {
+    "color-contrast": 8
+  },
+  "/inside-the-loop/onboarding/": {
+    "color-contrast": 1
+  },
+  "/inside-the-loop/quality/": {
+    "color-contrast": 35
+  },
+  "/inside-the-loop/requirements/": {
+    "color-contrast": 4
+  },
+  "/inside-the-loop/retro/": {
+    "color-contrast": 2
+  },
+  "/inside-the-loop/tools/": {
+    "color-contrast": 4
+  },
+  "/no-such-page/": {
+    "color-contrast": 1
+  }
+}
