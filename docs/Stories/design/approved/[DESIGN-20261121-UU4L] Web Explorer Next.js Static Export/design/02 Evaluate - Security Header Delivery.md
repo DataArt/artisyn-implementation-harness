@@ -1,4 +1,5 @@
 ---
+id: 8d0ad948
 type: Design Evaluation
 title: 'DESIGN-20261121-UU4L: Security Header Delivery — Evaluate'
 description: Evaluates Decision 2 options for delivering CSP and header protections to Web Explorer on GitHub Pages and recommends Option C1, per-page meta CSP with build-time hashes plus meta-deliverable hardening

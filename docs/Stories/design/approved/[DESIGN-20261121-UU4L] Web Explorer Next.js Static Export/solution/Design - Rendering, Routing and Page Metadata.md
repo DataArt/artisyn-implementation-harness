@@ -1,4 +1,5 @@
 ---
+id: e4d7b1e2
 type: Solution Design
 title: 'DESIGN-20261121-UU4L: Rendering, Routing and Page Metadata — Design'
 description: App Router structure, server/client boundary, route registry, path routing with the legacy hash redirect, and per-page metadata for the Web Explorer Next.js static export

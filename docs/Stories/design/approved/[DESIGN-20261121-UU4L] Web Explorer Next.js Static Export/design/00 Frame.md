@@ -1,4 +1,5 @@
 ---
+id: 3a19f20d
 type: Design Frame
 title: DESIGN-20261121-UU4L — Web Explorer Next.js Static Export
 description: Frames the migration of Web Explorer from a Vite SPA to a Next.js static export on GitHub Pages

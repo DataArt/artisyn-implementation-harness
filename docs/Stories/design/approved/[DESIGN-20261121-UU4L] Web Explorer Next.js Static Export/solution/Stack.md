@@ -1,4 +1,5 @@
 ---
+id: fbe070d7
 type: Solution Stack
 title: 'DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Stack'
 description: Technologies added to and removed from Web Explorer for the Next.js static export, their versions, compatibility constraints, next.config.ts and the Nx target shape

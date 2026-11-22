@@ -1,4 +1,5 @@
 ---
+id: 02403b56
 type: Design Research
 title: 'DESIGN-20261121-UU4L: Security Header Delivery — Research'
 description: Research options for delivering CSP and other security header protections to Web Explorer pages on GitHub Pages, with no recommendation

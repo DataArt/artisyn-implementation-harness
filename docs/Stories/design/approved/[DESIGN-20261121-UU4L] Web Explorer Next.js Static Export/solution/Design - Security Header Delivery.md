@@ -1,4 +1,5 @@
 ---
+id: c03c4973
 type: Solution Design
 title: 'DESIGN-20261121-UU4L: Security Header Delivery — Design'
 description: Post-export step that injects a per-page hashed meta Content Security Policy, landing JSON-LD and the legacy-redirect script into the Web Explorer static export, with the hash-coverage gate, browser checks and preview re-signing

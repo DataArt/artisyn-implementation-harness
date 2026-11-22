@@ -1,4 +1,5 @@
 ---
+id: d653608f
 type: Design Evaluation
 title: 'DESIGN-20261121-UU4L: Rendering, Routing and Page Metadata — Evaluate'
 description: Evaluates Decision 1 options for the Web Explorer Next.js static export against the Frame ECs and recommends Option C, App Router built around Server Components with client components only where needed

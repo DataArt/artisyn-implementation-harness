@@ -1,4 +1,5 @@
 ---
+id: 684d2dd7
 type: Design Report
 title: 'Design Report — DESIGN-20261121-UU4L: Web Explorer Next.js Static Export'
 description: Living design report for migrating Web Explorer from a Vite SPA (HashRouter) to a Next.js static export (SSG) on GitHub Pages, covering SEO, per-page social meta, front-end security headers, performance and refactoring
@@ -32,11 +33,11 @@ Migrate `web-explorer` from Vite to Next.js, switching the SPA to SSG to improve
 ## State
 
 ```yaml
-current_stage: completion
+current_stage: done
 completed_stages:
   [context-gathering, ceremony, frame, research, evaluate, solution, review-gate, publish]
 selected_artifacts: [architecture, design, stack, efforts]
-next_action: 'Completion: implementation tickets, archive, final commit and PR'
+next_action: '/dev from solution/Efforts.md units'
 context_fingerprint: 'a1f1997'
 ```
 
@@ -83,8 +84,8 @@ their resolution here; do not rely on conversation history for design provenance
 | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Ticket | DESIGN-20261121-UU4L                                                                                                                                                                |
 | Branch | `docs/design-20261121-uu4l-web-explorer-nextjs-static-export`                                                                                                                       |
-| Status | 🔄 In Progress                                                                                                                                                                      |
-| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ · 📤 Publish ✅ · 🏁 Completion 🔄 |
+| Status | ✅ Complete                                                                                                                                                                         |
+| Phase  | 🎯 Context Gathering ✅ · 🚀 Ceremony ✅ · 📋 Frame ✅ · 🔍 Research ✅ · 🏗 Evaluate ✅ · 📦 Solution ✅ · 🔎 Review ✅ · 💬 Address Feedback ⏭️ · 📤 Publish ✅ · 🏁 Completion ✅ |
 
 ---
 
@@ -94,7 +95,7 @@ their resolution here; do not rely on conversation history for design provenance
 
 Source: [stat.json](stat.json). **Elapsed** = wall-clock time from the stage's first start to its completion (includes any wait). **Work** = summed observed work intervals (active effort) within that span. **Wait** = summed observed wait intervals (blocked on developer input, approval, or an external dependency) within that span. Work + Wait can read less than Elapsed when time went unclassified, or more after a retry reopened the stage. Durations are shown as `Xh Ym Zs`, rounded to the nearest second; open intervals are excluded from Elapsed/Work/Wait. Token subtotals have unavailable coverage; ticket usage is not allocated to individual units.
 
-Observed work: 48m 40s · Wait to date: 2h 22m 44s (closed 2h 22m 44s + current 0s) · Unclassified: 9h 31m 10s
+Observed work: 51m 11s · Wait to date: 2h 23m 51s (closed 2h 23m 51s + current 0s) · Unclassified: 9h 31m 10s
 
 | Stage                         | Started (UTC)            | Completed (UTC)          | Elapsed     | Work    | Wait      | Input tokens | Output tokens | Coverage            | Attempts | Failed checks |
 | ----------------------------- | ------------------------ | ------------------------ | ----------- | ------- | --------- | ------------ | ------------- | ------------------- | -------- | ------------- |
@@ -106,8 +107,8 @@ Observed work: 48m 40s · Wait to date: 2h 22m 44s (closed 2h 22m 44s + current 
 | solution (completed)          | 2026-11-22T09:12:36.868Z | 2026-11-22T09:46:58.239Z | 34m 21s     | 27m 0s  | 7m 22s    | unavailable  | unavailable   | from_tracking_start | 1        | 1             |
 | review-gate (completed)       | 2026-11-22T09:46:58.285Z | 2026-11-22T09:46:58.449Z | 0s          | 0s      | 0s        | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 | address-feedback (skipped)    | unavailable              | unavailable              | unavailable | 0s      | 0s        | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
-| publish (active)              | 2026-11-22T09:46:58.508Z | unavailable              | unavailable | 12m 30s | 1h 7m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
-| completion (pending)          | unavailable              | unavailable              | unavailable | 0s      | 0s        | unavailable  | unavailable   | from_tracking_start | 0        | 0             |
+| publish (completed)           | 2026-11-22T09:46:58.508Z | 2026-11-22T11:07:15.289Z | 1h 20m 17s  | 12m 38s | 1h 7m 39s | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
+| completion (completed)        | 2026-11-22T11:07:15.337Z | 2026-11-22T11:10:43.925Z | 3m 29s      | 2m 22s  | 1m 7s     | unavailable  | unavailable   | from_tracking_start | 1        | 0             |
 
 <!-- design-metrics:end -->
 
@@ -271,6 +272,8 @@ _Target: `solution/Architecture.md` + both `solution/Design - *.md`. Reviewer: @
 ## Implementation Tickets
 
 _Filled in during Completion after implementation tickets are created._
+
+Not published (developer decision, 2026-11-22). The design has no tracker ticket; implementation runs from the 8 units in `solution/Efforts.md` via `/dev`.
 
 | Ticket | Summary | Tracker |
 | ------ | ------- | ------- |

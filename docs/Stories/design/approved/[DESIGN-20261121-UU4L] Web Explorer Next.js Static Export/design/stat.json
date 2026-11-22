@@ -7,7 +7,7 @@
   "ticket_created_at": null,
   "ticket_created_source": null,
   "started_at": "2026-11-21T22:24:32.842Z",
-  "completed_at": null,
+  "completed_at": "2026-11-22T11:10:43.982Z",
   "coverage": "from_tracking_start",
   "stages": [
     {
@@ -118,21 +118,29 @@
     },
     {
       "id": "publish",
-      "status": "active",
+      "status": "completed",
       "attempts": [
         {
           "id": "21b08767-84e0-4390-be51-d3363fad0008",
           "started_at": "2026-11-22T09:46:58.508Z",
-          "ended_at": null,
+          "ended_at": "2026-11-22T11:07:15.289Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ]
     },
     {
       "id": "completion",
-      "status": "pending",
-      "attempts": []
+      "status": "completed",
+      "attempts": [
+        {
+          "id": "b370e294-01a8-4ce9-87cd-f1ef4baff564",
+          "started_at": "2026-11-22T11:07:15.337Z",
+          "ended_at": "2026-11-22T11:10:43.925Z",
+          "trigger": "initial",
+          "outcome": "completed"
+        }
+      ]
     }
   ],
   "steps": [],
@@ -624,8 +632,42 @@
       "kind": "work",
       "activity": "documentation",
       "started_at": "2026-11-22T11:07:06.955Z",
-      "ended_at": null,
-      "last_observed_at": "2026-11-22T11:07:06.955Z"
+      "ended_at": "2026-11-22T11:07:15.289Z",
+      "last_observed_at": "2026-11-22T11:07:15.289Z"
+    },
+    {
+      "id": "76680588-4cc3-48b0-b7bf-be5c739ba03e",
+      "stage_id": "completion",
+      "stage_attempt_id": "b370e294-01a8-4ce9-87cd-f1ef4baff564",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T11:07:15.337Z",
+      "ended_at": "2026-11-22T11:09:36.994Z",
+      "last_observed_at": "2026-11-22T11:09:36.994Z"
+    },
+    {
+      "id": "214fcb31-4f11-4b77-93dd-c265897650a6",
+      "stage_id": "completion",
+      "stage_attempt_id": "b370e294-01a8-4ce9-87cd-f1ef4baff564",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting completion sign-off",
+      "started_at": "2026-11-22T11:09:36.994Z",
+      "ended_at": "2026-11-22T11:10:43.729Z",
+      "last_observed_at": "2026-11-22T11:10:43.729Z"
+    },
+    {
+      "id": "5ca44104-e610-4d30-b407-df4b3021abae",
+      "stage_id": "completion",
+      "stage_attempt_id": "b370e294-01a8-4ce9-87cd-f1ef4baff564",
+      "step": null,
+      "kind": "work",
+      "activity": "documentation",
+      "started_at": "2026-11-22T11:10:43.729Z",
+      "ended_at": "2026-11-22T11:10:43.925Z",
+      "last_observed_at": "2026-11-22T11:10:43.925Z"
     }
   ],
   "checks": [
@@ -852,24 +894,40 @@
       "source": "developer",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "completion-signoff-01",
+      "stage_id": "completion",
+      "stage_attempt_id": "b370e294-01a8-4ce9-87cd-f1ef4baff564",
+      "step": null,
+      "design_revision": 1,
+      "name": "Completion sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T11:10:43.774Z",
+      "ended_at": "2026-11-22T11:10:43.774Z",
+      "result": "passed",
+      "evidence_ref": "Developer approved completion ('Good to go'), 2026-11-22",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T11:07:07.117Z",
+    "as_of": "2026-11-22T11:10:44.048Z",
     "lead_time_seconds": null,
-    "cycle_time_seconds": null,
-    "observed_work_seconds": 2920.3749999999995,
-    "observed_wait_seconds": 8564.243,
+    "cycle_time_seconds": 45971.14,
+    "observed_work_seconds": 3070.5619999999994,
+    "observed_wait_seconds": 8630.978000000001,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "wait_seconds_to_date": 8564.243,
-    "unclassified_seconds": 34269.708999999995,
+    "wait_seconds_to_date": 8630.978000000001,
+    "unclassified_seconds": 34269.652,
     "rework_seconds": 100.486,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 7760.361999999999,
+    "approval_wait_seconds": 7827.096999999999,
     "failed_checks": 1,
-    "first_pass_verification_rate": 0.875,
+    "first_pass_verification_rate": 0.8888888888888888,
     "human_reported_seconds": null,
     "tokens": null,
     "token_coverage": "unavailable"

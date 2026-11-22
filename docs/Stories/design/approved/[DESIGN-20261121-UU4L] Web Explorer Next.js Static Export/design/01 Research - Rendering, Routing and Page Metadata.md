@@ -1,4 +1,5 @@
 ---
+id: 70dde32e
 type: Design Research
 title: 'DESIGN-20261121-UU4L: Rendering, Routing and Page Metadata — Research'
 description: Research options for how Next.js statically exports Web Explorer, replaces its router and defines per-page metadata, with no recommendation

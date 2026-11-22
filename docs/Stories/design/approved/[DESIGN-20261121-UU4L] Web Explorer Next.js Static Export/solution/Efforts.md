@@ -1,4 +1,5 @@
 ---
+id: d9e06032
 type: Solution Efforts
 title: 'DESIGN-20261121-UU4L: Web Explorer Next.js Static Export — Efforts'
 description: Eight delivery units for the Web Explorer Next.js static export on one integration branch, their order, completion evidence, the operational Search Console step, rollout and rollback

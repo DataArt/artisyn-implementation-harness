@@ -12,7 +12,7 @@ updated: { by: process:design-solution, at: 2026-11-22T10:02:37Z }
 
 Web Explorer is rebuilt as a Next.js 16.4.x App Router app exported to static files at build time: every route gets its own pre-rendered `index.html` with its own metadata and its own hashed Content Security Policy. Hosting stays on GitHub Pages. No new container and no request-time code are added.
 
-The current design is in [Web Explorer](<../../../../Target%20Architecture%20(HLD)/v1/Containers/Web%20Explorer.md>), [Web Portal](<../../../../Target%20Architecture%20(HLD)/v1/Containers/Web%20Portal.md>) and [System Overview](<../../../../Target%20Architecture%20(HLD)/v1/System%20Overview.md>). This file records only the delta.
+The current design is in [Web Explorer](<../../../../../Target%20Architecture%20(HLD)/v1/Containers/Web%20Explorer.md>), [Web Portal](<../../../../../Target%20Architecture%20(HLD)/v1/Containers/Web%20Portal.md>) and [System Overview](<../../../../../Target%20Architecture%20(HLD)/v1/System%20Overview.md>). This file records only the delta.
 
 | Detail                                                | Document                                                                                                      |
 | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
