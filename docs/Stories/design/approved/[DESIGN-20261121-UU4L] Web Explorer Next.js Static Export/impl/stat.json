@@ -26,22 +26,30 @@
     },
     {
       "id": "ceremony",
-      "status": "waiting",
+      "status": "completed",
       "attempts": [
         {
           "id": "28a63026-3c14-4696-a7f8-49901f68da15",
           "started_at": "2026-11-22T11:26:49.671Z",
-          "ended_at": null,
+          "ended_at": "2026-11-22T11:28:05.750Z",
           "trigger": "initial",
-          "outcome": null
+          "outcome": "completed"
         }
       ],
       "flags": []
     },
     {
       "id": "plan",
-      "status": "pending",
-      "attempts": [],
+      "status": "waiting",
+      "attempts": [
+        {
+          "id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+          "started_at": "2026-11-22T11:28:05.793Z",
+          "ended_at": null,
+          "trigger": "initial",
+          "outcome": null
+        }
+      ],
       "flags": []
     },
     {
@@ -114,8 +122,77 @@
       "reason": "user_input",
       "detail": "Awaiting commit",
       "started_at": "2026-11-22T11:26:57.386Z",
+      "ended_at": "2026-11-22T11:28:05.750Z",
+      "last_observed_at": "2026-11-22T11:28:05.750Z"
+    },
+    {
+      "id": "871615a5-59b3-452e-a2b7-838f351f8a05",
+      "stage_id": "plan",
+      "stage_attempt_id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-22T11:28:05.793Z",
+      "ended_at": "2026-11-22T11:31:49.198Z",
+      "last_observed_at": "2026-11-22T11:31:49.198Z"
+    },
+    {
+      "id": "84f75655-71f9-4ebc-9464-4a110c255725",
+      "stage_id": "plan",
+      "stage_attempt_id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+      "step": null,
+      "kind": "work",
+      "activity": "review",
+      "started_at": "2026-11-22T11:31:49.198Z",
+      "ended_at": "2026-11-22T11:38:12.347Z",
+      "last_observed_at": "2026-11-22T11:38:12.347Z"
+    },
+    {
+      "id": "673d54b3-6299-4868-b4ca-fe939fdc3db6",
+      "stage_id": "plan",
+      "stage_attempt_id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting plan sign-off",
+      "started_at": "2026-11-22T11:38:12.347Z",
+      "ended_at": "2026-11-22T11:42:31.371Z",
+      "last_observed_at": "2026-11-22T11:42:31.371Z"
+    },
+    {
+      "id": "aa653a72-719a-478a-aeda-c059c0c236fd",
+      "stage_id": "plan",
+      "stage_attempt_id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+      "step": null,
+      "kind": "work",
+      "activity": "planning",
+      "started_at": "2026-11-22T11:42:31.371Z",
+      "ended_at": "2026-11-22T12:04:43.940Z",
+      "last_observed_at": "2026-11-22T12:04:43.940Z"
+    },
+    {
+      "id": "d77f5977-951d-4ccd-9980-e4ff20212cb0",
+      "stage_id": "plan",
+      "stage_attempt_id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+      "step": null,
+      "kind": "wait",
+      "reason": "approval",
+      "detail": "Awaiting plan sign-off (revised: agentic browsing, WebMCP, Web Docs search)",
+      "started_at": "2026-11-22T12:04:43.940Z",
+      "ended_at": "2026-11-22T12:10:13.584Z",
+      "last_observed_at": "2026-11-22T12:10:13.584Z"
+    },
+    {
+      "id": "2324d218-b86b-4621-a18c-7be237cc1ae7",
+      "stage_id": "plan",
+      "stage_attempt_id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+      "step": null,
+      "kind": "wait",
+      "reason": "user_input",
+      "detail": "Awaiting plan commit",
+      "started_at": "2026-11-22T12:10:13.584Z",
       "ended_at": null,
-      "last_observed_at": "2026-11-22T11:26:57.386Z"
+      "last_observed_at": "2026-11-22T12:10:13.584Z"
     }
   ],
   "checks": [
@@ -148,21 +225,36 @@
       "source": "self",
       "exit_code": null,
       "signal": null
+    },
+    {
+      "id": "plan-signoff-01",
+      "stage_id": "plan",
+      "stage_attempt_id": "095e0cbf-58b1-4196-b813-9ad25d7e3099",
+      "step": null,
+      "name": "Plan sign-off",
+      "kind": "acceptance",
+      "started_at": "2026-11-22T12:10:05.044Z",
+      "ended_at": "2026-11-22T12:10:05.044Z",
+      "result": "passed",
+      "evidence_ref": "Developer: 'go, 404 handling ok' on the revised 27-step plan (agentic browsing, WebMCP tools, Web Docs search, install tool)",
+      "source": "developer",
+      "exit_code": null,
+      "signal": null
     }
   ],
   "usage_samples": [],
   "metrics": {
-    "as_of": "2026-11-22T11:26:57.386Z",
+    "as_of": "2026-11-22T12:10:13.584Z",
     "lead_time_seconds": null,
     "cycle_time_seconds": null,
-    "observed_work_seconds": 47.003,
-    "observed_wait_seconds": 765.465,
+    "observed_work_seconds": 1986.126,
+    "observed_wait_seconds": 1422.497,
     "open_work_seconds": 0,
     "open_wait_seconds": 0,
-    "unclassified_seconds": 0.15999999999996817,
+    "unclassified_seconds": 0.20299999999997453,
     "rework_seconds": 0,
     "blocked_seconds": 0,
-    "approval_wait_seconds": 765.465,
+    "approval_wait_seconds": 1354.133,
     "failed_checks": 0,
     "first_pass_verification_rate": null,
     "human_reported_seconds": null,
@@ -171,43 +263,43 @@
   },
   "quality": {
     "version": 1,
-    "as_of": "2026-11-22T11:26:57.325Z",
+    "as_of": "2026-11-22T12:10:13.530Z",
     "source": "2-report.md",
-    "source_sha256": "d60d34bcebf6b96dc4451ccbfc6149e33523b3320d1255da032d7d3769ad7630",
+    "source_sha256": "8e32eb333f3e37d17b9f6fcbde01b1e49e86c44b609163dca968923ad0532f93",
     "findings": {
-      "total": 0,
+      "total": 29,
       "by_kind": {
-        "deviation": 0,
-        "bug": 0,
-        "design": 0,
-        "improve": 0,
+        "deviation": 3,
+        "bug": 9,
+        "design": 5,
+        "improve": 5,
         "security": 0,
-        "performance": 0,
-        "docs": 0
+        "performance": 1,
+        "docs": 6
       },
       "by_severity": {
         "critical": 0,
-        "high": 0,
-        "medium": 0,
-        "low": 0,
-        "info": 0
+        "high": 5,
+        "medium": 3,
+        "low": 15,
+        "info": 6
       },
       "by_classification": {
-        "introduced": 0,
+        "introduced": 23,
         "pre-existing": 0,
         "ruled-out": 0,
-        "advisory": 0
+        "advisory": 6
       },
       "by_resolution": {
-        "open": 0,
-        "fixed": 0,
+        "open": 3,
+        "fixed": 26,
         "accepted": 0,
         "tech-debt": 0,
         "doc-updated": 0
       },
       "deviations_by_type": {
         "contradiction": 0,
-        "extension": 0,
+        "extension": 3,
         "omission": 0
       },
       "pr_review": {
@@ -248,6 +340,6 @@
       "errors": 0,
       "interrupted": 0
     },
-    "closure_issues": []
+    "closure_issues": ["RF-016: open", "RF-017: open", "RF-029: open"]
   }
 }
