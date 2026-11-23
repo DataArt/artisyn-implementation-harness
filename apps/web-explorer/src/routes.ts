@@ -237,6 +237,12 @@ export const routes: RouteEntry[] = [
     title: 'The factory that remembers',
     description:
       'One engineer. One AI. And a project that had to be explained all over again, every morning.',
+    image: {
+      path: '/comic/wheel-og.jpg',
+      width: 1200,
+      height: 630,
+      alt: 'Comic: AI robots on every spoke of the delivery wheel, Analysis to Maintain, while a puzzled engineer asks whether it is working. Caption: Fast output. Uneven results.',
+    },
     index: false,
     sources: ['src/views/comic'],
   },
